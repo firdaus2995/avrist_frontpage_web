@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Open_Sans, Karla } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  variable: '--font-open-sans'
+});
+const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${openSans.variable} ${karla.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

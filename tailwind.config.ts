@@ -7,13 +7,22 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    fontFamily: {
+      opensans: 'var(--font-open-sans)',
+      karla: 'var(--font-karla)'
+    },
     colors: {
       transparent: 'transparent',
       white: '#ffffff',
       black: '#000000',
       gray_bglightgray: '#F5F3F7',
       gray_spacerlight: '#E5E0EB',
-      gray_black: '#767279'
+      gray_title: '#2C3034',
+      gray_light: '#D4D2D5',
+      gray_body: '#1A141F',
+      gray_black: '#767279',
+      purple_dark: '#5E217C',
+      purple_light: '#8A20A6'
     },
     extend: {
       backgroundImage: {
