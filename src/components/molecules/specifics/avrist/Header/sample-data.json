@@ -7,7 +7,7 @@
           "title": "Investasi",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quod suscipit aliquid repudiandae temporibus veniam vero beatae porro! Temporibus, magnam.",
           "buttonTitle": "Download Brosur",
-          "tags": [
+          "subMenus": [
             "Reksa Dana",
             "Jasa Investasi",
             "Hitung Investasi",
@@ -22,7 +22,7 @@
           "title": "Analisis",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quod suscipit aliquid repudiandae temporibus veniam vero beatae porro! Temporibus, magnam.",
           "buttonTitle": "Lihat Berita Terkini",
-          "tags": [
+          "subMenus": [
             "Avram Perspektif",
             "Fund's Manager Letter",
             "Strategi Investasi",
@@ -37,7 +37,7 @@
           "title": "Informasi",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quod suscipit aliquid repudiandae temporibus veniam vero beatae porro! Temporibus, magnam.",
           "buttonTitle": "Lihat Promo Terkini",
-          "tags": ["Media dan Promosi", "Agen Penjual", "Formulir", "FAQs"],
+          "subMenus": ["Media dan Promosi", "Agen Penjual", "Formulir", "FAQs"],
           "imageSource": 2
         }
       },
@@ -47,7 +47,7 @@
           "title": "Tentang Avram",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quod suscipit aliquid repudiandae temporibus veniam vero beatae porro! Temporibus, magnam.",
           "buttonTitle": "Struktur Organisasi",
-          "tags": [
+          "subMenus": [
             "Sekilas Perusahaan",
             "Manajemen",
             "Penghargaan dan Sertifikasi",
@@ -62,7 +62,12 @@
           "title": "Karir",
           "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident quod suscipit aliquid repudiandae temporibus veniam vero beatae porro! Temporibus, magnam.",
           "buttonTitle": "Lihat Lowongan",
-          "tags": ["Respect", "Responsibility", "Value and Vision", "Impact"],
+          "subMenus": [
+            "Respect",
+            "Responsibility",
+            "Value and Vision",
+            "Impact"
+          ],
           "imageSource": 4
         }
       }

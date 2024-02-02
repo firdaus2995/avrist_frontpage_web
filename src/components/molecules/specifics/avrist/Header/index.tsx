@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import NavCard from './components/NavCard';
+import NavDropdownMenus from './components/NavDropdownMenus';
 import TriangleMarker from './components/TriangleMarker';
 
 import DUMMY_DATA from './sample-data.json';
@@ -10,28 +11,45 @@ import DUMMY_DATA from './sample-data.json';
 import styles from './styles.module.css';
 import { NavbarMenuItem } from './types';
 
-import HOME_ICON from '@/assets/icons/home-icon.svg';
 import AVRIST_LOGO from '@/assets/images/avrist-logo.svg';
+import BlackOverlay from '@/components/atoms/BlackOverlay';
 import Button from '@/components/atoms/Button/Button';
+import HorizontalDivider from '@/components/atoms/Divider/Horizontal';
+import Icon from '@/components/atoms/Icon';
 
 const Header = () => {
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   return (
-    <>
-      <header className="bg-gradient-to-b z-50 from-purple_dark to-purple_light sticky top-0 w-full m-0 mb-6 text-white py-3 px-8">
-        <div
-          className="flex justify-between items-center max-w-[90rem] m-auto gap-8"
-          // style={{ border: '3px solid red' }}
-        >
-          <ul className="md:flex gap-10 items-center hidden">
+    <nav className="isolate sticky top-0">
+      {/* White Section */}
+      <div className="flex flex-row gap-2 justify-end items-center px-4 md:px-16 py-4 text-gray_black bg-white">
+        <div className="flex flex-row gap-2 cursor-pointer">
+          <Icon name="helpcircle" color="gray_black" />
+          <p className="font-bold text-sm">Tanya Avram</p>
+        </div>
+        <HorizontalDivider color="text-gray_black" />
+        <div className="flex flex-row gap-2 cursor-pointer">
+          <Icon name="mail" color="gray_black" />
+          <p className="font-bold text-sm">Subscribe</p>
+        </div>
+        <HorizontalDivider color="text-gray_black" />
+        <div className="flex flex-row gap-2 cursor-pointer">
+          <Icon name="search" />
+        </div>
+      </div>
+      {/* Purple Section */}
+      <div className="bg-gradient-to-b z-50 from-purple_dark to-purple_light w-full m-0 mb-6 text-white py-3 px-4 md:px-8 relative">
+        <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
+          <ul className="md:flex gap-8 items-center hidden">
             <Button.IconButton>
-              <Image src={HOME_ICON} alt="Home" />
+              <Icon name="homeIcon" color="white" width={20} isSquare />
             </Button.IconButton>
             {menus.map((item) => (
               <React.Fragment key={item.title}>
                 <li
-                  className={`font-medium cursor-pointer text-sm relative ${styles['nav-list-item']}`}
+                  className={`font-medium cursor-pointer relative ${styles['nav-list-item']}`}
                 >
                   {item.title}
                   <TriangleMarker
@@ -45,14 +63,29 @@ const Header = () => {
               </React.Fragment>
             ))}
           </ul>
+          <Button.IconButton
+            customClass="inline-block md:hidden"
+            onClick={() => setIsDropdownVisible((prevState) => !prevState)}
+          >
+            <Icon name="hamburgerMenuIcon" color="white" />
+          </Button.IconButton>
           <Image
             src={AVRIST_LOGO}
             alt="Avrist Logo"
             className="h-auto w-6rem ml-auto"
           />
         </div>
-      </header>
-    </>
+        <NavDropdownMenus
+          isVisible={isDropdownVisible}
+          menus={menus}
+          setVisibility={(newValue: boolean) => setIsDropdownVisible(newValue)}
+        />
+      </div>
+      <BlackOverlay
+        isVisible={isDropdownVisible}
+        onClick={() => setIsDropdownVisible(false)}
+      />
+    </nav>
   );
 };
 

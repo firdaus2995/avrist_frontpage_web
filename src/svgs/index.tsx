@@ -1,11 +1,15 @@
-import HelpCircle from "./commons/helpcircle";
-import Mail from "./commons/mail";
-import Search from "./commons/search";
+import HamburgerMenuIcon from './commons/HamburgerMenuIcon';
+import HelpCircle from './commons/helpcircle';
+import HomeIcon from './commons/homeIcon';
+import Mail from './commons/mail';
+import Search from './commons/search';
 
-const Icon = {
+const IconSVG = {
   Search,
   HelpCircle,
   Mail,
+  HamburgerMenuIcon,
+  HomeIcon
 };
 
-export default Icon;
+export default IconSVG;

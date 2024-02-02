@@ -7,6 +7,6 @@ export interface NavbarMenuItemContent {
   title: string;
   description: string;
   buttonTitle: string;
-  tags: string[];
+  subMenus: string[];
   imageSource: number;
 }

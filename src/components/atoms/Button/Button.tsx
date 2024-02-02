@@ -1,11 +1,12 @@
 import React from 'react';
 
 type RootButton = {
-  IconButton: React.FC<IconButtonProps>;
+  IconButton: React.FC<Omit<IconButtonProps, 'className'>>;
 };
 
 type IconButtonProps = {
   children: React.ReactNode;
+  customClass?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface IButton {
@@ -28,9 +29,13 @@ const Button: RootButton & React.FC<IButton> = ({ title, onClick }) => {
   );
 };
 
-const IconButton: React.FC<IconButtonProps> = ({ children, ...rest }) => {
+const IconButton: React.FC<IconButtonProps> = ({
+  children,
+  customClass,
+  ...rest
+}) => {
   return (
-    <button className="bg-transparent p-2" {...rest}>
+    <button className={`bg-transparent p-2 ${customClass ?? ''}`} {...rest}>
       {children}
     </button>
   );

@@ -21,40 +21,27 @@ const TEMPORARY_IMAGE_MAPPING = [INVESTASI, ANALISIS, INFORMASI, AVRAM, KARIR];
 const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
   return (
     <div
-      className={`font-karla w-full bg-white gap-4 px-16 shadow-xl py-8 md:py-0 text-gray_body ${customClass ?? ''}`}
-      // style={{ border: '3px solid red' }}
+      className={`font-karla w-full bg-white gap-4 shadow-xl text-gray_body ${customClass ?? ''}`}
     >
-      <div
-        className="w-full max-w-[89rem] m-auto flex items-center justify-between gap-6"
-        // style={{ border: '3px solid orange' }}
-      >
-        <div
-          className="max-w-[35rem] w-full"
-          // style={{ border: '3px solid yellow' }}
-        >
+      <div className="w-full max-w-[89rem] m-auto flex items-stretch justify-between gap-6 pr-16">
+        <div className="max-w-[35rem] w-full flex flex-col justify-center pl-12 py-16">
           <h2 className="text-4xl font-bold text-gray_title">
             {content.title}
           </h2>
-          <div
-            className="mt-8 flex justify-between gap-6"
-            // style={{ border: '3px solid green' }}
-          >
+          <div className="mt-8 flex justify-between gap-6">
             <div className="flex flex-col gap-6 items-start max-w-[15rem]">
               <p>{content.description}</p>
               <Button title={content.buttonTitle} />
             </div>
-            <div
-              className="flex flex-col justify-between"
-              // style={{ border: '3px solid purple' }}
-            >
-              {content.tags.map((item, index) => (
+            <div className="flex flex-col justify-between">
+              {content.subMenus.map((item, index) => (
                 <React.Fragment key={index}>
                   <p
                     className={`font-bold ${index === 0 && 'text-purple_dark'}`}
                   >
                     {item}
                   </p>
-                  {index < content.tags.length - 1 && (
+                  {index < content.subMenus.length - 1 && (
                     <div className="border-gray_light border-solid border-b" />
                   )}
                 </React.Fragment>
@@ -64,7 +51,6 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
         </div>
         <Image
           className="h-auto max-w-[20rem] w-full hidden md:inline-block"
-          // style={{ border: '3px solid blue' }}
           src={
             TEMPORARY_IMAGE_MAPPING[
               content.imageSource as keyof typeof TEMPORARY_IMAGE_MAPPING
