@@ -8,26 +8,22 @@ const iconType = {
   helpcircle: IconSVG.HelpCircle,
   mail: IconSVG.Mail,
   homeIcon: IconSVG.HomeIcon,
-  hamburgerMenuIcon: IconSVG.HamburgerMenuIcon
+  hamburgerMenuIcon: IconSVG.HamburgerMenuIcon,
+  linkedInIcon: IconSVG.LinkedinIcon,
+  tiktokIcon: IconSVG.TiktokIcon,
+  instaIcon: IconSVG.InstaIcon,
+  facebookIcon: IconSVG.FacebookIcon
 } as const;
 
 type IconsListType = keyof typeof iconType;
 export type { IconsListType as IconsList };
 
-type IIconType = {
-  [key in IconsListType]: React.ReactElement<IIcon>;
-};
-
 const mapIcon = (props: IIcon) => {
-  const iconType: IIconType = {
-    search: <IconSVG.Search {...props} />,
-    helpcircle: <IconSVG.HelpCircle {...props} />,
-    mail: <IconSVG.Mail {...props} />,
-    homeIcon: <IconSVG.HomeIcon {...props} />,
-    hamburgerMenuIcon: <IconSVG.HamburgerMenuIcon {...props} />
-  };
+  const Icon = iconType[props.name];
 
-  return iconType[props.name];
+  if (!Icon) return undefined;
+
+  return <Icon {...props} />;
 };
 
 export default mapIcon;

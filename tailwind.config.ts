@@ -22,7 +22,10 @@ const config: Config = {
       gray_body: '#1A141F',
       gray_black: '#767279',
       purple_dark: '#5E217C',
-      purple_light: '#8A20A6'
+      purple_light: '#8A20A6',
+      purple_soft: '#6E2082',
+      purple_verydark: '#481563',
+      purple_separator: '#7A3DA2'
     },
     extend: {
       backgroundImage: {
