@@ -22,7 +22,7 @@ const Header = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   return (
-    <nav className="isolate sticky top-0">
+    <nav className="isolate sticky z-50 top-0">
       {/* White Section */}
       <div className="flex flex-row gap-2 justify-end items-center px-4 md:px-16 py-4 text-gray_black bg-white">
         <div className="flex flex-row gap-2 cursor-pointer">
@@ -40,7 +40,7 @@ const Header = () => {
         </div>
       </div>
       {/* Purple Section */}
-      <div className="bg-gradient-to-b z-50 from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
+      <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
         <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
           <ul className="md:flex gap-8 items-center hidden">
             <Button.IconButton>
