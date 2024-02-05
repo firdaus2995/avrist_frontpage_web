@@ -7,13 +7,19 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
+    borderWidth: {
+      '1': '1px',
+    },
     colors: {
       transparent: 'transparent',
       white: '#ffffff',
       black: '#000000',
       gray_bglightgray: '#F5F3F7',
       gray_spacerlight: '#E5E0EB',
-      gray_black: '#767279'
+      gray_black: '#767279',
+      gray_black_dark: '#1A141F',
+      purple_brand: '#5E217C',
+      purple_light_bg: '#FAF8FB',
     },
     extend: {
       backgroundImage: {

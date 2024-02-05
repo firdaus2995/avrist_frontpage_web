@@ -1,6 +1,6 @@
 import React from "react";
 
-import HorizontalDivider from "@/components/atoms/Divider/Horizontal";
+import HorizontalDivider from "@/components/atoms/Divider/HorizontalDivider";
 import Icon from "@/components/atoms/Icon";
 
 const Avram = ({

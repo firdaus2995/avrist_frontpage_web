@@ -1,9 +1,12 @@
-'use client';
+import React from "react";
+
+import ReksaDanaUnggulan from "@/components/molecules/specifics/avram/ReksaDanaUnggulan";
 
 const Avram = () => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <h1>Avram</h1>
+      <ReksaDanaUnggulan />
     </div>
   )
 }
