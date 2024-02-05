@@ -12,6 +12,9 @@ const nextConfig = {
       },
     ],
   },
+  output: {
+    path: 'out',
+  },
 };
 
 module.exports = nextConfig;
