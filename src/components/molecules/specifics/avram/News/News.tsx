@@ -1,8 +1,11 @@
+'use client'
+
 import React from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 import SampleImg1 from '@/assets/images/sample-news-1.svg';
 import SampleImg2 from '@/assets/images/sample-news-2.svg';
 import SampleImg3 from '@/assets/images/sample-news-3.svg';

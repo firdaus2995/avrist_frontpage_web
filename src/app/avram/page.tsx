@@ -1,8 +1,7 @@
 import React from "react";
 
-import News from "@/components/molecules/News/News";
+import News from "@/components/molecules/specifics/avram/News/News";
 import ReksaDanaUnggulan from "@/components/molecules/specifics/avram/ReksaDanaUnggulan";
-
 
 const Avram = () => {
   return (
