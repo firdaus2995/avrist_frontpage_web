@@ -12,9 +12,8 @@ const nextConfig = {
       },
     ],
   },
-  output: {
-    path: 'dist',
-  },
+  output: "export",
+  distDir:'dist',
 };
 
 module.exports = nextConfig;
