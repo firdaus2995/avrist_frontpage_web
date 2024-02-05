@@ -16,8 +16,7 @@
   }
 }
 
-body {
-  font-family: 'Open Sans';
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -25,4 +24,13 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+.slick-dots li button:before {
+  background-color: #81219A;
+  height: 12px !important;
+  width: 12px !important;
+  border-radius: 12px !important;
+  text-indent: -9999px;
+  overflow:hidden; 
 }

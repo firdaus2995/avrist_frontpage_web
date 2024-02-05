@@ -10,7 +10,7 @@ const ReksaDanaUnggulan = () => {
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center py-32 px-20 gap-16 bg-purple_light_bg">
-      <p className="text-5xl text-gray_black_dark">Reksa Dana <span className="font-bold text-purple_brand">Unggulan</span></p>
+      <p className="text-5xl text-gray_black_dark">Reksa Dana <span className="font-bold text-purple_dark">Unggulan</span></p>
       <div className="grid grid-cols-3 gap-4">
         {Array.from({ length: reksaDanaLength }, (_, index: number) => (
           <div key={index} className="w-96 p-6 flex flex-col gap-4 rounded-xl bg-white">
