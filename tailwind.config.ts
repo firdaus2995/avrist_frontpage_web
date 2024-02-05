@@ -17,10 +17,13 @@ const config: Config = {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1024px',
+      xl: '1280px',
       '2xl': '1536px'
     },
     extend: {
+      borderWidth: {
+        '1': '1px',
+      },  
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -29,7 +32,6 @@ const config: Config = {
       colors: {
         'disabled-input': '#EBEEF2',
         'dark-purple': '#4F2C74',
-        purple: '#5E217C',
         'bright-purple': '#81219A',
         lavender: '#9B86BA',
         'light-purple': '#E5DFEC',
@@ -37,13 +39,11 @@ const config: Config = {
         'body-text-1': '#637488',
         'body-text-2': '#464B53',
         'body-text-3': '#818494',
-        'body-text-4': '#2C3034',
         grey: '#BBBBBB',
         'light-grey': '#D6D6D6',
         'dark-grey': '#798F9F',
         'other-grey': '#ABB5C4',
         error: '#EC2247',
-        'error-stroke': '#AE1D1D',
         'secondary-warning': '#FF8E3C',
         'tertiary-warning': '#D96C1E',
         reddist: '#DB3838',
@@ -65,7 +65,8 @@ const config: Config = {
         purple_light: '#8A20A6',
         purple_soft: '#6E2082',
         purple_verydark: '#481563',
-        purple_separator: '#7A3DA2'
+        purple_separator: '#7A3DA2',
+        purple_light_bg: '#FAF8FB',  
       }
     }
   },
