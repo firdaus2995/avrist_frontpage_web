@@ -13,7 +13,7 @@ const nextConfig = {
     ],
   },
   output: {
-    path: 'out',
+    path: 'dist',
   },
 };
 
