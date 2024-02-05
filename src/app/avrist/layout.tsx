@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-const AvristLayout = ({
-  children
-}: {
-  children: React.ReactNode
-}) => {
+type AvristLayoutProps = {
+  children: React.ReactNode;
+};
+
+const AvristLayout: React.FC<AvristLayoutProps> = ({ children }) => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col items-center justify-center font-opensans">
       {children}
     </div>
-  )
-}
+  );
+};
 
 export default AvristLayout;

@@ -1,20 +1,29 @@
-import React from "react";
+import React from 'react';
 
-import { IIcon } from ".";
-import Icon from "@/svgs";
+import { IIcon } from '.';
+import IconSVG from '@/svgs';
 
-interface IIconType {
-  [key: string]: React.ReactElement<IIcon>;
-};
+const iconType = {
+  search: IconSVG.Search,
+  helpcircle: IconSVG.HelpCircle,
+  mail: IconSVG.Mail,
+  homeIcon: IconSVG.HomeIcon,
+  hamburgerMenuIcon: IconSVG.HamburgerMenuIcon,
+  linkedInIcon: IconSVG.LinkedinIcon,
+  tiktokIcon: IconSVG.TiktokIcon,
+  instaIcon: IconSVG.InstaIcon,
+  facebookIcon: IconSVG.FacebookIcon
+} as const;
+
+type IconsListType = keyof typeof iconType;
+export type { IconsListType as IconsList };
 
 const mapIcon = (props: IIcon) => {
-  const iconType: IIconType = {
-    search: <Icon.Search {...props} />,
-    helpcircle: <Icon.HelpCircle {...props} />,
-    mail: <Icon.Mail {...props} />,
-  };
+  const Icon = iconType[props.name];
 
-  return iconType[props.name];
-}
+  if (!Icon) return undefined;
+
+  return <Icon {...props} />;
+};
 
 export default mapIcon;
