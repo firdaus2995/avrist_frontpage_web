@@ -34,3 +34,7 @@
   text-indent: -9999px;
   overflow:hidden; 
 }
+
+.slick-slider .slick-slide {
+  padding: 0 15px;
+}
