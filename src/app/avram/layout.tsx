@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from '@/components/molecules/specifics/avrist/Footer';
-import Header from '@/components/molecules/specifics/avrist/Header';
+import Footer from '@/components/molecules/specifics/avram/Footer';
+import Header from '@/components/molecules/specifics/avram/Header';
 
 const Avram = ({ children }: { children: React.ReactNode }) => {
   return (
