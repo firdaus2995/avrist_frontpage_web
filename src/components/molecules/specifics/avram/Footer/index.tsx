@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import IconWrapper from './components/IconWrapper';
 import AVRIST_LOGO from '@/assets/images/avrist-logo.svg';
-import FOOTER_IMAGE from '@/assets/images/footer-image.png';
-import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.png';
-import WHATSAPP_IMAGE from '@/assets/images/whatsapp-image.png';
+import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
+import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
+import WHATSAPP_IMAGE from '@/assets/images/whatsapp-image.svg';
 import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
