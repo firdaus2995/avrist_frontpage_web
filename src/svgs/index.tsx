@@ -1,3 +1,4 @@
+import ArrowRightIcon from './commons/ArrowRightIcon';
 import ChevronRight from './commons/ChevronRight';
 import FacebookIcon from './commons/FacebookIcon';
 import HamburgerMenuIcon from './commons/HamburgerMenuIcon';
@@ -6,6 +7,7 @@ import HomeIcon from './commons/HomeIcon';
 import InstaIcon from './commons/InstaIcon';
 import LinkedInIcon from './commons/LinkedInIcon';
 import Mail from './commons/Mail';
+import PlayIcon from './commons/PlayIcon';
 import Search from './commons/Search';
 import TiktokIcon from './commons/TiktokIcon';
 
@@ -19,7 +21,9 @@ const IconSVG = {
   TiktokIcon,
   InstaIcon,
   LinkedInIcon,
-  ChevronRight,
+  PlayIcon,
+  ArrowRightIcon,
+  ChevronRight
 };
 
 export default IconSVG;

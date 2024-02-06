@@ -19,7 +19,12 @@ interface IButton {
 const BASE_BUTTON_CLASS =
   'inline-block px-12 py-3 text-sm font-medium border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
 
-const Button: RootButton & React.FC<IButton> = ({ title, onClick, customButtonClass = '', customTextClass = '' }) => {
+const Button: RootButton & React.FC<IButton> = ({
+  title,
+  onClick,
+  customButtonClass = '',
+  customTextClass = ''
+}) => {
   return (
     <button
       className={`${BASE_BUTTON_CLASS} text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`}
@@ -36,8 +41,8 @@ const IconButton: React.FC<IconButtonProps> = ({
   ...rest
 }) => {
   return (
-    <button 
-      className={`bg-transparent p-2 ${customButtonClass ?? ''}`} 
+    <button
+      className={`bg-transparent p-2 ${customButtonClass ?? ''}`}
       {...rest}
     >
       {children}
