@@ -4,11 +4,11 @@ import { NavbarMenuItemContent } from '../../types';
 
 // import styles from './styles.module.css';
 
-import ANALISIS from '@/assets/images/navbar-analisis.png';
-import AVRAM from '@/assets/images/navbar-avram.png';
-import INFORMASI from '@/assets/images/navbar-informasi.png';
-import INVESTASI from '@/assets/images/navbar-investasi.png';
-import KARIR from '@/assets/images/navbar-karir.png';
+import ANALISIS from '@/assets/images/navbar-analisis.svg';
+import INFORMASI from '@/assets/images/navbar-informasi.svg';
+import INVESTASI from '@/assets/images/navbar-investasi.svg';
+import KARIR from '@/assets/images/navbar-karir.svg';
+import TENTANG from '@/assets/images/navbar-tentang.svg';
 import Button from '@/components/atoms/Button/Button';
 
 type NavCardProps = {
@@ -16,7 +16,7 @@ type NavCardProps = {
   customClass?: string;
 };
 
-const TEMPORARY_IMAGE_MAPPING = [INVESTASI, ANALISIS, INFORMASI, AVRAM, KARIR];
+const TEMPORARY_IMAGE_MAPPING = [INVESTASI, ANALISIS, INFORMASI, TENTANG, KARIR];
 
 const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
   return (

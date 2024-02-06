@@ -7,7 +7,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import BLUE_SAFIR from "@/assets/images/blue-safir.png";
+import BLUE_SAFIR from "@/assets/images/blue-safir.svg";
 import Button from "@/components/atoms/Button/Button";
 import MediumTag from "@/components/atoms/Tag/MediumTag";
 
@@ -23,7 +23,7 @@ const ReksaDanaUnggulan = () => {
 
   const renderReksaDanaCard = (index: number) => (
     <div key={index} className="w-96 p-6 flex flex-col gap-4 rounded-xl bg-white">
-      <Image height={100} width={100} alt="loop-image" src={BLUE_SAFIR} />
+      <Image alt="loop-image" src={BLUE_SAFIR} />
       <p className="font-bold text-2xl">Avrist Blue Safir</p>
       <p>Melangkah Lebih Jauh dengan Keamanan dan Pertumbuhan Finansial Bersama Avrist Blue Safir</p>
       <div className="flex flex-row gap-2">
