@@ -1,5 +1,4 @@
-'use client'
-
+'use client';
 import React from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
@@ -32,9 +31,11 @@ const sliderSettings2 = {
 const News = () => {
   return (
     <div className="w-full md:p-20 xs:p-5 flex flex-col justify-center gap-5">
-      <p className="p-5 text-2xl font-bold">Berita Terkini</p>
       <div className="w-full flex md:flex-row xs:flex-col justify-center gap-5">
-        <div className="md:grid md:grid-cols-2 gap-5 xs:hidden md:block">
+        <div className="md:grid md:grid-cols-2 gap-5 xs:hidden md:block relative pt-20">
+          <p className="w-full py-5 text-2xl font-bold absolute top-[-40] xs:hidden md:block">
+            Berita Terkini
+          </p>
           <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
             <Image className="h-auto w-full" src={SampleImg1} alt="sample-1" />
             <div className="px-6 py-4">
@@ -122,6 +123,9 @@ const News = () => {
         </div>
         {/* mobile */}
         <div className="xs:block md:hidden mb-10">
+          <p className="w-full p-3 text-2xl font-bold xs:block md:hidden">
+            Berita Terkini
+          </p>
           <Slider {...sliderSettings1}>
             <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
               <Image
@@ -238,7 +242,7 @@ const News = () => {
           </Slider>
         </div>
 
-        <div className="flex flex-col max-w-sm rounded-xl overflow-hidden shadow-lg md:block xs:hidden">
+        <div className="flex flex-col max-w-sm rounded-xl overflow-hidden shadow-lg md:block xs:hidden mt-20">
           <div>
             <div className="px-6">
               <div className="grid grid-cols-2 divide-x-2 w-[90%] mb-2 mt-5">
