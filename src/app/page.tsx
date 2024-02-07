@@ -23,7 +23,7 @@ const App = () => {
       />
       <Button
         title="AGI"
-        onClick={() => handleButtonClick("/agi")}
+        // onClick={() => handleButtonClick("/agi")}
       />
     </div>
   )
