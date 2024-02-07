@@ -9,6 +9,7 @@ import SampleImg1 from '@/assets/images/sample-news-1.svg';
 import SampleImg2 from '@/assets/images/sample-news-2.svg';
 import SampleImg3 from '@/assets/images/sample-news-3.svg';
 import SampleImg4 from '@/assets/images/sample-news-4.svg';
+import Icon from '@/components/atoms/Icon';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 
 const sliderSettings1 = {
@@ -327,7 +328,10 @@ const News = () => {
               <MediumTag title="Avram Perspektif" />
             </div>
           </div>
-          <div className="my-10 px-6 text-purple font-bold">Lihat semua</div>
+          <div className="flex flex-row my-10 px-6 items-center gap-1">
+            <p className='text-purple_dark font-bold text-sm cursor-pointer'>Lihat Semua</p>
+            <Icon width={16} height={16} name='chevronRight' color='purple_dark' />
+          </div>
         </div>
         {/* mobile */}
         <div className="flex flex-col max-w-sm rounded-xl overflow-hidden shadow-lg md:hidden xs:block">
@@ -429,7 +433,10 @@ const News = () => {
               </div>
             </div>
           </Slider>
-          <div className="my-10 px-6 text-purple font-bold">Lihat semua</div>
+          <div className="flex flex-row my-10 px-6 items-center gap-1">
+            <p className='text-purple_dark font-bold text-sm cursor-pointer'>Lihat Semua</p>
+            <Icon width={16} height={16} name='chevronRight' color='purple_dark' />
+          </div>
         </div>
       </div>
     </div>

@@ -12,7 +12,8 @@ const iconType = {
   linkedInIcon: IconSVG.LinkedinIcon,
   tiktokIcon: IconSVG.TiktokIcon,
   instaIcon: IconSVG.InstaIcon,
-  facebookIcon: IconSVG.FacebookIcon
+  facebookIcon: IconSVG.FacebookIcon,
+  chevronRight: IconSVG.ChevronRight,
 } as const;
 
 type IconsListType = keyof typeof iconType;
