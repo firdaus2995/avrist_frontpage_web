@@ -18,9 +18,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
 
   const videoId = useMemo(() => {
     if (!url) return '';
+    // Accepts the following pattern of youtube link
     // https://www.youtube.com/embed/y32pvtRTk1A
+    // https://www.youtube.com/watch?v=uF7eT3nhyZ0
+    // https://youtu.be/uF7eT3nhyZ0?si=Cbt5uoPXbYS9__v_
     const splittedUrl = url.split('/');
-    return splittedUrl[splittedUrl.length - 1];
+    const lastPiece = splittedUrl.at(-1);
+
+    if (lastPiece && lastPiece.includes('watch')) {
+      const anotherSplitted = lastPiece.split('?v=');
+      return anotherSplitted.at(-1) ?? '';
+    } else if (lastPiece && lastPiece.includes('youtu.be')) {
+      const anotherSplitted = lastPiece.split('?si');
+      return anotherSplitted.at(0);
+    }
+
+    return lastPiece ?? '';
   }, [url]);
 
   useEffect(() => {
@@ -64,8 +77,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
       </div>
       <Button.IconButton
         onClick={() => setIsThumbnailVisible(false)}
-        customClass={`
-          absolute rounded-full bg-purple-verylight 
+        customButtonClass={`
+          absolute rounded-full bg-purple-verylight
           aspect-square w-[5rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
           z-10 grid place-items-center pl-4 hover:opacity-50 peer-hover:opacity-50
           transition-all ${isThumbnailVisible ? 'opacity-100 visible' : 'opacity-0 invisible'}

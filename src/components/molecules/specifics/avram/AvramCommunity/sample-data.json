@@ -2,7 +2,7 @@
   "community-videos": [
     {
       "id": "sample-vid-1",
-      "videoUrl": "https://www.youtube.com/embed/uF7eT3nhyZ0",
+      "videoUrl": "https://www.youtube.com/watch?v=uF7eT3nhyZ0",
       "videoThumbnail": "https://images.freeimages.com/vhq/images/previews/d50/butterfly-papilio-philenor-side-clip-art-545705.jpg",
       "type": "Strategi Investasi",
       "date": "01-10-2023",
@@ -22,7 +22,7 @@
     },
     {
       "id": "sample-vid-3",
-      "videoUrl": "https://www.youtube.com/embed/Av3xaZkVpJs",
+      "videoUrl": "https://youtu.be/Av3xaZkVpJs?si=35uVM3hbbIucFWWG",
       "videoThumbnail": "https://images.freeimages.com/vhq/images/previews/3c7/desktop-vector-elements-561434.jpg",
       "type": "Strategi Investasi",
       "date": "01-10-2023",
