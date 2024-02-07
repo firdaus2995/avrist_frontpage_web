@@ -10,6 +10,7 @@ import SampleImg1 from '@/assets/images/sample-news-1.svg';
 import SampleImg2 from '@/assets/images/sample-news-2.svg';
 import SampleImg3 from '@/assets/images/sample-news-3.svg';
 import SampleImg4 from '@/assets/images/sample-news-4.svg';
+import MediumTag from '@/components/atoms/Tag/MediumTag';
 
 const sliderSettings1 = {
   dots: true,
@@ -50,13 +51,9 @@ const News = () => {
                 exercitationem praesentium nihil.
               </p>
             </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Strategi Investasi
-              </span>
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Reksa Dana" />
+              <MediumTag title="Investasi" />
             </div>
           </div>
           <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
@@ -75,13 +72,9 @@ const News = () => {
                 exercitationem praesentium nihil.
               </p>
             </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Strategi Investasi
-              </span>
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Reksa Dana" />
+              <MediumTag title="Investasi" />
             </div>
           </div>
           <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
@@ -100,13 +93,9 @@ const News = () => {
                 exercitationem praesentium nihil.
               </p>
             </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Strategi Investasi
-              </span>
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Reksa Dana" />
+              <MediumTag title="Investasi" />
             </div>
           </div>
           <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
@@ -125,13 +114,9 @@ const News = () => {
                 exercitationem praesentium nihil.
               </p>
             </div>
-            <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Strategi Investasi
-              </span>
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Reksa Dana" />
+              <MediumTag title="Investasi" />
             </div>
           </div>
         </div>
@@ -160,13 +145,9 @@ const News = () => {
                   exercitationem praesentium nihil.
                 </p>
               </div>
-              <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Strategi Investasi
-                </span>
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Reksa Dana" />
+                <MediumTag title="Investasi" />
               </div>
             </div>
             <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
@@ -222,13 +203,9 @@ const News = () => {
                   exercitationem praesentium nihil.
                 </p>
               </div>
-              <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Strategi Investasi
-                </span>
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Reksa Dana" />
+                <MediumTag title="Investasi" />
               </div>
             </div>
             <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
@@ -253,13 +230,9 @@ const News = () => {
                   exercitationem praesentium nihil.
                 </p>
               </div>
-              <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Strategi Investasi
-                </span>
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Reksa Dana" />
+                <MediumTag title="Investasi" />
               </div>
             </div>
           </Slider>
@@ -276,10 +249,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div>
@@ -292,10 +263,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div>
@@ -308,10 +277,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div>
@@ -324,10 +291,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div>
@@ -340,10 +305,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div>
@@ -356,10 +319,8 @@ const News = () => {
                 Panduan Praktis dari Aset Manajemen Terkemuka
               </div>
             </div>
-            <div className="px-6 pt-2 pb-2">
-              <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-sm font-semibold text-purple mr-2 mb-2">
-                Avram Perspektif
-              </span>
+            <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+              <MediumTag title="Avram Perspektif" />
             </div>
           </div>
           <div className="my-10 px-6 text-purple font-bold">Lihat semua</div>
@@ -379,10 +340,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
             <div>
@@ -397,10 +356,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
             <div>
@@ -415,10 +372,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
             <div>
@@ -433,10 +388,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
             <div>
@@ -451,10 +404,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
             <div>
@@ -469,10 +420,8 @@ const News = () => {
                   Panduan Praktis dari Aset Manajemen Terkemuka
                 </div>
               </div>
-              <div className="px-6 pt-2 pb-2">
-                <span className="inline-block bg-light-purple-2 rounded-sm px-3 py-1 text-xs font-semibold text-purple mr-2 mb-2">
-                  Avram Perspektif
-                </span>
+              <div className="px-6 pt-4 pb-2 flex flex-row gap-2">
+                <MediumTag title="Avram Perspektif" />
               </div>
             </div>
           </Slider>

@@ -49,7 +49,9 @@ const ReksaDanaUnggulan = () => {
         ))}
         <div className="w-96 p-6 flex flex-col justify-center gap-4 rounded-xl bg-gray_spacerlight">
           <p className="text-xl">Temukan potensi pertumbuhan finansial Anda di <span className="font-semibold text-purple_dark">Reksa Dana</span> Avrist Asset Management.</p>
-          <Button customClass="bg-white" title="Lihat Produk Lainnya" />
+          <div>
+            <Button customButtonClass="bg-white" customTextClass="text-xl font-semibold" title="Lihat Produk Lainnya" />
+          </div>
         </div>
       </div>
     </div>

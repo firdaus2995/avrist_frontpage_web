@@ -6,8 +6,8 @@ import ReksaDanaUnggulan from "@/components/molecules/specifics/avram/ReksaDanaU
 const Avram = () => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <ReksaDanaUnggulan />
       <News />
+      <ReksaDanaUnggulan />
     </div>
   );
 };
