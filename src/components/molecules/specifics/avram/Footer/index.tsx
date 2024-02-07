@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import IconWrapper from './components/IconWrapper';
 import AVRIST_LOGO from '@/assets/images/avrist-logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-16">
       <div className="md:p-16 p-8">
-        <Image className="h-auto w-[10rem]" src={AVRIST_LOGO} alt="Avrist" />
+        <img className="h-auto w-[10rem]" src={AVRIST_LOGO.src} alt="Avrist" />
         {/* Main Content */}
         <div className="lg:grid lg:grid-cols-[minmax(10rem,_30rem)_minmax(8rem,_1fr)_1fr_1fr] mt-8 lg:gap-16 gap-10 flex flex-col">
           {/* Opening content */}
@@ -25,7 +25,11 @@ const Footer = () => {
               <br />
               PT Avrist Asset Management.
             </p>
-            <Image src={FOOTER_IMAGE} alt="Avrist" />
+            <img
+              src={FOOTER_IMAGE.src}
+              alt="Avrist"
+              className="h-auto min-w-[15rem] max-w-[25rem] w-[full]"
+            />
           </div>
 
           {/* Communication content */}
@@ -75,9 +79,9 @@ const Footer = () => {
               <p className="font-semibold">FAQs</p>
               <p className="font-semibold">Formulir</p>
               <p className="font-semibold">Karir</p>
-              <Image
-                className="h-auto min-w-[8rem]"
-                src={REKSADANA_IMAGE}
+              <img
+                className="h-auto min-w-[8rem] max-w-[15rem]"
+                src={REKSADANA_IMAGE.src}
                 alt="Reksadana"
               />
             </div>
@@ -117,9 +121,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <Image
+      <img
         className="absolute bottom-full right-0 translate-y-1/2 aspect-square w-[8rem] md:w-[10rem]"
-        src={WHATSAPP_IMAGE}
+        src={WHATSAPP_IMAGE.src}
         alt="Whatsapp"
       />
     </footer>

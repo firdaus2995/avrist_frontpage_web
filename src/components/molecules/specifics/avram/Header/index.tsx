@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import NavCard from './components/NavCard';
 import NavDropdownMenus from './components/NavDropdownMenus';
 import TriangleMarker from './components/TriangleMarker';
@@ -69,8 +69,8 @@ const Header = () => {
           >
             <Icon name="hamburgerMenuIcon" color="white" />
           </Button.IconButton>
-          <Image
-            src={AVRIST_LOGO}
+          <img
+            src={AVRIST_LOGO.src}
             alt="Avrist Logo"
             className="h-auto w-6rem ml-auto"
           />

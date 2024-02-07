@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import YouTube, { YouTubeEvent } from 'react-youtube';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -15,6 +15,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
   const [isThumbnailVisible, setIsThumbnailVisible] = useState(true);
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const videoPlayerRef = useRef<any>(null);
+  const isReady = useRef<boolean>(false);
 
   const videoId = useMemo(() => {
     if (!url) return '';
@@ -28,25 +29,27 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
     if (lastPiece && lastPiece.includes('watch')) {
       const anotherSplitted = lastPiece.split('?v=');
       return anotherSplitted.at(-1) ?? '';
-    } else if (lastPiece && lastPiece.includes('youtu.be')) {
-      const anotherSplitted = lastPiece.split('?si');
+    } else if (lastPiece && lastPiece.includes('?si=')) {
+      const anotherSplitted = lastPiece.split('?si=');
       return anotherSplitted.at(0);
     }
-
     return lastPiece ?? '';
   }, [url]);
 
   useEffect(() => {
     if (isThumbnailVisible || !videoPlayerRef.current) return;
-
-    videoPlayerRef.current?.playVideo();
+    try {
+      videoPlayerRef.current?.playVideo();
+    } catch (err) {
+      console.error('Error auto playing media');
+    }
   }, [isThumbnailVisible]);
 
   useEffect(() => {
     setIsThumbnailVisible(true);
+    isReady.current = false;
     if (
       !videoPlayerRef.current ||
-      videoPlayerRef.current === null ||
       !videoPlayerRef.current?.cueVideoById ||
       !videoId ||
       videoPlayerRef.current.g === null
@@ -57,6 +60,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
 
   const handleReady = (ev: YouTubeEvent) => {
     videoPlayerRef.current = ev.target;
+    isReady.current = true;
+  };
+
+  const handleThumbnailClick = () => {
+    if (!isReady.current) return;
+    setIsThumbnailVisible(false);
   };
 
   return (
@@ -67,16 +76,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
           ${isThumbnailVisible ? 'opacity-100 visible' : 'opacity-0 invisible'}
         `}
       >
-        <Image
-          fill={true}
+        <img
+          // fill={true}
           src={thumbnail}
           alt="Thumbnail"
-          onClick={() => setIsThumbnailVisible(false)}
-          sizes="100%"
+          onClick={handleThumbnailClick}
+          // sizes="100%"
+          className="absolute h-full w-full"
         />
       </div>
       <Button.IconButton
-        onClick={() => setIsThumbnailVisible(false)}
+        onClick={handleThumbnailClick}
         customButtonClass={`
           absolute rounded-full bg-purple-verylight
           aspect-square w-[5rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 

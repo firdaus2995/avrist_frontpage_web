@@ -1,5 +1,5 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
+// import Image, { StaticImageData } from 'next/image';
 import { NavbarMenuItemContent } from '../../types';
 
 // import styles from './styles.module.css';
@@ -16,7 +16,13 @@ type NavCardProps = {
   customClass?: string;
 };
 
-const TEMPORARY_IMAGE_MAPPING = [INVESTASI, ANALISIS, INFORMASI, TENTANG, KARIR];
+const TEMPORARY_IMAGE_MAPPING = [
+  INVESTASI,
+  ANALISIS,
+  INFORMASI,
+  TENTANG,
+  KARIR
+];
 
 const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
   return (
@@ -49,12 +55,12 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
             </div>
           </div>
         </div>
-        <Image
+        <img
           className="h-auto max-w-[20rem] w-full hidden md:inline-block"
           src={
             TEMPORARY_IMAGE_MAPPING[
               content.imageSource as keyof typeof TEMPORARY_IMAGE_MAPPING
-            ] as StaticImageData
+            ].src
           }
           alt={content.title}
         />

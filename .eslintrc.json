@@ -10,6 +10,7 @@
   "plugins": ["@typescript-eslint", "import"],
   "root": true,
   "rules": {
+    "@next/next/no-img-element": "off",
     "import/order": [
       "error",
       {
