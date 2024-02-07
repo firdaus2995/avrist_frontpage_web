@@ -64,7 +64,7 @@ const Header = () => {
             ))}
           </ul>
           <Button.IconButton
-            customClass="inline-block md:hidden"
+            customButtonClass="inline-block md:hidden"
             onClick={() => setIsDropdownVisible((prevState) => !prevState)}
           >
             <Icon name="hamburgerMenuIcon" color="white" />
