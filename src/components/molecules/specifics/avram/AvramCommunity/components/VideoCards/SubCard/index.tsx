@@ -18,11 +18,11 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
     >
       <div className="w-full relative h-[15rem] md:h-[10rem] overflow-hidden rounded-xl">
         <Image
+          alt={item.title}
           width={0}
           height={0}
           className='absolute w-full h-full inset-0'
           src={item.videoThumbnail}
-          alt={item.title}
         />
         <Button.IconButton
           customButtonClass={`

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-// import Image from 'next/image';
+import Image from 'next/image';
 import YouTube, { YouTubeEvent } from 'react-youtube';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -76,13 +76,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
           ${isThumbnailVisible ? 'opacity-100 visible' : 'opacity-0 invisible'}
         `}
       >
-        <img
-          // fill={true}
-          src={thumbnail}
+        <Image
           alt="Thumbnail"
-          onClick={handleThumbnailClick}
-          // sizes="100%"
+          width={0}
+          height={0}  
           className="absolute h-full w-full"
+          src={thumbnail}
+          onClick={handleThumbnailClick}
         />
       </div>
       <Button.IconButton
