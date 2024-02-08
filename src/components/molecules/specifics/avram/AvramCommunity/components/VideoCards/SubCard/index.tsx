@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-// import Image from 'next/image';
+import Image from 'next/image';
 import { VideoItem } from '../../../types';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -17,13 +17,12 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
       className="w-full md:max-w-[25rem] flex flex-col gap-4 rounded-xl shadow-md cursor-pointer group"
     >
       <div className="w-full relative h-[15rem] md:h-[10rem] overflow-hidden rounded-xl">
-        <img
+        <Image
+          width={0}
+          height={0}
+          className='absolute w-full h-full inset-0'
           src={item.videoThumbnail}
-          // fill={true}
           alt={item.title}
-          className="absolute h-full w-full inset-0"
-          // sizes="100%"
-          // className="min-h-[25rem]"
         />
         <Button.IconButton
           customButtonClass={`

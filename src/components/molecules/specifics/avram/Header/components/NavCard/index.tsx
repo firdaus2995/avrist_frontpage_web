@@ -1,5 +1,5 @@
 import React from 'react';
-// import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { NavbarMenuItemContent } from '../../types';
 
 // import styles from './styles.module.css';
@@ -55,12 +55,11 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
             </div>
           </div>
         </div>
-        <img
-          className="h-auto max-w-[20rem] w-full hidden md:inline-block"
+        <Image
           src={
             TEMPORARY_IMAGE_MAPPING[
               content.imageSource as keyof typeof TEMPORARY_IMAGE_MAPPING
-            ].src
+            ]
           }
           alt={content.title}
         />
