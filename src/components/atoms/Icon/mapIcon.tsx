@@ -9,7 +9,7 @@ const iconType = {
   mail: IconSVG.Mail,
   homeIcon: IconSVG.HomeIcon,
   hamburgerMenuIcon: IconSVG.HamburgerMenuIcon,
-  linkedInIcon: IconSVG.LinkedinIcon,
+  linkedInIcon: IconSVG.LinkedInIcon,
   tiktokIcon: IconSVG.TiktokIcon,
   instaIcon: IconSVG.InstaIcon,
   facebookIcon: IconSVG.FacebookIcon,

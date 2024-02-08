@@ -1,12 +1,12 @@
 import ChevronRight from './commons/ChevronRight';
 import FacebookIcon from './commons/FacebookIcon';
 import HamburgerMenuIcon from './commons/HamburgerMenuIcon';
-import HelpCircle from './commons/helpcircle';
+import HelpCircle from './commons/HelpCircle';
 import HomeIcon from './commons/HomeIcon';
 import InstaIcon from './commons/InstaIcon';
-import LinkedinIcon from './commons/LinkedinIcon';
+import LinkedInIcon from './commons/LinkedInIcon';
 import Mail from './commons/Mail';
-import Search from './commons/search';
+import Search from './commons/Search';
 import TiktokIcon from './commons/TiktokIcon';
 
 const IconSVG = {
@@ -18,7 +18,7 @@ const IconSVG = {
   FacebookIcon,
   TiktokIcon,
   InstaIcon,
-  LinkedinIcon,
+  LinkedInIcon,
   ChevronRight,
 };
 
