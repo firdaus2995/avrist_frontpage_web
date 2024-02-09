@@ -70,9 +70,8 @@ const Header = () => {
             <Icon name="hamburgerMenuIcon" color="white" />
           </Button.IconButton>
           <Image
-            src={AVRIST_LOGO}
             alt="Avrist Logo"
-            className="h-auto w-6rem ml-auto"
+            src={AVRIST_LOGO}
           />
         </div>
         <NavDropdownMenus

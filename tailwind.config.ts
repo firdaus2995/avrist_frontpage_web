@@ -22,8 +22,8 @@ const config: Config = {
     },
     extend: {
       borderWidth: {
-        '1': '1px',
-      },  
+        '1': '1px'
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -66,7 +66,8 @@ const config: Config = {
         purple_soft: '#6E2082',
         purple_verydark: '#481563',
         purple_separator: '#7A3DA2',
-        purple_light_bg: '#FAF8FB',  
+        purple_light_bg: '#FAF8FB',
+        'purple-verylight': '#C4B7D3'
       }
     }
   },

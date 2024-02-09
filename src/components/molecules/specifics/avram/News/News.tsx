@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
@@ -33,7 +34,7 @@ const News = () => {
   return (
     <div className="w-full md:p-20 xs:p-5 flex flex-col justify-center gap-5">
       <div className="w-full flex md:flex-row xs:flex-col justify-center gap-5">
-        <div className="md:grid md:grid-cols-2 gap-5 xs:hidden md:block relative pt-20">
+        <div className="md:grid md:grid-cols-2 gap-5 xs:hidden relative pt-20">
           <p className="w-full py-5 text-2xl font-bold absolute top-[-40] xs:hidden md:block">
             Berita Terkini
           </p>

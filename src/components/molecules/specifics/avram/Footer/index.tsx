@@ -11,7 +11,13 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-16">
       <div className="md:p-16 p-8">
-        <Image className="h-auto w-[10rem]" src={AVRIST_LOGO} alt="Avrist" />
+        <Image
+          alt="Avrist"
+          width={0}
+          height={0}
+          className="h-auto w-[10rem]"
+          src={AVRIST_LOGO} 
+        />
         {/* Main Content */}
         <div className="lg:grid lg:grid-cols-[minmax(10rem,_30rem)_minmax(8rem,_1fr)_1fr_1fr] mt-8 lg:gap-16 gap-10 flex flex-col">
           {/* Opening content */}
@@ -25,7 +31,13 @@ const Footer = () => {
               <br />
               PT Avrist Asset Management.
             </p>
-            <Image src={FOOTER_IMAGE} alt="Avrist" />
+            <Image
+              width={0}
+              height={0} 
+              alt="Avrist"
+              className="h-auto min-w-[15rem] max-w-[25rem] w-[full]"
+              src={FOOTER_IMAGE}
+            />
           </div>
 
           {/* Communication content */}
@@ -76,9 +88,11 @@ const Footer = () => {
               <p className="font-semibold">Formulir</p>
               <p className="font-semibold">Karir</p>
               <Image
-                className="h-auto min-w-[8rem]"
-                src={REKSADANA_IMAGE}
                 alt="Reksadana"
+                width={0}
+                height={0}
+                className="h-auto min-w-[8rem] max-w-[15rem]"
+                src={REKSADANA_IMAGE}
               />
             </div>
           </div>
@@ -118,9 +132,11 @@ const Footer = () => {
         </div>
       </div>
       <Image
-        className="absolute bottom-full right-0 translate-y-1/2 aspect-square w-[8rem] md:w-[10rem]"
-        src={WHATSAPP_IMAGE}
         alt="Whatsapp"
+        height={0}
+        width={0}
+        className="absolute bottom-full right-0 translate-y-1/2 aspect-square w-[8rem] md:w-[10rem]"
+        src={WHATSAPP_IMAGE.src}
       />
     </footer>
   );
