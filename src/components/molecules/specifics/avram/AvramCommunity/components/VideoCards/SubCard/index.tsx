@@ -26,7 +26,7 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
         />
         <Button.IconButton
           customButtonClass={`
-          absolute rounded-full bg-purple-verylight 
+          absolute rounded-full bg-purple_verylight 
           aspect-square w-[5rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
           z-10 grid place-items-center pl-4 hover:opacity-50 group-hover:opacity-50
           transition-all

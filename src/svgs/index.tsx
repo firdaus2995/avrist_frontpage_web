@@ -1,5 +1,7 @@
+import AlertCircle from './commons/AlertCircle';
 import ArrowRightIcon from './commons/ArrowRightIcon';
 import ChevronRight from './commons/ChevronRight';
+import Close from './commons/Close';
 import FacebookIcon from './commons/FacebookIcon';
 import HamburgerMenuIcon from './commons/HamburgerMenuIcon';
 import HelpCircle from './commons/HelpCircle';
@@ -23,7 +25,9 @@ const IconSVG = {
   LinkedInIcon,
   PlayIcon,
   ArrowRightIcon,
-  ChevronRight
+  ChevronRight,
+  Close,
+  AlertCircle,
 };
 
 export default IconSVG;
