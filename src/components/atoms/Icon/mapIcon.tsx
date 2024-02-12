@@ -15,7 +15,9 @@ const iconType = {
   facebookIcon: IconSVG.FacebookIcon,
   playIcon: IconSVG.PlayIcon,
   arrowRightIcon: IconSVG.ArrowRightIcon,
-  chevronRight: IconSVG.ChevronRight
+  chevronRight: IconSVG.ChevronRight,
+  close: IconSVG.Close,
+  alertCircle: IconSVG.AlertCircle,
 } as const;
 
 type IconsListType = keyof typeof iconType;

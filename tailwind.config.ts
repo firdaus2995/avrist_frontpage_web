@@ -67,7 +67,7 @@ const config: Config = {
         purple_verydark: '#481563',
         purple_separator: '#7A3DA2',
         purple_light_bg: '#FAF8FB',
-        'purple-verylight': '#C4B7D3'
+        purple_verylight: '#C4B7D3'
       }
     }
   },
