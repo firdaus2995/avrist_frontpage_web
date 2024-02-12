@@ -14,6 +14,7 @@ interface IButton {
   onClick?: (event: React.SyntheticEvent) => void;
   customButtonClass?: string;
   customTextClass?: string;
+  disabled?: boolean;
 }
 
 const BASE_BUTTON_CLASS =
@@ -23,11 +24,13 @@ const Button: RootButton & React.FC<IButton> = ({
   title,
   onClick,
   customButtonClass = '',
-  customTextClass = ''
+  customTextClass = '',
+  disabled
 }) => {
   return (
     <button
-      className={`${BASE_BUTTON_CLASS} text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`}
+      className={`${disabled ? 'px-12 py-3 text-sm font-medium bg-gray_light text-gray_black rounded cursor-not-allowed' : `${BASE_BUTTON_CLASS} text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`}`}
+      disabled={disabled ?? false}
       onClick={onClick}
     >
       <p className={`${customTextClass}`}>{title}</p>
@@ -41,7 +44,10 @@ const IconButton: React.FC<IconButtonProps> = ({
   ...rest
 }) => {
   return (
-    <button className={`p-2 ${customButtonClass ?? ''}`} {...rest}>
+    <button
+      className={`bg-transparent p-2 ${customButtonClass ?? ''}`}
+      {...rest}
+    >
       {children}
     </button>
   );
