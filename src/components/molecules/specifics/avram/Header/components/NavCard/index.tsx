@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { NavbarMenuItemContent } from '../../types';
+import Link from 'next/link';
 
-// import styles from './styles.module.css';
+import { NavbarMenuItemContent } from '../../types';
 
 import ANALISIS from '@/assets/images/navbar-analisis.svg';
 import INFORMASI from '@/assets/images/navbar-informasi.svg';
@@ -10,6 +10,7 @@ import INVESTASI from '@/assets/images/navbar-investasi.svg';
 import KARIR from '@/assets/images/navbar-karir.svg';
 import TENTANG from '@/assets/images/navbar-tentang.svg';
 import Button from '@/components/atoms/Button/Button';
+import { camelToKebabCase } from '@/utils/helpers';
 
 type NavCardProps = {
   content: NavbarMenuItemContent;
@@ -42,11 +43,12 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
             <div className="flex flex-col justify-between">
               {content.subMenus.map((item, index) => (
                 <React.Fragment key={index}>
-                  <p
+                  <Link
+                    href={`/avram/investasi/${camelToKebabCase(item)}`}
                     className={`font-bold ${index === 0 && 'text-purple_dark'}`}
                   >
                     {item}
-                  </p>
+                  </Link>
                   {index < content.subMenus.length - 1 && (
                     <div className="border-gray_light border-solid border-b" />
                   )}
