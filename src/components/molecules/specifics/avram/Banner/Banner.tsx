@@ -74,7 +74,7 @@ const Banner = () => {
           {bannerData.map((data, index) => (
             <div
               key={index}
-              className="flex w-full xs:h-[60vh] md:h-[50vh] relative"
+              className="flex w-full xs:h-[65vh] md:h-[90vh] relative"
             >
               <Image
                 alt="loop-image"
@@ -83,14 +83,15 @@ const Banner = () => {
                 objectFit="contain"
                 className="w-full h-auto xs:object-bottom md:object-right"
               />
-              <div className="flex flex-col md:w-[30%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
-                <p className="text-3xl text-bright-purple whitespace-nowrap xs:mt-10 md:mt-0">
+              <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 xs:top-10 md:top-20">
+                <p className="xs:text-[26px] md:text-[48px] text-bright-purple whitespace-nowrap xs:mt-10 md:mt-0">
                   {data.category}
                 </p>
-                <p className="text-3xl font-black">{data.title}</p>
+                <p className="xs:text-[36px] md:text-[56px] font-black">{data.title}</p>
                 <div>
                   <Button
                     title={data.btn}
+                    customButtonClass='bg-white'
                     onClick={() => console.log('Button Clicked')}
                   />
                 </div>
