@@ -13,6 +13,7 @@ import InstaIcon from './commons/InstaIcon';
 import LinkedInIcon from './commons/LinkedInIcon';
 import Mail from './commons/Mail';
 import PlayIcon from './commons/PlayIcon';
+import Polygon from './commons/Polygon';
 import SealWarning from './commons/SealWarning';
 import Search from './commons/Search';
 import Share from './commons/Share';
@@ -38,6 +39,7 @@ const IconSVG = {
   DownloadIcon,
   CopyUrl,
   Share,
+  Polygon
 };
 
 export default IconSVG;

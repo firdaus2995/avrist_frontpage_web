@@ -9,6 +9,7 @@ import SampleImg4 from '@/assets/images/reksadana-icon-4.svg';
 import SampleImg5 from '@/assets/images/reksadana-icon-5.svg';
 import Button from '@/components/atoms/Button/Button';
 import Chart from '@/components/molecules/specifics/avram/Chart/Chart';
+// import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
 
 const ReksaDana = () => {
   const router = useRouter();

@@ -18,11 +18,12 @@ const iconType = {
   chevronRight: IconSVG.ChevronRight,
   close: IconSVG.Close,
   alertCircle: IconSVG.AlertCircle,
+  polygon: IconSVG.Polygon,
   sealWarning: IconSVG.SealWarning,
   calendarIcon: IconSVG.CalendarIcon,
   downloadIcon: IconSVG.DownloadIcon,
   copyUrl: IconSVG.CopyUrl,
-  share: IconSVG.Share,
+  share: IconSVG.Share
 } as const;
 
 type IconsListType = keyof typeof iconType;

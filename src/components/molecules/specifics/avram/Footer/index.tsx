@@ -9,14 +9,14 @@ import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-16">
+    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-auto">
       <div className="md:p-16 p-8">
         <Image
           alt="Avrist"
           width={0}
           height={0}
           className="h-auto w-[10rem]"
-          src={AVRIST_LOGO} 
+          src={AVRIST_LOGO}
         />
         {/* Main Content */}
         <div className="lg:grid lg:grid-cols-[minmax(10rem,_30rem)_minmax(8rem,_1fr)_1fr_1fr] mt-8 lg:gap-16 gap-10 flex flex-col">
@@ -33,9 +33,9 @@ const Footer = () => {
             </p>
             <Image
               width={0}
-              height={0} 
+              height={0}
               alt="Avrist"
-              className="h-auto min-w-[15rem] max-w-[25rem] w-[full]"
+              className="h-auto min-w-[5rem] max-w-[25rem] w-full"
               src={FOOTER_IMAGE}
             />
           </div>

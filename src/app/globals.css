@@ -27,12 +27,12 @@
 } */
 
 .slick-dots li button:before {
-  background-color: #81219A;
+  background-color: #81219a;
   height: 12px !important;
   width: 12px !important;
   border-radius: 12px !important;
   text-indent: -9999px;
-  overflow:hidden; 
+  overflow: hidden;
 }
 
 .slick-slider .slick-slide {
