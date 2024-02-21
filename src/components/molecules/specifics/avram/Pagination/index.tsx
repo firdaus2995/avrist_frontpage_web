@@ -13,7 +13,8 @@ type PaginationProps = {
 
 export type GoToPageParams = 'next' | 'prev' | number;
 
-// const PAGINATION_MAX_DISPLAY = 5;
+const PAGINATION_MAX_DISPLAY = 5;
+const WINGS = PAGINATION_MAX_DISPLAY - Math.round(PAGINATION_MAX_DISPLAY / 2);
 
 const Pagination: React.FC<PaginationProps> = ({
   perPage,
@@ -68,37 +69,80 @@ const Pagination: React.FC<PaginationProps> = ({
 
   if (totalItem === 0) return <></>;
 
-  const generateArray = ({
-    quantity,
-    start,
-    end
-  }: {
-    quantity: number;
-    start: number;
-    end: number;
-  }) => {
-    return Array.from(new Array(quantity))
-      .map((_, index) => index)
-      .slice(start, end);
+  const generateArray = (start: number, end: number) => {
+    if (start > end) return [];
+
+    const temp = [];
+    for (let index = start; index <= end; index++) {
+      temp.push(index);
+    }
+    return temp;
   };
 
-  const paginationArray = (() => {
-    return generateArray({
-      quantity: numberOfPages,
-      start: 0,
-      end: numberOfPages
-    }).map((item) => item + 1);
+  const {
+    data: paginationArray,
+    showDotAtStart,
+    showDotAtEnd
+  } = ((): {
+    data: number[];
+    showDotAtStart: boolean;
+    showDotAtEnd: boolean;
+  } => {
+    if (numberOfPages <= 2) {
+      return { data: [], showDotAtStart: false, showDotAtEnd: false };
+    }
+
+    if (numberOfPages <= PAGINATION_MAX_DISPLAY) {
+      return {
+        data: generateArray(2, numberOfPages - 1),
+        showDotAtStart: false,
+        showDotAtEnd: false
+      };
+    }
+
+    if (currentPage - WINGS - 1 <= 0) {
+      return {
+        data: generateArray(2, PAGINATION_MAX_DISPLAY),
+        showDotAtStart: false,
+        showDotAtEnd: true
+      };
+    } else if (currentPage + WINGS + 1 >= lastPage) {
+      return {
+        data: generateArray(
+          lastPage - PAGINATION_MAX_DISPLAY + 1,
+          lastPage - 1
+        ),
+        showDotAtStart: true,
+        showDotAtEnd: false
+      };
+    }
+
+    const temp = [];
+    for (
+      let index = currentPage - WINGS;
+      index <= currentPage + WINGS;
+      index++
+    ) {
+      temp.push(index);
+    }
+
+    return {
+      data: temp,
+      showDotAtStart: true,
+      showDotAtEnd: true
+    };
   })();
 
   return (
     <div className="flex items-stretch flex-wrap gap-1">
       {hasPrev && <PaginationButton onClick={goToPage} page={'prev'} />}
 
-      {/* <PaginationButton
+      <PaginationButton
         onClick={goToPage}
         page={1}
         isActive={currentPage === 1}
-      /> */}
+      />
+      {showDotAtStart && <span>...</span>}
       {paginationArray.map((benchmark, index) => {
         return (
           <PaginationButton
@@ -109,13 +153,16 @@ const Pagination: React.FC<PaginationProps> = ({
           />
         );
       })}
-      {/* {numberOfPages > 1 && (
-        <PaginationButton
-          onClick={goToPage}
-          page={lastPage}
-          isActive={currentPage === lastPage}
-        />
-      )} */}
+      {numberOfPages > 1 && (
+        <>
+          {showDotAtEnd && <span>...</span>}
+          <PaginationButton
+            onClick={goToPage}
+            page={lastPage}
+            isActive={currentPage === lastPage}
+          />
+        </>
+      )}
 
       {hasNext && <PaginationButton onClick={goToPage} page={'next'} />}
     </div>

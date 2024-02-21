@@ -22,8 +22,8 @@ const MutualFundList: React.FC<MutualFundListProps> = async ({
     return parseInt(result);
   })();
   const currentCategory = (() => {
-    const result = searchParams['cat'] ?? '';
-    if (Array.isArray(result)) return '';
+    const result = searchParams['cat'] ?? 'Saham';
+    if (Array.isArray(result)) return 'Saham';
     return result;
   })();
 
