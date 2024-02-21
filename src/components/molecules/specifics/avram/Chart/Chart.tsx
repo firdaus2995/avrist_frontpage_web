@@ -2,14 +2,11 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Chart as GoogleChart } from 'react-google-charts';
-import ArrowRight from '@/assets/images/arrow-right.svg';
-import Calendar from '@/assets/images/calendar.svg';
-import CopyUrl from '@/assets/images/copy-url.svg';
 import Email from '@/assets/images/email.svg';
 import Facebook from '@/assets/images/facebook.svg';
 import LinkedIn from '@/assets/images/linkedin.svg';
-import Share from '@/assets/images/share.svg';
 import Whatsapp from '@/assets/images/wa.svg';
+import Icon from '@/components/atoms/Icon';
 
 const data = [
   ['Date', 'Blue Savir', 'Tolak Ukur'],
@@ -160,19 +157,35 @@ const Chart = () => {
             role="button"
             className="p-2 flex flex-row items-center gap-2 border font-semibold border-light-purple bg-white rounded-lg text-xs"
           >
-            <Image className="h-auto w-5" src={Calendar} alt="calendar" />
+            <Icon
+              width={16}
+              height={16}
+              name="calendarIcon"
+              color="purple_verylight"
+            />
             <div>1 Januari 2024</div>
-            <Image className="h-auto w-5" src={ArrowRight} alt="arrow-right" />
+            <Icon
+              width={16}
+              height={16}
+              name="arrowRightIcon"
+              color="purple_verylight"
+            />
             <div>31 Januari 2024</div>
           </div>
           <div className="flex flex-col gap-1 items-center">
-            <Image
+            <div
+              className="flex items-center"
               role="button"
               onClick={() => setIsVisible(!isVisible)}
-              className="h-auto w-5"
-              src={Share}
-              alt="share"
-            />
+            >
+              <Icon
+                width={16}
+                height={16}
+                name="share"
+                color="purple_verylight"
+              />
+            </div>
+
             <div className="text-xs font-bold">Share</div>
 
             {isVisible && (
@@ -222,13 +235,18 @@ const Chart = () => {
                     <div className="text-xs font-bold">Facebook</div>
                   </div>
                   <div className="flex flex-col gap-1 items-center">
-                    <Image
+                    <div
                       role="button"
+                      className="items-center"
                       onClick={() => setIsVisible(!isVisible)}
-                      className="h-auto w-5"
-                      src={CopyUrl}
-                      alt="copy-url"
-                    />
+                    >
+                      <Icon
+                        width={18}
+                        height={18}
+                        name="copyUrl"
+                        color="purple_verylight"
+                      />
+                    </div>
                     <div className="text-xs font-bold">Copy URL</div>
                   </div>
                 </div>
