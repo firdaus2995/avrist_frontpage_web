@@ -14,16 +14,16 @@ const ArrowRightIcon: React.FC<IIcon> = ({ width, height, color }) => {
       <path
         d="M4.16699 10H15.8337"
         stroke={color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M10 4.1665L15.8333 9.99984L10 15.8332"
         stroke={color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
