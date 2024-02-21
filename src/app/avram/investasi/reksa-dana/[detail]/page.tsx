@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import DetailHeader from '@/components/molecules/specifics/avram/DetailHeader/DetailHeader';
 import { Button } from '@/stories/Button';
@@ -193,6 +194,97 @@ const ReksaDana = ({ params }: { params: { detail: string } }) => {
             untuk berinvestasi melalui Reksa Dana. Kinerja masa lalu tidak
             mencerminkan kinerja masa datang.
           </p>
+
+          <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col gap-2">
+            <Icon
+              width={32}
+              height={32}
+              name="downloadIcon"
+              color="purple_verylight"
+            />
+            <h5 className="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              Fun Fact Sheet
+            </h5>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              477.92 KB
+            </p>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center text-purple_dark text-xs font-bold gap-2"
+            >
+              Download
+              <Icon
+                width={16}
+                height={16}
+                name="chevronRight"
+                color="purple_dark"
+              />
+            </a>
+          </div>
+          <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col gap-2">
+            <Icon
+              width={32}
+              height={32}
+              name="downloadIcon"
+              color="purple_verylight"
+            />
+            <h5 className="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              Prospectus
+            </h5>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              299.23 KB
+            </p>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center text-purple_dark text-xs font-bold gap-2"
+            >
+              Download
+              <Icon
+                width={16}
+                height={16}
+                name="chevronRight"
+                color="purple_dark"
+              />
+            </a>
+          </div>
+          <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col gap-2">
+            <Icon
+              width={32}
+              height={32}
+              name="downloadIcon"
+              color="purple_verylight"
+            />
+            <h5 className="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+              Info Produk
+            </h5>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              432.12 KB
+            </p>
+            <p className="mb-3 font-normal text-xs text-gray-500 dark:text-gray-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center text-purple_dark text-xs font-bold gap-2"
+            >
+              Download
+              <Icon
+                width={16}
+                height={16}
+                name="chevronRight"
+                color="purple_dark"
+              />
+            </a>
+          </div>
         </div>
       </div>
 
