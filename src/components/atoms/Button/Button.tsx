@@ -2,11 +2,18 @@ import React from 'react';
 
 type RootButton = {
   IconButton: React.FC<Omit<IconButtonProps, 'className'>>;
+  Radio: React.FC<Omit<RadioButtonProps, 'className'>>;
 };
 
 type IconButtonProps = {
   children: React.ReactNode;
   customButtonClass?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+type RadioButtonProps = {
+  children: React.ReactNode;
+  customButtonClass?: string;
+  isActive?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface IButton {
@@ -18,7 +25,9 @@ interface IButton {
 }
 
 const BASE_BUTTON_CLASS =
-  'inline-block px-12 py-3 text-sm font-medium border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
+  'inline-block text-sm font-medium border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
+const BASE_DISABLE_BUTTON_CLASS =
+  'bg-gray_light text-gray_black rounded cursor-not-allowed';
 
 const Button: RootButton & React.FC<IButton> = ({
   title,
@@ -29,7 +38,11 @@ const Button: RootButton & React.FC<IButton> = ({
 }) => {
   return (
     <button
-      className={`${disabled ? 'px-12 py-3 text-sm font-medium bg-gray_light text-gray_black rounded cursor-not-allowed' : `${BASE_BUTTON_CLASS} text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`}`}
+      className={`${
+        disabled
+          ? `px-10 py-3 text-sm font-medium ${BASE_DISABLE_BUTTON_CLASS}`
+          : `${BASE_BUTTON_CLASS} px-10 py-3 text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
+      }`}
       disabled={disabled ?? false}
       onClick={onClick}
     >
@@ -44,8 +57,21 @@ const IconButton: React.FC<IconButtonProps> = ({
   ...rest
 }) => {
   return (
+    <button className={`p-1 ${customButtonClass ?? ''}`} {...rest}>
+      {children}
+    </button>
+  );
+};
+
+const RadioButton: React.FC<RadioButtonProps> = ({
+  children,
+  customButtonClass,
+  isActive,
+  ...rest
+}) => {
+  return (
     <button
-      className={`bg-transparent p-2 ${customButtonClass ?? ''}`}
+      className={`py-2 px-5 rounded-md ${BASE_BUTTON_CLASS} ${rest.disabled ? BASE_DISABLE_BUTTON_CLASS : isActive ? 'bg-dark-purple text-white' : 'bg-white text-dark-purple border-solid border-dark-purple border'} ${customButtonClass ?? ''}`}
       {...rest}
     >
       {children}
@@ -54,5 +80,6 @@ const IconButton: React.FC<IconButtonProps> = ({
 };
 
 Button.IconButton = IconButton;
+Button.Radio = RadioButton;
 
 export default Button;

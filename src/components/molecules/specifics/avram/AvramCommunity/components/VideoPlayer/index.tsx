@@ -79,7 +79,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, thumbnail }) => {
         <Image
           alt="Thumbnail"
           width={0}
-          height={0}  
+          height={0}
           className="absolute h-full w-full"
           src={thumbnail}
           onClick={handleThumbnailClick}
