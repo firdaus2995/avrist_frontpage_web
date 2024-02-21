@@ -2,25 +2,28 @@ import React from 'react';
 
 import { IIcon } from '@/components/atoms/Icon';
 
-const ArrowRightIcon: React.FC<IIcon> = ({
-  width = 16,
-  height = 16,
-  color = 'white'
-}) => {
+const ArrowRightIcon: React.FC<IIcon> = ({ width, height, color }) => {
   return (
     <svg
       width={width}
       height={height}
-      viewBox="0 0 16 16"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6 12L10 8L6 4"
+        d="M4.16699 10H15.8337"
         stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10 4.1665L15.8333 9.99984L10 15.8332"
+        stroke={color}
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   );
