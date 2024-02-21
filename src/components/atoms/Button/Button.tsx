@@ -57,7 +57,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   ...rest
 }) => {
   return (
-    <button className={`p-2 ${customButtonClass ?? ''}`} {...rest}>
+    <button className={`p-1 ${customButtonClass ?? ''}`} {...rest}>
       {children}
     </button>
   );

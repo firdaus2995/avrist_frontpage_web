@@ -11,7 +11,13 @@ import Button from '@/components/atoms/Button/Button';
 import Chart from '@/components/molecules/specifics/avram/Chart/Chart';
 // import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
 
-const ReksaDana = () => {
+export type SearchParamsType = Record<string, string | string[] | undefined>;
+
+type ReksaDanaProps = {
+  searchParams: SearchParamsType;
+};
+
+const ReksaDana: React.FC<ReksaDanaProps> = () => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center bg-purple_light_bg">

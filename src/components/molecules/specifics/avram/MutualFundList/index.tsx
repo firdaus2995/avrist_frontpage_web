@@ -1,12 +1,32 @@
 import React from 'react';
 
+import Pagination from '../Pagination';
 import FundListItem from './components/FundListItem';
+import TabHeader from './components/TabHeader';
 import SAMPLE_DATA from './dummy-data.json';
-import styles from './styles.module.css';
 import { FundListTabItemType, FundListItemType } from './types';
-import Button from '@/components/atoms/Button/Button';
+import { SearchParamsType } from '@/app/avram/investasi/reksa-dana/page';
 
-const MutualFundList = async () => {
+const ITEMS_PER_PAGE = 2;
+
+type MutualFundListProps = {
+  searchParams: SearchParamsType;
+};
+
+const MutualFundList: React.FC<MutualFundListProps> = async ({
+  searchParams
+}) => {
+  const currentPage = (() => {
+    const result = searchParams['page'] ?? '1';
+    if (Array.isArray(result)) return 1;
+    return parseInt(result);
+  })();
+  const currentCategory = (() => {
+    const result = searchParams['cat'] ?? '';
+    if (Array.isArray(result)) return '';
+    return result;
+  })();
+
   const getFundListTabItem = async () => {
     // Simulating the process to get data
     return new Promise<FundListTabItemType[]>((resolve) => {
@@ -17,40 +37,71 @@ const MutualFundList = async () => {
   };
 
   const getFundListItems = async (type?: string) => {
-    return new Promise<FundListItemType[]>((resolve) => {
+    type CurrentReturnType = {
+      totalItem: number;
+      data: FundListItemType[];
+      hasPrev: boolean;
+      hasNext: boolean;
+    };
+
+    return new Promise<CurrentReturnType>((resolve) => {
       setTimeout(() => {
         const allData = SAMPLE_DATA['fund-list'] as FundListItemType[];
         if (type) {
-          resolve(allData.filter((item) => item.type === type));
+          const data = allData.filter((item) => item.type === type);
+          resolve({
+            totalItem: data.length,
+            data: data.slice(
+              (currentPage - 1) * ITEMS_PER_PAGE,
+              currentPage * ITEMS_PER_PAGE
+            ),
+            hasPrev: currentPage > 1,
+            hasNext: currentPage * ITEMS_PER_PAGE < data.length
+          });
         } else {
-          resolve(allData);
+          const data = allData.slice(
+            (currentPage - 1) * ITEMS_PER_PAGE,
+            currentPage * ITEMS_PER_PAGE
+          );
+          resolve({
+            totalItem: allData.length,
+            data: data,
+            hasPrev: currentPage !== 1,
+            hasNext: currentPage * ITEMS_PER_PAGE < allData.length
+          });
         }
       }, 1000);
     });
   };
 
   const tabs = await getFundListTabItem();
-  const fundListItems = await getFundListItems();
+  const {
+    data: fundListItems,
+    totalItem,
+    hasNext,
+    hasPrev
+  } = await getFundListItems(currentCategory);
 
   return (
     <div className="bg-white p-9 rounded-md shadow-lg flex flex-col gap-4">
-      {/* Tab Header */}
-      <div
-        className={`flex justify-between gap-2 overflow-auto ${styles['tab-header-container']}`}
-      >
-        {tabs.map((item, index) => (
-          <Button.Radio
-            customButtonClass="flex-grow whitespace-nowrap"
-            key={index}
-          >
-            {item}
-          </Button.Radio>
-        ))}
-      </div>
+      <TabHeader items={tabs} category={currentCategory} />
       <div className="flex flex-col gap-4">
         {fundListItems.map((item, index) => (
           <FundListItem key={index} item={item} />
         ))}
+      </div>
+      <div className="mt-4 flex justify-between gap-4 flex-wrap">
+        <p className="text-lg">
+          Menampilkan{' '}
+          <span className="font-bold">{`${currentPage * ITEMS_PER_PAGE - (ITEMS_PER_PAGE - 1)}-${ITEMS_PER_PAGE * currentPage > totalItem ? totalItem : ITEMS_PER_PAGE * currentPage}`}</span>{' '}
+          dari <span className="font-bold">{totalItem}</span> hasil
+        </p>
+        <Pagination
+          perPage={ITEMS_PER_PAGE}
+          totalItem={totalItem}
+          hasNext={hasNext}
+          hasPrev={hasPrev}
+        />
       </div>
     </div>
   );

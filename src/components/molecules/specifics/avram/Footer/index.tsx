@@ -9,7 +9,7 @@ import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-auto">
+    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-[10rem]">
       <div className="md:p-16 p-8">
         <Image
           alt="Avrist"
