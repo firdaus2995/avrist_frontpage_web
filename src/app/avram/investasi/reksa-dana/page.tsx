@@ -9,15 +9,15 @@ import SampleImg4 from '@/assets/images/reksadana-icon-4.svg';
 import SampleImg5 from '@/assets/images/reksadana-icon-5.svg';
 import Button from '@/components/atoms/Button/Button';
 import Chart from '@/components/molecules/specifics/avram/Chart/Chart';
-import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
+// import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
 
 export type SearchParamsType = Record<string, string | string[] | undefined>;
 
-type ReksaDanaProps = {
-  searchParams: SearchParamsType;
-};
+// type ReksaDanaProps = {
+//   searchParams: SearchParamsType;
+// };
 
-const ReksaDana: React.FC<ReksaDanaProps> = ({ searchParams }) => {
+const ReksaDana = () => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center bg-purple_light_bg">
@@ -39,6 +39,7 @@ const ReksaDana: React.FC<ReksaDanaProps> = ({ searchParams }) => {
             <Image className="h-auto w-full" src={SampleImg5} alt="sample-5" />
           </div>
         </div>
+
         {/* Blue Safir */}
         <div className="p-5 h-full flex flex-col items-center justify-center rounded-xl bg-white">
           <div className="flex flex-col gap-2 justify-start w-full mb-5">
@@ -53,8 +54,9 @@ const ReksaDana: React.FC<ReksaDanaProps> = ({ searchParams }) => {
             title="Pelajari Selengkapnya"
           />
         </div>
+
         {/* Mutual Fund List */}
-        <MutualFundList searchParams={searchParams} />
+        {/* <MutualFundList searchParams={searchParams} /> */}
       </div>
     </div>
   );
