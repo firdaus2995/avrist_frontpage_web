@@ -10,6 +10,7 @@ import InstaIcon from './commons/InstaIcon';
 import LinkedInIcon from './commons/LinkedInIcon';
 import Mail from './commons/Mail';
 import PlayIcon from './commons/PlayIcon';
+import SealWarning from './commons/SealWarning';
 import Search from './commons/Search';
 import TiktokIcon from './commons/TiktokIcon';
 
@@ -28,6 +29,7 @@ const IconSVG = {
   ChevronRight,
   Close,
   AlertCircle,
+  SealWarning,
 };
 
 export default IconSVG;

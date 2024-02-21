@@ -18,6 +18,7 @@ const iconType = {
   chevronRight: IconSVG.ChevronRight,
   close: IconSVG.Close,
   alertCircle: IconSVG.AlertCircle,
+  sealWarning: IconSVG.SealWarning,
 } as const;
 
 type IconsListType = keyof typeof iconType;
