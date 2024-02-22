@@ -1,13 +1,10 @@
 import React from 'react';
 
-import Button from '@/components/atoms/Button/Button';
-import Icon from '@/components/atoms/Icon';
-import DetailHeader from '@/components/molecules/specifics/avram/DetailHeader/DetailHeader';
-import Image from 'next/image';
+import Disclaimer from '@/components/molecules/specifics/avram/_investasi/Disclaimer';
 import FiturTableLike from '@/components/molecules/specifics/avram/_investasi/FiturTableLike';
 import SquaresDownload from '@/components/molecules/specifics/avram/_investasi/SquaresDownload';
-import Disclaimer from '@/components/molecules/specifics/avram/_investasi/Disclaimer';
 import Vendor from '@/components/molecules/specifics/avram/_investasi/Vendor';
+import DetailHeader from '@/components/molecules/specifics/avram/DetailHeader/DetailHeader';
 
 export const generateStaticParams = () => {
   return [{ detail: 'blue-safir' }];
