@@ -44,7 +44,7 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
               {content.subMenus.map((item, index) => (
                 <React.Fragment key={index}>
                   <Link
-                    href={`/avram/investasi/${camelToKebabCase(item)}`}
+                    href={`/avram/${camelToKebabCase(content.title)}${camelToKebabCase(content.title) === "analisis" ? '?tab=' : '/'}${camelToKebabCase(item)}`}
                     className={`font-bold ${index === 0 && 'text-purple_dark'}`}
                   >
                     {item}
