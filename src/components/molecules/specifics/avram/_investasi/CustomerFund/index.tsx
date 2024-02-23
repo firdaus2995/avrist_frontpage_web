@@ -1,6 +1,7 @@
 import React from 'react';
 import VideoPlayer, { VideoPlayerProps } from '../../VideoPlayer';
 import CustomerFundTabs from './components/CustomerFundTabs';
+import InvestmentAdvisorTab from './components/InvestmentAdvisorTab';
 import StepsBox from './components/StepsBox';
 import SAMPLE_DATA from './sample-data.json';
 
@@ -98,21 +99,27 @@ const CustomerFund: React.FC<CustomerFundProps> = async ({ searchParams }) => {
           />
         </div>
       )}
-      <SimpleText
-        leading="Bagaimana kami mendukung"
-        highlight="investasi Anda."
-      />
-      <div className="flex justify-around flex-wrap gap-6">
-        {STEPS_DATA.map((item, index) => (
-          <StepsBox
-            key={index}
-            iconRenderer={() => item.icon}
-            title={item.title}
-            desc={item.desc}
-            customClass="basis-52 grow"
+      {currentTab === 'penasihat' ? (
+        <InvestmentAdvisorTab />
+      ) : (
+        <>
+          <SimpleText
+            leading="Bagaimana kami mendukung"
+            highlight="investasi Anda."
           />
-        ))}
-      </div>
+          <div className="flex justify-around flex-wrap gap-6">
+            {STEPS_DATA.map((item, index) => (
+              <StepsBox
+                key={index}
+                iconRenderer={() => item.icon}
+                title={item.title}
+                desc={item.desc}
+                customClass="basis-52 grow"
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

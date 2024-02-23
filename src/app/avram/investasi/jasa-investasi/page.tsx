@@ -9,7 +9,7 @@ const JasaInvestasi: React.FC<ParamsProps> = ({ searchParams }) => {
     <div className="flex flex-col items-center justify-center gap-6 bg-purple_dark/[.03]">
       <DetailHeader title="Jasa Investasi" />
       {/* Main Content */}
-      <div className="max-w-[100rem] w-full mx-auto p-8">
+      <div className="max-w-[85rem] w-full mx-auto p-8">
         <CustomerFund searchParams={searchParams} />
       </div>
     </div>
