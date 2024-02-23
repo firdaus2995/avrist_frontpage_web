@@ -1,12 +1,15 @@
 import AlertCircle from './commons/AlertCircle';
 import ArrowRightIcon from './commons/ArrowRightIcon';
+import Award from './commons/Award';
 import CalendarIcon from './commons/CalendarIcon';
 import ChevronRight from './commons/ChevronRight';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
 import DownloadIcon from './commons/DownloadIcon';
+import Eye from './commons/Eye';
 import FacebookIcon from './commons/FacebookIcon';
 import HamburgerMenuIcon from './commons/HamburgerMenuIcon';
+import Heart from './commons/Heart';
 import HelpCircle from './commons/HelpCircle';
 import HomeIcon from './commons/HomeIcon';
 import InstaIcon from './commons/InstaIcon';
@@ -39,7 +42,10 @@ const IconSVG = {
   DownloadIcon,
   CopyUrl,
   Share,
-  Polygon
+  Polygon,
+  Award,
+  Eye,
+  Heart
 };
 
 export default IconSVG;
