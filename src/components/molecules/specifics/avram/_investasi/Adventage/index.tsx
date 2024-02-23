@@ -9,7 +9,7 @@ const Advantage = () => {
             <span className="text-purple_dark font-bold">Keunggulan</span> Kami
           </p>
         </div>
-        <div className="flex md:flex-row xs:flex-col gap-2 items-center justify-center mt-10">
+        <div className="flex md:flex-row xs:flex-col gap-4 items-center justify-center mt-10">
           <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <Icon
               width={48}

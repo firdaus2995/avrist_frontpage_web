@@ -27,6 +27,7 @@ const iconType = {
   award: IconSVG.Award,
   heart: IconSVG.Heart,
   eye: IconSVG.Eye,
+  newspaper: IconSVG.Newspaper,
 } as const;
 
 type IconsListType = keyof typeof iconType;

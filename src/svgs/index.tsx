@@ -15,6 +15,7 @@ import HomeIcon from './commons/HomeIcon';
 import InstaIcon from './commons/InstaIcon';
 import LinkedInIcon from './commons/LinkedInIcon';
 import Mail from './commons/Mail';
+import Newspaper from './commons/Newspaper';
 import PlayIcon from './commons/PlayIcon';
 import Polygon from './commons/Polygon';
 import SealWarning from './commons/SealWarning';
@@ -45,7 +46,8 @@ const IconSVG = {
   Polygon,
   Award,
   Eye,
-  Heart
+  Heart,
+  Newspaper
 };
 
 export default IconSVG;
