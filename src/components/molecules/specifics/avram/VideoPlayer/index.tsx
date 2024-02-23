@@ -6,7 +6,7 @@ import YouTube, { YouTubeEvent } from 'react-youtube';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 
-type VideoPlayerProps = {
+export type VideoPlayerProps = {
   url: string;
   thumbnail: string;
 };

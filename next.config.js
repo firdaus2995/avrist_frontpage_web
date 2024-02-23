@@ -13,7 +13,6 @@ const nextConfig = {
       }
     ]
   },
-  output: 'export',
   distDir: 'dist'
 };
 

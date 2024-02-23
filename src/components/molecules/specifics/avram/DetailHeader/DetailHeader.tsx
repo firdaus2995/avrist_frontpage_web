@@ -9,9 +9,7 @@ interface IDetailHeader {
   title: string;
 }
 
-const DetailHeader: React.FC<IDetailHeader> = ({
-  title
-}) => {
+const DetailHeader: React.FC<IDetailHeader> = ({ title }) => {
   return (
     <div className="flex w-full">
       <div className="w-full h-[200px] bg-purple_dark shadow-lg flex md:items-center xs:items-start justify-center relative">
@@ -20,11 +18,13 @@ const DetailHeader: React.FC<IDetailHeader> = ({
           src={BannerImg}
           alt="banner-img"
         />
-        <div className="w-full md:px-32 xs:px-2 p-2 flex justify-between items-center absolute">
-          <div className="md:text-[48px] xs:text-[18px] text-white">{title}</div>
-          <div className="flex flex-row divide-x text-center h-5 text-white text-xs">
-            <div className='px-2'>Beranda</div>
-            <div className='px-2 font-semibold'>{title}</div>
+        <div className="w-full h-full mx-auto max-w-[100rem] px-8 flex md:justify-between justify-center md:items-center items-start absolute flex-col md:flex-row flex-wrap gap-4">
+          <h2 className="font-light md:text-[48px] text-[30px] text-white">
+            {title}
+          </h2>
+          <div className="flex flex-row divide-x gap-2 text-center h-5 text-white text-base flex-wrap">
+            <p className="md:px-2">Beranda</p>
+            <p className="px-2 font-semibold">{title}</p>
           </div>
         </div>
       </div>

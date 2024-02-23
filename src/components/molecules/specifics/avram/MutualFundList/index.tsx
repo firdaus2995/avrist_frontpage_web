@@ -2,15 +2,15 @@ import React from 'react';
 
 import Pagination from '../Pagination';
 import FundListItem from './components/FundListItem';
-import TabHeader from './components/TabHeader';
+import FundListTabHeader from './components/FundListTabHeader';
 import SAMPLE_DATA from './dummy-data.json';
 import { FundListTabItemType, FundListItemType } from './types';
-import { SearchParamsType } from '@/app/avram/investasi/reksa-dana/page';
+import { ParamDataType } from '@/utils/globalTypes';
 
 const ITEMS_PER_PAGE = 2;
 
 type MutualFundListProps = {
-  searchParams: SearchParamsType;
+  searchParams: Record<string, ParamDataType>;
 };
 
 const MutualFundList: React.FC<MutualFundListProps> = async ({
@@ -84,7 +84,10 @@ const MutualFundList: React.FC<MutualFundListProps> = async ({
 
   return (
     <div className="bg-white p-9 rounded-md shadow-lg flex flex-col gap-4">
-      <TabHeader items={tabs} category={currentCategory} />
+      <FundListTabHeader
+        items={tabs.map((item) => ({ title: item, value: item }))}
+        category={currentCategory}
+      />
       <div className="flex flex-col gap-4">
         {fundListItems.map((item, index) => (
           <FundListItem key={index} item={item} />

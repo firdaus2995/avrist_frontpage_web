@@ -23,7 +23,12 @@ const iconType = {
   calendarIcon: IconSVG.CalendarIcon,
   downloadIcon: IconSVG.DownloadIcon,
   copyUrl: IconSVG.CopyUrl,
-  share: IconSVG.Share
+  share: IconSVG.Share,
+  fileIcon: IconSVG.FileIcon,
+  globeIcon: IconSVG.GlobeIcon,
+  keyIcon: IconSVG.KeyIcon,
+  magnifyingGlassIcon: IconSVG.MagnifyingGlass,
+  xcrossIcon: IconSVG.XCrossIcon
 } as const;
 
 type IconsListType = keyof typeof iconType;
