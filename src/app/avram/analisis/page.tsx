@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 interface SearchParams {
   tab?: string;
   detail?: string;
@@ -27,5 +28,4 @@ const Analisis: React.FC<{ searchParams: SearchParams }> = ({ searchParams }) =>
     console.log(error);
   }
 }
-
 export default Analisis;
