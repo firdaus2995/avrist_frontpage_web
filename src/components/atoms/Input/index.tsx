@@ -21,11 +21,12 @@ const BASE_COSMETIC_INPUT_CLASS =
 
 const Input: RootInput & React.FC<InputProps> = ({
   customInputClass,
+  placeholder = 'Search',
   ...rest
 }) => {
   return (
     <input
-      placeholder={rest.placeholder ?? 'Search'}
+      placeholder={placeholder}
       className={`transition-all p-3 ${BASE_COSMETIC_INPUT_CLASS} ${customInputClass ?? ''}`}
       {...rest}
     />

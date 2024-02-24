@@ -48,7 +48,7 @@ const ProductComparisonDropdown = <T,>({
   };
 
   return (
-    <div className="flex gap-2 md:flex-row flex-col w-full p-2 bg-purple_dark/10">
+    <div className="flex gap-2 md:flex-row flex-col w-full p-2 bg-purple_dark/10 rounded-xl">
       <MultipleDropdown<T>
         wrapperClassname="grow"
         values={values}
