@@ -1,9 +1,11 @@
 import AlertCircle from './commons/AlertCircle';
 import ArrowRightIcon from './commons/ArrowRightIcon';
+import CalculatorIcon from './commons/CalculatorIcon';
 import CalendarIcon from './commons/CalendarIcon';
 import ChevronRight from './commons/ChevronRight';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
+import DiscountIcon from './commons/DiscountIcon';
 import DownloadIcon from './commons/DownloadIcon';
 import FacebookIcon from './commons/FacebookIcon';
 import FileIcon from './commons/FileIcon';
@@ -16,8 +18,12 @@ import KeyIcon from './commons/KeyIcon';
 import LinkedInIcon from './commons/LinkedInIcon';
 import MagnifyingGlass from './commons/MagnifyingGlass';
 import Mail from './commons/Mail';
+import MultiPeopleIcon from './commons/MultiPeopleIcon';
 import PlayIcon from './commons/PlayIcon';
 import Polygon from './commons/Polygon';
+import RoundedPlus from './commons/RoundedPlus';
+import RoundedQuestion from './commons/RoundedQuestion';
+import RoundedX from './commons/RoundedX';
 import SealWarning from './commons/SealWarning';
 import Search from './commons/Search';
 import Share from './commons/Share';
@@ -49,7 +55,13 @@ const IconSVG = {
   MagnifyingGlass,
   KeyIcon,
   FileIcon,
-  GlobeIcon
+  GlobeIcon,
+  RoundedPlus,
+  RoundedX,
+  CalculatorIcon,
+  DiscountIcon,
+  MultiPeopleIcon,
+  RoundedQuestion
 };
 
 export default IconSVG;

@@ -1,8 +1,8 @@
 import React from 'react';
+import StepsBox from '../../StepsBox';
 import VideoPlayer, { VideoPlayerProps } from '../../VideoPlayer';
 import CustomerFundTabs from './components/CustomerFundTabs';
 import InvestmentAdvisorTab from './components/InvestmentAdvisorTab';
-import StepsBox from './components/StepsBox';
 import SAMPLE_DATA from './sample-data.json';
 
 import { CustomerFundProps, TabsItemType } from './types';

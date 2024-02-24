@@ -9,7 +9,9 @@ import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-[10rem]">
+    // Margin top can not be put in here because there are pages that --
+    // requires the most bottom part to touch the footer (e.g. Bandingkan produk page)
+    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative">
       <div className="md:p-16 p-8">
         <Image
           alt="Avrist"

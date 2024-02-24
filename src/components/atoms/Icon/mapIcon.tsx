@@ -28,7 +28,13 @@ const iconType = {
   globeIcon: IconSVG.GlobeIcon,
   keyIcon: IconSVG.KeyIcon,
   magnifyingGlassIcon: IconSVG.MagnifyingGlass,
-  xcrossIcon: IconSVG.XCrossIcon
+  xcrossIcon: IconSVG.XCrossIcon,
+  roundedPlus: IconSVG.RoundedPlus,
+  roundedX: IconSVG.RoundedX,
+  calculatorIcon: IconSVG.CalculatorIcon,
+  discountIcon: IconSVG.DiscountIcon,
+  multiPeopleIcon: IconSVG.MultiPeopleIcon,
+  roundedQuestion: IconSVG.RoundedQuestion
 } as const;
 
 type IconsListType = keyof typeof iconType;
