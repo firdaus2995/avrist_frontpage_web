@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -26,9 +26,14 @@ const TEMPORARY_IMAGE_MAPPING = [
 ];
 
 const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
+  // This component has become a client component even when there's not a "use client" withint this file.
+  // This is because this component has been imported into a Header component that is a client component.
+  // Therefore, the usage of useState in this component is justified
+  const [shouldForceHideBanner, setShouldForceHideBanner] = useState(false);
+
   return (
     <div
-      className={`font-karla w-full bg-white gap-4 shadow-xl text-gray_body ${customClass ?? ''}`}
+      className={`${shouldForceHideBanner ? '!opacity-0 !invisible' : ''} font-karla w-full bg-white gap-4 shadow-xl text-gray_body ${customClass ?? ''}`}
     >
       <div className="w-full max-w-[89rem] m-auto flex items-stretch justify-between gap-6 pr-16">
         <div className="max-w-[35rem] w-full flex flex-col justify-center pl-12 py-16">
@@ -44,8 +49,14 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass }) => {
               {content.subMenus.map((item, index) => (
                 <React.Fragment key={index}>
                   <Link
-                    href={`/avram/${camelToKebabCase(content.title)}${camelToKebabCase(content.title) === "analisis" ? '?tab=' : '/'}${camelToKebabCase(item)}`}
+                    href={`/avram/${camelToKebabCase(content.title)}${camelToKebabCase(content.title) === 'analisis' ? '?tab=' : '/'}${camelToKebabCase(item)}`}
                     className={`font-bold ${index === 0 && 'text-purple_dark'}`}
+                    onClick={() => {
+                      setShouldForceHideBanner(true);
+                      setTimeout(() => {
+                        setShouldForceHideBanner(false);
+                      }, 700);
+                    }}
                   >
                     {item}
                   </Link>
