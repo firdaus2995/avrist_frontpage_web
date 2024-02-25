@@ -1,7 +1,13 @@
+import Advantage from "@/components/molecules/specifics/avram/_investasi/Adventage";
+import InvestmentPage from "@/components/molecules/specifics/avram/_investasi/Investment";
+import RelatedPage from "@/components/molecules/specifics/avram/_investasi/RelatedPage";
+
 const JasaInvestasi = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-6 bg-purple_dark/[.03]">
-      INI ADALAH HALAMAN JASA INVESTASI
+      <Advantage />
+      <InvestmentPage />
+      <RelatedPage />
     </div>
   )
 }
