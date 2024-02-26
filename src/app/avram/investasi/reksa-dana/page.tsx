@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
 import SampleImg1 from '@/assets/images/reksadana-icon-1.svg';
 import SampleImg2 from '@/assets/images/reksadana-icon-2.svg';
 import SampleImg3 from '@/assets/images/reksadana-icon-3.svg';

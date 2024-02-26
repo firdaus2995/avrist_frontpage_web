@@ -14,14 +14,16 @@ export const generateStaticParams = () => {
 const ReksaDana = ({ params }: { params: { detail: string } }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-6 bg-purple_dark/[.03]">
-      {/* DETAIL HEADER */}
-      <DetailHeader title="Avrist Blue Savir" />
-      <NavigationBar />
-
       <div className="flex flex-col items-center">
         <h1>INI ADALAH PAGE INVESTASI - DETAIL REKSA DANA</h1>
         <h3>{params.detail}</h3>
       </div>
+
+      {/* DETAIL HEADER */}
+      <DetailHeader title="Avrist Blue Savir" />
+
+      {/* NAVIGATION */}
+      <NavigationBar />
 
       {/* TABLE */}
       <FiturTableLike />
