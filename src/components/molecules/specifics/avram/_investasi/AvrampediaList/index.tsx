@@ -1,5 +1,6 @@
 'use client';
 import { SetStateAction, useState } from 'react';
+import Icon from '@/components/atoms/Icon';
 
 const headerList = Array.from({ length: 26 }, (_, index) =>
   String.fromCharCode(65 + index)
@@ -202,8 +203,6 @@ const AccordionItem = ({
   title,
   content,
   tags,
-  rowSpan,
-  colSpan,
   isExpanded,
   setIsExpanded,
   index
@@ -211,8 +210,6 @@ const AccordionItem = ({
   title: string;
   content: string;
   tags: string[];
-  rowSpan: number;
-  colSpan: number;
   isExpanded: number;
   setIsExpanded: (index: number) => void;
   index: number;
@@ -223,7 +220,7 @@ const AccordionItem = ({
 
   return (
     <div
-      className={`mb-4 ${isExpanded !== index && checkGrouping(index, isExpanded) ? 'hidden' : ''} ${isExpanded === index ? `row-span-${rowSpan} col-span-${colSpan}` : ''}`}
+      className={`mb-4 ${isExpanded !== index && checkGrouping(index, isExpanded) ? 'hidden' : ''} ${isExpanded === index ? `col-span-full` : ''}`}
     >
       <div
         className="flex flex-col items-center p-4 bg-white border rounded-lg cursor-pointer shadow-xl"
@@ -282,13 +279,10 @@ const AccordionList = ({ data, selected }: AccordionListProps) => {
     .list.map((item, index) => {
       const row = Math.floor(index / itemsPerPage) + 1;
       const col = (index % itemsPerPage) + 1;
-      const rowSpan = Math.ceil(item.title.length / 10);
-      const colSpan = 3;
-      return { ...item, row, col, rowSpan, colSpan };
+      return { ...item, row, col };
     });
 
   const updateEkspanded = (e: SetStateAction<number>) => {
-    console.log(e);
     if (Number(e) === isExpanded) {
       setIsExpanded(0);
     } else {
@@ -304,11 +298,11 @@ const AccordionList = ({ data, selected }: AccordionListProps) => {
         title={item.title}
         content={item.content}
         tags={item.tags}
-        rowSpan={item.rowSpan}
-        colSpan={item.colSpan}
         isExpanded={isExpanded}
         index={idx + 1}
-        setIsExpanded={(e) => updateEkspanded(e)}
+        setIsExpanded={(e) => {
+          console.log(item)
+          updateEkspanded(e)}}
       />
     ));
 
@@ -324,7 +318,7 @@ const AccordionList = ({ data, selected }: AccordionListProps) => {
           </span>{' '}
           dari <span className="font-bold">{totalItems}</span> hasil
         </div>
-        <div>
+        <div className='flex gap-2'>
           {Array.from({ length: totalPages }, (_, index) => index + 1).map(
             (pageNumber) => (
               <span
@@ -341,6 +335,9 @@ const AccordionList = ({ data, selected }: AccordionListProps) => {
               </span>
             )
           )}
+          <span className="mt-[3px]" role='button' onClick={() => paginate(totalPages)}>
+            <Icon name="chevronRight" color="purple_dark" />
+          </span>
         </div>
       </div>
     </div>
@@ -349,23 +346,30 @@ const AccordionList = ({ data, selected }: AccordionListProps) => {
 
 const AvrampediaList = () => {
   const [selected, setSelected] = useState('A');
+  const headers = headerList.map((val) => {
+    const isDisabled = !data.some((item) => item.value === val);
+    return { value: val, disabled: isDisabled };
+  });
+
   return (
     <div className="w-full flex flex-col bg-white md:px-20 xs:p-5 md:py-10 bg-purple_dark/[.03] gap-10">
       <div className="flex flex-row justify-center items-center divide-x border rounded-lg bg-white flex-wrap">
-        {headerList.map((val, idx) => (
+        {headers.map((header, idx) => (
           <div
             key={idx}
             role="button"
-            onClick={() => setSelected(val)}
+            onClick={() => !header.disabled && setSelected(header.value)}
             className={`p-3 grow text-center text-sm font-bold ${
               idx === 0
                 ? 'rounded-l-lg'
-                : idx === headerList.length - 1
-                  ? 'rounded-r-lg'
-                  : ''
-            } ${selected === val ? 'bg-purple_dark text-white' : ''}`}
+                : idx === headers.length - 1
+                ? 'rounded-r-lg'
+                : ''
+            } ${
+              header.disabled ? 'cursor-not-allowed text-gray-400' : ''
+            } ${selected === header.value ? 'bg-purple_dark text-white' : ''}`}
           >
-            {val}
+            {header.value}
           </div>
         ))}
       </div>
