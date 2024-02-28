@@ -1,15 +1,16 @@
 import React from 'react';
 
-type AvristLayoutProps = {
-  children: React.ReactNode;
-};
+import Footer from '@/components/molecules/specifics/avrist/Footer';
+import Header from '@/components/molecules/specifics/avrist/Header';
 
-const AvristLayout: React.FC<AvristLayoutProps> = ({ children }) => {
+const Avrist = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center font-opensans">
-      {children}
+    <div className="min-h-screen flex flex-col bg-white font-opensans">
+      <Header />
+      <div className="text-black">{children}</div>
+      <Footer />
     </div>
   );
 };
 
-export default AvristLayout;
+export default Avrist;

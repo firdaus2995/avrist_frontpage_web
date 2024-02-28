@@ -1,9 +1,10 @@
+import React from 'react';
+
 const Avrist = () => {
   return (
-    <div>
-      <h1>Avrist</h1>
+    <div className="flex flex-col items-center justify-center">
     </div>
-  );
+  )
 };
 
 export default Avrist;

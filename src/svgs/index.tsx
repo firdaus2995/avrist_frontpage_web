@@ -2,6 +2,7 @@ import AlertCircle from './commons/AlertCircle';
 import ArrowRightIcon from './commons/ArrowRightIcon';
 import Award from './commons/Award';
 import CalendarIcon from './commons/CalendarIcon';
+import ChevronDown from './commons/ChevronDown';
 import ChevronRight from './commons/ChevronRight';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
@@ -22,6 +23,7 @@ import SealWarning from './commons/SealWarning';
 import Search from './commons/Search';
 import Share from './commons/Share';
 import TiktokIcon from './commons/TiktokIcon';
+import YoutubeIcon from './commons/YoutubeIcon';
 
 const IconSVG = {
   Search,
@@ -47,7 +49,9 @@ const IconSVG = {
   Award,
   Eye,
   Heart,
-  Newspaper
+  Newspaper,
+  ChevronDown,
+  YoutubeIcon,
 };
 
 export default IconSVG;
