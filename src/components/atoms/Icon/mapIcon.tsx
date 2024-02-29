@@ -28,6 +28,8 @@ const iconType = {
   heart: IconSVG.Heart,
   eye: IconSVG.Eye,
   newspaper: IconSVG.Newspaper,
+  chevronDown: IconSVG.ChevronDown,
+  youtubeIcon: IconSVG.YoutubeIcon,
 } as const;
 
 type IconsListType = keyof typeof iconType;
