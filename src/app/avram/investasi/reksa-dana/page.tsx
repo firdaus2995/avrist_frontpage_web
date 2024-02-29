@@ -1,4 +1,5 @@
 'use client';
+export const dynamic = 'force-dynamic';
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -10,15 +11,10 @@ import SampleImg4 from '@/assets/images/reksadana-icon-4.svg';
 import SampleImg5 from '@/assets/images/reksadana-icon-5.svg';
 import Button from '@/components/atoms/Button/Button';
 import Chart from '@/components/molecules/specifics/avram/Chart/Chart';
-// import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
+import MutualFundList from '@/components/molecules/specifics/avram/MutualFundList';
+import { ParamsProps } from '@/utils/globalTypes';
 
-export type SearchParamsType = Record<string, string | string[] | undefined>;
-
-// type ReksaDanaProps = {
-//   searchParams: SearchParamsType;
-// };
-
-const ReksaDana = () => {
+const ReksaDana: React.FC<ParamsProps> = ({ searchParams }) => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center bg-purple_light_bg">
@@ -57,7 +53,7 @@ const ReksaDana = () => {
         </div>
 
         {/* Mutual Fund List */}
-        {/* <MutualFundList searchParams={searchParams} /> */}
+        <MutualFundList searchParams={searchParams} />
       </div>
     </div>
   );

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { format } from 'date-fns';
+import VideoPlayer from '../../../../VideoPlayer';
 import { VideoItem } from '../../../types';
-import VideoPlayer from '../../VideoPlayer';
 import Icon from '@/components/atoms/Icon';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 

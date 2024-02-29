@@ -17,11 +17,12 @@ type RadioButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface IButton {
-  title: string;
+  title?: string;
   onClick?: (event: React.SyntheticEvent) => void;
   customButtonClass?: string;
   customTextClass?: string;
   disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 const BASE_BUTTON_CLASS =
@@ -34,19 +35,24 @@ const Button: RootButton & React.FC<IButton> = ({
   onClick,
   customButtonClass = '',
   customTextClass = '',
-  disabled
+  disabled,
+  children
 }) => {
   return (
     <button
       className={`${
         disabled
           ? `px-10 py-3 text-sm font-medium ${BASE_DISABLE_BUTTON_CLASS}`
-          : `${BASE_BUTTON_CLASS} px-10 py-3 text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
+          : `${BASE_BUTTON_CLASS} px-10 py-3 text-purple_dark border-purple_dark hover:bg-purple_dark bg-white hover:text-white ${customButtonClass}`
       }`}
       disabled={disabled ?? false}
       onClick={onClick}
     >
-      <p className={`${customTextClass}`}>{title}</p>
+      {title ? (
+        <p className={`${customTextClass}`}>{title}</p>
+      ) : (
+        <>{children}</>
+      )}
     </button>
   );
 };
