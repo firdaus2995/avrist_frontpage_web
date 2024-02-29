@@ -34,7 +34,13 @@ const iconType = {
   calculatorIcon: IconSVG.CalculatorIcon,
   discountIcon: IconSVG.DiscountIcon,
   multiPeopleIcon: IconSVG.MultiPeopleIcon,
-  roundedQuestion: IconSVG.RoundedQuestion
+  roundedQuestion: IconSVG.RoundedQuestion,
+  award: IconSVG.Award,
+  heart: IconSVG.Heart,
+  eye: IconSVG.Eye,
+  newspaper: IconSVG.Newspaper,
+  chevronDown: IconSVG.ChevronDown,
+  youtubeIcon: IconSVG.YoutubeIcon,
 } as const;
 
 type IconsListType = keyof typeof iconType;

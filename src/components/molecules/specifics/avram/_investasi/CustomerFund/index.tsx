@@ -83,7 +83,7 @@ const CustomerFund: React.FC<CustomerFundProps> = async ({ searchParams }) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-12">
+    <div className="w-full flex flex-col self-stretch items-center justify-center md:px-20 xs:p-5 md:py-10 gap-12">
       <div className="self-center">
         <CustomerFundTabs items={tabs} tab={currentTab} />
       </div>

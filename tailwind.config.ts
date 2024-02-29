@@ -71,7 +71,10 @@ const config: Config = {
         green_approval: '#417C40',
         yellow_warning: '#E5E500',
         red_error: '#DB3838',
-        gray_border: '#ABA7AF'
+        gray_border: '#ABA7AF',
+        space_purpink: '#D96DFF',
+        agi_grey: '#9099BE',
+        avram_green: '#5BB1A5'
       }
     }
   },
