@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from '@/components/molecules/specifics/avrist/Footer';
-import Header from '@/components/molecules/specifics/avrist/Header';
+import Footer from '@/components/molecules/specifics/avrast/Footer';
+import Header from '@/components/molecules/specifics/avrast/Header';
 
 const Avrist = ({ children }: { children: React.ReactNode }) => {
   return (

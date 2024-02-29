@@ -15,7 +15,7 @@ const App = () => {
     <div className="h-screen flex items-center justify-center gap-2">
       <Button 
         title="AVRIST"
-        onClick={() => handleButtonClick("/avrist")}
+        onClick={() => handleButtonClick("/avrast")}
       />
       <Button
         title="AVRAM"

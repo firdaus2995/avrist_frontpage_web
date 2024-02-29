@@ -10,7 +10,7 @@ import DUMMY_DATA from './sample-data.json';
 
 import styles from './styles.module.css';
 import { NavbarMenuItem } from './types';
-import VectorLogo from '@/assets/images/avrist/vector-logo.svg';
+import VectorLogo from '@/assets/images/avrast/vector-logo.svg';
 
 import AVRIST_LOGO from '@/assets/images/avrist-logo.svg';
 import BlackOverlay from '@/components/atoms/BlackOverlay';
