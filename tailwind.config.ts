@@ -74,7 +74,16 @@ const config: Config = {
         gray_border: '#ABA7AF',
         space_purpink: '#D96DFF',
         agi_grey: '#9099BE',
-        avram_green: '#5BB1A5'
+        avram_green: '#5BB1A5',
+        foamy_milk: '#F7F3F9',
+        soft_grey: '#F6F6F6',
+        avram_bg: '#EBFCFA',
+        green_border: '#A5C903',
+        orange_border: '#F2A625',
+        avrast_product_text: '#de64fc',
+        avram_product_text: '#1effe1',
+        agi_product_text: '#dfdfdf',
+        avrast_product_bg: '#480469'
       }
     }
   },
