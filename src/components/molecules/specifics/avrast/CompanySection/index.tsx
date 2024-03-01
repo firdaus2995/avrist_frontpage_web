@@ -146,10 +146,10 @@ const CompanySection = () => {
   return (
     <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">
       <div>
-        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark">
+        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
           Mengapa Memilih Avrist?
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center">
+        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
           Satu Polis untuk setiap rumah tangga di Indonesia
         </p>
       </div>

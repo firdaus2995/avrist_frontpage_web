@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -11,6 +11,8 @@ import Slider from 'react-slick';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/layanan-nasabah/chevron-right.svg';
 import ICON1 from '@/assets/images/avrast/component/layanan-nasabah/icon-1.svg';
 import ICON2 from '@/assets/images/avrast/component/layanan-nasabah/icon-2.svg';
+import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
+import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
 
 const data = [
   {
@@ -32,8 +34,19 @@ const data = [
 ];
 
 const LayananNasabah = () => {
+  const sliderRef = useRef<Slider | null>(null);
+  const next = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
+  };
+  const previous = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
+  };
   const sliderSettings = {
-    dots: true,
+    dots: false,
     infinite: false,
     arrows: false,
     centerMode: true,
@@ -117,10 +130,10 @@ const LayananNasabah = () => {
         <div className="w-1/5 h-full bg-avram_green rounded-tr-[65px]"></div>
       </div>
       <div>
-        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark">
+        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
           Layanan Nasabah
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center">
+        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
           Kami Melayani Dengan Senang Hati!
         </p>
       </div>
@@ -130,11 +143,20 @@ const LayananNasabah = () => {
         ))}
       </div>
       <div className="w-full grid grid-cols-1 md:hidden gap-4">
-        <Slider {...sliderSettings}>
+        <Slider
+          ref={(slider) => {
+            sliderRef.current = slider;
+          }}
+          {...sliderSettings}
+        >
           {data.map((val, idx) => (
             <div key={idx}>{renderCard(val)}</div>
           ))}
         </Slider>
+        <div className="flex flex-row gap-4 ml-5">
+          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
+          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+        </div>
       </div>
     </div>
   );
