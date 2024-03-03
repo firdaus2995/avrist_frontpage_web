@@ -137,7 +137,7 @@ const BannerAvrast = () => {
                 <div>
                   <Button
                     title={data.btn}
-                    customButtonClass={`bg-${data.color} text-white border-none`}
+                    customButtonClass={`bg-${data.color} hover:bg-${data.color} text-white border-none`}
                     onClick={() => console.log('Button Clicked')}
                   />
                 </div>
