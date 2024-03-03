@@ -1,41 +1,42 @@
 import Image from 'next/image';
-import SAMPLE_DATA from './sample-data.json';
-import { ProductData } from './types';
+// import SAMPLE_DATA from './sample-data.json';
+// import { ProductData } from './types';
 import WHATSAPP_IMAGE from '@/assets/images/whatsapp-image-small.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
-import ProductComparisonDropdown from '@/components/molecules/specifics/avram/_investasi/ProductComparisonDropdown';
+// import ProductComparisonDropdown from '@/components/molecules/specifics/avram/_investasi/ProductComparisonDropdown';
 import Chart from '@/components/molecules/specifics/avram/Chart/Chart';
 import DetailHeader from '@/components/molecules/specifics/avram/DetailHeader/DetailHeader';
 import MainBanner from '@/components/molecules/specifics/avram/MainBanner';
-import FundListItem from '@/components/molecules/specifics/avram/MutualFundList/components/FundListItem';
+// import FundListItem from '@/components/molecules/specifics/avram/MutualFundList/components/FundListItem';
 import StepsBox from '@/components/molecules/specifics/avram/StepsBox';
 import { ParamsProps } from '@/utils/globalTypes';
 
-const BandingkanProduk: React.FC<ParamsProps> = async ({ searchParams }) => {
-  const getProductsData = async (shouldGetFiltered?: boolean) => {
-    return new Promise<ProductData[]>((resolve) => {
-      setTimeout(() => {
-        const productData = SAMPLE_DATA.productData as ProductData[];
-        if (shouldGetFiltered) {
-          const existedProducts = searchParams['product'];
-          if (existedProducts) {
-            console.log(existedProducts);
-            resolve(
-              productData.filter((item) => existedProducts.includes(item.name))
-            );
-            return;
-          }
-          resolve(productData.filter((_, index) => index < 5));
-        }
-        resolve(productData.filter((_, index) => index < 5));
-      }, 1000);
-    });
-  };
+// const BandingkanProduk: React.FC<ParamsProps> = async ({ searchParams }) => {
+const BandingkanProduk: React.FC<ParamsProps> = async () => {
+  // const getProductsData = async (shouldGetFiltered?: boolean) => {
+  //   return new Promise<ProductData[]>((resolve) => {
+  //     setTimeout(() => {
+  //       const productData = SAMPLE_DATA.productData as ProductData[];
+  //       if (shouldGetFiltered) {
+  //         const existedProducts = searchParams['product'];
+  //         if (existedProducts) {
+  //           console.log(existedProducts);
+  //           resolve(
+  //             productData.filter((item) => existedProducts.includes(item.name))
+  //           );
+  //           return;
+  //         }
+  //         resolve(productData.filter((_, index) => index < 5));
+  //       }
+  //       resolve(productData.filter((_, index) => index < 5));
+  //     }, 1000);
+  //   });
+  // };
 
   // This is to get the data tabs
-  const products = await getProductsData();
-  const filteredProducts = await getProductsData(true);
+  // const products = await getProductsData();
+  // const filteredProducts = await getProductsData(true);
 
   const PRODUCT_COMPARISON_CARD_DATA = [
     {
@@ -92,16 +93,16 @@ const BandingkanProduk: React.FC<ParamsProps> = async ({ searchParams }) => {
     <div className="flex h-full flex-col bg-purple_dark/[.03] pb-[10rem]">
       <DetailHeader title="Bandingkan Produk" />
       <div className="flex flex-col gap-12 p-[80px]">
-        <ProductComparisonDropdown<string>
+        {/* <ProductComparisonDropdown<string>
           options={products.map((item) => item.name)}
-        />
+        /> */}
         <div className="bg-white p-9 rounded-lg shadow-md">
           <Chart />
         </div>
         <div>
-          {filteredProducts.map((item, index) => (
+          {/* {filteredProducts.map((item, index) => (
             <FundListItem key={index} item={item.fundData} />
-          ))}
+          ))} */}
         </div>
       </div>
       <MainBanner
