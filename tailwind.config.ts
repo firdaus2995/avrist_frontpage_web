@@ -70,6 +70,7 @@ const config: Config = {
         purple_verylight: '#C4B7D3',
         green_approval: '#417C40',
         yellow_warning: '#E5E500',
+        yellow_alternate: '#F3B03F',
         red_error: '#DB3838',
         gray_border: '#ABA7AF',
         space_purpink: '#D96DFF',
@@ -83,7 +84,8 @@ const config: Config = {
         avrast_product_text: '#de64fc',
         avram_product_text: '#1effe1',
         agi_product_text: '#dfdfdf',
-        avrast_product_bg: '#480469'
+        avrast_product_bg: '#480469',
+        olive_green: '#A5C903'
       }
     }
   },

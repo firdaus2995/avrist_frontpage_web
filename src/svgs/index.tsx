@@ -73,7 +73,7 @@ const IconSVG = {
   Heart,
   Newspaper,
   ChevronDown,
-  YoutubeIcon,
+  YoutubeIcon
 };
 
 export default IconSVG;
