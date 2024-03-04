@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import NavCard from './components/NavCard';
 import NavDropdownMenus from './components/NavDropdownMenus';
 import TriangleMarker from './components/TriangleMarker';
@@ -25,17 +26,12 @@ const Header = () => {
     <nav className="isolate sticky z-50 top-0">
       {/* White Section */}
       <div className="flex flex-row justify-between items-center px-4 md:px-16 py-4 text-gray_black bg-white">
-        <div className='flex flex-row gap-2 items-center'>
+        <div className="flex flex-row gap-2 items-center">
           <Image className="h-auto w-7" src={VectorLogo} alt="vector-logo" />
-          <p className='text-md font-bold text-black'>Avrist Group</p>
-          <Icon
-              width={10}
-              height={10}
-              name="chevronDown"
-              color="black"
-            />
+          <p className="text-md font-bold text-black">Avrist Group</p>
+          <Icon width={10} height={10} name="chevronDown" color="black" />
         </div>
-        <div className='flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2'>
+        <div className="flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2">
           <div className="flex flex-rowgap-2 cursor-pointer md:flex xs:hidden">
             <Icon name="helpcircle" color="gray_black" />
             <p className="font-bold text-sm">Tanya Avrista</p>
@@ -53,7 +49,9 @@ const Header = () => {
             <p className="font-bold text-sm">Subscribe</p>
           </div>
           <div className="flex flex-row gap-2 cursor-pointer pl-2">
-            <Icon name="search" />
+            <Link href={`/avrast/pencarian`}>
+              <Icon name="search" />
+            </Link>
           </div>
         </div>
       </div>
@@ -88,10 +86,7 @@ const Header = () => {
           >
             <Icon name="hamburgerMenuIcon" color="white" />
           </Button.IconButton>
-          <Image
-            alt="Avrist Logo"
-            src={AVRIST_LOGO}
-          />
+          <Image alt="Avrist Logo" src={AVRIST_LOGO} />
         </div>
         <NavDropdownMenus
           isVisible={isDropdownVisible}
