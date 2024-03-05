@@ -85,7 +85,8 @@ const config: Config = {
         avram_product_text: '#1effe1',
         agi_product_text: '#dfdfdf',
         avrast_product_bg: '#480469',
-        olive_green: '#A5C903'
+        olive_green: '#A5C903',
+        grey_video_footer: '#8C8B89'
       }
     }
   },

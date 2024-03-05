@@ -42,11 +42,13 @@ import NAV3IMAGE3 from '@/assets/images/avrast/promo-berita/testimonial.svg';
 
 
 import Icon from '@/components/atoms/Icon';
+import { camelToKebabCase, convertToKebabCase } from '@/utils/helpers';
 
 
 type NavCardProps = {
   content: NavbarMenuItemContent[];
   customClass?: string;
+  title: string;
   indexData: number;
 };
 
@@ -98,7 +100,7 @@ const ICON_MAPPING = [
   ],
 ];
 
-const NavCard: React.FC<NavCardProps> = ({ content, customClass, indexData }) => {
+const NavCard: React.FC<NavCardProps> = ({ content, customClass, indexData, title }) => {
   // This component has become a client component even when there's not a "use client" withint this file.
   // This is because this component has been imported into a Header component that is a client component.
   // Therefore, the usage of useState in this component is justified
@@ -122,7 +124,7 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass, indexData }) =>
                 {val?.subMenus?.map((item, index) => (
                   <React.Fragment key={index}>
                     <Link
-                      href={`#`}
+                      href={`/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}/${camelToKebabCase(item.title)}`}
                       className={`flex flex-row justify-between`}
                       onClick={() => {
                         setShouldForceHideBanner(true);
