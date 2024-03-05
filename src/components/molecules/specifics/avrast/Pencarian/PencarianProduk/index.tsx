@@ -5,7 +5,7 @@ import Button from '@/components/atoms/Button/Button';
 
 const PencarianProduk = () => {
   return (
-    <div className="bg-purple_dark flex justify-center py-20">
+    <div className="bg-purple_dark flex justify-center py-20 -my-[1px]">
       <div className="flex flex-row w-[78%] h-[392px]">
         <div className="w-[50%] bg-white rounded-l-2xl p-10 flex flex-col justify-between">
           <p className="text-[48px]">

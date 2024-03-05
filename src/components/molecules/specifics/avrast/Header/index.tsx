@@ -32,10 +32,13 @@ const Header = () => {
           <Icon width={10} height={10} name="chevronDown" color="black" />
         </div>
         <div className="flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2">
-          <div className="flex flex-rowgap-2 cursor-pointer md:flex xs:hidden">
+          <Link
+            href={`/avrast/tanya-avrista`}
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden"
+          >
             <Icon name="helpcircle" color="gray_black" />
             <p className="font-bold text-sm">Tanya Avrista</p>
-          </div>
+          </Link>
           <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
             <Icon name="helpcircle" color="gray_black" />
             <p className="font-bold text-sm">Beli Online</p>
