@@ -75,6 +75,7 @@ const Header = () => {
                 <NavCard
                   customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
                   content={item.content}
+                  title={item.title}
                   indexData={idx}
                 />
               </React.Fragment>

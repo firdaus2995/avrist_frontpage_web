@@ -4,6 +4,7 @@ import Award from './commons/Award';
 import CalculatorIcon from './commons/CalculatorIcon';
 import CalendarIcon from './commons/CalendarIcon';
 import ChevronDown from './commons/ChevronDown';
+import ChevronLeft from './commons/ChevronLeft';
 import ChevronRight from './commons/ChevronRight';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
@@ -73,7 +74,8 @@ const IconSVG = {
   Heart,
   Newspaper,
   ChevronDown,
-  YoutubeIcon
+  YoutubeIcon,
+  ChevronLeft
 };
 
 export default IconSVG;
