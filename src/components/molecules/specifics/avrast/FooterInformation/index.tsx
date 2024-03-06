@@ -1,8 +1,9 @@
+import { ReactElement } from 'react';
 import Image from 'next/image';
 import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
-  title: string;
+  title: ReactElement;
   buttonTitle: string;
   image: string;
 }
