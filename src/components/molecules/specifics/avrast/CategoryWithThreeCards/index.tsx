@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 
-import ButtonSmall from "@/components/atoms/ButtonSmall";
-import ButtonSmallWithCheck from "@/components/atoms/ButtonSmallWithCheck";
 import CardCategoryA from "../Cards/CategoryA";
 import HeartSymbol from "@/assets/symbols/heart-symbol.svg";
+import ButtonSmall from "@/components/atoms/ButtonSmall";
+import ButtonSmallWithCheck from "@/components/atoms/ButtonSmallWithCheck";
 import Icon from "@/components/atoms/Icon";
 
 interface ICategoryWithThreeCards {
@@ -27,11 +27,11 @@ const CategoryWithThreeCards = ({
       <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
         {categories.map((item: string, index: number) => (
           selectedCategory === item ? (
-            <div className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer">
+            <div key={index} className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer">
               <span className="font-bold text-purple_dark text-[18px]">{item}</span>
             </div>
           ) : (
-            <div className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer">
+            <div key={index} className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer">
               <span className="font-bold text-purple_mediumlight text-[18px]">{item}</span>
             </div>
           )
@@ -48,11 +48,11 @@ const CategoryWithThreeCards = ({
           {
             tabs.map((item: { type: string, label: string }, index: number) => (
               item.type === 'button' ? (
-                <ButtonSmall title={item.label} />
+                <ButtonSmall key={index} title={item.label} />
               ) : item.type === 'button-checkbox' ? (
-                <ButtonSmallWithCheck name={item.label} title={item.label} />
+                <ButtonSmallWithCheck key={index} name={item.label} title={item.label} />
               ) : (
-                <React.Fragment />
+                <React.Fragment key={index} />
               )
             ))
           }

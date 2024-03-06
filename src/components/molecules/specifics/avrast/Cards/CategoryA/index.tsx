@@ -1,13 +1,13 @@
 import React from "react";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
 import BlankImage from "@/assets/images/blank-image.svg";
-import TagPill from "../../../avram/MutualFundList/components/TagPill";
-import MediumTag from "@/components/atoms/Tag/MediumTag";
 import ButtonSmall from "@/components/atoms/ButtonSmall";
+import MediumTag from "@/components/atoms/Tag/MediumTag";
 
 interface ICardCategoryA {
-  symbol: any;
+  symbol: StaticImport | string;
   title: string;
   summary: string;
   description: string;
@@ -33,7 +33,7 @@ const CardCategoryA = ({
       <div className="flex flex-row flex-wrap gap-[12px]">
         {
           tags.map((item: string, index: number) => (
-            <MediumTag title={item} />
+            <MediumTag key={index} title={item} />
           ))
         }
       </div>

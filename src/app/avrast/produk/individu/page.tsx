@@ -1,18 +1,18 @@
 import React from "react";
 import Image from "next/image";
 
-import Hero from "@/components/molecules/specifics/avrast/Hero";
 import GambarProdukIndividu from "@/assets/images/gambar-produk-individu.svg";
-import CategoryWithThreeCards from "@/components/molecules/specifics/avrast/CategoryWithThreeCards";
-import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
-import FooterInformation from "@/components/molecules/specifics/avrast/FooterInformation";
-import ProdukIndividuImage from "@/assets/images/produk-individu-image.svg";
-import FooterCards from "@/components/molecules/specifics/avrast/FooterCards";
-import ProdukRumahSakit from "@/assets/images/produk-rumah-sakit.svg";
 import ProdukClaim from "@/assets/images/produk-claim.svg";
+import ProdukIndividuImage from "@/assets/images/produk-individu-image.svg";
 import ProdukPolis from "@/assets/images/produk-polis.svg";
+import ProdukRumahSakit from "@/assets/images/produk-rumah-sakit.svg";
 import ProdukTestimoni from "@/assets/images/produk-testimoni.svg";
+import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
+import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
+import CategoryWithThreeCards from "@/components/molecules/specifics/avrast/CategoryWithThreeCards";
+import FooterCards from "@/components/molecules/specifics/avrast/FooterCards";
+import FooterInformation from "@/components/molecules/specifics/avrast/FooterInformation";
+import Hero from "@/components/molecules/specifics/avrast/Hero";
 
 const breadcrumbsData = [
   { title: 'Beranda', href: '/avrast' },

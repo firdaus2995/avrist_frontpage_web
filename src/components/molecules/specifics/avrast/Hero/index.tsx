@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
 import HERO_IMAGE from '@/assets/images/hero-image.svg';
 
 interface IHero {
@@ -12,7 +14,7 @@ interface IHero {
     title: string;
     href: string;
   }[];
-  bottomImage?: any;
+  bottomImage?: StaticImport | string;
 }
 
 const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {

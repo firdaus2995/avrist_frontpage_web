@@ -1,10 +1,12 @@
-import Button from "@/components/atoms/Button/Button";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
+import Button from "@/components/atoms/Button/Button";
+
 interface IFooterInformation {
-  title: any;
+  title: JSX.Element;
   buttonTitle: string;
-  image: any;
+  image: StaticImport | string;
 }
 
 const FooterInformation = ({
