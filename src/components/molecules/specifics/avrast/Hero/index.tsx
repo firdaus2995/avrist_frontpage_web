@@ -14,15 +14,19 @@ interface IHero {
     title: string;
     href: string;
   }[];
-  bottomImage?: StaticImport | string;
+  bottomImage?: StaticImport;
 }
 
 const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
   const pathname = usePathname();
   return (
-    <div className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[840px]' : 'h-[200px]'}`}>
+    <div
+      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[840px]' : 'h-[200px]'}`}
+    >
       <div className="w-full flex items-center">
-        <div className={`w-full flex flex-row justify-between px-20 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[70px]' : 'pt-[50px]'}`}>
+        <div
+          className={`w-full flex flex-row justify-between px-20 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[70px]' : 'pt-[50px]'}`}
+        >
           <p className="font-karla text-white text-[48px] font-light">
             {title}
           </p>
@@ -43,14 +47,20 @@ const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
           </span>
         </div>
       </div>
-      <Image className={`-z-[2] w-full top-0 absolute object-cover ${bottomImage ? 'h-[280px]' : 'h-[200px]'}`} alt="Avrist" src={HERO_IMAGE} />
-      {
-        bottomImage && (
-          <div className='-z-[1] w-full top-[200px] absolute'>
-            <Image className="rounded-t-[60px] w-full object-cover h-[640px]" alt="gambar-produk-individu" src={bottomImage} />
-          </div>
-        )
-      }
+      <Image
+        className={`-z-[2] w-full top-0 absolute object-cover ${bottomImage ? 'h-[280px]' : 'h-[200px]'}`}
+        alt="Avrist"
+        src={HERO_IMAGE}
+      />
+      {bottomImage && (
+        <div className="-z-[1] w-full top-[200px] absolute">
+          <Image
+            className="rounded-t-[60px] w-full object-cover h-[640px]"
+            alt="gambar-produk-individu"
+            src={bottomImage}
+          />
+        </div>
+      )}
     </div>
   );
 };

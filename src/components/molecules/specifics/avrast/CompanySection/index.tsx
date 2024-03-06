@@ -31,9 +31,7 @@ const data = [
     link1: 'Penghargaan',
     link2: 'Rumah Sakit Rekanan',
     linkIcon: CHEVRONRIGHTPURPLE,
-    img: PRODUCTIMG1,
-    color: 'avrast_product_bg',
-    textColor: 'avrast_product_text'
+    img: PRODUCTIMG1
   },
   {
     category: 'Avrist Asset Management',
@@ -44,9 +42,7 @@ const data = [
     link1: 'Penghargaan',
     link2: 'Tentang Kami',
     linkIcon: CHEVRONRIGHTGREEN,
-    img: PRODUCTIMG2,
-    color: 'avram_green',
-    textColor: 'avram_product_text'
+    img: PRODUCTIMG2
   },
   {
     category: 'Avrist General Insurance',
@@ -57,9 +53,7 @@ const data = [
     link1: 'Penghargaan',
     link2: 'Tentang Kami',
     linkIcon: CHEVRONRIGHTGRAY,
-    img: PRODUCTIMG3,
-    color: 'agi_grey',
-    textColor: 'agi_product_text'
+    img: PRODUCTIMG3
   }
 ];
 
@@ -84,64 +78,82 @@ const CompanySection = () => {
     link2: string;
     linkIcon: StaticImport;
     img: StaticImport;
-    color: string;
-    textColor: string;
-  }) => (
-    <div
-      className={`w-full md:h-[40vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-${val.color} items-center justify-center text-center shadow-xl`}
-    >
+  }) => {
+    let color: string;
+    let textColor: string;
+
+    if (val.category === 'Avrist Life Insurance') {
+      color = 'avrast_product_bg';
+      textColor = 'avrast_product_text';
+    } else if (val.category === 'Avrist Asset Management') {
+      color = 'avram_green';
+      textColor = 'avram_product_text';
+    } else {
+      color = 'agi_grey';
+      textColor = 'agi_product_text';
+    }
+
+    return (
       <div
-        className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-10 text-white`}
+        className={`w-full md:h-[40vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-${color} items-center justify-center text-center shadow-xl`}
       >
-        <p className="md:text-5xl xs:text-2xl font-black text-left">
-          {val.category}
-        </p>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-row items-center gap-2 flex-wrap">
-            <Image
-              src={val.icon1}
-              alt={val.title1}
-              className="xs:w-7 md:w-15"
-            />
-            <p className="md:text-xl xs:text-xs font-semibold">{val.title1}</p>
-            <div role="button" className="flex flex-row items-center gap-1">
-              <p
-                className={`font-semibold md:text-xl xs:text-xs text-${val.textColor}`}
-              >
-                {val.link1}
+        <div
+          className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-10 text-white`}
+        >
+          <p className="md:text-5xl xs:text-2xl font-black text-left">
+            {val.category}
+          </p>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-row items-center gap-2 flex-wrap">
+              <Image
+                src={val.icon1}
+                alt={val.title1}
+                className="xs:w-7 md:w-15"
+              />
+              <p className="md:text-xl xs:text-xs font-semibold">
+                {val.title1}
               </p>
-              <Image src={val.linkIcon} alt={val.link1} className="w-4" />
+              <div role="button" className="flex flex-row items-center gap-1">
+                <p
+                  className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
+                >
+                  {val.link1}
+                </p>
+                <Image src={val.linkIcon} alt={val.link1} className="w-4" />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-row items-center gap-2 flex-wrap">
-            <Image
-              src={val.icon2}
-              alt={val.title2}
-              className="xs:w-7 md:w-15"
-            />
-            <p className="md:text-xl xs:text-xs font-semibold">{val.title2}</p>
-            <div role="button" className="flex flex-row items-center gap-1">
-              <p
-                className={`font-semibold md:text-xl xs:text-xs text-${val.textColor}`}
-              >
-                {val.link2}
+            <div className="flex flex-row items-center gap-2 flex-wrap">
+              <Image
+                src={val.icon2}
+                alt={val.title2}
+                className="xs:w-7 md:w-15"
+              />
+              <p className="md:text-xl xs:text-xs font-semibold">
+                {val.title2}
               </p>
-              <Image src={val.linkIcon} alt={val.link2} className="w-4" />
+              <div role="button" className="flex flex-row items-center gap-1">
+                <p
+                  className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
+                >
+                  {val.link2}
+                </p>
+                <Image src={val.linkIcon} alt={val.link2} className="w-4" />
+              </div>
             </div>
           </div>
         </div>
+        <div
+          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
+        >
+          <Image
+            src={val.img}
+            alt={val.category}
+            className="w-full md:rounded-r-xl xs:rounded-b-xl"
+          />
+        </div>
       </div>
-      <div
-        className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
-      >
-        <Image
-          src={val.img}
-          alt={val.category}
-          className="w-full md:rounded-r-xl xs:rounded-b-xl"
-        />
-      </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">

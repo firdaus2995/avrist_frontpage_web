@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -66,12 +66,7 @@ const bannerData = [
 
 const sliderSettings = {
   dots: true,
-  infinite: false,
-  arrows: true,
-  // autoplay: true,
-  // pauseOnHover: true,
-  // speed: 1000,
-  // autoplaySpeed: 4500,
+  infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   appendDots: (
@@ -103,48 +98,75 @@ const sliderSettings = {
 };
 
 const BannerAvrast = () => {
+  const sliderRef = useRef<Slider | null>(null);
+  const next = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
+  };
+  const previous = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
+  };
   return (
     <div className="flex w-full overflow-x-hidden">
       <div className="w-full">
-        <Slider {...sliderSettings} className="w-screen">
-          {bannerData.map((data, index) => (
-            <div
-              key={index}
-              className="flex w-full xs:h-[65vh] md:h-[auto] relative"
-            >
-              <div className="md:hidden">
-                <Image
-                  alt="loop-image"
-                  src={data.img}
-                  layout="fill"
-                  className="w-full h-auto object-cover object-left-bottom"
-                />
-              </div>
-              <div className="md:block xs:hidden">
-                <Image
-                  alt="loop-image"
-                  src={data.img}
-                  className="w-screen h-auto object-cover"
-                />
-              </div>
-              <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
-                <p
-                  className={`xs:text-[20px] md:text-[28px] text-${data.color} whitespace-nowrap xs:mt-10 md:mt-0`}
-                >
-                  {data.category}
-                </p>
-                {data.title}
-                <div>
-                  <Button
-                    title={data.btn}
-                    customButtonClass={`bg-${data.color} hover:bg-${data.color} text-white border-none`}
-                    onClick={() => console.log('Button Clicked')}
+        <div className="w-full relative flex items-center justify-center">
+          <Slider
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+            {...sliderSettings}
+            className="w-screen"
+          >
+            {bannerData.map((data, index) => (
+              <div
+                key={index}
+                className="flex w-full xs:h-[65vh] md:h-[auto] relative"
+              >
+                <div className="md:hidden">
+                  <Image
+                    alt="loop-image"
+                    src={data.img}
+                    layout="fill"
+                    className="w-full h-auto object-cover object-left-bottom"
                   />
                 </div>
+                <div className="md:block xs:hidden">
+                  <Image
+                    alt="loop-image"
+                    src={data.img}
+                    className="w-screen h-auto object-cover"
+                  />
+                </div>
+                <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
+                  <p
+                    className={`xs:text-[20px] md:text-[28px] text-${data.color} whitespace-nowrap xs:mt-10 md:mt-0`}
+                  >
+                    {data.category}
+                  </p>
+                  {data.title}
+                  <div>
+                    <Button
+                      title={data.btn}
+                      customButtonClass={`bg-${data.color} hover:bg-${data.color} text-white border-none`}
+                      onClick={() => console.log('Button Clicked')}
+                    />
+                  </div>
+                </div>
               </div>
+            ))}
+          </Slider>
+          <div className="flex flex-row justify-between absolute top-[50%] w-full px-5">
+            <div className='p-2 border-2 rounded-full border-purple_dark' role='button' onClick={previous}>
+              <Icon name='chevronLeft' color='purple_dark' />
             </div>
-          ))}
-        </Slider>
+            <div className='p-2 border-2 rounded-full border-purple_dark' role='button' onClick={next}>
+              <Icon name='chevronRight' color='purple_dark' />
+            </div>
+          </div>
+        </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col">
           <div className="flex p-10 items-center justify-center text-white md:text-[28px] xs:text-[20px] text-left md:w-1/3 xs:w-full bg-dark-purple">
             <p>

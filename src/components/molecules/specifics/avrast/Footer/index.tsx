@@ -6,7 +6,6 @@ import GOOGLEPLAY from '@/assets/images/avrast/googleplay.svg';
 import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
 import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
-import WHATSAPP_IMAGE from '@/assets/images/whatsapp-image.svg';
 import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
@@ -31,7 +30,7 @@ const Footer = () => {
             <p className="text-xs font-extralight">
               Hak Cipta © 2023.
               <br />
-              PT Avrist Asset Management.
+              PT Avrist Life Insurance.
             </p>
             <Image
               width={0}
@@ -150,13 +149,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <Image
-        alt="Whatsapp"
-        height={0}
-        width={0}
-        className="absolute bottom-full right-0 translate-y-1/2 aspect-square w-[8rem] md:w-[10rem]"
-        src={WHATSAPP_IMAGE.src}
-      />
     </footer>
   );
 };
