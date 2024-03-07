@@ -84,7 +84,7 @@ const detailData = [
     category: 'Asuransi Jiwa Individu',
     type: 'Klaim Manfaat Hidup',
     list: [
-      'Perhatikan Informasi sebelum klaim',
+      'Perhatikan Informasi Sebelum Klaim',
       'Lengkapi Dokumen Pendukung',
       'Isi Formulir Klaim',
       'Kirim Formulir dan Dokumen Pendukung'
@@ -94,7 +94,7 @@ const detailData = [
     category: 'Asuransi Jiwa Korporasi',
     type: 'Klaim Manfaat Hidup 2',
     list: [
-      'Perhatikan Informasi sebelum klaim 2',
+      'Perhatikan Informasi Sebelum Klaim 2',
       'Lengkapi Dokumen Pendukung 2',
       'Isi Formulir Klaim 2',
       'Kirim Formulir dan Dokumen Pendukung 2'
@@ -395,7 +395,6 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 id="selected-categories"
                 onChange={(e) => {
                   const selectedValue = e.target.value;
-                  console.log(selectedValue); // Cetak untuk keperluan debugging
                   setSelectedCategory(selectedValue);
                 }}
                 className="p-2"
@@ -550,6 +549,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 </span>
               </div>
             </div>
+          )}
+          {selectedData && (
+            <div className='text-[36px] font-bold'>{selectedData}</div>
           )}
           {selectedData && renderStep(selectedDetailCategory)}
         </div>
