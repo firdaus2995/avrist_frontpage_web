@@ -1,13 +1,13 @@
 'use client';
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import Slider from 'react-slick';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import Link from 'next/link';
 
 const mockData = [
   {
