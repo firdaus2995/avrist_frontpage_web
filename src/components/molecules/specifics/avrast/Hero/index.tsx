@@ -4,7 +4,6 @@ import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import HERO_IMAGE from '@/assets/images/hero-image.svg';
 
@@ -18,16 +17,15 @@ interface IHero {
 }
 
 const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
-  const pathname = usePathname();
   return (
     <div
       className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[840px]' : 'h-[200px]'}`}
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-20 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[70px]' : 'pt-[50px]'}`}
+          className={`w-full flex flex-row justify-between px-20 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[70px]' : 'md:pt-[60px] 2xl:pt-[50px]'}`}
         >
-          <p className="font-karla text-white text-[48px] font-light">
+          <p className="font-karla text-white md:text-[40px] 2xl:text-[48px] font-light">
             {title}
           </p>
           <span className="flex flex-row gap-2">
@@ -35,7 +33,7 @@ const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
               <>
                 <Link
                   href={item.href}
-                  className={`font-opensans text-white ${pathname === item.href ? 'font-bold' : ''}`}
+                  className={`font-opensans text-white ${index === breadcrumbsData.length - 1 ? 'font-bold' : ''}`}
                 >
                   {item.title}
                 </Link>

@@ -6,19 +6,39 @@ interface IFooterInformation {
   title: ReactElement;
   buttonTitle: string;
   image: string;
+  buttonVariant?: string;
 }
+
+// button variants: primary, secondary
 
 const FooterInformation = ({
   title,
   buttonTitle,
-  image
+  image,
+  buttonVariant
 }: IFooterInformation) => {
   return (
-    <div className="flex px-[136px] py-[72px] bg-avrast_product_bg">
+    <div className="w-full flex px-[136px] py-[72px] bg-avrast_product_bg justify-center">
       <div className="grid grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
           <div>{title}</div>
-          <Button title={buttonTitle} />
+          <Button
+            customButtonClass={
+              !buttonVariant || buttonVariant === 'primary'
+                ? '!bg-purple_dark'
+                : buttonVariant === 'secondary'
+                  ? ''
+                  : ''
+            }
+            customTextClass={
+              !buttonVariant || buttonVariant === 'primary'
+                ? 'text-white font-medium'
+                : buttonVariant === 'secondary'
+                  ? ''
+                  : ''
+            }
+            title={buttonTitle}
+          />
         </div>
         <div className="flex">
           <Image
