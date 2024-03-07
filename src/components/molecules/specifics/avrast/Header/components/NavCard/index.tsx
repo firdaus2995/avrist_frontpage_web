@@ -105,6 +105,7 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass, indexData, titl
   // This is because this component has been imported into a Header component that is a client component.
   // Therefore, the usage of useState in this component is justified
   const [shouldForceHideBanner, setShouldForceHideBanner] = useState(false);
+  const [openedMenus, setOpenedMenus] = useState('');
 
   return (
     <div
@@ -122,30 +123,78 @@ const NavCard: React.FC<NavCardProps> = ({ content, customClass, indexData, titl
               </h2>
               <div className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-4 w-full`}>
                 {val?.subMenus?.map((item, index) => (
-                  <React.Fragment key={index}>
-                    <Link
-                      href={`/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}/${camelToKebabCase(item.title)}`}
-                      className={`flex flex-row justify-between`}
-                      onClick={() => {
-                        setShouldForceHideBanner(true);
-                        setTimeout(() => {
-                          setShouldForceHideBanner(false);
-                        }, 700);
-                      }}
-                    >
-                      <div className='flex flex-row gap-2 items-center'>
-                        <Image
-                          className="w-4"
-                          src={ICON_MAPPING[indexData][item.icon]}
-                          alt={item.title}
-                        />
-                        {item.title}
+                  item?.listMenu ? (
+                    <React.Fragment key={index}>
+                      <div
+                        className={`flex flex-row justify-between`}
+                        onClick={() => {
+                          if (openedMenus === item.title) {
+                            setOpenedMenus('')
+                          }else{
+                            setOpenedMenus(item.title)
+                          }
+                        }}
+                      >
+                        <div className='flex flex-row gap-2 items-center'>
+                          <Image
+                            className="w-4"
+                            src={ICON_MAPPING[indexData][item.icon]}
+                            alt={item.title}
+                          />
+                          {item.title}
+                        </div>
+                        <span className={`mt-[3px] mr-1 ${openedMenus === item.title && 'rotate-180 '}`}>
+                          <Icon name="chevronDown" color="purple_dark" width={12} />
+                        </span>
                       </div>
-                      <span className="mt-[3px]">
-                        <Icon name="chevronRight" color="purple_dark" />
-                      </span>
-                    </Link>
-                  </React.Fragment>
+                      <div className='grid grid-cols-2 gap-5'>
+                        {openedMenus === item.title && (
+                          item.listMenu.map((val, idx) => (
+                            <div
+                              key={idx}
+                              className={`flex flex-row justify-between`}
+                              onClick={() => {
+                                setOpenedMenus('')
+                                setShouldForceHideBanner(true);
+                                setTimeout(() => {
+                                  setShouldForceHideBanner(false);
+                                }, 700);
+                              }}
+                            >
+                              <div className='flex flex-row gap-2 items-center whitespace-nowrap'>
+                                {val}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment key={index}>
+                      <Link
+                        href={`/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}/${camelToKebabCase(item.title)}`}
+                        className={`flex flex-row justify-between`}
+                        onClick={() => {
+                          setShouldForceHideBanner(true);
+                          setTimeout(() => {
+                            setShouldForceHideBanner(false);
+                          }, 700);
+                        }}
+                      >
+                        <div className='flex flex-row gap-2 items-center'>
+                          <Image
+                            className="w-4"
+                            src={ICON_MAPPING[indexData][item.icon]}
+                            alt={item.title}
+                          />
+                          {item.title}
+                        </div>
+                        <span className="mt-[3px]">
+                          <Icon name="chevronRight" color="purple_dark" />
+                        </span>
+                      </Link>
+                    </React.Fragment>
+                  )
                 ))}
               </div>
             </div>

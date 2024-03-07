@@ -51,7 +51,15 @@
           {
             "title": "Berita",
             "subMenus": [
-              { "title": "Berita Terkini", "icon": 1 },
+              {
+                "title": "Avrist Terkini",
+                "icon": 1,
+                "listMenu": [
+                  "Berita dan Kegiatan",
+                  "AvriStory",
+                  "Avrist Life Guide"
+                ]
+              },
               { "title": "Testimonial", "icon": 2 },
               { "title": "Kumpulan Berita Pers", "icon": 3 }
             ]
