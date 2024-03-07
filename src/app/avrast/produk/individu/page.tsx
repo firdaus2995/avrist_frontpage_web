@@ -14,11 +14,6 @@ import FooterCards from "@/components/molecules/specifics/avrast/FooterCards";
 import FooterInformation from "@/components/molecules/specifics/avrast/FooterInformation";
 import Hero from "@/components/molecules/specifics/avrast/Hero";
 
-const breadcrumbsData = [
-  { title: 'Beranda', href: '/avrast' },
-  { title: 'Produk', href: '/avrast/produk/individu' }
-]
-
 const ProdukIndividu = () => {
   const TopSeparator = () => {
     return (
@@ -48,7 +43,14 @@ const ProdukIndividu = () => {
 
   return (
     <div className="flex flex-col">
-      <Hero title="Produk" breadcrumbsData={breadcrumbsData} bottomImage={GambarProdukIndividu} />
+      <Hero
+        title="Produk"
+        breadcrumbsData={[
+          { title: 'Beranda', href: '/avrast' },
+          { title: 'Produk', href: '/avrast/produk/individu' }
+        ]}
+        bottomImage={GambarProdukIndividu} 
+      />
       <CategoryWithThreeCards
         defaultSelectedCategory='Asuransi Jiwa'
         categories={[
@@ -63,13 +65,13 @@ const ProdukIndividu = () => {
         ]}
       />
       <BottomSeparator />
-      <FooterInformation 
+      <FooterInformation
         title={<p className="text-[56px]"><span className="font-bold text-purple_dark">Hello,</span> Ada yang bisa <span className="font-bold text-purple_dark">Avrista</span> bantu?</p>}
         buttonTitle='Tanya Avrista'
         image={ProdukIndividuImage}
       />
       <TopSeparator />
-      <FooterCards 
+      <FooterCards
         cards={[
           {
             title: 'Rumah Sakit Rekanan',
