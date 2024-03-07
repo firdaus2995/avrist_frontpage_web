@@ -58,15 +58,17 @@ const CategoryWithThreeCards = ({
           <ButtonSmall title="Cari" />
         </div>
         <div className="flex flex-row gap-[12px]">
-          {tabs.map((item: { type: string; label: string }, index: number) =>
-            item.type === 'button' ? (
-              <ButtonSmall key={index} title={item.label} />
-            ) : item.type === 'button-checkbox' ? (
-              <ButtonSmallWithCheck name={item.label} title={item.label} />
-            ) : (
-              <React.Fragment />
-            )
-          )}
+          {
+            tabs.map((item: { type: string; label: string }, index: number) => (
+              item.type === 'button' ? (
+                <ButtonSmall variant="outlined" key={index} title={item.label} />
+              ) : item.type === 'button-checkbox' ? (
+                <ButtonSmallWithCheck key={index} name={item.label} title={item.label} />
+              ) : (
+                <React.Fragment key={index} />
+              )
+            ))
+          }
         </div>
         <div className="grid grid-cols-3 gap-[24px]">
           {[...Array(9)].map((_, index) => (
