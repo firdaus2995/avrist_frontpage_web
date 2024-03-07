@@ -41,7 +41,9 @@ const iconType = {
   newspaper: IconSVG.Newspaper,
   chevronDown: IconSVG.ChevronDown,
   youtubeIcon: IconSVG.YoutubeIcon,
-  chevronLeft: IconSVG.ChevronLeft
+  chevronLeft: IconSVG.ChevronLeft,
+  lightBulb: IconSVG.LightBulb,
+  shoppingCart: IconSVG.ShoppingCart
 } as const;
 
 type IconsListType = keyof typeof iconType;

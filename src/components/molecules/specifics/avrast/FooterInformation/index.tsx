@@ -1,18 +1,17 @@
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import Image from "next/image";
-
-import Button from "@/components/atoms/Button/Button";
+import { ReactElement } from 'react';
+import Image from 'next/image';
+import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
-  title: JSX.Element;
+  title: ReactElement;
   buttonTitle: string;
-  image: StaticImport | string;
+  image: string;
 }
 
 const FooterInformation = ({
   title,
   buttonTitle,
-  image,
+  image
 }: IFooterInformation) => {
   return (
     <div className="flex px-[136px] py-[72px] bg-avrast_product_bg">
@@ -22,11 +21,17 @@ const FooterInformation = ({
           <Button title={buttonTitle} />
         </div>
         <div className="flex">
-          <Image height={0} width={0} alt="footerInformationImage" className="min-h-[400px] w-full object-cover" src={image} />
+          <Image
+            height={0}
+            width={0}
+            alt="footerInformationImage"
+            className="min-h-[400px] w-full object-cover"
+            src={image}
+          />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default FooterInformation;
