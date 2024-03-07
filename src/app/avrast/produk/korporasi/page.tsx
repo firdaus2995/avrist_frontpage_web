@@ -16,7 +16,7 @@ import Hero from "@/components/molecules/specifics/avrast/Hero";
 
 const breadcrumbsData = [
   { title: 'Beranda', href: '/avrast' },
-  { title: 'Produk', href: '/avrast/produk/individu' }
+  { title: 'Produk', href: '/avrast/produk/korporasi' }
 ]
 
 const ProdukKorporasi = () => {

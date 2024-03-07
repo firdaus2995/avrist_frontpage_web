@@ -48,7 +48,7 @@ const CategoryWithThreeCards = ({
           {
             tabs.map((item: { type: string, label: string }, index: number) => (
               item.type === 'button' ? (
-                <ButtonSmall key={index} title={item.label} />
+                <ButtonSmall variant="outlined" key={index} title={item.label} />
               ) : item.type === 'button-checkbox' ? (
                 <ButtonSmallWithCheck key={index} name={item.label} title={item.label} />
               ) : (
