@@ -1,15 +1,14 @@
 import Image from 'next/image';
+import { Banner, ButtonMenu } from '../InformasiNasabah/MainContentComponent';
 import {
-  ContentCard,
-  Banner,
-  ButtonMenu,
   Content,
-  BeAgent
+  VideoInformation,
+  DocumentPolicy
 } from './MainContentComponent';
 import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 
 const urlBanner =
-  'https://s3-alpha-sig.figma.com/img/df5a/51cf/64f6b80abd4d1448b9b41944a94b8703?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=AhxfYigwLFTFT2r2IBF8FG99qapVc7OLmf22xD7mchCYitLojG4EVwAadb41nNHnnt8FQqKcu0n-gPxA9mbGOuC0IOITWA2mwmt~dcvqyWkJcvG7qbChkUfQaOr6oS7VwFLf1OF7Khg-N0xDyFIAO6PaDWUzp00vGLeiC2p9Lyj8Z7TTBeCZcDO2Laif2nJGpRaKyi8IAEcb0Xk90T8H7uMWaYQJBzWnjRKY9KvGkeJbdOlYmh2S8Xd44HwPjw-4xJw5V0tN1TAP0WTHPa373skd6By-BVAwJ4NqXUMNP0yOMQYn5p6L9SvzAM5shtAK4XNcQJk2msYkmIswC2K4GQ__';
+  'https://s3-alpha-sig.figma.com/img/4fd2/0dc7/7398de9b00f0da915c31eceb3cc03519?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=PY9gpo5YhvphgR8dwLkteoqNCh5yFh3sFd~q1MyXz9ggUdsVo2s5CGTHOid2rwwBOym2d6pCWZtVOktqA3AumlD0ym4swAMQaVZOFaG1PYWgr4aRoKynlFVWMn2oBsFnqILT7J2vd-gr172FULUCos6qfzhOuGEBXndZh~xGq2XcyWvE5ZFwnCsWA0~kXSt-EWiwbSgOmQQ8HgahV-pdmHZybQbOzja~UyO~vL8cuJgMa7kQafFLOl8roxdLzMND6LWf-6h10sax0xyOJvh7KodC6o9JtzoCuC5y73StkGt3j5Aw1p73GLbxP1YaHY4lpwEPdvpbTeHV0skhHkD3bw__';
 export const MainContent = () => {
   return (
     <div className=" w-full flex flex-col">
@@ -18,8 +17,8 @@ export const MainContent = () => {
         <div className="mt-[100px] mx-[32px] md:mx-[136px]">
           <ButtonMenu />
           <Content />
-          <ContentCard />
-          <BeAgent />
+          <VideoInformation />
+          <DocumentPolicy />
         </div>
       </div>
       <Image
