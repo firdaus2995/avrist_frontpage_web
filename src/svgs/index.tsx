@@ -20,6 +20,7 @@ import HelpCircle from './commons/HelpCircle';
 import HomeIcon from './commons/HomeIcon';
 import InstaIcon from './commons/InstaIcon';
 import KeyIcon from './commons/KeyIcon';
+import LightBulb from './commons/LightBulb';
 import LinkedInIcon from './commons/LinkedInIcon';
 import MagnifyingGlass from './commons/MagnifyingGlass';
 import Mail from './commons/Mail';
@@ -33,6 +34,7 @@ import RoundedX from './commons/RoundedX';
 import SealWarning from './commons/SealWarning';
 import Search from './commons/Search';
 import Share from './commons/Share';
+import ShoppingCart from './commons/ShoppingCart';
 import TiktokIcon from './commons/TiktokIcon';
 import XCrossIcon from './commons/XCrossIcon';
 import YoutubeIcon from './commons/YoutubeIcon';
@@ -75,7 +77,9 @@ const IconSVG = {
   Newspaper,
   ChevronDown,
   YoutubeIcon,
-  ChevronLeft
+  ChevronLeft,
+  LightBulb,
+  ShoppingCart
 };
 
 export default IconSVG;

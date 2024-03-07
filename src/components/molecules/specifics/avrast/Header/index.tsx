@@ -11,9 +11,9 @@ import DUMMY_DATA from './sample-data.json';
 
 import styles from './styles.module.css';
 import { NavbarMenuItem } from './types';
+import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import VectorLogo from '@/assets/images/avrast/vector-logo.svg';
 
-import AVRIST_LOGO from '@/assets/images/avrist-logo.svg';
 import BlackOverlay from '@/components/atoms/BlackOverlay';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -40,11 +40,11 @@ const Header = () => {
             <p className="font-bold text-sm">Tanya Avrista</p>
           </Link>
           <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
-            <Icon name="helpcircle" color="gray_black" />
+            <Icon name="shoppingCart" color="gray_black" />
             <p className="font-bold text-sm">Beli Online</p>
           </div>
           <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
-            <Icon name="helpcircle" color="gray_black" />
+            <Icon name="lightBulb" color="gray_black" />
             <p className="font-bold text-sm">Avrist Solution</p>
           </div>
           <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
