@@ -16,7 +16,7 @@ const mockData = [
     desc: 'Perkembangan informasi dan keputusan secara jelas, efektif dan transparansi.',
     icon: 'https://s3-alpha-sig.figma.com/img/5260/ea4a/914dbb2af0d279a74a31a3804a4cf91a?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lqtdbFUnX4ckY9ZX8zeWE6sy6iyeXAYpM8DH3B2PPwYHyHSsHAMpzY3EWvRlsBPHKpISeqmNbj2YYQ0xSBLYyHxPUQmMo5cKPpJO05YU9d50sh3tInedgfll3lXw6SshJAVameHQd4H4ptiZaCCg9QVM02bsl-GbpHiIDoaILylMIdRvdWqZYeygDm79aW6OuKmJKFxAt05iqliDYExw7Y~1elgRs6se0T5Nsr6EPjrJ~0VMZibnTEo5LMVRUdSw7zePSDVYaZxyBI622Zbfh9vEIR2QjOcRCoqN3aZe2AYYg8ttBiqOOmjVQlRhvGwuShtfY6pqmaMbIXOQeajS~A__',
     btn: 'Lihat Panduan',
-    link: 'informasi-nasabah/kelola-polis'
+    link: 'layanan/kelola-polis'
   },
   {
     id: '2',
