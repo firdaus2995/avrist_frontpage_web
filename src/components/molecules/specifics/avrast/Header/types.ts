@@ -11,4 +11,5 @@ export interface NavbarMenuItemContent {
 export interface NavbarSubMenus {
   title: string;
   icon: number;
+  listMenu?: string[];
 }

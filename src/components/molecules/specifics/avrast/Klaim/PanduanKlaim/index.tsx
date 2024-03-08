@@ -87,7 +87,7 @@ const PanduanKlaim = () => {
           </h2>
           <h2 className="text-[20px] mb-6">
             Kami memberikan <span className="font-bold">solusi</span> dan{' '}
-            <span className="font-bold">efisiensi</span> waktu untuk Anda
+            <span className="font-bold">efisiensi waktu</span> untuk Anda
           </h2>
         </div>
         {videoData.length >= 1 && (
