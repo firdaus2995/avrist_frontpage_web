@@ -14,11 +14,17 @@ const FooterInformation = ({
   image
 }: IFooterInformation) => {
   return (
-    <div className="flex px-[136px] py-[72px] bg-avrast_product_bg">
-      <div className="grid grid-cols-2 rounded-[24px] bg-white overflow-hidden">
-        <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
+    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px] bg-avrast_product_bg">
+      <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
+        <div className="flex flex-col gap-[24px] justify-center p-[36px]">
           <div>{title}</div>
-          <Button title={buttonTitle} />
+          <div className="flex justify-center sm:justify-start">
+            <Button
+              customButtonClass="bg-purple_dark border border-purple_dark hover:shadow-lg px-[40px] py-[14px] w-[fit-content]"
+              customTextClass="font-semibold text-white text-[20px]"
+              title={buttonTitle}
+            />
+          </div>
         </div>
         <div className="flex">
           <Image

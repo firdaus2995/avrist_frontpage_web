@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-import GambarProdukIndividu from '@/assets/images/gambar-produk-individu.svg';
+import GambarProdukKorporasiDetail from '@/assets/images/gambar-produk-korporasi-detail.svg';
 import PlayVideo from '@/assets/images/play-video.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukIndividuImage from '@/assets/images/produk-individu-image.svg';
@@ -15,7 +15,6 @@ import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import HeartChatSymbol from '@/assets/symbols/heartchat-symbol.svg';
 import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import ShieldSymbol from '@/assets/symbols/shield-symbol.svg';
-
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
 import GridContainer from '@/components/molecules/specifics/avrast/Containers/Grid';
@@ -28,10 +27,10 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 
 export const generateStaticParams = () => {
-  return [{ detail: 'avrist-pasti' }];
+  return [{ detail: 'avrist-group-health-care-silver' }];
 };
 
-const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
+const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   console.log(params);
 
   const TopSeparator = () => {
@@ -66,19 +65,19 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         title="Produk"
         breadcrumbsData={[
           { title: 'Beranda', href: '/avrast' },
-          { title: 'Produk', href: '/avrast/produk/individu' },
+          { title: 'Produk', href: '/avrast/produk/korporasi' },
           {
             title: 'Avrist Pasti',
-            href: '/avrast/produk/individu/avrist-pasti'
+            href: '/avrast/produk/korporasi/avrist-group-health-care-silver'
           }
         ]}
-        bottomImage={GambarProdukIndividu}
+        bottomImage={GambarProdukKorporasiDetail}
       />
       <SimpleContainer>
         <DescriptionCategoryA
-          categorySymbol={HeartSymbol}
-          categoryTitle="Employee Benefit"
-          productTitle="Avrist PASTI"
+          categorySymbol={GiveHeartSymbol}
+          categoryTitle="Asuransi Jiwa Individu"
+          productTitle="Avrist Group Health Care Silver"
           tags={['Asuransi Jiwa', 'Premi Tetap', 'Premi Berkala']}
         />
         <Image className="self-center" alt="play_video" src={PlayVideo} />
@@ -100,7 +99,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
               symbol: GiveHeartSymbol,
               title: 'Periode Perlindungan',
               description:
-                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at swipeswipeswipe in.'
+                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
             }
           ]}
           rightSide={[
@@ -200,4 +199,4 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   );
 };
 
-export default ProdukIndividuDetail;
+export default ProdukKorporasiDetail;

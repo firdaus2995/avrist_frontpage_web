@@ -21,13 +21,13 @@ const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
   const pathname = usePathname();
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[840px]' : 'h-[200px]'}`}
+      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'h-[200px]'}`}
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-20 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[70px]' : 'pt-[50px]'}`}
+          className={`w-full flex flex-row justify-between px-10 md:px-40 xl:px-60 items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'pt-[50px]'}`}
         >
-          <p className="font-karla text-white text-[48px] font-light">
+          <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
             {title}
           </p>
           <span className="flex flex-row gap-2">
@@ -48,12 +48,12 @@ const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-cover ${bottomImage ? 'h-[280px]' : 'h-[200px]'}`}
+        className={`-z-[2] w-full top-0 absolute object-cover ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[200px]'}`}
         alt="Avrist"
         src={HERO_IMAGE}
       />
       {bottomImage && (
-        <div className="-z-[1] w-full top-[200px] absolute">
+        <div className="-z-[1] w-full top-[100px] sm:top-[200px] absolute">
           <Image
             className="rounded-t-[60px] w-full object-cover h-[640px]"
             alt="gambar-produk-individu"
