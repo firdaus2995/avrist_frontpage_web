@@ -1,13 +1,12 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import SearchBox from '../../SearchBox';
 import NEWS_DATA from './dummy.json';
 import NewsCard from './NewsCard';
+import Pagination from './Pagination';
 import ServiceCard from './ServiceCard';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import Button from '@/components/atoms/Button/Button';
 
 const SearchForm = () => {
@@ -49,14 +48,8 @@ const SearchForm = () => {
             </Link>
           ))}
         </div>
-      </div>
-      <div className="w-full">
-        <Image
-          alt="border"
-          className="w-full h-auto"
-          src={ROUNDED_FRAME_BOTTOM}
-          style={{ userSelect: 'none' }}
-        />
+
+        <Pagination />
       </div>
     </div>
   );

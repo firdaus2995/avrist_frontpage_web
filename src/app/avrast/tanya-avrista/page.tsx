@@ -13,10 +13,12 @@ import PERSON_HOME_YELLOW from '@/assets/images/common/person-home-yellow.svg';
 import RECEIPT from '@/assets/images/common/receipt.svg';
 import UMBRELLA_GREEN from '@/assets/images/common/umbrella-green.svg';
 import FAMILY from '@/assets/images/family.svg';
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import FAQList from '@/components/molecules/specifics/avrast/TanyaAvrista/FAQList';
-import FooterCards from '@/components/molecules/specifics/avrast/TanyaAvrista/FooterCards';
-import KelolaPolis from '@/components/molecules/specifics/avrast/TanyaAvrista/KelolaPolis';
 import SearchTerm from '@/components/molecules/specifics/avrast/TanyaAvrista/SearchTerm';
 import TopicsCard from '@/components/molecules/specifics/avrast/TanyaAvrista/TopicsCard';
 
@@ -55,7 +57,8 @@ const TanyaAvrista = () => {
       <SearchTerm />
       <TopicsCard cards={cards} />
       <FAQList />
-      <KelolaPolis
+      <RoundedFrameBottom />
+      <FooterInformation
         title={
           <p className="font-karla text-[56px]">
             <span className="font-bold text-purple_dark">Perlindungan</span>{' '}
@@ -66,22 +69,27 @@ const TanyaAvrista = () => {
         buttonTitle="Kelola Polis"
         image={FAMILY}
       />
+      <RoundedFrameTop />
       <FooterCards
         cards={[
           {
             title: 'Tabel Suku Bunga',
+            subtitle: 'Lebih Lanjut',
             icon: DOCUMENT_CHART
           },
           {
             title: 'Pengkinian Data',
+            subtitle: 'Lebih Lanjut',
             icon: CONTACTS
           },
           {
-            title: 'Pengajuan Polis',
+            title: 'Pengajuan Klaim',
+            subtitle: 'Lebih Lanjut',
             icon: RECEIPT
           },
           {
             title: 'Panduan Polis',
+            subtitle: 'Lebih Lanjut',
             icon: NOTES
           }
         ]}

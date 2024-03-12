@@ -28,7 +28,7 @@ const SearchTerm = () => {
         </div>
       </div>
       <Image
-        className="rounded-t-[60px] w-full object-cover h-[640px]"
+        className="rounded-t-[65px] w-full object-cover h-[640px]"
         alt="gambar-produk-individu"
         src={TANYA_AVRISTA}
       />
