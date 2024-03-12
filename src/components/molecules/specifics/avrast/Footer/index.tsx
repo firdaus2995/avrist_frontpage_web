@@ -100,7 +100,7 @@ const Footer = () => {
             <p className="font-bold text-space_purpink">Avrist Group</p>
             <div className="flex flex-col gap-4 justify-between h-full">
               <p className="font-semibold">Avrist Life Insurance</p>
-              <p className="font-semibold">Avrist Life Insurance</p>
+              <p className="font-semibold">Avrist Asset Management</p>
               <p className="font-semibold">Avrist General Insurance</p>
               <Image
                 alt="Reksadana"
