@@ -262,6 +262,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 ]
               }
             ]}
+            searchPlaceholder='Cari Kegiatan'
             customContent={
               category === 'Berita dan Kegiatan' ? (
                 <div className="grid grid-cols-3 gap-[24px]">

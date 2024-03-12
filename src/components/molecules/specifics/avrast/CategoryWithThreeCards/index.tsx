@@ -19,6 +19,7 @@ interface ICategoryWithThreeCards {
   filterRowLayout?: boolean;
   tabs: { type: string; label: string; options?: IOption[] }[];
   categoryCard?: string;
+  searchPlaceholder?: string;
   hiddenCategory?: boolean;
   customContent?: ReactElement;
 }
@@ -40,7 +41,15 @@ const CategoryWithThreeCards = ({
   filterRowLayout,
   categoryCard,
   hiddenCategory,
+<<<<<<< HEAD
   customContent
+=======
+  customContent,
+  customLeftContent,
+  customRightContent,
+  searchPlaceholder,
+  onCategoryChange
+>>>>>>> b3be110 (ACW2-2070: slicing & layouting halaman penawaran)
 }: ICategoryWithThreeCards) => {
 
   const Dropdown: React.FC<DropdownProps> = ({
@@ -138,7 +147,7 @@ const CategoryWithThreeCards = ({
         >
           <div className="flex flex-row gap-[12px] ">
             <input
-              placeholder="Cari"
+              placeholder={searchPlaceholder ?? "Cari"}
               className="focus:outline-none px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] grow"
             />
             <ButtonSmall title="Cari" />
