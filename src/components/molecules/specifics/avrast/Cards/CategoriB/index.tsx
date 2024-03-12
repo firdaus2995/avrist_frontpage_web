@@ -13,7 +13,7 @@ const CardCategoryB = ({
   description,
 }: ICardCategoryB) => {
   return (
-    <div className="flex flex-col gap-[18px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
+    <div className="flex flex-col gap-[18px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px] text-left">
       <Image
         alt="blank-image"
         width={0}
