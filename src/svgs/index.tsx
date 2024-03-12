@@ -10,6 +10,7 @@ import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
 import DiscountIcon from './commons/DiscountIcon';
 import DownloadIcon from './commons/DownloadIcon';
+import ExternalLink from './commons/ExternalLink';
 import Eye from './commons/Eye';
 import FacebookIcon from './commons/FacebookIcon';
 import FileIcon from './commons/FileIcon';
@@ -79,7 +80,8 @@ const IconSVG = {
   YoutubeIcon,
   ChevronLeft,
   LightBulb,
-  ShoppingCart
+  ShoppingCart,
+  ExternalLink
 };
 
 export default IconSVG;

@@ -128,8 +128,12 @@ const NavCard: React.FC<NavCardProps> = ({
                       </div>
                       <div className="grid grid-cols-2 gap-5">
                         {openedMenus === item.title &&
-                          item.listMenu.map((val, idx) => (
-                            <div
+                          item.listMenu.map((value, idx) => (
+                            <Link
+                              href={{
+                                pathname: `/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}`,
+                                query: { tab: item.title, category: value }
+                              }}
                               key={idx}
                               className={`flex flex-row justify-between`}
                               onClick={() => {
@@ -141,9 +145,9 @@ const NavCard: React.FC<NavCardProps> = ({
                               }}
                             >
                               <div className="flex flex-row gap-2 items-center whitespace-nowrap">
-                                {val}
+                                {value}
                               </div>
-                            </div>
+                            </Link>
                           ))}
                       </div>
                     </React.Fragment>
@@ -154,7 +158,6 @@ const NavCard: React.FC<NavCardProps> = ({
                           pathname: `/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}`,
                           query: { tab: item.title }
                         }}
-                        // href={`/avrast/${convertToKebabCase(title)}/${camelToKebabCase(val.title)}?tab=${camelToKebabCase(item.title)}`}
                         className={`flex flex-row justify-between`}
                         onClick={() => {
                           setShouldForceHideBanner(true);
