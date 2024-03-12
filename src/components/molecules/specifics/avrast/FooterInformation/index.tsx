@@ -4,7 +4,7 @@ import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
   title: ReactElement;
-  buttonTitle: string;
+  buttonTitle?: string;
   image: string;
   buttonVariant?: string;
 }
@@ -22,25 +22,27 @@ const FooterInformation = ({
       <div className="grid grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
           <div>{title}</div>
-          <Button
-            customButtonClass={
-              !buttonVariant || buttonVariant === 'primary'
-                ? '!bg-purple_dark'
-                : buttonVariant === 'secondary'
-                  ? ''
-                  : ''
-            }
-            customTextClass={
-              !buttonVariant || buttonVariant === 'primary'
-                ? 'text-white font-medium'
-                : buttonVariant === 'secondary'
-                  ? ''
-                  : ''
-            }
-            title={buttonTitle}
-          />
+          {buttonTitle && (
+            <Button
+              customButtonClass={
+                !buttonVariant || buttonVariant === 'primary'
+                  ? '!bg-purple_dark'
+                  : buttonVariant === 'secondary'
+                    ? ''
+                    : ''
+              }
+              customTextClass={
+                !buttonVariant || buttonVariant === 'primary'
+                  ? 'text-white font-medium'
+                  : buttonVariant === 'secondary'
+                    ? ''
+                    : ''
+              }
+              title={buttonTitle}
+            />
+          )}
         </div>
-        <div className="flex">
+        <div className="flex rounded-r-[24px]">
           <Image
             height={0}
             width={0}
