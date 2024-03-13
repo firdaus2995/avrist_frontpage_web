@@ -11,7 +11,7 @@ const ShoppingCart: React.FC<IIcon> = (props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_2175_13832)">
+      <g clipPath="url(#clip0_2175_13832)">
         <path
           d="M7.50008 18.3334C7.96032 18.3334 8.33341 17.9603 8.33341 17.5001C8.33341 17.0398 7.96032 16.6667 7.50008 16.6667C7.03984 16.6667 6.66675 17.0398 6.66675 17.5001C6.66675 17.9603 7.03984 18.3334 7.50008 18.3334Z"
           stroke={props.color}
