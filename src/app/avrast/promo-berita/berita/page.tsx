@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
+import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
@@ -58,11 +59,11 @@ const Berita: React.FC<ParamsProps> = () => {
     if (searchParams) {
       const value = searchParams.get('tab');
       const categories = searchParams.get('category');
-  
+
       if (value !== null) {
         setTab(value);
       }
-  
+
       if (categories !== null) {
         setCategory(categories);
       }
@@ -115,7 +116,7 @@ const Berita: React.FC<ParamsProps> = () => {
         title={tab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/avrast' },
-          { title: tab === "Avrist Terkini" ? category : tab, href: '#' }
+          { title: tab === 'Avrist Terkini' ? category : tab, href: '#' }
         ]}
       />
       <div className="w-full grid grid-cols-3 gap-2 px-[136px] py-20 absolute z-20 top-32 rounded-t-[76px] bg-white">
@@ -262,16 +263,22 @@ const Berita: React.FC<ParamsProps> = () => {
                 ]
               }
             ]}
-            searchPlaceholder='Cari Kegiatan'
+            searchPlaceholder="Cari Kegiatan"
             customContent={
               category === 'Berita dan Kegiatan' ? (
                 <div className="grid grid-cols-3 gap-[24px]">
                   {[...Array(6)].map((_, index) => (
-                    <CardCategoryB
+                    <Link
                       key={index}
-                      summary="Lorem ipsum dolor sit amet consectetur."
-                      description="2 Januari 2024"
-                    />
+                      href={
+                        'http://localhost:3000/avrast/promo-berita/berita/berita-dan-kegiatan'
+                      }
+                    >
+                      <CardCategoryB
+                        summary="Lorem ipsum dolor sit amet consectetur."
+                        description="2 Januari 2024"
+                      />
+                    </Link>
                   ))}
                 </div>
               ) : category === 'AvriStory' ? (
@@ -298,15 +305,21 @@ const Berita: React.FC<ParamsProps> = () => {
               ) : (
                 <div className="grid grid-cols-1 gap-[24px]">
                   {[...Array(3)].map((_, index) => (
-                    <CardCategoryD
+                    <Link
                       key={index}
-                      type="row"
-                      title="Lorem ipsum dolor sit amet consectetur."
-                      summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
-                      category="Daily Insight"
-                      time=" | 15 Menit yang lalu"
-                      tags={['Asuransi Jiwa Individual', 'Daily Insight']}
-                    />
+                      href={
+                        'http://localhost:3000/avrast/promo-berita/berita/life-guide/avrist-life-guide'
+                      }
+                    >
+                      <CardCategoryD
+                        type="row"
+                        title="Lorem ipsum dolor sit amet consectetur."
+                        summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
+                        category="Daily Insight"
+                        time=" | 15 Menit yang lalu"
+                        tags={['Asuransi Jiwa Individual', 'Daily Insight']}
+                      />
+                    </Link>
                   ))}
                 </div>
               )
@@ -410,14 +423,21 @@ const Berita: React.FC<ParamsProps> = () => {
                   </p>
                   <div className="grid grid-cols-2 gap-[24px]">
                     {[...Array(4)].map((_, index) => (
-                      <CardCategoryD
+                      <Link
                         key={index}
-                        title="Lorem ipsum dolor sit amet consectetur."
-                        summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
-                        category="Daily Insight"
-                        time=" | 15 Menit yang lalu"
-                        tags={['Asuransi Jiwa Individual', 'Daily Insight']}
-                      />
+                        href={
+                          'http://localhost:3000/avrast/promo-berita/berita/life-guide/avrist-life-guide'
+                        }
+                      >
+                        <CardCategoryD
+                          key={index}
+                          title="Lorem ipsum dolor sit amet consectetur."
+                          summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
+                          category="Daily Insight"
+                          time=" | 15 Menit yang lalu"
+                          tags={['Asuransi Jiwa Individual', 'Daily Insight']}
+                        />
+                      </Link>
                     ))}
                   </div>
                   <p className="font-semibold pb-2 text-left text-[24px] mt-10">

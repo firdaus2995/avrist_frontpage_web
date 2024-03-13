@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
@@ -75,7 +76,7 @@ const Promo: React.FC<ParamsProps> = () => {
         ]}
       />
       <div className="w-full flex flex-col items-center justify-center py-20 text-center relative">
-        <div className='-mt-20 absolute z-20 top-2 w-full rounded-t-[76px] bg-white py-20'>
+        <div className="-mt-20 absolute z-20 top-2 w-full rounded-t-[76px] bg-white py-20">
           <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
             Avrist Promo Terbaru
           </h2>
@@ -177,9 +178,16 @@ const Promo: React.FC<ParamsProps> = () => {
           customContent={
             <div className="grid grid-cols-3 gap-[24px]">
               {[...Array(6)].map((_, index) => (
-                <div key={index} className="max-w-md">
-                  <Image src={BlankImage} className="h-full" alt="blank" />
-                </div>
+                <Link
+                  key={index}
+                  href={
+                    'http://localhost:3000/avrast/promo-berita/promo/promo-terbaru'
+                  }
+                >
+                  <div key={index} className="max-w-md">
+                    <Image src={BlankImage} className="h-full" alt="blank" />
+                  </div>
+                </Link>
               ))}
             </div>
           }
