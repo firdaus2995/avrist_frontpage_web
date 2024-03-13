@@ -89,7 +89,9 @@ const config: Config = {
         agi_product_text: '#dfdfdf',
         avrast_product_bg: '#480469',
         olive_green: '#A5C903',
-        grey_video_footer: '#8C8B89'
+        grey_video_footer: '#8C8B89',
+        syariah_green: '#3D5910',
+        syariah_green_informing: '#417C40'
       }
     }
   },

@@ -2,8 +2,6 @@ import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 
-import Button from '@/components/atoms/Button/Button';
-
 interface ICategorySideBySideSixCards {
   leftSide: {
     symbol: StaticImport | string;
@@ -15,17 +13,29 @@ interface ICategorySideBySideSixCards {
     description: string;
     hasDownloadButton?: boolean;
   }[];
+  leftTitleClassname?: string;
+  rightTitleClassname?: string;
+  buttonClassname?: string;
+  customLeftSideClassname?: string;
+  customRightSideClassname?: string;
 }
 
 const CategorySideBySideSixCards = ({
   leftSide,
-  rightSide
+  rightSide,
+  leftTitleClassname = 'text-purple_dark',
+  rightTitleClassname = 'text-purple_dark',
+  buttonClassname = 'text-purple_dark border-purple_dark',
+  customLeftSideClassname = 'border-b-purple_light',
+  customRightSideClassname = 'border-b-purple_light'
 }: ICategorySideBySideSixCards) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-[64px]">
       <div className="col-span-1 sm:col-span-2">
-        <div className="h-full flex flex-col gap-[36px] p-[36px] border border-gray_light border-b-8 border-b-purple_light rounded-[12px] rounded-b-[12px]">
-          <p className="text-[36px] text-purple_dark font-bold">
+        <div
+          className={`${customLeftSideClassname} h-full flex flex-col gap-[36px] p-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
+        >
+          <p className={`${leftTitleClassname} text-[36px] font-bold`}>
             Ringkasan Produk
           </p>
           <div className="flex flex-col gap-[24px]">
@@ -73,9 +83,9 @@ const CategorySideBySideSixCards = ({
             ) => (
               <div
                 key={index}
-                className="flex flex-col gap-[24px] px-[24px] py-[36px] border border-gray_light border-b-8 border-b-purple_light rounded-[12px] rounded-b-[12px]"
+                className={`${customRightSideClassname} flex flex-col gap-[24px] px-[24px] py-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
               >
-                <p className="text-purple_dark font-bold text-[36px]">
+                <p className={`${rightTitleClassname}  font-bold text-[36px]`}>
                   {item.title}
                 </p>
                 <p className="text-[14px] sm:text=[16px]">
@@ -87,11 +97,11 @@ const CategorySideBySideSixCards = ({
                   ))}
                 </p>
                 {item.hasDownloadButton && (
-                  <Button
-                    title="Unduh"
-                    customButtonClass="rounded-[8px]"
-                    customTextClass="text-[20px] font-semibold"
-                  />
+                  <button
+                    className={`${buttonClassname} border-1 px-10 py-3 rounded-[8px] text-[20px] font-semibold`}
+                  >
+                    <p>Unduh</p>
+                  </button>
                 )}
               </div>
             )
