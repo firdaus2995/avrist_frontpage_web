@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import GreenContact from '@/assets/images/avrast/avrist-syariah/green-contact.svg';
 import GreenForm from '@/assets/images/avrast/avrist-syariah/green-form.svg';
 import GreenHelpDesk from '@/assets/images/avrast/avrist-syariah/green-helpdesk.svg';
@@ -13,9 +11,9 @@ import ProdukEmail from '@/assets/images/avrast/component/proses-klaim/step-4-ic
 import ProdukNasabah from '@/assets/images/avrast/component/proses-klaim/step-4-icon-3.svg';
 import ProdukTanya from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
-import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
 
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
@@ -24,32 +22,6 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 const KlaimLayanan = () => {
-  const TopSeparator = () => {
-    return (
-      <div className="w-full bg-white">
-        <Image
-          alt="border"
-          className="w-full h-auto rounded-t-[64px]"
-          src={ROUNDED_FRAME_TOP}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
-  const BottomSeparator = () => {
-    return (
-      <div className="w-full bg-white">
-        <Image
-          alt="border"
-          className="w-full h-auto rounded-b-[64px]"
-          src={ROUNDED_FRAME_BOTTOM}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
   return (
     <div>
       <Hero
@@ -132,7 +104,7 @@ const KlaimLayanan = () => {
           cardButtonTextClassname="text-white"
         />
       </SimpleContainer>
-      <BottomSeparator />
+      <RoundedFrameBottom bgColor='bg-white' frameColor="bg-white" />
       <SimpleContainer>
         <HelpCard
           title={
@@ -148,7 +120,7 @@ const KlaimLayanan = () => {
           image={HelpDesk}
         />
       </SimpleContainer>
-      <TopSeparator />
+      <RoundedFrameTop bgColor='bg-white' frameColor="bg-white" />
       <FooterCards
         cards={[
           {

@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import ProdukCard from '@/assets/images/avrast/avrist-syariah/about.svg';
 import HelpDesk from '@/assets/images/avrast/avrist-syariah/helpdesk.svg';
 import HeroSyariah2 from '@/assets/images/avrast/avrist-syariah/hero-syariah-2.svg';
@@ -8,10 +6,10 @@ import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
-import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
 
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
@@ -22,32 +20,6 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
 const ProdukSyariah = () => {
-  const TopSeparator = () => {
-    return (
-      <div className="w-full bg-white">
-        <Image
-          alt="border"
-          className="w-full h-auto rounded-t-[64px]"
-          src={ROUNDED_FRAME_TOP}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
-  const BottomSeparator = () => {
-    return (
-      <div className="w-full bg-white rounded-b-[24px]">
-        <Image
-          alt="border"
-          className="w-full h-auto rounded-b-[64px]"
-          src={ROUNDED_FRAME_BOTTOM}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
   return (
     <div>
       <Hero
@@ -127,8 +99,7 @@ const ProdukSyariah = () => {
           </div>
         </div>
       </SimpleContainer>
-
-      <BottomSeparator />
+      <RoundedFrameBottom bgColor='bg-white' frameColor="bg-white" />
       <SimpleContainer>
         <HelpCard
           title={
@@ -144,7 +115,7 @@ const ProdukSyariah = () => {
           image={HelpDesk}
         />
       </SimpleContainer>
-      <TopSeparator />
+      <RoundedFrameTop bgColor='bg-white' frameColor="bg-white" />
       <FooterCards
         cards={[
           {

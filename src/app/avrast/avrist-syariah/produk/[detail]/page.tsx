@@ -11,9 +11,9 @@ import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
-import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
 
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
@@ -29,32 +29,6 @@ export const generateStaticParams = () => {
 
 const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   console.log(params);
-
-  const TopSeparator = () => {
-    return (
-      <div className="w-full bg-syariah_product_bg">
-        <Image
-          alt="border"
-          className="w-full h-auto"
-          src={ROUNDED_FRAME_TOP}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
-  const BottomSeparator = () => {
-    return (
-      <div className="w-full bg-syariah_product_bg">
-        <Image
-          alt="border"
-          className="w-full h-auto"
-          src={ROUNDED_FRAME_BOTTOM}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
 
   return (
     <div className="flex flex-col">
@@ -163,7 +137,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           ))}
         </div>
       </SimpleContainer>
-      <BottomSeparator />
+      <RoundedFrameBottom bgColor='bg-white' frameColor="bg-white" />
       <SimpleContainer>
         <HelpCard
           title={
@@ -179,7 +153,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           image={HelpDesk}
         />
       </SimpleContainer>
-      <TopSeparator />
+      <RoundedFrameTop bgColor='bg-white' frameColor="bg-white" />
       <FooterCards
         cards={[
           {
