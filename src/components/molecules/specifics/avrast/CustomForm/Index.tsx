@@ -103,6 +103,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
         <div className="flex flex-col sm:flex-row justify-between items-center gap-[32px]">
           <Image alt="captcha" src={CaptchaPicture} />
           <button
+            type='button'
             className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
           >
             <p>Kirim</p>

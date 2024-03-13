@@ -189,17 +189,17 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           {
             title: 'Klaim & Layanan',
             icon: ProdukClaim,
-            actionTitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut'
           },
           {
             title: 'Kelola Polis',
             icon: ProdukPolis,
-            actionTitle: 'Login Akun'
+            subtitle: 'Login Akun'
           },
           {
             title: 'Testimonial',
             icon: ProdukTestimoni,
-            actionTitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut'
           }
         ]}
       />

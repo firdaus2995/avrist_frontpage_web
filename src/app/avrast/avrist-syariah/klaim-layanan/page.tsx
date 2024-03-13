@@ -154,22 +154,22 @@ const KlaimLayanan = () => {
           {
             title: 'Layanan Nasabah',
             icon: ProdukNasabah,
-            actionTitle: '021 5789 8188'
+            subtitle: '021 5789 8188'
           },
           {
             title: 'Tanya Avrista',
             icon: ProdukTanya,
-            actionTitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut'
           },
           {
             title: 'Tanya Lewat Email',
             icon: ProdukEmail,
-            actionTitle: 'Kirim Email'
+            subtitle: 'Kirim Email'
           },
           {
             title: 'Prosedur Pengaduan',
             icon: ProdukTestimoni,
-            actionTitle: 'Lihat Prosedur'
+            subtitle: 'Lihat Prosedur'
           }
         ]}
       />

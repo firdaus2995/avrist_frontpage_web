@@ -98,6 +98,7 @@ const CategorySideBySideSixCards = ({
                 </p>
                 {item.hasDownloadButton && (
                   <button
+                    type='button'
                     className={`${buttonClassname} border-1 px-10 py-3 rounded-[8px] text-[20px] font-semibold`}
                   >
                     <p>Unduh</p>
