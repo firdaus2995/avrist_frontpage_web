@@ -41,6 +41,7 @@ const iconType = {
   newspaper: IconSVG.Newspaper,
   chevronDown: IconSVG.ChevronDown,
   youtubeIcon: IconSVG.YoutubeIcon,
+  UploadIcon: IconSVG.UploadIcon,
   chevronLeft: IconSVG.ChevronLeft,
   lightBulb: IconSVG.LightBulb,
   shoppingCart: IconSVG.ShoppingCart
