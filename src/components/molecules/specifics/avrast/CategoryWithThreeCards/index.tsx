@@ -19,9 +19,11 @@ interface ICategoryWithThreeCards {
   filterRowLayout?: boolean;
   tabs: { type: string; label: string; options?: IOption[] }[];
   categoryCard?: string;
-  searchPlaceholder?: string;
   hiddenCategory?: boolean;
   customContent?: ReactElement;
+  customLeftContent?: ReactElement | null;
+  customRightContent?: ReactElement | null;
+  onCategoryChange?: (value: string) => void;
 }
 
 interface DropdownProps {
@@ -41,16 +43,21 @@ const CategoryWithThreeCards = ({
   filterRowLayout,
   categoryCard,
   hiddenCategory,
-<<<<<<< HEAD
-  customContent
-=======
   customContent,
   customLeftContent,
   customRightContent,
-  searchPlaceholder,
   onCategoryChange
->>>>>>> b3be110 (ACW2-2070: slicing & layouting halaman penawaran)
 }: ICategoryWithThreeCards) => {
+  const [selectedCategory, setSelectedCategory] = useState(
+    defaultSelectedCategory
+  );
+
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+    if (onCategoryChange) {
+      onCategoryChange(value);
+    }
+  };
 
   const Dropdown: React.FC<DropdownProps> = ({
     categories,
@@ -72,8 +79,9 @@ const CategoryWithThreeCards = ({
         >
           <span>{selected}</span>
           <div
-            className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-              }`}
+            className={`transform transition-transform duration-200 ${
+              isOpen ? 'rotate-180' : ''
+            }`}
           >
             <Icon name="chevronDown" color="purple_dark" />
           </div>
@@ -84,10 +92,11 @@ const CategoryWithThreeCards = ({
               <div
                 key={index}
                 onClick={() => handleSelect(item)}
-                className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${selected === item
-                  ? 'border-purple_dark text-purple_dark'
-                  : 'border-purple_mediumlight text-purple_mediumlight'
-                  }`}
+                className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
+                  selected === item
+                    ? 'border-purple_dark text-purple_dark'
+                    : 'border-purple_mediumlight text-purple_mediumlight'
+                }`}
               >
                 {item}
               </div>
@@ -102,8 +111,8 @@ const CategoryWithThreeCards = ({
     categories,
     selectedCategory
   }) => (
-    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden lg:block hidden">
-      {categories.map((item, index) =>
+    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
+      {categories.map((item: string, index: number) =>
         selectedCategory === item ? (
           <div
             key={index}
@@ -116,6 +125,8 @@ const CategoryWithThreeCards = ({
         ) : (
           <div
             key={index}
+            role="button"
+            onClick={() => handleCategoryChange(item)}
             className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
           >
             <span className="font-bold text-purple_mediumlight text-[18px]">
@@ -130,24 +141,26 @@ const CategoryWithThreeCards = ({
   return (
     <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
       {/* CATEGORIES */}
-      <Dropdown categories={categories} selectedCategory={defaultSelectedCategory} />
-      {
-        !hiddenCategory && (
+      <Dropdown categories={categories} selectedCategory={selectedCategory} />
+      <div className="flex flex-col">
+        {!hiddenCategory && (
           <CategoryList
             categories={categories}
-            selectedCategory={defaultSelectedCategory}
+            selectedCategory={selectedCategory}
           />
-        )
-      }
+        )}
+        {customLeftContent ?? null}
+      </div>
 
       {/* ITEMS LIST */}
       <div className="flex flex-col gap-[24px] grow">
+        {customRightContent ?? null}
         <div
           className={`flex ${filterRowLayout ? 'flex-row-reverse' : 'flex-col'}  gap-5 justify-between`}
         >
           <div className="flex flex-row gap-[12px] ">
             <input
-              placeholder={searchPlaceholder ?? "Cari"}
+              placeholder="Cari"
               className="focus:outline-none px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] grow"
             />
             <ButtonSmall title="Cari" />
@@ -172,8 +185,8 @@ const CategoryWithThreeCards = ({
         </div>
         {!customContent ? (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
-            {[...Array(9)].map((_, index) => (
-              categoryCard === "B" ? (
+            {[...Array(9)].map((_, index) =>
+              categoryCard === 'B' ? (
                 <CardCategoryB
                   key={index}
                   summary="Lorem ipsum dolor sit amet consectetur."
@@ -189,9 +202,11 @@ const CategoryWithThreeCards = ({
                   tags={['Asuransi Jiwa', 'Premi Tetap', 'Premi Berkala']}
                 />
               )
-            ))}
+            )}
           </div>
-        ) : customContent}
+        ) : (
+          customContent
+        )}
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <div>
             <p className="text-[20px]">
