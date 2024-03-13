@@ -43,7 +43,8 @@ const iconType = {
   youtubeIcon: IconSVG.YoutubeIcon,
   chevronLeft: IconSVG.ChevronLeft,
   lightBulb: IconSVG.LightBulb,
-  shoppingCart: IconSVG.ShoppingCart
+  shoppingCart: IconSVG.ShoppingCart,
+  externalLink: IconSVG.ExternalLink
 } as const;
 
 type IconsListType = keyof typeof iconType;

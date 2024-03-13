@@ -9,7 +9,7 @@ import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
 import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 
 interface IFooterCards {
-  cards: { title: string; icon: StaticImport | string; actionTitle?: string }[];
+  cards: { title: string; icon: StaticImport | string; subtitle?: string }[];
 }
 
 interface CustomPrevArrowProps {
@@ -109,13 +109,19 @@ const FooterCards: React.FC<IFooterCards> = ({ cards }) => {
             className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md"
           >
             <div className="flex justify-center">
-              <Image alt={index.toString()} src={item.icon} />
+              <Image alt={index.toString()} src={item.icon} className="w-[100px] h-[100px]"/>
             </div>
             <div className="flex flex-col justify-center mx-2 mt-2 gap-2">
-              <p className="font-bold text-center text-[24px]">{item.title}</p>
-              <p className="font-bold text-center text-[24px] text-purple_dark cursor-pointer">
-                {item.actionTitle}
+              <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
+                {item.title.split('\n').map((line, index) => (
+                  <span key={index}>{line}</span>
+                ))}
               </p>
+              {item.subtitle && (
+                <p className="text-center font-bold md:text-lg 2xl:text-[24px] text-purple_dark">
+                  {item.subtitle}
+                </p>
+              )}
             </div>
           </div>
         ))}

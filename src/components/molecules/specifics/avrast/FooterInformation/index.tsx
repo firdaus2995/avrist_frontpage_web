@@ -4,29 +4,47 @@ import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
   title: ReactElement;
-  buttonTitle: string;
+  buttonTitle?: string;
   image: string;
+  buttonVariant?: string;
 }
+
+// button variants: primary, secondary
 
 const FooterInformation = ({
   title,
   buttonTitle,
-  image
+  image,
+  buttonVariant
 }: IFooterInformation) => {
   return (
-    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px] bg-avrast_product_bg">
+    <div className="w-full flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px] bg-avrast_product_bg justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div className="flex flex-col gap-[24px] justify-center p-[36px]">
           <div>{title}</div>
-          <div className="flex justify-center sm:justify-start">
-            <Button
-              customButtonClass="bg-purple_dark border border-purple_dark hover:shadow-lg px-[40px] py-[14px] w-[fit-content]"
-              customTextClass="font-semibold text-white text-[20px]"
-              title={buttonTitle}
-            />
-          </div>
+          {buttonTitle && (
+            <div className='flex justify-center sm:justify-start'>
+              <Button
+                customButtonClass={
+                  !buttonVariant || buttonVariant === 'primary'
+                    ? '!bg-purple_dark'
+                    : buttonVariant === 'secondary'
+                      ? ''
+                      : ''
+                }
+                customTextClass={
+                  !buttonVariant || buttonVariant === 'primary'
+                    ? 'text-white font-medium'
+                    : buttonVariant === 'secondary'
+                      ? ''
+                      : ''
+                }
+                title={buttonTitle}
+              />
+            </div>
+          )}
         </div>
-        <div className="flex">
+        <div className="flex rounded-r-[24px]">
           <Image
             height={0}
             width={0}

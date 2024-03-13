@@ -4,7 +4,6 @@ import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import HERO_IMAGE from '@/assets/images/hero-image.svg';
 
@@ -18,7 +17,6 @@ interface IHero {
 }
 
 const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
-  const pathname = usePathname();
   return (
     <div
       className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'h-[200px]'}`}
@@ -32,17 +30,17 @@ const Hero: React.FC<IHero> = ({ title, breadcrumbsData, bottomImage }) => {
           </p>
           <span className="flex flex-row gap-2">
             {breadcrumbsData.map((item, index) => (
-              <>
+              <React.Fragment key={index}>
                 <Link
                   href={item.href}
-                  className={`font-opensans text-white ${pathname === item.href ? 'font-bold' : ''}`}
+                  className={`font-opensans text-white ${index === breadcrumbsData.length - 1 ? 'font-bold' : ''}`}
                 >
                   {item.title}
                 </Link>
                 {index < breadcrumbsData.length - 1 && (
                   <span className="w-[1px] h-auto bg-[#AA95B4]" />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </span>
         </div>
