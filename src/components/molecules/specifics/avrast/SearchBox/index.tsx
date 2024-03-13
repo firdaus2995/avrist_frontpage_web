@@ -18,7 +18,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   const [keyword, setKeyword] = useState('');
 
   return (
-    <div className="w-auto flex md:flex-row flex-col items-stretch gap-2 p-3">
+    <div className="w-auto flex md:flex-row flex-col items-stretch gap-2 py-3">
       <Input
         customInputClass="grow !bg-gray_bglightgray !border-none"
         placeholder={placeHolder}

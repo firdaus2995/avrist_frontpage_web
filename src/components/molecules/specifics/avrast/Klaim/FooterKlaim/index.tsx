@@ -1,44 +1,80 @@
 'use client';
 
 import React, { useRef } from 'react';
-
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import Slider from 'react-slick';
-import FOOTER_IMG_1 from '@/assets/images/avrast/component/footer-klaim/footer-img-1.svg';
-import FOOTER_IMG_2 from '@/assets/images/avrast/component/footer-klaim/footer-img-2.svg';
-import FOOTER_IMG_3 from '@/assets/images/avrast/component/footer-klaim/footer-img-3.svg';
-import FOOTER_IMG_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
+import FOOTER_NASABAH_1 from '@/assets/images/avrast/component/footer-klaim/footer-img-1.svg';
+import FOOTER_NASABAH_2 from '@/assets/images/avrast/component/footer-klaim/footer-img-2.svg';
+import FOOTER_NASABAH_3 from '@/assets/images/avrast/component/footer-klaim/footer-img-3.svg';
+import FOOTER_NASABAH_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import FOOTER_FORMULIR_1 from '@/assets/images/common/arrow-circle-right.svg';
+import FOOTER_FORMULIR_2 from '@/assets/images/common/document-search.svg';
+import FOOTER_FORMULIR_3 from '@/assets/images/common/message.svg';
+import FOOTER_FORMULIR_4 from '@/assets/images/common/receipt.svg';
 
-const data = [
+const dataInformasiNasabah = [
   {
-    icon: FOOTER_IMG_1,
+    icon: FOOTER_NASABAH_1,
     title: 'Kelola Polis',
-    link1: 'Login Akun',
+    link1: 'Login Akun'
   },
   {
-    icon: FOOTER_IMG_2,
+    icon: FOOTER_NASABAH_2,
     title: 'Download Formulir',
-    link1: 'Lihat Lainnya',
+    link1: 'Lihat Lainnya'
   },
   {
-    icon: FOOTER_IMG_3,
+    icon: FOOTER_NASABAH_3,
     title: 'Avrist Terkini',
-    link1: 'Lebih Lanjut',
+    link1: 'Lebih Lanjut'
   },
   {
-    icon: FOOTER_IMG_4,
+    icon: FOOTER_NASABAH_4,
     title: 'Prosedur Pengaduan',
-    link1: 'Lihat Prosedur',
+    link1: 'Lihat Prosedur'
+  }
+];
+
+const dataFormulirPendaftaran = [
+  {
+    icon: FOOTER_FORMULIR_1,
+    title: 'Kelola Polis',
+    link1: 'Login Akun'
+  },
+  {
+    icon: FOOTER_FORMULIR_4,
+    title: 'Ajukan Klaim',
+    link1: 'Lebih Lanjut'
+  },
+  {
+    icon: FOOTER_FORMULIR_2,
+    title: 'Prosedur Pengaduan',
+    link1: 'Lihat Prosedur'
+  },
+  {
+    icon: FOOTER_FORMULIR_3,
+    title: 'Tanya Avrista',
+    link1: 'Lebih Lanjut'
   }
 ];
 
 const FooterKlaim = () => {
+  const searchParams = useSearchParams();
+  const params = searchParams.get('tab') ?? '';
+
+  const data = params.includes('Informasi Nasabah')
+    ? dataInformasiNasabah
+    : params.includes('Formulir & Buku Panduan')
+      ? dataFormulirPendaftaran
+      : dataInformasiNasabah;
+
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
     if (sliderRef.current) {
@@ -60,11 +96,15 @@ const FooterKlaim = () => {
     slidesToScroll: 1
   };
 
-  const renderCard = (val: { icon: StaticImport; title: string; link1: string; }) => (
+  const renderCard = (val: {
+    icon: StaticImport;
+    title: string;
+    link1: string;
+  }) => (
     <div
       className={`w-full  flex mb-10 flex-col rounded-xl bg-white items-center justify-center text-center shadow-xl border-2`}
     >
-      <div className="flex items-center justify-center w-full pt-5 pl-5">
+      <div className="flex items-center justify-center w-full pt-5">
         <Image src={val.icon} alt={val.title} className="w-20" />
       </div>
       <div
