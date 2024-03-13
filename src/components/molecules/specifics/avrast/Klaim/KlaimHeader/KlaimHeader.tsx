@@ -12,14 +12,14 @@ interface IKlaimHeader {
 const KlaimHeader: React.FC<IKlaimHeader> = ({ title }) => {
   return (
     <div className="flex w-full">
-      <div className="w-full md:h-[300px] xs:h-[200px] bg-purple_dark shadow-lg flex md:items-center xs:items-start justify-center relative">
+      <div className="w-full md:h-[300px] xs:h-[200px] bg-purple_dark flex md:items-center xs:items-start justify-center relative">
         <Image
-          className="bg-purple_dark w-full absolute top-0 object-top opacity-10"
+          className="bg-purple_dark w-full absolute top-0 object-top"
           src={BannerImg}
           alt="banner-img"
-          layout='fill'
-          objectFit='cover'
-          object-position= 'center'
+          layout="fill"
+          objectFit="cover"
+          object-position="center"
         />
         <div className="w-full h-full mx-auto max-w-[100rem] px-8 flex md:justify-between md:justify-center xs:justify-start md:items-center items-start absolute flex-col md:flex-row flex-wrap gap-4">
           <h2 className="font-light text-[48px] md:block xs:hidden text-white">
