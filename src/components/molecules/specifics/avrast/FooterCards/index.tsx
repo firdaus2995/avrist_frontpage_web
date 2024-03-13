@@ -1,35 +1,120 @@
+'use client';
+import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
+import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 
 interface IFooterCards {
-  cards: { title: string; subtitle?: string | undefined; icon: StaticImport }[];
+  cards: { title: string; icon: StaticImport | string; subtitle?: string }[];
 }
 
-const FooterCards = ({ cards }: IFooterCards) => {
+interface CustomPrevArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+interface CustomNextArrowProps {
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+const CustomNextArrow: React.FC<CustomNextArrowProps> = (props) => {
+  const { className, ...rest } = props;
+
+  const isDisabled = className?.includes('slick-disabled');
+
   return (
-    <div className="grid grid-cols-4 gap-4 items-center justify-center bg-purple_superlight px-[136px] pb-[72px]">
-      {cards.map(
-        (
-          item: {
-            title: string;
-            subtitle?: string;
-            icon: StaticImport | string;
-          },
-          index: number
-        ) => (
+    <div
+      {...rest}
+      className={className}
+      style={{
+        ...props.style,
+        position: 'relative',
+        left: '100%',
+        bottom: '0',
+        opacity: isDisabled ? 0.5 : 1
+      }}
+    >
+      <Image
+        style={{ rotate: '90deg' }}
+        width={36}
+        height={36}
+        alt="next"
+        src={ArrowCarouselRight}
+      />
+    </div>
+  );
+};
+
+const CustomPrevArrow: React.FC<CustomPrevArrowProps> = (props) => {
+  const { className, ...rest } = props;
+
+  const isDisabled = className?.includes('slick-disabled');
+
+  return (
+    <div
+      {...rest}
+      className={className}
+      style={{
+        ...props.style,
+        position: 'relative',
+        bottom: '-302px',
+        opacity: isDisabled ? 0.5 : 1
+      }}
+    >
+      <Image
+        style={{ rotate: '-90deg' }}
+        width={36}
+        height={36}
+        alt="next"
+        src={ArrowCarouselLeft}
+      />
+    </div>
+  );
+};
+
+const FooterCards: React.FC<IFooterCards> = ({ cards }) => {
+  const settings = {
+    slidesToShow: 4,
+    initialSlide: 0,
+    infinite: false,
+    swipeToSlide: false,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1.2,
+          slidesToScroll: 1,
+          nextArrow: <CustomNextArrow />,
+          prevArrow: <CustomPrevArrow />
+        }
+      }
+    ]
+  };
+
+  return (
+    <div className="px-8 mx-4 sm:mx-[136px]">
+      <Slider {...settings}>
+        {cards.map((item, index) => (
           <div
             key={index}
-            className="h-full flex flex-col items-center justify-center bg-white p-[24px] gap-[24px] border border-gray_light rounded-[12px]"
+            className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md"
           >
-            <Image
-              alt={index.toString()}
-              src={item.icon}
-              className="w-[100px] h-[100px]"
-            />
-            <div className="flex flex-col gap-1">
+            <div className="flex justify-center">
+              <Image alt={index.toString()} src={item.icon} className="w-[100px] h-[100px]"/>
+            </div>
+            <div className="flex flex-col justify-center mx-2 mt-2 gap-2">
               <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
                 {item.title.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
+                  <span key={index}>{line}</span>
                 ))}
               </p>
               {item.subtitle && (
@@ -39,8 +124,8 @@ const FooterCards = ({ cards }: IFooterCards) => {
               )}
             </div>
           </div>
-        )
-      )}
+        ))}
+      </Slider>
     </div>
   );
 };

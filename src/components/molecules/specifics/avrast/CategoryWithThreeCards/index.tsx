@@ -1,13 +1,12 @@
 'use client';
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import CardCategoryB from '../Cards/CategoriB';
 import CardCategoryA from '../Cards/CategoryA';
 import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import ButtonSmall from '@/components/atoms/ButtonSmall';
 import ButtonSmallWithCheck from '@/components/atoms/ButtonSmallWithCheck';
-import DropdownInput from '@/components/atoms/DropdownInput';
 import Icon from '@/components/atoms/Icon';
 
 interface IOption {
@@ -24,6 +23,16 @@ interface ICategoryWithThreeCards {
   customContent?: ReactElement;
 }
 
+interface DropdownProps {
+  categories: string[];
+  selectedCategory: string;
+}
+
+interface CategoryListProps {
+  categories: string[];
+  selectedCategory: string;
+}
+
 const CategoryWithThreeCards = ({
   categories,
   defaultSelectedCategory,
@@ -34,34 +43,93 @@ const CategoryWithThreeCards = ({
   customContent
 }: ICategoryWithThreeCards) => {
 
-  return (
-    <div className="flex flex-row px-[136px] py-[72px] gap-[48px]">
-      {/* CATEGORIES */}
-      {!hiddenCategory && (
-        <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
-          {categories.map((item: string, index: number) =>
-            defaultSelectedCategory === item ? (
-              <div
-                key={index}
-                className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
-              >
-                <span className="font-bold text-purple_dark text-[18px]">
-                  {item}
-                </span>
-              </div>
-            ) : (
-              <div
-                key={index}
-                className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
-              >
-                <span className="font-bold text-purple_mediumlight text-[18px]">
-                  {item}
-                </span>
-              </div>
-            )
-          )}
+  const Dropdown: React.FC<DropdownProps> = ({
+    categories,
+    selectedCategory
+  }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selected, setSelected] = useState(selectedCategory);
+
+    const handleSelect = (item: string) => {
+      setSelected(item);
+      setIsOpen(false);
+    };
+
+    return (
+      <div className="relative sm:hidden block">
+        <div
+          className="flex justify-between items-center border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[18px]"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <span>{selected}</span>
+          <div
+            className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+              }`}
+          >
+            <Icon name="chevronDown" color="purple_dark" />
+          </div>
         </div>
+        {isOpen && (
+          <div className="absolute w-full mt-1 rounded-lg bg-purple_light_bg shadow-lg">
+            {categories.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => handleSelect(item)}
+                className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${selected === item
+                  ? 'border-purple_dark text-purple_dark'
+                  : 'border-purple_mediumlight text-purple_mediumlight'
+                  }`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const CategoryList: React.FC<CategoryListProps> = ({
+    categories,
+    selectedCategory
+  }) => (
+    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden lg:block hidden">
+      {categories.map((item, index) =>
+        selectedCategory === item ? (
+          <div
+            key={index}
+            className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+          >
+            <span className="font-bold text-purple_dark text-[18px]">
+              {item}
+            </span>
+          </div>
+        ) : (
+          <div
+            key={index}
+            className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
+          >
+            <span className="font-bold text-purple_mediumlight text-[18px]">
+              {item}
+            </span>
+          </div>
+        )
       )}
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
+      {/* CATEGORIES */}
+      <Dropdown categories={categories} selectedCategory={defaultSelectedCategory} />
+      {
+        !hiddenCategory && (
+          <CategoryList
+            categories={categories}
+            selectedCategory={defaultSelectedCategory}
+          />
+        )
+      }
 
       {/* ITEMS LIST */}
       <div className="flex flex-col gap-[24px] grow">
@@ -75,38 +143,26 @@ const CategoryWithThreeCards = ({
             />
             <ButtonSmall title="Cari" />
           </div>
+        </div>
+        <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
           <div className="flex flex-row gap-[12px]">
-            {tabs.map(
-              (
-                item: {
-                  options?: IOption[] | undefined;
-                  type: string;
-                  label: string;
-                },
-                index: number
-              ) =>
-                item.type === 'button' ? (
-                  <ButtonSmall
-                    variant="outlined"
-                    key={index}
-                    title={item.label}
-                  />
-                ) : item.type === 'button-checkbox' ? (
-                  <ButtonSmallWithCheck
-                    key={index}
-                    name={item.label}
-                    title={item.label}
-                  />
-                ) : item.type === 'dropdown' ? (
-                  <DropdownInput value={item.label} options={item.options} />
-                ) : (
-                  <React.Fragment key={index} />
-                )
+            {tabs.map((item: { type: string; label: string }, index: number) =>
+              item.type === 'button' ? (
+                <ButtonSmall key={index} title={item.label} />
+              ) : item.type === 'button-checkbox' ? (
+                <ButtonSmallWithCheck
+                  key={index}
+                  name={item.label}
+                  title={item.label}
+                />
+              ) : (
+                <React.Fragment key={index} />
+              )
             )}
           </div>
         </div>
         {!customContent ? (
-          <div className="grid grid-cols-3 gap-[24px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
             {[...Array(9)].map((_, index) => (
               categoryCard === "B" ? (
                 <CardCategoryB
@@ -127,11 +183,14 @@ const CategoryWithThreeCards = ({
             ))}
           </div>
         ) : customContent}
-        <div className="flex flex-row justify-between">
-          <p className="text-[20px]">
-            Menampilkan <span className="font-bold text-purple_dark">1-9</span>{' '}
-            dari <span className="font-bold">20</span> hasil
-          </p>
+        <div className="flex flex-col gap-4 sm:flex-row justify-between">
+          <div>
+            <p className="text-[20px]">
+              Menampilkan{' '}
+              <span className="font-bold text-purple_dark">1-9</span> dari{' '}
+              <span className="font-bold">20</span> hasil
+            </p>
+          </div>
           <div className="flex flex-row gap-[8px] items-center">
             <p className="text-[20px] text-purple_dark font-bold">1</p>
             <p className="text-[20px]">2</p>

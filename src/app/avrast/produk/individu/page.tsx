@@ -1,18 +1,18 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-import GambarProdukIndividu from "@/assets/images/gambar-produk-individu.svg";
-import ProdukClaim from "@/assets/images/produk-claim.svg";
-import ProdukIndividuImage from "@/assets/images/produk-individu-image.svg";
-import ProdukPolis from "@/assets/images/produk-polis.svg";
-import ProdukRumahSakit from "@/assets/images/produk-rumah-sakit.svg";
-import ProdukTestimoni from "@/assets/images/produk-testimoni.svg";
+import GambarProdukIndividu from '@/assets/images/gambar-produk-individu.svg';
+import ProdukClaim from '@/assets/images/produk-claim.svg';
+import ProdukIndividuImage from '@/assets/images/produk-individu-image.svg';
+import ProdukPolis from '@/assets/images/produk-polis.svg';
+import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
+import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
-import CategoryWithThreeCards from "@/components/molecules/specifics/avrast/CategoryWithThreeCards";
-import FooterCards from "@/components/molecules/specifics/avrast/FooterCards";
-import FooterInformation from "@/components/molecules/specifics/avrast/FooterInformation";
-import Hero from "@/components/molecules/specifics/avrast/Hero";
+import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
+import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 const ProdukIndividu = () => {
   const TopSeparator = () => {
@@ -25,8 +25,8 @@ const ProdukIndividu = () => {
           style={{ userSelect: 'none' }}
         />
       </div>
-    )
-  }
+    );
+  };
 
   const BottomSeparator = () => {
     return (
@@ -38,8 +38,8 @@ const ProdukIndividu = () => {
           style={{ userSelect: 'none' }}
         />
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="flex flex-col">
@@ -49,25 +49,34 @@ const ProdukIndividu = () => {
           { title: 'Beranda', href: '/avrast' },
           { title: 'Produk', href: '/avrast/produk/individu' }
         ]}
-        bottomImage={GambarProdukIndividu} 
+        bottomImage={GambarProdukIndividu}
       />
       <CategoryWithThreeCards
-        defaultSelectedCategory='Asuransi Jiwa'
+        defaultSelectedCategory="Asuransi Jiwa"
         categories={[
-          'Asuransi Jiwa', 'Asuransi Kesehatan', 'Asuransi Kecelakaan', 'Asuransi Tambahan'
+          'Asuransi Jiwa',
+          'Asuransi Kesehatan',
+          'Asuransi Kecelakaan',
+          'Asuransi Tambahan'
         ]}
         tabs={[
           { type: 'button', label: 'Individu' },
           { type: 'button', label: 'Korporasi' },
           { type: 'button-checkbox', label: 'Via online' },
           { type: 'button-checkbox', label: 'Via Bank' },
-          { type: 'button-checkbox', label: 'Via Tenaga Pemasar' },
+          { type: 'button-checkbox', label: 'Via Tenaga Pemasar' }
         ]}
       />
       <BottomSeparator />
       <FooterInformation
-        title={<p className="text-[56px]"><span className="font-bold text-purple_dark">Hello,</span> Ada yang bisa <span className="font-bold text-purple_dark">Avrista</span> bantu?</p>}
-        buttonTitle='Tanya Avrista'
+        title={
+          <p className="text-[36px] sm:text-[56px] text-center sm:text-left">
+            <span className="font-bold text-purple_dark">Hello,</span> Ada yang
+            bisa <span className="font-bold text-purple_dark">Avrista</span>{' '}
+            bantu?
+          </p>
+        }
+        buttonTitle="Tanya Avrista"
         image={ProdukIndividuImage}
       />
       <TopSeparator />
@@ -79,20 +88,23 @@ const ProdukIndividu = () => {
           },
           {
             title: 'Klaim & Layanan',
-            icon: ProdukClaim
+            icon: ProdukClaim,
+            subtitle: 'Lebih Lanjut'
           },
           {
             title: 'Kelola Polis',
-            icon: ProdukPolis
+            icon: ProdukPolis,
+            subtitle: 'Login Akun'
           },
           {
             title: 'Testimonial',
-            icon: ProdukTestimoni
-          },
+            icon: ProdukTestimoni,
+            subtitle: 'Lebih Lanjut'
+          }
         ]}
       />
     </div>
-  )
-}
+  );
+};
 
 export default ProdukIndividu;
