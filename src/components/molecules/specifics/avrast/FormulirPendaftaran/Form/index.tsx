@@ -2,11 +2,12 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Accordion from '../../Accordion';
-import DownloadFileButton from '../../DownloadFileButton';
 import FAMILY_4 from '@/assets/images/family-4.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
+import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
+import DownloadFileButton from '@/components/molecules/specifics/avrast/DownloadFileButton';
 import SearchBox from '@/components/molecules/specifics/avrast/SearchBox';
 
 const PDFData = [
@@ -33,10 +34,29 @@ const PDFData = [
 ];
 
 const Form = () => {
+  const btnVerticalData = [
+    {
+      title: 'Asuransi Jiwa Individu',
+      onClick: () => {}
+    },
+    {
+      title: 'Asuransi Jiwa Koperasi',
+      onClick: () => {}
+    },
+    {
+      title: 'Avrist Syariah',
+      onClick: () => {}
+    },
+    {
+      title: 'Avrist DPLK',
+      onClick: () => {}
+    }
+  ];
+
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
       <Image
-        className="rounded-t-[65px] w-full object-cover h-[640px]"
+        className="rounded-t-[65px] w-full object-fill h-auto -mt-20 md:mt-0"
         alt="gambar-produk-individu"
         src={FAMILY_4}
       />
@@ -58,34 +78,11 @@ const Form = () => {
         </section>
 
         <section className="mb-2">
-          <div className="flex flex-row gap-10">
-            <div className="w-[23%] h-full bg-purple_light_bg rounded-xl">
-              <span className="flex flex-row gap-4 items-center">
-                <div className="w-[6px] h-[49px] bg-purple_dark rounded-tl-xl" />
-                <p className="text-md 2xl:text-lg font-bold text-purple_dark">
-                  Asuransi Jiwa Individu
-                </p>
-              </span>
-              <span className="flex flex-row gap-4 items-center">
-                <div className="w-[6px] h-[49px] bg-purple_mediumlight" />
-                <p className="text-md 2xl:text-lg font-bold text-purple_mediumlight">
-                  Asuransi Jiwa Koperasi
-                </p>
-              </span>
-              <span className="flex flex-row gap-4 items-center">
-                <div className="w-[6px] h-[49px] bg-purple_mediumlight" />
-                <p className="text-md 2xl:text-lg font-bold text-purple_mediumlight">
-                  Avrist Syariah
-                </p>
-              </span>
-              <span className="flex flex-row gap-4 items-center">
-                <div className="w-[6px] h-[49px] bg-purple_mediumlight rounded-bl-xl" />
-                <p className="text-md 2xl:text-lg font-bold text-purple_mediumlight">
-                  Avrist DPLK
-                </p>
-              </span>
+          <div className="flex xs:flex-col md:flex-row gap-10">
+            <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl">
+              <ButtonMenuVertical item={btnVerticalData} />
             </div>
-            <div className="w-[77%] -mt-3">
+            <div className="xs:w-[100%] md:w-[77%] -mt-3">
               <SearchBox onSearch={() => {}} placeHolder="Cari Formulir" />
               <div className="flex flex-col gap-3">
                 <Accordion

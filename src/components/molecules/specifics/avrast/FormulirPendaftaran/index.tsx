@@ -3,8 +3,8 @@ import Form from './Form';
 
 export const FormulirPendaftaran = () => {
   return (
-    <div>
+    <>
       <Form />
-    </div>
+    </>
   );
 };
