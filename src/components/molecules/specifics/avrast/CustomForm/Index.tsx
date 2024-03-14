@@ -1,13 +1,22 @@
 import React from 'react';
 import Image from 'next/image';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
-import Button from '@/components/atoms/Button/Button';
 import Radio from '@/components/atoms/Radio';
 
-const CustomForm = () => {
+interface CustomFormProps {
+  customFormClassname?: string;
+  customFormButtonClassname?: string;
+}
+
+const CustomForm: React.FC<CustomFormProps> = ({
+  customFormClassname = 'border-b-purple_dark',
+  customFormButtonClassname = 'border-purple_dark text-purple_dark'
+}) => {
   return (
     <>
-      <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px] rounded-b-[8px]">
+      <div
+        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[8px]`}
+      >
         <p className="font-karla font-bold text-[36px] sm:text-[56px]">
           Saya tertarik dengan produk ini
         </p>
@@ -93,11 +102,12 @@ const CustomForm = () => {
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-[32px]">
           <Image alt="captcha" src={CaptchaPicture} />
-          <Button
-            title="Kirim"
-            customButtonClass="h-[64px]"
-            customTextClass="text-[20px] font-semibold"
-          />
+          <button
+            type='button'
+            className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
+          >
+            <p>Kirim</p>
+          </button>
         </div>
       </div>
     </>

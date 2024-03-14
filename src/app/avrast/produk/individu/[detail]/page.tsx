@@ -8,14 +8,14 @@ import ProdukIndividuImage from '@/assets/images/produk-individu-image.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
-import ROUNDED_FRAME_TOP from '@/assets/images/rounded-frame-top.svg';
 import GiveHeartSymbol from '@/assets/symbols/giveheart-symbol.svg';
 import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import HeartChatSymbol from '@/assets/symbols/heartchat-symbol.svg';
 import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import ShieldSymbol from '@/assets/symbols/shield-symbol.svg';
 
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
 import GridContainer from '@/components/molecules/specifics/avrast/Containers/Grid';
@@ -33,32 +33,6 @@ export const generateStaticParams = () => {
 
 const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   console.log(params);
-
-  const TopSeparator = () => {
-    return (
-      <div className="w-full bg-avrast_product_bg">
-        <Image
-          alt="border"
-          className="w-full h-auto"
-          src={ROUNDED_FRAME_TOP}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
-
-  const BottomSeparator = () => {
-    return (
-      <div className="w-full bg-avrast_product_bg">
-        <Image
-          alt="border"
-          className="w-full h-auto"
-          src={ROUNDED_FRAME_BOTTOM}
-          style={{ userSelect: 'none' }}
-        />
-      </div>
-    );
-  };
 
   return (
     <div className="flex flex-col">
@@ -160,7 +134,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           />
         ))}
       </GridContainer>
-      <BottomSeparator />
+      <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
         title={
           <p className="text-[56px]">
@@ -172,7 +146,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         buttonTitle="Tanya Avrista"
         image={ProdukIndividuImage}
       />
-      <TopSeparator />
+      <RoundedFrameTop bgColor='bg-white' />
       <FooterCards
         cards={[
           {
