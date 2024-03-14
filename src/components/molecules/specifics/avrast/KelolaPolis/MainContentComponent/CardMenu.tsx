@@ -4,7 +4,6 @@ import Link from 'next/link';
 import MIN from '@/assets/images/avrast/component/panduan-polis/min.svg';
 import PLUS from '@/assets/images/avrast/component/panduan-polis/plus.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/product-section/chevron-right-purple.svg';
-import Button from '@/components/atoms/Button/Button';
 
 type CardMenuLinkProps = {
   desc: string;
@@ -42,12 +41,12 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
           PDF
         </span>
       </span>
-      <Button
-        title="Unduh"
+      <button
+        className="font-opensans font-semibold text-[16px] bg-purple_dark text-white w-[136px] h-[40px] rounded-md"
         onClick={onDownload}
-        customTextClass="text-white"
-        customButtonClass="bg-purple_dark"
-      />
+      >
+        Unduh
+      </button>
     </div>
   );
 };

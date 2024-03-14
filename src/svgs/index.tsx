@@ -37,6 +37,7 @@ import Search from './commons/Search';
 import Share from './commons/Share';
 import ShoppingCart from './commons/ShoppingCart';
 import TiktokIcon from './commons/TiktokIcon';
+import UploadIcon from './commons/UploadIcon';
 import XCrossIcon from './commons/XCrossIcon';
 import YoutubeIcon from './commons/YoutubeIcon';
 
@@ -78,6 +79,7 @@ const IconSVG = {
   Newspaper,
   ChevronDown,
   YoutubeIcon,
+  UploadIcon,
   ChevronLeft,
   LightBulb,
   ShoppingCart,
