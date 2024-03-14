@@ -23,6 +23,7 @@ interface ICategoryWithThreeCards {
   customContent?: ReactElement;
   customLeftContent?: ReactElement | null;
   customRightContent?: ReactElement | null;
+  searchPlaceholder?: string;
   onCategoryChange?: (value: string) => void;
 }
 
@@ -46,6 +47,7 @@ const CategoryWithThreeCards = ({
   customContent,
   customLeftContent,
   customRightContent,
+  searchPlaceholder,
   onCategoryChange
 }: ICategoryWithThreeCards) => {
   const [selectedCategory, setSelectedCategory] = useState(
@@ -160,7 +162,7 @@ const CategoryWithThreeCards = ({
         >
           <div className="flex flex-row gap-[12px] ">
             <input
-              placeholder="Cari"
+              placeholder={searchPlaceholder ?? "Cari"}
               className="focus:outline-none px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] grow"
             />
             <ButtonSmall title="Cari" />
