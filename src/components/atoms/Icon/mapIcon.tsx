@@ -45,7 +45,10 @@ const iconType = {
   chevronLeft: IconSVG.ChevronLeft,
   lightBulb: IconSVG.LightBulb,
   shoppingCart: IconSVG.ShoppingCart,
-  externalLink: IconSVG.ExternalLink
+  externalLink: IconSVG.ExternalLink,
+  navigation: IconSVG.Navigation,
+  maps: IconSVG.Maps,
+  phone: IconSVG.Phone
 } as const;
 
 type IconsListType = keyof typeof iconType;
