@@ -12,6 +12,7 @@ interface IAccordion {
 
 interface IAccordionItem {
   children?: React.ReactNode;
+  bgColor?: string;
 }
 
 const Accordion: React.FC<IAccordion> & {
@@ -20,7 +21,7 @@ const Accordion: React.FC<IAccordion> & {
   const [expand, setExpand] = useState<boolean>(false);
   return (
     <div
-      className={`rounded-xl border border-gray_light p-4 ${bgColor ?? 'bg-white'} flex flex-col gap-4`}
+      className={`rounded-xl border border-gray_light p-4 ${bgColor ?? 'bg-white'} flex flex-col gap-4 shadow-sm`}
     >
       <div className="flex flex-row justify-between items-center">
         <h1 className="text-xl 2xl:text-2xl font-bold">{title}</h1>
@@ -44,8 +45,8 @@ const Accordion: React.FC<IAccordion> & {
   );
 };
 
-const AccordionItem: React.FC<IAccordionItem> = ({ children }) => {
-  return <div className=" flex flex-col gap-2">{children}</div>;
+const AccordionItem: React.FC<IAccordionItem> = ({ children, bgColor }) => {
+  return <div className={`flex flex-col gap-2 ${bgColor}`}>{children}</div>;
 };
 
 Accordion.Item = AccordionItem;

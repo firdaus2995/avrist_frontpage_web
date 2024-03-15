@@ -14,10 +14,14 @@ import FOOTER_NASABAH_3 from '@/assets/images/avrast/component/footer-klaim/foot
 import FOOTER_NASABAH_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import FOOTER_FORMULIR_1 from '@/assets/images/common/arrow-circle-right.svg';
-import FOOTER_FORMULIR_2 from '@/assets/images/common/document-search.svg';
-import FOOTER_FORMULIR_3 from '@/assets/images/common/message.svg';
-import FOOTER_FORMULIR_4 from '@/assets/images/common/receipt.svg';
+import ARROW_CIRCLE_RIGHT from '@/assets/images/common/arrow-circle-right.svg';
+import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
+import HEART_CHECK from '@/assets/images/common/heart-check.svg';
+import HOME_ADD from '@/assets/images/common/home-add.svg';
+import MESSAGE from '@/assets/images/common/message.svg';
+import PERSON_HOME_YELLOW from '@/assets/images/common/person-home-yellow.svg';
+import RECEIPT from '@/assets/images/common/receipt.svg';
+import UMBRELLA_GREEN from '@/assets/images/common/umbrella-green.svg';
 
 const dataInformasiNasabah = [
   {
@@ -44,24 +48,49 @@ const dataInformasiNasabah = [
 
 const dataFormulirPendaftaran = [
   {
-    icon: FOOTER_FORMULIR_1,
+    icon: ARROW_CIRCLE_RIGHT,
     title: 'Kelola Polis',
     link1: 'Login Akun'
   },
   {
-    icon: FOOTER_FORMULIR_4,
+    icon: RECEIPT,
     title: 'Ajukan Klaim',
     link1: 'Lebih Lanjut'
   },
   {
-    icon: FOOTER_FORMULIR_2,
+    icon: DOCUMENT_SEARCH,
     title: 'Prosedur Pengaduan',
     link1: 'Lihat Prosedur'
   },
   {
-    icon: FOOTER_FORMULIR_3,
+    icon: MESSAGE,
     title: 'Tanya Avrista',
     link1: 'Lebih Lanjut'
+  }
+];
+
+const dataPerformaInvestasi = [
+  {
+    icon: HEART_CHECK,
+    title: 'Asuransi Jiwa',
+    link1: 'Lihat Produk'
+  },
+  {
+    icon: HOME_ADD,
+    title: 'Asuransi Korporasi',
+    link1: 'Lebih Lanjut'
+  },
+  {
+    icon: UMBRELLA_GREEN,
+    title: 'Avrist Syariah',
+    link1: 'Lihat Prosedur',
+    color: 'text-syariah_green'
+  },
+  {
+    icon: PERSON_HOME_YELLOW,
+    title: 'Avrist DPLK',
+    link1: 'Lebih Lanjut',
+    color: 'text-orange_border'
   }
 ];
 
@@ -73,7 +102,9 @@ const FooterKlaim = () => {
     ? dataInformasiNasabah
     : params.includes('Formulir & Buku Panduan')
       ? dataFormulirPendaftaran
-      : dataInformasiNasabah;
+      : params.includes('Performa Investasi')
+        ? dataPerformaInvestasi
+        : dataInformasiNasabah;
 
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
@@ -100,6 +131,7 @@ const FooterKlaim = () => {
     icon: StaticImport;
     title: string;
     link1: string;
+    color: string;
   }) => (
     <div
       className={`w-full  flex mb-10 flex-col rounded-xl bg-white items-center justify-center text-center shadow-xl border-2`}
@@ -110,7 +142,9 @@ const FooterKlaim = () => {
       <div
         className={`w-full md:p-10 xs:p-4 flex h-full flex-col items-center justify gap-2`}
       >
-        <p className="md:text-lg xs:text-xs font-black text-center w-full">
+        <p
+          className={`md:text-lg xs:text-xs font-bold ${val.color ?? ''} text-center w-full`}
+        >
           {val.title}
         </p>
         <div
