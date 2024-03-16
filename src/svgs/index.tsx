@@ -6,6 +6,7 @@ import CalendarIcon from './commons/CalendarIcon';
 import ChevronDown from './commons/ChevronDown';
 import ChevronLeft from './commons/ChevronLeft';
 import ChevronRight from './commons/ChevronRight';
+import Clock from './commons/clock';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
 import DiscountIcon from './commons/DiscountIcon';
@@ -58,6 +59,7 @@ const IconSVG = {
   ArrowRightIcon,
   ChevronRight,
   Close,
+  Clock,
   AlertCircle,
   SealWarning,
   CalendarIcon,

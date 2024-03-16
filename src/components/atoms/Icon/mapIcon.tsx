@@ -17,6 +17,7 @@ const iconType = {
   arrowRightIcon: IconSVG.ArrowRightIcon,
   chevronRight: IconSVG.ChevronRight,
   close: IconSVG.Close,
+  clock: IconSVG.Clock,
   alertCircle: IconSVG.AlertCircle,
   polygon: IconSVG.Polygon,
   sealWarning: IconSVG.SealWarning,
