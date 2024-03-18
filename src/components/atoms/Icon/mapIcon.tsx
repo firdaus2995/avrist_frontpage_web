@@ -49,7 +49,10 @@ const iconType = {
   externalLink: IconSVG.ExternalLink,
   navigation: IconSVG.Navigation,
   maps: IconSVG.Maps,
-  phone: IconSVG.Phone
+  phone: IconSVG.Phone,
+  clock: IconSVG.Clock,
+  mapsPin: IconSVG.MapsPin,
+  briefcase: IconSVG.Briefcase,
 } as const;
 
 type IconsListType = keyof typeof iconType;

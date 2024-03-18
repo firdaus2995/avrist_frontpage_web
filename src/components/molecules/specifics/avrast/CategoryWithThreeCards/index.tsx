@@ -25,6 +25,7 @@ interface ICategoryWithThreeCards {
   customRightContent?: ReactElement | null;
   searchPlaceholder?: string;
   onCategoryChange?: (value: string) => void;
+  hideSearchBar?: boolean;
 }
 
 interface DropdownProps {
@@ -48,7 +49,8 @@ const CategoryWithThreeCards = ({
   customLeftContent,
   customRightContent,
   searchPlaceholder,
-  onCategoryChange
+  onCategoryChange,
+  hideSearchBar
 }: ICategoryWithThreeCards) => {
   const [selectedCategory, setSelectedCategory] = useState(
     defaultSelectedCategory
@@ -157,34 +159,54 @@ const CategoryWithThreeCards = ({
       {/* ITEMS LIST */}
       <div className="flex flex-col gap-[24px] grow">
         {customRightContent ?? null}
-        <div
-          className={`flex ${filterRowLayout ? 'flex-row-reverse' : 'flex-col'}  gap-5 justify-between`}
-        >
-          <div className="flex flex-row gap-[12px] ">
-            <input
-              placeholder={searchPlaceholder ?? "Cari"}
-              className="focus:outline-none px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] grow"
-            />
-            <ButtonSmall title="Cari" />
+        {!hideSearchBar && (
+          <div
+            className={`flex ${filterRowLayout ? 'flex-row-reverse' : 'flex-col'}  gap-5 justify-between`}
+          >
+            <div className="flex flex-row gap-[12px] ">
+              <input
+                placeholder={searchPlaceholder ?? 'Cari'}
+                className="focus:outline-none w-[450px] px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+              />
+              <ButtonSmall title="Cari" />
+            </div>
+            <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
+              <div className="flex flex-row gap-[12px]">
+                {tabs.map(
+                  (
+                    item: { type: string; label: string; options?: IOption[] },
+                    index: number
+                  ) =>
+                    item.type === 'button' ? (
+                      <ButtonSmall key={index} title={item.label} />
+                    ) : item.type === 'button-checkbox' ? (
+                      <ButtonSmallWithCheck
+                        key={index}
+                        name={item.label}
+                        title={item.label}
+                      />
+                    ) : item.type === 'dropdown' ? (
+                      <div className='p-2 border rounded-xl border-purple_dark text-purple_dark'>
+                        <select key={index}>
+                          {item?.options?.map((val, idx) => (
+                            <option
+                              defaultValue={val.label}
+                              key={idx}
+                              value={val.value}
+                            >
+                              {val.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    ) : (
+                      <React.Fragment key={index} />
+                    )
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
-          <div className="flex flex-row gap-[12px]">
-            {tabs.map((item: { type: string; label: string }, index: number) =>
-              item.type === 'button' ? (
-                <ButtonSmall key={index} title={item.label} />
-              ) : item.type === 'button-checkbox' ? (
-                <ButtonSmallWithCheck
-                  key={index}
-                  name={item.label}
-                  title={item.label}
-                />
-              ) : (
-                <React.Fragment key={index} />
-              )
-            )}
-          </div>
-        </div>
+        )}
         {!customContent ? (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
             {[...Array(9)].map((_, index) =>

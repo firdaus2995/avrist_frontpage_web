@@ -106,7 +106,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards }) => {
         {cards.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md"
+            className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
           >
             <div className="flex justify-center">
               <Image alt={index.toString()} src={item.icon} className="w-[100px] h-[100px]"/>
