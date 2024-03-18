@@ -1,13 +1,8 @@
-'use client';
-import React, { useRef } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-import Slider from 'react-slick';
-import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
-import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import { CardPurple } from '../../HubungiKami/MainContentComponent/Card';
 
 const mockData = [
   {
@@ -37,91 +32,27 @@ const mockData = [
 ];
 
 export const ContentCard = () => {
-  const sliderRef = useRef<Slider | null>(null);
-  const next = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
-    }
-  };
-  const previous = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
-    }
-  };
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    centerMode: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
   return (
-    <div className="flex flex-col self-stretch items-center justify-center mt-[64px]">
-      <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
-        {mockData.map((i) => (
-          <div
-            key={i.id}
-            className="max-w-sm flex flex-col items-center justify-center p-6 cursor-pointer border-[1px] border-gray_light rounded-xl"
-          >
-            <img src={i.icon} alt={i.title} className="w-20" />
-            <div className="flex flex-col items-center justify-center gap-2">
-              <h5 className="mb-2 md:text-[24px] xs:text-[20px] tracking-tight font-bold font-karla text-[32px] text-gray_body mt-5 text-center">
-                {i.title}
-              </h5>
-              <p className="mb-3 md:text-[16px] xs:text-[12px] line-clamp-3 text-center font-opensans font-normal text-[16px] text-gray_body">
-                {i.desc}
-              </p>
-              <Link href={i.link}>
-                <div
-                  role="button"
-                  className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
-                >
-                  {i.btn}
-                </div>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="w-full grid grid-cols-1 md:hidden gap-4">
-        <Slider
-          ref={(slider) => {
-            sliderRef.current = slider;
-          }}
-          {...sliderSettings}
-        >
-          {mockData.map((i) => (
-            <div
-              key={i.id}
-              className="max-w-sm flex flex-col items-center justify-center p-6 cursor-pointer border-[1px] border-gray_light rounded-xl"
+    <div className="mt-[64px] grid grid-cols-3 gap-6">
+      {mockData.map((i) => (
+        <CardPurple key={i.id}>
+          <div className="flex flex-col items-center m-[24px]">
+            <img src={i.icon} height={100} width={100} alt="icon" />
+            <p className="text-center font-bold text-[32px] font-karla mt-[24px]">
+              {i.title}
+            </p>
+            <p className="font-opensans text-[16px] text-center mt-[12px]">
+              {i.desc}
+            </p>
+            <Link
+              href={i.link}
+              className="mt-[24px] bg-purple_dark max-w-[260px] w-full text-white rounded-md flex items-center justify-center py-[8px]"
             >
-              <div className="flex w-full items-center justify-center">
-                <img src={i.icon} alt={i.title} className="w-20" />
-              </div>
-              <div className="flex flex-col items-center justify-center gap-2">
-                <h5 className="mb-2 text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
-                  {i.title}
-                </h5>
-                <p className="mb-3 font-normal text-[12px] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
-                  {i.desc}
-                </p>
-                <div
-                  role="button"
-                  className="w-[80%] p-3 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl text-xs text-center"
-                >
-                  {i.btn}
-                </div>
-              </div>
-            </div>
-          ))}
-        </Slider>
-        <div className="flex flex-row justify-between mx-5">
-          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
-          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
-        </div>
-      </div>
+              {i.btn}
+            </Link>
+          </div>
+        </CardPurple>
+      ))}
     </div>
   );
 };

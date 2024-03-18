@@ -1,5 +1,7 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import IconWrapper from './components/IconWrapper';
 import APPSTORE from '@/assets/images/avrast/appstore.svg';
 import GOOGLEPLAY from '@/assets/images/avrast/googleplay.svg';
@@ -9,8 +11,10 @@ import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
 import Icon from '@/components/atoms/Icon';
 
 const Footer = () => {
+  const pathname = usePathname();
+  if (pathname.includes('/under-construction')) return null;
   return (
-    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative mt-[10rem]">
+    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative pt-[10rem]">
       <div className="md:p-16 p-8">
         <Image
           alt="Avrist"

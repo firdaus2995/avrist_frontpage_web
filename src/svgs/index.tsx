@@ -6,6 +6,7 @@ import CalendarIcon from './commons/CalendarIcon';
 import ChevronDown from './commons/ChevronDown';
 import ChevronLeft from './commons/ChevronLeft';
 import ChevronRight from './commons/ChevronRight';
+import Clock from './commons/clock';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
 import DiscountIcon from './commons/DiscountIcon';
@@ -25,8 +26,11 @@ import LightBulb from './commons/LightBulb';
 import LinkedInIcon from './commons/LinkedInIcon';
 import MagnifyingGlass from './commons/MagnifyingGlass';
 import Mail from './commons/Mail';
+import Maps from './commons/Maps';
 import MultiPeopleIcon from './commons/MultiPeopleIcon';
+import Navigation from './commons/Navigation';
 import Newspaper from './commons/Newspaper';
+import Phone from './commons/Phone';
 import PlayIcon from './commons/PlayIcon';
 import Polygon from './commons/Polygon';
 import RoundedPlus from './commons/RoundedPlus';
@@ -55,6 +59,7 @@ const IconSVG = {
   ArrowRightIcon,
   ChevronRight,
   Close,
+  Clock,
   AlertCircle,
   SealWarning,
   CalendarIcon,
@@ -83,7 +88,10 @@ const IconSVG = {
   ChevronLeft,
   LightBulb,
   ShoppingCart,
-  ExternalLink
+  ExternalLink,
+  Navigation,
+  Maps,
+  Phone
 };
 
 export default IconSVG;
