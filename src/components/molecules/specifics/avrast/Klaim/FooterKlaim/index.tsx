@@ -131,7 +131,7 @@ const FooterKlaim = () => {
     icon: StaticImport;
     title: string;
     link1: string;
-    color: string;
+    color?: string;
   }) => (
     <div
       className={`w-full  flex mb-10 flex-col rounded-xl bg-white items-center justify-center text-center shadow-xl border-2`}

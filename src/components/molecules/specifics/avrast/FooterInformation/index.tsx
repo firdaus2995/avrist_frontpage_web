@@ -7,6 +7,7 @@ interface IFooterInformation {
   buttonTitle?: string;
   image: string;
   buttonVariant?: string;
+  bgColor?: string;
 }
 
 // button variants: primary, secondary
@@ -15,12 +16,13 @@ const FooterInformation = ({
   title,
   buttonTitle,
   image,
-  buttonVariant
+  buttonVariant,
+  bgColor,
 }: IFooterInformation) => {
   return (
     <div className="w-full flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px] bg-avrast_product_bg justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
-        <div className="flex flex-col gap-[24px] justify-center p-[36px]">
+        <div className={`flex flex-col gap-[24px] justify-center p-[36px] ${bgColor}`}>
           <div>{title}</div>
           {buttonTitle && (
             <div className='flex justify-center sm:justify-start'>

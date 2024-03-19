@@ -1,12 +1,13 @@
 import AlertCircle from './commons/AlertCircle';
 import ArrowRightIcon from './commons/ArrowRightIcon';
 import Award from './commons/Award';
+import Briefcase from './commons/Briefcase';
 import CalculatorIcon from './commons/CalculatorIcon';
 import CalendarIcon from './commons/CalendarIcon';
 import ChevronDown from './commons/ChevronDown';
 import ChevronLeft from './commons/ChevronLeft';
 import ChevronRight from './commons/ChevronRight';
-import Clock from './commons/clock';
+import Clock from './commons/Clock';
 import Close from './commons/Close';
 import CopyUrl from './commons/CopyUrl';
 import DiscountIcon from './commons/DiscountIcon';
@@ -27,6 +28,7 @@ import LinkedInIcon from './commons/LinkedInIcon';
 import MagnifyingGlass from './commons/MagnifyingGlass';
 import Mail from './commons/Mail';
 import Maps from './commons/Maps';
+import MapsPin from './commons/MapsPin';
 import MultiPeopleIcon from './commons/MultiPeopleIcon';
 import Navigation from './commons/Navigation';
 import Newspaper from './commons/Newspaper';
@@ -91,7 +93,9 @@ const IconSVG = {
   ExternalLink,
   Navigation,
   Maps,
-  Phone
+  Phone,
+  MapsPin,
+  Briefcase
 };
 
 export default IconSVG;
