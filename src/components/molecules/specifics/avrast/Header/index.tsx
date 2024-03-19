@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { EmailSubscribeModal } from '../Modal';
 import NavCard from './components/NavCard';
 import NavDropdownMenus from './components/NavDropdownMenus';
 import TriangleMarker from './components/TriangleMarker';
@@ -21,6 +22,7 @@ import Icon from '@/components/atoms/Icon';
 const Header = () => {
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
 
   return (
     <nav className="isolate sticky z-50 top-0">
@@ -47,7 +49,10 @@ const Header = () => {
             <Icon name="lightBulb" color="gray_black" />
             <p className="font-bold text-sm">Avrist Solution</p>
           </div>
-          <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
+          <div
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+            onClick={() => setIsShowEmailSubs(true)}
+          >
             <Icon name="mail" color="gray_black" />
             <p className="font-bold text-sm">Subscribe</p>
           </div>
@@ -101,6 +106,10 @@ const Header = () => {
       <BlackOverlay
         isVisible={isDropdownVisible}
         onClick={() => setIsDropdownVisible(false)}
+      />
+      <EmailSubscribeModal
+        show={isShowEmailSubs}
+        onClose={() => setIsShowEmailSubs(false)}
       />
     </nav>
   );
