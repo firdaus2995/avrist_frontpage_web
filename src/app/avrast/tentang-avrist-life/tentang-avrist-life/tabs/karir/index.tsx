@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Icon2 from '@/assets/images/avrast/about/menagemen.svg';
 import Icon3 from '@/assets/images/avrast/about/penghargaan.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -129,11 +130,18 @@ const Karir = () => {
                     />
                     <p>6 hari lalu</p>
                   </div>
-                  <Button
-                    title="Lihat Detail"
-                    customButtonClass="rounded-xl bg-purple_dark w-full mt-5"
-                    customTextClass="text-white"
-                  />
+                  <Link
+                    key={index}
+                    href={
+                      'http://localhost:3000/avrast/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail'
+                    }
+                  >
+                    <Button
+                      title="Lihat Detail"
+                      customButtonClass="rounded-xl bg-purple_dark w-full mt-5"
+                      customTextClass="text-white"
+                    />
+                  </Link>
                 </div>
               ))}
             </div>
