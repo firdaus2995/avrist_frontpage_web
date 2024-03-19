@@ -4,14 +4,11 @@ import { useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
 import Button from '@/components/atoms/Button/Button';
 
-const buttonList = [
-  'Informasi Nasabah',
-  'Rumah Sakit Rekanan',
-  'Formulir & Buku Panduan',
-  'Performa Investasi'
-];
+interface IButtonMenu {
+  buttonList: string[];
+}
 
-const ButtonMenu = () => {
+const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
   const searchParams = useSearchParams();
   const params = searchParams.get('tab') ?? '';
   const sliderRef = useRef<Slider | null>(null);
@@ -31,7 +28,7 @@ const ButtonMenu = () => {
     if (sliderRef.current && activeIndex !== -1) {
       sliderRef.current.slickGoTo(activeIndex);
     }
-  }, [params]);
+  }, [params, buttonList]);
 
   return (
     <>

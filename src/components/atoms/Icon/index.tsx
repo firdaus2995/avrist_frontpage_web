@@ -21,7 +21,7 @@ const Icon = ({
 }: IIcon) => {
   const colorConfig = resolveConfig(tailwindConfig).theme?.colors;
   const currentColor: string = colorConfig
-    ? (colorConfig[color] as string)
+    ? (colorConfig[color as keyof typeof colorConfig] as string)
     : color;
 
   return (
