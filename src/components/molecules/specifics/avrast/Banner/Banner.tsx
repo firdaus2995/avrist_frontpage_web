@@ -71,18 +71,15 @@ const sliderSettings = {
   slidesToScroll: 1,
   appendDots: (
     dots:
-      | string
-      | number
-      | boolean
-      | React.ReactElement<
-          unknown,
-          string | React.JSXElementConstructor<unknown>
-        >
-      | Iterable<React.ReactNode>
-      | React.ReactPortal
-      | React.PromiseLikeOfReactNode
-      | null
-      | undefined
+    | string
+    | number
+    | boolean
+    | React.ReactElement<string | React.JSXElementConstructor<string>>
+    | Iterable<React.ReactNode>
+    | React.ReactPortal
+    | Promise<React.AwaitedReactNode>
+    | null
+    | undefined
   ) => (
     <div
       style={{
