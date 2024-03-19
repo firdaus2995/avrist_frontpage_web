@@ -61,7 +61,14 @@ const Form = () => {
         src={FAMILY_4}
       />
       <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
-        <ButtonMenu />
+        <ButtonMenu
+          buttonList={[
+            'Informasi Nasabah',
+            'Rumah Sakit Rekanan',
+            'Formulir & Buku Panduan',
+            'Performa Investasi'
+          ]}
+        />
 
         <section className="w-full flex flex-col items-center text-center my-[60px]">
           <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
