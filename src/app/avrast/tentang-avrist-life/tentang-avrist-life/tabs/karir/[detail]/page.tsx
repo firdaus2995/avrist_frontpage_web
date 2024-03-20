@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { Modal } from '../component/modal/modal';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -16,11 +18,15 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 export const generateStaticParams = () => {
-  return [{ detail: 'detail' }];
+  return [{ detail: 'detail', show: true }];
+};
+type SearchParamProps = {
+  searchParams: Record<string, string> | null | undefined;
 };
 
-const DetailKarir = ({ params }: { params: { detail: string } }) => {
-  console.log(params);
+const DetailKarir = ({ searchParams }: SearchParamProps) => {
+  console.log(searchParams)
+  const show = searchParams?.show;
   return (
     <>
       <Hero
@@ -172,11 +178,13 @@ const DetailKarir = ({ params }: { params: { detail: string } }) => {
             </ul>
           </div>
           <div className="py-10">
-            <Button
-              title="Apply For This Job"
-              customButtonClass="rounded-xl bg-purple_dark"
-              customTextClass="text-white"
-            />
+            <Link href="/avrast/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail?show=true">
+              <Button
+                title="Apply For This Job"
+                customButtonClass="rounded-xl bg-purple_dark"
+                customTextClass="text-white"
+              />
+            </Link>
           </div>
           <div className="w-full flex flex-row justify-between items-center p-4 border rounded-xl">
             <div className="flex flex-row gap-2 items-center">
@@ -243,6 +251,7 @@ const DetailKarir = ({ params }: { params: { detail: string } }) => {
           ]}
         />
       </div>
+      {show && <Modal />}
     </>
   );
 };
