@@ -119,7 +119,7 @@ const InfoKlaimTab = () => {
           {data.map((val, idx) => (
             <div
               key={idx}
-              className="max-w-sm flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+              className="max-w-sm h-[380px] flex flex-col items-center justify-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
             >
               <div className="flex w-full items-center justify-center">
                 <Image src={val.icon} alt={val.title} className="w-20" />
