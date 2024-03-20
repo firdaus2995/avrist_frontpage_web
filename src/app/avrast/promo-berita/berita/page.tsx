@@ -470,8 +470,9 @@ const Berita: React.FC<ParamsProps> = () => {
                 <SliderInformation
                   key={index}
                   isVideo
+                  bgColor='purple_superlight'
                   title={
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 text-left">
                       <p className="text-[36px] font-bold">
                         Simak lebih lanjut tentang kisah Vicky
                       </p>
