@@ -1,3 +1,4 @@
+'use client';
 import GreenBinocular from '@/assets/images/avrast/avrist-syariah/green-binocular.svg';
 import GreenHead from '@/assets/images/avrast/avrist-syariah/green-head.svg';
 import GreenPeople from '@/assets/images/avrast/avrist-syariah/green-people.svg';

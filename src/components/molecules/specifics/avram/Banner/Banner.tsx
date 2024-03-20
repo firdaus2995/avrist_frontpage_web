@@ -43,13 +43,10 @@ const sliderSettings = {
       | string
       | number
       | boolean
-      | React.ReactElement<
-          unknown,
-          string | React.JSXElementConstructor<unknown>
-        >
+      | React.ReactElement<string | React.JSXElementConstructor<string>>
       | Iterable<React.ReactNode>
       | React.ReactPortal
-      | React.PromiseLikeOfReactNode
+      | Promise<React.AwaitedReactNode>
       | null
       | undefined
   ) => (
@@ -87,11 +84,13 @@ const Banner = () => {
                 <p className="xs:text-[26px] md:text-[48px] text-bright-purple whitespace-nowrap xs:mt-10 md:mt-0">
                   {data.category}
                 </p>
-                <p className="xs:text-[36px] md:text-[56px] font-black">{data.title}</p>
+                <p className="xs:text-[36px] md:text-[56px] font-black">
+                  {data.title}
+                </p>
                 <div>
                   <Button
                     title={data.btn}
-                    customButtonClass='bg-white'
+                    customButtonClass="bg-white"
                     onClick={() => console.log('Button Clicked')}
                   />
                 </div>

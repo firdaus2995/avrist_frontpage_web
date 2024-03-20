@@ -5,6 +5,7 @@ interface Card {
   name: string;
   role: string;
   image: string;
+  onClick?: (cardData: Card) => void;
 }
 
 interface PersonCardProps {
@@ -26,6 +27,8 @@ const PersonCard: React.FC<PersonCardProps> = ({
       {cards.map((item, index) => (
         <div
           key={index}
+          role="button"
+          onClick={() => item.onClick && item.onClick(item)}
           className="max-w-[372px] border-1 rounded-[12px] shadow-md"
         >
           <Image
