@@ -683,30 +683,32 @@ const Berita: React.FC<ParamsProps> = () => {
         />
         <RoundedFrameTop />
       </div>
-      <FooterCards
-        cards={[
-          {
-            title: 'Hubungi Kami',
-            icon: Icon1,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Tanya Avrista',
-            icon: Icon2,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Panduan Klaim',
-            icon: Icon3,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Asuransi Individu',
-            icon: Icon4,
-            subtitle: 'Lihat Produk'
-          }
-        ]}
-      />
+      <div className="w-full h-full bg-purple_superlight pb-20">
+        <FooterCards
+          cards={[
+            {
+              title: 'Hubungi Kami',
+              icon: Icon1,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Tanya Avrista',
+              icon: Icon2,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Panduan Klaim',
+              icon: Icon3,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Asuransi Individu',
+              icon: Icon4,
+              subtitle: 'Lihat Produk'
+            }
+          ]}
+        />
+      </div>
     </div>
   );
 };
