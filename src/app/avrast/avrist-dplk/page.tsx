@@ -1,3 +1,4 @@
+'use client';
 import HeroDplk1 from '@/assets/images/avrast/dplk/hero-dplk-1.svg';
 import YellowBinocular from '@/assets/images/avrast/dplk/yellow-binocular.svg';
 import YellowHead from '@/assets/images/avrast/dplk/yellow-head.svg';
