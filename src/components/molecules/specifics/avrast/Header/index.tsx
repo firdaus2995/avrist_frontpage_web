@@ -89,6 +89,7 @@ const Header = () => {
                     customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
                     content={item.content}
                     title={item.title}
+                    skipUrl={item.skipUrl}
                     indexData={idx}
                   />
                 </React.Fragment>
