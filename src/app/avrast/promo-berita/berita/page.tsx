@@ -470,8 +470,9 @@ const Berita: React.FC<ParamsProps> = () => {
                 <SliderInformation
                   key={index}
                   isVideo
+                  bgColor='purple_superlight'
                   title={
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 text-left">
                       <p className="text-[36px] font-bold">
                         Simak lebih lanjut tentang kisah Vicky
                       </p>
@@ -683,30 +684,32 @@ const Berita: React.FC<ParamsProps> = () => {
         />
         <RoundedFrameTop />
       </div>
-      <FooterCards
-        cards={[
-          {
-            title: 'Hubungi Kami',
-            icon: Icon1,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Tanya Avrista',
-            icon: Icon2,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Panduan Klaim',
-            icon: Icon3,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Asuransi Individu',
-            icon: Icon4,
-            subtitle: 'Lihat Produk'
-          }
-        ]}
-      />
+      <div className="w-full h-full bg-purple_superlight pb-20">
+        <FooterCards
+          cards={[
+            {
+              title: 'Hubungi Kami',
+              icon: Icon1,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Tanya Avrista',
+              icon: Icon2,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Panduan Klaim',
+              icon: Icon3,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Asuransi Individu',
+              icon: Icon4,
+              subtitle: 'Lihat Produk'
+            }
+          ]}
+        />
+      </div>
     </div>
   );
 };
