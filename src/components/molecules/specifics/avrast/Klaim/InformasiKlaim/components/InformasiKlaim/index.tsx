@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import Slider from 'react-slick';
 import { PanduanLayananModal } from '../../../../Modal';
+import { StandarPelayananModal } from '../../../../Modal';
 import BantuanIcon from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import KelolaPolisIcon from '@/assets/images/avrast/component/informasi-klaim/kelola-polis.svg';
 import KetepatanWaktuIcon from '@/assets/images/avrast/component/informasi-klaim/ketepatan-waktu.svg';
@@ -55,6 +56,7 @@ const data = [
 ];
 
 const InfoKlaimTab = () => {
+  const [isShowModalPelayanan, setShowModalPelayanan] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const [isShowPanduanLayananModal, setIsShowPanduanLayananModal] = useState(false);
   const next = () => {
@@ -109,13 +111,14 @@ const InfoKlaimTab = () => {
               </p>
               <div
                 role="button"
-                className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
-                onClick={ () => {
-                  if(val.btnText === 'Panduan Layanan Nasabah'){
+                onClick={() => {
+                  if(val.btnText === 'Standar Pelayanan'){
+                    setShowModalPelayanan(true);
+                  }else if(val.btnText === 'Panduan Layanan Nasabah'){
                     setIsShowPanduanLayananModal(true);
                   }
-                }              
-              }
+                }}
+                className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"    
               >
                 {val.btnText}
               </div>
@@ -166,6 +169,10 @@ const InfoKlaimTab = () => {
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>
       </div>
+      <StandarPelayananModal
+        show={isShowModalPelayanan}
+        onClose={() => setShowModalPelayanan(false)}
+      />
     </div>
     <PanduanLayananModal isShowPanduanLayananModal={isShowPanduanLayananModal} handleCloseModal={handleCloseModal}/>
     </div>
