@@ -14,7 +14,7 @@ const Footer = () => {
   const pathname = usePathname();
   if (pathname.includes('/under-construction')) return null;
   return (
-    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative pt-[10rem]">
+    <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative">
       <div className="md:p-16 p-8">
         <Image
           alt="Avrist"
