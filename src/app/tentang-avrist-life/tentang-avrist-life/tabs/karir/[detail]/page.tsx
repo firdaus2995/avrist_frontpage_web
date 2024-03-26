@@ -2,7 +2,6 @@ import React from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Modal } from '../component/modal/modal';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -20,13 +19,9 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 export const generateStaticParams = () => {
   return [{ detail: 'detail', show: true }];
 };
-type SearchParamProps = {
-  searchParams: Record<string, string> | null | undefined;
-};
 
-const DetailKarir = ({ searchParams }: SearchParamProps) => {
-  console.log(searchParams);
-  const show = searchParams?.show;
+const DetailKarir = ({ params }: { params: { detail: string } }) => {
+  console.log(params);
   return (
     <>
       <Hero
@@ -251,7 +246,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
           ]}
         />
       </div>
-      {show && <Modal />}
+      {/* {show && <Modal />} */}
     </>
   );
 };
