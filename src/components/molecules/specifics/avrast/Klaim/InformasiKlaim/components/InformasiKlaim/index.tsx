@@ -1,10 +1,11 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import Slider from 'react-slick';
+import { PanduanLayananModal } from '../../../../Modal';
 import BantuanIcon from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import KelolaPolisIcon from '@/assets/images/avrast/component/informasi-klaim/kelola-polis.svg';
 import KetepatanWaktuIcon from '@/assets/images/avrast/component/informasi-klaim/ketepatan-waktu.svg';
@@ -55,6 +56,7 @@ const data = [
 
 const InfoKlaimTab = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const [isShowPanduanLayananModal, setIsShowPanduanLayananModal] = useState(false);
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -74,7 +76,13 @@ const InfoKlaimTab = () => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
+  const handleCloseModal = () => {
+    setIsShowPanduanLayananModal(false);
+  }
+
   return (
+    <div>
     <div className="flex flex-col self-stretch items-center justify-center">
       <div className="w-full flex flex-col items-center justify-center py-2 text-center">
         <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
@@ -102,6 +110,12 @@ const InfoKlaimTab = () => {
               <div
                 role="button"
                 className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
+                onClick={ () => {
+                  if(val.btnText === 'Panduan Layanan Nasabah'){
+                    setIsShowPanduanLayananModal(true);
+                  }
+                }              
+              }
               >
                 {val.btnText}
               </div>
@@ -134,6 +148,12 @@ const InfoKlaimTab = () => {
                 <div
                   role="button"
                   className="w-[80%] p-3 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl text-xs text-center"
+                  onClick={ () => {
+                      if(val.btnText === 'Panduan Layanan Nasabah'){
+                        setIsShowPanduanLayananModal(true);
+                      }
+                    }              
+                  }
                 >
                   {val.btnText}
                 </div>
@@ -146,6 +166,8 @@ const InfoKlaimTab = () => {
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>
       </div>
+    </div>
+    <PanduanLayananModal isShowPanduanLayananModal={isShowPanduanLayananModal} handleCloseModal={handleCloseModal}/>
     </div>
   );
 };
