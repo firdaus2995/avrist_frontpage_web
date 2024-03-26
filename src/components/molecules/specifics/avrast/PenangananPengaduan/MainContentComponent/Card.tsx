@@ -24,7 +24,7 @@ const mockData = [
     title: 'Saran Anda',
     icon: 'https://s3-alpha-sig.figma.com/img/8863/ccea/0bfe3743ae069a852d5d6a4e856ff5d0?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Exg1X3Kag72Gnwi675jBehM5Uot2z4OutfzzjyQDpL1VncNcmY11BHTh-1dHFTVmcU-GUMmCVhwajR9sqZ8JSEbMVoIMVEIMnUsNrbEvT9EW2HpPWAumPwhqdyO9Way3IJwa61XdxXXxi5VzINzqu~qeGTiUV8WVJAMamuvBB7v-5yyr2QwIMn4V2APKoFYgtdXGNlKzbkE6259AIuAhQwfcrHLhpwhXPVwwVAB3FdXg1-5xG8YvmJUe0T~a~-yP7MS9UpauUGHMtoqFL3BCT92BQRIfokIB1gp7lQmbwbCkPXAJFQLNgapRQY4T9r2ljuEX4IMwFSGJSAE~hee4Yg__',
     btn: 'Beri Saran',
-    link: '/avrast/hubungi-kami'
+    link: '/hubungi-kami'
   }
 ];
 

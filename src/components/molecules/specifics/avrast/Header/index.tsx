@@ -37,7 +37,7 @@ const Header = () => {
         </div>
         <div className="flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2">
           <Link
-            href={`/avrast/tanya-avrista`}
+            href={`/tanya-avrista`}
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden"
           >
             <Icon name="helpcircle" color="gray_black" />
@@ -59,7 +59,7 @@ const Header = () => {
             <p className="font-bold text-sm">Subscribe</p>
           </div>
           <div className="flex flex-row gap-2 cursor-pointer pl-2">
-            <Link href={`/avrast/pencarian`}>
+            <Link href={`/pencarian`}>
               <Icon name="search" />
             </Link>
           </div>
@@ -68,11 +68,11 @@ const Header = () => {
 
       {/* Purple Section */}
 
-      {pathname !== '/avrast' ? (
+      {pathname !== '/' ? (
         <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
           <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
             <ul className="md:flex gap-8 items-center hidden">
-              <Link href={`/avrast`}>
+              <Link href={`/`}>
                 <Button.IconButton>
                   <Icon name="homeIcon" color="white" width={20} isSquare />
                 </Button.IconButton>
@@ -103,7 +103,7 @@ const Header = () => {
             >
               <Icon name="hamburgerMenuIcon" color="white" />
             </Button.IconButton>
-            <Link href={`/avrast`}>
+            <Link href={`/`}>
               <Image alt="Avrist Logo" src={AVRIST_LOGO} />
             </Link>
           </div>
