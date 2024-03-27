@@ -117,7 +117,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   className="w-[100px] h-[100px]"
                 />
               </div>
-              <div className="flex flex-col justify-center mx-2 mt-2 gap-2">
+              <div className="flex flex-col justify-center mt-2 gap-2">
                 <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
                   {item.title.split('\n').map((line, index) => (
                     <span key={index}>{line}</span>

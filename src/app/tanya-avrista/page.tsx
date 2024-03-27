@@ -71,6 +71,7 @@ const TanyaAvrista = () => {
       />
       <RoundedFrameTop />
       <FooterCards
+        bgColor="bg-purple_superlight"
         cards={[
           {
             title: 'Tabel Suku Bunga',
