@@ -58,7 +58,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/dist/static ./dist/static
 
 USER nextjs
 
-EXPOSE 3031
+EXPOSE 80
 
 ENV PORT 3031
 
