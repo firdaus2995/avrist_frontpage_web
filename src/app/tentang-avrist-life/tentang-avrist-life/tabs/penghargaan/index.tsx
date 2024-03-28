@@ -41,7 +41,7 @@ const Penghargaan = () => {
                 <Link
                   key={index}
                   href={
-                    'http://localhost:3000/avrast/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/detail'
+                    '/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/detail'
                   }
                 >
                   <div

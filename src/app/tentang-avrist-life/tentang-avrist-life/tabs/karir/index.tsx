@@ -98,7 +98,7 @@ const Karir = () => {
               {[...Array(3)].map((_, index) => (
                 <div
                   key={index}
-                  className="w-full flex flex-col gap-2 items-center p-4 border rounded-xl"
+                  className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
                 >
                   <p className="font-bold text-[24px]">
                     Cross Channel Customer Care
@@ -132,8 +132,9 @@ const Karir = () => {
                   </div>
                   <Link
                     key={index}
+                    className='w-full'
                     href={
-                      'http://localhost:3000/avrast/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail'
+                      '/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail'
                     }
                   >
                     <Button

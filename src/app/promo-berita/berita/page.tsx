@@ -271,7 +271,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     <Link
                       key={index}
                       href={
-                        'http://localhost:3000/avrast/promo-berita/berita/berita-dan-kegiatan'
+                        '/promo-berita/berita/berita-dan-kegiatan'
                       }
                     >
                       <CardCategoryB
@@ -308,7 +308,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     <Link
                       key={index}
                       href={
-                        'http://localhost:3000/avrast/promo-berita/berita/life-guide/avrist-life-guide'
+                        '/promo-berita/berita/life-guide/avrist-life-guide'
                       }
                     >
                       <CardCategoryD
@@ -426,7 +426,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <Link
                         key={index}
                         href={
-                          'http://localhost:3000/avrast/promo-berita/berita/life-guide/avrist-life-guide'
+                          '/promo-berita/berita/life-guide/avrist-life-guide'
                         }
                       >
                         <CardCategoryD

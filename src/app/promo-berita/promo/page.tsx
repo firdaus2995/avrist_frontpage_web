@@ -181,7 +181,7 @@ const Promo: React.FC<ParamsProps> = () => {
                 <Link
                   key={index}
                   href={
-                    'http://localhost:3000/avrast/promo-berita/promo/promo-terbaru'
+                    '/promo-berita/promo/promo-terbaru'
                   }
                 >
                   <div key={index} className="max-w-md">
