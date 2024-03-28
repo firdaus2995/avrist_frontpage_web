@@ -2,6 +2,7 @@
 import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -9,7 +10,12 @@ import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
 import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 
 interface IFooterCards {
-  cards: { title: string; icon: StaticImport | string; subtitle?: string }[];
+  cards: {
+    title: string;
+    icon: StaticImport | string;
+    subtitle?: string;
+    href?: string;
+  }[];
   bgColor?: string;
 }
 
@@ -106,7 +112,8 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       <div className="px-8 mx-4 sm:mx-[136px] pb-[32px]">
         <Slider {...settings}>
           {cards.map((item, index) => (
-            <div
+            <Link
+              href={item?.href ?? '#'}
               key={index}
               className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
             >
@@ -129,7 +136,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   </p>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>

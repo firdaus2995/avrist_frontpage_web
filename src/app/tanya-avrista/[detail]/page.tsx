@@ -1,41 +1,65 @@
 import React from 'react';
 
+import { notFound } from 'next/navigation';
 import CONTACTS from '@/assets/images/common/contacts.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import HOSPITAL from '@/assets/images/common/hospital.svg';
 import MESSAGE from '@/assets/images/common/message.svg';
-import FAMILY_2 from '@/assets/images/family-2.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import ArtikelTanyaAvrista from '@/components/molecules/specifics/avrast/TanyaAvrista/Artikel';
+import { getDetailTanyaAvrista } from '@/services/detail-tanya-avrista.api';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
-export const generateStaticParams = () => {
-  return [{ detail: 'asuransi-jiwa-individu' }];
+const handleGetDetail = async (slug: string) => {
+  try {
+    const data = await getDetailTanyaAvrista(slug);
+    return data;
+  } catch (error) {
+    return notFound();
+  }
 };
 
-const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
-  console.log(params);
+const DetailTanyaAvrista = async ({
+  params
+}: {
+  params: { detail: string };
+}) => {
+  const data = await handleGetDetail(params.detail);
+  const { title, content } = pageTransformer(data);
+
+  const artikel = contentStringTransformer(content['body-jawaban']);
+  const bannerImage = singleImageTransformer(content['title-image']);
+  const footerImage = singleImageTransformer(content['cta1-image']);
+
+  if (data.status !== 'OK') return notFound();
+
   return (
     <>
       <Hero
-        title="Asuransi Jiwa Individu"
+        title={title}
+        imageUrl={bannerImage.imageUrl}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           { title: 'Tanya Avrista', href: '/tanya-avrista' },
           {
-            title: 'Asuransi Jiwa Individu',
-            href: '/tanya-avrista/asuransi-jiwa-individu'
+            title: title,
+            href: '#'
           },
           {
             title: 'Detail',
-            href: '/tanya-avrista/asuransi-jiwa-individu'
+            href: '#'
           }
         ]}
       />
-      <ArtikelTanyaAvrista />
+      <ArtikelTanyaAvrista title={title} content={artikel as string} />
       <RoundedFrameBottom />
       <FooterInformation
         title={
@@ -47,7 +71,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           </p>
         }
         buttonTitle="Panduan Klaim"
-        image={FAMILY_2}
+        href="/under-construction"
+        image={footerImage.imageUrl}
       />
       <RoundedFrameTop />
       <FooterCards
@@ -55,20 +80,24 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           {
             title: 'Kelola Polis',
             subtitle: 'Pengkinian Data',
+            href: 'https://my.avrist.com/welcome',
             icon: CONTACTS
           },
           {
             title: 'Rumah Sakit \n \n Rekanan',
+            href: '/under-construction',
             icon: HOSPITAL
           },
           {
             title: 'Tanya Avrista',
             subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista',
             icon: MESSAGE
           },
           {
             title: 'Prosedur Pengaduan',
             subtitle: 'Lihat Prosedur',
+            href: 'avrast/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi',
             icon: DOCUMENT_SEARCH
           }
         ]}
