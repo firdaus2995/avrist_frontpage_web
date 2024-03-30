@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
 import InformasiKlaimComponent from '@/components/molecules/specifics/avrast/Klaim/InformasiKlaim';
 import KlaimBanner from '@/components/molecules/specifics/avrast/Klaim/KlaimBanner/KlaimBanner';
@@ -14,6 +14,7 @@ import { ParamsProps } from '@/utils/globalTypes';
 
 const InformasiKlaim: React.FC<ParamsProps> = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [tab, setTab] = useState('');
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
   const [bannerImg, setBannerImg] = useState(0);
@@ -24,10 +25,13 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     const value = searchParams.get('tab');
+    if (value === 'Login Polis') {
+      router.push('https://my.avrist.com/welcome')
+    }
     if (value !== null) {
       setTab(value);
     }
-  }, [searchParams]);
+  }, [searchParams, router]);
 
   const handleSelectedDetail = (val: boolean) => {
     setIsSelectedDetail(val);
@@ -37,7 +41,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
     setBannerImg(val);
   };
 
-  return (
+  return tab !== 'Login Polis' && (
     <div className="flex flex-col items-center justify-center bg-avrast_product_bg">
       <KlaimHeader title={tab} />
       <KlaimBanner changeImg={bannerImg} />

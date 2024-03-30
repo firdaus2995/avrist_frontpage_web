@@ -44,40 +44,35 @@ export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModa
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                 >
-                    {/* <Dialog.Panel className="h-4/6 w-4/6 bg-white rounded-xl transform overflow-hidden transition-all"> */}
                     <Dialog.Panel className="transform transition-all overflow-y-auto">
-                        {/* <CardRainbow> */}
                         <CardRainbow className="bg-white">
-                            {/* <div className="h-full gap-20"> */}
                             <div className=" transition p-10 overflow-y-auto">
                                 <div className="absolute right-0 p-[24px]">
                                     <button onClick={handleCloseModal}>
                                         <Icon name="close" width={24} height={24} />
                                     </button>
                                 </div>
-                                {/* <div className='pt-6'> */}
                                 <div className="flex flex-col h-[80vh] w-[60vw]">
                                     <div className="flex items-left flex-col">
-                                        {/* <h3 className="text-[32px] w-full font-bold text-purple_dark p-[24px]">
-                                            Panduan Layanan Nasabah (PDF)
-                                        </h3>  */}
-                                        <p className="font-karla font-semibold text-purple_dark text-[48px]">
-                                            Panduan Layanan Nasabah (PDF)
-                                        </p>
-                                        <p className='text-[18px]'>
-                                            Mari selalu teliti sebelum membeli produk asuransi jiwa dengan membaca isi proposal dengan baik dan pertimbangkan dengan cermat segala manfaat dan konsekuensinya.
-                                        </p>
-                                        <p className='text-[24px] font-bold '>
-                                            Ini dia hal-hal yang perlu Anda lakukan sebelum membeli produk asuransi jiwa!
-                                        </p>                                 
-                                        {
-                                            assuranceTips.map((item, index) => (
-                                                <div key={index} className="flex items-start gap-2 pt-2">
-                                                    <Image src={CASE} alt="case" className="w-7" />
-                                                    <p className="text-[18px] text-left">{item}</p>
-                                                </div>
-                                            ))
-                                        }
+                                        <div className="my-[20px] flex flex-col gap-5">
+                                            <p className="font-karla font-semibold text-purple_dark text-[48px]">
+                                                Panduan Layanan Nasabah (PDF)
+                                            </p>
+                                            <p className='text-[18px]'>
+                                                Mari selalu teliti sebelum membeli produk asuransi jiwa dengan membaca isi proposal dengan baik dan pertimbangkan dengan cermat segala manfaat dan konsekuensinya.
+                                            </p>
+                                            <p className='text-[18px] font-bold '>
+                                                Ini dia hal-hal yang perlu Anda lakukan sebelum membeli produk asuransi jiwa!
+                                            </p>                                 
+                                            {
+                                                assuranceTips.map((item, index) => (
+                                                    <div key={index} className="flex items-start gap-2 pt-2">
+                                                        <Image src={CASE} alt="case" className="w-4 mt-1" />
+                                                        <p className="text-[18px] text-left">{item}</p>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
                                     </div>                               
                                 </div>
                             </div>
