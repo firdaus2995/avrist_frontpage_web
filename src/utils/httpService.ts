@@ -1,6 +1,6 @@
 import { BASE_URL } from './baseUrl';
 
-type Environment = 'page' | '';
+type Environment = 'page' | 'content' | '';
 
 interface QueryParams {
   [key: string]: string;
@@ -37,6 +37,8 @@ function getBaseUrl(env: Environment): string {
   switch (env) {
     case 'page':
       return BASE_URL.apiPage;
+    case 'content':
+      return BASE_URL.contentPage;
     default:
       throw new Error(`Unknown environment: ${env}`);
   }

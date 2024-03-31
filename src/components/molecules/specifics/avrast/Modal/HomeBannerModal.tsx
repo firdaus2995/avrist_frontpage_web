@@ -3,6 +3,8 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
+import { ContentResponse } from '@/types/content.type';
+import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 function getCookie(name: string) {
   const nameEQ = name + '=';
@@ -36,18 +38,11 @@ function setCookie(name: string, value: string) {
 
 const MODAL = 'homeModalBanner';
 
-const getDataPopUp = async () => {
-  try {
-    const response = await fetch('https://api-front-sit.avristcms.barito.tech/api/content/Pop-Up-Awal?includeAttributes=true');
-    // const response = await fetch('http://localhost:9093/api/content/Pop-Up-Awal?includeAttributes=true');
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_CONTENT_URL}/Pop-Up-Awal?includeAttributes=true`);
-    if (!response.ok) {
+const getDataPopUp = (response: ContentResponse | null) => {
+  try { 
+    if (!response || response.code !== 200) {
       throw new Error('Network response was not ok');
     }
-    
-    const { data: dataResponse } = await response.json();
-    console.log({dataResponse});
-    
     
     const shouldBeRealData = {
       "code": 200,
@@ -85,48 +80,16 @@ const getDataPopUp = async () => {
       },
       "errors": null,
       "pagination": null
-  }
-  const { data } = shouldBeRealData;
-
-    if (data && data.contentDataList && data.contentDataList.length > 0) {
-      const bannerValue = data.contentDataList[0].contentData[0].value;
-      
-      const parsedBannerValue = JSON.parse(bannerValue);
-      
-      const imageUrl = parsedBannerValue[0].imageUrl;
-      const dataPath = `${process.env.NEXT_PUBLIC_FILE_URL}/get/${imageUrl}`;
-
-      return dataPath;
-    } else {
-      throw new Error('Data structure is incorrect or empty');
-    }
+    };
+    const { content } = contentTransformer(shouldBeRealData as unknown as ContentResponse);
+    return singleImageTransformer(content['gambar-promo'])
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
   }
 };
 
-// interface IContentData {
-//   id: number,
-//   name: string,
-//   fieldType: string,
-//   fieldId?: number,
-//   config: string,
-//   parentId?: number,
-//   value: string,
-//   // contentData?: any,
-// }
-
-// interface IDataProps {
-//   id: number,
-//   name: string,
-//   slug: string,
-//   type: 'SINGLE' | 'COLLECTION',
-//   useCategory: boolean,
-//   contentData: [IContentData]
-//   };
-
-export const HomeBannerModal = () => {
+export const HomeBannerModal = ({ response }: { response: ContentResponse | null }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [bannerModalPath, setBannerModalPath] = useState('');
 
@@ -140,13 +103,11 @@ export const HomeBannerModal = () => {
   }
 
   useEffect(() => {
-    const statusModal: string | null = getCookie(MODAL);
-    if (statusModal !== null) {
-      getDataPopUp().then(
-        (imageUrl) => {
-        setBannerModalPath(imageUrl!)
+    const statusModal: string | null = getCookie(MODAL);    
+    if (statusModal === null && response !== null) {
+      const dataPopUp = getDataPopUp(response);
+        setBannerModalPath(dataPopUp!.imageUrl)
         openModal();
-      });
     }
   }, []);
 
@@ -190,7 +151,6 @@ export const HomeBannerModal = () => {
                       </button>
                     </div>
                     <img
-                      // src="https://img.freepik.com/premium-vector/flash-sale-discount-banner-template-promotion_7087-866.jpg"
                       src={bannerModalPath}
                       alt="modal-home-banner"
                       className="object-cover h-[90%] w-full"
