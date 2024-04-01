@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import { useRouter } from 'next/navigation';
 import Slider from 'react-slick';
 import { PanduanLayananModal } from '../../../../Modal';
 import { StandarPelayananModal } from '../../../../Modal';
@@ -56,6 +56,7 @@ const data = [
 ];
 
 const InfoKlaimTab = () => {
+  const router = useRouter(); 
   const [isShowModalPelayanan, setShowModalPelayanan] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const [isShowPanduanLayananModal, setIsShowPanduanLayananModal] = useState(false);
@@ -79,9 +80,31 @@ const InfoKlaimTab = () => {
     slidesToScroll: 1
   };
 
-  const handleCloseModal = () => {
-    setIsShowPanduanLayananModal(false);
-  }
+  const handleClickPelayananButton = (text: string) => {
+    const actionMap: { [key: string]: () => void } = {
+      'Panduan Layanan Nasabah': () => {
+        setIsShowPanduanLayananModal(true);
+      },
+      'Standar Pelayanan': () => {
+        setShowModalPelayanan(true);
+      },
+      'Informasi Nasabah': () => {
+        router.push('https://my.avrist.com/welcome');
+      },
+      'Panduan Klaim': () => {
+        console.log('Tombol "Panduan Klaim" diklik');
+      },
+      'Cari Lokasi': () => {
+        router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
+      },
+      'Hubungi Kami': () => {
+        router.push('/hubungi-kami')
+      }
+    };
+    
+    actionMap[text]();
+  };
+  
 
   return (
     <div>
@@ -111,13 +134,7 @@ const InfoKlaimTab = () => {
               </p>
               <div
                 role="button"
-                onClick={() => {
-                  if(val.btnText === 'Standar Pelayanan'){
-                    setShowModalPelayanan(true);
-                  }else if(val.btnText === 'Panduan Layanan Nasabah'){
-                    setIsShowPanduanLayananModal(true);
-                  }
-                }}
+                onClick={() => handleClickPelayananButton(val.btnText)}
                 className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"    
               >
                 {val.btnText}
@@ -151,13 +168,7 @@ const InfoKlaimTab = () => {
                 <div
                   role="button"
                   className="w-[80%] p-3 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl text-xs text-center"
-                  onClick={ () => {
-                      if(val.btnText === 'Panduan Layanan Nasabah'){
-                        setIsShowPanduanLayananModal(true);
-                      }
-                    }              
-                  }
-                >
+                  onClick={() => handleClickPelayananButton(val.btnText)}>
                   {val.btnText}
                 </div>
               </div>
@@ -174,7 +185,9 @@ const InfoKlaimTab = () => {
         onClose={() => setShowModalPelayanan(false)}
       />
     </div>
-    <PanduanLayananModal isShowPanduanLayananModal={isShowPanduanLayananModal} handleCloseModal={handleCloseModal}/>
+      <PanduanLayananModal 
+        isShowPanduanLayananModal={isShowPanduanLayananModal} 
+        handleCloseModal={() => setIsShowPanduanLayananModal(false)}/>
     </div>
   );
 };
