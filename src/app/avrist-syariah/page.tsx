@@ -1,11 +1,23 @@
 'use client';
-import GreenBinocular from '@/assets/images/avrast/avrist-syariah/green-binocular.svg';
-import GreenHead from '@/assets/images/avrast/avrist-syariah/green-head.svg';
-import GreenPeople from '@/assets/images/avrast/avrist-syariah/green-people.svg';
+
+import React, { useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Link as LinkScroll } from 'react-scroll';
+
+import DewanPengawasSyariah from './tabs/DewanPengawasSyariah';
+import KlaimDanLayanan from './tabs/KlaimDanLayanan';
+import ManfaatUtama from './tabs/ManfaatUtama';
+import Produk from './tabs/Produk';
+import TentangAvristSyariah from './tabs/TentangAvristSyariah';
+
 import HelpDesk from '@/assets/images/avrast/avrist-syariah/helpdesk.svg';
 import HeroSyariah1 from '@/assets/images/avrast/avrist-syariah/hero-syariah-1.svg';
-import People1 from '@/assets/images/avrast/people-1.svg';
-import People2 from '@/assets/images/avrast/people-2.svg';
+import HeroSyariah2 from '@/assets/images/avrast/avrist-syariah/hero-syariah-2.svg';
+import HeroSyariah4 from '@/assets/images/avrast/avrist-syariah/hero-syariah-4.svg';
+
+import ProdukEmail from '@/assets/images/avrast/component/proses-klaim/step-4-icon-1.svg';
+import ProdukNasabah from '@/assets/images/avrast/component/proses-klaim/step-4-icon-3.svg';
+import ProdukTanya from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -13,134 +25,91 @@ import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
-import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
-import PersonCard from '@/components/molecules/specifics/avrast/Cards/PersonCard';
-import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
+
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-const AvristSyariah = () => {
+import { ParamsProps } from '@/utils/globalTypes';
+
+const AvristSyariah: React.FC<ParamsProps> = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [tab, setTab] = useState('');
+
+  const handleTabClick = (tabs: string) => {
+    setTab(tabs);
+    router.push(pathname + '?' + createQueryString('tab', tabs), {
+      scroll: false
+    });
+  };
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  useEffect(() => {
+    const value = searchParams.get('tab');
+    if (value !== null) {
+      setTab(value);
+    }
+  }, [searchParams]);
+
+  const tabs = [
+    'Tentang Avrist Syariah',
+    'Dewan Pengawas Syariah',
+    'Manfaat Utama',
+    'Produk',
+    'Klaim dan Layanan'
+  ];
+
   return (
     <div>
       <Hero
-        title="Avrist Syariah"
+        title={tab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Avrist Syariah', href: '/avrist-syariah' }
+          { title: tab, href: '#' }
         ]}
-        bottomImage={HeroSyariah1}
+        bottomImage={
+          tab === 'Produk'
+            ? HeroSyariah2
+            : tab === 'Klaim dan Layanan'
+              ? HeroSyariah4
+              : HeroSyariah1
+        }
       />
-      <SimpleContainer>
-        <CategoryPills
-          buttonTitle={[
-            'Tentang Avrist Syariah',
-            'Dewan Pengawas Syariah',
-            'Manfaat Utama',
-            'Produk',
-            'Klaim & Layanan'
-          ]}
-          selectedCategory="Tentang Avrist Syariah"
-          buttonActiveClassname="bg-syariah_green border-syariah_green"
-          buttonInactiveClassname="bg-transparent border-syariah_green"
-          buttonActiveTextClassname="text-white"
-          buttonInactiveTextClassname="text-syariah_green"
-        />
-        <AboutHeading
-          categoriesName="Sejarah"
-          categoriesClassname="text-syariah_green"
-          headingText="Lorem Ipsum"
-          subHeadingText="Lorem ipsum dolor sit amet consectetur"
-          description="PT Avrist Assurance (d/h PT Asuransi AIA Indonesia) memperoleh Izin untuk menjalankan usaha Asuransi berdasarkan Prinsip Syariah (Syariah Unit) pada tanggal 28 September 2005 dari Kementerian Keuangan Republik Indonesia, No. KEP – 326/KM.5/2005"
-          tags={['Avrist Syariah', 'Premi Tetap', 'Kecelakaan Diri']}
-          tagsClassname="bg-gray_bglightgray"
-          tagsTextClassname="text-syariah_green"
-        />
-        <PersonCard
-          heading="Dewan Pengawas Syariah"
-          cards={[
-            {
-              name: 'Lorem Ipsum',
-              role: 'Lorem Ipsum',
-              image: People1
-            },
-            {
-              name: 'Lorem Ipsum',
-              role: 'Lorem Ipsum',
-              image: People2
-            }
-          ]}
-          roleClassname="text-syariah_green"
-        />
-        <InformationCard
-          heading="Tugas dan Peran"
-          subHeading="DPS PT Avrist Assurance sebagai berikut:"
-          cards={[
-            {
-              cardIcon: GreenBinocular,
-              cardBody:
-                '<strong>Mengawasi,</strong> memberi nasihat dan saran kepada Direksi agar kegiatan Perusahaan sesuai dengan prinsip Syariah.'
-            },
-            {
-              cardIcon: GreenHead,
-              cardBody:
-                'Berupaya menjaga keseimbangan kepentingan semua pihak, khususnya <strong>kepentingan Nasabah.</strong>'
-            },
-            {
-              cardIcon: GreenPeople,
-              cardBody:
-                'Menyelenggarakan <strong>rapat DPS</strong> secara berkala paling sedikit enam kali dalam satu tahun.'
-            }
-          ]}
-          cardClassname="border-b-syariah_green"
-        />
-      </SimpleContainer>
-      <div className="flex bg-gray_bglightgray">
-        <InformationCard
-          heading="Mengapa Avrist Syariah?"
-          cards={[
-            {
-              cardIcon: GreenBinocular,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            },
-            {
-              cardIcon: GreenHead,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            },
-            {
-              cardIcon: GreenPeople,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            },
-            {
-              cardIcon: GreenBinocular,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            },
-            {
-              cardIcon: GreenHead,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            },
-            {
-              cardIcon: GreenPeople,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
-            }
-          ]}
-          cardClassname="border-b-syariah_green"
-        />
+      <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
+        <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
+          {tabs.map((val, idx) => (
+            <LinkScroll
+              key={idx}
+              to={'#' + val.replace(/\s+/g, '')}
+              spy={true}
+              smooth={true}
+              offset={-200}
+              duration={500}
+              onClick={() => handleTabClick(val)}
+              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+            >
+              <span className="font-semibold text-[16px]">{val}</span>
+            </LinkScroll>
+          ))}
+        </div>
+        {tab === 'Tentang Avrist Syariah' && <TentangAvristSyariah />}
+        {tab === 'Dewan Pengawas Syariah' && <DewanPengawasSyariah />}
+        {tab === 'Manfaat Utama' && <ManfaatUtama />}
+        {tab === 'Produk' && <Produk />}
+        {tab === 'Klaim dan Layanan' && <KlaimDanLayanan />}
       </div>
+
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
       <SimpleContainer>
         <HelpCard
@@ -158,29 +127,56 @@ const AvristSyariah = () => {
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
-      <FooterCards
-        cards={[
-          {
-            title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit
-          },
-          {
-            title: 'Klaim & Layanan',
-            icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut'
-          },
-          {
-            title: 'Kelola Polis',
-            icon: ProdukPolis,
-            subtitle: 'Login Akun'
-          },
-          {
-            title: 'Testimonial',
-            icon: ProdukTestimoni,
-            subtitle: 'Lebih Lanjut'
-          }
-        ]}
-      />
+      {tabs.includes('Klaim dan Layanan') ? (
+        <FooterCards
+          cards={[
+            {
+              title: 'Layanan Nasabah',
+              icon: ProdukNasabah,
+              subtitle: '021 5789 8188'
+            },
+            {
+              title: 'Tanya Avrista',
+              icon: ProdukTanya,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Tanya Lewat Email',
+              icon: ProdukEmail,
+              subtitle: 'Kirim Email'
+            },
+            {
+              title: 'Prosedur Pengaduan',
+              icon: ProdukTestimoni,
+              subtitle: 'Lihat Prosedur'
+            }
+          ]}
+        />
+      ) : (
+        <FooterCards
+          cards={[
+            {
+              title: 'Rumah Sakit Rekanan',
+              icon: ProdukRumahSakit
+            },
+            {
+              title: 'Klaim & Layanan',
+              icon: ProdukClaim,
+              subtitle: 'Lebih Lanjut'
+            },
+            {
+              title: 'Kelola Polis',
+              icon: ProdukPolis,
+              subtitle: 'Login Akun'
+            },
+            {
+              title: 'Testimonial',
+              icon: ProdukTestimoni,
+              subtitle: 'Lebih Lanjut'
+            }
+          ]}
+        />
+      )}
     </div>
   );
 };

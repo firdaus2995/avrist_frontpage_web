@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 
+import { useSearchParams } from 'next/navigation';
+
 import GambarProdukKorporasiDetail from '@/assets/images/gambar-produk-korporasi-detail.svg';
 import PlayVideo from '@/assets/images/play-video.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
@@ -26,8 +28,10 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 
-export const generateStaticParams = () => {
-  return [{ detail: 'avrist-group-health-care-silver' }];
+export const useDynamicParams = () => {
+  const searchParams = useSearchParams();
+  const detail = searchParams.get('detail');
+  return [{ detail }];
 };
 
 const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {

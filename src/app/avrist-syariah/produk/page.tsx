@@ -1,3 +1,4 @@
+'use client';
 import ProdukCard from '@/assets/images/avrast/avrist-syariah/about.svg';
 import HelpDesk from '@/assets/images/avrast/avrist-syariah/helpdesk.svg';
 import HeroSyariah2 from '@/assets/images/avrast/avrist-syariah/hero-syariah-2.svg';
@@ -42,9 +43,15 @@ const ProdukSyariah = () => {
           ]}
           selectedCategory="Produk"
           buttonActiveClassname="bg-syariah_green border-syariah_green"
-          buttonInactiveClassname="bg-transparent border-syariah_green"
+          buttonInactiveClassname="bg-transparent border-syariah_green text-syariah_green hover:bg-syariah_green hover:border-syariah_green hover:text-white"
           buttonActiveTextClassname="text-white"
-          buttonInactiveTextClassname="text-syariah_green"
+          links={{
+            'Tentang Avrist Syariah': '/avrist-syariah#TentangAvristSyariah',
+            'Dewan Pengawas Syariah': '/avrist-syariah#DewanPengawasSyariah',
+            'Manfaat Utama': '/avrist-syariah#ManfaatUtama',
+            Produk: '/avrist-syariah/produk',
+            'Klaim & Layanan': '/avrist-syariah/klaim-layanan'
+          }}
         />
         <div className="flex">
           <div className="w-1/2">

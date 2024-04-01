@@ -1,3 +1,4 @@
+'use client';
 import HeroDplk2 from '@/assets/images/avrast/dplk/hero-dplk-2.svg';
 import YellowHome from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -42,9 +43,15 @@ const ProdukDplk = () => {
           ]}
           selectedCategory="Produk"
           buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
-          buttonInactiveClassname="bg-transparent border-dplk_yellow"
+          buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
           buttonActiveTextClassname="text-white"
-          buttonInactiveTextClassname="text-black"
+          links={{
+            'Tentang Avrist DPLK': '/avrist-dplk/#TentangAvristDPLK',
+            'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
+            'Manfaat Utama': '/avrist-dplk/#ManfaatUtama',
+            Produk: '/avrist-dplk/produk',
+            'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
+          }}
         />
         <div className="flex">
           <div className="w-1/2">

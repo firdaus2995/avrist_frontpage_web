@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 
+import { useSearchParams } from 'next/navigation';
+
 import GambarProdukIndividu from '@/assets/images/gambar-produk-individu.svg';
 import PlayVideo from '@/assets/images/play-video.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
@@ -27,8 +29,10 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 
-export const generateStaticParams = () => {
-  return [{ detail: 'avrist-pasti' }];
+export const useDynamicParams = () => {
+  const searchParams = useSearchParams();
+  const detail = searchParams.get('detail');
+  return [{ detail }];
 };
 
 const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
