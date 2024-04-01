@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { useSearchParams } from 'next/navigation';
+
 import GambarProdukSyariah2 from '@/assets/images/avrast/avrist-syariah/about.svg';
 import GreenHeartChat from '@/assets/images/avrast/avrist-syariah/green-chat-heart.svg';
 import GreenShield from '@/assets/images/avrast/avrist-syariah/green-shield.svg';
@@ -23,8 +25,10 @@ import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-export const generateStaticParams = () => {
-  return [{ detail: 'investa-optima-pro' }];
+export const useDynamicParams = () => {
+  const searchParams = useSearchParams();
+  const detail = searchParams.get('detail');
+  return [{ detail }];
 };
 
 const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
