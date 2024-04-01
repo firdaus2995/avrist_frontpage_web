@@ -1,19 +1,31 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import CREDIT_CARD from '@/assets/images/common/credit-card.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import HEART_HAND from '@/assets/images/common/heart-hand.svg';
 
 const ServiceCard = () => {
+  const router = useRouter();
   return (
     <div className="mx-3 p-6 bg-gray_bglightgray rounded-xl grid grid-cols-3 gap-6">
-      <Card image={HEART_HAND} title="Klaim & Layanan" onClick={() => {}} />
+      <Card
+        image={HEART_HAND}
+        title="Klaim & Layanan"
+        onClick={() => router.push('klaim-layanan/klaim?tab=Informasi%20klaim')}
+      />
       <Card
         image={DOCUMENT_SEARCH}
         title="Informasi Polis"
-        onClick={() => {}}
+        onClick={() => router.push('klaim-layanan/layanan/kelola-polis')}
       />
-      <Card image={CREDIT_CARD} title="Pembayaran Premi" onClick={() => {}} />
+      <Card
+        image={CREDIT_CARD}
+        title="Pembayaran Premi"
+        onClick={() =>
+          router.push('klaim-layanan/layanan/panduan-pembayaran-premi')
+        }
+      />
     </div>
   );
 };
