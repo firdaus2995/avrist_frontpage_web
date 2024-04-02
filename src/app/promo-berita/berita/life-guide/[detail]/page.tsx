@@ -38,7 +38,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           { title: 'Beranda', href: '/' },
           {
             title: 'Avrist Life Guide',
-            href: 'http://localhost:3000/avrast/promo-berita/berita?tab=Avrist+Terkini&category=Avrist+Life+Guide'
+            href: '/promo-berita/berita?tab=Avrist+Terkini&category=Avrist+Life+Guide'
           }
         ]}
         bottomImage={BlankImage}
