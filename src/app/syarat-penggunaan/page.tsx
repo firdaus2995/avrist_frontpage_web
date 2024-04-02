@@ -14,8 +14,7 @@ import {
 } from '@/utils/responseTransformer';
 
 const SyaratPengunaan = () => {
-  const [, setData] = useState(null);
-  const [transformedData, setTransformedData] = useState({});
+  const [data, setData] = useState<any>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +30,7 @@ const SyaratPengunaan = () => {
         const artikel = contentStringTransformer(content['body-jawaban']);
         const bannerImage = singleImageTransformer(content['image-title']);
         const footerImage = singleImageTransformer(content['image-cta1']);
-        setTransformedData({ title, artikel, bannerImage, footerImage });
+        setData({ title, artikel, bannerImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -43,12 +42,12 @@ const SyaratPengunaan = () => {
   let bannerImage, footerImage;
 
   if (
-    transformedData &&
-    transformedData.bannerImage &&
-    transformedData.footerImage
+    data &&
+    data.bannerImage &&
+    data.footerImage
   ) {
-    bannerImage = transformedData.bannerImage.imageUrl;
-    footerImage = transformedData.footerImage.imageUrl;
+    bannerImage = data.bannerImage.imageUrl;
+    footerImage = data.footerImage.imageUrl;
   }
 
   return (

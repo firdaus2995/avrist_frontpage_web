@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { useSearchParams } from 'next/navigation';
-
 import HeroDplk3 from '@/assets/images/avrast/dplk/hero-dplk-3.svg';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
 import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
@@ -26,12 +24,6 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
-export const useDynamicParams = () => {
-  const searchParams = useSearchParams();
-  const detail = searchParams.get('detail');
-  return [{ detail }];
-};
 
 const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   console.log(params);
