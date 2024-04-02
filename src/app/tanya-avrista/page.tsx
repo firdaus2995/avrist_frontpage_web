@@ -13,7 +13,6 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import FAQList from '@/components/molecules/specifics/avrast/TanyaAvrista/FAQList';
 import SearchTerm from '@/components/molecules/specifics/avrast/TanyaAvrista/SearchTerm';
 import TopicsCard from '@/components/molecules/specifics/avrast/TanyaAvrista/TopicsCard';
-import { headers } from 'next/headers';
 import { getTanyaAvrista } from '@/services/tanya-avrista.api';
 import { contentStringTransformer, pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
@@ -32,14 +31,6 @@ const topics = [
   { iconKey: 'topik7-icon', textKey: 'topik7-teks' },
   { iconKey: 'topik8-icon', textKey: 'topik8-teks', color: 'bg-[#8C8B89]' },
 ];
-
-// const getCurrentPath = () => {
-//   const headersList = headers();
-//   const domain = headersList.get('host') || "";
-//   const fullUrl = headersList.get('referer') || "";
-//   const [,pathname] = fullUrl.match( new RegExp(`https?:\/\/${domain}\/?(.*)`))||[];
-//   return pathname;
-// }
 
 const handleGetContent = async (slug: string) => {
   try {    
