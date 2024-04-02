@@ -1,17 +1,65 @@
 'use client';
+
+import { useEffect, useState } from 'react';
+import MainContentSyaratPenggunaan from './component/MainContentSyaratPenggunaan';
 import { Header } from '@/components/molecules/specifics/avrast/InformasiNasabah';
 import {
-  MainContent,
   BannerFooter,
   InformationAvrastFooter
 } from '@/components/molecules/specifics/avrast/SyaratPengunaan';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const SyaratPengunaan = () => {
+  const [, setData] = useState(null);
+  const [transformedData, setTransformedData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://api-front-sit.avristcms.barito.tech/api/page/syarat-penggunaan',
+          { method: 'GET' }
+        );
+        const data = await response.json();
+        setData(data);
+
+        const { title, content } = pageTransformer(data);
+        const artikel = contentStringTransformer(content['body-jawaban']);
+        const bannerImage = singleImageTransformer(content['image-title']);
+        const footerImage = singleImageTransformer(content['image-cta1']);
+        setTransformedData({ title, artikel, bannerImage, footerImage });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let bannerImage, footerImage;
+
+  if (
+    transformedData &&
+    transformedData.bannerImage &&
+    transformedData.footerImage
+  ) {
+    bannerImage = transformedData.bannerImage.imageUrl;
+    footerImage = transformedData.footerImage.imageUrl;
+  }
+
   return (
     <div className="flex flex-col bg-avrast_product_bg">
-      <Header menu={['Syarat Penggunaan']} title="Syarat Penggunaan" />
-      <MainContent />
-      <BannerFooter />
+      <Header
+        menu={['Syarat Penggunaan']}
+        title="Syarat Penggunaan"
+        bannerImageSrc={bannerImage}
+      />
+      <MainContentSyaratPenggunaan />
+      <BannerFooter imageUrlSrc={footerImage} />
       <InformationAvrastFooter />
     </div>
   );
