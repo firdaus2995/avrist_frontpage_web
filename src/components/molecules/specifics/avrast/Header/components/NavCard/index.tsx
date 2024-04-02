@@ -95,7 +95,7 @@ const NavCard: React.FC<NavCardProps> = ({
                 {val.title}
               </h2>
               <div
-                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-4 w-full`}
+                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-4 w-full cursor-pointer`}
               >
                 {val?.subMenus?.map((item, index) =>
                   item?.listMenu ? (
@@ -110,7 +110,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           }
                         }}
                       >
-                        <div className="flex flex-row gap-2 items-center">
+                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark hover:font-medium">
                           <Image
                             className="w-4"
                             src={ICON_MAPPING[indexData][item.icon]}
@@ -146,7 +146,7 @@ const NavCard: React.FC<NavCardProps> = ({
                                 }, 700);
                               }}
                             >
-                              <div className="flex flex-row gap-2 items-center whitespace-nowrap">
+                              <div className="flex flex-row gap-2 items-center whitespace-nowrap hover:text-purple_dark hover:font-medium">
                                 {value}
                               </div>
                             </Link>
@@ -168,7 +168,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           }, 700);
                         }}
                       >
-                        <div className="flex flex-row gap-2 items-center">
+                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark hover:font-medium">
                           <Image
                             className="w-4"
                             src={ICON_MAPPING[indexData][item.icon]}

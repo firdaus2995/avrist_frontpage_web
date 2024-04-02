@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import IconWrapper from './components/IconWrapper';
 import APPSTORE from '@/assets/images/avrast/appstore.svg';
@@ -9,6 +10,21 @@ import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
 import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
 import Icon from '@/components/atoms/Icon';
+
+const additionalInfo = [
+  {
+    title: 'Syarat Penggunaan',
+    href: '/syarat-penggunaan'
+  },
+  {
+    title: 'Keamanan Online',
+    href: '/keamanan-online'
+  },
+  {
+    title: 'Kebijakan Cookie',
+    href: '/kebijakan-cookie'
+  }
+];
 
 const Footer = () => {
   const pathname = usePathname();
@@ -51,7 +67,9 @@ const Footer = () => {
             <div className="text-sm flex flex-col gap-4 justify-between h-full">
               <div>
                 <p className="font-semibold text-base">Layanan Nasabah</p>
-                <a href='tel:+622157898188' className="font-semibold text-lg">021 5789 8188</a>
+                <a href="tel:+622157898188" className="font-semibold text-lg">
+                  021 5789 8188
+                </a>
               </div>
               <div>
                 <p className="font-semibold text-base">Waktu Operasional</p>
@@ -59,7 +77,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="font-semibold text-base">Email</p>
-                <a href='mailto:service@avrist.com'>service@avrist.com</a>
+                <a href="mailto:service@avrist.com">service@avrist.com</a>
               </div>
             </div>
           </div>
@@ -68,33 +86,50 @@ const Footer = () => {
           <div className="flex flex-col gap-4">
             <p className="font-bold text-space_purpink">Quick Links</p>
             <div className="flex flex-col gap-2 h-full">
-              <div className="text-xs flex flex-col gap-2 font-light whitespace-nowrap">
+              <Link
+                href="/produk/individu?tab=Asuransi+Jiwa"
+                className="text-xs flex flex-col gap-2 font-light whitespace-nowrap"
+              >
                 <p className="text-base font-semibold">Asuransi Jiwa</p>
-              </div>
-              <div>
+              </Link>
+              <Link href="/under-construction">
                 <p className="font-semibold">Investasi</p>
-              </div>
-              <div>
+              </Link>
+              <Link href="/under-construction">
                 <p className="font-semibold">Bengkel Rekanan</p>
-              </div>
-              <div>
+              </Link>
+              <Link href={'https://my.avrist.com/welcome'} target="blank">
                 <p className="font-semibold">Avrist Total Solution</p>
-              </div>
+              </Link>
               <div className="flex flex-row gap-2">
-                <Image
-                  alt="Google Play"
-                  width={0}
-                  height={0}
-                  className="h-auto w-28"
-                  src={GOOGLEPLAY}
-                />
-                <Image
-                  alt="App Store"
-                  width={0}
-                  height={0}
-                  className="h-auto w-28"
-                  src={APPSTORE}
-                />
+                <Link
+                  href={
+                    'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
+                  }
+                  target="blank"
+                >
+                  <Image
+                    alt="Google Play"
+                    width={0}
+                    height={0}
+                    className="h-auto w-28"
+                    src={GOOGLEPLAY}
+                  />
+                </Link>
+                <Link
+                  href={
+                    'https://apps.apple.com/id/app/avrist-solution/id6467423188'
+                  }
+                  target="blank"
+                >
+                  <Image
+                    alt="App Store"
+                    width={0}
+                    height={0}
+                    className="h-auto w-28"
+                    src={APPSTORE}
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -103,9 +138,15 @@ const Footer = () => {
           <div className="flex flex-col gap-4 whitespace-nowrap">
             <p className="font-bold text-space_purpink">Avrist Group</p>
             <div className="flex flex-col gap-4 justify-between h-full">
-              <p className="font-semibold">Avrist Life Insurance</p>
-              <p className="font-semibold">Avrist Asset Management</p>
-              <p className="font-semibold">Avrist General Insurance</p>
+              <Link href="/produk/individu" className="font-semibold">
+                Avrist Life Insurance
+              </Link>
+              <Link href="/under-construction" className="font-semibold">
+                Avrist Asset Management
+              </Link>
+              <Link href="/under-construction" className="font-semibold">
+                Avrist General Insurance
+              </Link>
               <Image
                 alt="Reksadana"
                 width={0}
@@ -122,33 +163,54 @@ const Footer = () => {
         <div className="flex md:flex-row flex-col justify-between md:gap-4 gap-8 flex-wrap">
           {/* Additional information */}
           <div className="flex md:flex-row flex-col justify-between gap-2 md:gap-4 md:items-center items-start">
-            {['Syarat Penggunaan', 'Keamanan Online', 'Kebijakan Cookie'].map(
-              (item, index) => (
-                <React.Fragment key={index}>
-                  <span className="font-semibold">{item}</span>
+            {additionalInfo.map((item, index) => (
+              <React.Fragment key={index}>
+                <Link href={item.href}>
+                  <span className="font-semibold">{item.title}</span>
                   {index < 2 && (
                     <div className="opacity-1 border-solid border-l border-white opacity-50 self-stretch" />
                   )}
-                </React.Fragment>
-              )
-            )}
+                </Link>
+              </React.Fragment>
+            ))}
           </div>
           {/* Social media */}
           <div className="flex items-center gap-4">
             <IconWrapper>
-              <Icon name="youtubeIcon" color="white" />
+              <Link href={'https://www.youtube.com/@avristian'} target="blank">
+                <Icon name="youtubeIcon" color="white" />
+              </Link>
             </IconWrapper>
             <IconWrapper>
-              <Icon name="linkedInIcon" color="white" />
+              <Link
+                href={'https://id.linkedin.com/company/avristassurance'}
+                target="blank"
+              >
+                <Icon name="linkedInIcon" color="white" />
+              </Link>
             </IconWrapper>
             <IconWrapper>
-              <Icon name="instaIcon" color="white" />
+              <Link
+                href={'https://www.instagram.com/avristsolution/'}
+                target="blank"
+              >
+                <Icon name="instaIcon" color="white" />
+              </Link>
             </IconWrapper>
             <IconWrapper>
-              <Icon name="facebookIcon" color="white" />
+              <Link href={'https://www.facebook.com/avrist/'} target="blank">
+                <Icon name="facebookIcon" color="white" />
+              </Link>
             </IconWrapper>
             <IconWrapper>
-              <Icon name="tiktokIcon" color="white" />
+              <Link
+                href={
+                  'https://www.tiktok.com/@avrist.assurance?_t=8kx4PIJJlFS&_r=1'
+                }
+                target="blank"
+              >
+                <Icon name="tiktokIcon" color="white" />
+              </Link>
             </IconWrapper>
           </div>
         </div>

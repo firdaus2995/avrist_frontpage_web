@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { EmailSubscribeModal } from '../Modal';
 import NavCard from './components/NavCard';
 import NavDropdownMenus from './components/NavDropdownMenus';
@@ -21,7 +20,6 @@ import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 
 const Header = () => {
-  const pathname = usePathname();
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
@@ -43,14 +41,22 @@ const Header = () => {
             <Icon name="helpcircle" color="gray_black" />
             <p className="font-bold text-sm">Tanya Avrista</p>
           </Link>
-          <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
+          <Link
+            href={'https://shop.avrist.com/'}
+            target="blank"
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+          >
             <Icon name="shoppingCart" color="gray_black" />
             <p className="font-bold text-sm">Beli Online</p>
-          </div>
-          <div className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2">
+          </Link>
+          <Link
+            href={'https://my.avrist.com/welcome'}
+            target="blank"
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+          >
             <Icon name="lightBulb" color="gray_black" />
             <p className="font-bold text-sm">Avrist Solution</p>
-          </div>
+          </Link>
           <div
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
             onClick={() => setIsShowEmailSubs(true)}
@@ -68,56 +74,50 @@ const Header = () => {
 
       {/* Purple Section */}
 
-      {pathname !== '/' ? (
-        <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
-          <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
-            <ul className="md:flex gap-8 items-center hidden">
-              <Link href={`/`}>
-                <Button.IconButton>
-                  <Icon name="homeIcon" color="white" width={20} isSquare />
-                </Button.IconButton>
-              </Link>
-              {menus.map((item, idx) => (
-                <React.Fragment key={item.title}>
-                  <li
-                    className={`font-medium cursor-pointer relative ${styles['nav-list-item']}`}
-                  >
-                    {item.title}
-                    <TriangleMarker
-                      customClass={`absolute bottom-0 left-1/2 -translate-x-1/2 top-[60px] cursor-default ${styles['nav-transition']}`}
-                    />
-                  </li>
-                  <NavCard
-                    customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
-                    content={item.content}
-                    title={item.title}
-                    skipUrl={item.skipUrl}
-                    indexData={idx}
-                  />
-                </React.Fragment>
-              ))}
-            </ul>
-            <Button.IconButton
-              customButtonClass="inline-block md:hidden"
-              onClick={() => setIsDropdownVisible((prevState) => !prevState)}
-            >
-              <Icon name="hamburgerMenuIcon" color="white" />
-            </Button.IconButton>
+      <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
+        <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
+          <ul className="md:flex gap-8 items-center hidden">
             <Link href={`/`}>
-              <Image alt="Avrist Logo" src={AVRIST_LOGO} />
+              <Button.IconButton>
+                <Icon name="homeIcon" color="white" width={20} isSquare />
+              </Button.IconButton>
             </Link>
-          </div>
-          <NavDropdownMenus
-            isVisible={isDropdownVisible}
-            menus={menus}
-            setVisibility={(newValue: boolean) =>
-              setIsDropdownVisible(newValue)
-            }
-          />
+            {menus.map((item, idx) => (
+              <React.Fragment key={item.title}>
+                <li
+                  className={`font-medium cursor-pointer relative ${styles['nav-list-item']}`}
+                >
+                  {item.title}
+                  <TriangleMarker
+                    customClass={`absolute bottom-0 left-1/2 -translate-x-1/2 top-[60px] cursor-default ${styles['nav-transition']}`}
+                  />
+                </li>
+                <NavCard
+                  customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
+                  content={item.content}
+                  title={item.title}
+                  skipUrl={item.skipUrl}
+                  indexData={idx}
+                />
+              </React.Fragment>
+            ))}
+          </ul>
+          <Button.IconButton
+            customButtonClass="inline-block md:hidden"
+            onClick={() => setIsDropdownVisible((prevState) => !prevState)}
+          >
+            <Icon name="hamburgerMenuIcon" color="white" />
+          </Button.IconButton>
+          <Link href={`/`}>
+            <Image alt="Avrist Logo" src={AVRIST_LOGO} />
+          </Link>
         </div>
-      ) : (
-        <></>
-      )}
+        <NavDropdownMenus
+          isVisible={isDropdownVisible}
+          menus={menus}
+          setVisibility={(newValue: boolean) => setIsDropdownVisible(newValue)}
+        />
+      </div>
 
       <BlackOverlay
         isVisible={isDropdownVisible}
