@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import { notFound } from 'next/navigation';
 import CONTACTS from '@/assets/images/common/contacts.svg';
@@ -42,7 +42,7 @@ const DetailTanyaAvrista = async ({
   if (data.status !== 'OK') return notFound();
 
   return (
-    <>
+    <Suspense>
       <Hero
         title={title}
         imageUrl={bannerImage.imageUrl}
@@ -102,7 +102,7 @@ const DetailTanyaAvrista = async ({
           }
         ]}
       />
-    </>
+    </Suspense>
   );
 };
 
