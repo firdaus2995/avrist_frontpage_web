@@ -29,7 +29,6 @@ try{
  }
 }
 
-
 def notifyBuild(String buildStatus = 'STARTED'){
   
   // build status of null means successful
