@@ -4,12 +4,18 @@ import CompanySection from '@/components/molecules/specifics/avrast/CompanySecti
 import LayananNasabah from '@/components/molecules/specifics/avrast/LayananNasabah';
 import { HomeBannerModal } from '@/components/molecules/specifics/avrast/Modal';
 import TotalSolution from '@/components/molecules/specifics/avrast/TotalSolution';
-import { getPopUpModalHome } from '@/services/home-banner-modal-api';
+import { getPopUpModalHome, getPopUpDetailHome } from '@/services/home-banner-modal-api';
 
 const handleGetBannerModal = async () => {
   try {
-    const response = await getPopUpModalHome('Pop-Up-Awals?includeAttributes=true');
-    return response;
+    const response = await getPopUpModalHome('Pop-Up-Awal?includeAttributes=true');
+    if (response.data.contentDataList[0] && response.data.contentDataList[0].contentData.length === 0){
+      const detailId = response.data.contentDataList[0].id;
+      const responseDetail = await getPopUpDetailHome(detailId.toString());      
+      return responseDetail;
+    }
+    
+    throw new Error('content data list empty');
   }
   catch (error) {
     if (error instanceof Error){

@@ -3,8 +3,8 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
-import { ContentResponse } from '@/types/content.type';
-import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import { ContentDetailResponse } from '@/types/content.type';
+import { contentDetailTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 function getCookie(name: string) {
   const nameEQ = name + '=';
@@ -38,50 +38,13 @@ function setCookie(name: string, value: string) {
 
 const MODAL = 'homeModalBanner';
 
-const getDataPopUp = (response: ContentResponse | null) => {
-  try { 
+const getDataPopUp = (response: ContentDetailResponse | null) => {
+  try {     
     if (!response || response.code !== 200) {
       throw new Error('Network response was not ok');
     }
-    
-    const shouldBeRealData = {
-      "code": 200,
-      "status": "OK",
-      "data": {
-          "id": 6404,
-          "name": "Pop Up Awal",
-          "slug": "Pop-Up-Awal",
-          "type": "SINGLE",
-          "contentDataList": [
-              {
-                  "id": 6053,
-                  "title": "Banner Promo",
-                  "shortDesc": "Banner Promo",
-                  "categoryName": "",
-                  "status": "APPROVED",
-                  "lastComment": null,
-                  "lastEdited": null,
-                  "createdAt": "2024-03-19T13:17:44.648+00:00",
-                  "contentData": [
-                      {
-                          "id": 8269,
-                          "name": "Gambar Promo",
-                          "fieldType": "IMAGE",
-                          "fieldId": "gambar-promo",
-                          "config": "{\"media_type\":\"single_media\"}",
-                          "parentId": null,
-                          "value": "[{\"imageUrl\":\"d0c82739-29ee-42c5-be6a-3326b62cfa69-sayuran.jpg\",\"altText\":\"Banner Promo\"}]",
-                          "contentData": null
-                      }
-                  ]
-              }
-          ],
-          "useCategory": false
-      },
-      "errors": null,
-      "pagination": null
-    };
-    const { content } = contentTransformer(shouldBeRealData as unknown as ContentResponse);
+
+    const { content } = contentDetailTransformer(response as ContentDetailResponse);
     return singleImageTransformer(content['gambar-promo'])
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -89,9 +52,9 @@ const getDataPopUp = (response: ContentResponse | null) => {
   }
 };
 
-export const HomeBannerModal = ({ response }: { response: ContentResponse | null }) => {
+export const HomeBannerModal = ({ response }: { response: ContentDetailResponse | null }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [bannerModalPath, setBannerModalPath] = useState('');
+  const [bannerModalPath, setBannerModalPath] = useState('');  
 
   function closeModal() {
     setIsOpen(false);
@@ -104,6 +67,10 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
 
   useEffect(() => {
     const statusModal: string | null = getCookie(MODAL);    
+
+    // getPopUpModalHome('Pop-Up-Awal?includeAttributes=true')
+    // .then(responses => console.log({responses}))
+    
     if (statusModal === null && response !== null) {
       const dataPopUp = getDataPopUp(response);
         setBannerModalPath(dataPopUp!.imageUrl)

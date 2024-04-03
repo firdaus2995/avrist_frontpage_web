@@ -1,5 +1,5 @@
 import { BASE_URL } from './baseUrl';
-import { ContentResponse } from '@/types/content.type';
+import { ContentDetailResponse, ContentResponse } from '@/types/content.type';
 import { PageResponse } from '@/types/page.type';
 
 export const pageTransformer = (data: PageResponse) => {
@@ -22,6 +22,11 @@ export const contentTransformer = (data: ContentResponse) => {
   }, {});
   const fieldId = contentData.map((i) => i.fieldId);
   return { title, content: transformedDataContent as any, fieldId };
+};
+
+export const contentDetailTransformer = (data: ContentDetailResponse) => {
+  const { fieldId, value } = data.data.contentData[0];
+  return { content: { [fieldId]: { value } } as any, fieldId };
 };
 
 export const singleImageTransformer = (data: any) => {
