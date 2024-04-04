@@ -1,10 +1,9 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import GambarProdukIndividu from '@/assets/images/gambar-produk-individu.svg';
 import PlayVideo from '@/assets/images/play-video.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
-import ProdukIndividuImage from '@/assets/images/produk-individu-image.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
@@ -26,9 +25,50 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   console.log(params);
+
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://api-front-sit.avristcms.barito.tech/api/page/produk-detail',
+          { method: 'GET' }
+        );
+        const data = await response.json();
+        setData(data);
+
+        const { content } = pageTransformer(data);
+        const titleImage = singleImageTransformer(content['title-image']);
+        const bannerImage = singleImageTransformer(content['banner-image']);
+        const footerImage = singleImageTransformer(content['cta1-image']);
+        setData({ titleImage, bannerImage, footerImage });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let titleImage, bannerImage, footerImage;
+
+  if (data && data.bannerImage && data.footerImage) {
+    titleImage = data.titleImage.imageUrl;
+    bannerImage = data.bannerImage.imageUrl;
+    footerImage = data.footerImage.imageUrl;
+  }
 
   return (
     <div className="flex flex-col">
@@ -42,7 +82,8 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             href: '/produk/individu/avrist-pasti'
           }
         ]}
-        bottomImage={GambarProdukIndividu}
+        bottomImage={bannerImage}
+        imageUrl={titleImage}
       />
       <SimpleContainer>
         <DescriptionCategoryA
@@ -140,7 +181,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={ProdukIndividuImage}
+        image={footerImage}
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards

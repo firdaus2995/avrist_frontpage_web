@@ -1,38 +1,43 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import EmployeeBenefit from './tabs/EmployeeBenefit';
 
-import GambarProdukKorporasi from '@/assets/images/gambar-produk-korporasi.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
-import ProdukIndividuImage from '@/assets/images/produk-individu-image.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 
-import ButtonSmall from '@/components/atoms/ButtonSmall';
-import ButtonSmallWithCheck from '@/components/atoms/ButtonSmallWithCheck';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import ButtonSelection from '@/components/molecules/specifics/avrast/ButtonSelection';
+import { ButtonHelperItem } from '@/components/molecules/specifics/avrast/ButtonSelection';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import LeftTabs from '@/components/molecules/specifics/avrast/LeftTabs';
+import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
 import { ParamsProps } from '@/utils/globalTypes';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const ProdukKorporasi: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState('Employee Benefit');
+
+  const tabs = ['Employee Benefit'];
+  const [activeTab, setActiveTab] = useState(tabs[0]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleTabClick = (tabs: string) => {
-    setTab(tabs);
+    setActiveTab(tabs);
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
     });
@@ -50,13 +55,11 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value !== null) {
-      setTab(value);
+      setActiveTab(value);
     }
   }, [searchParams]);
 
-  const tabs = ['Employee Benefit'];
-
-  const buttonHelper = [
+  const buttonHelper: ButtonHelperItem[] = [
     {
       type: 'button',
       label: 'Individu',
@@ -70,120 +73,73 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     }
   ];
 
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://api-front-sit.avristcms.barito.tech/api/page/produk-korporasi',
+          { method: 'GET' }
+        );
+        const data = await response.json();
+        setData(data);
+
+        const { content } = pageTransformer(data);
+        const titleImage = singleImageTransformer(content['title-image']);
+        const bannerImage = singleImageTransformer(content['banner-image']);
+        const footerImage = singleImageTransformer(content['cta1-image']);
+        setData({ titleImage, bannerImage, footerImage });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let titleImage, bannerImage, footerImage;
+
+  if (data && data.bannerImage && data.footerImage) {
+    titleImage = data.titleImage.imageUrl;
+    bannerImage = data.bannerImage.imageUrl;
+    footerImage = data.footerImage.imageUrl;
+  }
+
   return (
     <div className="flex flex-col">
       <Hero
-        title={tab}
+        title={activeTab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: tab, href: '#' }
+          { title: activeTab, href: '#' }
         ]}
-        bottomImage={GambarProdukKorporasi}
+        bottomImage={bannerImage}
+        imageUrl={titleImage}
       />
       <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
-        {/* start tabs kiri */}
-        <div className="sm:block hidden rounded-lg">
-          <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
-            {tabs.map((val, idx) =>
-              tab === val ? (
-                <div
-                  key={idx}
-                  className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
-                >
-                  <span className="font-bold text-purple_dark text-[18px]">
-                    {val}
-                  </span>
-                </div>
-              ) : (
-                <div
-                  key={idx}
-                  role="button"
-                  onClick={() => handleTabClick(val)}
-                  className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
-                >
-                  <span className="font-bold text-purple_mediumlight text-[18px]">
-                    {val}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-        <div className="relative sm:hidden block">
-          <div
-            className="flex justify-between items-center border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[18px]"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <span>{tab}</span>
-            <div
-              className={`transform transition-transform duration-200 ${
-                isOpen ? 'rotate-180' : ''
-              }`}
-            >
-              <Icon name="chevronDown" color="purple_dark" />
-            </div>
-          </div>
-          {isOpen && (
-            <div className="absolute w-full mt-1 rounded-lg bg-purple_light_bg shadow-lg">
-              {tabs.map((val, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => handleTabClick(val)}
-                  className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
-                    tab === val
-                      ? 'border-purple_dark text-purple_dark'
-                      : 'border-purple_mediumlight text-purple_mediumlight'
-                  }`}
-                >
-                  {val}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        {/* end tabs kiri */}
-
-        {/* start content */}
+        <LeftTabs
+          tabs={tabs}
+          activeTab={activeTab}
+          handleTabClick={handleTabClick}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
         <div className="flex flex-col gap-[24px] grow">
           <div className="flex flex-col gap-5 justify-between">
-            {/* start search */}
-            <div className="flex flex-row gap-[12px] ">
-              <input
-                placeholder="Cari"
-                className="focus:outline-none w-full px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
-              />
-              <ButtonSmall title="Cari" />
-            </div>
-            {/* end search */}
-
-            {/* start button */}
-            <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
-              <div className="flex flex-row gap-[12px] w-full">
-                {buttonHelper.map((item, index) =>
-                  item.type === 'button' ? (
-                    item.href ? (
-                      <Link href={item.href} key={index} className="w-[200px]">
-                        <ButtonSmall
-                          title={item.label}
-                          customClassName="w-[200px]"
-                          variant={item.variant}
-                        />
-                      </Link>
-                    ) : null
-                  ) : item.type === 'button-checkbox' ? (
-                    <ButtonSmallWithCheck
-                      key={index}
-                      name={item.label}
-                      title={item.label}
-                    />
-                  ) : null
-                )}
-              </div>
-            </div>
-            {/* end button */}
+            <SearchBar
+              placeholder="Cari"
+              searchButtonTitle="Cari"
+              searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
+            />
+            <ButtonSelection buttonHelper={buttonHelper} />
           </div>
-          {tab === 'Employee Benefit' && <EmployeeBenefit />}
 
+          {activeTab === 'Employee Benefit' && <EmployeeBenefit />}
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">
@@ -213,7 +169,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={ProdukIndividuImage}
+        image={footerImage}
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards
