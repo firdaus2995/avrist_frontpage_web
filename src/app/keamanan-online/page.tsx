@@ -42,18 +42,14 @@ const SyaratPengunaan = () => {
 
   let bannerImage, footerImage;
 
-  if (
-    data &&
-    data.bannerImage &&
-    data.footerImage
-  ) {
+  if (data && data.bannerImage && data.footerImage) {
     bannerImage = data.bannerImage.imageUrl;
     footerImage = data.footerImage.imageUrl;
   }
   return (
     <div className="flex flex-col bg-avrast_product_bg">
       <Header
-        menu={['Keamanan Online']}
+        menu={[{ label: 'Keamanan Online', href: '#' }]}
         title="Keamanan Online"
         bannerImageSrc={bannerImage}
       />
