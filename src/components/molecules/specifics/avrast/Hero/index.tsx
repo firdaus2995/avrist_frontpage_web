@@ -63,6 +63,8 @@ const Hero: React.FC<IHero> = ({
             className="rounded-t-[60px] w-full object-cover h-[640px]"
             alt="gambar-produk-individu"
             src={bottomImage}
+            width={0}
+            height={0}
           />
         </div>
       )}
