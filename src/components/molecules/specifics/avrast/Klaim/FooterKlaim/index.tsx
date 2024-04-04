@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -29,22 +30,26 @@ const dataInformasiNasabah = [
   {
     icon: FOOTER_NASABAH_1,
     title: 'Kelola Polis',
-    link1: 'Login Akun'
+    link1: 'Login Akun',
+    href: '/klaim-layanan/layanan/kelola-polis'
   },
   {
     icon: FOOTER_NASABAH_2,
     title: 'Download Formulir',
-    link1: 'Lihat Lainnya'
+    link1: 'Lihat Lainnya',
+    href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
   },
   {
     icon: FOOTER_NASABAH_3,
     title: 'Avrist Terkini',
-    link1: 'Lebih Lanjut'
+    link1: 'Lebih Lanjut',
+    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
   },
   {
     icon: FOOTER_NASABAH_4,
     title: 'Prosedur Pengaduan',
-    link1: 'Lihat Prosedur'
+    link1: 'Lihat Prosedur',
+    href: '/klaim-layanan/layanan/penanganan-pengaduan'
   }
 ];
 
@@ -75,12 +80,12 @@ const dataPerformaInvestasi = [
   {
     icon: HEART_CHECK,
     title: 'Asuransi Jiwa',
-    link1: 'Lihat Produk'
+    link1: 'Lihat Produk',
   },
   {
     icon: HOME_ADD,
     title: 'Asuransi Korporasi',
-    link1: 'Lihat Produk'
+    link1: 'Lihat Produk',
   },
   {
     icon: UMBRELLA_GREEN,
@@ -158,6 +163,7 @@ const FooterKlaim = () => {
     icon: StaticImport;
     title: string;
     link1: string;
+    href?: string,
     color?: string;
   }) => (
     <div
@@ -178,9 +184,9 @@ const FooterKlaim = () => {
           role="button"
           className="flex w-full flex-row items-center justify-center gap-4 whitespace-nowrap"
         >
-          <p className={`font-semibold md:text-lg xs:text-xs text-purple_dark`}>
+          <Link href={val.href || '/'} className={`font-semibold md:text-lg xs:text-xs text-purple_dark`}>
             {val.link1}
-          </p>
+          </Link>
         </div>
       </div>
     </div>

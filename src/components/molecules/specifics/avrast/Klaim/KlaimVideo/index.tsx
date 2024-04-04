@@ -1,11 +1,12 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import { dataKlaim } from '../type';
 import BannerImg from '@/assets/images/avrast/component/klaim-video/img-video.svg';
 import PlayButton from '@/assets/images/play-button.svg';
 import Icon from '@/components/atoms/Icon';
 
-const KlaimVideo = () => {
+const KlaimVideo = ({ data } : { data?: dataKlaim}) => {
   const renderCard = () => (
     <div
       className={`w-[75%] md:h-[35vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-white items-center justify-center text-center`}
@@ -21,8 +22,10 @@ const KlaimVideo = () => {
       >
         <Image
           className="bg-purple_dark w-full absolute md:top-0 xs:bottom-0 object-bottom"
-          src={BannerImg}
-          alt="banner-img"
+          src={data?.footerInfoImageUrl || BannerImg}
+          alt={data?.footerInfoAltText || 'banner-img'}
+          width={0}
+          height={0}
         />
         <div className="w-full h-full absolute flex items-center justify-center">
           <Image alt={'play-button'} className="w-16" src={PlayButton} />

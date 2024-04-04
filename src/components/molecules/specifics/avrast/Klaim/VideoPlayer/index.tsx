@@ -90,8 +90,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           src={thumbnail}
           onClick={handleThumbnailClick}
         />
-      <div className="w-full h-full absolute flex items-center justify-center">
-        <Image alt={'play-button'} className="w-24" src={PlayButton} />
+      <div className="w-full h-full flex items-center justify-center">
+        <Image alt={'play-button'} className="w-24 absolute" src={PlayButton} onClick={handleThumbnailClick}/>
       </div>
       </div>
       {/* <iframe
