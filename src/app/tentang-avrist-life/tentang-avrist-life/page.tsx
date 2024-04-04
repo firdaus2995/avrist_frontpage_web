@@ -22,12 +22,22 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { ParamsProps } from '@/utils/globalTypes';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const pathState = sessionStorage.getItem('pathState');
   const [tab, setTab] = useState('');
+  const [, setData] = useState(null);
+  const [transformedData, setTransformedData] = useState({
+    titleImage: '',
+    ctaImage: ''
+  });
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
@@ -60,6 +70,38 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     'Karir'
   ];
 
+  useEffect(() => {
+    if (tab === 'Manajemen') {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `https://api-front-sit.avristcms.barito.tech/api/page/${pathState ?? 'manajemen'}`,
+            {
+              method: 'GET'
+            }
+          );
+          const data = await response.json();
+          setData(data);
+
+          const { content } = pageTransformer(data);
+
+          const titleImage = singleImageTransformer(content['title-image']);
+          const ctaImage = singleImageTransformer(content['cta1-image']);
+
+          setTransformedData({
+            ...transformedData,
+            titleImage: titleImage.imageUrl,
+            ctaImage: ctaImage.imageUrl
+          });
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [tab, pathState]);
+
   return (
     <div className="flex flex-col items-center justify-center bg-white">
       <Hero
@@ -68,6 +110,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           { title: 'Beranda', href: '/' },
           { title: tab, href: '#' }
         ]}
+        imageUrl={transformedData.titleImage}
       />
       <div className="w-full grid grid-cols-5 gap-2 px-[136px] py-20 absolute z-20 top-80 rounded-t-[76px] bg-white ">
         {tabs.map((val, idx) => (
@@ -109,7 +152,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 </div>
               </div>
             }
-            image={BlankImage}
+            image={transformedData.ctaImage ?? BlankImage}
           />
           <RoundedFrameTop />
         </div>
