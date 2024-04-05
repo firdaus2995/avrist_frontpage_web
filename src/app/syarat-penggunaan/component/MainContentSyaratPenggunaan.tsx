@@ -45,7 +45,7 @@ const MainContentSyaratPenggunaan = () => {
     'Kepemilikan Informasi'
   ];
   return (
-    <div className=" w-full flex flex-col  relative bottom-[70px]">
+    <div className=" w-full flex flex-col relative">
       <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
         <div className="px-[136px] py-[100px] flex flex-row">
           {/* start tabs kiri */}
@@ -55,6 +55,7 @@ const MainContentSyaratPenggunaan = () => {
                 tab === val ? (
                   <div
                     key={idx}
+                    role="button"
                     className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
                   >
                     <span className="font-bold text-purple_dark text-[18px]">
@@ -95,6 +96,7 @@ const MainContentSyaratPenggunaan = () => {
                 {tabs.map((val, idx) => (
                   <div
                     key={idx}
+                    role="button"
                     onClick={() => handleTabClick(val)}
                     className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
                       tab === val
