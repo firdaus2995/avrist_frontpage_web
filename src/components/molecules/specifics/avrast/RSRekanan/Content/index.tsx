@@ -22,7 +22,7 @@ const Content = () => {
   ];
 
   return (
-    <div className="z-[1] w-full bg-purple_dark -mt-1">
+    <div className="z-[1] w-full bg-purple_dark -mt-1">    
       <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
         <ButtonMenu
           buttonList={[

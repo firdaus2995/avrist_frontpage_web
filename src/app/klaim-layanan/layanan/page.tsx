@@ -7,48 +7,88 @@ import { FormulirPendaftaran } from '@/components/molecules/specifics/avrast/For
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { MainContent } from '@/components/molecules/specifics/avrast/InformasiNasabah';
 import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
+import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import { PerformaInvestasi } from '@/components/molecules/specifics/avrast/PerformaInvestasi';
 import { RSRekanan } from '@/components/molecules/specifics/avrast/RSRekanan';
-import { getInformasiNasabah } from '@/services/layanan.api';
 import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const handleGetContent = async (slug: string) => {
-  try {
-    const data = await getInformasiNasabah(slug);
-    return data;
-  } catch (error) {
-    return notFound();
-  }
-};
-
 const InformationCustomer = () => {
+	const initialData = {
+			titleImageUrl: '',
+			bannerImageUrl: '',
+			titleAltText: '',
+			bannerAltText: '',
+			footerInfoAltText: '',
+			footerInfoImageUrl: ''
+	}
+  const [data, setData] = useState<dataKlaim>(initialData);
+
   const searchParams = useSearchParams();
   const params = searchParams.get('tab') ?? '';
-  const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
-  const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
-  const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
 
   useEffect(() => {
     const fetchData = async () => {
+			setData(initialData);
       try {
-        const data = await handleGetContent('informasi-nasabah');
+				const pageSlug = 'informasi-nasabah';
+				const response = await fetch(`/api/klaim-layanan/layanan?slug=${pageSlug}`);
+				const data = await response.json();
         const { content } = pageTransformer(data);
+				const banner = singleImageTransformer(content['image-banner']);
+				const title = singleImageTransformer(content['image-title']);
+				const footerInformation = singleImageTransformer(content['image-cta1']);
 
-        setTitleImage(singleImageTransformer(content['image-title']));
-        setBannerImage(singleImageTransformer(content['image-banner']));
-        setFooterImage(singleImageTransformer(content['image-cta1']));
+				setData({
+					titleImageUrl: title.imageUrl,  
+					bannerImageUrl: banner.imageUrl, 
+					titleAltText: title.altText,
+					bannerAltText: banner.altText,
+					footerInfoAltText: footerInformation.altText,
+					footerInfoImageUrl: footerInformation.imageUrl
+				});
       } catch (error) {
         console.error('Error:', error);
       }
     };
 
-    fetchData();
-  }, []);
+	const fetchDataRumahSakitRekanan = async () => {
+		setData(initialData);
+		try {
+			const pageSlug = 'halaman-rumah-sakit-rekanan';
+			const response = await fetch(`/api/klaim-layanan/layanan?slug=${pageSlug}`);
+			const data = await response.json();
+			const { content } = pageTransformer(data);
+			const banner = singleImageTransformer(content['banner-image']);
+			const title = singleImageTransformer(content['title-image']);
+			const footerInformation = singleImageTransformer(content['cta1-image']);
+			setData({
+				titleImageUrl: title.imageUrl,  
+				bannerImageUrl: banner.imageUrl, 
+				titleAltText: title.altText,
+				bannerAltText: banner.altText,
+				footerInfoAltText: footerInformation.altText,
+				footerInfoImageUrl: footerInformation.imageUrl
+			});
+		}
+		catch(error) {
+			console.error('Error:', error)
+		}
+	};
 
-  // const bannerImage = singleImageTransformer(content['title-image']);
+	if (params.includes('Rumah Sakit Rekanan')){
+		fetchDataRumahSakitRekanan().then();
+	} 
+	if (params.includes('Informasi Nasabah')){
+		fetchData().then();
+	} else {
+		setData(initialData);
+	}
+
+  }, [params]);	
+
   return (
     <div className="flex flex-col bg-avrast_product_bg">
       <Hero
@@ -57,8 +97,8 @@ const InformationCustomer = () => {
           { title: 'Beranda', href: '/' },
           { title: params, href: '#' }
         ]}
-        imageUrl={titleImage.imageUrl}
-        bottomImage={bannerImage.imageUrl}
+        imageUrl={data.titleImageUrl}
+        bottomImage={data.bannerImageUrl}
       />
       {params.includes('Informasi Nasabah') ? (
         <MainContent />
@@ -92,7 +132,7 @@ const InformationCustomer = () => {
             </div>
           </div>
         }
-        image={footerImage.imageUrl}
+        image={data.footerInfoImageUrl}
       />
       <FooterKlaim />
     </div>

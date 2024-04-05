@@ -12,7 +12,6 @@ interface IKlaimHeader {
 }
 
 const KlaimHeader: React.FC<IKlaimHeader> = ({ title, data }) => {
-  
   return (
     <div className="flex w-full">
       <div className="w-full md:h-[300px] xs:h-[200px] bg-purple_dark flex md:items-center xs:items-start justify-center relative">
