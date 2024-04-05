@@ -76,6 +76,7 @@ const DetailTanyaAvrista = async ({
       />
       <RoundedFrameTop />
       <FooterCards
+        bgColor="bg-purple_superlight"
         cards={[
           {
             title: 'Kelola Polis',
@@ -85,7 +86,8 @@ const DetailTanyaAvrista = async ({
           },
           {
             title: 'Rumah Sakit \n \n Rekanan',
-            href: '/under-construction',
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
             icon: HOSPITAL
           },
           {

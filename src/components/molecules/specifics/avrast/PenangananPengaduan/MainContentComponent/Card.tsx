@@ -10,7 +10,7 @@ const mockData = [
     title: 'Aturan Asuransi',
     icon: 'https://s3-alpha-sig.figma.com/img/95f2/8ccf/85f1f96922050596728ebc6b6cf20cb0?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Xq6k6oTibWUzbFAZk~ZKYWGQsZLFI78LGaicUn5eMbYb1~IngDngts0lfn-eZV-iPwaibD1EXU9-jRyXEpileH3vne2QUCHyp6JPWHHOO8trTrgRmIvLTDt3eIBPbw8yys5aZtBMoxCVX21JpYku1KhabSH-zl7UaKAJM9W2h7oz-BiukAM0BXTDBpoW7qL3saqoCn4ksV46btokMN8NpdYpuhERBHsQRGMYOH2maRw7SrM6p0K6i8ftqA8jAdn2qhIlE7hWkSgvY6VbIhS~6QYdl20h3z5lX8Ad3BB0VwiuN1lYG9ySEH7qRioW0eo8U-MZvR2bfG6fa5smvCL9jQ__',
     btn: 'Lihat Detail',
-    link: '/avrast/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi'
+    link: '/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi'
   },
   {
     id: '2',
