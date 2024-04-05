@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import MainContentKeamananOnline from './component/MainContentKeamananOnline';
-import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { Header } from '@/components/molecules/specifics/avrast/InformasiNasabah';
 import {
   BannerFooter,
   InformationAvrastFooter
@@ -51,11 +51,7 @@ const SyaratPengunaan = () => {
       <Header
         menu={[{ label: 'Keamanan Online', href: '#' }]}
         title="Keamanan Online"
-        breadcrumbsData={[
-          { title: 'Beranda', href: '/' },
-          { title: 'Keamanan Online', href: '#' }
-        ]}
-        imageUrl={bannerImage}
+        bannerImageSrc={bannerImage}
       />
       <MainContentKeamananOnline />
       <BannerFooter imageUrlSrc={footerImage} />
