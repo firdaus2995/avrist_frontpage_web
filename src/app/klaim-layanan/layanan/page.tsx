@@ -17,12 +17,12 @@ import {
 
 const InformationCustomer = () => {
 	const initialData = {
-			titleImageUrl: '',
-			bannerImageUrl: '',
-			titleAltText: '',
-			bannerAltText: '',
-			footerInfoAltText: '',
-			footerInfoImageUrl: ''
+		titleImageUrl: '',
+		bannerImageUrl: '',
+		titleAltText: '',
+		bannerAltText: '',
+		footerInfoAltText: '',
+		footerInfoImageUrl: ''
 	}
   const [data, setData] = useState<dataKlaim>(initialData);
 
