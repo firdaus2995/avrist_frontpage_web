@@ -8,7 +8,10 @@ const InformationPolicy = () => {
   return (
     <div className="flex flex-col bg-avrast_product_bg">
       <Header
-        menu={['Informasi Nasabah', 'Panduan Polis']}
+        menu={[
+          { label: 'Informasi Nasabah', href: '#' },
+          { label: 'Panduan Polis', href: '#' }
+        ]}
         title="Informasi Nasabah"
       />
       <MainContent />

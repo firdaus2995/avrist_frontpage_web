@@ -8,7 +8,10 @@ const TutorialPayment = () => {
   return (
     <div className="flex flex-col bg-avrast_product_bg">
       <Header
-        menu={['Informasi Nasabah', 'Panduan Pembayaran']}
+        menu={[
+          { label: 'Informasi Nasabah', href: '#' },
+          { label: 'Panduan Pembayaran', href: '#' }
+        ]}
         title="Informasi Nasabah"
       />
       <MainContent />

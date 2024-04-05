@@ -41,11 +41,7 @@ const SyaratPengunaan = () => {
 
   let bannerImage, footerImage;
 
-  if (
-    data &&
-    data.bannerImage &&
-    data.footerImage
-  ) {
+  if (data && data.bannerImage && data.footerImage) {
     bannerImage = data.bannerImage.imageUrl;
     footerImage = data.footerImage.imageUrl;
   }
@@ -53,7 +49,7 @@ const SyaratPengunaan = () => {
   return (
     <div className="flex flex-col bg-avrast_product_bg">
       <Header
-        menu={['Syarat Penggunaan']}
+        menu={[{ label: 'Syarat Penggunaan', href: '#' }]}
         title="Syarat Penggunaan"
         bannerImageSrc={bannerImage}
       />

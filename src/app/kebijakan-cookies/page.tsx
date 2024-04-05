@@ -9,7 +9,10 @@ import {
 const SyaratPengunaan = () => {
   return (
     <div className="flex flex-col bg-avrast_product_bg">
-      <Header menu={['Keamanan Online']} title="Keamanan Online" />
+      <Header
+        menu={[{ label: 'Keamanan Online', href: '#' }]}
+        title="Keamanan Online"
+      />
       <MainContent />
       <BannerFooter />
       <InformationAvrastFooter />
