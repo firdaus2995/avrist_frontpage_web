@@ -3,10 +3,11 @@ import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import BannerImg from '@/assets/images/avrast/component/klaim-header/header-image.svg';
 
 interface IHeader {
-  menu: string[];
+  menu: {label:string,href:string}[];
   title: string;
   bannerImageSrc?: string;
 }
@@ -15,9 +16,9 @@ export const Header: React.FC<IHeader> = (props) => {
   const { menu, title, bannerImageSrc = BannerImg } = props;
   return (
     <div className="flex w-full">
-      <div className="w-full md:h-[300px] xs:h-[200px] bg-purple_dark shadow-lg flex md:items-center xs:items-start justify-center relative">
+      <div className="w-full md:h-[300px] xs:h-[200px] shadow-lg flex md:items-center xs:items-start justify-center relative">
         <Image
-          className="bg-purple_dark w-full absolute top-0 object-top opacity-10"
+          className="bg-purple_dark w-full absolute top-0 object-top"
           src={bannerImageSrc}
           alt="banner-img"
           layout="fill"
@@ -31,12 +32,13 @@ export const Header: React.FC<IHeader> = (props) => {
           <div className="flex flex-row divide-x gap-2 text-center h-5 text-white text-base flex-wrap md:mt-0 xs:mt-10">
             <p className="md:px-2">Beranda</p>
             {menu.map((i, index) => (
-              <p
-                key={i}
+              <Link
+                key={i.label}
+                href={i.href}
                 className={`px-2 ${menu.length === index + 1 ? 'font-semibold' : ''}`}
               >
-                {i}
-              </p>
+                {i.label}
+              </Link>
             ))}
           </div>
         </div>

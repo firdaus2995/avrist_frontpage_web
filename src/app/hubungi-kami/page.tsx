@@ -9,7 +9,10 @@ import { Header } from '@/components/molecules/specifics/avrast/InformasiNasabah
 const CallMe = () => {
   return (
     <div className="flex flex-col bg-avrast_product_bg ">
-      <Header menu={['Hubungi Kami']} title="Hubungi Kami" />
+      <Header
+        menu={[{ label: 'Hubungi Kami', href: '#' }]}
+        title="Hubungi Kami"
+      />
       <MainContent />
       <BannerFooter />
       <InformationProductFooter />

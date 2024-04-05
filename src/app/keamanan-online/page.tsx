@@ -48,7 +48,8 @@ const SyaratPengunaan = () => {
   }
   return (
     <div className="flex flex-col bg-avrast_product_bg">
-      <Hero
+      <Header
+        menu={[{ label: 'Keamanan Online', href: '#' }]}
         title="Keamanan Online"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
