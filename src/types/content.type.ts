@@ -7,14 +7,6 @@ export interface ContentResponse {
     errors: string;
     pagination: Pagination;
   }
-
-  export interface ContentDetailResponse {
-    code: number;
-    status: string;
-    data: ContentData;
-    errors: string;
-    pagination: Pagination;
-  }
   
   export interface Data {
     id: number;

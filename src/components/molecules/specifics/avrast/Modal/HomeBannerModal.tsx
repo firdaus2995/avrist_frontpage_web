@@ -3,8 +3,8 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
-import { ContentDetailResponse } from '@/types/content.type';
-import { contentDetailTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import { ContentResponse } from '@/types/content.type';
+import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 function getCookie(name: string) {
   const nameEQ = name + '=';
@@ -38,13 +38,13 @@ function setCookie(name: string, value: string) {
 
 const MODAL = 'homeModalBanner';
 
-const getDataPopUp = (response: ContentDetailResponse | null) => {
+const getDataPopUp = (response: ContentResponse | null) => {
   try {     
     if (!response || response.code !== 200) {
       throw new Error('Network response was not ok');
     }
 
-    const { content } = contentDetailTransformer(response as ContentDetailResponse);
+    const { content } = contentTransformer(response as ContentResponse);
     return singleImageTransformer(content['gambar-promo'])
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -52,7 +52,7 @@ const getDataPopUp = (response: ContentDetailResponse | null) => {
   }
 };
 
-export const HomeBannerModal = ({ response }: { response: ContentDetailResponse | null }) => {
+export const HomeBannerModal = ({ response }: { response: ContentResponse | null }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [bannerModalPath, setBannerModalPath] = useState('');  
 
@@ -68,9 +68,6 @@ export const HomeBannerModal = ({ response }: { response: ContentDetailResponse 
   useEffect(() => {
     const statusModal: string | null = getCookie(MODAL);    
 
-    // getPopUpModalHome('Pop-Up-Awal?includeAttributes=true')
-    // .then(responses => console.log({responses}))
-    
     if (statusModal === null && response !== null) {
       const dataPopUp = getDataPopUp(response);
         setBannerModalPath(dataPopUp!.imageUrl)
