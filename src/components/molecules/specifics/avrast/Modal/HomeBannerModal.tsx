@@ -61,7 +61,7 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
     setCookie(MODAL, 'hide');
   }
 
-  async function openModal() {
+  function openModal() {
     setIsOpen(true);
   }
 
@@ -70,8 +70,8 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
 
     if (statusModal === null && response !== null) {
       const dataPopUp = getDataPopUp(response);
-        setBannerModalPath(dataPopUp!.imageUrl)
-        openModal();
+      setBannerModalPath(dataPopUp!.imageUrl)
+      openModal();
     }
   }, []);
 
@@ -103,7 +103,7 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
             >
               <Dialog.Panel className="h-[80%] w-[60%] transform overflow-hidden transition-all">
                 <CardRainbow>
-                  <div className="h-[90%]">
+                  <div className="h-full">
                     <div className="absolute right-0 p-[24px]">
                       <button onClick={closeModal}>
                         <Icon
@@ -117,7 +117,7 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
                     <img
                       src={bannerModalPath}
                       alt="modal-home-banner"
-                      className="object-cover h-[90%] w-full"
+                      className="object-cover h-full w-full"
                     />                
 
                   </div>
