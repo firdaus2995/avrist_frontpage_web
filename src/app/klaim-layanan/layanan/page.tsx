@@ -16,14 +16,7 @@ import {
 } from '@/utils/responseTransformer';
 
 const InformationCustomer = () => {
-	const initialData = {
-		titleImageUrl: '',
-		bannerImageUrl: '',
-		titleAltText: '',
-		bannerAltText: '',
-		footerInfoAltText: '',
-		footerInfoImageUrl: ''
-	}
+	const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
   const [data, setData] = useState<dataKlaim>(initialData);
 
   const searchParams = useSearchParams();
