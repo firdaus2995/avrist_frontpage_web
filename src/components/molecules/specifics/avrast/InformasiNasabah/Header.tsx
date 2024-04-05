@@ -7,7 +7,7 @@ import Link from 'next/link';
 import BannerImg from '@/assets/images/avrast/component/klaim-header/header-image.svg';
 
 interface IHeader {
-  menu: {label:string,href:string}[];
+  menu: { label: string; href: string }[];
   title: string;
   bannerImageSrc?: string;
 }
@@ -30,7 +30,9 @@ export const Header: React.FC<IHeader> = (props) => {
             {title}
           </h2>
           <div className="flex flex-row divide-x gap-2 text-center h-5 text-white text-base flex-wrap md:mt-0 xs:mt-10">
-            <p className="md:px-2">Beranda</p>
+            <Link href="/" className="md:px-2">
+              Beranda
+            </Link>
             {menu.map((i, index) => (
               <Link
                 key={i.label}
