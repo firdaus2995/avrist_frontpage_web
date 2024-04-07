@@ -3,16 +3,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import MainCard from '../../Klaim/PanduanKlaim/components/VideoCards/MainCard';
 import SubCard from '../../Klaim/PanduanKlaim/components/VideoCards/SubCard';
-import COMMUNITY_DATA from '../../Klaim/PanduanKlaim/sample-data.json';
 import { VideoItem } from '../../Klaim/PanduanKlaim/types';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import { getPanduanPembayaran } from '@/services/layanan.api';
+import { pageTransformer } from '@/utils/responseTransformer';
+
+const handleGetContent = async (slug: string) => {
+  try {
+    const data = await getPanduanPembayaran(slug);
+    return data;
+  } catch (error) {
+    return notFound();
+  }
+};
 
 export const VideoInformation = () => {
   const sliderRef = useRef<Slider | null>(null);
@@ -39,8 +50,63 @@ export const VideoInformation = () => {
   const [isMainVisible, setIsMainVisible] = useState(true);
 
   useEffect(() => {
-    setVideoData(COMMUNITY_DATA['community-videos']);
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('halaman-panduan-pembayaran-premi');
+        const { content } = pageTransformer(data);
+
+        const communityVideos = convertData(content)["community-videos"];
+
+        setVideoData(communityVideos);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const convertData = (data: { [x: string]: any; }) => {
+    const communityVideos = [];
+    for (let i = 1; i <= 4; i++) {
+      const videoId = `body-video${i}`;
+      const captionId = `body-captionvideo${i}`;
+      const videoData = data[videoId];
+      const captionData = data[captionId];
+      if (videoData && captionData) {
+        let videoType = "";
+        let color = "";
+        switch (i) {
+          case 1:
+            videoType = "Asuransi Jiwa Individu";
+            color = "purple_dark";
+            break;
+          case 2:
+            videoType = "Avrist Jiwa Korporasi";
+            color = "grey_video_footer";
+            break;
+          case 3:
+            videoType = "Avrist Syariah";
+            color = "green_border";
+            break;
+          case 4:
+            videoType = "Avrist DPLK";
+            color = "orange_border";
+            break;
+          default:
+            break;
+        }
+        communityVideos.push({
+          id: videoId,
+          videoUrl: videoData.value,
+          videoThumbnail: "",
+          type: videoType,
+          color: color,
+        });
+      }
+    }
+    return { "community-videos": communityVideos };
+  };
 
   const handleSubcardClick = (cardId: string) => {
     setIsMainVisible(false);
