@@ -4,30 +4,15 @@ import CompanySection from '@/components/molecules/specifics/avrast/CompanySecti
 import LayananNasabah from '@/components/molecules/specifics/avrast/LayananNasabah';
 import { HomeBannerModal } from '@/components/molecules/specifics/avrast/Modal';
 import TotalSolution from '@/components/molecules/specifics/avrast/TotalSolution';
-import { getPopUpModalHome } from '@/services/home-banner-modal-api';
-
-const handleGetPopUpModal = async () => {
-  try {
-    return getPopUpModalHome('Pop-Up-Awal?includeAttributes=true');
-  }
-  catch (error) {
-    if (error instanceof Error){
-      console.log('error message: ', error.message);
-    }
-    return null;
-  }
-}
 
 const Avrist = async () => {
-  const responseBannerModal = await handleGetPopUpModal();
-  
-  return (
+    return (
     <div className="flex flex-col items-center justify-center bg-purple_light_bg">
       <BannerAvrast />
       <TotalSolution />
       <CompanySection />
       <LayananNasabah />
-      <HomeBannerModal response={responseBannerModal}/>
+      <HomeBannerModal/>
     </div>
   );
 };

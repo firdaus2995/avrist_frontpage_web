@@ -3,7 +3,6 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
-import { ContentResponse } from '@/types/content.type';
 import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 function getCookie(name: string) {
@@ -38,13 +37,15 @@ function setCookie(name: string, value: string) {
 
 const MODAL = 'homeModalBanner';
 
-const getDataPopUp = (response: ContentResponse | null) => {
-  try {     
+const getDataPopUp = async () => {
+  try {
+    const responseFetch = await fetch(`/api/home-banner`);
+    const response = await responseFetch.json();
     if (!response || response.code !== 200) {
       throw new Error('Network response was not ok');
     }
 
-    const { content } = contentTransformer(response as ContentResponse);
+    const { content } = contentTransformer(response);
     return singleImageTransformer(content['gambar-promo'])
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -52,7 +53,7 @@ const getDataPopUp = (response: ContentResponse | null) => {
   }
 };
 
-export const HomeBannerModal = ({ response }: { response: ContentResponse | null }) => {
+export const HomeBannerModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [bannerModalPath, setBannerModalPath] = useState('');  
 
@@ -68,10 +69,15 @@ export const HomeBannerModal = ({ response }: { response: ContentResponse | null
   useEffect(() => {
     const statusModal: string | null = getCookie(MODAL);    
 
-    if (statusModal === null && response !== null) {
-      const dataPopUp = getDataPopUp(response);
-      setBannerModalPath(dataPopUp!.imageUrl)
-      openModal();
+    if (statusModal === null) {
+      getDataPopUp().then(
+        (dataPopUp) => {
+          console.log(dataPopUp);
+          
+          setBannerModalPath(dataPopUp!.imageUrl)
+          openModal();
+        }
+      );
     }
   }, []);
 
