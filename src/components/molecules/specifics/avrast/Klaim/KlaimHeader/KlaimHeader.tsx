@@ -25,6 +25,7 @@ const KlaimHeader: React.FC<IKlaimHeader> = ({ title, data }) => {
           height={0}
           objectFit="cover"
           object-position="center"
+          loading="lazy"
         />
         <div className="w-full h-full mx-auto max-w-[100rem] px-8 flex md:justify-between md:justify-center xs:justify-start md:items-center items-start absolute flex-col md:flex-row flex-wrap gap-4">
           <h2 className="font-light text-[48px] md:block xs:hidden text-white">

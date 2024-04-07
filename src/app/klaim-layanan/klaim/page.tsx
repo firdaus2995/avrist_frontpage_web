@@ -11,21 +11,18 @@ import KlaimVideo from '@/components/molecules/specifics/avrast/Klaim/KlaimVideo
 import PanduanKlaim from '@/components/molecules/specifics/avrast/Klaim/PanduanKlaim';
 import ProsesKlaim from '@/components/molecules/specifics/avrast/Klaim/ProsesKlaim';
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
-import { getPageBy } from '@/services/klaim-layanan.api';
 import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
 import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
-const handleGetPage = async (slug: string) => {
-  try {    
-    const data = await getPageBy(slug);    
-    return data;
-  } catch (error) {
-    console.info(error);
-    
-    return error;
-  }
-};
+const initialData = {
+  titleImageUrl: '',
+  bannerImageUrl: '',
+  titleAltText: '',
+  bannerAltText: '',
+  footerInfoAltText: '',
+  footerInfoImageUrl: ''
+}
 
 const handleDataFetch = async (slug: string, setData: (dataKlaim: dataKlaim) => void) => {
   const dataFetchParams = {
@@ -36,7 +33,8 @@ const handleDataFetch = async (slug: string, setData: (dataKlaim: dataKlaim) => 
 
   try {
     const { dataKeyTitle, dataKeyBanner, dataKeyFooter } = dataFetchParams;
-    const data = await handleGetPage(slug);
+	  const response = await fetch(`/api/klaim-layanan/klaim?slug=${slug}`);
+    const data = await response.json();
     const { content } = pageTransformer(data as PageResponse);
     const title = singleImageTransformer(content[dataKeyTitle]);
     const banner = singleImageTransformer(content[dataKeyBanner]);
@@ -51,24 +49,16 @@ const handleDataFetch = async (slug: string, setData: (dataKlaim: dataKlaim) => 
       footerInfoImageUrl: footerInformationImage.imageUrl
     });
   } catch (error) {
-    console.log(error);
+   setData(initialData)
   }
 };
 
 const InformasiKlaim: React.FC<ParamsProps> = () => {
-  const initialData = {
-    titleImageUrl: '',
-    bannerImageUrl: '',
-    titleAltText: '',
-    bannerAltText: '',
-    footerInfoAltText: '',
-    footerInfoImageUrl: ''
-}
   const searchParams = useSearchParams();
   const router = useRouter();
   const [tab, setTab] = useState('');
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
-  const [bannerImg, setBannerImg] = useState(0);
+  const [, setBannerImg] = useState(0);
   const [data, setData] = useState<dataKlaim>(initialData);
 
   const handleTabChange = async (tab: string) => {
@@ -94,7 +84,6 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
     }
   }, [searchParams, router]);
 
-
   const handleSelectedDetail = (val: boolean) => {
     setIsSelectedDetail(val);
     handleDataFetch('halaman-panduan-dan-pengajuan-detail', setData).then();
@@ -108,7 +97,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
     <div className="flex flex-col items-center justify-center bg-avrast_product_bg">
         <Suspense>
           <KlaimHeader title={tab} data={data}/>
-          <KlaimBanner changeImg={bannerImg} data={data}/>
+          <KlaimBanner data={data}/>
         </Suspense>      
       <InformasiKlaimComponent
         onTabChange={handleTabChange}

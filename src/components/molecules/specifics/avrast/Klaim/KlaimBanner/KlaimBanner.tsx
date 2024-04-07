@@ -3,41 +3,26 @@ import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
-import BannerImg1 from '@/assets/images/avrast/component/klaim-banner/banner-img-1.svg';
-import BannerImg2 from '@/assets/images/avrast/component/klaim-banner/banner-img-2.svg';
-import BannerImg3 from '@/assets/images/avrast/component/klaim-banner/banner-img-3.svg';
-import BannerImg4 from '@/assets/images/avrast/component/klaim-banner/banner-img-4.svg';
-import BannerImg5 from '@/assets/images/avrast/component/klaim-banner/banner-img-5.svg';
-import BannerImg6 from '@/assets/images/avrast/component/klaim-banner/banner-img-6.svg';
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 
 interface KlaimBannerComponentProps {
-  changeImg: number;
-  data?: dataKlaim;
+  data: dataKlaim;
 }
 
-const KlaimBanner: React.FC<KlaimBannerComponentProps> = ({ changeImg, data }) => {
-  const imgData = [
-    BannerImg1,
-    BannerImg2,
-    BannerImg3,
-    BannerImg4,
-    BannerImg5,
-    BannerImg6
-  ];
-
+const KlaimBanner: React.FC<KlaimBannerComponentProps> = ({ data }) => {
   return (
     <div className="flex w-full">
       <div className="w-full h-[640px] flex md:items-center xs:items-start justify-center relative bg-white rounded-t-[72px] md:-mt-28 xs:-mt-20 relative">
         <Image
           className="bg-purple_dark absolute bottom-0 object-bottom rounded-t-[72px]"
-          src={data?.bannerImageUrl || imgData[changeImg]}
-          alt={data?.bannerAltText || ''}
+          src={data!.bannerImageUrl || ''}
+          alt={data!.bannerAltText || ''}
           width={0}
           height={0}
           layout="fill"
           objectFit="cover"
           object-position="top"
+          loading="lazy"
         />
       </div>
     </div>
