@@ -5,14 +5,14 @@ import LayananNasabah from '@/components/molecules/specifics/avrast/LayananNasab
 import { HomeBannerModal } from '@/components/molecules/specifics/avrast/Modal';
 import TotalSolution from '@/components/molecules/specifics/avrast/TotalSolution';
 
-const Avrist = () => {
-  return (
+const Avrist = async () => {
+    return (
     <div className="flex flex-col items-center justify-center bg-purple_light_bg">
       <BannerAvrast />
       <TotalSolution />
       <CompanySection />
       <LayananNasabah />
-      <HomeBannerModal />
+      <HomeBannerModal/>
     </div>
   );
 };

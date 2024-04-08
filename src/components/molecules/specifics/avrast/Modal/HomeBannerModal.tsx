@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
+import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 function getCookie(name: string) {
   const nameEQ = name + '=';
@@ -36,8 +37,25 @@ function setCookie(name: string, value: string) {
 
 const MODAL = 'homeModalBanner';
 
+const getDataPopUp = async () => {
+  try {
+    const responseFetch = await fetch(`/api/home-banner`);
+    const response = await responseFetch.json();
+    if (!response || response.code !== 200) {
+      throw new Error('Network response was not ok');
+    }
+
+    const { content } = contentTransformer(response);
+    return singleImageTransformer(content['gambar-promo'])
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return null;
+  }
+};
+
 export const HomeBannerModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [bannerModalPath, setBannerModalPath] = useState('');  
 
   function closeModal() {
     setIsOpen(false);
@@ -49,11 +67,20 @@ export const HomeBannerModal = () => {
   }
 
   useEffect(() => {
-    const statusModal: string | null = getCookie(MODAL);
+    const statusModal: string | null = getCookie(MODAL);    
+
     if (statusModal === null) {
-      openModal();
+      getDataPopUp().then(
+        (dataPopUp) => {
+          console.log(dataPopUp);
+          
+          setBannerModalPath(dataPopUp!.imageUrl)
+          openModal();
+        }
+      );
     }
   }, []);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-[99]" onClose={closeModal}>
@@ -94,10 +121,11 @@ export const HomeBannerModal = () => {
                       </button>
                     </div>
                     <img
-                      src="https://img.freepik.com/premium-vector/flash-sale-discount-banner-template-promotion_7087-866.jpg"
+                      src={bannerModalPath}
                       alt="modal-home-banner"
                       className="object-cover h-full w-full"
-                    />
+                    />                
+
                   </div>
                 </CardRainbow>
               </Dialog.Panel>
