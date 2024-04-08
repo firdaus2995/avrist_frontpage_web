@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { notFound, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Icon from '@/components/atoms/Icon';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { FormulirPendaftaran } from '@/components/molecules/specifics/avrast/FormulirPendaftaran';

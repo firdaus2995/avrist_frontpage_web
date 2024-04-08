@@ -65,8 +65,6 @@ const Hero: React.FC<IHero> = ({
             width={100}
             height={100}
             src={bottomImage}
-            width={0}
-            height={0}
           />
         </div>
       )}
