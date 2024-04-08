@@ -19,7 +19,7 @@ const mockData = [
     desc: 'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
     icon: 'https://s3-alpha-sig.figma.com/img/d3a2/23f9/e3d93fda903b61ac51e663c5a8f4db71?Expires=1710720000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HjMZbWMx0tqoNGQ-jEnnhJq-0YYpQ6wLODxqJ7w6dssdoo5gmauXs~Eqvkqc90QpRxsH594am6Bua0jkctEA13Ew9vKRH9vLprA4baxh8~-1uPb-q0S8T4duo~Qs~d3DgnklN1Wa6WYsvs0rVVqJeAPW4VPXM1sbAZCw-7Wt15tV8UKxHx2MaPUFM-OV1Lr3eIPxVmeoRInj~QAF7giyrKKCh9GagJfK7QIxx3~mQ-ULxnzABW0V-t5QRRqe2TuNsc30jHknTfa7zAaaHDz8pTSaOoLlBFpnrK6KEujVGGk-1DOCMymA8uyGJONhDkdCg1LOhhalJeyNpIGr0PRxFA__',
     btn: 'Lihat Prosedur',
-    link: ''
+    link: 'layanan/penanganan-pengaduan'
   },
   {
     id: '3',
