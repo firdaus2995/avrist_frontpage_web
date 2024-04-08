@@ -1,6 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
-import FAMILY from '@/assets/images/family-3.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
@@ -25,11 +23,6 @@ const Content = () => {
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <Image
-        alt="family"
-        src={FAMILY}
-        className="rounded-t-[65px] w-full object-fill h-auto -mt-20 md:mt-0"
-      />
       <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
         <ButtonMenu
           buttonList={[

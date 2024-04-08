@@ -13,7 +13,7 @@ interface IHero {
     title: string;
     href: string;
   }[];
-  bottomImage?: StaticImport;
+  bottomImage?: StaticImport | string;
   imageUrl?: string;
 }
 
@@ -62,6 +62,8 @@ const Hero: React.FC<IHero> = ({
           <Image
             className="rounded-t-[60px] w-full object-cover h-[640px]"
             alt="gambar-produk-individu"
+            width={100}
+            height={100}
             src={bottomImage}
             width={0}
             height={0}
