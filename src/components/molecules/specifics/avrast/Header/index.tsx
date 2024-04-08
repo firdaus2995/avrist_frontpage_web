@@ -21,6 +21,7 @@ import Icon from '@/components/atoms/Icon';
 
 const Header = () => {
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
+  const [isDropdownHeaderVisible, setIsDropdownHeaderVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
 
@@ -28,10 +29,46 @@ const Header = () => {
     <nav className="isolate sticky z-50 top-0">
       {/* White Section */}
       <div className="flex flex-row justify-between items-center px-4 md:px-16 py-4 text-gray_black bg-white">
-        <div className="flex flex-row gap-2 items-center">
+        <div
+          className="flex flex-row gap-2 items-center relative cursor-pointer w-auto"
+          onClick={() => {
+            setIsDropdownHeaderVisible(!isDropdownHeaderVisible);
+          }}
+        >
           <Image className="h-auto w-7" src={VectorLogo} alt="vector-logo" />
           <p className="text-md font-bold text-black">Avrist Group</p>
-          <Icon width={10} height={10} name="chevronDown" color="black" />
+          <span
+            className={`transform transition-transform ${
+              isDropdownHeaderVisible ? 'rotate-180' : ''
+            }`}
+          >
+            <Icon width={10} height={10} name="chevronDown" color="black" />
+          </span>
+
+          <div
+            className={`shadow-lg z-[99] rounded-md bg-white flex flex-col p-4 gap-4 w-[150%] h-auto absolute top-full left-0 transition-transform transition-opacity duration-300 transform ${
+              isDropdownHeaderVisible ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Link
+              href="/produk/individu"
+              className="font-karla hover:text-purple_dark hover:font-medium"
+            >
+              Avrist Life Insurance
+            </Link>
+            <Link
+              href="/under-construction"
+              className="font-karla hover:text-purple_dark hover:font-medium"
+            >
+              Avrist General Insurance
+            </Link>
+            <Link
+              href="/under-construction"
+              className="font-karla hover:text-purple_dark hover:font-medium"
+            >
+              Avrist Asset Management
+            </Link>
+          </div>
         </div>
         <div className="flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2">
           <Link
