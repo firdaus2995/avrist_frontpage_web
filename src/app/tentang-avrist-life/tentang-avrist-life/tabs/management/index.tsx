@@ -1,17 +1,50 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import People1 from '@/assets/images/avrast/management-1.svg';
-import People2 from '@/assets/images/avrast/management-2.svg';
-import People3 from '@/assets/images/avrast/management-3.svg';
-import People4 from '@/assets/images/avrast/management-4.svg';
-import People5 from '@/assets/images/avrast/management-5.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Button from '@/components/atoms/Button/Button';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import PersonCard from '@/components/molecules/specifics/avrast/Cards/PersonCard';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const Manajemen = () => {
+  const [, setData] = useState(null);
+  const [transformedData, setTransformedData] = useState({
+    profile1: {
+      name: '',
+      role: '',
+      image: ''
+    },
+    profile2: {
+      name: '',
+      role: '',
+      image: ''
+    },
+    profile3: {
+      name: '',
+      role: '',
+      image: ''
+    },
+    profile4: {
+      name: '',
+      role: '',
+      image: ''
+    },
+    profile5: {
+      name: '',
+      role: '',
+      image: ''
+    },
+    profile6: {
+      name: '',
+      role: '',
+      image: ''
+    }
+  });
   const [showDetail, setShowDetail] = useState(false);
   const [detailData, setDetailData] = useState({
     image: BlankImage,
@@ -20,11 +53,102 @@ const Manajemen = () => {
     desc: <p></p>
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api-front-sit.avristcms.barito.tech/api/page/manajemen`,
+          {
+            method: 'GET'
+          }
+        );
+        const data = await response.json();
+        setData(data);
+
+        const { content } = pageTransformer(data);
+
+        const profile1Image = singleImageTransformer(content['profil1-image']);
+        const profile1Name = contentStringTransformer(content['profil1-nama']);
+        const profile1Role = contentStringTransformer(
+          content['profil1-jabatan']
+        );
+
+        const profile2Image = singleImageTransformer(content['profil2-image']);
+        const profile2Name = contentStringTransformer(content['profil2-nama']);
+        const profile2Role = contentStringTransformer(
+          content['profil2-jabatan']
+        );
+
+        const profile3Image = singleImageTransformer(content['profil3-image']);
+        const profile3Name = contentStringTransformer(content['profil3-nama']);
+        const profile3Role = contentStringTransformer(
+          content['profil3-jabatan']
+        );
+
+        const profile4Image = singleImageTransformer(content['profil4-image']);
+        const profile4Name = contentStringTransformer(content['profil4-nama']);
+        const profile4Role = contentStringTransformer(
+          content['profil4-jabatan']
+        );
+
+        const profile5Image = singleImageTransformer(content['profil5-image']);
+        const profile5Name = contentStringTransformer(content['profil5-nama']);
+        const profile5Role = contentStringTransformer(
+          content['profil5-jabatan']
+        );
+
+        const profile6Image = singleImageTransformer(content['profil6-image']);
+        const profile6Name = contentStringTransformer(content['profil6-nama']);
+        const profile6Role = contentStringTransformer(
+          content['profil6-jabatan']
+        );
+        setTransformedData({
+          ...transformedData,
+          profile1: {
+            name: profile1Name,
+            role: profile1Role,
+            image: profile1Image.imageUrl
+          },
+          profile2: {
+            name: profile2Name,
+            role: profile2Role,
+            image: profile2Image.imageUrl
+          },
+          profile3: {
+            name: profile3Name,
+            role: profile3Role,
+            image: profile3Image.imageUrl
+          },
+          profile4: {
+            name: profile4Name,
+            role: profile4Role,
+            image: profile4Image.imageUrl
+          },
+          profile5: {
+            name: profile5Name,
+            role: profile5Role,
+            image: profile5Image.imageUrl
+          },
+          profile6: {
+            name: profile6Name,
+            role: profile6Role,
+            image: profile6Image.imageUrl
+          }
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleCardClick = (cardData: {
     image: string;
     name: string;
     role: string;
   }) => {
+    sessionStorage.setItem('pathState', 'hlm-mnj-detail');
     setShowDetail(true);
     const data = {
       image: cardData.image,
@@ -64,7 +188,7 @@ const Manajemen = () => {
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       {showDetail ? (
         <div className="px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
-          <div className='flex flex-col gap-7 border rounded-xl p-4'>
+          <div className="flex flex-col gap-7 border rounded-xl p-4">
             <div className="flex flex-row gap-5 items-center border rounded-xl">
               <div className="w-[213px] h-[213px] bg-red-200 rounded-xl">
                 <Image
@@ -89,9 +213,9 @@ const Manajemen = () => {
             heading="Presiden Direktur"
             cards={[
               {
-                name: 'Simon Imanto',
-                role: 'Presiden Direktur',
-                image: People1,
+                name: transformedData.profile1.name,
+                role: transformedData.profile1.role,
+                image: transformedData.profile1.image,
                 onClick: handleCardClick
               }
             ]}
@@ -101,15 +225,15 @@ const Manajemen = () => {
             heading="Dewan Direksi"
             cards={[
               {
-                name: 'Ian F. Natapradja',
-                role: 'Direktur',
-                image: People2,
+                name: transformedData.profile2.name,
+                role: transformedData.profile2.role,
+                image: transformedData.profile2.image,
                 onClick: handleCardClick
               },
               {
-                name: 'Jos C. Irawan',
-                role: 'Direktur',
-                image: People3,
+                name: transformedData.profile3.name,
+                role: transformedData.profile3.role,
+                image: transformedData.profile3.image,
                 onClick: handleCardClick
               }
             ]}
@@ -119,21 +243,21 @@ const Manajemen = () => {
             heading="Dewan Komisaris"
             cards={[
               {
-                name: 'Jannes H.',
-                role: 'Komisaris Independen',
-                image: People4,
+                name: transformedData.profile4.name,
+                role: transformedData.profile4.role,
+                image: transformedData.profile4.image,
                 onClick: handleCardClick
               },
               {
-                name: 'Angela A. Kalim',
-                role: 'Komisaris Independen',
-                image: People5,
+                name: transformedData.profile5.name,
+                role: transformedData.profile5.role,
+                image: transformedData.profile5.image,
                 onClick: handleCardClick
               },
               {
-                name: 'Angela A. Kalim',
-                role: 'Komisaris Independen',
-                image: People5,
+                name: transformedData.profile6.name,
+                role: transformedData.profile6.role,
+                image: transformedData.profile6.image,
                 onClick: handleCardClick
               }
             ]}
