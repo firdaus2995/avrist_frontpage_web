@@ -10,11 +10,6 @@ import ManfaatUtama from './tabs/ManfaatUtama';
 import Produk from './tabs/Produk';
 import TentangAvristSyariah from './tabs/TentangAvristSyariah';
 
-import HelpDesk from '@/assets/images/avrast/avrist-syariah/helpdesk.svg';
-import HeroSyariah1 from '@/assets/images/avrast/avrist-syariah/hero-syariah-1.svg';
-import HeroSyariah2 from '@/assets/images/avrast/avrist-syariah/hero-syariah-2.svg';
-import HeroSyariah4 from '@/assets/images/avrast/avrist-syariah/hero-syariah-4.svg';
-
 import ProdukEmail from '@/assets/images/avrast/component/proses-klaim/step-4-icon-1.svg';
 import ProdukNasabah from '@/assets/images/avrast/component/proses-klaim/step-4-icon-3.svg';
 import ProdukTanya from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -31,13 +26,62 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
+import { handleGetContentPage } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
+
+const tabs = [
+  'Tentang Avrist Syariah',
+  'Dewan Pengawas Syariah',
+  'Manfaat Utama',
+  'Produk',
+  'Klaim dan Layanan'
+];
 
 const AvristSyariah: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
+  // content
+  const [data, setData] = useState<PageResponse>();
+  const { content } = pageTransformer(data);
+
+  const titleImage = singleImageTransformer(content['title-image']);
+  const bannerImage = singleImageTransformer(content['banner-image']);
+
+  const dewanPengawasJudul = contentStringTransformer(
+    content['dewanpengawassyariah-judul']
+  );
+  const dewanPengawasSubJudul = contentStringTransformer(
+    content['dewanpengawassyariah-subjudul']
+  );
+  const dewanPengawasDeskripsi = contentStringTransformer(
+    content['dewanpengawassyariah-deskripsi']
+  );
+  const dewanPengawasImage = singleImageTransformer(
+    content['dewanpengawassyariah-imagedewan']
+  );
+  const dewanPengawasNama = contentStringTransformer(
+    content['dewanpengawassyariah-namadewan']
+  );
+  const dewanPengawasTitleDewan = contentStringTransformer(
+    content['dewanpengawassyariah-titledewan']
+  );
+
+  const manfaatUtamaJudul = contentStringTransformer(
+    content['manfaatutama-judul']
+  );
+  const manfaatUtamaDeskripsi = contentStringTransformer(
+    content['manfaatutama-deskripsi']
+  );
+
+  const footerImage = singleImageTransformer(content['cta1-image']);
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
@@ -62,13 +106,11 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     }
   }, [searchParams]);
 
-  const tabs = [
-    'Tentang Avrist Syariah',
-    'Dewan Pengawas Syariah',
-    'Manfaat Utama',
-    'Produk',
-    'Klaim dan Layanan'
-  ];
+  useEffect(() => {
+    handleGetContentPage('halaman-tentang-avrist-syariah').then((res) =>
+      setData(res)
+    );
+  }, []);
 
   return (
     <div>
@@ -78,13 +120,8 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           { title: 'Beranda', href: '/' },
           { title: tab, href: '#' }
         ]}
-        bottomImage={
-          tab === 'Produk'
-            ? HeroSyariah2
-            : tab === 'Klaim dan Layanan'
-              ? HeroSyariah4
-              : HeroSyariah1
-        }
+        imageUrl={titleImage.imageUrl}
+        bottomImage={bannerImage.imageUrl}
       />
       <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
         <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
@@ -103,9 +140,54 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
             </LinkScroll>
           ))}
         </div>
-        {tab === 'Tentang Avrist Syariah' && <TentangAvristSyariah />}
-        {tab === 'Dewan Pengawas Syariah' && <DewanPengawasSyariah />}
-        {tab === 'Manfaat Utama' && <ManfaatUtama />}
+        {tab === 'Tentang Avrist Syariah' && (
+          <TentangAvristSyariah
+            title={dewanPengawasJudul}
+            subTitle={dewanPengawasSubJudul}
+            desc={dewanPengawasDeskripsi}
+            boards={[
+              {
+                image: dewanPengawasImage.imageUrl,
+                name: dewanPengawasNama,
+                role: dewanPengawasTitleDewan
+              }
+            ]}
+            manfaatUtamaJudul={manfaatUtamaJudul}
+            manfaatUtamaDesc={manfaatUtamaDeskripsi}
+          />
+        )}
+        {tab === 'Dewan Pengawas Syariah' && (
+          <DewanPengawasSyariah
+            title={dewanPengawasJudul}
+            subTitle={dewanPengawasSubJudul}
+            desc={dewanPengawasDeskripsi}
+            boards={[
+              {
+                image: dewanPengawasImage.imageUrl,
+                name: dewanPengawasNama,
+                role: dewanPengawasTitleDewan
+              }
+            ]}
+            manfaatUtamaJudul={manfaatUtamaJudul}
+            manfaatUtamaDesc={manfaatUtamaDeskripsi}
+          />
+        )}
+        {tab === 'Manfaat Utama' && (
+          <ManfaatUtama
+            title={dewanPengawasJudul}
+            subTitle={dewanPengawasSubJudul}
+            desc={dewanPengawasDeskripsi}
+            boards={[
+              {
+                image: dewanPengawasImage.imageUrl,
+                name: dewanPengawasNama,
+                role: dewanPengawasTitleDewan
+              }
+            ]}
+            manfaatUtamaJudul={manfaatUtamaJudul}
+            manfaatUtamaDesc={manfaatUtamaDeskripsi}
+          />
+        )}
         {tab === 'Produk' && <Produk />}
         {tab === 'Klaim dan Layanan' && <KlaimDanLayanan />}
       </div>
@@ -123,7 +205,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           buttonClassname="bg-white border border-white"
           buttonTextClassname="text-syariah_green_informing"
           buttonTitle="Tanya Avrista"
-          image={HelpDesk}
+          image={footerImage.imageUrl}
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
