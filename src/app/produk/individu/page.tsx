@@ -186,22 +186,27 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         cards={[
           {
             title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit
+            icon: ProdukRumahSakit,
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
           },
           {
             title: 'Klaim & Layanan',
             icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
           },
           {
             title: 'Kelola Polis',
             icon: ProdukPolis,
-            subtitle: 'Login Akun'
+            subtitle: 'Login Akun',
+            href: 'https://my.avrist.com/welcome'
           },
           {
             title: 'Testimonial',
             icon: ProdukTestimoni,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/promo-berita/berita?tab=Testimonial'
           }
         ]}
       />
