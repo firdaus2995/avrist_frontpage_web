@@ -25,7 +25,7 @@ export const contentTransformer = (data: ContentResponse) => {
 };
 
 export const singleImageTransformer = (data: any) => {
-  if (data?.value === '-')
+  if (!data || data?.value === '-')
     return {
       imageUrl: '',
       altText: ''

@@ -22,17 +22,27 @@ const InformationCustomer = () => {
   const searchParams = useSearchParams();
   const params = searchParams.get('tab') ?? '';
 
-  useEffect(() => {
-    const fetchData = async () => {
+	useEffect(() => {
+		const paramsSlug = {
+			'Rumah Sakit Rekanan': 'halaman-rumah-sakit-rekanan',
+			'Performa Investasi': 'halaman-performa-investasi',
+			'Formulir & Buku Panduan': 'halaman-formulir-dan-buku-panduan',
+			'Informasi Nasabah': 'informasi-nasabah'
+		};
+
+		const fetchDataByParam = async (slug: string) => {
 			setData(initialData);
-      try {
-				const pageSlug = 'informasi-nasabah';
+			const pageSlug = paramsSlug[slug as keyof typeof paramsSlug];
+			try {
 				const response = await fetch(`/api/klaim-layanan/layanan?slug=${pageSlug}`);
 				const data = await response.json();
-        const { content } = pageTransformer(data);
-				const banner = singleImageTransformer(content['image-banner']);
-				const title = singleImageTransformer(content['image-title']);
-				const footerInformation = singleImageTransformer(content['image-cta1']);
+				const { content } = pageTransformer(data);			
+				const banner = singleImageTransformer(content['banner-image']).imageUrl !== '' ?
+					singleImageTransformer(content['banner-image']) : singleImageTransformer(content['image-banner']);				
+				const title = singleImageTransformer(content['title-image']).imageUrl !== '' ?
+					singleImageTransformer(content['title-image']) : singleImageTransformer(content['image-title']);
+				const footerInformation = singleImageTransformer(content['cta1-image']).imageUrl !== '' ?
+					singleImageTransformer(content['cta1-image']) : singleImageTransformer(content['image-cta1']);
 
 				setData({
 					titleImageUrl: title.imageUrl,  
@@ -42,43 +52,18 @@ const InformationCustomer = () => {
 					footerInfoAltText: footerInformation.altText,
 					footerInfoImageUrl: footerInformation.imageUrl
 				});
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-	const fetchDataRumahSakitRekanan = async () => {
-		setData(initialData);
-		try {
-			const pageSlug = 'halaman-rumah-sakit-rekanan';
-			const response = await fetch(`/api/klaim-layanan/layanan?slug=${pageSlug}`);
-			const data = await response.json();
-			const { content } = pageTransformer(data);
-			const banner = singleImageTransformer(content['banner-image']);
-			const title = singleImageTransformer(content['title-image']);
-			const footerInformation = singleImageTransformer(content['cta1-image']);
-			setData({
-				titleImageUrl: title.imageUrl,  
-				bannerImageUrl: banner.imageUrl, 
-				titleAltText: title.altText,
-				bannerAltText: banner.altText,
-				footerInfoAltText: footerInformation.altText,
-				footerInfoImageUrl: footerInformation.imageUrl
-			});
+			}
+			catch(error) {
+				console.error('Error:', error)
+			}
+		};
+	
+		if (params){
+			fetchDataByParam(params);
 		}
-		catch(error) {
-			console.error('Error:', error)
+		else {
+			setData(initialData);
 		}
-	};
-
-	if (params.includes('Rumah Sakit Rekanan')){
-		fetchDataRumahSakitRekanan().then();
-	} 
-	if (params.includes('Informasi Nasabah')){
-		fetchData().then();
-	} else {
-		setData(initialData);
-	}
 
   }, [params]);	
 
