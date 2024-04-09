@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import contact from '@/assets/images/common/contacts.svg';
 import hospital from '@/assets/images/common/hospital.svg';
 import ask from '@/assets/images/common/message.svg';
@@ -15,26 +16,26 @@ export const InformationAvrastFooter = () => {
         <div className="w-1/4 h-full bg-agi_grey rounded-tr-[65px]"></div>
       </div>
       <div className="grid grid-cols-4 gap-6 w-full px-[136px]">
-        <div className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
-          <Image src={contact} alt="contact" height={100} width={100} />
-          <p className="mt-[24px]">Kelola Polis</p>
-          <p className="text-purple_dark">Pengkinian Data</p>
-        </div>
-        <div className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
-          <Image src={hospital} alt="hospital" height={100} width={100} />
-          <p className="mt-[24px]">Rumah Sakit</p>
-          <p>Rekanan</p>
-        </div>
-        <div className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
-          <Image src={ask} alt="ask" height={100} width={100} />
-          <p className="mt-[24px]">Tanya Avrista</p>
-          <p className="text-purple_dark">Lebih Lanjut</p>
-        </div>
-        <div className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
-          <Image src={paper} alt="paper" height={100} width={100} />
-          <p className="mt-[24px]">Prosedur Pengaduan</p>
-          <p className="text-purple_dark">Lihat Prosedur</p>
-        </div>
+        <Link href={'/klaim-layanan/layanan/kelola-polis'} className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
+              <Image src={contact} alt="contact" height={100} width={100} />
+              <p className="mt-[24px]">Kelola Polis</p>
+              <p className="text-purple_dark">Pengkinian Data</p>
+        </Link>
+        <Link href={'/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'} className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
+            <Image src={hospital} alt="hospital" height={100} width={100} />
+            <p className="mt-[24px]">Rumah Sakit</p>
+            <p>Rekanan</p>
+        </Link>
+        <Link href={'/tanya-avrista'} className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
+            <Image src={ask} alt="ask" height={100} width={100} />
+            <p className="mt-[24px]">Tanya Avrista</p>
+            <p className="text-purple_dark">Lebih Lanjut</p>
+        </Link>
+        <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'} className="bg-white p-[24px] rounded-3xl border border-gray_light font-opensans font-bold text-[24px] text-center flex flex-col justify-center items-center cursor-pointer">
+            <Image src={paper} alt="paper" height={100} width={100} />
+            <p className="mt-[24px]">Prosedur Pengaduan</p>
+            <p className="text-purple_dark">Lihat Prosedur</p>
+        </Link>
       </div>
     </div>
   );
