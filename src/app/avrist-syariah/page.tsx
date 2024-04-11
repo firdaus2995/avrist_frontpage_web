@@ -107,6 +107,14 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    if (tab === 'Produk') {
+      router.push('/avrist-syariah/produk');
+    } else if (tab === 'Klaim dan Layanan') {
+      router.push('/avrist-syariah/klaim-layanan');
+    }
+  }, [tab]);
+
+  useEffect(() => {
     handleGetContentPage('halaman-tentang-avrist-syariah').then((res) =>
       setData(res)
     );
@@ -206,6 +214,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           buttonTextClassname="text-syariah_green_informing"
           buttonTitle="Tanya Avrista"
           image={footerImage.imageUrl}
+          href="/tanya-avrista"
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
