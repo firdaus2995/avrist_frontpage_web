@@ -1,7 +1,6 @@
 'use client';
+import { useEffect, useState } from 'react';
 import ProdukCard from '@/assets/images/avrast/avrist-syariah/about.svg';
-import HelpDesk from '@/assets/images/avrast/avrist-syariah/helpdesk.svg';
-import HeroSyariah2 from '@/assets/images/avrast/avrist-syariah/hero-syariah-2.svg';
 
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
@@ -19,8 +18,24 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
+import { handleGetContentPage } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const ProdukSyariah = () => {
+  const [data, setData] = useState<PageResponse>();
+  const { content } = pageTransformer(data);
+  const titleImage = singleImageTransformer(content['title-image']);
+  const banner = singleImageTransformer(content['banner-image']);
+  const footer = singleImageTransformer(content['cta1-image']);
+
+  useEffect(() => {
+    handleGetContentPage('halaman-produk-syariah').then((res) => setData(res));
+  }, []);
+
   return (
     <div>
       <Hero
@@ -30,7 +45,8 @@ const ProdukSyariah = () => {
           { title: 'Avrist Syariah', href: '/avrist-syariah' },
           { title: 'Produk Syariah', href: '/avrist-syariah/produk' }
         ]}
-        bottomImage={HeroSyariah2}
+        imageUrl={titleImage.imageUrl}
+        bottomImage={banner.imageUrl}
       />
       <SimpleContainer>
         <CategoryPills
@@ -46,9 +62,11 @@ const ProdukSyariah = () => {
           buttonInactiveClassname="bg-transparent border-syariah_green text-syariah_green hover:bg-syariah_green hover:border-syariah_green hover:text-white"
           buttonActiveTextClassname="text-white"
           links={{
-            'Tentang Avrist Syariah': '/avrist-syariah#TentangAvristSyariah',
-            'Dewan Pengawas Syariah': '/avrist-syariah#DewanPengawasSyariah',
-            'Manfaat Utama': '/avrist-syariah#ManfaatUtama',
+            'Tentang Avrist Syariah':
+              '/avrist-syariah?tab=Tentang+Avrist+Syariah',
+            'Dewan Pengawas Syariah':
+              '/avrist-syariah?tab=Dewan+Pengawas+Syariah',
+            'Manfaat Utama': '/avrist-syariah?tab=Manfaat+Utama',
             Produk: '/avrist-syariah/produk',
             'Klaim & Layanan': '/avrist-syariah/klaim-layanan'
           }}
@@ -119,7 +137,8 @@ const ProdukSyariah = () => {
           buttonClassname="bg-white border border-white"
           buttonTextClassname="text-syariah_green_informing"
           buttonTitle="Tanya Avrista"
-          image={HelpDesk}
+          href="/tanya-avrista"
+          image={footer.imageUrl}
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
@@ -127,22 +146,26 @@ const ProdukSyariah = () => {
         cards={[
           {
             title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit
+            icon: ProdukRumahSakit,
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
           },
           {
             title: 'Klaim & Layanan',
             icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
           },
           {
             title: 'Kelola Polis',
             icon: ProdukPolis,
-            subtitle: 'Login Akun'
+            subtitle: 'Login Akun',
+            href: 'https://my.avrist.com/welcome'
           },
           {
             title: 'Testimonial',
             icon: ProdukTestimoni,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/promo-berita/berita?tab=Testimonial'
           }
         ]}
       />

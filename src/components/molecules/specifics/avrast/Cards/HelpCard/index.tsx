@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface HelpCardProps {
   title: ReactElement;
@@ -8,6 +9,7 @@ interface HelpCardProps {
   buttonClassname?: string;
   buttonTextClassname?: string;
   image: string;
+  href?: string;
 }
 
 const HelpCard = ({
@@ -16,7 +18,8 @@ const HelpCard = ({
   cardClassname,
   buttonClassname,
   buttonTextClassname,
-  image
+  image,
+  href
 }: HelpCardProps) => {
   return (
     <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
@@ -26,13 +29,14 @@ const HelpCard = ({
         <div className="flex flex-col gap-[24px] justify-center p-[36px]">
           <div>{title}</div>
           <div className="flex justify-center sm:justify-start">
-            <button
+            <Link
+              href={href ?? '#'}
               className={`${buttonClassname} rounded-[8px] hover:shadow-lg px-[40px] py-[14px] w-[fit-content]`}
             >
               <p className={`${buttonTextClassname} font-semibold text-[20px]`}>
                 {buttonTitle}
               </p>
-            </button>
+            </Link>
           </div>
         </div>
         <div className="flex">
