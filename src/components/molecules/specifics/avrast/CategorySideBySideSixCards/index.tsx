@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -12,6 +13,7 @@ interface ICategorySideBySideSixCards {
     title: string;
     description: string;
     hasDownloadButton?: boolean;
+    urlDownload?: string;
   }[];
   leftTitleClassname?: string;
   rightTitleClassname?: string;
@@ -59,7 +61,10 @@ const CategorySideBySideSixCards = ({
                       />
                       <p className="font-semibold text-[20px]">{item.title}</p>
                     </div>
-                    <p className="text-[24px] font-light">{item.description}</p>
+                    <p
+                      className="text-[24px] font-light"
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    ></p>
                   </div>
                   {index !== leftSide.length - 1 && (
                     <div className="border-b border-b-gray_light" />
@@ -78,6 +83,7 @@ const CategorySideBySideSixCards = ({
                 title: string;
                 description: string;
                 hasDownloadButton?: boolean;
+                urlDownload?: string;
               },
               index: number
             ) => (
@@ -88,17 +94,14 @@ const CategorySideBySideSixCards = ({
                 <p className={`${rightTitleClassname}  font-bold text-[36px]`}>
                   {item.title}
                 </p>
-                <p className="text-[14px] sm:text=[16px]">
-                  {item.description.split('\n').map((line, i, arr) => (
-                    <React.Fragment key={i}>
-                      {line.trim()}
-                      {i < arr.length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
-                </p>
+                <p
+                  className="text-[14px] sm:text=[16px]"
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                ></p>
                 {item.hasDownloadButton && (
                   <button
-                    type='button'
+                    type="button"
+                    onClick={() => window.open(item.urlDownload, '_blank')}
                     className={`${buttonClassname} border-1 px-10 py-3 rounded-[8px] text-[20px] font-semibold`}
                   >
                     <p>Unduh</p>

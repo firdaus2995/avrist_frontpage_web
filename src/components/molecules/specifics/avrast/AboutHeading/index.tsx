@@ -39,7 +39,10 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
       </div>
       <div className="font-karla my-[12px]">
         <h1 className="text-[56px] font-bold">{headingText}</h1>
-        <p className="text-[36px] font-bold">{subHeadingText}</p>
+        <p
+          className="text-[36px] font-bold"
+          dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
+        ></p>
         <p
           className="text-[24px] font-light"
           dangerouslySetInnerHTML={{ __html: description }}

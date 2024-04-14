@@ -2,7 +2,7 @@ import { BASE_URL } from './baseUrl';
 
 type Environment = 'page' | 'content' | '';
 
-interface QueryParams {
+export interface QueryParams {
   [key: string]: string;
 }
 

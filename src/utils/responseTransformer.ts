@@ -33,6 +33,7 @@ export const singleImageTransformer = (data: any) => {
       imageUrl: '',
       altText: ''
     };
+  console.log(data);
   const image = JSON.parse(data.value)[0];
   return {
     imageUrl: `${BASE_URL.image}/${image?.imageUrl ?? ''}`,
