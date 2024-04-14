@@ -9,7 +9,7 @@ const HandleComplaint = () => {
     <div className="flex flex-col bg-avrast_product_bg">
       <Header
         menu={[
-          { label: 'Informasi Nasabah', href: '#' },
+          { label: 'Informasi Nasabah', href: '/klaim-layanan/layanan?tab=Informasi+Nasabah' },
           { label: 'Penanganan Pengaduan', href: '#' }
         ]}
         title="Informasi Nasabah"

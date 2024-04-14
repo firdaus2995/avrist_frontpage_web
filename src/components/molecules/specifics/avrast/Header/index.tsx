@@ -47,7 +47,7 @@ const Header = () => {
 
           <div
             className={`shadow-lg z-[99] rounded-md bg-white flex flex-col p-4 gap-4 w-[150%] h-auto absolute top-full left-0 transition-transform transition-opacity duration-300 transform ${
-              isDropdownHeaderVisible ? 'opacity-100' : 'opacity-0'
+              isDropdownHeaderVisible ? 'opacity-100' : 'opacity-0 hidden'
             }`}
           >
             <Link

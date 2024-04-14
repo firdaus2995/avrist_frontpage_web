@@ -43,7 +43,7 @@ const dataInformasiNasabah = [
     icon: FOOTER_NASABAH_3,
     title: 'Avrist Terkini',
     link1: 'Lebih Lanjut',
-    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
+    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
   },
   {
     icon: FOOTER_NASABAH_4,
@@ -57,22 +57,26 @@ const dataFormulirPendaftaran = [
   {
     icon: ARROW_CIRCLE_RIGHT,
     title: 'Kelola Polis',
-    link1: 'Login Akun'
+    link1: 'Login Akun',
+    href: '/klaim-layanan/layanan/kelola-polis'
   },
   {
     icon: RECEIPT,
     title: 'Ajukan Klaim',
-    link1: 'Lebih Lanjut'
+    link1: 'Lebih Lanjut',
+    href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
   },
   {
     icon: DOCUMENT_SEARCH,
     title: 'Prosedur Pengaduan',
-    link1: 'Lihat Prosedur'
+    link1: 'Lihat Prosedur',
+    href: '/klaim-layanan/layanan/penanganan-pengaduan'
   },
   {
     icon: MESSAGE,
     title: 'Tanya Avrista',
-    link1: 'Lebih Lanjut'
+    link1: 'Lebih Lanjut',
+    href: '/tanya-avrista'
   }
 ];
 
