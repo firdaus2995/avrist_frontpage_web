@@ -14,6 +14,7 @@ interface ICardCategoryA {
   description: string;
   tags: string[];
   href?: string;
+  imageProduk?: string;
 }
 
 const CardCategoryA = ({
@@ -22,7 +23,8 @@ const CardCategoryA = ({
   summary,
   description,
   tags,
-  href
+  href,
+  imageProduk
 }: ICardCategoryA) => {
   return (
     <div className="flex flex-col gap-[18px] p-[24px] border border-gray_light border-b-8 border-b-purple_dark rounded-[18px] rounded-b-[12px]">
@@ -30,15 +32,15 @@ const CardCategoryA = ({
         alt="blank-image"
         width={0}
         height={170}
-        src={BlankImage}
+        src={imageProduk || BlankImage}
         className="w-auto"
       />
       <div className="flex flex-row items-center gap-[4px]">
-        <Image alt="symbol" src={symbol} />
+        <Image alt="symbol" src={symbol} width={24} height={24}/>
         <p className="text-purple_dark font-bold text-sm">{title}</p>
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
-      <p>{description}</p>
+      <p dangerouslySetInnerHTML={{ __html: description ?? '' }} />
       <div className="flex flex-row flex-wrap gap-[12px]">
         {tags.map((item: string, index: number) => (
           <MediumTag key={index} title={item} />

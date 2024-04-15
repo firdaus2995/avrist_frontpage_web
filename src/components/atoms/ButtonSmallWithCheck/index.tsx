@@ -1,9 +1,18 @@
 interface IButtonSmallWithCheck {
   name: string;
   title: string;
+  handleChange?: (selectedChannel: string, isChecked: boolean) => void;
 }
 
-const ButtonSmallWithCheck = ({ name, title }: IButtonSmallWithCheck) => {
+const ButtonSmallWithCheck = ({ name, title, handleChange }: IButtonSmallWithCheck) => {
+  const onlickCheckBox = (event:any) => {
+    if (handleChange) {
+      const isChecked = event.target.checked;
+      const text = event.target.value;
+      handleChange(text, isChecked)
+    }
+  }
+  
   return (
     <button
       type="button"
@@ -12,8 +21,9 @@ const ButtonSmallWithCheck = ({ name, title }: IButtonSmallWithCheck) => {
       <input
         id={name}
         type="checkbox"
-        value=""
+        value={name}
         className="w-4 h-4 text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
+        onChange={onlickCheckBox}
       />
       <label
         htmlFor={name}

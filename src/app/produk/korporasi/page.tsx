@@ -18,6 +18,7 @@ import { ButtonHelperItem } from '@/components/molecules/specifics/avrast/Button
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import LeftTabs from '@/components/molecules/specifics/avrast/LeftTabs';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
@@ -28,6 +29,8 @@ import {
 } from '@/utils/responseTransformer';
 
 const ProdukKorporasi: React.FC<ParamsProps> = () => {
+  const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
+  const [data, setData] = useState<dataKlaim>(initialData);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -73,27 +76,24 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     }
   ];
 
-  const [data, setData] = useState<any>({
-    titleImage: '',
-    bannerImage: '',
-    footerImage: ''
-  });
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://api-front-sit.avristcms.barito.tech/api/page/produk-korporasi',
-          { method: 'GET' }
-        );
-        const data = await response.json();
-        setData(data);
+        const response = await fetch(`/api/produk/korporasi`);
+				const data = await response.json();
 
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
         const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setData({ titleImage, bannerImage, footerImage });
+        setData({
+					titleImageUrl: titleImage.imageUrl,  
+					bannerImageUrl: bannerImage.imageUrl, 
+					titleAltText: titleImage.altText,
+					bannerAltText: bannerImage.altText,
+					footerInfoAltText: footerImage.altText,
+					footerInfoImageUrl: footerImage.imageUrl
+				});
       } catch (error) {
         console.error('Error:', error);
       }
@@ -102,24 +102,16 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     fetchData();
   }, []);
 
-  let titleImage, bannerImage, footerImage;
-
-  if (data && data.bannerImage && data.footerImage) {
-    titleImage = data.titleImage.imageUrl;
-    bannerImage = data.bannerImage.imageUrl;
-    footerImage = data.footerImage.imageUrl;
-  }
-
   return (
     <div className="flex flex-col">
       <Hero
         title={activeTab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: activeTab, href: '#' }
+          { title: 'Produk', href: '#' }
         ]}
-        bottomImage={bannerImage}
-        imageUrl={titleImage}
+        bottomImage={data.bannerImageUrl}
+        imageUrl={data.titleImageUrl}
       />
       <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
         <LeftTabs
@@ -169,7 +161,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={footerImage}
+        image={data.footerInfoImageUrl}
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards

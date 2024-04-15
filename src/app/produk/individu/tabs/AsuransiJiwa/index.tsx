@@ -1,18 +1,19 @@
 import React from 'react';
-import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
 
-function AsuransiJiwa() {
+function AsuransiJiwa({ data }: { data: any }) {    
   return (
+    data &&
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
-      {[...Array(9)].map((_, index) => (
+      {data.map((item: IDataCard, index: number) => (
         <CardCategoryA
           key={index}
-          symbol={HeartSymbol}
+          imageProduk={item.produkImage.imageUrl}
+          symbol={item.kategoriProdukIcon.imageUrl}
           title="Asuransi Jiwa"
-          summary="Lorem Ipsum"
-          description="Lorem ipsum dolor sit amet"
-          tags={['Asuransi Jiwa', 'Premi Tetap', 'Premi Berkala']}
+          summary={item.namaProduk}
+          description={item.deskripsiSingkatProduk}
+          tags={item.tags.split(',')}
           href={`/produk/individu/produk-asuransi-jiwa-` + index}
         />
       ))}
@@ -21,3 +22,16 @@ function AsuransiJiwa() {
 }
 
 export default AsuransiJiwa;
+
+interface IDataCard {
+  produkImage: {
+    imageUrl: string,    
+  },
+  kategoriProdukIcon: {
+    imageUrl: string,    
+  },
+  namaProduk: string,
+  deskripsiSingkatProduk: string,
+  tags: string
+
+}

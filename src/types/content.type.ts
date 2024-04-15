@@ -27,4 +27,24 @@ export interface ContentResponse {
     lastEdited?: string;
     contentData: ContentDatum[];
   }
-  
+
+  export interface ContentCategoryResponse {
+    code: number;
+    status: string;
+    data: DataCategory;
+    errors: string;
+    pagination: Pagination;
+  }
+ 
+  export interface DataCategory {
+    id: number;
+    name: string;
+    slug: string;
+    useCategory: boolean;
+    type: PageTemplate;
+    categoryList: CategoryListData
+  }
+
+  interface CategoryListData {
+    [key: string]: ContentData[];
+  }
