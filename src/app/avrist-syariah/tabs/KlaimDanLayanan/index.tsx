@@ -21,35 +21,40 @@ const KlaimDanLayanan = () => {
             cardTitle: 'Pengajuan Klaim',
             cardBody:
               'Perkembangan informasi dan keputusan secara jelas, efektif dan transparansi.',
-            cardButtonText: 'Panduan Klaim'
+            cardButtonText: 'Panduan Klaim',
+            href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             cardIcon: GreenContact,
             cardTitle: 'Kelola Polis',
             cardBody:
               'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
-            cardButtonText: 'Informasi Nasabah'
+            cardButtonText: 'Informasi Nasabah',
+            href: '/klaim-layanan/layanan/kelola-polis'
           },
           {
             cardIcon: GreenHospital,
             cardTitle: 'Rumah Sakit Rekanan',
             cardBody:
               'Kami menjamin kelancaran proses klaim dengan ketentuan polis yang ada.',
-            cardButtonText: 'Cari Lokasi'
+            cardButtonText: 'Cari Lokasi',
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
           },
           {
             cardIcon: GreenForm,
             cardTitle: 'Formulir dan Buku Panduan',
             cardBody:
               'Kami memberi kelancaran dengan ketentuan polis yang disepakati bersama.',
-            cardButtonText: 'Unduh dan Baca'
+            cardButtonText: 'Unduh dan Baca',
+            href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
           },
           {
             cardIcon: GreenPaper,
             cardTitle: 'Penanganan Pengaduan',
             cardBody:
               'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
-            cardButtonText: 'Baca Aturan'
+            cardButtonText: 'Baca Aturan',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan'
           },
           {
             cardIcon: GreenHelpDesk,
