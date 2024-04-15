@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Card {
   cardIcon: string;
   cardTitle?: string;
   cardBody: string;
   cardButtonText?: string;
+  href?: string;
 }
 
 interface InformationCardProps {
@@ -60,15 +62,17 @@ const InformationCard: React.FC<InformationCardProps> = ({
           <div className="text-center">
             {item.cardButtonText && (
               <div className="h-full mb-[24px]">
-                <button
-                  className={`${cardButtonClassname} rounded-[8px] px-[20px] py-[8px] w-3/4`}
-                >
-                  <p
-                    className={`${cardButtonTextClassname} font-semibold text-[16px]`}
+                <Link href={item.href ?? '#'}>
+                  <button
+                    className={`${cardButtonClassname} rounded-[8px] px-[20px] py-[8px] w-3/4`}
                   >
-                    {item.cardButtonText}
-                  </p>
-                </button>
+                    <p
+                      className={`${cardButtonTextClassname} font-semibold text-[16px]`}
+                    >
+                      {item.cardButtonText}
+                    </p>
+                  </button>
+                </Link>
               </div>
             )}
           </div>
