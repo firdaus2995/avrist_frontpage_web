@@ -8,14 +8,13 @@ import { CardRainbow } from '@/components/molecules/specifics/avrast/HubungiKami
 
 export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModal }: { handleCloseModal: () => void, isShowPanduanLayananModal: boolean })  => {
     const assuranceTips = [
-        'Pastikan Anda memahami produk asuransi jiwa yang dipilih, sesuai dengan kebutuhan dan kemampuan Anda.',
-        'Pastikan Tenaga Pemasar Anda memiliki kartu lisensi AAJI/AASI. Mintalah Tenaga Pemasar Anda untuk menunjukkan kartu lisensinya.',
-        'Pahami dan tanyakan manfaat asuransi, pengecualian, biaya, risiko, hak, kewajiban dan tata cara pengajuan klaim secara lengkap kepada Tenaga Pemasar Anda.',
-        'Jika memilih produk asuransi jiwa unit link, maka lakukan penilaian profil risiko investasi pribadi sebelumnya, yang akan dibantu oleh Tenaga Pemasar Anda. Profil risiko investasi memberikan gambaran secara umum mengenai toleransi risiko Anda. Sesuaikan dana investasi yang Anda pilih dengan profil risiko Anda.',
-        'Pahami terlebih dahulu isi proposal dan ilustrasi asuransi, barulah menandatangani Surat Pengajuan Asurasi Jiwa (SPAJ) yang telah diisi secara lengkap oleh Anda sendiri. Setelahnya, Anda berhak untuk mendapatkan salinan dari SPAJ tersebut.',
-        'Pastikan data dan kontak yang tertera di SPAJ termasuk pendaftaran alamat email dan nomor handphone adalah informasi terkini untuk mendapatkan informasi mengenai Polis Anda.',
-        'Lakukanlah pembayaran premi / kontribusi secara langsung ke Avrist Life Insurance melalui saluran pembayaran resmi dan tidak melalui Tenaga Pemasar. Pembayaran secara auto debit rekening atau kartu kredit sangat disarankan agar perlindungan asuransi tetap aktif.',
-        'Terdapat masa pembelajaran polis (freelook period) selama 14 hari kerja. Pergunakan periode ini untuk membaca syarat dan ketentuan produk secara teliti. Anda dapat melakukan pembatalan pengajuan polis dalam masa freelook.'
+        'Persiapan Dokumen: Nasabah harus mengumpulkan dokumen-dokumen yang diperlukan untuk keperluan klaim, sesuai dengan ketentuan polis asuransi. Dokumen umumnya mencakup formulir klaim, surat keterangan medis dari dokter atau rumah sakit, identitas diri, dan dokumen pendukung lainnya.',
+        'Pengajuan Klaim: Nasabah kemudian mengajukan klaim ke perusahaan asuransi, baik secara langsung di kantor perusahaan, melalui agen asuransi, atau melalui platform online seperti avrist solution yang disediakan perusahaan.',
+        'Verifikasi Dokumen: Tim klaim perusahaan asuransi akan memverifikasi kelengkapan dokumen yang diajukan. Untuk metode cashless, proses ini dapat dilakukan secara lebih cepat karena pihak Rumah Sakit dapat langsung mengkonfirmasi data pasien ke perusahaan asuransi.',
+        'Pembayaran Klaim Cashless: Jika klaim diajukan dengan metode cashless, perusahaan asuransi akan langsung menjamin tagihan rumah sakit atau penyedia layanan kesehatan yang bermitra dengan asuransi. Nasabah tidak perlu membayar secara langsung selama tagihan sesuai dengan ketentuan polis.',
+        'Pembayaran Klaim Reimbursement: Dalam metode reimbursement, setelah dokumen klaim diverifikasi, perusahaan asuransi akan meninjau klaim dan kemudian membayar nasabah atas pengeluaran yang telah diajukan, sesuai dengan ketentuan polis. Pembayaran dilakukan ke rekening bank sesuai yang diatur di polis.',
+        'Estimasi Waktu Penyelesaian:  Untuk metode reimbursement, Avrist Assurance berkomitmen untuk menyelesaikan proses klaim dalam waktu 14 hari kerja setelah semua dokumen lengkap. Sedangkan untuk metode pembayara cashless, Avrist Assurance, akan langsung menjamin pembayaran klaim',
+        'Pemantauan Status Klaim: Nasabah dapat memantau status klaim mereka melalui portal avrist solution atau menghubungi pusat layanan pelanggan perusahaan asuransi untuk mendapatkan informasi terkini tentang perkembangan klaim.'
     ]
 
   return (
@@ -56,7 +55,7 @@ export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModa
                                     <div className="flex items-left flex-col">
                                         <div className="my-[20px] flex flex-col gap-5">
                                             <p className="font-karla font-semibold text-purple_dark text-[48px]">
-                                                Panduan Layanan Nasabah (PDF)
+                                            Mekanisme Klaim Asuransi
                                             </p>
                                             <p className='text-[18px]'>
                                                 Mari selalu teliti sebelum membeli produk asuransi jiwa dengan membaca isi proposal dengan baik dan pertimbangkan dengan cermat segala manfaat dan konsekuensinya.

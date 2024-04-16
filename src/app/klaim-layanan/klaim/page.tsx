@@ -36,9 +36,12 @@ const handleDataFetch = async (slug: string, setData: (dataKlaim: dataKlaim) => 
 	  const response = await fetch(`/api/klaim-layanan/klaim?slug=${slug}`);
     const data = await response.json();
     const { content } = pageTransformer(data as PageResponse);
-    const title = singleImageTransformer(content[dataKeyTitle]);
-    const banner = singleImageTransformer(content[dataKeyBanner]);
-    const footerInformationImage = singleImageTransformer(content[dataKeyFooter]);
+    const title = singleImageTransformer(content[dataKeyTitle]).imageUrl !== '' ?
+      singleImageTransformer(content[dataKeyTitle]) : singleImageTransformer(content['image-title']);
+    const banner = singleImageTransformer(content[dataKeyBanner]).imageUrl !== '' ?
+      singleImageTransformer(content[dataKeyBanner]) : singleImageTransformer(content['image-banner']);
+    const footerInformationImage = singleImageTransformer(content[dataKeyFooter]).imageUrl !== '' ?
+      singleImageTransformer(content[dataKeyFooter]) : singleImageTransformer(content['image-cta1']);
 
     setData({
       titleImageUrl: title.imageUrl,  
@@ -66,6 +69,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   };
 
   useEffect(() => {  
+    setData(initialData);
     const value = searchParams.get('tab');
     if (value === 'Login Polis') {
       router.push('https://my.avrist.com/welcome');
@@ -92,6 +96,8 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   const handleChangeBannerImg = (val: number) => {
     setBannerImg(val);
   };
+  console.log({data});
+  
 
   return (
     <div className="flex flex-col items-center justify-center bg-avrast_product_bg">
