@@ -105,22 +105,26 @@ const dataRSRekanan = [
   {
     icon: CUSTOMER_SERVICE,
     title: 'Layanan Nasabah',
-    link1: '021 5789 8188'
+    link1: '021 5789 8188',
+    href: 'tel:021-5789-8188'
   },
   {
     icon: MESSAGE,
     title: 'Tanya Avrista',
-    link1: 'Lebih Lanjut'
+    link1: 'Lebih Lanjut',
+    href: '/tanya-avrista'
   },
   {
     icon: EMAIL,
     title: 'Tanya Lewat Email',
-    link1: 'Kirim Email'
+    link1: 'Kirim Email',
+    href: 'mailto:customer-service@avrist.com'
   },
   {
     icon: DOCUMENT_SEARCH,
     title: 'Prosedur Pengaduan',
-    link1: 'Lihat Prosedur'
+    link1: 'Lihat Prosedur',
+    href: '/klaim-layanan/layanan/penanganan-pengaduan'
   }
 ];
 

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import Maps from '@/components/molecules/specifics/avrast/RSRekanan/Maps';
+import { Content as ProviderContent } from '@/types/provider.type';
 
 const Content = () => {
+  const [data, setData] = useState<IDAta[] | []>([]);
+  const [searchParam, setSearchParam] = useState('');
   const btnVerticalData = [
     {
       title: 'Asuransi Jiwa Individu',
@@ -20,6 +23,34 @@ const Content = () => {
       color: 'text-olive_green'
     }
   ];
+
+  useEffect(() => {
+    const fetchProviderData = async () => {
+        const response = await fetch(`/api/klaim-layanan/layanan/rumah-sakit-rekanan-providers?city_contain=jakarta&name_contain=${searchParam}`);
+				const data = await response.json();    
+        if (data.responseMessage !== 'SUCCESS'){
+          return [];
+        }
+
+        const { content } = data;
+        const fetchedData = content.map((item: ProviderContent) => {
+          const phoneSplit = item.phone.split('-');
+          const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;          
+          return {
+            name: item.name,
+            address: item.address,
+            phone: formattedPhoneNumber
+          }
+        });        
+        setData(fetchedData);
+    };
+
+    fetchProviderData().then();
+  }, [searchParam]);
+
+  const handleChangeSearchParams = (value: string) => {
+    setSearchParam(value);
+  }
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">    
@@ -43,11 +74,11 @@ const Content = () => {
         </section>
 
         <section className="flex xs:flex-col md:flex-row gap-10">
-          <div className="xs:w-[100%] md:w-[23%]">
+          <div className="xs:w-[100%] md:w-[20%]">
             <ButtonMenuVertical item={btnVerticalData} />
           </div>
 
-          <Maps />
+          <Maps hospitalData={data} onClickSearch={handleChangeSearchParams}/>
         </section>
       </div>
       <RoundedFrameBottom />
@@ -56,3 +87,9 @@ const Content = () => {
 };
 
 export default Content;
+
+export interface IDAta {
+  name: string, 
+  address: string, 
+  phone: string 
+}
