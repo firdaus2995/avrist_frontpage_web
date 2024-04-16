@@ -1,7 +1,7 @@
 import React from 'react';
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
 
-function AsuransiJiwa({ data }: { data: any }) {    
+function AsuransiJiwa({ data } : { data: any }) {    
   return (
     data &&
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">

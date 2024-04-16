@@ -18,6 +18,8 @@ export async function httpService<T>(
 ): Promise<T> {
   const baseUrl = getBaseUrl(env);
   const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);
+  console.log({urlWithParams});
+  
 
   try {
     const response = await fetch(urlWithParams, options);

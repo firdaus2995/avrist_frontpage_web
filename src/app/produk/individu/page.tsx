@@ -37,24 +37,25 @@ import {
 const IndividuProduk: React.FC<ParamsProps> = () => {
   const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
   const [data, setData] = useState<IDataPage>(initialData);
-  const [dataContent, setDataContent] = useState<any>();
+  const [dataContent, setDataContent] = useState<any[]>();
   const [channels, setChannels] = useState<any>();
   const [selectedChannels, setSelectedChannels] = useState();
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
+  
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
+  
   const tabs = [
     'Asuransi Jiwa',
     'Asuransi Kesehatan',
     'Asuransi Kecelakaan',
     'Asuransi Tambahan'
   ];
+  const [searchValue, setSearchValue] = useState(searchParams.get('tab') || '');
   const [activeTab, setActiveTab] = useState(searchParams.get('tab'));
   const [isOpen, setIsOpen] = useState(false);
 
@@ -68,6 +69,10 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
+      if (name === 'tab') {
+        params.delete('nameOrTags');
+        setSearchValue('');
+      }
       params.set(name, value);
       return params.toString();
     },
@@ -116,12 +121,15 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
     const fetchDataContentWithCategory = async () => {
       try {
-
         if (activeTab) {
           const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}`);
           const data = await contentCategoryResponse.json();
+          console.log({data});
+          
           const transformedDataContent = contentCategoryTransformer(data, activeTab);
-          const dataContentValues = transformedDataContent.map(({ content }) => {
+          console.log({transformedDataContent});
+          
+          const dataContentValues = transformedDataContent?.map(({ content }) => {
             const namaProduk = contentStringTransformer(content['nama-produk']);
             const tags = contentStringTransformer(content['tags']);
             const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
@@ -166,6 +174,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               fileBrosur,
             };
           });        
+          console.log({dataContentValues});
+          
           setDataContent(dataContentValues);
   
           return dataContentValues;
@@ -227,8 +237,10 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
           };
         });        
         setDataContent(dataContentValues);
-
         return dataContentValues;
+        return dataContentValues;
+        
+        return dataContentValues;        
         
       }
       catch(error) {        
@@ -238,16 +250,17 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
     fetchData().then();
     fetchDataContentWithCategory().then(
-      (dataContentValues) => {
-        
-        const channelValues = dataContentValues!.map((data: any) => {
-          return data['channel'];
-        });        
-        const uniqueChannels = new Set(channelValues?.filter((channel: string) => channel !== ''));
-        setChannels(Array.from(uniqueChannels));        
+      (dataContentValues) => {      
+        if (dataContentValues) {
+          const channelValues = dataContentValues.map((data: any) => {
+            return data['channel'];
+          });        
+          const uniqueChannels = new Set(channelValues?.filter((channel: string) => channel !== ''));
+          setChannels(Array.from(uniqueChannels));      
+        }
       }
     );
-  }, [searchParams, selectedChannels]);
+  }, [searchParams, selectedChannels, searchValue]);
 
   const paginatedData = dataContent
   ? dataContent.slice(startIndex, endIndex)
@@ -263,6 +276,12 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const handlePageChange = (page: React.SetStateAction<number>) => {
     setCurrentPage(page);
   };
+
+  const handleChangeSearchParams = (value: string) => {
+    router.push(`?${createQueryString('nameOrTags', value)}`, {
+      scroll: false
+    });
+  }
 
   const renderCard = () => {
     if (!activeTab) {
@@ -319,6 +338,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               placeholder="Cari"
               searchButtonTitle="Cari"
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
+              onSearch={handleChangeSearchParams}
             />
             <ButtonSelection buttonHelper={buttonHelper}  channels={channels} onSelectChannels={handleSelectedChannels} selectedChannels={selectedChannels}/>
           </div>
@@ -327,10 +347,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             <div>
               <p className="text-[20px]">
                 Menampilkan{' '}
-                {/* <span className="font-bold text-purple_dark">1-{dataContent?.length}</span> dari{' '}
-                <span className="font-bold">{dataContent?.length}</span> hasil */}
                 <span className="font-bold text-purple_dark">
-                  {startIndex + 1}-
+                  {dataContent?.length === 0 ? 0 : startIndex + 1}-
                   {Math.min(
                     endIndex,
                     dataContent ? dataContent.length : 0
@@ -340,8 +358,6 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               </p>
             </div>
             <div className="flex flex-row gap-[8px] items-center">
-              {/* <p className="text-[20px] text-purple_dark font-bold">1</p> */}
-              {/* <Icon name="chevronRight" color="purple_dark" /> */}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <div
