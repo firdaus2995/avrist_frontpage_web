@@ -95,9 +95,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
 
   const handleChangeBannerImg = (val: number) => {
     setBannerImg(val);
-  };
-  console.log({data});
-  
+  };  
 
   return (
     <div className="flex flex-col items-center justify-center bg-avrast_product_bg">
