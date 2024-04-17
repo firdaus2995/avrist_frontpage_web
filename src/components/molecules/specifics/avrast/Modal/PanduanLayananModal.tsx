@@ -56,13 +56,7 @@ export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModa
                                         <div className="my-[20px] flex flex-col gap-5">
                                             <p className="font-karla font-semibold text-purple_dark text-[48px]">
                                             Mekanisme Klaim Asuransi
-                                            </p>
-                                            <p className='text-[18px]'>
-                                                Mari selalu teliti sebelum membeli produk asuransi jiwa dengan membaca isi proposal dengan baik dan pertimbangkan dengan cermat segala manfaat dan konsekuensinya.
-                                            </p>
-                                            <p className='text-[18px] font-bold '>
-                                                Ini dia hal-hal yang perlu Anda lakukan sebelum membeli produk asuransi jiwa!
-                                            </p>                                 
+                                            </p>                                
                                             {
                                                 assuranceTips.map((item, index) => (
                                                     <div key={index} className="flex items-start gap-2 pt-2">
