@@ -85,23 +85,27 @@ const dataPerformaInvestasi = [
     icon: HEART_CHECK,
     title: 'Asuransi Jiwa',
     link1: 'Lihat Produk',
+    href: '/produk/individu'
   },
   {
     icon: HOME_ADD,
     title: 'Asuransi Korporasi',
     link1: 'Lihat Produk',
+    href: '/produk/korporasi'
   },
   {
     icon: UMBRELLA_GREEN,
     title: 'Avrist Syariah',
     link1: 'Lihat Produk',
-    color: 'text-syariah_green'
+    color: 'text-syariah_green',
+    href: '/avrist-syariah/produk'
   },
   {
     icon: PERSON_HOME_YELLOW,
     title: 'Avrist DPLK',
     link1: 'Lihat Produk',
-    color: 'text-orange_border'
+    color: 'text-orange_border',
+    href: '/avrist-dplk?tab=Produk'
   }
 ];
 
