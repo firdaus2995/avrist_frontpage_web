@@ -12,38 +12,72 @@ export interface ButtonHelperItem {
 
 interface ButtonSelectionProps {
   buttonHelper: ButtonHelperItem[];
+  channels?: string[];
+  onSelectChannels?: (channelValues: any) => void;
+  selectedChannels?: any
 }
 
-const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper }) => (
-  <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
-    <div className="flex flex-row gap-[12px] w-full">
-      {buttonHelper.map((item, index) =>
-        item.type === 'button' ? (
-          item.href ? (
-            <Link href={item.href} key={index} className="w-[200px]">
+const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper, channels, onSelectChannels, selectedChannels }) => {
+  let buttonHelperAdditional = buttonHelper;
+
+  if (channels && channels.length !== 0) {
+    const checkboxButtons = channels.map((channel) => ({
+      type: 'button-checkbox',
+      label: channel
+    })) as ButtonHelperItem[];
+
+    buttonHelperAdditional = [
+      ...buttonHelper,
+      ...checkboxButtons,
+    ]
+  }
+  
+  const handleSelectedChannels = (text: string, isChecked: boolean) => {
+    if (onSelectChannels){
+      const newSelectedChannels = new Set(selectedChannels);
+
+      if (isChecked) {
+        newSelectedChannels.add(text);
+      } else {
+        newSelectedChannels.delete(text);
+      }
+    
+      onSelectChannels(Array.from(newSelectedChannels));
+    }
+  }
+
+  return (
+    <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
+      <div className="flex flex-row gap-[12px] w-full">
+        {buttonHelperAdditional.map((item, index) =>
+          item.type === 'button' ? (
+            item.href ? (
+              <Link href={item.href} key={index} className="w-[200px]">
+                <ButtonSmall
+                  title={item.label}
+                  customClassName="w-[200px]"
+                  variant={item.variant}
+                />
+              </Link>
+            ) : (
               <ButtonSmall
                 title={item.label}
                 customClassName="w-[200px]"
                 variant={item.variant}
               />
-            </Link>
-          ) : (
-            <ButtonSmall
+            )
+          ) : item.type === 'button-checkbox' ? (
+            <ButtonSmallWithCheck
+              key={index}
+              name={item.label}
               title={item.label}
-              customClassName="w-[200px]"
-              variant={item.variant}
+              handleChange={handleSelectedChannels}
             />
-          )
-        ) : item.type === 'button-checkbox' ? (
-          <ButtonSmallWithCheck
-            key={index}
-            name={item.label}
-            title={item.label}
-          />
-        ) : null
-      )}
+          ) : null
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default ButtonSelection;

@@ -14,6 +14,13 @@ export const getContent = async (slug: string, query: QueryParams) => {
   });
 };
 
+export const getContentCategory = async (slug: string, query: QueryParams) => {
+  return await httpService<ContentResponse>('content/category', slug, {
+    method: 'GET',
+    queryParams: query
+  });
+};
+
 export const handleGetContentPage = async (slug: string) => {
   try {
     const data = await getContentPage(slug);
