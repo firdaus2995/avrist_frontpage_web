@@ -123,13 +123,10 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       try {
         if (activeTab) {
           const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}`);
-          const data = await contentCategoryResponse.json();
-          console.log({data});
-          
+          const data = await contentCategoryResponse.json();          
           const transformedDataContent = contentCategoryTransformer(data, activeTab);
-          console.log({transformedDataContent});
           
-          const dataContentValues = transformedDataContent?.map(({ content }) => {
+          const dataContentValues = transformedDataContent?.map(({ content, id }) => {
             const namaProduk = contentStringTransformer(content['nama-produk']);
             const tags = contentStringTransformer(content['tags']);
             const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
@@ -172,10 +169,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               kategoriProdukIcon,
               fileRiplay,
               fileBrosur,
+              id
             };
-          });        
-          console.log({dataContentValues});
-          
+          });                  
           setDataContent(dataContentValues);
   
           return dataContentValues;
@@ -187,10 +183,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         const newDataContent = data.data.contentDataList.map((item: any) => {
           return { 
             ...handleTransformedContent(item.contentData, item.title), 
-            categoryName: item.categoryName
+            categoryName: item.categoryName,
+            id: item.id
           }
         });                
-        const dataContentValues = newDataContent.map(({ content, categoryName }: { content: any, categoryName: string }) => {          
+        const dataContentValues = newDataContent.map(({ content, categoryName, id }: { content: any, categoryName: string, id: number }) => {          
           const namaProduk = contentStringTransformer(content['nama-produk']);
           const tags = contentStringTransformer(content['tags']);
           const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
@@ -234,13 +231,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             kategoriProdukIcon,
             fileRiplay,
             fileBrosur,
+            id
           };
         });        
         setDataContent(dataContentValues);
-        return dataContentValues;
-        return dataContentValues;
-        
-        return dataContentValues;        
+        return dataContentValues;      
         
       }
       catch(error) {        
@@ -297,7 +292,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               summary={item.namaProduk}
               description={item.deskripsiSingkatProduk}
               tags={item.tags.split(',')}
-              href={`/produk/individu/produk-asuransi-jiwa-` + index}
+              href={`/produk/individu/${item.id}`}
             />
           ))}
         </div>

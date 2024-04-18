@@ -14,7 +14,8 @@ function AsuransiKecelakaan({ data }: { data: any }) {
           summary={item.namaProduk}
           description={item.deskripsiSingkatProduk}
           tags={item.tags.split(',')}
-          href={`/produk/individu/produk-asuransi-kecelakaan-` + index}
+          href={`/produk/individu/${item.id}`}
+          
         />
       ))}
     </div>

@@ -48,3 +48,12 @@ export interface ContentResponse {
   interface CategoryListData {
     [key: string]: ContentData[];
   }
+
+  export interface ContentDetailResponse {
+    code: number;
+    status: string;
+    data: ContentData;
+    errors: string;
+    pagination: Pagination;
+  }
+  

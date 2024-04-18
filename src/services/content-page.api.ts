@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { ContentResponse } from '@/types/content.type';
+import { ContentDetailResponse, ContentResponse } from '@/types/content.type';
 import { PageResponse } from '@/types/page.type';
 import { QueryParams, httpService } from '@/utils/httpService';
 
@@ -11,6 +11,12 @@ export const getContent = async (slug: string, query: QueryParams) => {
   return await httpService<ContentResponse>('content', slug, {
     method: 'GET',
     queryParams: query
+  });
+};
+
+export const getContentDetail = async (detailId: string) => {
+  return await httpService<ContentDetailResponse>('content-detail', detailId, {
+    method: 'GET'
   });
 };
 
@@ -33,6 +39,15 @@ export const handleGetContentPage = async (slug: string) => {
 export const handleGetContent = async (slug: string, query: QueryParams) => {
   try {
     const data = await getContent(slug, query);
+    return data;
+  } catch (error) {
+    return notFound();
+  }
+};
+
+export const handleGetContentDetail = async (detailId: string) => {
+  try {
+    const data = await getContentDetail(detailId);
     return data;
   } catch (error) {
     return notFound();
