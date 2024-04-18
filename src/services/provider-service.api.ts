@@ -6,7 +6,8 @@ export const getProvider = async (query: QueryParams) => {
     return await httpService<ProviderResponse>('provider', '', { 
         method: 'GET',
         headers: {
-            Authorization: 'Basic dXNlcjpPTjg1cUp6ZSViNmk6K1tzKkN6RSZVOXVBJTM='
+            Authorization: 'Basic dXNlcjpPTjg1cUp6ZSViNmk6K1tzKkN6RSZVOXVBJTM=',
+            'Content-Type': 'application/json'
         },
         queryParams: query
         }
@@ -18,6 +19,7 @@ export const getProvider = async (query: QueryParams) => {
       const data = await getProvider(query);
       return data;
     } catch (error) {
+      console.error(error);      
       return notFound();
     }
   };

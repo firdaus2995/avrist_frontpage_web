@@ -38,7 +38,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Kami Mudah',
     bgColor: 'soft_grey',
-    color: 'agi_grey'
+    color: 'agi_grey',
+    inlineStyling: '#F6F6F6'
   },
 
   {
@@ -49,7 +50,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Mulai Investasi',
     bgColor: 'avram_bg',
-    color: 'avram_green'
+    color: 'avram_green',
+    inlineStyling: '#EBFCFA'
   },
   {
     category: 'Avrist Life Insurance',
@@ -70,7 +72,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Pasti Tertarik',
     bgColor: 'soft_grey',
-    color: 'agi_grey'
+    color: 'agi_grey',
+    inlineStyling: '#F6F6F6'
   },
   {
     category: 'Avrist Asset Management',
@@ -80,7 +83,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Kami Berpengalaman',
     bgColor: 'avram_bg',
-    color: 'avram_green'
+    color: 'avram_green',
+    inlineStyling: '#EBFCFA'
   }
 ];
 
@@ -113,11 +117,13 @@ const TotalSolution = () => {
       btnText?: string;
       bgColor?: string;
       color?: string;
+      inlineStyling?: string;
     },
     idx: number
   ) => (
     <div
       className={`w-96 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
+      style={{ backgroundColor: val.inlineStyling }}
     >
       {idx <= 2 && (
         <div
@@ -152,9 +158,11 @@ const TotalSolution = () => {
     btnText?: string;
     bgColor?: string;
     color?: string;
+    inlineStyling?: string;
   }) => (
     <div
       className={`w-84 mb-10 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
+      style={{ backgroundColor: val.inlineStyling }}
     >
       <div
         className={`w-full bg-${val.color} text-sm font-semibold p-2 text-white rounded-t-xl`}
