@@ -26,7 +26,7 @@ const Content = () => {
 
   useEffect(() => {
     const fetchProviderData = async () => {
-        const response = await fetch(`/api/klaim-layanan/layanan/rumah-sakit-rekanan-providers?city_contain=jakarta&name_contain=${searchParam}`);
+        const response = await fetch(`/api/klaim-layanan/layanan?slug=isProviders&city_contain=jakarta&name_contain=${searchParam}`);
 				const data = await response.json();    
         if (data.responseMessage !== 'SUCCESS'){
           return [];
