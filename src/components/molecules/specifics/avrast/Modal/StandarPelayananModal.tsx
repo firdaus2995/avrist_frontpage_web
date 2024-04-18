@@ -14,54 +14,27 @@ type Props = {
 
 const data = [
   {
-    text: 'Standar Pelayanan kami untuk metode penjaminan:',
-    child: []
-  },
-  {
-    text: 'Komitmen kami dalam penerbitan penjaminan',
+    text: 'Untuk memastikan bahwa proses klaim dilakukan dengan cepat, adil, dan transparan. Kami berkomitment untuk:',
     child: [
       {
-        text: 'Memberikan Penjaminan sementara sebelum masuk rawat inap (Pre-Admission) dalam waktu 2 hari*.',
+        text: 'Memberikan pelayanan yang responsif dan ramah kepada para nasabah yang mengajukan klaim.',
         child: []
       },
       {
-        text: 'Memberikan Penjaminan awal rawat inap dalam waktu 150 menit*.',
+        text: 'Memproses klaim dengan cepat dan efisien, dengan melakukan verifikasi yang akurat sesuai dengan persyaratan polis.',
         child: []
       },
       {
-        text: 'Memberikan Penjaminan akhir/ penjaminan pulang rawat inap:',
-        child: [
-          'Dengan total biaya kurang dari sama dengan 500 juta, dalam waktu 150 menit*.',
-          'Dengan total biaya lebih dari 500 juta, dalam waktu 240 menit*.',
-          'Peserta akan mendapatkan ovo point sebesar Rp 200,000 apabila penjaminan akhir/penjaminan pulang (rawat inap dengan total biaya kurang dari 500 juta) diterbitkan lebih dari 180 menit.*sejak Rumah Sakit mengirimkan semua dokumen lengkap dan apabila diperlukan penelusuran lebih lanjut telah selesai.'
-        ]
-      },
-      {
-        text: 'Memberikan Penjaminan akhir rawat jalan setelah rawat inap dalam waktu 75 menit sejak Rumah Sakit mengirimkan semua dokumen lengkap, serta tidak memerlukan penelusuran lebih lanjut.',
-        child: []
-      }
-    ]
-  },
-  {
-    text: 'Standar Pelayanan kami untuk metode penggantian:',
-    child: [
-      {
-        text: 'Pemberitahuan klaim telah diterima oleh Avrist Life Insurance dalam waktu 1 hari kerja;',
+        text: 'Menyediakan bantuan dan panduan kepada nasabah dalam mengajukan klaim, termasuk membantu dalam pengumpulan dokumen yang diperlukan.',
         child: []
       },
       {
-        text: 'Memberikan keputusan klaim* setelah kami menerima dokumen klaim dalam waktu:',
-        child: [
-          '5 hari kerja untuk rawat inap',
-          '15 hari kerja untuk non-rawat inap*Menginformasikan dibutuhkan dokumen tambahan atau proses investigasi atau keputusan klaim disetujui/ditolak; terhitung dari tanggal dokumen terakhir diterima oleh Prudential.'
-        ]
+        text: 'Memastikan keadilan dalam penilaian klaim, dengan mengikuti standar dan prosedur yang telah ditetapkan secara adil.',
+        child: []
       },
       {
-        text: 'Membayarkan klaim dalam waktu:',
-        child: [
-          '2 hari kerja setelah klaim disetujui (rawat inap)',
-          '5 hari kerja setelah klaim disetujui (non-rawat inap)'
-        ]
+        text: 'Memberikan transparansi penuh dalam proses klaim, termasuk memberikan informasi yang jelas mengenai status klaim dan waktu penyelesaian yang diharapkan kepada para nasabah.',
+        child: []
       }
     ]
   }
@@ -110,16 +83,10 @@ export const StandarPelayananModal = (props: Props) => {
                       </button>
                     </div>
                     <div className="flex flex-col h-[80vh] w-[60vw]">
-                      <div className="flex items-left flex-col">
+                      <div className="flex flex-col">
                         <div className="my-[20px] flex flex-col gap-5">
                           <p className="font-karla font-semibold text-purple_dark text-[48px]">
-                            Standar Pelayanan Kami
-                          </p>
-                          <p className="text-[18px]">
-                            Pelajari standar pelayanan klaim rawat inap dari
-                            Avrist Life Insurance di sini untuk metode
-                            penjaminan (cashless) atau penggantian
-                            (reimbursement).
+                          Komitmen Klaim
                           </p>
                           {data.map((val, idx) => (
                             <div key={idx}>
@@ -162,6 +129,11 @@ export const StandarPelayananModal = (props: Props) => {
                               )}
                             </div>
                           ))}
+                          <p className='text-[18px] text-justify'>
+                            Tentunya, kami berkomitmen untuk memberikan estimasi waktu penyelesaian klaim yang transparan dan realistis kepada para nasabah kami.
+                            Baik untuk metode pembayaran klaim cashless maupun reimbursement, kami berusaha untuk menyelesaikan klaim dalam waktu 14 hari kerja setelah menerima semua dokumen yang diperlukan.
+                            Komitmen kami adalah untuk memastikan bahwa klaim nasabah diproses dengan cepat dan efisien, sehingga para penerima manfaat dapat segera mendapatkan manfaat asuransi yang mereka perlukan dalam waktu yang sesingkat mungkin.
+                          </p>
                         </div>
                       </div>
                     </div>
