@@ -1,8 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+import React, { Suspense, useEffect, useState } from 'react';
 
-import PlayVideo from '@/assets/images/play-video.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -25,27 +23,29 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import VideoInformation from '@/components/molecules/specifics/avrast/Produk/ContentComponent/VideoInformation';
+import { ContentDetailResponse } from '@/types/content.type';
 import {
+  contentDetailTransformer,
+  contentStringTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
 const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
-  console.log(params);
-
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
     footerImage: ''
   });
+  const [dataDetail, setDataDetail] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          'https://api-front-sit.avristcms.barito.tech/api/page/produk-detail',
-          { method: 'GET' }
-        );
+        const response = await fetch('/api/produk-detail');
         const data = await response.json();
         setData(data);
 
@@ -58,6 +58,61 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         console.error('Error:', error);
       }
     };
+
+    async function fetchDetailData() {
+      const response = await fetch(`/api/produk/individu/${params.detail}`);
+      const jsonData: ContentDetailResponse = await response.json();
+      console.log({jsonData});
+      
+      const { content } = contentDetailTransformer(jsonData)      
+      const namaProduk = contentStringTransformer(content['nama-produk']);
+      const tags = contentStringTransformer(content['tags']);
+      const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
+      const taglineProduk = contentStringTransformer(content['tagline-produk']);
+      const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
+      const videoProduk = contentStringTransformer(content['video-produk']);
+      const captionVideoProduk = contentStringTransformer(content['caption-video-produk']);
+      const deskripsiKeunggulanProduk = contentStringTransformer(content['deskripsi-keunggulan-produk']);
+      const deskripsiManfaatProduk = contentStringTransformer(content['deskripsi-manfaat-produk']);
+      const deskripsiFiturProduk = contentStringTransformer(content['deskripsi-fitur-produk']);
+      const deskripsiInformasiPenting = contentStringTransformer(content['deskripsi-informasi-penting']);
+      const deskripsiRiplay = contentStringTransformer(content['deskripsi-riplay']);
+      const deskripsiBrosur = contentStringTransformer(content['deskripsi-brosur']);
+      const deskripsiJalurPemasaran = contentStringTransformer(content['deskripsi-jalur-pemasaran']);
+      const jenisProduk = contentStringTransformer(content['jenis-produk']);
+      const channel = contentStringTransformer(content['channel']);
+      const produkImage = singleImageTransformer(content['produk-image']);
+      const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
+      const fileRiplay = singleImageTransformer(content['file-riplay']);
+      const fileBrosur = singleImageTransformer(content['file-brosur']);
+
+      const detailData = {
+        namaProduk,
+        tags: tags.split(','),
+        deskripsiSingkatProduk,
+        taglineProduk,
+        deskripsiLengkapProduk,
+        videoProduk,
+        captionVideoProduk,
+        deskripsiKeunggulanProduk,
+        deskripsiManfaatProduk,
+        deskripsiFiturProduk,
+        deskripsiInformasiPenting,
+        deskripsiRiplay,
+        deskripsiBrosur,
+        deskripsiJalurPemasaran,
+        jenisProduk,
+        channel,
+        produkImage,
+        kategoriProdukIcon,
+        fileRiplay,
+        fileBrosur,
+        categoryTitle: jsonData.data.categoryName
+      };     
+      
+      setDataDetail(detailData);
+    }
+    fetchDetailData();
 
     fetchData();
   }, []);
@@ -85,69 +140,71 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         bottomImage={bannerImage}
         imageUrl={titleImage}
       />
-      <SimpleContainer>
-        <DescriptionCategoryA
-          categorySymbol={HeartSymbol}
-          categoryTitle="Employee Benefit"
-          productTitle="Avrist PASTI"
-          tags={['Asuransi Jiwa', 'Premi Tetap', 'Premi Berkala']}
-        />
-        <Image className="self-center" alt="play_video" src={PlayVideo} />
-        <CategorySideBySideSixCards
-          leftSide={[
-            {
-              symbol: ShieldSymbol,
-              title: 'Manfaat Produk',
-              description:
-                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
-            },
-            {
-              symbol: HeartChatSymbol,
-              title: 'Keunggulan Produk',
-              description:
-                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
-            },
-            {
-              symbol: GiveHeartSymbol,
-              title: 'Periode Perlindungan',
-              description:
-                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at swipeswipeswipe in.'
-            }
-          ]}
-          rightSide={[
-            {
-              title: 'Ringkasan Produk',
-              description: `1. Kondisi Yang Sudah Ada Sebelumnya (Pre-Existing Conditions)
-                2. Pemeriksaan kesehatan rutin atau pemeriksaan yang tidak ada hubungannya dengan Penyakit atau Cidera
-                3. Penyakit bawaan, cacat atau kelainan sejak lahir
-                
-                Untuk selengkapnya, silahkan mengacu kepada ketentuan Polis untuk mengetahui jenis-jenis kondisi yang dikecualikan.`
-            },
-            {
-              title: 'Ringkasan Produk',
-              description:
-                'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.',
-              hasDownloadButton: true
-            },
-            {
-              title: 'Download Brosur',
-              description:
-                'Informasi lebih lanjut mengenai produk Avrist Pasti dengan mengunduh brosur.',
-              hasDownloadButton: true
-            }
-          ]}
-        />
-        <InfoError
-          symbol={InfoRedSymbol}
-          title="Jalur Pemasaran"
-          description={`
-            <p>1. Tersedia dan dijual di: Tenaga Pemasar dan Bank Partner.</p>
-            <p>2. PT Avrist Life Insurance berizin dan diawasi oleh Otoritas Jasa Keuangan, dan tenaga pemasarnya telah memegang lisensi dari Asosiasi Asuransi Jiwa Indonesia.</p>
-            <p>3. Produk asuransi yang merupakan hasil kerja sama PT Avrist Life Insurance dengan bank mitra, untuk nasabah setia bank mitra kami.</p>
-            <p>4. Bank Partner: BCA, Mandiri, Permata</p>
-          `}
-        />
-      </SimpleContainer>
+      <Suspense>
+        <SimpleContainer>
+          <DescriptionCategoryA
+            categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
+            categoryTitle={dataDetail?.categoryTitle || ''}
+            productTitle={dataDetail?.namaProduk || ''}
+            tags={dataDetail?.tags || []}
+            tagLineProduk={dataDetail?.taglineProduk}
+            deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
+          />
+          {dataDetail && <VideoInformation url={dataDetail.videoProduk} type={dataDetail.captionVideoProduk}/>}
+          <CategorySideBySideSixCards
+            leftSide={[
+              {
+                symbol: ShieldSymbol,
+                title: 'Keunggulan Produk',
+                description: dataDetail?.deskripsiKeunggulanProduk     
+              },
+              {
+                symbol: HeartChatSymbol,
+                title: 'Manfaat Produ',
+                description: dataDetail?.deskripsiManfaatProduk
+
+              },
+              {
+                symbol: GiveHeartSymbol,
+                title: 'Fitur Produk',
+                description: dataDetail?.deskripsiFiturProduk
+              }
+            ]}
+            rightSide={[
+              {
+                title: 'Ringkasan Produk',
+                description: `1. Kondisi Yang Sudah Ada Sebelumnya (Pre-Existing Conditions)
+                  2. Pemeriksaan kesehatan rutin atau pemeriksaan yang tidak ada hubungannya dengan Penyakit atau Cidera
+                  3. Penyakit bawaan, cacat atau kelainan sejak lahir
+                  
+                  Untuk selengkapnya, silahkan mengacu kepada ketentuan Polis untuk mengetahui jenis-jenis kondisi yang dikecualikan.`
+              },
+              {
+                title: 'Ringkasan Produk',
+                description:
+                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.',
+                hasDownloadButton: true
+              },
+              {
+                title: 'Download Brosur',
+                description:
+                  'Informasi lebih lanjut mengenai produk Avrist Pasti dengan mengunduh brosur.',
+                hasDownloadButton: true
+              }
+            ]}
+          />
+          <InfoError
+            symbol={InfoRedSymbol}
+            title="Jalur Pemasaran"
+            description={`
+              <p>1. Tersedia dan dijual di: Tenaga Pemasar dan Bank Partner.</p>
+              <p>2. PT Avrist Life Insurance berizin dan diawasi oleh Otoritas Jasa Keuangan, dan tenaga pemasarnya telah memegang lisensi dari Asosiasi Asuransi Jiwa Indonesia.</p>
+              <p>3. Produk asuransi yang merupakan hasil kerja sama PT Avrist Life Insurance dengan bank mitra, untuk nasabah setia bank mitra kami.</p>
+              <p>4. Bank Partner: BCA, Mandiri, Permata</p>
+            `}
+          />
+        </SimpleContainer>
+      </Suspense>
       <SimpleContainer bgColor="purple_superlight">
         <CustomForm />
       </SimpleContainer>

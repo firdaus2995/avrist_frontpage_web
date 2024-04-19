@@ -38,7 +38,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     } else if (lastPiece && lastPiece.includes('?si=')) {
       const anotherSplitted = lastPiece.split('?si=');
       return anotherSplitted.at(0);
+    } 
+    else if (lastPiece && lastPiece.includes('?')) {
+      const videoIdParam = lastPiece.split('?')[0];      
+      return videoIdParam ?? '';
     }
+    console.log(lastPiece);    
     return lastPiece ?? '';
   }, [url]);
 
@@ -47,7 +52,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     try {
       videoPlayerRef.current?.playVideo();
     } catch (err) {
-      console.error('Error auto playing media');
+      console.error('Error auto playing media', err);
     }
   }, [isThumbnailVisible]);
 
@@ -75,6 +80,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   return (
+    // isReady.current &&
     <div className="isolate relative w-full h-full">
       <div
         className={`
@@ -87,7 +93,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           width={0}
           height={0}
           className="absolute h-full w-full"
-          src={thumbnail}
+          src={thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
           onClick={handleThumbnailClick}
         />
       <div className="w-full h-full flex items-center justify-center">
