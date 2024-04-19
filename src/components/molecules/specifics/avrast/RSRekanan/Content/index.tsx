@@ -27,8 +27,7 @@ const Content = () => {
   useEffect(() => {
     const fetchProviderData = async () => {
         const response = await fetch(`/api/klaim-layanan/layanan?slug=isProviders&city_contain=jakarta&name_contain=${searchParam}`);
-        console.info(response);
-        const data = await response.json();    
+        const data = await response.json();
         if (data.responseMessage !== 'SUCCESS'){
           return [];
         }

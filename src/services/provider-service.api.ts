@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { ProviderResponse } from '@/types/provider.type';
 import { QueryParams, httpService } from '@/utils/httpService';
 
@@ -14,12 +13,7 @@ export const getProvider = async (query: QueryParams) => {
     );
   };
   
-  export const handleGetProvider = async (query: QueryParams) => {
-    try {
+  export const handleGetProvider = async (query: QueryParams) => {  
       const data = await getProvider(query);
       return data;
-    } catch (error) {
-      console.error(error);      
-      return notFound();
-    }
   };
