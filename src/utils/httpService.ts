@@ -10,7 +10,8 @@ interface FetchOptions extends RequestInit {
   responseType?: 'json';
   queryParams?: QueryParams;
   headers?: {
-    Authorization: string
+    Authorization: string,
+    'Content-Type': string
   }
 }
 
