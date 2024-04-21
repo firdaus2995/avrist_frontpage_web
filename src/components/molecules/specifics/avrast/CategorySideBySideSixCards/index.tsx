@@ -31,6 +31,29 @@ const CategorySideBySideSixCards = ({
   customLeftSideClassname = 'border-b-purple_light',
   customRightSideClassname = 'border-b-purple_light'
 }: ICategorySideBySideSixCards) => {
+
+  const renderedDescription = (description: string, isRightSide: boolean) => {
+    const isOrdered = description.includes('<ol>');
+    const isUnordered = description.includes('<ul>');
+    const defaultClassName = isRightSide ? "text-[14px] sm:text=[16px]" : "text-[24px] font-light";
+
+    if (isOrdered) {
+      return (
+        <div dangerouslySetInnerHTML={{ __html: description.replace('<ol>', `<ol class="list-decimal pl-2 ${defaultClassName}">`) }} />
+      );
+    }
+    if (isUnordered) {
+      return (
+        <div dangerouslySetInnerHTML={{ __html: description.replace('<ul>', `<ul class="list-disc pl-2 ${defaultClassName}">`) }} />
+      );
+    }
+    
+    return (
+    <p className={defaultClassName} dangerouslySetInnerHTML={{ __html: description }}></p>
+  );
+  }
+
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-[64px]">
       <div className="col-span-1 sm:col-span-2">
@@ -61,10 +84,13 @@ const CategorySideBySideSixCards = ({
                       />
                       <p className="font-semibold text-[20px]">{item.title}</p>
                     </div>
-                    <p
+                    {/* <p
                       className="text-[24px] font-light"
                       dangerouslySetInnerHTML={{ __html: item.description }}
-                    ></p>
+                   ></p>      */}
+                   {
+                    item.description && renderedDescription(item.description, false)
+                    }                
                   </div>
                   {index !== leftSide.length - 1 && (
                     <div className="border-b border-b-gray_light" />
@@ -94,10 +120,9 @@ const CategorySideBySideSixCards = ({
                 <p className={`${rightTitleClassname}  font-bold text-[36px]`}>
                   {item.title}
                 </p>
-                <p
-                  className="text-[14px] sm:text=[16px]"
-                  dangerouslySetInnerHTML={{ __html: item.description }}
-                ></p>
+                {
+                  item.description && renderedDescription(item.description, true)
+                }
                 {item.hasDownloadButton && (
                   <button
                     type="button"

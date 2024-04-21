@@ -1,12 +1,12 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 
+import { IDataContent } from '../page';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 import GiveHeartSymbol from '@/assets/symbols/giveheart-symbol.svg';
-import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import HeartChatSymbol from '@/assets/symbols/heartchat-symbol.svg';
 import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import ShieldSymbol from '@/assets/symbols/shield-symbol.svg';
@@ -30,11 +30,13 @@ import { ContentDetailResponse } from '@/types/content.type';
 import {
   contentDetailTransformer,
   contentStringTransformer,
+  handleTransformedContent,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
 const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
+  const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
@@ -62,7 +64,6 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     async function fetchDetailData() {
       const response = await fetch(`/api/produk/individu/${params.detail}`);
       const jsonData: ContentDetailResponse = await response.json();
-      console.log({jsonData});
       
       const { content } = contentDetailTransformer(jsonData)      
       const namaProduk = contentStringTransformer(content['nama-produk']);
@@ -107,14 +108,67 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         kategoriProdukIcon,
         fileRiplay,
         fileBrosur,
-        categoryTitle: jsonData.data.categoryName
+        categoryTitle: jsonData.data.categoryName,
+        formId: jsonData.data?.formId || '6979'
       };     
       
       setDataDetail(detailData);
     }
-    fetchDetailData();
 
-    fetchData();
+    const fetchDataList = async () => {
+      try {
+        const contentResponse = await fetch(`/api/produk/content?productFilter=individu`);
+        const data = await contentResponse.json();                
+        const newDataContent = data.data.contentDataList.map((item: any) => {
+          return { 
+            ...handleTransformedContent(item.contentData, item.title), 
+            categoryName: item.categoryName,
+            createdAt: item.createdAt,
+            id: item.id
+          }
+        });                
+        const dataContentValues = newDataContent.map(({ content, categoryName, id, createdAt }: { content: any, categoryName: string, id: number, createdAt: string }) => {          
+          const namaProduk = contentStringTransformer(content['nama-produk']);
+          const tags = contentStringTransformer(content['tags']);
+          const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
+          const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
+          const jenisProduk = contentStringTransformer(content['jenis-produk']);
+          const channel = contentStringTransformer(content['channel']);
+          const produkImage = singleImageTransformer(content['produk-image']);
+          const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
+
+          return {
+            categoryName,
+            namaProduk,
+            tags,
+            deskripsiSingkatProduk,
+            deskripsiLengkapProduk,
+            jenisProduk,
+            channel,
+            produkImage,
+            kategoriProdukIcon,
+            id,
+            createdAt
+          };
+        });
+
+      const sortedData = dataContentValues.sort((a: { createdAt: string }, b: { createdAt: string }) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+    });    
+                
+        setDataRekomendasi(sortedData);
+        return dataContentValues;              
+      }
+      catch(error: any) {        
+        throw new Error(error.message);
+      }
+    };
+
+    fetchData().then();
+    fetchDetailData().then().catch(() => []);
+    fetchDataList().then().catch(() => []);
   }, []);
 
   let titleImage, bannerImage, footerImage;
@@ -142,71 +196,68 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
       />
       <Suspense>
         <SimpleContainer>
-          <DescriptionCategoryA
-            categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
-            categoryTitle={dataDetail?.categoryTitle || ''}
-            productTitle={dataDetail?.namaProduk || ''}
-            tags={dataDetail?.tags || []}
-            tagLineProduk={dataDetail?.taglineProduk}
-            deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
-          />
-          {dataDetail && <VideoInformation url={dataDetail.videoProduk} type={dataDetail.captionVideoProduk}/>}
-          <CategorySideBySideSixCards
-            leftSide={[
-              {
-                symbol: ShieldSymbol,
-                title: 'Keunggulan Produk',
-                description: dataDetail?.deskripsiKeunggulanProduk     
-              },
-              {
-                symbol: HeartChatSymbol,
-                title: 'Manfaat Produ',
-                description: dataDetail?.deskripsiManfaatProduk
+          {
+          !dataDetail || dataDetail?.length === 0 ?
+          <></> :
+          <>
+            <DescriptionCategoryA
+              categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
+              categoryTitle={dataDetail?.categoryTitle || ''}
+              productTitle={dataDetail?.namaProduk || ''}
+              tags={dataDetail?.tags || []}
+              tagLineProduk={dataDetail?.taglineProduk}
+              deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
+            />
+            {dataDetail && <VideoInformation url={dataDetail.videoProduk} type={dataDetail.captionVideoProduk}/>}
+            <CategorySideBySideSixCards
+              leftSide={[
+                {
+                  symbol: ShieldSymbol,
+                  title: 'Keunggulan Produk',
+                  description: dataDetail?.deskripsiKeunggulanProduk     
+                },
+                {
+                  symbol: HeartChatSymbol,
+                  title: 'Manfaat Produk',
+                  description: dataDetail?.deskripsiManfaatProduk
 
-              },
-              {
-                symbol: GiveHeartSymbol,
-                title: 'Fitur Produk',
-                description: dataDetail?.deskripsiFiturProduk
-              }
-            ]}
-            rightSide={[
-              {
-                title: 'Ringkasan Produk',
-                description: `1. Kondisi Yang Sudah Ada Sebelumnya (Pre-Existing Conditions)
-                  2. Pemeriksaan kesehatan rutin atau pemeriksaan yang tidak ada hubungannya dengan Penyakit atau Cidera
-                  3. Penyakit bawaan, cacat atau kelainan sejak lahir
-                  
-                  Untuk selengkapnya, silahkan mengacu kepada ketentuan Polis untuk mengetahui jenis-jenis kondisi yang dikecualikan.`
-              },
-              {
-                title: 'Ringkasan Produk',
-                description:
-                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.',
-                hasDownloadButton: true
-              },
-              {
-                title: 'Download Brosur',
-                description:
-                  'Informasi lebih lanjut mengenai produk Avrist Pasti dengan mengunduh brosur.',
-                hasDownloadButton: true
-              }
-            ]}
-          />
-          <InfoError
-            symbol={InfoRedSymbol}
-            title="Jalur Pemasaran"
-            description={`
-              <p>1. Tersedia dan dijual di: Tenaga Pemasar dan Bank Partner.</p>
-              <p>2. PT Avrist Life Insurance berizin dan diawasi oleh Otoritas Jasa Keuangan, dan tenaga pemasarnya telah memegang lisensi dari Asosiasi Asuransi Jiwa Indonesia.</p>
-              <p>3. Produk asuransi yang merupakan hasil kerja sama PT Avrist Life Insurance dengan bank mitra, untuk nasabah setia bank mitra kami.</p>
-              <p>4. Bank Partner: BCA, Mandiri, Permata</p>
-            `}
-          />
+                },
+                {
+                  symbol: GiveHeartSymbol,
+                  title: 'Fitur Produk',
+                  description: dataDetail?.deskripsiFiturProduk
+                }
+              ]}
+              rightSide={[
+                {
+                  title: 'Informasi Penting',
+                  description: dataDetail?.deskripsiInformasiPenting
+                },
+                {
+                  title: 'Ringkasan Produk',
+                  description: dataDetail?.deskripsiRiplay,
+                  hasDownloadButton: true,
+                  urlDownload: dataDetail?.fileRiplay.imageUrl
+                },
+                {
+                  title: 'Download Brosur',
+                  description: dataDetail?.deskripsiBrosur,
+                  hasDownloadButton: true,
+                  urlDownload: dataDetail?.fileBrosur.imageUrl
+                }
+              ]}
+            />
+            <InfoError
+              symbol={InfoRedSymbol}
+              title="Jalur Pemasaran"
+              description={dataDetail?.deskripsiJalurPemasaran}
+            />
+          </>
+          }
         </SimpleContainer>
       </Suspense>
       <SimpleContainer bgColor="purple_superlight">
-        <CustomForm />
+      {dataDetail && <CustomForm formSlug={dataDetail.formId}/>}
       </SimpleContainer>
       <GridContainer
         gridCols={1}
@@ -217,14 +268,16 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         pySm="72px"
         textTitle="Rekomendasi Produk Lainnya"
       >
-        {[...Array(3)].map((_, index) => (
+        {dataRekomendasi && dataRekomendasi.length !== 0 && dataRekomendasi.map((item, index) => (
           <CardCategoryA
             key={index}
-            symbol={HeartSymbol}
-            title="Asuransi Jiwa"
-            summary="Lorem Ipsum"
-            description="Lorem ipsum dolor sit amet"
-            tags={['Asuransi Jiwa', 'Premi Tetap', 'Premi Berkala']}
+            symbol={item.kategoriProdukIcon.imageUrl}
+            title={item.categoryName || ''}
+            summary={item.namaProduk}
+            description={item.deskripsiSingkatProduk}
+            tags={item.tags.split(',')}
+            href={`/produk/individu/${item.id}`}        
+            imageProduk={item.produkImage.imageUrl}
           />
         ))}
       </GridContainer>
@@ -239,6 +292,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         }
         buttonTitle="Tanya Avrista"
         image={footerImage}
+        href='/tanya-avrista'
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards

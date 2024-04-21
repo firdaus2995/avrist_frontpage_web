@@ -37,7 +37,7 @@ import {
 const IndividuProduk: React.FC<ParamsProps> = () => {
   const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
   const [data, setData] = useState<IDataPage>(initialData);
-  const [dataContent, setDataContent] = useState<any[]>();
+  const [dataContent, setDataContent] = useState<IDataContent[]>();
   const [channels, setChannels] = useState<any>();
   const [selectedChannels, setSelectedChannels] = useState();
   const itemsPerPage = 9;
@@ -130,45 +130,21 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             const namaProduk = contentStringTransformer(content['nama-produk']);
             const tags = contentStringTransformer(content['tags']);
             const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-            const taglineProduk = contentStringTransformer(content['tagline-produk']);
             const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-            const videoProduk = contentStringTransformer(content['video-produk']);
-            const captionVideoProduk = contentStringTransformer(content['caption-video-produk']);
-            const deskripsiKeunggulanProduk = contentStringTransformer(content['deskripsi-keunggulan-produk']);
-            const deskripsiManfaatProduk = contentStringTransformer(content['deskripsi-manfaat-produk']);
-            const deskripsiFiturProduk = contentStringTransformer(content['deskripsi-fitur-produk']);
-            const deskripsiInformasiPenting = contentStringTransformer(content['deskripsi-informasi-penting']);
-            const deskripsiRiplay = contentStringTransformer(content['deskripsi-riplay']);
-            const deskripsiBrosur = contentStringTransformer(content['deskripsi-brosur']);
-            const deskripsiJalurPemasaran = contentStringTransformer(content['deskripsi-jalur-pemasaran']);
             const jenisProduk = contentStringTransformer(content['jenis-produk']);
             const channel = contentStringTransformer(content['channel']);
             const produkImage = singleImageTransformer(content['produk-image']);
             const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-            const fileRiplay = singleImageTransformer(content['file-riplay']);
-            const fileBrosur = singleImageTransformer(content['file-brosur']);
   
             return {
               namaProduk,
               tags,
               deskripsiSingkatProduk,
-              taglineProduk,
               deskripsiLengkapProduk,
-              videoProduk,
-              captionVideoProduk,
-              deskripsiKeunggulanProduk,
-              deskripsiManfaatProduk,
-              deskripsiFiturProduk,
-              deskripsiInformasiPenting,
-              deskripsiRiplay,
-              deskripsiBrosur,
-              deskripsiJalurPemasaran,
               jenisProduk,
               channel,
               produkImage,
               kategoriProdukIcon,
-              fileRiplay,
-              fileBrosur,
               id
             };
           });                  
@@ -191,46 +167,22 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
           const namaProduk = contentStringTransformer(content['nama-produk']);
           const tags = contentStringTransformer(content['tags']);
           const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-          const taglineProduk = contentStringTransformer(content['tagline-produk']);
           const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-          const videoProduk = contentStringTransformer(content['video-produk']);
-          const captionVideoProduk = contentStringTransformer(content['caption-video-produk']);
-          const deskripsiKeunggulanProduk = contentStringTransformer(content['deskripsi-keunggulan-produk']);
-          const deskripsiManfaatProduk = contentStringTransformer(content['deskripsi-manfaat-produk']);
-          const deskripsiFiturProduk = contentStringTransformer(content['deskripsi-fitur-produk']);
-          const deskripsiInformasiPenting = contentStringTransformer(content['deskripsi-informasi-penting']);
-          const deskripsiRiplay = contentStringTransformer(content['deskripsi-riplay']);
-          const deskripsiBrosur = contentStringTransformer(content['deskripsi-brosur']);
-          const deskripsiJalurPemasaran = contentStringTransformer(content['deskripsi-jalur-pemasaran']);
           const jenisProduk = contentStringTransformer(content['jenis-produk']);
           const channel = contentStringTransformer(content['channel']);
           const produkImage = singleImageTransformer(content['produk-image']);
           const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-          const fileRiplay = singleImageTransformer(content['file-riplay']);
-          const fileBrosur = singleImageTransformer(content['file-brosur']);
 
           return {
             categoryName,
             namaProduk,
             tags,
             deskripsiSingkatProduk,
-            taglineProduk,
             deskripsiLengkapProduk,
-            videoProduk,
-            captionVideoProduk,
-            deskripsiKeunggulanProduk,
-            deskripsiManfaatProduk,
-            deskripsiFiturProduk,
-            deskripsiInformasiPenting,
-            deskripsiRiplay,
-            deskripsiBrosur,
-            deskripsiJalurPemasaran,
             jenisProduk,
             channel,
             produkImage,
             kategoriProdukIcon,
-            fileRiplay,
-            fileBrosur,
             id
           };
         });        
@@ -433,4 +385,18 @@ export interface IDataPage {
   bannerAltText: string
   footerInfoImageUrl: string;
   footerInfoAltText: string
+}
+
+export interface IDataContent {
+  categoryName?: string
+  createdAt?: string
+  namaProduk: string;
+  tags: string;
+  deskripsiSingkatProduk: string;
+  deskripsiLengkapProduk: string;
+  jenisProduk: string;
+  channel: string;
+  produkImage: { imageUrl: string, altText: string };
+  kategoriProdukIcon: { imageUrl: string, altText: string };
+  id: number;
 }

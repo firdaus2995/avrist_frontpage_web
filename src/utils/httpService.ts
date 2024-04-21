@@ -1,6 +1,6 @@
 import { BASE_URL } from './baseUrl';
 
-type Environment = 'page' | 'content' | 'provider' | 'content/category' | 'content-detail' | '';
+type Environment = 'page' | 'content' | 'provider' | 'content/category' | 'content-detail' | 'form' | '';
 
 export interface QueryParams {
   [key: string]: string;
@@ -21,7 +21,7 @@ export async function httpService<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   const baseUrl = getBaseUrl(env);
-  const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);
+  const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);  
   
   try {
     const response = await fetch(urlWithParams, options);
@@ -49,6 +49,8 @@ function getBaseUrl(env: Environment): string {
         return BASE_URL.provider;
     case 'content-detail':
         return BASE_URL.contentDetail;
+    case 'form':
+        return BASE_URL.formUrl;
     default:
       throw new Error(`Unknown environment: ${env}`);
   }

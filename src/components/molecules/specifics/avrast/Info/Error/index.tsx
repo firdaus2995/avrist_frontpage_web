@@ -8,7 +8,25 @@ interface IInfoError {
 }
 
 const InfoError = ({ symbol, title, description }: IInfoError) => {
-  const htmlDescription = { __html: description };
+  const renderedDescription = () => {
+    const isOrdered = description.includes('<ol>');
+    const isUnordered = description.includes('<ul>');
+
+    if (isOrdered) {
+      return (
+        <div dangerouslySetInnerHTML={{ __html: description.replace('<ol>', '<ol class="list-decimal pl-5">') }} />
+      );
+    }
+    if (isUnordered) {
+      return (
+        <div dangerouslySetInnerHTML={{ __html: description.replace('<ul>', '<ul class="list-disc pl-5">') }} />
+      );
+    }
+    
+    return (
+      <div dangerouslySetInnerHTML={{ __html: description} }/>
+  );
+  }
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center border border-gray_light border-b-8 border-b-reddist rounded-[12px] rounded-b-[8px]">
@@ -17,7 +35,7 @@ const InfoError = ({ symbol, title, description }: IInfoError) => {
           <Image alt="infoerror" src={symbol} />
           <p className="text-[24px] text-gray_body font-bold">{title}</p>
         </div>
-        <div dangerouslySetInnerHTML={htmlDescription} />
+        { description && renderedDescription() }
       </div>
     </div>
   );
