@@ -88,6 +88,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
       const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
       const fileRiplay = singleImageTransformer(content['file-riplay']);
       const fileBrosur = singleImageTransformer(content['file-brosur']);
+      const formProduk = contentStringTransformer(content['form-produk']);
 
       const detailData = {
         namaProduk,
@@ -111,7 +112,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         fileRiplay,
         fileBrosur,
         categoryTitle: jsonData.data.categoryName,
-        formId: jsonData.data?.formId || '6979'
+        formId: jsonData.data?.formId || formProduk || '6979'
       };     
       
       setDataDetail(detailData);
