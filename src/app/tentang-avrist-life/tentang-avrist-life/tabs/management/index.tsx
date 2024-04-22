@@ -10,8 +10,19 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+interface ManagementComponentProps {
+  onSelectDetail: (isSelected: boolean) => void;
+}
 
-const Manajemen = () => {
+const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
+  const [showDetail, setShowDetail] = useState(false);
+  const [detailData, setDetailData] = useState({
+    image: BlankImage,
+    name: '',
+    role: '',
+    desc: <p></p>
+  });
+
   const [, setData] = useState(null);
   const [transformedData, setTransformedData] = useState({
     profile1: {
@@ -44,13 +55,6 @@ const Manajemen = () => {
       role: '',
       image: ''
     }
-  });
-  const [showDetail, setShowDetail] = useState(false);
-  const [detailData, setDetailData] = useState({
-    image: BlankImage,
-    name: '',
-    role: '',
-    desc: <p></p>
   });
 
   useEffect(() => {
@@ -150,6 +154,7 @@ const Manajemen = () => {
   }) => {
     sessionStorage.setItem('pathState', 'hlm-mnj-detail');
     setShowDetail(true);
+    onSelectDetail(true);
     const data = {
       image: cardData.image,
       name: cardData.name,

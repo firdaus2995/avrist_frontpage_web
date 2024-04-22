@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -27,7 +28,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Kami Paham',
     bgColor: 'foamy_milk',
-    color: 'purple_dark'
+    color: 'purple_dark',
+    link: '/produk/individu?tab=Asuransi+Jiwa'
   },
 
   {
@@ -39,7 +41,8 @@ const data = [
     btnText: 'Kami Mudah',
     bgColor: 'soft_grey',
     color: 'agi_grey',
-    inlineStyling: '#F6F6F6'
+    inlineStyling: '#F6F6F6',
+    link: '/produk/individu?tab=Asuransi+Jiwa'
   },
 
   {
@@ -51,7 +54,8 @@ const data = [
     btnText: 'Mulai Investasi',
     bgColor: 'avram_bg',
     color: 'avram_green',
-    inlineStyling: '#EBFCFA'
+    inlineStyling: '#EBFCFA',
+    link: '/produk/individu?tab=Asuransi+Jiwa'
   },
   {
     category: 'Avrist Life Insurance',
@@ -61,7 +65,8 @@ const data = [
       'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
     btnText: 'Solusi Anda',
     bgColor: 'foamy_milk',
-    color: 'purple_dark'
+    color: 'purple_dark',
+    link: '/produk/korporasi?tab=Employee+Benefit'
   },
 
   {
@@ -73,7 +78,8 @@ const data = [
     btnText: 'Pasti Tertarik',
     bgColor: 'soft_grey',
     color: 'agi_grey',
-    inlineStyling: '#F6F6F6'
+    inlineStyling: '#F6F6F6',
+    link: '/produk/individu?tab=Asuransi+Jiwa'
   },
   {
     category: 'Avrist Asset Management',
@@ -84,7 +90,8 @@ const data = [
     btnText: 'Kami Berpengalaman',
     bgColor: 'avram_bg',
     color: 'avram_green',
-    inlineStyling: '#EBFCFA'
+    inlineStyling: '#EBFCFA',
+    link: '/produk/individu?tab=Asuransi+Jiwa'
   }
 ];
 
@@ -118,6 +125,7 @@ const TotalSolution = () => {
       bgColor?: string;
       color?: string;
       inlineStyling?: string;
+      link: string;
     },
     idx: number
   ) => (
@@ -136,11 +144,13 @@ const TotalSolution = () => {
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
         <p>{val.content}</p>
-        <Button
-          title={val.btnText}
-          customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-          customTextClass="text-white"
-        />
+        <Link href={val.link}>
+          <Button
+            title={val.btnText}
+            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+            customTextClass="text-white"
+          />
+        </Link>
       </div>
       {idx > 2 && (
         <div
@@ -159,6 +169,7 @@ const TotalSolution = () => {
     bgColor?: string;
     color?: string;
     inlineStyling?: string;
+    link: string;
   }) => (
     <div
       className={`w-84 mb-10 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
@@ -173,11 +184,13 @@ const TotalSolution = () => {
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
         <p>{val.content}</p>
-        <Button
-          title={val.btnText}
-          customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-          customTextClass="text-white"
-        />
+        <Link href={val.link}>
+          <Button
+            title={val.btnText}
+            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+            customTextClass="text-white"
+          />
+        </Link>
       </div>
     </div>
   );
