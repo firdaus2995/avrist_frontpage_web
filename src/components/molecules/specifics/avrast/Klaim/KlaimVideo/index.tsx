@@ -14,7 +14,7 @@ const KlaimVideo = ({ data } : { data?: dataKlaim}) => {
       <div
         className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
       >
-        <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center"><span className='font-bold text-purple_dark'>Warisan Kebaikan,</span> Solusi Perlindungan Masa Depan</p>
+        <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center"><span className='font-bold text-purple_dark'>Asuransi Anti Ribet:</span> Premi Seharga kopi...</p>
         <div role='button' className='p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2'>Cerita Lebih Detail di<Icon name="youtubeIcon" color="white" /></div>
       </div>
       <div

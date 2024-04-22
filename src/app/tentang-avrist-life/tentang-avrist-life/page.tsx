@@ -16,6 +16,7 @@ import Icon4 from '@/assets/images/common/facebook.svg';
 import Icon6 from '@/assets/images/common/instagram.svg';
 import Icon5 from '@/assets/images/common/linkedIn.svg';
 import Icon7 from '@/assets/images/common/procedure.svg';
+import Icon8 from '@/assets/images/common/youtube.svg';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
@@ -38,6 +39,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     titleImage: '',
     ctaImage: ''
   });
+  const [isSelectedDetail, setIsSelectedDetail] = useState(false);
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
@@ -67,7 +69,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     'Manajemen',
     'Penghargaan',
     'Laporan Perusahaan',
-    'Karir'
+    'Karir Bersama Avrist'
   ];
 
   useEffect(() => {
@@ -101,6 +103,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       fetchData();
     }
   }, [tab, pathState]);
+  const handleSelectedDetail = (val: boolean) => {
+    setIsSelectedDetail(val);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center bg-white">
@@ -117,7 +122,10 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           <div
             key={idx}
             role="button"
-            onClick={() => handleTabClick(val)}
+            onClick={() => {
+              handleTabClick(val);
+              handleSelectedDetail(false);
+            }}
             className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
           >
             {val}
@@ -126,10 +134,10 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       </div>
       <div className="mt-44 w-full">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
-        {tab === 'Manajemen' && <Manajemen />}
+        {tab === 'Manajemen' && <Manajemen onSelectDetail={handleSelectedDetail} />}
         {tab === 'Penghargaan' && <Penghargaan />}
         {tab === 'Laporan Perusahaan' && <LaporanPerusahaan />}
-        {tab === 'Karir' && <Karir />}
+        {tab === 'Karir Bersama Avrist' && <Karir />}
       </div>
 
       {tab === 'Sekilas Perusahaan' ||
@@ -146,9 +154,31 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   role="button"
                   className="p-4 bg-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-white font-medium"
                 >
-                  <p>Subscribe</p>
-                  <Icon name="youtubeIcon" color="white" />
-                  <p>Youtube</p>
+                  {tab === 'Penghargaan' ? (
+                    <div className='flex flex-row items-center gap-2'>
+                      <p>Ikuti kami di</p>
+                      <Icon name="linkedInIcon" color="white" />
+                      <p>LinkedIn</p>
+                    </div>
+                  ) : tab === 'Manajemen' ? isSelectedDetail ? (
+                    <div className='flex flex-row items-center gap-2'>
+                      <p>Ikuti kami di</p>
+                      <Icon name="facebookIcon" color="white" />
+                      <p>Facebook</p>
+                    </div>
+                  ) : (
+                    <div className='flex flex-row items-center gap-2'>
+                      <p>Ikuti kami di</p>
+                      <Icon name="instaIcon" color="white" />
+                      <p>Instagram</p>
+                    </div>
+                  ) : (
+                    <div className='flex flex-row items-center gap-2'>
+                      <p>Subscribe</p>
+                      <Icon name="youtubeIcon" color="white" />
+                      <p>Youtube</p>
+                    </div>
+                  )}
                 </div>
               </div>
             }
@@ -180,9 +210,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? 'Facebook'
                   : tab === 'Manajemen'
-                    ? 'LinkedIn'
+                    ? isSelectedDetail ? 'Youtube' : 'LinkedIn'
                     : tab === 'Penghargaan'
-                      ? 'Instagram'
+                      ? 'Prosedur Pengaduan'
                       : tab === 'Laporan Perusahaan'
                         ? 'Prosedur Pengaduan'
                         : 'Prosedur Pengaduan',
@@ -190,7 +220,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? Icon4
                   : tab === 'Manajemen'
-                    ? Icon5
+                    ? isSelectedDetail ? Icon8 : Icon5
                     : tab === 'Penghargaan'
                       ? Icon6
                       : tab === 'Laporan Perusahaan'
@@ -200,9 +230,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? 'Ikuti Kami'
                   : tab === 'Manajemen'
-                    ? 'Ikuti Kami'
+                    ? isSelectedDetail ? 'Subscribe' : 'Ikuti Kami'
                     : tab === 'Penghargaan'
-                      ? 'Ikuti Kami'
+                      ? 'Lihat Prosedur'
                       : tab === 'Laporan Perusahaan'
                         ? 'Lihat Prosedur'
                         : 'Lihat Prosedur'
