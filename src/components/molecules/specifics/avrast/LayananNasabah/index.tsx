@@ -77,7 +77,7 @@ const LayananNasabah = () => {
         </p>
         <div className="flex flex-row items-center gap-4">
           <div className="xs:hidden md:block">
-            <Image src={val.icon} alt={val.title} className="xs:w-10 md:w-28" />
+            <Image src={val.icon} alt={val.title} className="xs:w-10 md:w-28 mix-blend-multiply" />
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -88,7 +88,7 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link1}
                 </p>
-                <Image src={val.linkIcon} alt={val.link1} className="w-4" />
+                <Image src={val.linkIcon} alt={val.link1} className="w-4 mix-blend-multiply" />
               </div>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -99,7 +99,7 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link2}
                 </p>
-                <Image src={val.linkIcon} alt={val.link2} className="w-4" />
+                <Image src={val.linkIcon} alt={val.link2} className="w-4 mix-blend-multiply" />
               </div>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -110,7 +110,7 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link3}
                 </p>
-                <Image src={val.linkIcon} alt={val.link3} className="w-4" />
+                <Image src={val.linkIcon} alt={val.link3} className="w-4 mix-blend-multiply" />
               </div>
             </div>
           </div>
