@@ -84,10 +84,6 @@ const CategorySideBySideSixCards = ({
                       />
                       <p className="font-semibold text-[20px]">{item.title}</p>
                     </div>
-                    {/* <p
-                      className="text-[24px] font-light"
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                   ></p>      */}
                    {
                     item.description && renderedDescription(item.description, false)
                     }                

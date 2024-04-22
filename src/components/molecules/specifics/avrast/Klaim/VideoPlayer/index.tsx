@@ -43,7 +43,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       const videoIdParam = lastPiece.split('?')[0];      
       return videoIdParam ?? '';
     }
-    console.log(lastPiece);    
     return lastPiece ?? '';
   }, [url]);
 
