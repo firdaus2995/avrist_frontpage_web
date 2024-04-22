@@ -43,6 +43,8 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     footerImage: ''
   });
   const [dataDetail, setDataDetail] = useState<any>();
+  const [dataForm, setDataForm] = useState<any>();
+  const [formValue, setFormValue] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -171,6 +173,23 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     fetchDataList().then().catch(() => []);
   }, []);
 
+  useEffect(() => {
+    setFormValue({})
+    if (dataDetail?.formId) {
+      const fetchDataForm = async () => {
+        try {
+          const contentResponse = await fetch(`/api/form?id=${dataDetail.formId}`);
+          const dataFormJson = await contentResponse.json();
+          setDataForm(dataFormJson.data.attributeList);
+        } catch (error: any) {
+         throw new Error('Error fetching form data: ', error.message);
+        }
+      };
+
+      fetchDataForm().then();
+    }
+  }, [dataDetail]);
+
   let titleImage, bannerImage, footerImage;
 
   if (data && data.bannerImage && data.footerImage) {
@@ -178,6 +197,20 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     bannerImage = data.bannerImage.imageUrl;
     footerImage = data.footerImage.imageUrl;
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;    
+    setFormValue(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    // handle later when know how to submit form
+    setFormValue({})
+    console.info(formValue);
+  };
 
   return (
     <div className="flex flex-col">
@@ -257,7 +290,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         </SimpleContainer>
       </Suspense>
       <SimpleContainer bgColor="purple_superlight">
-      {dataDetail && <CustomForm formSlug={dataDetail.formId}/>}
+      {dataForm && <CustomForm onChange={handleChange} onSubmit={handleSubmit} dataForm={dataForm}/>}
       </SimpleContainer>
       <GridContainer
         gridCols={1}

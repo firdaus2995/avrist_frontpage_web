@@ -1,5 +1,4 @@
-"use-client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
@@ -8,50 +7,21 @@ import { Attribute } from '@/types/form.type';
 interface CustomFormProps {
   customFormClassname?: string;
   customFormButtonClassname?: string;
-  formSlug?: string;
+  dataForm?: Attribute[],
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  onSubmit?: () => void
 }
 
 const CustomForm: React.FC<CustomFormProps> = ({
   customFormClassname = 'border-b-purple_dark',
   customFormButtonClassname = 'border-purple_dark text-purple_dark',
-  formSlug
+  dataForm,
+  onChange,
+  onSubmit
 }) => {
-  const [dataForm, setDataForm] = useState<any>();
-  const [formValue, setFormValue] = useState({});
-
-  useEffect(() => {
-    setFormValue({})
-    if (formSlug) {
-      const fetchData = async () => {
-        try {
-          const contentResponse = await fetch(`/api/form?id=${formSlug}`);
-          const dataFormJson = await contentResponse.json();
-          setDataForm(dataFormJson.data.attributeList);
-        } catch (error) {
-          console.error('Error fetching form data:', error);
-        }
-      };
-
-      fetchData().then();
-    }
-  }, []);
 
   const handleKeamananOnlineClick = () => {
     window.open('/keamanan-online', '_blank');
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;    
-    setFormValue(prevState => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
-  const handleSubmit = () => {
-    // handle later when know how to submit form
-    setFormValue({})
-    console.info(formValue);
   };
 
   const renderFetchedForm = () => {
@@ -81,7 +51,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     name={attribute.name} 
                     label={option}
                     value={option}
-                    onChange={handleChange}
+                    onChange={onChange}
                     />
                   ))
                 ) : (
@@ -89,7 +59,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
                     placeholder={JSON.parse(attribute.config).placeholder}
                     name={attribute.name}
-                    onChange={handleChange}
+                    onChange={onChange}
                   />
                 )}
               </div>
@@ -109,7 +79,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     name={attribute.name}
                     label={option}
                     value={option}
-                    onChange={handleChange}
+                    onChange={onChange}
                   />
                 ))
               ) : (
@@ -124,7 +94,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       className="w-4/5 sm:w-4/5 px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"                      
                       placeholder="Masukan nomor telepon"
                       name={attribute.name}
-                      onChange={handleChange}
+                      onChange={onChange}
                     />
                   </div>
                 ) : (
@@ -132,7 +102,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
                   placeholder={JSON.parse(attribute.config).placeholder}
                   name={attribute.name}
-                  onChange={handleChange}
+                  onChange={onChange}
                 />
                 ))}
             </div>
@@ -144,7 +114,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                 id="setuju"
                 type="checkbox"
                 value=""
-                onChange={handleChange}
+                onChange={onChange}
                 name='setuju'
                 className="mt-[6px] text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
             />
@@ -159,7 +129,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             <Image alt="captcha" src={CaptchaPicture} />
             <button
                 type='button'
-                onClick={handleSubmit}
+                onClick={onSubmit}
                 className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
             >
                 <p>Kirim</p>
@@ -170,7 +140,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
   }
 
 
-  return ( !formSlug ? 
+  return ( !dataForm ? 
     <>
       <div
         className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[8px]`}
