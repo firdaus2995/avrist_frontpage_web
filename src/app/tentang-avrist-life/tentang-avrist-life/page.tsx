@@ -103,8 +103,8 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       fetchData();
     }
   }, [tab, pathState]);
-  const handleSelectedDetail = (val: boolean) => {
-    setIsSelectedDetail(val);
+  const handleSelectedDetail = (isSelected: boolean) => {
+    setIsSelectedDetail(isSelected);
   };
 
   return (
@@ -118,17 +118,17 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         imageUrl={transformedData.titleImage}
       />
       <div className="w-full grid grid-cols-5 gap-2 px-[136px] py-20 absolute z-20 top-80 rounded-t-[76px] bg-white ">
-        {tabs.map((val, idx) => (
+        {tabs.map((value, idx) => (
           <div
             key={idx}
             role="button"
             onClick={() => {
-              handleTabClick(val);
+              handleTabClick(value);
               handleSelectedDetail(false);
             }}
-            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
           >
-            {val}
+            {value}
           </div>
         ))}
       </div>

@@ -11,7 +11,7 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 interface ManagementComponentProps {
-  onSelectDetail: (val: boolean) => void;
+  onSelectDetail: (isSelected: boolean) => void;
 }
 
 const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
