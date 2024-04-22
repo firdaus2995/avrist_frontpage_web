@@ -45,7 +45,9 @@ const Content = () => {
         setData(fetchedData);
     };
 
-    fetchProviderData().then();
+    fetchProviderData()
+    .then()
+    .catch(() => []);
   }, [searchParam]);
 
   const handleChangeSearchParams = (value: string) => {
