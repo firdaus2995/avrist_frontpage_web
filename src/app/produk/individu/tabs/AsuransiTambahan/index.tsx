@@ -14,7 +14,7 @@ function AsuransiTambahan({ data }: { data: any }) {
           summary={item.namaProduk}
           description={item.deskripsiSingkatProduk}
           tags={item.tags.split(',')}
-          href={`/produk/individu/produk-asuransi-tambahan-` + index}
+          href={`/produk/individu/${item.id}`}
         />
       ))}
     </div>

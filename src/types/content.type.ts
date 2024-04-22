@@ -26,6 +26,7 @@ export interface ContentResponse {
     lastComment?: string;
     lastEdited?: string;
     contentData: ContentDatum[];
+    formId?: number
   }
 
   export interface ContentCategoryResponse {
@@ -48,3 +49,12 @@ export interface ContentResponse {
   interface CategoryListData {
     [key: string]: ContentData[];
   }
+
+  export interface ContentDetailResponse {
+    code: number;
+    status: string;
+    data: ContentData;
+    errors: string;
+    pagination: Pagination;
+  }
+  

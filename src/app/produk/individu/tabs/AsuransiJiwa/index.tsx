@@ -14,7 +14,7 @@ function AsuransiJiwa({ data } : { data: any }) {
           summary={item.namaProduk}
           description={item.deskripsiSingkatProduk}
           tags={item.tags.split(',')}
-          href={`/produk/individu/produk-asuransi-jiwa-` + index}
+          href={`/produk/individu/${item.id}`}
         />
       ))}
     </div>
@@ -24,6 +24,7 @@ function AsuransiJiwa({ data } : { data: any }) {
 export default AsuransiJiwa;
 
 interface IDataCard {
+  id: number,
   produkImage: {
     imageUrl: string,    
   },
