@@ -31,7 +31,8 @@ export const ContactSupport = () => {
         <Link href='mailto:customer-service@avrist.com' className="h-full font-opensans font-bold md:text-[20px] flex flex-col items-center mt-[36px]">
           <Image src={EMAIL} alt="email" width={100} height={100} />
           <p className="mt-[24px]">Email</p>
-          <p className="text-purple_dark">customer@avrist.com</p>
+          <p className="text-purple_dark">customer</p>
+          <p className="text-purple_dark">@avrist.com</p>
         </Link>
         <DividerPurple />
       </div>

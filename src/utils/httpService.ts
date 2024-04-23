@@ -1,6 +1,6 @@
 import { BASE_URL } from './baseUrl';
 
-type Environment = 'page' | 'content' | 'provider' | 'content/category' | 'content-detail' | 'form' | '';
+type Environment = 'page' | 'content' | 'default'| 'content/category' | 'content-detail' | 'form' | '';
 
 export interface QueryParams {
   [key: string]: string;
@@ -45,8 +45,8 @@ function getBaseUrl(env: Environment): string {
       return BASE_URL.contentPage;
     case 'content/category':
       return BASE_URL.contentCategoryPage;
-    case 'provider':
-        return BASE_URL.provider;
+    case 'default':
+        return BASE_URL.default;
     case 'content-detail':
         return BASE_URL.contentDetail;
     case 'form':
