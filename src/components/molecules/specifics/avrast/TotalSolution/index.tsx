@@ -18,6 +18,7 @@ import AVRAM2 from '@/assets/images/avrast/component/total-solution/avram-2.svg'
 import AVRAST1 from '@/assets/images/avrast/component/total-solution/avrast-1.svg';
 import AVRAST2 from '@/assets/images/avrast/component/total-solution/avrast-2.svg';
 import Button from '@/components/atoms/Button/Button';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const data = [
   {
@@ -42,7 +43,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: '/produk/individu?tab=Asuransi+Jiwa'
+    link: `${EXTERNAL_URL.agiUrl}/produk`
   },
 
   {
@@ -55,7 +56,7 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: '/produk/individu?tab=Asuransi+Jiwa'
+    link: `${EXTERNAL_URL.avramUrl}/investasi/reksa-dana`
   },
   {
     category: 'Avrist Life Insurance',
@@ -79,7 +80,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: '/produk/individu?tab=Asuransi+Jiwa'
+    link: `${EXTERNAL_URL.agiUrl}/produk`
   },
   {
     category: 'Avrist Asset Management',
@@ -91,7 +92,7 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: '/produk/individu?tab=Asuransi+Jiwa'
+    link: `${EXTERNAL_URL.avramUrl}/investasi/jasa-investasi`
   }
 ];
 
@@ -125,6 +126,7 @@ const TotalSolution = () => {
       bgColor?: string;
       color?: string;
       inlineStyling?: string;
+      href?: string
       link: string;
     },
     idx: number
@@ -141,7 +143,7 @@ const TotalSolution = () => {
         </div>
       )}
       <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
-        <Image alt="loop-image" src={val.icon} />
+        <Image alt="loop-image" src={val.icon} className='mix-blend-multiply'/>
         <p className="font-bold text-2xl">{val.title}</p>
         <p>{val.content}</p>
         <Link href={val.link}>
