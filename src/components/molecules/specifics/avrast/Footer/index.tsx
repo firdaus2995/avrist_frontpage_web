@@ -20,10 +20,10 @@ const additionalInfo = [
     title: 'Keamanan Online',
     href: '/keamanan-online'
   },
-  {
-    title: 'Kebijakan Cookie',
-    href: '/kebijakan-cookie'
-  }
+  // {
+  //   title: 'Kebijakan Cookie',
+  //   href: '/kebijakan-cookie'
+  // }
 ];
 
 const Footer = () => {
