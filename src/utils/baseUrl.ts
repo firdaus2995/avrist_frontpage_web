@@ -8,3 +8,8 @@ export const BASE_URL = {
   provider: 'https://adev.avrist.com/provider/api/v1/user/providers',
   default: 'https://api-front-sit.avristcms.barito.tech/api'
 };
+
+export const EXTERNAL_URL = {
+  agiUrl: 'https://front-sit-agi.avristcms.barito.tech/agi',
+  avramUrl: 'https://front-sit-avram.avristcms.barito.tech/avram'
+}
