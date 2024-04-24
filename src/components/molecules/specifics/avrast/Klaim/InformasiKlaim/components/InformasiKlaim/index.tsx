@@ -21,7 +21,7 @@ const data = [
     title: 'Mekanisme Pelayanan Klaim',
     desc: 'Mekanisme singkat untuk klaim nasabah',
     icon: PelayananKlaimIcon,
-    btnText: 'Standar Pelayanan'
+    btnText: 'Cek Di Sini'
   },
   {
     title: 'Komitmen Pelayanan Klaim',
@@ -85,7 +85,7 @@ const InfoKlaimTab = () => {
       'Panduan Layanan Nasabah': () => {
         setShowModalPelayanan(true);        
       },
-      'Standar Pelayanan': () => {
+      'Cek Di Sini': () => {
         setIsShowPanduanLayananModal(true);
       },
       'Lihat Di Sini': () => {

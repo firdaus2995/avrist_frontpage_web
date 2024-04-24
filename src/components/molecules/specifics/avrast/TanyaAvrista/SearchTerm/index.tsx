@@ -15,7 +15,7 @@ const SearchTerm = ({ bannerImage } : { bannerImage: string }) => {
               Halo, apa kabar?
             </p>
             <p className="font-karla md:text-3xl 2xl:text-5xl text-white">
-              Ada yang Avrista bisa bantu?
+            Bagaimana Avrista bisa membantumu?
             </p>
             <div className="w-full sm:mt-2 mt-6">
               <Input

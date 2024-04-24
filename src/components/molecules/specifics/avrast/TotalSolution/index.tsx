@@ -26,8 +26,8 @@ const data = [
     icon: AVRAST1,
     title: 'Asuransi Jiwa Individu',
     content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
-    btnText: 'Kami Paham',
+      'Beragam perlindungan kesehatan dan jiwa yang bisa dipilih sesuai kebutuhan dengan premi terjangkau',
+    btnText: 'Selengkapnya',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
     link: '/produk/individu?tab=Asuransi+Jiwa'
@@ -38,8 +38,8 @@ const data = [
     icon: AGI1,
     title: 'Asuransi Properti',
     content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
-    btnText: 'Kami Mudah',
+      'Perlindungan terbaik dari Avrist dengan flexibilitas dan tingkat premi yang kompetitif',
+    btnText: 'Selengkapnya',
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
@@ -51,8 +51,8 @@ const data = [
     icon: AVRAM1,
     title: 'Reksa Dana',
     content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
-    btnText: 'Mulai Investasi',
+      'Mulai dari 10 ribu rupiah,  Anda sudah bisa berinvestasi dengan mudah',
+    btnText: 'Selengkapnya',
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
@@ -63,8 +63,8 @@ const data = [
     icon: AVRAST2,
     title: 'Asuransi Jiwa Korporasi',
     content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
-    btnText: 'Solusi Anda',
+      'Dapatkan berbagai perlindungan jiwa dan kesehatan yang lengkap dan flexible untuk kebutuhan bisnis Anda',
+    btnText: 'Selengkapnya',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
     link: '/produk/korporasi?tab=Employee+Benefit'
@@ -74,9 +74,8 @@ const data = [
     category: 'Avrist General Insurance',
     icon: AGI2,
     title: 'Asuransi Kendaraan',
-    content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
-    btnText: 'Pasti Tertarik',
+    content: 'Perlindungan menyeluruh bagi kendaraan kesayangan Anda',
+    btnText: 'Selengkapnya',
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
@@ -87,7 +86,7 @@ const data = [
     icon: AVRAM2,
     title: 'Jasa Investasi',
     content:
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies.',
+      'Mulai investasi dari Rp 10.000, dengan didampingi manajer investasi professional yang sudah berpengalaman',
     btnText: 'Kami Berpengalaman',
     bgColor: 'avram_bg',
     color: 'avram_green',
@@ -142,7 +141,7 @@ const TotalSolution = () => {
           {val.category}
         </div>
       )}
-      <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
+      <div className="p-5 h-80 flex flex-col items-center justify-center gap-4 pb-10">
         <Image alt="loop-image" src={val.icon} className='mix-blend-multiply'/>
         <p className="font-bold text-2xl">{val.title}</p>
         <p>{val.content}</p>

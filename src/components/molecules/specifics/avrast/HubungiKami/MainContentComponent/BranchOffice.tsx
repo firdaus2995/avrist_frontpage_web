@@ -34,7 +34,6 @@ export const BranchOffice = () => {
         return [];
       }
       const { content } = data;
-      console.log({fetchedData: data});
       setPageInfo(data.pageInfo);
       
       const fetchedData = content.map((item: ProviderContent) => {
