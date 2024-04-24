@@ -1,6 +1,7 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,6 +11,7 @@ import BannerImg3 from '@/assets/images/avrast/sample-banner-3.svg';
 import BannerImg4 from '@/assets/images/avrast/sample-banner-4.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const bannerData = [
   {
@@ -95,6 +97,12 @@ const sliderSettings = {
 
 const BannerAvrast = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+  
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -166,20 +174,44 @@ const BannerAvrast = () => {
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col">
           <div className="flex p-10 items-center justify-center text-white md:text-[28px] xs:text-[20px] text-left md:w-1/3 xs:w-full bg-dark-purple">
             <p>
-              Apa <span className="font-bold">perlindungan</span> yang{' '}
-              <span className="font-bold">Anda</span> butuhkan?
+              Temukan <span className="font-bold">kebutuhanmu </span> di sini?
             </p>
           </div>
           <div className="flex p-10 gap-4 items-center justify-left text-white md:text-[42px] xs:text-[24px] md:w-2/3 xs:w-full bg-purple_light relative">
             <p>
-              <span className="font-bold">Saya Ingin </span> pilihan rencana
+              <span className="font-bold">Saya </span> membutuhkan
             </p>
             <button
               className="text-white font-medium rounded-full text-sm p-2 text-center border-2"
               type="button"
+              onClick={toggleDropdown}
             >
-              <Icon name="chevronDown" color="white" />
+            { dropdownVisible ? <Icon name="chevronRight" color="white" /> : <Icon name="chevronDown" color="white" />}
             </button>
+            {dropdownVisible && (
+            <div
+              className={`flex flex-col top-12 right-0 rounded-md bg-white w-full md:w-[37%] left-0 duration-300 transform h-full`}
+            >
+              <Link
+                href="/produk/individu"
+                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+              >
+                Perlindungan Jiwa dan Kesehatan
+              </Link>
+              <Link
+                href={`${EXTERNAL_URL.agiUrl}`}
+                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+              >
+                Perlindungan Harta Benda
+              </Link>
+              <Link
+                href={`${EXTERNAL_URL.avramUrl}`}
+                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+              >
+                Manajemen Investasi
+              </Link>
+            </div>
+          )}
           </div>
         </div>
       </div>

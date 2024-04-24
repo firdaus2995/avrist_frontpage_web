@@ -10,8 +10,8 @@ const TopicsCard = ({ cards }: ITopicsCard) => {
   return (
     <div className="w-full flex flex-col gap-8 items-center bg-[#F7F4F8]">
       <h1 className="mt-20 font-karla text-[56px] text-purple_dark">
-        Pilih <span className="font-bold">topik</span> sesuai kendala{' '}
-        <span className="font-bold">Anda</span>
+      Apa yang ingin <span className="font-bold">Anda </span>
+         ketahui?
       </h1>
       <div className="grid xs:grid-rows-1 md:grid-cols-2 xl:grid-cols-4 md:gap-4 2xl:gap-10 px-44 mt-8 mb-20">
         {cards.map((item, index) => (

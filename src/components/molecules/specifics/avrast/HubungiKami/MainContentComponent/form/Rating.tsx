@@ -25,8 +25,6 @@ const listEmoji = [
 export const RatingEmoji = (props: RatingEmojiProps) => {
   const { title } = props;
   const [active, setActive] = React.useState('');
-
-  
   return (
     <div>
       <div className="flex flex-row">
