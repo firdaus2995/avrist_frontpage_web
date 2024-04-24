@@ -10,6 +10,7 @@ import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKla
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import { PerformaInvestasi } from '@/components/molecules/specifics/avrast/PerformaInvestasi';
 import { RSRekanan } from '@/components/molecules/specifics/avrast/RSRekanan';
+import { getContentPage } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
@@ -34,8 +35,7 @@ const InformationCustomer = () => {
 			setData(initialData);
 			const pageSlug = paramsSlug[slug as keyof typeof paramsSlug];
 			try {
-				const response = await fetch(`/api/klaim-layanan/layanan?slug=${pageSlug}`);
-				const data = await response.json();
+        const data = await getContentPage(pageSlug as string)
 				const { content } = pageTransformer(data);			
 				const banner = singleImageTransformer(content['banner-image']).imageUrl !== '' ?
 					singleImageTransformer(content['banner-image']) : singleImageTransformer(content['image-banner']);				

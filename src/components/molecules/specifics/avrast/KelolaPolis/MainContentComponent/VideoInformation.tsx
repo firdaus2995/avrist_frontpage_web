@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
@@ -11,21 +10,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import MainCard from '../../Klaim/PanduanKlaim/components/VideoCards/MainCard';
 import SubCard from '../../Klaim/PanduanKlaim/components/VideoCards/SubCard';
 import { VideoItem } from '../../Klaim/PanduanKlaim/types';
+import { IVideoData } from '@/app/klaim-layanan/layanan/kelola-polis/page';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import { getPanduanPembayaran } from '@/services/layanan.api';
-import { pageTransformer } from '@/utils/responseTransformer';
 
-const handleGetContent = async (slug: string) => {
-  try {
-    const data = await getPanduanPembayaran(slug);
-    return data;
-  } catch (error) {
-    return notFound();
-  }
-};
-
-export const VideoInformation = () => {
+export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData[] }) => {
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
     if (sliderRef.current) {
@@ -49,21 +38,18 @@ export const VideoInformation = () => {
   const [videoData, setVideoData] = useState<VideoItem[]>([]);
   const [isMainVisible, setIsMainVisible] = useState(true);
 
+
   useEffect(() => {
-    const fetchData = async () => {
+    const setDataVideo = () => {
       try {
-        const data = await handleGetContent('halaman-panduan-pembayaran-premi');
-        const { content } = pageTransformer(data);
-
-        const communityVideos = convertData(content)["community-videos"];
-
+        const communityVideos = convertData(pageVideoData)["community-videos"];
         setVideoData(communityVideos);
       } catch (error) {
         console.error('Error:', error);
       }
     };
 
-    fetchData();
+    setDataVideo();
   }, []);
 
   const convertData = (data: { [x: string]: any; }) => {

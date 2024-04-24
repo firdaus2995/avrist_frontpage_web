@@ -11,6 +11,7 @@ import KlaimVideo from '@/components/molecules/specifics/avrast/Klaim/KlaimVideo
 import PanduanKlaim from '@/components/molecules/specifics/avrast/Klaim/PanduanKlaim';
 import ProsesKlaim from '@/components/molecules/specifics/avrast/Klaim/ProsesKlaim';
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
+import { getContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
 import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
@@ -33,8 +34,7 @@ const handleDataFetch = async (slug: string, setData: (dataKlaim: dataKlaim) => 
 
   try {
     const { dataKeyTitle, dataKeyBanner, dataKeyFooter } = dataFetchParams;
-	  const response = await fetch(`/api/klaim-layanan/klaim?slug=${slug}`);
-    const data = await response.json();
+    const data = await getContentPage(slug as string)
     const { content } = pageTransformer(data as PageResponse);
     const title = singleImageTransformer(content[dataKeyTitle]).imageUrl !== '' ?
       singleImageTransformer(content[dataKeyTitle]) : singleImageTransformer(content['image-title']);
