@@ -18,38 +18,38 @@ import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-r
 
 const data = [
   {
-    title: 'Ketepatan Waktu',
-    desc: 'Kami memberi kelancaran dengan ketentuan polis yang disepakati bersama.',
-    icon: KetepatanWaktuIcon,
-    btnText: 'Panduan Layanan Nasabah'
-  },
-  {
-    title: 'Pelayanan Klaim',
-    desc: 'Perkembangan informasi dan keputusan secara jelas, efektif dan transparansi.',
+    title: 'Mekanisme Pelayanan Klaim',
+    desc: 'Mekanisme singkat untuk klaim nasabah',
     icon: PelayananKlaimIcon,
     btnText: 'Standar Pelayanan'
   },
   {
-    title: 'Kelola Polis',
-    desc: 'Kami menjamin kelancaran proses klaim dengan ketentuan polis yang ada.',
-    icon: KelolaPolisIcon,
-    btnText: 'Informasi Nasabah'
+    title: 'Komitmen Pelayanan Klaim',
+    desc: 'Komitmen kami untuk menjadikan semua proses klaim efisien',
+    icon: KetepatanWaktuIcon,
+    btnText: 'Panduan Layanan Nasabah'
   },
   {
-    title: 'Pengajuan Klaim',
-    desc: 'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
+    title: 'Lihat Polis',
+    desc: 'Lihat detail polis yang Anda miliki di sini',
+    icon: KelolaPolisIcon,
+    btnText: 'Lihat Di Sini'
+  },
+  {
+    title: 'Panduan Pengajuan Klaim',
+    desc: 'Klaim mudah dan cepat merupakan komitmen kami',
     icon: PengajuanKlaimIcon,
-    btnText: 'Panduan Klaim'
+    btnText: 'Lebih Lengkap'
   },
   {
     title: 'Rumah Sakit Rekanan',
-    desc: 'Temukan lebih dari 1000 rumah sakit rekanan di seluruh Indonesia.',
+    desc: 'Temukan Rumah Sakit rekanan terdekat',
     icon: RsRekananIcon,
-    btnText: 'Cari Lokasi'
+    btnText: 'Cari Rumah Sakit'
   },
   {
     title: 'Butuh Bantuan',
-    desc: 'Melalui jalur komunikasi yang tersedia, Kami selalu siap untuk membantu Anda.',
+    desc: 'Kami di sini siap membantu Anda',
     icon: BantuanIcon,
     btnText: 'Hubungi Kami'
   }
@@ -83,18 +83,18 @@ const InfoKlaimTab = () => {
   const handleClickPelayananButton = (text: string) => {
     const actionMap: { [key: string]: () => void } = {
       'Panduan Layanan Nasabah': () => {
-        setIsShowPanduanLayananModal(true);
+        setShowModalPelayanan(true);        
       },
       'Standar Pelayanan': () => {
-        setShowModalPelayanan(true);
+        setIsShowPanduanLayananModal(true);
       },
-      'Informasi Nasabah': () => {
+      'Lihat Di Sini': () => {
         router.push('https://my.avrist.com/welcome');
       },
-      'Panduan Klaim': () => {
+      'Lebih Lengkap': () => {
         console.log('Tombol "Panduan Klaim" diklik');
       },
-      'Cari Lokasi': () => {
+      'Cari Rumah Sakit': () => {
         router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
       },
       'Hubungi Kami': () => {

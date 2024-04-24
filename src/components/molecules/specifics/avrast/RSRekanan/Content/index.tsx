@@ -3,6 +3,7 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import Maps from '@/components/molecules/specifics/avrast/RSRekanan/Maps';
+import { handleGetProvider } from '@/services/provider-service.api';
 import { Content as ProviderContent } from '@/types/provider.type';
 
 const Content = () => {
@@ -26,28 +27,29 @@ const Content = () => {
 
   useEffect(() => {
     const fetchProviderData = async () => {
-        const response = await fetch(`/api/klaim-layanan/layanan?slug=isProviders&city_contain=jakarta&name_contain=${searchParam}`);
-        const data = await response.json();
-        if (data.responseMessage !== 'SUCCESS'){
-          return [];
-        }
-
-        const { content } = data;
-        const fetchedData = content.map((item: ProviderContent) => {
-          const phoneSplit = item.phone.split('-');
-          const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;          
-          return {
-            name: item.name,
-            address: item.address,
-            phone: formattedPhoneNumber
-          }
-        });        
+      const queryParams = {
+        page: '1',
+        city_contain: 'jakarta',
+        name_contain: searchParam
+      }
+      const data = await handleGetProvider(queryParams);
+      if (data.responseMessage !== 'SUCCESS'){
+        return [];
+      }
+      const { content } = data;
+      const fetchedData = content.map((item: ProviderContent) => {
+        const phoneSplit = item.phone.split('-');
+        const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;          
+        return {
+          id: item.id,
+          name: item.name,
+          address: item.address,
+          phone: formattedPhoneNumber
+        }});
         setData(fetchedData);
     };
 
-    fetchProviderData()
-    .then()
-    .catch(() => []);
+    fetchProviderData().then().catch(() => []);
   }, [searchParam]);
 
   const handleChangeSearchParams = (value: string) => {
@@ -91,6 +93,7 @@ const Content = () => {
 export default Content;
 
 export interface IDAta {
+  id: number,
   name: string, 
   address: string, 
   phone: string 

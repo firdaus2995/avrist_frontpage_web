@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import {
   SelectRadio,
@@ -7,21 +8,20 @@ import {
   TextInputPhone,
   SelectDropdown
 } from './form/Input';
+import CaptchaPicture from '@/assets/images/form-captcha.svg';
 
-const capcayUrl =
-  'https://s3-alpha-sig.figma.com/img/588e/36d1/1cade33270a77581f723552bb4e3473d?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kXCYY0RUwyHRjTkHCecLG-Pysvdp56v0Atm3ewGbIqplRNurlM6OFPrqaAv38pX0pqtgJGey090flQq5L7uNHOj68p6aGZnrlmrRRFla8jwWR8hiCJN4ylFXW0xqZhzxP0J3sQT8gJiPDuVdroP8A6e46zsKeBgmeoWwxsn0EWRvBGBtIIebwBoVKF81HcS6Vlm~4md98IKhyULxu-ZVIi5pAXoQuLYORYYNHJilWxAnIk6sZ05YLOv2QzB4fZffOCHzV0RxY97fxf-KVXnA7mVvVz6fhEH4AUJYlELbx5vDrf2E~rRFsAyADVVa~Bhy6UDuNZnHHEhWNlxiFW0Nkw__';
 export const RequirementForm = () => {
   return (
     <div className="mt-[64px] bg-purple_superlight">
-      <div className="bg-white mt-[80px] mx-[136px] border rounded-xl border-gray_light overflow-hidden">
+      <div className="bg-white mt-[80px] mx-auto md:mx-[136px] border rounded-xl border-gray_light overflow-hidden">
         <div className="p-[36px]">
-          <p className="font-karla font-bold text-[56px]">
+          <p className="font-karla font-bold text-[36px] md:text-[56px]">
             Diskusi kebutuhan Anda disini!
           </p>
-          <p className="mt-[36px] font-opensans text-[16px]">
+          <p className="mt-[24px] md:mt-[36px] font-opensans text-[14px] md:text-[16px]">
             isi data berikut dan Kami akan menghubungi Anda.
           </p>
-          <form className="mt-[36px]">
+          <form className="mt-[24px] md:mt-[36px]">
             {/* radio */}
             <SelectRadio
               title="Pemegang Polis"
@@ -32,7 +32,7 @@ export const RequirementForm = () => {
               require
             />
             {/* name & email */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
               <TextInput
                 title="Nama"
                 placeholder="Masukkan Nama Anda"
@@ -47,7 +47,7 @@ export const RequirementForm = () => {
               />
             </div>
             {/* no phone & domisili */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
               <TextInputPhone
                 title="No. Telepon"
                 placeholder="Masukkan Nomor Telepon"
@@ -62,7 +62,7 @@ export const RequirementForm = () => {
               />
             </div>
             {/* Text area */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
               <SelectDropdown
                 title="Pilih Kebutuhan Anda"
                 placeholder="Pilih"
@@ -81,7 +81,7 @@ export const RequirementForm = () => {
               />
             </div>
             {/* snk */}
-            <div className="flex flex-row mt-[36px]">
+            <div className="flex flex-row mt-[24px] md:mt-[36px]">
               <div>
                 <input type="checkbox" />
               </div>
@@ -96,9 +96,10 @@ export const RequirementForm = () => {
               </span>
             </div>
             {/* submit */}
-            <div className="mt-[36px] flex flex-row justify-between items-center">
-              <img src={capcayUrl} alt="captha" width={277} height={84} />
-              <button className="bg-purple_dark text-white h-[64px] w-[132px] rounded-lg">
+            <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-between md:items-center">
+              {/* <img src={CaptchaPicture} alt="captha" className="md:w-auto" /> */}
+              <Image alt="captcha" src={CaptchaPicture} className="md:w-auto" />
+              <button className="bg-purple_dark text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0">
                 Kirim
               </button>
             </div>
