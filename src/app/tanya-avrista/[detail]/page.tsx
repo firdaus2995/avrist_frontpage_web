@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 
-import { notFound } from 'next/navigation';
 import CONTACTS from '@/assets/images/common/contacts.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import HOSPITAL from '@/assets/images/common/hospital.svg';
@@ -11,35 +10,36 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import ArtikelTanyaAvrista from '@/components/molecules/specifics/avrast/TanyaAvrista/Artikel';
-import { getDetailTanyaAvrista } from '@/services/detail-tanya-avrista.api';
 import {
+  handleGetContentDetail,
+  handleGetContentPage
+} from '@/services/content-page.api';
+import {
+  contentDetailTransformer,
   contentStringTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
-
-const handleGetDetail = async (slug: string) => {
-  try {
-    const data = await getDetailTanyaAvrista(slug);
-    return data;
-  } catch (error) {
-    return notFound();
-  }
-};
 
 const DetailTanyaAvrista = async ({
   params
 }: {
   params: { detail: string };
 }) => {
-  const data = await handleGetDetail(params.detail);
+  const data = await handleGetContentPage('halaman-tanya-avrista-detail');
+  const detail = await handleGetContentDetail(params.detail);
+  // page
   const { title, content } = pageTransformer(data);
-
-  const artikel = contentStringTransformer(content['body-jawaban']);
   const bannerImage = singleImageTransformer(content['title-image']);
   const footerImage = singleImageTransformer(content['cta1-image']);
-
-  if (data.status !== 'OK') return notFound();
+  // contrent
+  const { content: contentDetail } = contentDetailTransformer(detail);
+  const titleContent = contentStringTransformer(
+    contentDetail['pertanyaan-tanya-avrista']
+  );
+  const mainContent = contentStringTransformer(
+    contentDetail['jawaban-tanya-avrista']
+  );
 
   return (
     <Suspense>
@@ -54,12 +54,15 @@ const DetailTanyaAvrista = async ({
             href: '#'
           },
           {
-            title: 'Detail',
+            title: titleContent,
             href: '#'
           }
         ]}
       />
-      <ArtikelTanyaAvrista title={title} content={artikel as string} />
+      <ArtikelTanyaAvrista
+        title={titleContent}
+        content={mainContent as string}
+      />
       <RoundedFrameBottom />
       <FooterInformation
         title={
