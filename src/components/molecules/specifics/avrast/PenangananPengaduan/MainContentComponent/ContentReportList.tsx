@@ -6,7 +6,7 @@ export const ContentReportList = () => {
           Laporan Publikasi Penanganan Pengaduan
         </span>
         <span className="font-karla font-normal text-[36px] text-gray_bold">
-          Temukan semua laporan yang kamu butuhkan di sini.
+          Komitmen kami untuk memberikan rasa aman dan tenang
         </span>
       </div>
     </div>

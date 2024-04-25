@@ -7,6 +7,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { MainContent } from '@/components/molecules/specifics/avrast/KelolaPolis';
 import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
 import { getPanduanPembayaran } from '@/services/layanan.api';
+import { ContentDatum } from '@/types/page.type';
 import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 const handleGetContent = async (slug: string) => {
@@ -22,16 +23,24 @@ const InformationPolicy = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
+  const [videoData, setVideoData] = useState<IVideoData[] | undefined>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await handleGetContent('halaman-panduan-polis');
         const { content } = pageTransformer(data);
+        const dataWithVideo = Object.entries(content)
+        .filter(([key]) => key.includes("video"))
+        .reduce((obj: any, [key, value]) => { 
+          obj[key] = value; 
+          return obj;
+          }, {});
 
         setTitleImage(singleImageTransformer(content['title-image']));
         setBannerImage(singleImageTransformer(content['banner-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
+        setVideoData(dataWithVideo);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -51,7 +60,7 @@ const InformationPolicy = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent />
+      <MainContent videoData={videoData}/>
       <FooterInformation
         title={
           <div
@@ -80,3 +89,18 @@ const InformationPolicy = () => {
 };
 
 export default InformationPolicy;
+
+export interface PolicyContent {
+    [key: string]: any;
+}
+export interface Item {
+    title: string;
+    content: PolicyContent;
+    fieldId: string[];
+    categoryName: string;
+    id: number;
+}
+
+export interface IVideoData {
+  [key: string]: ContentDatum
+}

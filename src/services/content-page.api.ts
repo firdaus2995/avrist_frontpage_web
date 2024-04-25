@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { ContentDetailResponse, ContentResponse } from '@/types/content.type';
+import { ContentCategoryResponse, ContentDetailResponse, ContentResponse } from '@/types/content.type';
 import { PageResponse } from '@/types/page.type';
 import { QueryParams, httpService } from '@/utils/httpService';
 
@@ -21,7 +21,7 @@ export const getContentDetail = async (detailId: string) => {
 };
 
 export const getContentCategory = async (slug: string, query: QueryParams) => {
-  return await httpService<ContentResponse>('content/category', slug, {
+  return await httpService<ContentCategoryResponse>('content/category', slug, {
     method: 'GET',
     queryParams: query
   });
@@ -48,6 +48,15 @@ export const handleGetContent = async (slug: string, query: QueryParams) => {
 export const handleGetContentDetail = async (detailId: string) => {
   try {
     const data = await getContentDetail(detailId);
+    return data;
+  } catch (error) {
+    return notFound();
+  }
+};
+
+export const handleGetContentCategory = async (slug: string, query: QueryParams) => {
+  try {
+    const data = await getContentCategory(slug, query);
     return data;
   } catch (error) {
     return notFound();

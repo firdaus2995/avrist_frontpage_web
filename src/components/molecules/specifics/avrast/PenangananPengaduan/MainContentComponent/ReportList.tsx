@@ -1,27 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
-import Icon from '@/components/atoms/Icon';
+import { Paginate } from './Paginate';
+import { PageInfo } from '@/types/provider.type';
+import { handleDownload } from '@/utils/helpers';
+import { contentStringTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
-const data = [
-  {
-    category: 'Asuransi Jiwa Individu'
-  },
-  {
-    category: 'Asuransi Jiwa Korporasi'
-  },
-  {
-    category: 'Avrist Syariah'
-  },
-  {
-    category: 'Avrist DPLK'
+interface Props { 
+  categories: string[], 
+  reportData: ReportContent, 
+  tahunList: string[], 
+  selectedCategory: string,
+  selectedYear?: string,
+  onSelectedCategory: (value: string) => void,
+  onSelectedYear: (value: string) => void,
+  onChangeSearch: (value: string) => void,
+  pageInfo: PageInfo,
+  setPageInfo: (pageNumber: any) => void;
+}
+
+export const ReportList = ({ 
+  categories, reportData, tahunList, 
+  selectedCategory, onSelectedCategory, selectedYear, 
+  onSelectedYear, onChangeSearch, pageInfo, setPageInfo
+  }: Props ) => {
+  const [categoriesInitial] = useState<string[]>(categories);
+  const [keyword, setKeyword] = useState('');
+
+  const newPageInfo = {
+    ...pageInfo,
+    pageSize: reportData[selectedCategory].length,
+    totalData: reportData[selectedCategory].length
   }
-];
 
-export const ReportList = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState(
-    data[0].category
-  );
+  const handleClickDownload = async (fileUrl: string) => {
+    await handleDownload(fileUrl);
+  }
 
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onSelectedYear(event.target.value);
+  }
+
+  const handleSeachChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
+  const handleChangePage = (pageNumber: number) => {
+    setPageInfo((prevPageInfo: any) => ({ ...prevPageInfo, pagePos: pageNumber }));
+  };
+  
   return (
     <div className={`w-full flex flex-col justify-center relative pt-20`}>
       <div className="w-full flex md:flex-row xs:flex-col">
@@ -29,16 +55,20 @@ export const ReportList = () => {
           <div
             className={`flex flex-col bg-purple_light_bg rounded-lg w-[200px]`}
           >
-            {data.map((val, idx) => (
+            {[...categoriesInitial].map((category, index) => (
               <div
-                key={idx}
+                key={index}
                 role="button"
-                onClick={() => {
-                  setSelectedCategory(val.category);
-                }}
-                className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === data.length && 'rounded-bl-lg'} ${selectedCategory !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                className={`${
+                  index === 0 && 'rounded-tl-lg'
+                } ${
+                  index + 1 === categoriesInitial.length && 'rounded-bl-lg'
+                } ${
+                  selectedCategory !== category && 'opacity-50'
+                } border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                onClick={() => onSelectedCategory(category)}
               >
-                {val.category}
+                {category}
               </div>
             ))}
           </div>
@@ -49,54 +79,51 @@ export const ReportList = () => {
             {/* filter */}
             <div className="flex flex-row justify-between mb-[24px]">
               <div className="text-purple_dark border-1 px-[5px] py-[8px] rounded-md border-purple_dark">
-                <select>
+                <select value={selectedYear} onChange={handleYearChange}>
                   <option value="" disabled selected>
                     Pilih Tahun
                   </option>
-                  <option value="2024">2024</option>
-                  <option value="2023">2023</option>
+                  {
+                    tahunList.map((item, index) => {
+                      return (
+                        <option key={index} value={item}>{item}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
               <div>
                 <input
                   placeholder="Cari Laporan"
                   className="w-[365px] py-[8px] px-[16px] rounded-xl bg-purple_dark/5"
+                  onChange={handleSeachChange}
+                  value={keyword}
                 />
-                <button className="py-[8px] px-[20px] bg-purple_dark text-white rounded-md ml-[12px]">
+                <button className="py-[8px] px-[20px] bg-purple_dark text-white rounded-md ml-[12px]" onClick={() => onChangeSearch(keyword)}>
                   Cari
                 </button>
               </div>
             </div>
             {/* list */}
             <div>
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div className="mt-[12px]" key={i.toString()}>
-                  <CardMenuDownload desc={`LAPORAN PENGADUAN ${i}`} />
-                </div>
+              {reportData[selectedCategory]?.map((item: any, itemIndex: number) => (
+                <CardMenuDownload
+                  key={itemIndex}
+                  desc={contentStringTransformer(item.content['panduanpenanganan-namafile'])}
+                  href={singleImageTransformer(item.content['panduanpenanganan-filelaporanpublikasi']).imageUrl}
+                  onDownload={handleClickDownload}          
+                />
               ))}
             </div>
             {/* paginate */}
-            <div className="flex flex-row justify-between mt-[24px]">
-              <span>
-                Menampilkan{' '}
-                <span className="font-bold text-purple_dark">1-5</span> dari{' '}
-                <span className="font-bold">20</span> hasil
-              </span>
-              <div className="grid grid-cols-5 gap-3 items-center">
-                <span className="font-bold text-purple_dark cursor-pointer">
-                  1
-                </span>
-                <span className="cursor-pointer">2</span>
-                <span className="cursor-pointer">3</span>
-                <span className="cursor-pointer">4</span>
-                <span className="cursor-pointer">
-                  <Icon name="chevronRight" color="purple_dark" height={15} />
-                </span>
-              </div>
-            </div>
+            {pageInfo && <Paginate className="mt-[24px]" dataPage={newPageInfo} onChangePage={handleChangePage}/>}
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
+
+export interface ReportContent {
+    [key: string]: any;
+}

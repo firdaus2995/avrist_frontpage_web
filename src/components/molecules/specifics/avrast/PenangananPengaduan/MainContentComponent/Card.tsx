@@ -14,23 +14,23 @@ import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg'
 const mockData = [
   {
     id: '1',
-    title: 'Aturan Asuransi',
+    title: 'Hak - Hak Nasabah',
     icon: IMPORTANT_DOCUMENT_ICON,
-    btn: 'Lihat Detail',
+    btn: 'Selengkapnya',
     link: '/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi'
   },
   {
     id: '2',
-    title: 'Prosedur Pengaduan',
+    title: 'Prosedur dan Form Pengaduan',
     icon: CHECK_ICON,
-    btn: 'Lihat Detail',
+    btn: 'Selengkapnya',
     link: '/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi'
   },
   {
     id: '3',
-    title: 'Saran Anda',
+    title: 'Saran dari Anda',
     icon: CHAT_ICON,
-    btn: 'Beri Saran',
+    btn: 'Selengkapnya',
     link: '/hubungi-kami'
   }
 ];
@@ -133,7 +133,7 @@ export const ContentCard = () => {
               <div className="flex flex-1 flex-col items-center justify-center p-6">
                 <Image alt={i.title} src={i.icon} className="w-[100px] h-[100px]"/>
                 <div className="flex flex-col gap-2">
-                  <h5 className="mb-2 sm:text-[24px] xs:text-[20px] tracking-tight font-bold font-karla text-[32px] text-gray_body mt-5 text-center">
+                  <h5 className="mb-2 sm:text-[22px] xs:text-[20px] tracking-tight font-bold font-karla text-[32px] text-gray_body mt-5 text-center">
                     {i.title}
                   </h5>
                   <Link href={i.link}>

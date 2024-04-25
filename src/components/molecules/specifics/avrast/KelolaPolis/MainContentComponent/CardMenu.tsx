@@ -24,16 +24,17 @@ export const CardMenuLink = (props: CardMenuLinkProps) => {
 };
 type CardMenuDownloadProps = {
   desc: string;
-  onDownload?: () => void;
+  onDownload?: (href: string) => void;
+  href?: string;
 };
 
 export const CardMenuDownload = (props: CardMenuDownloadProps) => {
-  const { desc, onDownload } = props;
+  const { desc, onDownload, href } = props;
   return (
     <div
       role="button"
       onClick={() => {}}
-      className="w-full p-4 items-center bg-white border-2 rounded-lg flex flex-row justify-between font-black"
+      className="w-full p-4 items-center bg-white border-2 rounded-lg flex flex-row justify-between font-black mt-3"
     >
       <span>
         {desc}{' '}
@@ -43,7 +44,7 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
       </span>
       <button
         className="font-opensans font-semibold text-[16px] bg-purple_dark text-white w-[136px] h-[40px] rounded-md"
-        onClick={onDownload}
+        onClick={() => onDownload && onDownload(href!)}
       >
         Unduh
       </button>
