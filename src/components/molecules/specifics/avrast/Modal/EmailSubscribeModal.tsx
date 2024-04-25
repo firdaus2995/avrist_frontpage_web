@@ -59,12 +59,10 @@ export const EmailSubscribeModal = (props: Props) => {
                       </div>
                       <div className="flex flex-1 flex-col items-center justify-center h-full text-center px-[72px]">
                         <p className="font-karla font-semibold text-[48px] text-white">
-                          Terima kasih atas langganan Anda!
+                          Terima kasih sudah mendaftar
                         </p>
                         <p className="font-opensans font-normal text-[18px] text-white">
-                          Anda telah berhasil berlangganan untuk mendapatkan
-                          informasi terkini, wawasan eksklusif, tips investasi,
-                          dan berita terbaru.
+                          Cek email untuk konfirmasi email Anda
                         </p>
                       </div>
                     </div>
@@ -91,7 +89,7 @@ export const EmailSubscribeModal = (props: Props) => {
                         <div className="bg-[#7e3f96] flex items-center flex-col">
                           <div className="mt-[40px]">
                             <p className="font-karla font-extrabold text-[48px] text-white">
-                              Subscribe Informasi Terkini!
+                              Dapatkan informasi terkini
                             </p>
                             <div className=" w-full grid grid-cols-3 gap-[12px] mt-[40px]">
                               <button className="bg-purple_dark rounded-xl py-[8px] font-opensans font-bold text-[18px] text-white">
@@ -121,7 +119,7 @@ export const EmailSubscribeModal = (props: Props) => {
                                 // type="submit"
                                 className="ml-[12px] bg-white rounded-md px-[20px] font-opensans font-semibold text-[16px] text-purple_dark"
                               >
-                                Subscribe
+                                Subscribe Sekarang
                               </button>
                             </form>
                           </div>

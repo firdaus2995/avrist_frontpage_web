@@ -14,7 +14,7 @@ export const MainContent = () => {
       <div className="bg-purple_superlight flex flex-col gap-6">
         <div className="mt-[20px] mx-[32px] md:mx-[136px]">
           <p className="font-karla font-bold text-[56px] text-center text-purple_dark">
-            Kami mengutamakan Anda. Prioritas Kami
+            Kebutuhan Anda adalah prioritas kami
           </p>
         </div>
         <RequirementForm />

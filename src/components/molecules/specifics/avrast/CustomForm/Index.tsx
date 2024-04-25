@@ -34,7 +34,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
     return (
       <div className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[8px]`}>
         <p className="font-karla font-bold text-[36px] sm:text-[56px]">
-            Saya tertarik dengan produk ini
+          Saya berminat memiliki proteksi ini
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-[32px]">
           <div className="flex flex-col gap-[4px]">
@@ -132,7 +132,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                 onClick={onSubmit}
                 className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
             >
-                <p>Kirim</p>
+                <p>Beli Sekarang</p>
             </button>
         </div>
       </div>
@@ -146,7 +146,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
         className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[8px]`}
       >
         <p className="font-karla font-bold text-[36px] sm:text-[56px]">
-          Saya tertarik dengan produk ini
+          Saya berminat memiliki proteksi ini
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-[32px]">
           <div className="flex flex-col gap-[4px]">
@@ -234,7 +234,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             type='button'
             className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
           >
-            <p>Kirim</p>
+            <p>Beli Sekarang</p>
           </button>
         </div>
       </div>

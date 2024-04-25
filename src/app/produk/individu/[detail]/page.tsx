@@ -268,7 +268,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                   description: dataDetail?.deskripsiInformasiPenting
                 },
                 {
-                  title: 'Ringkasan Produk',
+                  title: 'Ringkasan Informasi Produk',
                   description: dataDetail?.deskripsiRiplay,
                   hasDownloadButton: true,
                   urlDownload: dataDetail?.fileRiplay.imageUrl
@@ -283,7 +283,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             />
             <InfoError
               symbol={InfoRedSymbol}
-              title="Jalur Pemasaran"
+              title="Informasi Jalur Pemasaran"
               description={dataDetail?.deskripsiJalurPemasaran}
             />
           </>
