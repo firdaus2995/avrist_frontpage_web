@@ -5,21 +5,6 @@ import { PageInfo } from '@/types/provider.type';
 import { handleDownload } from '@/utils/helpers';
 import { contentStringTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
-const data = [
-  {
-    category: 'Asuransi Jiwa Individu'
-  },
-  {
-    category: 'Asuransi Jiwa Korporasi'
-  },
-  {
-    category: 'Avrist Syariah'
-  },
-  {
-    category: 'Avrist DPLK'
-  }
-];
-
 interface Props { 
   categories: string[], 
   reportData: ReportContent, 
@@ -70,14 +55,14 @@ export const ReportList = ({
           <div
             className={`flex flex-col bg-purple_light_bg rounded-lg w-[200px]`}
           >
-            {[...categoriesInitial, 'others'].map((category, index) => (
+            {[...categoriesInitial].map((category, index) => (
               <div
                 key={index}
                 role="button"
                 className={`${
                   index === 0 && 'rounded-tl-lg'
                 } ${
-                  index + 1 === data.length && 'rounded-bl-lg'
+                  index + 1 === categoriesInitial.length && 'rounded-bl-lg'
                 } ${
                   selectedCategory !== category && 'opacity-50'
                 } border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}

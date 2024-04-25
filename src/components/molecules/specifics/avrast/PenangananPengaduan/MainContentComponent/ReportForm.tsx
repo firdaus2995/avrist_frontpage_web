@@ -1,5 +1,10 @@
 import React from 'react';
+import Image from 'next/image';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
+import CLOCK from '@/assets/images/avrast/hubungi-kami/clock.svg';
+import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
+import EMAIL from '@/assets/images/common/email.svg';
+import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Icon from '@/components/atoms/Icon';
 
 type TextInputProps = {
@@ -85,20 +90,13 @@ const UploadBox = (props: UploadBoxProps) => {
     </div>
   );
 };
-const headUrl =
-  'https://s3-alpha-sig.figma.com/img/f4e0/acce/b2f53690113f06fbade89ce61c73b026?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K-OzqLL0R503Fb~8LBOUCM4dJXX7sQIRzDZPBA3u2GbIQjpiIBjdQlcnbjDyadKl0TabaoTjjxRlSyxXIxovqx3cmlbaCZWbifIUejtGta-nbTSDQNeWtkQuIefUl5~tv7T17eFWCtMBw02eNwkGVjcG4DtVBc~fM0VHD~UmEn9auqEmoC5FD1zhL4KXDEKsYx3Fi5Vn1HBdh~-s8ZCBGpxSxnicZxFZoyMz1zhbRxqbl4gCDRnWw~~JMhB7QqJ2DN6A7exW7n7yENkZE88hoMsiT8HyLNzPfZIzrQ4yO~FBnBBF~afSMRvSBAXl~V8kSR~NdG9Lq5YP~-9pa3wPFg__';
-const emailUrl =
-  'https://s3-alpha-sig.figma.com/img/739a/d716/53e25d6c64f62837b9102463edb6809e?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Id-3PUhEU9tQX4HA~t6bFfnk42f8YIN8cu8JC2skLfQjW9Ej1eAeIohS5UEf4i9bUHl3hwG3YYb23pmIPv9yNpNcwKEpERiGPmEvT1CfYPtSKq9YGArx-0ecncjB20SfDIl0tkSixMuY03eXAbEbCwqSEt9vjLBhCkzNqe1weZ7UYo~ls-RIyZZ-NS88MwM5RmW49341XqbpGueuHkbF5eEi0uKzPqc2lu7fI5YFssuK4wNH31t1B~2Mmu2c-ZZJEOhzsGZ7zfFm6n4WZvU4ZOUB2rnNbDAxeDaXLtlTEfLr3tLCugBHY3wUSUDIHplKVOKfqVspqO~qvdENtNgBAw__';
-const clockUrl =
-  'https://s3-alpha-sig.figma.com/img/8c4c/dc90/8bdcd59b63cd6804c3b292031bce0935?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZPZjPCwz5etLfwVfQ8PopebcdDYW~8pmwF43df9lE759aXwFKAivqAyCYc8c7w~c7XeOQ3dIwdb8wW4zAkeB6jl7fuDvk88u9Csqqx-L6wCwhLN6MJEGeeWn9Lm6CXEvaIcrR6WZXO5wfgm9jJ6dKzmW0nPBCJx34nHK4uUjsZIv~6mBoJ5y3iWdWuFem~k0hZvTYPviPIY1QEP9FEXfkZgjdphkZx0LsHuBYPJE4mT~d9Hs9h8lrQsub6r1nVoHoSrklbJvFbsTQgDOfMx~CaGTWnVD2IPyY1nMsveGSO0~gPk-H2zZLSC6cs6P93Oeicno~4fYCfYu5Nx2G~fkag__';
-const capcayUrl =
-  'https://s3-alpha-sig.figma.com/img/588e/36d1/1cade33270a77581f723552bb4e3473d?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kXCYY0RUwyHRjTkHCecLG-Pysvdp56v0Atm3ewGbIqplRNurlM6OFPrqaAv38pX0pqtgJGey090flQq5L7uNHOj68p6aGZnrlmrRRFla8jwWR8hiCJN4ylFXW0xqZhzxP0J3sQT8gJiPDuVdroP8A6e46zsKeBgmeoWwxsn0EWRvBGBtIIebwBoVKF81HcS6Vlm~4md98IKhyULxu-ZVIi5pAXoQuLYORYYNHJilWxAnIk6sZ05YLOv2QzB4fZffOCHzV0RxY97fxf-KVXnA7mVvVz6fhEH4AUJYlELbx5vDrf2E~rRFsAyADVVa~Bhy6UDuNZnHHEhWNlxiFW0Nkw__';
+
 export const ReportForm = () => {
   return (
     <div className="mt-[80px] bg-purple_superlight">
       <div className="bg-white mt-[80px] mx-[136px] border rounded-xl border-gray_light overflow-hidden">
         <div className="p-[36px]">
-          <p className="font-karla font-bold text-[56px]">Pengaduan Anda</p>
+          <p className="font-karla font-bold text-[56px]">Form Pengaduan</p>
           <form className="mt-[36px]">
             {/* radio */}
             <div>
@@ -159,7 +157,7 @@ export const ReportForm = () => {
               <div className="border border-gray_light rounded-xl flex flex-col justify-between overflow-hidden">
                 <div className="p-[24px]">
                   <div className="flex flex-row items-center">
-                    <img src={headUrl} alt="head" height={24} width={24} />
+                     <Image width={24} height={24} alt="symbol" src={CUSTOMER_SERVICE} />                   
                     <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
                       Layanan Nasabah
                     </span>
@@ -169,7 +167,7 @@ export const ReportForm = () => {
                   </div>
                   {/*  */}
                   <div className="flex flex-row items-center mt-[12px]">
-                    <img src={emailUrl} alt="head" height={24} width={24} />
+                    <Image width={24} height={24} alt="symbol" src={EMAIL} />                   
                     <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
                       Email
                     </span>
@@ -179,7 +177,7 @@ export const ReportForm = () => {
                   </div>
                   {/*  */}
                   <div className="flex flex-row items-center mt-[12px]">
-                    <img src={clockUrl} alt="head" height={24} width={24} />
+                  <Image width={24} height={24} alt="symbol" src={CLOCK} /> 
                     <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
                       Waktu Operasional
                     </span>
@@ -208,7 +206,7 @@ export const ReportForm = () => {
             </div>
             {/* submit */}
             <div className="mt-[36px] flex flex-row justify-between items-center">
-              <img src={capcayUrl} alt="captha" width={277} height={84} />
+              <Image width={277} height={84} alt="symbol" src={CaptchaPicture} />                   
               <button className="bg-purple_dark text-white h-[64px] w-[132px] rounded-lg">
                 Kirim
               </button>
