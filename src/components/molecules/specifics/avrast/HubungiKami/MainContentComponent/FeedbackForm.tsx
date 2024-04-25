@@ -8,7 +8,7 @@ export const FeedbackForm = () => {
       <div className="border rounded-xl flex flex-col justify-between overflow-hidden">
         <div className="p-[36px]">
           <p className="font-bold font-karla text-[36px] text-purple_dark">
-            Saran untuk Kami
+            Bagikan Saran Anda
           </p>
           <form className="mt-[36px]">
             <div>
