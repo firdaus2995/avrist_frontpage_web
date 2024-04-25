@@ -7,17 +7,13 @@ export const convertToKebabCase = (str: string) => {
   return cleanText(str).replace(/\s+/g, '-');
 };
 
-export const handleDownload = async (fileUrl: string, fileName: string) => {
+export const handleDownload = async (fileUrl: string) => {
     try {
-      const response = await fetch(fileUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `${fileName}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      link?.parentNode?.removeChild(link);
+const response = await fetch(fileUrl);
+    const blob = await response.blob();
+    const newBlob = new Blob([blob], { type: blob.type });
+    const url = URL.createObjectURL(newBlob);
+    window.open(url, '_blank');
     } catch (error) {
       console.error('Error downloading file:', error);
     }

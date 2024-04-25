@@ -4,8 +4,8 @@ import { handleDownload } from '@/utils/helpers';
 import { contentStringTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 export const DocumentPolicy = ({ policyContentData }: PolicyContent) => {
-  const handleClickDownload = async (fileUrl: string, fileName: string) => {
-   await handleDownload(fileUrl, fileName);
+  const handleClickDownload = async (fileUrl: string) => {
+   await handleDownload(fileUrl);
   }
 
   return (

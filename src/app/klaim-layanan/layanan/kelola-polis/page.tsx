@@ -37,7 +37,6 @@ const InformationPolicy = () => {
           return obj;
           }, {});
 
-        console.log({dataWithVideo});      
         setTitleImage(singleImageTransformer(content['title-image']));
         setBannerImage(singleImageTransformer(content['banner-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
