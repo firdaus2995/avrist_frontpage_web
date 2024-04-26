@@ -157,7 +157,6 @@ const Content = () => {
               </div>
             </>)
           }
-          <></>
           <div className="p-4 border border-gray_light rounded-xl flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-4">
             <p className="font-bold text-xl text-purple_dark">
               Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
