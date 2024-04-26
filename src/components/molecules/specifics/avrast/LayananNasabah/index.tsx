@@ -134,7 +134,7 @@ const LayananNasabah = () => {
           Layanan Nasabah
         </p>
         <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
-          Kami Melayani Dengan Senang Hati!
+          Diskusikan kebutuhan Anda disini
         </p>
       </div>
       <div className="w-full flex flex-row items-center justify-center gap-10 xs:hidden md:flex">
