@@ -12,16 +12,19 @@ import { BASE_URL } from '@/utils/baseUrl';
 import { QueryParams } from '@/utils/httpService';
 
 const Form = () => {
-    const [categories, setCategories] = useState<string[]>();
+    const [categories, setCategories] = useState<string[]>([]);
     const [transformedData, setTransFormedData] = useState<any>();
     const [selectedCategory, setSelectedCategory] = useState('');  
+    const [searchKeyWords, setSearchKeywords] = useState('');
 
     useEffect(() => {
       fetchContentDataWithCategory({}).then(
         (data: any) => {
-          setCategories(data.categoryList);
-          setSelectedCategory(data.categoryList[0]);
-          setTransFormedData(data);
+          console.log({data});
+          
+          setCategories(data.kategoriFormulirList);
+          setSelectedCategory(data.kategoriFormulirList[0]);
+          setTransFormedData(data.transformedData);
         }
       );
     }, []);
@@ -29,19 +32,19 @@ const Form = () => {
     useEffect(() => {
       const params = {
       selectedCategory,
-      // searchKeywords
+      searchKeyWords
     }
       fetchContentDataWithCategory(params).then(
         (data: any) => {
           if (selectedCategory) {
-          setTransFormedData(data);
+          setTransFormedData(data.transformedData);
             if (categories && categories.length !== 0) {
               setSelectedCategory(selectedCategory);
               }
             }
         }
       );
-    }, [selectedCategory]);
+    }, [selectedCategory, searchKeyWords]);
 
   const btnVerticalData = categories?.map(item => {    
     return {
@@ -52,8 +55,7 @@ const Form = () => {
 
 const renderDownloadListFileButton = (listData: any) => {
   return listData.map((item: any, index: number) => {
-     const fileUrl = JSON.parse(item.fileUrl)[0];
-     const filePath = `${BASE_URL.image}/${fileUrl?.imageUrl ?? ''}`;
+     const filePath = `${BASE_URL.image}/${item?.url ?? ''}`;    
     return (
     <DownloadFileButton key={index} title={item.namaFile} fileType={item?.fileType} filePath={filePath}/>
     );
@@ -74,15 +76,10 @@ const renderDownloadListFileButton = (listData: any) => {
 
         <section className="w-full flex flex-col items-center text-center my-[60px]">
           <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
-            Kebutuhan formulir dan buku panduan Anda
+            List formulir dan buku panduan yang mungkin Anda butuhkan
           </h1>
           <h2 className="font-karla text-[28px] 2xl:text-[36px]">
-            <span className="font-bold">Baca</span>,{' '}
-            <span className="font-bold">pilih</span>,{' '}
-            <span className="font-bold">unduh</span>,{' '}
-            <span className="font-bold">isi</span>, dan{' '}
-            <span className="font-bold">kirim</span> atau diskusikan dengan
-            Kami!
+            Silahkan pilih dan unduh formulir dan buku panduan yang Anda butuhkan
           </h2>
         </section>
 
@@ -92,27 +89,30 @@ const renderDownloadListFileButton = (listData: any) => {
               { btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
             </div>
             <div className="xs:w-[100%] md:w-[77%] -mt-3">
-              <SearchBox onSearch={() => {}} placeHolder="Cari Formulir" />
-              <div className="flex flex-col gap-3">
-              {transformedData && transformedData.contentTypeCategory?.map((category: string) => (
-                <Accordion
-                  key={category}
-                  bgColor="bg-purple_light_bg"
-                  title={category}
-                  description={`${transformedData.categoryShortDescription[category]}`}
-                >
-                  <Accordion.Item>
-                    {transformedData?.subCategory && transformedData.subCategory[category]?.map((subcategory: string) => (
-                      <Accordion key={subcategory} title={subcategory}>
-                      {
-                        transformedData?.subCategoryDetail[category] &&
-                        renderDownloadListFileButton(transformedData?.subCategoryDetail[category][subcategory])
-                      }
-                      </Accordion>
-                    ))}
-                  </Accordion.Item>
-                </Accordion>
-              ))}
+              <SearchBox onSearch={(value: string) => {setSearchKeywords(value)}} placeHolder="Cari Formulir" />
+              <div className="flex flex-col gap-3">              
+              {
+                transformedData && Object.keys(transformedData).map((category: string) => (
+                  <Accordion
+                    key={category}
+                    bgColor="bg-purple_light_bg"
+                    title={category}
+                    description={transformedData[category].shortDescription}
+                  >
+                    <Accordion.Item>
+                      {transformedData[category]?.Subkategori && transformedData[category].Subkategori.map((subcategory: string) => (
+                        <Accordion key={subcategory} title={subcategory}>
+                          {
+                            transformedData[category]?.subCategoryDetail[subcategory] &&
+                            renderDownloadListFileButton(transformedData[category].subCategoryDetail[subcategory])
+                          }
+                        </Accordion>
+                      ))}
+                    </Accordion.Item>
+                  </Accordion>
+                ))
+              }
+
               </div>
             </div>
           </div>
@@ -126,121 +126,70 @@ const renderDownloadListFileButton = (listData: any) => {
 export default Form;
 
 const fetchContentDataWithCategory = async (params: any) => {
+  console.log({params});
+  
     const queryParams: QueryParams = { 
       includeAttributes: 'true',
-      searchFilter: params?.searchKeywords || ''
+      searchFilter: params?.searchKeyWords || ''
     };
 
 try{
    const apiContent = await handleGetContentCategory('Formulir-dan-Buku-Panduan', queryParams);
-    return transformFetchedDataWithSelected(apiContent, params.selectedCategory);
+    return transformsData(apiContent, params.selectedCategory);
   } catch (error: any) {
     throw new Error(error.message);
   }
 }
 
-const transformFetchedDataWithSelected = (data: any, selectedCategory?: string) => {
-   const transformedData: any = {
-    categoryList: [],
-    categorizedData: {},
-    contentTypeCategory: [],
-    categoryShortDescription: {},
-    subCategory: {}, 
-    subCategoryDetail: {}
-  };
+function transformsData(responseData: any, selectedCategory?: string) {
+    const transformedData: any = {};
+    const kategoriFormulirList: string[] = [];
+    for (const categoryName of Object.keys(responseData.data.categoryList)) {
+        const categoryEntries = responseData.data.categoryList[categoryName];
+        const categoryObject: any = {
+            "Subkategori": [],
+            "shortDescription": '',
+            "subCategoryDetail": {}
+        };
+        categoryEntries.forEach((entry: any) => {
+            const subkategori = entry.contentData.find((data: any) => data.name === "Subkategori").value;
+            const namaFile = entry.title;
+            const url = JSON.parse(entry.contentData.find((data: any) => data.name === "File Formulir dan Buku Panduan").value)[0].imageUrl;
+            
+            const kategoriFormulir = entry.contentData.find((data: any) => data.name === "Kategori Formulir").value;
+            categoryObject.shortDescription = entry.shortDesc;
 
-  Object.entries(data.data.categoryList).forEach(([category, contentList]: any) => {
-    const categoryName = contentList[0].contentData.find((data: any) => data.fieldId === 'kategori-formulir')?.value;  
-    if (categoryName && !transformedData.categoryList.includes(categoryName)) {
-      transformedData.categoryList.push(categoryName);
+            if (!kategoriFormulirList.includes(kategoriFormulir)) {
+                kategoriFormulirList.push(kategoriFormulir);
+            }
+
+            if (!categoryObject["Subkategori"].includes(subkategori)) {
+                categoryObject["Subkategori"].push(subkategori);
+            }
+
+            const formulirObject = {
+                "namaFile": namaFile,
+                "url": url,
+                "kategoriFormulir": kategoriFormulir
+            };
+
+            if (!categoryObject["subCategoryDetail"][subkategori]) {
+                categoryObject["subCategoryDetail"][subkategori] = [];
+            }
+            categoryObject["subCategoryDetail"][subkategori].push(formulirObject);
+        });
+        
+        if (selectedCategory) {
+            for (const subkategori of Object.keys(categoryObject.subCategoryDetail)) {
+              const foundedDetail = categoryObject.subCategoryDetail[subkategori].filter((formulir: any) => formulir.kategoriFormulir === selectedCategory);
+                categoryObject.subCategoryDetail[subkategori] = foundedDetail;
+                categoryObject.Subkategori = foundedDetail.length !== 0 ? categoryObject.Subkategori : undefined;
+                categoryObject.shortDescription = foundedDetail.length !== 0 ? categoryObject.shortDescription : '';
+            }
+        }
+
+        transformedData[categoryName] = categoryObject;
     }
 
-    transformedData.contentTypeCategory.push(category);
-    transformedData.categoryShortDescription[category] = contentList[0].shortDesc;
-    const subcategories = contentList.map((content: any) => content.contentData.find((data: any) => data.fieldId === 'subkategori')?.value);
-    transformedData.subCategory[category] = subcategories;
-
-    transformedData.subCategoryDetail[category] = {};
-    contentList.forEach((content: any) => {
-      const subcategory = content.contentData.find((data: any) => data.fieldId === 'subkategori')?.value;
-      if (!transformedData.subCategoryDetail[category][subcategory]) {
-        transformedData.subCategoryDetail[category][subcategory] = [];
-      }
-      transformedData.subCategoryDetail[category][subcategory].push({
-          namaFile: content.contentData.find((data: any) => data.fieldId === 'formulirdanbukupanduan-namafile')?.value,
-          fileUrl: content.contentData.find((data: any) => data.fieldId === 'formulirdanbukupanduan-file')?.value
-      });
-    });
-
-    transformedData.categorizedData[category] = contentList.map((content: any) => ({
-      id: content.id,
-      title: content.title,
-      categoryName: content.categoryName,
-      contentData: content.contentData,
-      mainCategory: category,
-      contentTypeDescription: content.shortDesc
-    }));
-  });
-
-  if (selectedCategory) {
-    const isMatchingData = (data: any) => {
-      return data.fieldId === 'kategori-formulir' && data.value === selectedCategory;
-    }
-    
-    const filteredData = Object.entries(transformedData).reduce((filteredResult: any, [key, value]: any) => {
-      switch (key) {
-        case 'categorizedData':
-          filteredResult[key] = Object.fromEntries(
-            Object.entries(value).map(([category, categoryData]: any) => [
-              category,
-              categoryData.filter((content: any) =>
-                content.contentData.some(
-                  (data: any) => isMatchingData(data)
-                )
-              ),
-            ])
-          );
-          break;
-        case 'subCategory':
-          filteredResult[key] = Object.fromEntries(
-            Object.entries(value).map(([category, subcategories]: any) => [
-              category,
-              subcategories.filter(() =>
-                data.data.categoryList[category][0].contentData.some(
-                  (data: any) => isMatchingData(data)
-                )
-              ),
-            ])
-          );
-          break;
-        case 'subCategoryDetail':
-          filteredResult[key] = Object.fromEntries(
-            Object.entries(value).map(([category, subCategoryDetails]: any) => [
-              category,
-              Object.fromEntries(
-                Object.entries(subCategoryDetails).map(([subCategory, details]: any) => [
-                  subCategory,
-                  details.filter((detail: any) =>
-                    detail.namaFile &&
-                    detail.fileUrl &&
-                    data.data.categoryList[category][0].contentData.some(
-                      (data: any) => isMatchingData(data)
-                    )
-                  ),
-                ])
-              ),
-            ])
-          );
-          break;
-        default:
-          filteredResult[key] = value;
-          break;
-      }
-      return filteredResult;
-    }, {});
-    return filteredData;
-  }
-
-  return transformedData;
+    return { transformedData, kategoriFormulirList};
 }
-
