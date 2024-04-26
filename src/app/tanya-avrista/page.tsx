@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 
 import { notFound } from 'next/navigation';
 import CONTACTS from '@/assets/images/common/contacts.svg';
@@ -13,8 +14,13 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import FAQList from '@/components/molecules/specifics/avrast/TanyaAvrista/FAQList';
 import SearchTerm from '@/components/molecules/specifics/avrast/TanyaAvrista/SearchTerm';
 import TopicsCard from '@/components/molecules/specifics/avrast/TanyaAvrista/TopicsCard';
-import { getTanyaAvrista } from '@/services/tanya-avrista.api';
-import { contentStringTransformer, pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import { getListFaq, getTanyaAvrista } from '@/services/tanya-avrista.api';
+import { QueryParams } from '@/utils/httpService';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const breadcrumbsData = [
   { title: 'Beranda', href: '/' },
@@ -29,11 +35,11 @@ const topics = [
   { iconKey: 'topik5-icon', textKey: 'topik5-teks' },
   { iconKey: 'topik6-icon', textKey: 'topik6-teks' },
   { iconKey: 'topik7-icon', textKey: 'topik7-teks' },
-  { iconKey: 'topik8-icon', textKey: 'topik8-teks', color: 'bg-[#8C8B89]' },
+  { iconKey: 'topik8-icon', textKey: 'topik8-teks', color: 'bg-[#8C8B89]' }
 ];
 
 const handleGetContent = async (slug: string) => {
-  try {    
+  try {
     const data = await getTanyaAvrista(slug);
     return data;
   } catch (error) {
@@ -41,27 +47,103 @@ const handleGetContent = async (slug: string) => {
   }
 };
 
-const TanyaAvrista = async () => {
+const handleGetListFaq = async (slug: string) => {
+  try {
+    const queryParams: QueryParams = {
+      includeAttributes: 'true'
+    };
+    const data = await getListFaq(slug, queryParams);
+    return data;
+  } catch (error) {
+    return notFound();
+  }
+};
 
-  const data = await handleGetContent('tanya-avrista');
-  const { content } = pageTransformer(data);
+export interface IListCards {
+  title: any;
+  icon: string;
+  color: string | undefined;
+}
 
-  const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
-  const footerInformationImage = singleImageTransformer(content['cta1-image']);
+export interface IListFaq {
+  title: any;
+  href: string;
+  tags: string | undefined;
+}
 
-  const cards = topics.map((topic) => ({
-    title: contentStringTransformer(content[topic.textKey]),
-    icon: singleImageTransformer(content[topic.iconKey]).imageUrl,
-    color: topic.color
-  }));  
-  
+const TanyaAvrista = () => {
+  const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
+  const [cards, setCards] = useState<IListCards[]>([]);
+  const [listData, setListData] = useState<IListFaq[]>([]);
+  const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
+  const [selectedCards, setSelectedCards] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('tanya-avrista');
+        const listFaq = await handleGetListFaq(
+          'List-Pertanyaan-dan-Jawaban-Tanya-Avrista'
+        );
+        const { content } = pageTransformer(data);
+
+        setTitleImage(singleImageTransformer(content['title-image']));
+        setBannerImage(singleImageTransformer(content['banner-image']));
+        setFooterImage(singleImageTransformer(content['cta1-image']));
+
+        const listCards = topics.map((topic) => ({
+          title: contentStringTransformer(content[topic.textKey]),
+          icon: singleImageTransformer(content[topic.iconKey]).imageUrl,
+          color: topic.color
+        }));
+
+        setCards(listCards);
+        setSelectedCards(listCards[0].title)
+
+        const tempData = listFaq?.data?.categoryList[""];
+        const transformedData = tempData.map(item => {
+          const title = item.title;
+          const href = `/tanya-avrista/${title.toLowerCase().replace(/\s+/g, '-')}/`;
+          const tagsData = item.contentData.find(content => content.fieldId === 'tags');
+          const tags = tagsData ? tagsData.value : '';
+        
+          return {
+            title,
+            href,
+            tags
+          };
+        });
+        setListData(transformedData)
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleCardsClick = (title: string) => {
+    setSelectedCards(title);
+  };
+
+  useEffect(() => {
+    const filteredData = listData.filter(item => item.tags === 'selectedCards');
+    setListFilteredData(filteredData);
+  },[selectedCards])
+
   return (
     <div>
-      <Hero title="Tanya Avrista" breadcrumbsData={breadcrumbsData} imageUrl={titleImage.imageUrl}/>
-      <SearchTerm bannerImage={bannerImage.imageUrl}/>
-      <TopicsCard cards={cards} />
-      <FAQList />
+      <Hero
+        title="Tanya Avrista"
+        breadcrumbsData={breadcrumbsData}
+        imageUrl={titleImage.imageUrl}
+      />
+      <SearchTerm bannerImage={bannerImage.imageUrl} />
+      <TopicsCard cards={cards} onClickCards={handleCardsClick} />
+      <FAQList selected={selectedCards} data={listFilteredData} />
       <RoundedFrameBottom />
       <FooterInformation
         title={
@@ -72,8 +154,8 @@ const TanyaAvrista = async () => {
           </p>
         }
         buttonTitle="Kelola Polis"
-        image={footerInformationImage.imageUrl}
-        href='/klaim-layanan/layanan?tab=Informasi+Nasabah'
+        image={footerImage.imageUrl}
+        href="/klaim-layanan/layanan?tab=Informasi+Nasabah"
       />
       <RoundedFrameTop />
       <FooterCards
