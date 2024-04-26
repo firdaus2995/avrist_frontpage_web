@@ -1,17 +1,24 @@
 import React from 'react';
 import Button from '@/components/atoms/Button/Button';
+import { handleDownload } from '@/utils/helpers';
 
 interface IDownloadFileButton {
   title: string;
   fileType: string;
   bgColor?: string;
+  filePath?: string;
 }
 
 const DownloadFileButton: React.FC<IDownloadFileButton> = ({
   title,
   fileType,
-  bgColor
+  bgColor,
+  filePath
 }) => {
+  const handleClickUnduh = () => {
+    filePath && handleDownload(filePath);
+  }
+
   return (
     <div
       className={`flex xs:flex-col md:flex-row items-center gap-4 justify-between border border-gray_light rounded-xl p-4 ${bgColor ?? 'bg-white'}`}
@@ -27,6 +34,7 @@ const DownloadFileButton: React.FC<IDownloadFileButton> = ({
           title="Unduh"
           customButtonClass="bg-purple_dark rounded-lg"
           customTextClass="text-white"
+          onClick={handleClickUnduh}
         />
       </div>
     </div>

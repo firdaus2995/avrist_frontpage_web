@@ -1,55 +1,66 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import DownloadFileButton from '@/components/molecules/specifics/avrast/DownloadFileButton';
 import SearchBox from '@/components/molecules/specifics/avrast/SearchBox';
-
-const PDFData = [
-  {
-    title: 'Formulir Pengembalian atau Pengalihan Premi atau Kontribusi',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Formulir Pengembalian atau Pengalihan Premi atau Kontribusi',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Formulir Pengembalian atau Pengalihan Premi atau Kontribusi',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Formulir Pengembalian atau Pengalihan Premi atau Kontribusi',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Formulir Pengembalian atau Pengalihan Premi atau Kontribusi',
-    fileType: 'PDF'
-  }
-];
+import { handleGetContentCategory } from '@/services/content-page.api';
+import { BASE_URL } from '@/utils/baseUrl';
+import { QueryParams } from '@/utils/httpService';
 
 const Form = () => {
-  const btnVerticalData = [
-    {
-      title: 'Asuransi Jiwa Individu',
-      onClick: () => {}
-    },
-    {
-      title: 'Asuransi Jiwa Koperasi',
-      onClick: () => {}
-    },
-    {
-      title: 'Avrist Syariah',
-      onClick: () => {}
-    },
-    {
-      title: 'Avrist DPLK',
-      onClick: () => {}
+    const [categories, setCategories] = useState<string[]>([]);
+    const [transformedData, setTransFormedData] = useState<any>();
+    const [selectedCategory, setSelectedCategory] = useState('');  
+    const [searchKeyWords, setSearchKeywords] = useState('');
+
+    useEffect(() => {
+      fetchContentDataWithCategory({}).then(
+        (data: any) => {
+          console.log({data});
+          
+          setCategories(data.kategoriFormulirList);
+          setSelectedCategory(data.kategoriFormulirList[0]);
+          setTransFormedData(data.transformedData);
+        }
+      );
+    }, []);
+
+    useEffect(() => {
+      const params = {
+      selectedCategory,
+      searchKeyWords
     }
-  ];
+      fetchContentDataWithCategory(params).then(
+        (data: any) => {
+          if (selectedCategory) {
+          setTransFormedData(data.transformedData);
+            if (categories && categories.length !== 0) {
+              setSelectedCategory(selectedCategory);
+              }
+            }
+        }
+      );
+    }, [selectedCategory, searchKeyWords]);
+
+  const btnVerticalData = categories?.map(item => {    
+    return {
+      title: item,
+      onClick: () => setSelectedCategory(item)
+    };
+  });
+
+const renderDownloadListFileButton = (listData: any) => {
+  return listData.map((item: any, index: number) => {
+     const filePath = `${BASE_URL.image}/${item?.url ?? ''}`;    
+    return (
+    <DownloadFileButton key={index} title={item.namaFile} fileType={item?.fileType} filePath={filePath}/>
+    );
+  });
+}
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
@@ -65,70 +76,43 @@ const Form = () => {
 
         <section className="w-full flex flex-col items-center text-center my-[60px]">
           <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
-            Kebutuhan formulir dan buku panduan Anda
+            List formulir dan buku panduan yang mungkin Anda butuhkan
           </h1>
           <h2 className="font-karla text-[28px] 2xl:text-[36px]">
-            <span className="font-bold">Baca</span>,{' '}
-            <span className="font-bold">pilih</span>,{' '}
-            <span className="font-bold">unduh</span>,{' '}
-            <span className="font-bold">isi</span>, dan{' '}
-            <span className="font-bold">kirim</span> atau diskusikan dengan
-            Kami!
+            Silahkan pilih dan unduh formulir dan buku panduan yang Anda butuhkan
           </h2>
         </section>
 
         <section className="mb-2">
           <div className="flex xs:flex-col md:flex-row gap-10">
             <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl">
-              <ButtonMenuVertical item={btnVerticalData} />
+              { btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
             </div>
             <div className="xs:w-[100%] md:w-[77%] -mt-3">
-              <SearchBox onSearch={() => {}} placeHolder="Cari Formulir" />
-              <div className="flex flex-col gap-3">
-                <Accordion
-                  bgColor="bg-purple_light_bg"
-                  title="Pembayaran Premi/Kontribusi"
-                  description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
-                >
-                  <Accordion.Item>
-                    <>
-                      <Accordion title="Formulir">
-                        <Accordion.Item>
-                          {PDFData.map((item, index) => (
-                            <DownloadFileButton
-                              title={item.title}
-                              fileType={item.fileType}
-                              key={index}
-                            />
-                          ))}
-                        </Accordion.Item>
-                      </Accordion>
-                      <Accordion title="Buku Panduan" />
-                    </>
-                  </Accordion.Item>
-                </Accordion>
+              <SearchBox onSearch={(value: string) => {setSearchKeywords(value)}} placeHolder="Cari Formulir" />
+              <div className="flex flex-col gap-3">              
+              {
+                transformedData && Object.keys(transformedData).map((category: string) => (
+                  <Accordion
+                    key={category}
+                    bgColor="bg-purple_light_bg"
+                    title={category}
+                    description={transformedData[category].shortDescription}
+                  >
+                    <Accordion.Item>
+                      {transformedData[category]?.Subkategori && transformedData[category].Subkategori.map((subcategory: string) => (
+                        <Accordion key={subcategory} title={subcategory}>
+                          {
+                            transformedData[category]?.subCategoryDetail[subcategory] &&
+                            renderDownloadListFileButton(transformedData[category].subCategoryDetail[subcategory])
+                          }
+                        </Accordion>
+                      ))}
+                    </Accordion.Item>
+                  </Accordion>
+                ))
+              }
 
-                <Accordion
-                  bgColor="bg-purple_light_bg"
-                  title="Pelayanan Polis"
-                  description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
-                >
-                  <Accordion.Item>
-                    <Accordion title="Formulir" />
-                    <Accordion title="Buku Panduan" />
-                  </Accordion.Item>
-                </Accordion>
-
-                <Accordion
-                  bgColor="bg-purple_light_bg"
-                  title="Klaim"
-                  description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
-                >
-                  <Accordion.Item>
-                    <Accordion title="Formulir" />
-                    <Accordion title="Buku Panduan" />
-                  </Accordion.Item>
-                </Accordion>
               </div>
             </div>
           </div>
@@ -140,3 +124,70 @@ const Form = () => {
 };
 
 export default Form;
+
+const fetchContentDataWithCategory = async (params: any) => {
+      const queryParams: QueryParams = { 
+      includeAttributes: 'true',
+      searchFilter: params?.searchKeyWords || ''
+    };
+
+try{
+   const apiContent = await handleGetContentCategory('Formulir-dan-Buku-Panduan', queryParams);
+    return transformsData(apiContent, params.selectedCategory);
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}
+
+function transformsData(responseData: any, selectedCategory?: string) {
+    const transformedData: any = {};
+    const kategoriFormulirList: string[] = [];
+    for (const categoryName of Object.keys(responseData.data.categoryList)) {
+        const categoryEntries = responseData.data.categoryList[categoryName];
+        const categoryObject: any = {
+            "Subkategori": [],
+            "shortDescription": '',
+            "subCategoryDetail": {}
+        };
+        categoryEntries.forEach((entry: any) => {
+            const subkategori = entry.contentData.find((data: any) => data.fieldId === "subkategori").value;
+            const namaFile = entry.contentData.find((data: any) => data.fieldId === "formulirdanbukupanduan-namafile").value;
+            const url = JSON.parse(entry.contentData.find((data: any) => data.fieldId === "formulirdanbukupanduan-file").value)[0].imageUrl;
+            
+            const kategoriFormulir = entry.contentData.find((data: any) => data.fieldId === "kategori-formulir").value;
+            categoryObject.shortDescription = entry.shortDesc;
+
+            if (!kategoriFormulirList.includes(kategoriFormulir)) {
+                kategoriFormulirList.push(kategoriFormulir);
+            }
+
+            if (!categoryObject["Subkategori"].includes(subkategori)) {
+                categoryObject["Subkategori"].push(subkategori);
+            }
+
+            const formulirObject = {
+                "namaFile": namaFile,
+                "url": url,
+                "kategoriFormulir": kategoriFormulir
+            };
+
+            if (!categoryObject["subCategoryDetail"][subkategori]) {
+                categoryObject["subCategoryDetail"][subkategori] = [];
+            }
+            categoryObject["subCategoryDetail"][subkategori].push(formulirObject);
+        });
+        
+        if (selectedCategory) {
+            for (const subkategori of Object.keys(categoryObject.subCategoryDetail)) {
+              const foundedDetail = categoryObject.subCategoryDetail[subkategori].filter((formulir: any) => formulir.kategoriFormulir === selectedCategory);
+                categoryObject.subCategoryDetail[subkategori] = foundedDetail;
+                categoryObject.Subkategori = foundedDetail.length !== 0 ? categoryObject.Subkategori : undefined;
+                categoryObject.shortDescription = foundedDetail.length !== 0 ? categoryObject.shortDescription : '';
+            }
+        }
+
+        transformedData[categoryName] = categoryObject;
+    }
+
+    return { transformedData, kategoriFormulirList};
+}
