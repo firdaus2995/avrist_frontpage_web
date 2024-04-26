@@ -33,7 +33,7 @@ const Page = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await handleGetContent('halaman-panduan-pembayaran-premi');
+        const data = await handleGetContent('halaman-hak-nasabah');
         const { content } = pageTransformer(data);
 
         setTitleImage(singleImageTransformer(content['title-image']));
@@ -96,22 +96,26 @@ const Page = () => {
           {
             title: 'Layanan Nasabah',
             icon: CUSTOMER_SERVICE,
-            subtitle: '021 5789 8188'
+            subtitle: '021 5789 8188',
+            href: 'tel:021-5789-8188'
           },
           {
             title: 'Tanya Avrista',
             icon: MESSAGE,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista'
           },
           {
             title: 'Tanya Lewat Email',
             icon: EMAIL,
-            subtitle: 'Kirim Email'
+            subtitle: 'Kirim Email',
+            href: 'mailto:customer-service@avrist.com'
           },
           {
             title: 'Prosedur Pengaduan',
             icon: DOCUMENT_SEARCH,
-            subtitle: 'Lihat Prosedur'
+            subtitle: 'Lihat Prosedur',
+            href: '/avrist-dplk?tab=Produk'
           }
         ]}
       />
