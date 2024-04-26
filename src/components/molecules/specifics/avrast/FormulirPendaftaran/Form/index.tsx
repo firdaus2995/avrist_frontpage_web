@@ -126,9 +126,7 @@ const renderDownloadListFileButton = (listData: any) => {
 export default Form;
 
 const fetchContentDataWithCategory = async (params: any) => {
-  console.log({params});
-  
-    const queryParams: QueryParams = { 
+      const queryParams: QueryParams = { 
       includeAttributes: 'true',
       searchFilter: params?.searchKeyWords || ''
     };
@@ -152,11 +150,11 @@ function transformsData(responseData: any, selectedCategory?: string) {
             "subCategoryDetail": {}
         };
         categoryEntries.forEach((entry: any) => {
-            const subkategori = entry.contentData.find((data: any) => data.name === "Subkategori").value;
-            const namaFile = entry.title;
-            const url = JSON.parse(entry.contentData.find((data: any) => data.name === "File Formulir dan Buku Panduan").value)[0].imageUrl;
+            const subkategori = entry.contentData.find((data: any) => data.fieldId === "subkategori").value;
+            const namaFile = entry.contentData.find((data: any) => data.fieldId === "formulirdanbukupanduan-namafile").value;
+            const url = JSON.parse(entry.contentData.find((data: any) => data.fieldId === "formulirdanbukupanduan-file").value)[0].imageUrl;
             
-            const kategoriFormulir = entry.contentData.find((data: any) => data.name === "Kategori Formulir").value;
+            const kategoriFormulir = entry.contentData.find((data: any) => data.fieldId === "kategori-formulir").value;
             categoryObject.shortDescription = entry.shortDesc;
 
             if (!kategoriFormulirList.includes(kategoriFormulir)) {
