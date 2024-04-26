@@ -70,10 +70,10 @@ const Content = () => {
 
         <section className="w-full flex flex-col items-center text-center my-[60px]">
           <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
-            Jaringan rumah sakit di Indonesia
+            Jaringan Rekanan Rumah Sakit Avrist Assurance
           </h1>
           <h2 className="font-karla text-[28px] 2xl:text-[36px]">
-            Temukan lebih dari 1000 rumah sakit rekanan di seluruh Indonesia
+            Komitmen kami untuk memberikan rasa aman dan nyaman bersama lebih dari 1000 rumah sakit rekanan di seluruh Indonesia
           </h2>
         </section>
 

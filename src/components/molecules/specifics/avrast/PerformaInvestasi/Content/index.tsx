@@ -35,10 +35,10 @@ const Content = () => {
 
         <section className="w-full flex flex-col items-center text-center my-[60px]">
           <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
-            Performa Investasi
+            Kinerja Investasi
           </h1>
           <h2 className="font-karla text-[28px] 2xl:text-[36px]">
-            Perkembangan informasi kinerja produk asuransi{' '}
+            Laporan kinerja Investasi{' '}
             <span className="font-bold">Avrist Assurance</span>
           </h2>
         </section>
