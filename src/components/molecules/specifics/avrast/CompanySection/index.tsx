@@ -161,9 +161,6 @@ const CompanySection = () => {
         <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
           Mengapa Memilih Avrist?
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
-          Satu Polis untuk setiap rumah tangga di Indonesia
-        </p>
       </div>
       <div className="w-full grid grid-cols-1  gap-4">
         <Slider {...sliderSettings}>
