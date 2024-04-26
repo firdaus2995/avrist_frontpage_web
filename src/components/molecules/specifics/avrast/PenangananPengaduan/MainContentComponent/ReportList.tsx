@@ -28,8 +28,8 @@ export const ReportList = ({
 
   const newPageInfo = {
     ...pageInfo,
-    pageSize: reportData[selectedCategory].length,
-    totalData: reportData[selectedCategory].length
+    pageSize: reportData[selectedCategory]?.length,
+    totalData: reportData[selectedCategory]?.length
   }
 
   const handleClickDownload = async (fileUrl: string) => {
