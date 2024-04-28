@@ -334,11 +334,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
       {!isSelectedData && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
           <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
-            Kami proses klaim Anda dengan efisiensi
+            Kami proses Klaim Anda dengan efisien
           </h2>
           <h2 className="text-[20px] mb-6">
-            <span className="font-bold">Langkah pertama</span> adalah cek klaim
-            yang Anda ajukan ada di polis Anda
+          Cek jenis klaim yang akan Anda ajukan, dan dokumen pendukung yang dibutuhkan
           </h2>
         </div>
       )}

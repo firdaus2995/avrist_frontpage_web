@@ -17,27 +17,32 @@ const data = [
   {
     title: 'Buku Panduan',
     icon: Icon1,
-    btnText: 'Ketentuan tata cara klaim.'
+    btnText: 'Ketentuan pengajuan klaim',
+    onClick: () => {}
   },
   {
-    title: 'Asuransi Jiwa Individu',
+    title: 'Asuransi Individu',
     icon: Icon2,
-    btnText: 'Baca Panduan'
+    btnText: 'Baca Panduan',
+    onClick: () => { window.open('https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf', '_blank')}
   },
   {
-    title: 'Avrist Syariah',
+    title: 'Asuransi Avrist Syariah',
     icon: Icon3,
-    btnText: 'Baca Panduan'
+    btnText: 'Baca Panduan',
+    onClick: () => { window.open('https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf', '_blank')}
   },
   {
-    title: 'Asuransi Jiwa Korporasi',
+    title: 'Asuransi Korporasi',
     icon: Icon4,
-    btnText: 'Baca Panduan'
+    btnText: 'Baca Panduan',
+    onClick: () => { window.open('https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf', '_blank')}
   },
   {
     title: 'Avrist DPLK',
     icon: Icon5,
-    btnText: 'Baca Panduan'
+    btnText: 'Baca Panduan',
+    onClick: () => {}
   }
 ];
 
@@ -62,6 +67,7 @@ const PanduanPengajuanTab = () => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
   return (
     <div className="flex flex-col self-stretch items-center justify-center">
       <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
@@ -89,6 +95,7 @@ const PanduanPengajuanTab = () => {
                 <div
                   role="button"
                   className="w-[80%] p-3 bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-xs text-center ml-0 whitespace-nowrap"
+                  onClick={val.onClick}
                 >
                   {val.btnText}
                 </div>
