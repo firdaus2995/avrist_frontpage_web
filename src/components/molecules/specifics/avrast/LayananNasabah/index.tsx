@@ -6,6 +6,7 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Link from 'next/link';
 
 import Slider from 'react-slick';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/layanan-nasabah/chevron-right.svg';
@@ -21,7 +22,10 @@ const data = [
     link1: 'Avrist Life Insurance',
     link2: 'Avrist Asset Management',
     link3: 'Avrist General Insurance',
-    linkIcon: CHEVRONRIGHTPURPLE
+    linkIcon: CHEVRONRIGHTPURPLE,
+    href1: '/tanya-avrista',
+    href2: '/under-construction',
+    href3: '/under-construction'
   },
   {
     icon: ICON2,
@@ -29,7 +33,10 @@ const data = [
     link1: 'Avrist Life Insurance',
     link2: 'Avrist Asset Management',
     link3: 'Avrist General Insurance',
-    linkIcon: CHEVRONRIGHTPURPLE
+    linkIcon: CHEVRONRIGHTPURPLE,
+    href1: '/hubungi-kami',
+    href2: '/under-construction',
+    href3: '/under-construction'
   }
 ];
 
@@ -62,6 +69,9 @@ const LayananNasabah = () => {
     link2: string;
     link3: string;
     linkIcon: StaticImport;
+    href1: string;
+    href2: string;
+    href3: string;
   }) => (
     <div
       className={`w-full h-[40vh] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark`}
@@ -81,37 +91,40 @@ const LayananNasabah = () => {
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex flex-row items-center gap-2 flex-wrap">
-              <div
+              <Link
                 role="button"
                 className="flex flex-row items-center gap-4 whitespace-nowrap"
+                href={val.href1}
               >
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link1}
                 </p>
                 <Image src={val.linkIcon} alt={val.link1} className="w-4 mix-blend-multiply" />
-              </div>
+              </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
-              <div
+              <Link
                 role="button"
                 className="flex flex-row items-center gap-4 whitespace-nowrap"
+                href={val.href2}
               >
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link2}
                 </p>
                 <Image src={val.linkIcon} alt={val.link2} className="w-4 mix-blend-multiply" />
-              </div>
+              </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
-              <div
+              <Link
                 role="button"
                 className="flex flex-row items-center gap-4 whitespace-nowrap"
+                href={val.href3}
               >
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link3}
                 </p>
                 <Image src={val.linkIcon} alt={val.link3} className="w-4 mix-blend-multiply" />
-              </div>
+              </Link>
             </div>
           </div>
         </div>
