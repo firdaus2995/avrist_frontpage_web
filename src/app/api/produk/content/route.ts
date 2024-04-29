@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
             productFilter, 
             channelFilter
         };
-        const data = await getContent('Produk-Avrast', queryParams)
+        const data = await getContent('Produk-Avras', queryParams)
         return NextResponse.json(data, { status: 200 });
     }
 
@@ -20,6 +20,6 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         productFilter
     };
-    const data = await getContent('Produk-Avrast', queryParams)
+    const data = await getContent('Produk-Avras', queryParams)
     return NextResponse.json(data, { status: 200 });
 }
