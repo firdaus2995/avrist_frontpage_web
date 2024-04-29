@@ -53,6 +53,7 @@ const AvristSyariah = async () => {
           buttonTextClassname="text-dplk_yellow"
           buttonTitle="Tanya Avrista"
           image={BlankImage}
+          href="/tanya-avrista"
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
@@ -69,13 +70,13 @@ const AvristSyariah = async () => {
             title: 'Klaim & Layanan',
             icon: ProdukClaim,
             subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
+            href: '/avrist-syariah/klaim-layanan'
           },
           {
             title: 'Kelola Polis',
             icon: ProdukPolis,
             subtitle: 'Login Akun',
-            href: 'https://my.avrist.com/welcome'
+            href: '/klaim-layanan/layanan/kelola-polis'
           },
           {
             title: 'Testimonial',
