@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 					category,
 					channelFilter
 			};
-			const data = await getContentCategory('Produk-Avrast', queryParams)
+			const data = await getContentCategory('Produk-Avras', queryParams)
 			return NextResponse.json(data, { status: 200 });
 		}
 
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 				productFilter, 
 				category
 		};
-		const data = await getContentCategory('Produk-Avrast', queryParams)
+		const data = await getContentCategory('Produk-Avras', queryParams)
 		return NextResponse.json(data, { status: 200 });
 	}
 	catch (error){
