@@ -1,10 +1,39 @@
+import GoogleMapReact from 'google-map-react';
 import Image from 'next/image';
 import { Card } from './Card';
 import { CardAddress } from './CardAddress';
-import maps from '@/assets/images/avrast/hubungi-kami/high-office.svg';
-
+import maps from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
 
 export const HighOffice = () => {
+
+const renderMap = () => {
+  const highOfficeCoordinate = { lat: -6.214663280751351, lng:  106.82071668189862 };
+  const defaultProps = {
+    center: highOfficeCoordinate,
+    zoom: 16
+  };
+
+  return (
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: '' }}
+        defaultCenter={defaultProps.center}
+        defaultZoom={defaultProps.zoom}
+        yesIWantToUseGoogleMapApiInternals
+      >
+          <div style={{
+            color: 'white',           
+            padding: '15px 10px',
+            display: 'inline-flex',
+            transform: 'translate(-50%, -50%)'
+          }}>
+            <Image src={maps} className="w-full h-full object-none" alt="maps"/>
+          </div>
+      </GoogleMapReact>
+    </div>
+  );
+};
+
   return (
     <div className="mt-[100px]">
       <p className="font-karla font-bold text-[56px] text-center text-purple_dark">
@@ -18,9 +47,10 @@ export const HighOffice = () => {
           contact="(021) 5789 8188"
         />
         <Card className="col-span-2">
-          <Image src={maps} className="w-full h-full object-none" alt="maps"/>
+          {renderMap()}
         </Card>
       </Card>
     </div>
   );
 };
+

@@ -4,6 +4,7 @@ import React from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -30,6 +31,8 @@ const data = [
     title2: '1000+ Rekanan di Indonesia',
     link1: 'Penghargaan',
     link2: 'Rumah Sakit Rekanan',
+    href1: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
+    href2: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
     linkIcon: CHEVRONRIGHTPURPLE,
     img: PRODUCTIMG1
   },
@@ -41,6 +44,8 @@ const data = [
     title2: 'Investasi dengan Tim Profesional',
     link1: 'Penghargaan',
     link2: 'Tentang Kami',
+    href1: '/under-construction',
+    href2: '/under-construction',
     linkIcon: CHEVRONRIGHTGREEN,
     img: PRODUCTIMG2
   },
@@ -52,6 +57,8 @@ const data = [
     title2: 'Efektif, terpercaya dan transparan ',
     link1: 'Penghargaan',
     link2: 'Tentang Kami',
+    href1: '/under-construction',
+    href2: '/under-construction',
     linkIcon: CHEVRONRIGHTGRAY,
     img: PRODUCTIMG3
   }
@@ -76,6 +83,8 @@ const CompanySection = () => {
     title2: string;
     link1: string;
     link2: string;
+    href1: string;
+    href2: string
     linkIcon: StaticImport;
     img: StaticImport;
   }) => {
@@ -113,14 +122,14 @@ const CompanySection = () => {
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title1}
               </p>
-              <div role="button" className="flex flex-row items-center gap-1">
+              <Link href={val.href1} className="flex flex-row items-center gap-1">
                 <p
                   className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
                 >
                   {val.link1}
                 </p>
                 <Image src={val.linkIcon} alt={val.link1} className="w-4" />
-              </div>
+              </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
               <Image
@@ -131,14 +140,14 @@ const CompanySection = () => {
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title2}
               </p>
-              <div role="button" className="flex flex-row items-center gap-1">
+              <Link href={val.href2} role="button" className="flex flex-row items-center gap-1">
                 <p
                   className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
                 >
                   {val.link2}
                 </p>
                 <Image src={val.linkIcon} alt={val.link2} className="w-4" />
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -160,9 +169,6 @@ const CompanySection = () => {
       <div>
         <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
           Mengapa Memilih Avrist?
-        </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
-          Satu Polis untuk setiap rumah tangga di Indonesia
         </p>
       </div>
       <div className="w-full grid grid-cols-1  gap-4">

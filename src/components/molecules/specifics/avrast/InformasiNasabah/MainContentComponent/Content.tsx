@@ -6,7 +6,7 @@ export const Content = () => {
           Kami Melayani Dengan Senang Hati!
         </span>
         <span className="font-karla font-normal text-[36px] text-gray_bold">
-          Temukan informasi layanan yang Anda butuhkan
+          Kami siap memberikan layanan terbaik untuk kebutuhan Anda
         </span>
       </div>
     </div>
