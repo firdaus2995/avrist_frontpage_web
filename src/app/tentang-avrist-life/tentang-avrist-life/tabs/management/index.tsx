@@ -34,31 +34,6 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
   // Page
 
   const [data, setData] = useState<PageResponse>();
-  const { content: page } = pageTransformer(data);
-
-  // const profile1Image = singleImageTransformer(page['profil1-image']);
-  // const profile1Name = contentStringTransformer(page['profil1-nama']);
-  // const profile1Role = contentStringTransformer(page['profil1-jabatan']);
-
-  // const profile2Image = singleImageTransformer(page['profil2-image']);
-  // const profile2Name = contentStringTransformer(page['profil2-nama']);
-  // const profile2Role = contentStringTransformer(page['profil2-jabatan']);
-
-  // const profile3Image = singleImageTransformer(page['profil3-image']);
-  // const profile3Name = contentStringTransformer(page['profil3-nama']);
-  // const profile3Role = contentStringTransformer(page['profil3-jabatan']);
-
-  // const profile4Image = singleImageTransformer(page['profil4-image']);
-  // const profile4Name = contentStringTransformer(page['profil4-nama']);
-  // const profile4Role = contentStringTransformer(page['profil4-jabatan']);
-
-  // const profile5Image = singleImageTransformer(page['profil5-image']);
-  // const profile5Name = contentStringTransformer(page['profil5-nama']);
-  // const profile5Role = contentStringTransformer(page['profil5-jabatan']);
-
-  // const profile6Image = singleImageTransformer(page['profil6-image']);
-  // const profile6Name = contentStringTransformer(page['profil6-nama']);
-  // const profile6Role = contentStringTransformer(page['profil6-jabatan']);
 
   // Content
 
@@ -70,21 +45,6 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
     handleGetContent('Profil-Manajemen', {
       includeAttributes: 'true'
     }).then((res) => {
-      // const { content } = contentTransformer(res);
-
-      // const initialContentData = Object.keys(content).reduce(
-      //   (acc: any, key) => {
-      //     acc[key] = {}; // Assign an empty object to each key
-      //     return acc;
-      //   },
-      //   {}
-      // );
-
-      // setContentData(initialContentData);
-
-      // Object.keys(content).map((item: any) => {
-      //   setContentData({ ...contentData, [item]: content[item] });
-      // });
       const newDataContent = res.data.contentDataList.map((item: any) => {
         return {
           ...handleTransformedContent(item.contentData, item.title),
@@ -109,8 +69,6 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
       setContentData(arrayOfObjects);
     });
   }, []);
-
-  console.log(contentData && contentData);
 
   const handleCardClick = (cardData: {
     image: string;
@@ -160,91 +118,54 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
         </div>
       ) : (
         <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
-          {/* {contentData &&
-            contentData.map((item: any, index: number) => (
-              <>
-                <PersonCard
-                  key={index}
-                  heading={item.contentData[3].details[0].value}
-                  cards={[
-                    {
-                      name: profile1Name,
-                      role: profile1Role,
-                      image: profile1Image.imageUrl,
-                      onClick: handleCardClick
-                    }
-                  ]}
-                  roleClassname="text-purple_dark"
-                />
-              </>
-            ))} */}
-          {contentData && (
-            <>
-              <PersonCard
-                heading={contentData[0]?.contentData[3].details[0].value}
-                cards={[
-                  {
-                    name: contentData[0]?.contentData[1].details[1].value,
-                    role: contentData[0]?.contentData[3].details[0].value,
-                    image: singleImageTransformer(
-                      contentData[0]?.contentData[0].details[0]
-                    ).imageUrl,
-                    desc: contentData[0].contentData[4].details[0].value,
-                    onClick: handleCardClick
-                  }
-                ]}
-                roleClassname="text-purple_dark"
-              />
-              <PersonCard
-                heading={contentData[1]?.contentData[3].details[0].value}
-                cards={[
-                  {
-                    name: contentData[1]?.contentData[1].details[1].value,
-                    role: contentData[1]?.contentData[3].details[0].value,
-                    image: singleImageTransformer(
-                      contentData[1]?.contentData[0].details[0]
-                    ).imageUrl,
-                    desc: contentData[1].contentData[4].details[0].value,
-                    onClick: handleCardClick
-                  },
-                  {
-                    name: contentData[1]?.contentData[2].details[0].value,
-                    role: contentData[1]?.contentData[3].details[0].value,
-                    image: singleImageTransformer(
-                      contentData[1]?.contentData[1].details[0]
-                    ).imageUrl,
-                    desc: contentData[1].contentData[5].details[0].value,
-                    onClick: handleCardClick
-                  }
-                ]}
-                roleClassname="text-purple_dark"
-              />
-              <PersonCard
-                heading={contentData[2]?.contentData[3].details[0].value}
-                cards={[
-                  {
-                    name: contentData[2]?.contentData[1].details[1].value,
-                    role: contentData[2]?.contentData[3].details[0].value,
-                    image: singleImageTransformer(
-                      contentData[2]?.contentData[0].details[0]
-                    ).imageUrl,
-                    desc: contentData[2].contentData[4].details[0].value,
-                    onClick: handleCardClick
-                  },
-                  {
-                    name: contentData[2]?.contentData[2].details[0].value,
-                    role: contentData[2]?.contentData[3].details[0].value,
-                    image: singleImageTransformer(
-                      contentData[2]?.contentData[1].details[0]
-                    ).imageUrl,
-                    desc: contentData[2].contentData[5].details[0].value,
-                    onClick: handleCardClick
-                  }
-                ]}
-                roleClassname="text-purple_dark"
-              />
-            </>
-          )}
+          {contentData &&
+            contentData.map((item: any, index: number) => {
+              const transformData = (data: any) => {
+                return data.map((i: any) => {
+                  // Extract details
+                  const details = i.details;
+
+                  // Find relevant data
+                  const nameDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[1].fieldId
+                  );
+                  const roleDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[2].fieldId
+                  );
+                  const imageDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[0].fieldId
+                  );
+                  const bioDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[3].fieldId
+                  );
+
+                  return {
+                    name: nameDetail?.value || '', // Default to empty string if not found
+                    role: roleDetail?.value || '',
+                    image: imageDetail
+                      ? singleImageTransformer(imageDetail).imageUrl
+                      : '',
+                    desc: bioDetail?.value || '',
+                    onClick: handleCardClick // Assuming this is a string to represent a function
+                  };
+                });
+              };
+
+              return (
+                <>
+                  <PersonCard
+                    key={index}
+                    heading={item.contentData[0].details[2].value}
+                    cards={transformData(item.contentData)}
+                    roleClassname="text-purple_dark"
+                  />
+                </>
+              );
+            })}
 
           <div className="flex flex-col gap-4 items-center justify-center w-full p-10">
             <div className="flex justify-center items-center p-10">

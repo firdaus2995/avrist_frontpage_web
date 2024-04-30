@@ -23,6 +23,8 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { handleGetContentPage } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   pageTransformer,
@@ -33,9 +35,8 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const pathState = sessionStorage.getItem('pathState');
   const [tab, setTab] = useState('');
-  const [, setData] = useState(null);
+  const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
     titleImage: '',
     ctaImage: ''
@@ -66,44 +67,33 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   const tabs = [
-    'Sekilas Perusahaan',
-    'Manajemen',
-    'Penghargaan',
-    'Laporan Perusahaan',
-    'Karir Bersama Avrist'
+    { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
+    { name: 'Manajemen', url: 'manajemen' },
+    { name: 'Penghargaan', url: '' },
+    { name: 'Laporan Perusahaan', url: '' },
+    { name: 'Karir Bersama Avrist', url: '' }
   ];
 
   useEffect(() => {
-    if (tab === 'Manajemen') {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            `https://api-front-sit.avristcms.barito.tech/api/page/${pathState ?? 'manajemen'}`,
-            {
-              method: 'GET'
-            }
-          );
-          const data = await response.json();
-          setData(data);
+    if (!transformedData.titleImage) {
+      const url = tabs.find((item: any) => item.title === tab)?.url;
+      handleGetContentPage(url ?? 'halaman-sekilas-perusahaan').then((res) =>
+        setData(res)
+      );
 
-          const { content } = pageTransformer(data);
+      const { content } = pageTransformer(data);
 
-          const titleImage = singleImageTransformer(content['title-image']);
-          const ctaImage = singleImageTransformer(content['cta1-image']);
+      const titleImage = singleImageTransformer(content['title-image']);
+      const ctaImage = singleImageTransformer(content['cta1-image']);
 
-          setTransformedData({
-            ...transformedData,
-            titleImage: titleImage.imageUrl,
-            ctaImage: ctaImage.imageUrl
-          });
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
-
-      fetchData();
+      setTransformedData({
+        ...transformedData,
+        titleImage: titleImage.imageUrl,
+        ctaImage: ctaImage.imageUrl
+      });
     }
-  }, [tab, pathState]);
+  }, [tab, transformedData]);
+
   const handleSelectedDetail = (isSelected: boolean) => {
     setIsSelectedDetail(isSelected);
   };
@@ -124,12 +114,12 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             key={idx}
             role="button"
             onClick={() => {
-              handleTabClick(value);
+              handleTabClick(value.name);
               handleSelectedDetail(false);
             }}
-            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value.name ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
           >
-            {value}
+            {value.name}
           </div>
         ))}
       </div>

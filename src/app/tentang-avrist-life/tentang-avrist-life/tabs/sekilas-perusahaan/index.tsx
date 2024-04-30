@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Icon1 from '@/assets/images/common/heart-check.svg';
 import Icon2 from '@/assets/images/common/home-add.svg';
@@ -10,41 +11,20 @@ import VisiIcon from '@/assets/images/common/visi.svg';
 import Icon4 from '@/assets/images/common/wallet.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import PurposeCard from '@/components/molecules/specifics/avrast/Cards/PurposeCard';
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import Timeline from '@/components/molecules/specifics/avrast/TimeLine';
 import VisiMisi from '@/components/molecules/specifics/avrast/VisiMisi';
+import {
+  handleGetContent,
+  handleGetContentPage
+} from '@/services/content-page.api';
+import {
+  handleTransformedContent,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 // button variants: primary, secondary
-
-const data = {
-  title: 'History',
-  data: [
-    {
-      year: '2019',
-      title: 'Lorem ipsum dolor sit amet consectetur 1',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Et non nulla elit eget. Integer non a varius viverra. Amet proin libero augue amet nunc et. Ultrices habitasse diam quam consequat commodo. Amet tempor nam cras id egestas pulvinar egestas egestas vitae. Etiam tincidunt sit amet ultricies pharetra ultrices nisl nec tincidunt.'
-    },
-    {
-      year: '2020',
-      title: 'Lorem ipsum dolor sit amet consectetur 2',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Et non nulla elit eget. Integer non a varius viverra. Amet proin libero augue amet nunc et. Ultrices habitasse diam quam consequat commodo. Amet tempor nam cras id egestas pulvinar egestas egestas vitae. Etiam tincidunt sit amet ultricies pharetra ultrices nisl nec tincidunt.'
-    },
-    {
-      year: '2021',
-      title: 'Lorem ipsum dolor sit amet consectetur 3',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Et non nulla elit eget. Integer non a varius viverra. Amet proin libero augue amet nunc et. Ultrices habitasse diam quam consequat commodo. Amet tempor nam cras id egestas pulvinar egestas egestas vitae. Etiam tincidunt sit amet ultricies pharetra ultrices nisl nec tincidunt.'
-    },
-    {
-      year: '2022',
-      title: 'Lorem ipsum dolor sit amet consectetur 4',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Et non nulla elit eget. Integer non a varius viverra. Amet proin libero augue amet nunc et. Ultrices habitasse diam quam consequat commodo. Amet tempor nam cras id egestas pulvinar egestas egestas vitae. Etiam tincidunt sit amet ultricies pharetra ultrices nisl nec tincidunt.'
-    },
-    {
-      year: '2023',
-      title: 'Lorem ipsum dolor sit amet consectetur 5',
-      desc: 'Lorem ipsum dolor sit amet consectetur. Et non nulla elit eget. Integer non a varius viverra. Amet proin libero augue amet nunc et. Ultrices habitasse diam quam consequat commodo. Amet tempor nam cras id egestas pulvinar egestas egestas vitae. Etiam tincidunt sit amet ultricies pharetra ultrices nisl nec tincidunt.'
-    }
-  ]
-};
 
 const visiMisi = [
   {
@@ -107,14 +87,73 @@ const purposeData = [
 ];
 
 const SekilasPerusahaan = () => {
+  const [contentData, setContentData] = useState<any>();
+  const [contentPage, setContentPage] = useState<any>();
+
+  useEffect(() => {
+    handleGetContentPage('halaman-sekilas-perusahaan').then((res: any) => {
+      setContentPage(pageTransformer(res));
+    });
+
+    handleGetContent('sejarah-sekilas-perusahaan', {
+      includeAttributes: 'true'
+    }).then((res) => {
+      const newDataContent = res.data.contentDataList.map((item: any) => {
+        return {
+          ...handleTransformedContent(item.contentData, item.title),
+          categoryName: item.categoryName,
+          id: item.id
+        };
+      });
+
+      const keyValuePairs = Object.entries(newDataContent[0].content);
+
+      const arrayOfObjects: any = keyValuePairs.map(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          return {
+            section: key,
+            ...value
+          };
+        } else {
+          console.error(`Cannot spread non-object value for key: ${key}`);
+        }
+      });
+
+      const transformData = (data: any) => {
+        const transformed = data.map((entry: any) => {
+          // Extract relevant information from the details
+          const tag = entry.details.find(
+            (detail: any) => detail.name === 'Tags'
+          );
+          const title = entry.details.find(
+            (detail: any) => detail.name === 'Judul Timestamp'
+          );
+          const desc = entry.details.find(
+            (detail: any) => detail.name === 'Deskripsi Timestamp'
+          );
+
+          return {
+            year: tag.value,
+            title: title.value,
+            desc: desc.value
+          };
+        });
+
+        return {
+          title: 'History', // Constant title for the structure
+          data: transformed // The transformed array
+        };
+      };
+
+      setContentData(transformData(arrayOfObjects[0]?.contentData));
+    });
+  }, []);
+
   return (
     <div className="w-full flex flex-col bg-white justify-center">
       <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
         <p className="text-[48px]">
-          Avrist Life Insurance bergerak dibidang asuransi selama{' '}
-          <span className="font-bold text-purple_dark">
-            lebih dari 40 tahun.
-          </span>
+          <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>
         <p>
           Avrist Life Insurance merupakan perusahaan keuangan yang bergerak di
@@ -123,8 +162,13 @@ const SekilasPerusahaan = () => {
           BAPEPAM-LK pada tahun 2012 & Izin Penasihat Investasi oleh OJK pada
           tahun 2017.
         </p>
-        <div className="flex justify-center w-full">
-          <Image src={SampleVideo} alt="video" />
+        <div className="flex justify-center w-full h-[650px] mb-16">
+          <VideoPlayer
+            color="purple_dark"
+            type={contentPage?.content['sekilasavrist-captionvideo'].value}
+            url={contentPage?.content['sekilasavrist-video'].value}
+            thumbnail={SampleVideo}
+          />
         </div>
         <p>
           Saat ini Avrist Life Insurance memiliki dana kelolaan lebih dari 3,9
@@ -135,7 +179,9 @@ const SekilasPerusahaan = () => {
           Konvesnsional, Reksa Dana Syariah, maupun Reksa Dana Terproteksi.
         </p>
         <div className="mt-20">
-          <Timeline data={data.data} title={data.title} />
+          {contentData && (
+            <Timeline data={contentData?.data} title={contentData?.title} />
+          )}
         </div>
         <VisiMisi data={visiMisi} />
       </div>
