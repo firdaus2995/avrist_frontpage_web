@@ -5,6 +5,7 @@ interface Card {
   name: string;
   role: string;
   image: string;
+  desc?: string;
   onClick?: (cardData: Card) => void;
 }
 
