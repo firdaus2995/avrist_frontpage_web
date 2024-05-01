@@ -16,16 +16,15 @@ const TentangAvristDPLK = () => {
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-dplk_yellow"
-        headingText="Lorem Ipsum"
-        subHeadingText="Lorem ipsum dolor sit amet consectetur"
-        description="Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in."
+        headingText="Sejarah Singkat Dana Pensiun Lembaga Keuangan (DPLK) Avrist"
+        description="DPLK Avrist, didirikan oleh PT Avrist Assurance, diperoleh pengesahan dari Menteri Keuangan RI dengan No. KEP-067/KM.17/1994, pada tanggal 4 April 1994. Sebagai DPLK Join Venture pertama di Indonesia, Avrist telah berpengalaman dalam mengelola program pensiun sejak tahun 1980, sebelum disahkannya UU No. 11 Tahun 1992 tentang Dana Pensiun."
         tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
         tagsClassname="bg-gray_bglightgray"
         tagsTextClassname="text-dplk_yellow"
         idTags="#TentangAvristDPLK"
       />
       <PersonCard
-        heading="Dewan Pengawas DPLK"
+        heading="DEWAN PENGAWAS DPLK PT AVRIST ASSURANCE"
         cards={[
           {
             name: 'Lorem Ipsum',
@@ -42,7 +41,7 @@ const TentangAvristDPLK = () => {
         idTags="#DewanPengawasDPLK"
       />
       <PersonCard
-        heading="Dewan Pengurus DPLK"
+        heading="PENGURUS DPLK PT AVRIST ASSURANCE"
         cards={[
           {
             name: 'Lorem Ipsum',
@@ -54,65 +53,67 @@ const TentangAvristDPLK = () => {
       />
       <InformationCard
         heading="Tugas dan Peran"
-        subHeading="DPS PT Avrist Assurance sebagai berikut:"
+        subHeading="Tugas dan Peran Dewan Pengurus DPLK PT Avrist Assurance sebagai berikut:"
         cards={[
           {
             cardIcon: YellowBinocular,
             cardBody:
-              'Mengawasi, memberi nasihat dan saran kepada Direksi agar kegiatan Perusahaan sesuai dengan prinsip DPLK.'
+              'Bertanggung jawab penuh atas pengelolaan Dana Pensiun Lembaga Keuangan Avrist;'
           },
           {
             cardIcon: YellowHead,
             cardBody:
-              'Berupaya menjaga keseimbangan kepentingan semua pihak, khususnya kepentingan Nasabah.'
+              'Mewakili Dana Pensiun Lembaga Keuangan Avrist di dalam dan di luar pengadilan;'
           },
           {
             cardIcon: YellowPeople,
             cardBody:
-              'Menyelenggarakan rapat DPS secara berkala paling sedikit enam kali dalam satu tahun.'
+              'Bertanggung jawab atas pelaksanaan Peraturan Dana Pensiun (PDP) dan pengelolaan Dana Pensiun Lembaga Keuangan Avrist sesuai dengan ketentuan peraturan perundang-undangan di bidang dana pensiun yang berlaku.'
           }
         ]}
         cardClassname="border-b-dplk_yellow"
       />
       <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-gray_bglightgray">
         <InformationCard
-          heading="Mengapa Avrist DPLK ?"
+          heading="Keuntungan memilih DPLK Avrist"
           cards={[
             {
               cardIcon: YellowBinocular,
-              cardTitle: 'Lorem Ipsum',
+              cardTitle: 'Experienced',
               cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+                'Berpengalaman dalam mengelola Dana Pensiun sejak 1980 dalam bentuk Yayasan Dana Pensiun. Untuk DPLK sejak tahun 1994'
             },
             {
               cardIcon: YellowHead,
-              cardTitle: 'Lorem Ipsum',
-              cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+              cardTitle: 'Consultative Approach',
+              cardBody: `Kami memiliki team ahli yang : \n
+              1. Memiliki Pengetahuan Cukup \n
+              2. Memiliki Pengalaman Cukup \n
+              3. Professional dan Berintegritas`
             },
             {
               cardIcon: YellowPeople,
-              cardTitle: 'Lorem Ipsum',
+              cardTitle: 'Flexible',
               cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+                'Flexibilitas kami untuk pemilihan atau penempatan investasi yang tidak dibatasi. Flexibilitas juga untuk program pensiun yang dijalankan.'
             },
             {
               cardIcon: YellowBinocular,
-              cardTitle: 'Lorem Ipsum',
+              cardTitle: 'Free Fund Switching',
               cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+                'Tidak dikenakan biaya untuk melakukan perubahan pilhan investasi berapa kali pun dilakukan dalam setahun'
             },
             {
               cardIcon: YellowHead,
-              cardTitle: 'Lorem Ipsum',
+              cardTitle: 'Fast & Easy Claim',
               cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+                'Proses klaim yang mudah dibantu oleh dedicated client relationship dengan TAT 7-10 hari kerja. '
             },
             {
               cardIcon: YellowPeople,
-              cardTitle: 'Lorem Ipsum',
+              cardTitle: 'Competitive Fee Charge',
               cardBody:
-                'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.'
+                'Menerapkan single fee yang kompetitif dan tidak ada biaya penalty (Termination Fee)'
             }
           ]}
           cardClassname="border-b-dplk_yellow"
