@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 
 import DPLKContent from './DPLKContent';
-import HeroDplk4 from '@/assets/images/avrast/dplk/hero-dplk-4.svg';
-import BlankImage from '@/assets/images/blank-image.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -16,28 +14,61 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-// import {
-//   handleGetContent,
-//   handleGetContentPage
-// } from '@/services/content-page.api';
+import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  pageTransformer,
+  singleImageTransformer,
+  contentStringTransformer
+} from '@/utils/responseTransformer';
 
 const AvristSyariah = async () => {
-  // const pageBase = await handleGetContentPage('halaman-tentang-avrist-dplk');
+  const pageBase = await handleGetContentPage('halaman-tentang-avrist-dplk');
   // const pageContent = await handleGetContent('Dewan-DPLK', {
   //   includeAttributes: 'true'
   // });
 
+  const { content } = pageTransformer(pageBase);
+  const titleImage = singleImageTransformer(content['title-image']);
+  const bannerImage = singleImageTransformer(content['banner-image']);
+  const dewanpengawasdplkJudul = contentStringTransformer(
+    content['dewanpengawasdplk-judul']
+  );
+  const dewanpengawasdplkSubjudul = contentStringTransformer(
+    content['dewanpengawasdplk-subjudul']
+  );
+  const dewanpengawasdplkDeskripsi = contentStringTransformer(
+    content['dewanpengawasdplk-deskripsi']
+  );
+  const dewanpengawasdplkImagedewan = singleImageTransformer(
+    content['dewanpengawasdplk-imagedewan']
+  );
+  const dewanpengawasdplkNamadewan = contentStringTransformer(
+    content['dewanpengawasdplk-namadewan']
+  );
+  const dewanpengawasdplkTitledewan = contentStringTransformer(
+    content['dewanpengawasdplk-titledewan']
+  );
+  const cta1Image = singleImageTransformer(content['cta1-image']);
+
   return (
     <Suspense fallback={null}>
       <Hero
-        title={'Tentang Avrist DPLK'}
+        title={'Avrist DPLK'}
         breadcrumbsData={[
-          { title: 'Tentang Avrist DPLK', href: '/' },
-          { title: 'Tentang Avrist DPLK', href: '#' }
+          { title: 'Beranda', href: '/' },
+          { title: 'Avrist DPLK', href: '#' }
         ]}
-        bottomImage={HeroDplk4}
+        bottomImage={bannerImage.imageUrl}
+        imageUrl={titleImage.imageUrl}
       />
-      <DPLKContent />
+      <DPLKContent
+        dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+        dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+        dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+        dewanpengawasdplkImage={dewanpengawasdplkImagedewan.imageUrl}
+        dewanpengawasdplkNama={dewanpengawasdplkNamadewan}
+        dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+      />
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
       <SimpleContainer>
@@ -52,7 +83,7 @@ const AvristSyariah = async () => {
           buttonClassname="bg-white border border-white"
           buttonTextClassname="text-dplk_yellow"
           buttonTitle="Tanya Avrista"
-          image={BlankImage}
+          image={cta1Image.imageUrl}
           href="/tanya-avrista"
         />
       </SimpleContainer>

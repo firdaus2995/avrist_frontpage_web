@@ -6,6 +6,14 @@ import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatUtama from '../tabs/ManfaatUtama';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
 
+type Props = {
+  dewanpengawasdplkJudul: string;
+  dewanpengawasdplkSubjudul: string;
+  dewanpengawasdplkDeskripsi: string;
+  dewanpengawasdplkImage: string;
+  dewanpengawasdplkNama: string;
+  dewanpengawasdplkTitledewan: string;
+};
 const tabs = [
   'Tentang Avrist DPLK',
   'Dewan Pengawas DPLK',
@@ -14,7 +22,15 @@ const tabs = [
   'Klaim dan Layanan'
 ];
 
-const DPLKContent = () => {
+const DPLKContent = (props: Props) => {
+  const {
+    dewanpengawasdplkDeskripsi,
+    dewanpengawasdplkImage,
+    dewanpengawasdplkJudul,
+    dewanpengawasdplkNama,
+    dewanpengawasdplkSubjudul,
+    dewanpengawasdplkTitledewan
+  } = props;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -66,9 +82,36 @@ const DPLKContent = () => {
           </LinkScroll>
         ))}
       </div>
-      {tab === 'Tentang Avrist DPLK' && <TentangAvristDPLK />}
-      {tab === 'Dewan Pengawas DPLK' && <DewanPengawasDPLK />}
-      {tab === 'Manfaat Utama' && <ManfaatUtama />}
+      {tab === 'Tentang Avrist DPLK' && (
+        <TentangAvristDPLK
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkImage={dewanpengawasdplkImage}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkNama={dewanpengawasdplkNama}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+        />
+      )}
+      {tab === 'Dewan Pengawas DPLK' && (
+        <DewanPengawasDPLK
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkImage={dewanpengawasdplkImage}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkNama={dewanpengawasdplkNama}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+        />
+      )}
+      {tab === 'Manfaat Utama' && (
+        <ManfaatUtama
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkImage={dewanpengawasdplkImage}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkNama={dewanpengawasdplkNama}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+        />
+      )}
     </div>
   );
 };

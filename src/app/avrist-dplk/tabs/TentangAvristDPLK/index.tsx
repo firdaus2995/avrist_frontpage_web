@@ -4,20 +4,37 @@ import YellowBinocular from '@/assets/images/avrast/dplk/yellow-binocular.svg';
 import YellowHead from '@/assets/images/avrast/dplk/yellow-head.svg';
 import YellowPeople from '@/assets/images/avrast/dplk/yellow-people.svg';
 import People1 from '@/assets/images/avrast/people-1.svg';
-import People2 from '@/assets/images/avrast/people-2.svg';
 
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
 import PersonCard from '@/components/molecules/specifics/avrast/Cards/PersonCard';
 
-const TentangAvristDPLK = () => {
+type Props = {
+  dewanpengawasdplkJudul: string;
+  dewanpengawasdplkSubjudul: string;
+  dewanpengawasdplkDeskripsi: string;
+  dewanpengawasdplkImage: string;
+  dewanpengawasdplkNama: string;
+  dewanpengawasdplkTitledewan: string;
+};
+
+const TentangAvristDPLK = (props: Props) => {
+  const {
+    dewanpengawasdplkJudul,
+    dewanpengawasdplkSubjudul,
+    dewanpengawasdplkDeskripsi,
+    dewanpengawasdplkImage,
+    dewanpengawasdplkNama,
+    dewanpengawasdplkTitledewan
+  } = props;
   return (
     <div>
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-dplk_yellow"
-        headingText="Sejarah Singkat Dana Pensiun Lembaga Keuangan (DPLK) Avrist"
-        description="DPLK Avrist, didirikan oleh PT Avrist Assurance, diperoleh pengesahan dari Menteri Keuangan RI dengan No. KEP-067/KM.17/1994, pada tanggal 4 April 1994. Sebagai DPLK Join Venture pertama di Indonesia, Avrist telah berpengalaman dalam mengelola program pensiun sejak tahun 1980, sebelum disahkannya UU No. 11 Tahun 1992 tentang Dana Pensiun."
+        headingText={dewanpengawasdplkJudul}
+        subHeadingText={dewanpengawasdplkSubjudul}
+        description={dewanpengawasdplkDeskripsi}
         tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
         tagsClassname="bg-gray_bglightgray"
         tagsTextClassname="text-dplk_yellow"
@@ -27,14 +44,9 @@ const TentangAvristDPLK = () => {
         heading="DEWAN PENGAWAS DPLK PT AVRIST ASSURANCE"
         cards={[
           {
-            name: 'Lorem Ipsum',
-            role: 'Lorem Ipsum',
-            image: People1
-          },
-          {
-            name: 'Lorem Ipsum',
-            role: 'Lorem Ipsum',
-            image: People2
+            name: dewanpengawasdplkNama,
+            role: dewanpengawasdplkTitledewan,
+            image: dewanpengawasdplkImage
           }
         ]}
         roleClassname="text-dplk_yellow"
