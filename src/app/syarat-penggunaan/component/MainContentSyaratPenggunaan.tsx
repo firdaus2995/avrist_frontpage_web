@@ -1,13 +1,11 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import Disclaimer from '../tabs/Disclaimer';
 import KepemilikanInformasi from '../tabs/KepemilikanInformasi';
 import KontenSitus from '../tabs/KontenSitus';
 import SyaratPenggunaan from '../tabs/SyaratPenggunaan';
-
 import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import Icon from '@/components/atoms/Icon';
 
@@ -17,12 +15,32 @@ const MainContentSyaratPenggunaan = () => {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('Disclaimer');
   const [isOpen, setIsOpen] = useState(false);
+  const disclaimerRef = useRef(null);
+  const syaratRef = useRef(null);
+  const kontenRef = useRef(null);
+  const kepemilikanRef = useRef(null);
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
     });
+    handleScrollToRef(getRefByTab(tabs));
+  };
+
+  const getRefByTab = (tab: string) => {
+    switch (tab) {
+      case 'Disclaimer':
+        return disclaimerRef;
+      case 'Syarat Penggunaan':
+        return syaratRef;
+      case 'Konten Situs':
+        return kontenRef;
+      case 'Kepemilikan Informasi':
+        return kepemilikanRef;
+      default:
+        return null;
+    }
   };
 
   const createQueryString = (name: string, value: string) => {
@@ -31,10 +49,17 @@ const MainContentSyaratPenggunaan = () => {
     return params.toString();
   };
 
+  const handleScrollToRef = (ref: React.MutableRefObject<null> | null) => {
+    if (ref?.current) {
+      (ref.current! as HTMLElement).scrollIntoView({ behavior: 'smooth', block: "end", inline: "start" });
+    }
+  };
+
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value !== null) {
       setTab(value);
+      handleScrollToRef(getRefByTab(value));
     }
   }, [searchParams]);
 
@@ -44,12 +69,13 @@ const MainContentSyaratPenggunaan = () => {
     'Konten Situs',
     'Kepemilikan Informasi'
   ];
+
   return (
-    <div className=" w-full flex flex-col relative">
+    <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
         <div className="px-[136px] py-[100px] flex flex-row">
           {/* start tabs kiri */}
-          <div className="sm:block hidden rounded-lg">
+          <div className="sm:block hidden rounded-lg relative">
             <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
               {tabs.map((val, idx) =>
                 tab === val ? (
@@ -111,11 +137,19 @@ const MainContentSyaratPenggunaan = () => {
             )}
           </div>{' '}
           {/* end tabs kiri */}
-          <div className="ml-[48px]">
-            {tab === 'Disclaimer' && <Disclaimer />}
-            {tab === 'Syarat Penggunaan' && <SyaratPenggunaan />}
-            {tab === 'Konten Situs' && <KontenSitus />}
-            {tab === 'Kepemilikan Informasi' && <KepemilikanInformasi />}
+          <div className="ml-[48px] flex flex-col gap-10">
+            <div ref={disclaimerRef}>
+              <Disclaimer />
+            </div>
+            <div ref={syaratRef}>
+              <SyaratPenggunaan />
+            </div>
+            <div ref={kontenRef}>
+              <KontenSitus />
+            </div>
+            <div ref={kepemilikanRef}>
+              <KepemilikanInformasi />
+            </div>
           </div>
         </div>
       </div>

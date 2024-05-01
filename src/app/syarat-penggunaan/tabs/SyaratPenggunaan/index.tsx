@@ -3,7 +3,6 @@ import React from 'react';
 const SyaratPengunaan = () => {
   return (
     <div>
-      <p className="font-karla font-bold text-[56px]">Syarat Kegunaan</p>
       <p className="font-karla font-bold text-[36px] text-purple_dark mt-[24px]">
         Syarat Penggunaan
       </p>
