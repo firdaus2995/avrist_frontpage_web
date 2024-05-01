@@ -29,7 +29,6 @@ import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
-  handleTransformedContent,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -87,11 +86,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   const buttonHelper: ButtonHelperItem[] = [
-    { type: 'button', label: 'Individu', href: '/produk/individu' },
+    { type: 'button', label: 'Individu', href: '/produk/individu?tab=Asuransi+Jiwa' },
     {
       type: 'button',
       label: 'Korporasi',
-      href: '/produk/korporasi',
+      href: '/produk/korporasi?tab=Employee+Benefit',
       variant: 'outlined'
     }
   ];
@@ -152,42 +151,6 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   
           return dataContentValues;
         }
-
-        const contentResponse = await fetch(`/api/produk/content?productFilter=individu&channelFilter=${selectedChannels}`);
-        const data = await contentResponse.json();
-        
-        const newDataContent = data.data.contentDataList.map((item: any) => {
-          return { 
-            ...handleTransformedContent(item.contentData, item.title), 
-            categoryName: item.categoryName,
-            id: item.id
-          }
-        });                
-        const dataContentValues = newDataContent.map(({ content, categoryName, id }: { content: any, categoryName: string, id: number }) => {          
-          const namaProduk = contentStringTransformer(content['nama-produk']);
-          const tags = contentStringTransformer(content['tags']);
-          const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-          const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-          const jenisProduk = contentStringTransformer(content['jenis-produk']);
-          const channel = contentStringTransformer(content['channel']);
-          const produkImage = singleImageTransformer(content['produk-image']);
-          const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-
-          return {
-            categoryName,
-            namaProduk,
-            tags,
-            deskripsiSingkatProduk,
-            deskripsiLengkapProduk,
-            jenisProduk,
-            channel,
-            produkImage,
-            kategoriProdukIcon,
-            id
-          };
-        });        
-        setDataContent(dataContentValues);
-        return dataContentValues;      
         
       }
       catch(error) {        

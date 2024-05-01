@@ -74,7 +74,7 @@ const DetailTanyaAvrista = async ({
           </p>
         }
         buttonTitle="Panduan Klaim"
-        href="/under-construction"
+        href="/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan"
         image={footerImage.imageUrl}
       />
       <RoundedFrameTop />
@@ -102,7 +102,7 @@ const DetailTanyaAvrista = async ({
           {
             title: 'Prosedur Pengaduan',
             subtitle: 'Lihat Prosedur',
-            href: 'avrast/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan',
             icon: DOCUMENT_SEARCH
           }
         ]}
