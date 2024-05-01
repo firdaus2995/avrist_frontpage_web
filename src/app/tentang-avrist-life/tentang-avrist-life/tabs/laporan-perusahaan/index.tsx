@@ -95,10 +95,12 @@ const LaporanPerusahaan = () => {
       <div className="flex flex-col gap-4">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
           <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
-            Laporan Tata Kelola Perusahaan
+            {params.category}{' '}
+            {params.category.includes('Perusahaan') ? '' : 'Perusahaan'}
           </h2>
           <h2 className="text-[36px] mb-6">
-            Temukan laporan tata kelola perusahaan di sini
+            Temukan {params.category.toLowerCase()}{' '}
+            {params.category.includes('Perusahaan') ? '' : 'perusahaan'} di sini
           </h2>
         </div>
         <CategoryWithThreeCards
