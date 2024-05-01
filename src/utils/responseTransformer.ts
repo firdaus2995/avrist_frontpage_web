@@ -1,5 +1,5 @@
 import { BASE_URL } from './baseUrl';
-import { ContentCategoryResponse, ContentData, ContentDetailResponse, ContentResponse } from '@/types/content.type';
+import { ContentCategoryResponse, ContentData, ContentDetailResponse, ContentResponse, DetailDataPage, DetailPage } from '@/types/content.type';
 import { ContentDatum, PageResponse } from '@/types/page.type';
 
 export const pageTransformer = (data?: PageResponse) => {
@@ -73,4 +73,16 @@ export const singleImageTransformer = (data: any) => {
 export const contentStringTransformer = (data: any) => {
   if (data?.value === '-') return '';
   return data?.value ?? '';
+};
+
+export const heroContentTransformer = (data: DetailDataPage): any[] => {
+  const transformedData: any[] = data.contentData.map((item) => {
+    const transformedItem: { [key: string]: DetailPage } = {};
+    item.details.forEach((detail) => {
+      transformedItem[detail.fieldId] = detail;
+    });
+    return transformedItem;
+  });
+
+  return transformedData;
 };

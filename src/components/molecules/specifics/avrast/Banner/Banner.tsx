@@ -1,108 +1,85 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import Slider from 'react-slick';
+import BlankImage from '@/assets/images/blank-image.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import BannerImg1 from '@/assets/images/avrast/sample-banner-1.svg';
-import BannerImg2 from '@/assets/images/avrast/sample-banner-2.svg';
-import BannerImg3 from '@/assets/images/avrast/sample-banner-3.svg';
-import BannerImg4 from '@/assets/images/avrast/sample-banner-4.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import { getHomeData } from '@/services/home-banner-modal-api';
 import { EXTERNAL_URL } from '@/utils/baseUrl';
+import {
+  contentStringTransformer,
+  heroContentTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
-const bannerData = [
-  {
-    category: 'Avrist Total Solution:',
-    title: (
-      <p className="xs:text-[28px] md:text-[36px]">
-        <span className="font-bold">Proteksi total</span> dalam satu genggaman
-        untuk <span className="font-bold">nasabah, individu</span> maupun
-        <span className="font-bold"> korporasi</span>
-      </p>
-    ),
-    btn: 'Kami Peduli',
-    color: 'purple_dark',
-    img: BannerImg1
-  },
-  {
-    category: 'Avrist Life Insurance',
-    title: (
-      <p className="xs:text-[28px] md:text-[36px]">
-        Perlindungan dini <span className="font-bold">Anda dan keluarga</span>{' '}
-        dari risiko kehidupan tidak terduga
-      </p>
-    ),
-    btn: 'Kami Peduli',
-    color: 'purple_dark',
-    img: BannerImg2
-  },
-  {
-    category: 'Avrist Asset Management',
-    title: (
-      <p className="xs:text-[28px] md:text-[36px]">
-        Siapkan <span className="font-bold">investasi</span> dengan pengelolaan{' '}
-        <span className="font-bold">Reksa Dana</span>
-      </p>
-    ),
-    btn: 'Melangkah Bersama',
-    color: 'avram_green',
-    img: BannerImg3
-  },
-  {
-    category: 'Avrist General Insurance',
-    title: (
-      <p className="xs:text-[28px] md:text-[36px]">
-        Perlindungan terhadap{' '}
-        <span className="font-bold">kendaraan, bangunan,</span> dan{' '}
-        <span className="font-bold">usaha Anda</span>
-      </p>
-    ),
-    btn: 'Solusi Tepat',
-    color: 'agi_grey',
-    img: BannerImg4
+const handleGetContent = async (slug: string) => {
+  try {
+    const data = await getHomeData(slug);
+    return data;
+  } catch (error) {
+    return notFound();
   }
-];
-
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  appendDots: (
-    dots:
-    | string
-    | number
-    | boolean
-    | React.ReactElement<string | React.JSXElementConstructor<string>>
-    | Iterable<React.ReactNode>
-    | React.ReactPortal
-    | null
-    | undefined
-  ) => (
-    <div
-      style={{
-        position: 'absolute',
-        left: 36,
-        width: 150,
-        bottom: 32
-      }}
-    >
-      <ul style={{ margin: '0px' }}> {dots} </ul>
-    </div>
-  )
 };
 
 const BannerAvrast = () => {
   const sliderRef = useRef<Slider | null>(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [bannerData, setBannerData] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('homepage-avras');
+        const { content } = pageTransformer(data);
+
+        setBannerData(heroContentTransformer(content['hero-slider']));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: bannerData.length > 1 ? true : false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    appendDots: (
+      dots:
+        | string
+        | number
+        | boolean
+        | React.ReactElement<string | React.JSXElementConstructor<string>>
+        | Iterable<React.ReactNode>
+        | React.ReactPortal
+        | null
+        | undefined
+    ) => (
+      <div
+        style={{
+          position: 'absolute',
+          left: 36,
+          width: 150,
+          bottom: 32
+        }}
+      >
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    )
+  };
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
-  
+
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -124,50 +101,84 @@ const BannerAvrast = () => {
             {...sliderSettings}
             className="w-screen"
           >
-            {bannerData.map((data, index) => (
-              <div
-                key={index}
-                className="flex w-full xs:h-[65vh] md:h-[auto] relative"
-              >
-                <div className="md:hidden">
-                  <Image
-                    alt="loop-image"
-                    src={data.img}
-                    layout="fill"
-                    className="w-full h-auto object-cover object-left-bottom"
-                  />
-                </div>
-                <div className="md:block xs:hidden">
-                  <Image
-                    alt="loop-image"
-                    src={data.img}
-                    className="w-screen h-auto object-cover"
-                  />
-                </div>
-                <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
-                  <p
-                    className={`xs:text-[20px] md:text-[28px] text-${data.color} whitespace-nowrap xs:mt-10 md:mt-0`}
+            {bannerData.length > 0 &&
+              bannerData.map(
+                (
+                  data: { [x: string]: any },
+                  index: React.Key | null | undefined
+                ) => (
+                  <div
+                    key={index}
+                    className="flex w-full xs:h-[65vh] md:h-[auto] relative"
                   >
-                    {data.category}
-                  </p>
-                  {data.title}
-                  <div>
-                    <Button
-                      title={data.btn}
-                      customButtonClass={`bg-${data.color} hover:bg-${data.color} text-white border-none`}
-                      onClick={() => console.log('Button Clicked')}
-                    />
+                    <div className="md:hidden">
+                      <Image
+                        alt="loop-image"
+                        src={
+                          singleImageTransformer(data['hero-image']).imageUrl
+                            ? singleImageTransformer(data['hero-image'])
+                                .imageUrl
+                            : BlankImage
+                        }
+                        layout="fill"
+                        className="w-full h-auto object-cover object-left-bottom"
+                      />
+                    </div>
+                    <div className="md:block xs:hidden">
+                      <Image
+                        alt="loop-image"
+                        src={
+                          singleImageTransformer(data['hero-image']).imageUrl
+                            ? singleImageTransformer(data['hero-image'])
+                                .imageUrl
+                            : BlankImage
+                        }
+                        className="w-screen h-auto object-cover"
+                      />
+                    </div>
+                    <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
+                      <p
+                        className={`xs:text-[20px] md:text-[28px] text-purple_dark whitespace-nowrap xs:mt-10 md:mt-0`}
+                      >
+                        {contentStringTransformer(data['hero-teks1'])}
+                        {contentStringTransformer(data['hero-teks1'])}
+                      </p>
+                      <p className="xs:text-[28px] md:text-[36px]">
+                        {contentStringTransformer(data['hero-teks2'])}
+                      </p>
+                      <div>
+                        <Link
+                          href={contentStringTransformer(
+                            data['hero-linkbutton']
+                          )}
+                        >
+                          <Button
+                            title={contentStringTransformer(
+                              data['hero-lblbutton']
+                            )}
+                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none`}
+                          />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                )
+              )}
           </Slider>
           <div className="flex flex-row justify-between absolute top-[50%] w-full px-5">
-            <div className='p-2 border-2 rounded-full border-purple_dark' role='button' onClick={previous}>
-              <Icon name='chevronLeft' color='purple_dark' />
+            <div
+              className="p-2 border-2 rounded-full border-purple_dark"
+              role="button"
+              onClick={previous}
+            >
+              <Icon name="chevronLeft" color="purple_dark" />
             </div>
-            <div className='p-2 border-2 rounded-full border-purple_dark' role='button' onClick={next}>
-              <Icon name='chevronRight' color='purple_dark' />
+            <div
+              className="p-2 border-2 rounded-full border-purple_dark"
+              role="button"
+              onClick={next}
+            >
+              <Icon name="chevronRight" color="purple_dark" />
             </div>
           </div>
         </div>
@@ -186,32 +197,36 @@ const BannerAvrast = () => {
               type="button"
               onClick={toggleDropdown}
             >
-            { dropdownVisible ? <Icon name="chevronRight" color="white" /> : <Icon name="chevronDown" color="white" />}
+              {dropdownVisible ? (
+                <Icon name="chevronRight" color="white" />
+              ) : (
+                <Icon name="chevronDown" color="white" />
+              )}
             </button>
             {dropdownVisible && (
-            <div
-              className={`flex flex-col top-12 right-0 rounded-md bg-white w-full md:w-[37%] left-0 duration-300 transform h-full`}
-            >
-              <Link
-                href="/produk/individu"
-                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+              <div
+                className={`flex flex-col top-12 right-0 rounded-md bg-white w-full md:w-[37%] left-0 duration-300 transform h-full`}
               >
-                Perlindungan Jiwa dan Kesehatan
-              </Link>
-              <Link
-                href={`${EXTERNAL_URL.agiUrl}`}
-                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
-              >
-                Perlindungan Harta Benda
-              </Link>
-              <Link
-                href={`${EXTERNAL_URL.avramUrl}`}
-                className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
-              >
-                Manajemen Investasi
-              </Link>
-            </div>
-          )}
+                <Link
+                  href="/produk/individu"
+                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                >
+                  Perlindungan Jiwa dan Kesehatan
+                </Link>
+                <Link
+                  href={`${EXTERNAL_URL.agiUrl}`}
+                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                >
+                  Perlindungan Harta Benda
+                </Link>
+                <Link
+                  href={`${EXTERNAL_URL.avramUrl}`}
+                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                >
+                  Manajemen Investasi
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
