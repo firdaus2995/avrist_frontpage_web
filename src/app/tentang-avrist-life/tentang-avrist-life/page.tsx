@@ -70,13 +70,14 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
     { name: 'Manajemen', url: 'manajemen' },
     { name: 'Penghargaan', url: '' },
-    { name: 'Laporan Perusahaan', url: '' },
+    { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
     { name: 'Karir Bersama Avrist', url: '' }
   ];
 
   useEffect(() => {
+    const url = tabs.find((item: any) => item.name === tab)?.url;
+
     if (!transformedData.titleImage) {
-      const url = tabs.find((item: any) => item.title === tab)?.url;
       handleGetContentPage(url ?? 'halaman-sekilas-perusahaan').then((res) =>
         setData(res)
       );
