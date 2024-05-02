@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import YellowHome from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 
@@ -8,6 +9,11 @@ import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPi
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import { ContentData } from '@/types/content.type';
+import {
+  contentStringTransformer,
+  handleTransformedContent,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type Props = {
   products: ContentData[];
@@ -15,7 +21,40 @@ type Props = {
 
 const DPLKProductList = (props: Props) => {
   const { products } = props;
+  const [search, setSearch] = useState('');
+  const [filter, setFilter] = useState<string[]>([]);
   const pathname = usePathname();
+
+  const tags = products
+    .map((i) => {
+      const { content } = handleTransformedContent(i.contentData, i.title);
+      return contentStringTransformer(content['tags']);
+    })
+    .filter((i) => i && i !== '-');
+
+  function filterBySearch(query: string): ContentData[] {
+    const filtered = products.filter((person) =>
+      person.title.toLowerCase().includes(query.toLowerCase())
+    );
+    return filtered;
+  }
+
+  function filterByTags(): ContentData[] {
+    if (filter.length === 0) {
+      return filterBySearch(search);
+    } else {
+      const filteredData = filterBySearch(search).filter((product) => {
+        const { content } = handleTransformedContent(
+          product.contentData,
+          product.title
+        );
+        const tag = contentStringTransformer(content['tags']);
+        return filter.includes(tag);
+      });
+      return filteredData;
+    }
+  }
+
   return (
     <SimpleContainer>
       <CategoryPills
@@ -41,9 +80,10 @@ const DPLKProductList = (props: Props) => {
       <div className="flex">
         <div className="w-1/2">
           <CategoryPillsBox
-            buttonTitle={['Layanan Employer', 'Layanan Employee']}
+            buttonTitle={tags}
             buttonClassname="accent-dplk_yellow border-dplk_yellow"
             buttonTextClassname="text-black"
+            onChangeFilter={setFilter}
           />
         </div>
         <div className="w-1/2">
@@ -51,26 +91,37 @@ const DPLKProductList = (props: Props) => {
             placeholder="Cari Produk"
             searchButtonTitle="Cari"
             searchButtonClassname="bg-dplk_yellow text-white"
+            onSearch={setSearch}
           />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-[24px]">
-        {products.map((i, index) => (
-          <CardProduct
-            key={index}
-            symbol={YellowHome}
-            title={i.title}
-            summary={i.title}
-            href={`${pathname}/${i.id}`}
-            description={i.shortDesc}
-            // tags={['Avrist Syariah', 'Premi Tetap', 'Premi Berkala']}
-            tags={[]}
-            cardClassname="bg-white border-b-dplk_yellow"
-            cardTitleClassname="text-dplk_yellow"
-            cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-            cardButtonClassname="bg-dplk_yellow text-white"
-          />
-        ))}
+        {filterByTags().map((i, index) => {
+          const { content } = handleTransformedContent(i.contentData, i.title);
+          const produkImage = singleImageTransformer(content['produk-image']);
+          const namaProduk = contentStringTransformer(content['nama-produk']);
+          const tags = contentStringTransformer(content['tags']) as string;
+          const deskripsiSingkatProduk = contentStringTransformer(
+            content['deskripsi-singkat-produk']
+          );
+          return (
+            <CardProduct
+              key={index}
+              image={produkImage.imageUrl}
+              symbol={YellowHome}
+              title={'Avrist DPLK'}
+              summary={namaProduk}
+              href={`${pathname}/${i.id}`}
+              description={deskripsiSingkatProduk}
+              // tags={['Avrist Syariah', 'Premi Tetap', 'Premi Berkala']}
+              tags={tags.length ? tags.split(',') : []}
+              cardClassname="bg-white border-b-dplk_yellow"
+              cardTitleClassname="text-dplk_yellow"
+              cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+              cardButtonClassname="bg-dplk_yellow text-white"
+            />
+          );
+        })}
       </div>
       {/* <div className="flex flex-col gap-4 sm:flex-row justify-between">
         <div>

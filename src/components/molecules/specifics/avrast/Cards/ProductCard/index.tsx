@@ -16,6 +16,7 @@ interface CardProductProps {
   cardTagsClassname?: string;
   cardButtonClassname?: string;
   href?: string;
+  image?: string;
 }
 
 const CardProduct = ({
@@ -28,6 +29,7 @@ const CardProduct = ({
   cardTitleClassname,
   cardTagsClassname,
   cardButtonClassname,
+  image,
   href
 }: CardProductProps) => {
   return (
@@ -38,7 +40,7 @@ const CardProduct = ({
         alt="blank-image"
         width={0}
         height={170}
-        src={BlankImage}
+        src={image ?? BlankImage}
         className="w-auto"
       />
       <div className="flex flex-row items-center gap-[4px]">
@@ -46,7 +48,7 @@ const CardProduct = ({
         <p className={`${cardTitleClassname} font-bold text-sm`}>{title}</p>
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
-      <p>{description}</p>
+      <p dangerouslySetInnerHTML={{ __html: description ?? '' }}></p>
       <div className="flex flex-row flex-wrap gap-[12px]">
         {tags.map((item: string, index: number) => (
           <div

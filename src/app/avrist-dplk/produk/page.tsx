@@ -29,7 +29,9 @@ const ProdukDplk = async () => {
   const bannerImage = singleImageTransformer(content['banner-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
-  const contentBase = await handleGetContent('Produk-Avrast-DPLK', {});
+  const contentBase = await handleGetContent('Produk-Avrast-DPLK', {
+    includeAttributes: 'true'
+  });
   const products = contentBase.data.contentDataList;
 
   return (
