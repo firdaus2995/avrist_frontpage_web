@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Icon1 from '@/assets/images/common/heart-check.svg';
 import Icon2 from '@/assets/images/common/home-add.svg';
 import MisiIcon from '@/assets/images/common/misi.svg';
@@ -20,8 +19,7 @@ import {
 } from '@/services/content-page.api';
 import {
   handleTransformedContent,
-  pageTransformer,
-  singleImageTransformer
+  pageTransformer
 } from '@/utils/responseTransformer';
 
 // button variants: primary, secondary

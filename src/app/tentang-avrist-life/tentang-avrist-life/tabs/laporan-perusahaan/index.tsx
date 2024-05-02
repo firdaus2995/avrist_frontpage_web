@@ -9,11 +9,19 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
-import { handleGetContent } from '@/services/content-page.api';
+import {
+  handleGetContent,
+  handleGetContentPage
+} from '@/services/content-page.api';
 import { handleDownload } from '@/utils/helpers';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const LaporanPerusahaan = () => {
   const [contentData, setContentData] = useState<any>();
+  const [contentPage, setContentPage] = useState<any>();
   const [pagination, setPagination] = useState({
     currentPage: 1,
     maxPage: 5
@@ -26,6 +34,10 @@ const LaporanPerusahaan = () => {
   });
 
   useEffect(() => {
+    handleGetContentPage('halaman-laporan-perusahaan').then((res: any) => {
+      setContentPage(pageTransformer(res));
+    });
+
     handleGetContent('lap-perusahaan', {
       includeAttributes: 'true',
       category: params.category,
@@ -223,7 +235,12 @@ const LaporanPerusahaan = () => {
               </p>
             </div>
           }
-          image={BlankImage}
+          image={
+            contentPage
+              ? singleImageTransformer(contentPage?.content['cta1-image'])
+                  .imageUrl
+              : BlankImage
+          }
         />
         <RoundedFrameTop />
       </div>

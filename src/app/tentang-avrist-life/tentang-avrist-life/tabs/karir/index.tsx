@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon2 from '@/assets/images/avrast/about/menagemen.svg';
@@ -14,51 +14,145 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import PurposeCard from '@/components/molecules/specifics/avrast/Cards/PurposeCard';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const purposeData = [
   {
-    title: 'We do what’s best for Avrist Life Insurance',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Benefit Menarik',
+    desc: 'Dapatkan beragam benefit menarik untuk perlindungan kamu dan keluarga dan juga untuk persiapan dana pensiun di masa depan.',
     link: 'Tentang Avrist',
-    icon: Icon1
+    icon: Icon1,
+    href: '/tentang-avrist-life?tab=Sekilas+Perusahaan'
   },
   {
-    title: 'We treat people with respect',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Work Life Balance',
+    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulan kerja.',
     link: 'Manajemen',
-    icon: Icon2
+    icon: Icon2,
+    href: '/tentang-avrist-life/tentang-avrist-life?tab=Manajemen'
   },
   {
-    title: 'We aim high, responsibly',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Pengembangan Diri',
+    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulan kerja.',
     link: 'Penghargaan',
-    icon: Icon3
+    icon: Icon3,
+    href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
   }
 ];
 
 const Karir = () => {
   const [category, setCategory] = useState('Karyawan');
+  const [contentPage, setContentPage] = useState<any>();
+  const [contentData, setContentData] = useState<any>();
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    itemsPerPage: 3
+  });
+
+  const fetchContentCategory = async () => {
+    try {
+      const fetchContentCategory = await fetch(
+        `/api/karir/content-category?includeAttributes=true&category=${category}&channelFilter=`
+      );
+      const data = await fetchContentCategory.json();
+      const transformData = data.data.categoryList[category];
+
+      const transformedData = transformData?.map((item: any) => {
+        const content = item.contentData;
+        const namaLoker = content[0].value;
+        const iconLokasiLoker = singleImageTransformer(content[1]).imageUrl;
+        const lokasiLoker = content[2].value;
+        const iconStatusLoker = singleImageTransformer(content[3]).imageUrl;
+        const statusLoker = content[4].value;
+        const iconWaktuLoker = singleImageTransformer(content[5]).imageUrl;
+        const waktuLoker = content[6].value;
+        const deskripsiPekerjaan = content[7].value;
+        const deskripsiResponsibilities = content[8].value;
+        const deskripsiKualifikasi = content[9].value;
+        const id = item.id;
+
+        return {
+          namaLoker,
+          iconLokasiLoker,
+          lokasiLoker,
+          iconStatusLoker,
+          statusLoker,
+          iconWaktuLoker,
+          waktuLoker,
+          deskripsiPekerjaan,
+          deskripsiResponsibilities,
+          deskripsiKualifikasi,
+          id
+        };
+      });
+      setContentData(transformedData);
+
+      return transformedData;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    handleGetContentPage('halaman-karir').then((res: any) => {
+      setContentPage(pageTransformer(res));
+    });
+
+    void fetchContentCategory();
+  }, []);
+
+  useEffect(() => {
+    fetchContentCategory();
+  }, [category]);
+
+  const renderPages = () => {
+    if (contentData) {
+      for (
+        let i = 0;
+        i < Math.ceil(contentData.length / pagination.itemsPerPage);
+        i++
+      ) {
+        return (
+          <p
+            className={`text-[20px] ${i + 1 === pagination.currentPage ? 'text-purple_dark font-bold' : ''} cursor-pointer`}
+            onClick={() => setPagination({ ...pagination, currentPage: i + 1 })}
+          >
+            {i + 1}
+          </p>
+        );
+      }
+    }
+  };
+
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
           <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
-            Berkembang bersama Avrast Assurance
+            Tingkatkan karier bersama Avrist Assurance
           </h2>
           <h2 className="text-[36px] mb-6">
-            Kami memberi kesempatan yang tak terbatas untuk berkembang.
+            Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
+            nomor 1 di Indonesia.
           </h2>
         </div>
-        <div className="flex justify-center w-full">
-          <Image src={SampleVideo} alt="video" />
+        <div className="flex justify-center h-[600px] mb-16 mx-24">
+          <VideoPlayer
+            color="purple_dark"
+            type={contentPage?.content['mengapabergabung-captionvideo'].value}
+            url={contentPage?.content['mengapabergabung-video'].value}
+            thumbnail={SampleVideo}
+          />
         </div>
         <div className="w-full p-20 bg-purple_superlight flex flex-col gap-10 items-center justify-center">
           <div className="flex flex-col">
             <h2 className="text-[56px] text-center font-semibold text-purple_dark">
-              Why Should You
-            </h2>
-            <h2 className="text-[56px] text-center font-semibold text-purple_dark">
-              #FindYourPurpose with Us?
+              Mengapa berkarier bersama Avrist Assurance
             </h2>
           </div>
           <div className="grid grid-cols-3 gap-5">
@@ -69,6 +163,7 @@ const Karir = () => {
                 desc={val.desc}
                 link={val.link}
                 icon={val.icon}
+                href={val.href}
               />
             ))}
           </div>
@@ -81,6 +176,7 @@ const Karir = () => {
           defaultSelectedCategory={category}
           onCategoryChange={(tab) => setCategory(tab)}
           filterRowLayout={true}
+          hidePagination
           categories={['Karyawan', 'Tenaga Pemasar']}
           tabs={[
             {
@@ -94,58 +190,88 @@ const Karir = () => {
             }
           ]}
           customContent={
-            <div className="grid grid-cols-3 gap-[24px]">
-              {[...Array(3)].map((_, index) => (
-                <div
-                  key={index}
-                  className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
-                >
-                  <p className="font-bold text-[24px]">
-                    Cross Channel Customer Care
+            <>
+              <div className="grid grid-cols-3 gap-[24px]">
+                {contentData &&
+                  contentData?.map((item: any, index: number) => (
+                    <div
+                      key={index}
+                      className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
+                    >
+                      <p className="font-bold text-[24px]">{item.namaLoker}</p>
+                      <div className="flex w-full flex-row items-center gap-2">
+                        <Image
+                          src={item.iconLokasiLoker}
+                          alt="lokasi"
+                          width={24}
+                          height={24}
+                        />
+                        <p>{item.lokasiLoker}</p>
+                      </div>
+                      <div className="flex w-full flex-row items-center gap-2">
+                        <Image
+                          src={item.iconStatusLoker}
+                          alt="status"
+                          width={24}
+                          height={24}
+                        />
+                        <p>{item.statusLoker}</p>
+                      </div>
+                      <div className="flex w-full flex-row items-center gap-2">
+                        <Image
+                          src={item.iconWaktuLoker}
+                          alt="waktu"
+                          width={24}
+                          height={24}
+                        />
+                        <p>{item.waktuLoker}</p>
+                      </div>
+                      <Link
+                        key={index}
+                        className="w-full"
+                        href={`/tentang-avrist-life/tentang-avrist-life/tabs/karir/${item.id}`}
+                      >
+                        <Button
+                          title="Lihat Detail"
+                          customButtonClass="rounded-xl bg-purple_dark w-full mt-5"
+                          customTextClass="text-white"
+                        />
+                      </Link>
+                    </div>
+                  ))}
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                <div>
+                  <p className="text-[20px]">
+                    Menampilkan{' '}
+                    <span className="font-bold text-purple_dark">
+                      {pagination.currentPage}-
+                      {contentData && contentData.length}
+                    </span>{' '}
+                    dari{' '}
+                    <span className="font-bold">
+                      {contentData && contentData.length}
+                    </span>{' '}
+                    hasil
                   </p>
-                  <div className="flex w-full flex-row items-center gap-2">
-                    <Icon
-                      name="mapsPin"
-                      color="purple_verylight"
-                      width={24}
-                      isSquare
-                    />
-                    <p>Jakarta, Indonesia</p>
-                  </div>
-                  <div className="flex w-full flex-row items-center gap-2">
-                    <Icon
-                      name="briefcase"
-                      color="purple_verylight"
-                      width={24}
-                      isSquare
-                    />
-                    <p>Full time</p>
-                  </div>
-                  <div className="flex w-full flex-row items-center gap-2">
-                    <Icon
-                      name="clock"
-                      color="purple_verylight"
-                      width={24}
-                      isSquare
-                    />
-                    <p>6 hari lalu</p>
-                  </div>
-                  <Link
-                    key={index}
-                    className='w-full'
-                    href={
-                      '/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail'
+                </div>
+                <div className="flex flex-row gap-[8px] items-center">
+                  {renderPages()}
+                  <span
+                    className="cursor-pointer"
+                    onClick={() =>
+                      setPagination({
+                        ...pagination,
+                        currentPage: pagination.currentPage + 1
+                      })
                     }
                   >
-                    <Button
-                      title="Lihat Detail"
-                      customButtonClass="rounded-xl bg-purple_dark w-full mt-5"
-                      customTextClass="text-white"
-                    />
-                  </Link>
+                    <Icon name="chevronRight" color="purple_dark" />
+                  </span>
                 </div>
-              ))}
-            </div>
+              </div>
+            </>
           }
         />
       </div>
@@ -169,7 +295,12 @@ const Karir = () => {
               </p>
             </div>
           }
-          image={BlankImage}
+          image={
+            contentPage
+              ? singleImageTransformer(contentPage?.content['cta1-image'])
+                  .imageUrl
+              : BlankImage
+          }
         />
         <RoundedFrameTop />
       </div>

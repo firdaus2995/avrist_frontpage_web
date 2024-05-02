@@ -71,7 +71,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     { name: 'Manajemen', url: 'manajemen' },
     { name: 'Penghargaan', url: '' },
     { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
-    { name: 'Karir Bersama Avrist', url: '' }
+    { name: 'Karir Bersama Avrist', url: 'halaman-karir' }
   ];
 
   useEffect(() => {

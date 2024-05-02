@@ -9,12 +9,8 @@ import {
   handleGetContentPage,
   handleGetContent
 } from '@/services/content-page.api';
-import { ContentResponse } from '@/types/content.type';
 import { PageResponse } from '@/types/page.type';
 import {
-  contentTransformer,
-  contentStringTransformer,
-  pageTransformer,
   singleImageTransformer,
   handleTransformedContent
 } from '@/utils/responseTransformer';
@@ -33,7 +29,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
 
   // Page
 
-  const [data, setData] = useState<PageResponse>();
+  const [, setData] = useState<PageResponse>();
 
   // Content
 
