@@ -5,14 +5,14 @@ import { Link as LinkScroll } from 'react-scroll';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatUtama from '../tabs/ManfaatUtama';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
+import { ContentData } from '@/types/content.type';
 
 type Props = {
   dewanpengawasdplkJudul: string;
   dewanpengawasdplkSubjudul: string;
   dewanpengawasdplkDeskripsi: string;
-  dewanpengawasdplkImage: string;
-  dewanpengawasdplkNama: string;
-  dewanpengawasdplkTitledewan: string;
+  pengawas: ContentData[];
+  pengurus: ContentData[];
 };
 const tabs = [
   'Tentang Avrist DPLK',
@@ -25,11 +25,10 @@ const tabs = [
 const DPLKContent = (props: Props) => {
   const {
     dewanpengawasdplkDeskripsi,
-    dewanpengawasdplkImage,
     dewanpengawasdplkJudul,
-    dewanpengawasdplkNama,
     dewanpengawasdplkSubjudul,
-    dewanpengawasdplkTitledewan
+    pengawas,
+    pengurus
   } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -85,31 +84,28 @@ const DPLKContent = (props: Props) => {
       {tab === 'Tentang Avrist DPLK' && (
         <TentangAvristDPLK
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkImage={dewanpengawasdplkImage}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkNama={dewanpengawasdplkNama}
           dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+          pengawas={pengawas}
+          pengurus={pengurus}
         />
       )}
       {tab === 'Dewan Pengawas DPLK' && (
         <DewanPengawasDPLK
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkImage={dewanpengawasdplkImage}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkNama={dewanpengawasdplkNama}
           dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+          pengawas={pengawas}
+          pengurus={pengurus}
         />
       )}
       {tab === 'Manfaat Utama' && (
         <ManfaatUtama
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkImage={dewanpengawasdplkImage}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkNama={dewanpengawasdplkNama}
           dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+          pengawas={pengawas}
+          pengurus={pengurus}
         />
       )}
     </div>

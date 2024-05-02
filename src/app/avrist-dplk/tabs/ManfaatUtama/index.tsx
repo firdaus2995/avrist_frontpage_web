@@ -3,19 +3,23 @@ import React from 'react';
 import YellowBinocular from '@/assets/images/avrast/dplk/yellow-binocular.svg';
 import YellowHead from '@/assets/images/avrast/dplk/yellow-head.svg';
 import YellowPeople from '@/assets/images/avrast/dplk/yellow-people.svg';
-import People1 from '@/assets/images/avrast/people-1.svg';
 
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
 import PersonCard from '@/components/molecules/specifics/avrast/Cards/PersonCard';
+import { ContentData } from '@/types/content.type';
+import {
+  contentStringTransformer,
+  handleTransformedContent,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type Props = {
   dewanpengawasdplkJudul: string;
   dewanpengawasdplkSubjudul: string;
   dewanpengawasdplkDeskripsi: string;
-  dewanpengawasdplkImage: string;
-  dewanpengawasdplkNama: string;
-  dewanpengawasdplkTitledewan: string;
+  pengawas: ContentData[];
+  pengurus: ContentData[];
 };
 
 const ManfaatUtama = (props: Props) => {
@@ -23,10 +27,21 @@ const ManfaatUtama = (props: Props) => {
     dewanpengawasdplkJudul,
     dewanpengawasdplkSubjudul,
     dewanpengawasdplkDeskripsi,
-    dewanpengawasdplkImage,
-    dewanpengawasdplkNama,
-    dewanpengawasdplkTitledewan
+    pengawas,
+    pengurus
   } = props;
+
+  const personsCardGenerator = (persons: ContentData[]) => {
+    const maping = persons.map((i) => {
+      const { content } = handleTransformedContent(i.contentData, i.title);
+      return {
+        name: contentStringTransformer(content['dewandplk-nama']),
+        role: contentStringTransformer(content['dewandplk-title']),
+        image: singleImageTransformer(content['dewandplk-image']).imageUrl
+      };
+    });
+    return maping;
+  };
 
   return (
     <div>
@@ -43,25 +58,13 @@ const ManfaatUtama = (props: Props) => {
       />
       <PersonCard
         heading="DEWAN PENGAWAS DPLK PT AVRIST ASSURANCE"
-        cards={[
-          {
-            name: dewanpengawasdplkNama,
-            role: dewanpengawasdplkTitledewan,
-            image: dewanpengawasdplkImage
-          }
-        ]}
+        cards={personsCardGenerator(pengawas)}
         roleClassname="text-dplk_yellow"
         idTags="#DewanPengawasDPLK"
       />
       <PersonCard
         heading="PENGURUS DPLK PT AVRIST ASSURANCE"
-        cards={[
-          {
-            name: 'Lorem Ipsum',
-            role: 'Lorem Ipsum',
-            image: People1
-          }
-        ]}
+        cards={personsCardGenerator(pengurus)}
         roleClassname="text-dplk_yellow"
       />
       <InformationCard

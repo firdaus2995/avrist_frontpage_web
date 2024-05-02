@@ -14,7 +14,10 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  handleGetContent,
+  handleGetContentPage
+} from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer,
@@ -23,9 +26,6 @@ import {
 
 const AvristSyariah = async () => {
   const pageBase = await handleGetContentPage('halaman-tentang-avrist-dplk');
-  // const pageContent = await handleGetContent('Dewan-DPLK', {
-  //   includeAttributes: 'true'
-  // });
 
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
@@ -39,17 +39,18 @@ const AvristSyariah = async () => {
   const dewanpengawasdplkDeskripsi = contentStringTransformer(
     content['dewanpengawasdplk-deskripsi']
   );
-  const dewanpengawasdplkImagedewan = singleImageTransformer(
-    content['dewanpengawasdplk-imagedewan']
-  );
-  const dewanpengawasdplkNamadewan = contentStringTransformer(
-    content['dewanpengawasdplk-namadewan']
-  );
-  const dewanpengawasdplkTitledewan = contentStringTransformer(
-    content['dewanpengawasdplk-titledewan']
-  );
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
+  const pageContent = await handleGetContent('Dewan-DPLK-New', {
+    includeAttributes: 'true'
+  });
+
+  const pengawas = pageContent.data.contentDataList.filter((i) =>
+    i.title.toLocaleLowerCase().includes('pengawas')
+  );
+  const pengurus = pageContent.data.contentDataList.filter((i) =>
+    i.title.toLocaleLowerCase().includes('pengurus')
+  );
   return (
     <Suspense fallback={null}>
       <Hero
@@ -65,9 +66,8 @@ const AvristSyariah = async () => {
         dewanpengawasdplkJudul={dewanpengawasdplkJudul}
         dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
         dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-        dewanpengawasdplkImage={dewanpengawasdplkImagedewan.imageUrl}
-        dewanpengawasdplkNama={dewanpengawasdplkNamadewan}
-        dewanpengawasdplkTitledewan={dewanpengawasdplkTitledewan}
+        pengawas={pengawas}
+        pengurus={pengurus}
       />
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
