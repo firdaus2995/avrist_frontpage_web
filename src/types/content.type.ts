@@ -58,3 +58,28 @@ export interface ContentResponse {
     pagination: Pagination;
   }
   
+  export interface DetailPage {
+    id: number;
+    name: string;
+    fieldType: string;
+    fieldId: string;
+    config: string;
+    parentId: number;
+    value: string;
+    contentData: any; // Anda mungkin ingin mendefinisikan tipe ini dengan lebih spesifik
+  }
+  
+  interface ContentDataPage {
+    details: DetailPage[];
+  }
+  
+  export interface DetailDataPage {
+    id: number;
+    name: string;
+    fieldType: string;
+    fieldId: string;
+    config: string | null;
+    parentId: number | null;
+    value: string;
+    contentData: ContentDataPage[];
+  }

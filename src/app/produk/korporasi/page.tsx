@@ -73,13 +73,13 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     {
       type: 'button',
       label: 'Individu',
-      href: '/produk/individu',
+      href: '/produk/individu?tab=Asuransi+Jiwa',
       variant: 'outlined'
     },
     {
       type: 'button',
       label: 'Korporasi',
-      href: '/produk/korporasi'
+      href: '/produk/korporasi?tab=Employee+Benefit'
     }
   ];
 

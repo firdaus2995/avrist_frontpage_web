@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -18,53 +19,86 @@ import ICON1PRODUCT3 from '@/assets/images/avrast/component/product-section/icon
 import ICON2PRODUCT1 from '@/assets/images/avrast/component/product-section/icon-2-product-1.svg';
 import ICON2PRODUCT2 from '@/assets/images/avrast/component/product-section/icon-2-product-2.svg';
 import ICON2PRODUCT3 from '@/assets/images/avrast/component/product-section/icon-2-product-3.svg';
-import PRODUCTIMG1 from '@/assets/images/avrast/component/product-section/product-1-img.svg';
-import PRODUCTIMG2 from '@/assets/images/avrast/component/product-section/product-2-img.svg';
-import PRODUCTIMG3 from '@/assets/images/avrast/component/product-section/product-3-img.svg';
+import BlankImage from '@/assets/images/blank-image.svg';
+import { getHomeData } from '@/services/home-banner-modal-api';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
-const data = [
-  {
-    category: 'Avrist Life Insurance',
-    icon1: ICON1PRODUCT1,
-    icon2: ICON2PRODUCT1,
-    title1: 'Integritas.',
-    title2: '1000+ Rekanan di Indonesia',
-    link1: 'Penghargaan',
-    link2: 'Rumah Sakit Rekanan',
-    href1: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
-    href2: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
-    linkIcon: CHEVRONRIGHTPURPLE,
-    img: PRODUCTIMG1
-  },
-  {
-    category: 'Avrist Asset Management',
-    icon1: ICON1PRODUCT2,
-    icon2: ICON2PRODUCT2,
-    title1: 'Inovasi Solusi.',
-    title2: 'Investasi dengan Tim Profesional',
-    link1: 'Penghargaan',
-    link2: 'Tentang Kami',
-    href1: '/under-construction',
-    href2: '/under-construction',
-    linkIcon: CHEVRONRIGHTGREEN,
-    img: PRODUCTIMG2
-  },
-  {
-    category: 'Avrist General Insurance',
-    icon1: ICON1PRODUCT3,
-    icon2: ICON2PRODUCT3,
-    title1: 'Dinamis progresif.',
-    title2: 'Efektif, terpercaya dan transparan ',
-    link1: 'Penghargaan',
-    link2: 'Tentang Kami',
-    href1: '/under-construction',
-    href2: '/under-construction',
-    linkIcon: CHEVRONRIGHTGRAY,
-    img: PRODUCTIMG3
+const handleGetContent = async (slug: string) => {
+  try {
+    const data = await getHomeData(slug);
+    return data;
+  } catch (error) {
+    return notFound();
   }
-];
+};
 
 const CompanySection = () => {
+  const [img1, setImg1] = useState({ imageUrl: '', altText: '' });
+  const [img2, setImg2] = useState({ imageUrl: '', altText: '' });
+  const [img3, setImg3] = useState({ imageUrl: '', altText: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('homepage-avras');
+        const { content } = pageTransformer(data);
+
+        setImg1(singleImageTransformer(content['memilih-image1']));
+        setImg2(singleImageTransformer(content['memilih-image2']));
+        setImg3(singleImageTransformer(content['memilih-image3']));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const data = [
+    {
+      category: 'Avrist Life Insurance',
+      icon1: ICON1PRODUCT1,
+      icon2: ICON2PRODUCT1,
+      title1: 'Integritas.',
+      title2: '1000+ Rekanan di Indonesia',
+      link1: 'Penghargaan',
+      link2: 'Rumah Sakit Rekanan',
+      href1: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
+      href2: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+      linkIcon: CHEVRONRIGHTPURPLE,
+      img: img1.imageUrl
+    },
+    {
+      category: 'Avrist Asset Management',
+      icon1: ICON1PRODUCT2,
+      icon2: ICON2PRODUCT2,
+      title1: 'Inovasi Solusi.',
+      title2: 'Investasi dengan Tim Profesional',
+      link1: 'Penghargaan',
+      link2: 'Tentang Kami',
+      href1: '/under-construction',
+      href2: '/under-construction',
+      linkIcon: CHEVRONRIGHTGREEN,
+      img: img2.imageUrl
+    },
+    {
+      category: 'Avrist General Insurance',
+      icon1: ICON1PRODUCT3,
+      icon2: ICON2PRODUCT3,
+      title1: 'Dinamis progresif.',
+      title2: 'Efektif, terpercaya dan transparan ',
+      link1: 'Penghargaan',
+      link2: 'Tentang Kami',
+      href1: '/under-construction',
+      href2: '/under-construction',
+      linkIcon: CHEVRONRIGHTGRAY,
+      img: img3.imageUrl
+    }
+  ];
+
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -84,9 +118,9 @@ const CompanySection = () => {
     link1: string;
     link2: string;
     href1: string;
-    href2: string
+    href2: string;
     linkIcon: StaticImport;
-    img: StaticImport;
+    img: string;
   }) => {
     let color: string;
     let textColor: string;
@@ -122,7 +156,10 @@ const CompanySection = () => {
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title1}
               </p>
-              <Link href={val.href1} className="flex flex-row items-center gap-1">
+              <Link
+                href={val.href1}
+                className="flex flex-row items-center gap-1"
+              >
                 <p
                   className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
                 >
@@ -140,7 +177,11 @@ const CompanySection = () => {
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title2}
               </p>
-              <Link href={val.href2} role="button" className="flex flex-row items-center gap-1">
+              <Link
+                href={val.href2}
+                role="button"
+                className="flex flex-row items-center gap-1"
+              >
                 <p
                   className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
                 >
@@ -155,7 +196,7 @@ const CompanySection = () => {
           className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
         >
           <Image
-            src={val.img}
+            src={val.img ? val.img : BlankImage}
             alt={val.category}
             className="w-full md:rounded-r-xl xs:rounded-b-xl"
           />

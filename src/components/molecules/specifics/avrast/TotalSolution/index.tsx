@@ -87,7 +87,7 @@ const data = [
     title: 'Jasa Investasi',
     content:
       'Mulai investasi dari Rp 10.000, dengan didampingi manajer investasi professional yang sudah berpengalaman',
-    btnText: 'Kami Berpengalaman',
+    btnText: 'Selengkapnya',
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
