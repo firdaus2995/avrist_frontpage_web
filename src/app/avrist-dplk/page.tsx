@@ -41,15 +41,15 @@ const AvristSyariah = async () => {
   );
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
-  const pageContent = await handleGetContent('Dewan-DPLK-New', {
+  const pageContent = await handleGetContent('Dewan-DPLK-Avras', {
     includeAttributes: 'true'
   });
 
   const pengawas = pageContent.data.contentDataList.filter((i) =>
-    i.title.toLocaleLowerCase().includes('pengawas')
+    i.categoryName.toLocaleLowerCase().includes('pengawas')
   );
   const pengurus = pageContent.data.contentDataList.filter((i) =>
-    i.title.toLocaleLowerCase().includes('pengurus')
+    i.categoryName.toLocaleLowerCase().includes('pengurus')
   );
   return (
     <Suspense fallback={null}>

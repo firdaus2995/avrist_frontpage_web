@@ -35,9 +35,10 @@ const TentangAvristDPLK = (props: Props) => {
     const maping = persons.map((i) => {
       const { content } = handleTransformedContent(i.contentData, i.title);
       return {
-        name: contentStringTransformer(content['dewandplk-nama']),
-        role: contentStringTransformer(content['dewandplk-title']),
-        image: singleImageTransformer(content['dewandplk-image']).imageUrl
+        name: contentStringTransformer(content['dewanpengawasdplk-nama']),
+        role: contentStringTransformer(content['dewanpengawasdplk-title']),
+        image: singleImageTransformer(content['dewanpengawasdplk-image'])
+          .imageUrl
       };
     });
     return maping;
