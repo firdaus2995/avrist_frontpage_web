@@ -6,15 +6,19 @@ import Button from '@/components/atoms/Button/Button';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import PersonCard from '@/components/molecules/specifics/avrast/Cards/PersonCard';
 import {
-  contentStringTransformer,
-  pageTransformer,
-  singleImageTransformer
+  handleGetContentPage,
+  handleGetContent
+} from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
+import {
+  singleImageTransformer,
+  handleTransformedContent
 } from '@/utils/responseTransformer';
 interface ManagementComponentProps {
   onSelectDetail: (isSelected: boolean) => void;
 }
 
-const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
+const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailData, setDetailData] = useState({
     image: BlankImage,
@@ -23,136 +27,51 @@ const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
     desc: <p></p>
   });
 
-  const [, setData] = useState(null);
-  const [transformedData, setTransformedData] = useState({
-    profile1: {
-      name: '',
-      role: '',
-      image: ''
-    },
-    profile2: {
-      name: '',
-      role: '',
-      image: ''
-    },
-    profile3: {
-      name: '',
-      role: '',
-      image: ''
-    },
-    profile4: {
-      name: '',
-      role: '',
-      image: ''
-    },
-    profile5: {
-      name: '',
-      role: '',
-      image: ''
-    },
-    profile6: {
-      name: '',
-      role: '',
-      image: ''
-    }
-  });
+  // Page
+
+  const [, setData] = useState<PageResponse>();
+
+  // Content
+
+  const [contentData, setContentData] = useState<any>();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://api-front-sit.avristcms.barito.tech/api/page/manajemen`,
-          {
-            method: 'GET'
-          }
-        );
-        const data = await response.json();
-        setData(data);
+    handleGetContentPage('manajemen').then((res) => setData(res));
 
-        const { content } = pageTransformer(data);
+    handleGetContent('Profil-Manajemen', {
+      includeAttributes: 'true'
+    }).then((res) => {
+      const newDataContent = res.data.contentDataList.map((item: any) => {
+        return {
+          ...handleTransformedContent(item.contentData, item.title),
+          categoryName: item.categoryName,
+          id: item.id
+        };
+      });
 
-        const profile1Image = singleImageTransformer(content['profil1-image']);
-        const profile1Name = contentStringTransformer(content['profil1-nama']);
-        const profile1Role = contentStringTransformer(
-          content['profil1-jabatan']
-        );
+      const keyValuePairs = Object.entries(newDataContent[0].content);
 
-        const profile2Image = singleImageTransformer(content['profil2-image']);
-        const profile2Name = contentStringTransformer(content['profil2-nama']);
-        const profile2Role = contentStringTransformer(
-          content['profil2-jabatan']
-        );
+      const arrayOfObjects: any = keyValuePairs.map(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          return {
+            section: key,
+            ...value
+          };
+        } else {
+          console.error(`Cannot spread non-object value for key: ${key}`);
+        }
+      });
 
-        const profile3Image = singleImageTransformer(content['profil3-image']);
-        const profile3Name = contentStringTransformer(content['profil3-nama']);
-        const profile3Role = contentStringTransformer(
-          content['profil3-jabatan']
-        );
-
-        const profile4Image = singleImageTransformer(content['profil4-image']);
-        const profile4Name = contentStringTransformer(content['profil4-nama']);
-        const profile4Role = contentStringTransformer(
-          content['profil4-jabatan']
-        );
-
-        const profile5Image = singleImageTransformer(content['profil5-image']);
-        const profile5Name = contentStringTransformer(content['profil5-nama']);
-        const profile5Role = contentStringTransformer(
-          content['profil5-jabatan']
-        );
-
-        const profile6Image = singleImageTransformer(content['profil6-image']);
-        const profile6Name = contentStringTransformer(content['profil6-nama']);
-        const profile6Role = contentStringTransformer(
-          content['profil6-jabatan']
-        );
-        setTransformedData({
-          ...transformedData,
-          profile1: {
-            name: profile1Name,
-            role: profile1Role,
-            image: profile1Image.imageUrl
-          },
-          profile2: {
-            name: profile2Name,
-            role: profile2Role,
-            image: profile2Image.imageUrl
-          },
-          profile3: {
-            name: profile3Name,
-            role: profile3Role,
-            image: profile3Image.imageUrl
-          },
-          profile4: {
-            name: profile4Name,
-            role: profile4Role,
-            image: profile4Image.imageUrl
-          },
-          profile5: {
-            name: profile5Name,
-            role: profile5Role,
-            image: profile5Image.imageUrl
-          },
-          profile6: {
-            name: profile6Name,
-            role: profile6Role,
-            image: profile6Image.imageUrl
-          }
-        });
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchData();
+      setContentData(arrayOfObjects);
+    });
   }, []);
 
   const handleCardClick = (cardData: {
     image: string;
     name: string;
     role: string;
+    desc: string;
   }) => {
-    sessionStorage.setItem('pathState', 'hlm-mnj-detail');
     setShowDetail(true);
     onSelectDetail(true);
     const data = {
@@ -161,28 +80,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
       role: cardData.role,
       desc: (
         <div className="flex flex-col gap-7">
-          <p>
-            Memperoleh gelar Sarjana Ekonomi dari Universitas Indonesia, Saat
-            ini ia menjabat sebagai Direktur Utama di PT Avrist Life Insurance.
-            Cholis memiliki pengalaman lebih dari 20 tahun di Lembaga Jasa
-            Keuangan Indonesia. Sebelum bergabung dengan PT Avrist Life
-            Insurance, Cholis Baidowi menjabat sebagai Chief Investment Officer
-            di PT RHB Asset Management. Cholis juga pernah berkerja di PT
-            Syailendra Capital sebagai Direktur/Chief Investment Officer,
-            bekerja di PT CIMB Principal Asset Management dengan posisi terakhir
-            sebagai Direktur/Chief Investment Officer dan di PT Trimegah Asset
-            Management sebagai Chief Investment Officer. Cholis Baidowi
-            memperoleh izin perorangan sebagai Wakil Manajer Investasi dari
-            Otoritas Jasa Keuangan berdasarkan surat keputusan Dewan Komisioner
-            Otoritas Jasa Keuangan No.Kep-280/PM.211/PJ-WMI/2022 tanggal 21
-            Oktober 2022.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur. Eleifend eget morbi eget
-            eget purus commodo at. In vestibulum tristique dictum ultrices
-            tempus egestas mi ipsum elit. Sed id vitae enim vel viverra cursus
-            fermentum sit.{' '}
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: cardData.desc }} />
         </div>
       )
     };
@@ -199,6 +97,8 @@ const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
                 <Image
                   alt="blank-image"
                   src={detailData.image}
+                  width={213}
+                  height={213}
                   className="rounded-xl w-[213px] h-[213px]"
                 />
               </div>
@@ -214,60 +114,55 @@ const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
         </div>
       ) : (
         <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
-          <PersonCard
-            heading="Presiden Direktur"
-            cards={[
-              {
-                name: transformedData.profile1.name,
-                role: transformedData.profile1.role,
-                image: transformedData.profile1.image,
-                onClick: handleCardClick
-              }
-            ]}
-            roleClassname="text-purple_dark"
-          />
-          <PersonCard
-            heading="Dewan Direksi"
-            cards={[
-              {
-                name: transformedData.profile2.name,
-                role: transformedData.profile2.role,
-                image: transformedData.profile2.image,
-                onClick: handleCardClick
-              },
-              {
-                name: transformedData.profile3.name,
-                role: transformedData.profile3.role,
-                image: transformedData.profile3.image,
-                onClick: handleCardClick
-              }
-            ]}
-            roleClassname="text-purple_dark"
-          />
-          <PersonCard
-            heading="Dewan Komisaris"
-            cards={[
-              {
-                name: transformedData.profile4.name,
-                role: transformedData.profile4.role,
-                image: transformedData.profile4.image,
-                onClick: handleCardClick
-              },
-              {
-                name: transformedData.profile5.name,
-                role: transformedData.profile5.role,
-                image: transformedData.profile5.image,
-                onClick: handleCardClick
-              },
-              {
-                name: transformedData.profile6.name,
-                role: transformedData.profile6.role,
-                image: transformedData.profile6.image,
-                onClick: handleCardClick
-              }
-            ]}
-            roleClassname="text-purple_dark"
-          />
+          {contentData &&
+            contentData.map((item: any, index: number) => {
+              const transformData = (data: any) => {
+                return data.map((i: any) => {
+                  // Extract details
+                  const details = i.details;
+
+                  // Find relevant data
+                  const nameDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[1].fieldId
+                  );
+                  const roleDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[2].fieldId
+                  );
+                  const imageDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[0].fieldId
+                  );
+                  const bioDetail = details.find(
+                    (d: any) =>
+                      d.fieldId === item.contentData[0].details[3].fieldId
+                  );
+
+                  return {
+                    name: nameDetail?.value || '', // Default to empty string if not found
+                    role: roleDetail?.value || '',
+                    image: imageDetail
+                      ? singleImageTransformer(imageDetail).imageUrl
+                      : '',
+                    desc: bioDetail?.value || '',
+                    onClick: handleCardClick // Assuming this is a string to represent a function
+                  };
+                });
+              };
+
+              return (
+                <>
+                  <PersonCard
+                    key={index}
+                    heading={item.contentData[0].details[2].value}
+                    cards={transformData(item.contentData)}
+                    roleClassname="text-purple_dark"
+                  />
+                </>
+              );
+            })}
+
           <div className="flex flex-col gap-4 items-center justify-center w-full p-10">
             <div className="flex justify-center items-center p-10">
               <p className="text-[56px] font-bold text-purple_dark">
@@ -276,10 +171,10 @@ const Manajemen: React.FC<ManagementComponentProps> = ({onSelectDetail}) => {
             </div>
             <div className="w-full flex flex-row justify-between items-center p-4 border rounded-xl">
               <p className="font-bold">
-                Komitmen Kami untuk memberikan solusi investasi berkualitas.
+                Struktur Organisasi PT Avrist Assurance
               </p>
               <Button
-                title="Lihat"
+                title="Lihat Di Sini"
                 customButtonClass="bg-purple_dark rounded-lg"
                 customTextClass="text-white font-bold"
               />

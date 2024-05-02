@@ -26,6 +26,10 @@ interface ICategoryWithThreeCards {
   searchPlaceholder?: string;
   onCategoryChange?: (value: string) => void;
   hideSearchBar?: boolean;
+  searchValue?: string;
+  onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch?: () => void;
+  hidePagination?: boolean;
 }
 
 interface DropdownProps {
@@ -50,7 +54,10 @@ const CategoryWithThreeCards = ({
   customRightContent,
   searchPlaceholder,
   onCategoryChange,
-  hideSearchBar
+  hideSearchBar,
+  onSearchChange,
+  onSearch,
+  hidePagination
 }: ICategoryWithThreeCards) => {
   const [selectedCategory, setSelectedCategory] = useState(
     defaultSelectedCategory
@@ -167,8 +174,9 @@ const CategoryWithThreeCards = ({
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
                 className="focus:outline-none w-[450px] px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                onChange={onSearchChange}
               />
-              <ButtonSmall title="Cari" />
+              <ButtonSmall title="Cari" onClick={onSearch} />
             </div>
             <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
               <div className="flex flex-row gap-[12px]">
@@ -186,7 +194,7 @@ const CategoryWithThreeCards = ({
                         title={item.label}
                       />
                     ) : item.type === 'dropdown' ? (
-                      <div className='p-2 border rounded-xl border-purple_dark text-purple_dark'>
+                      <div className="p-2 border rounded-xl border-purple_dark text-purple_dark">
                         <select key={index}>
                           {item?.options?.map((val, idx) => (
                             <option
@@ -231,22 +239,24 @@ const CategoryWithThreeCards = ({
         ) : (
           customContent
         )}
-        <div className="flex flex-col gap-4 sm:flex-row justify-between">
-          <div>
-            <p className="text-[20px]">
-              Menampilkan{' '}
-              <span className="font-bold text-purple_dark">1-9</span> dari{' '}
-              <span className="font-bold">20</span> hasil
-            </p>
+        {!hidePagination && (
+          <div className="flex flex-col gap-4 sm:flex-row justify-between">
+            <div>
+              <p className="text-[20px]">
+                Menampilkan{' '}
+                <span className="font-bold text-purple_dark">1-9</span> dari{' '}
+                <span className="font-bold">20</span> hasil
+              </p>
+            </div>
+            <div className="flex flex-row gap-[8px] items-center">
+              <p className="text-[20px] text-purple_dark font-bold">1</p>
+              <p className="text-[20px]">2</p>
+              <p className="text-[20px]">3</p>
+              <p className="text-[20px]">4</p>
+              <Icon name="chevronRight" color="purple_dark" />
+            </div>
           </div>
-          <div className="flex flex-row gap-[8px] items-center">
-            <p className="text-[20px] text-purple_dark font-bold">1</p>
-            <p className="text-[20px]">2</p>
-            <p className="text-[20px]">3</p>
-            <p className="text-[20px]">4</p>
-            <Icon name="chevronRight" color="purple_dark" />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

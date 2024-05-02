@@ -1,6 +1,7 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 
+import Link from 'next/link';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Karir from './tabs/karir';
@@ -22,6 +23,8 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { handleGetContentPage } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   pageTransformer,
@@ -32,9 +35,8 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const pathState = sessionStorage.getItem('pathState');
   const [tab, setTab] = useState('');
-  const [, setData] = useState(null);
+  const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
     titleImage: '',
     ctaImage: ''
@@ -65,44 +67,34 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   const tabs = [
-    'Sekilas Perusahaan',
-    'Manajemen',
-    'Penghargaan',
-    'Laporan Perusahaan',
-    'Karir Bersama Avrist'
+    { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
+    { name: 'Manajemen', url: 'manajemen' },
+    { name: 'Penghargaan', url: 'halaman-penghargaan-dan-sertifikasi-avram' },
+    { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
+    { name: 'Karir Bersama Avrist', url: 'halaman-karir' }
   ];
 
   useEffect(() => {
-    if (tab === 'Manajemen') {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            `https://api-front-sit.avristcms.barito.tech/api/page/${pathState ?? 'manajemen'}`,
-            {
-              method: 'GET'
-            }
-          );
-          const data = await response.json();
-          setData(data);
+    const url = tabs.find((item: any) => item.name === tab)?.url;
 
-          const { content } = pageTransformer(data);
+    if (!transformedData.titleImage) {
+      handleGetContentPage(url ?? 'halaman-sekilas-perusahaan').then((res) =>
+        setData(res)
+      );
 
-          const titleImage = singleImageTransformer(content['title-image']);
-          const ctaImage = singleImageTransformer(content['cta1-image']);
+      const { content } = pageTransformer(data);
 
-          setTransformedData({
-            ...transformedData,
-            titleImage: titleImage.imageUrl,
-            ctaImage: ctaImage.imageUrl
-          });
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
+      const titleImage = singleImageTransformer(content['title-image']);
+      const ctaImage = singleImageTransformer(content['cta1-image']);
 
-      fetchData();
+      setTransformedData({
+        ...transformedData,
+        titleImage: titleImage.imageUrl,
+        ctaImage: ctaImage.imageUrl
+      });
     }
-  }, [tab, pathState]);
+  }, [tab, transformedData]);
+
   const handleSelectedDetail = (isSelected: boolean) => {
     setIsSelectedDetail(isSelected);
   };
@@ -123,18 +115,20 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             key={idx}
             role="button"
             onClick={() => {
-              handleTabClick(value);
+              handleTabClick(value.name);
               handleSelectedDetail(false);
             }}
-            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value.name ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
           >
-            {value}
+            {value.name}
           </div>
         ))}
       </div>
       <div className="mt-44 w-full">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
-        {tab === 'Manajemen' && <Manajemen onSelectDetail={handleSelectedDetail} />}
+        {tab === 'Manajemen' && (
+          <Manajemen onSelectDetail={handleSelectedDetail} />
+        )}
         {tab === 'Penghargaan' && <Penghargaan />}
         {tab === 'Laporan Perusahaan' && <LaporanPerusahaan />}
         {tab === 'Karir Bersama Avrist' && <Karir />}
@@ -155,25 +149,31 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   className="p-4 bg-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-white font-medium"
                 >
                   {tab === 'Penghargaan' ? (
-                    <div className='flex flex-row items-center gap-2'>
+                    <div className="flex flex-row items-center gap-2">
                       <p>Ikuti kami di</p>
                       <Icon name="linkedInIcon" color="white" />
                       <p>LinkedIn</p>
                     </div>
-                  ) : tab === 'Manajemen' ? isSelectedDetail ? (
-                    <div className='flex flex-row items-center gap-2'>
-                      <p>Ikuti kami di</p>
-                      <Icon name="facebookIcon" color="white" />
-                      <p>Facebook</p>
-                    </div>
+                  ) : tab === 'Manajemen' ? (
+                    isSelectedDetail ? (
+                      <div className="flex flex-row items-center gap-2">
+                        <p>Ikuti kami di</p>
+                        <Icon name="facebookIcon" color="white" />
+                        <p>Facebook</p>
+                      </div>
+                    ) : (
+                      <Link
+                        href="https://www.instagram.com/avristsolution/"
+                        target="blank"
+                        className="flex flex-row items-center gap-2"
+                      >
+                        <p>Ikuti kami di</p>
+                        <Icon name="instaIcon" color="white" />
+                        <p>Instagram</p>
+                      </Link>
+                    )
                   ) : (
-                    <div className='flex flex-row items-center gap-2'>
-                      <p>Ikuti kami di</p>
-                      <Icon name="instaIcon" color="white" />
-                      <p>Instagram</p>
-                    </div>
-                  ) : (
-                    <div className='flex flex-row items-center gap-2'>
+                    <div className="flex flex-row items-center gap-2">
                       <p>Subscribe</p>
                       <Icon name="youtubeIcon" color="white" />
                       <p>Youtube</p>
@@ -210,7 +210,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? 'Facebook'
                   : tab === 'Manajemen'
-                    ? isSelectedDetail ? 'Youtube' : 'LinkedIn'
+                    ? isSelectedDetail
+                      ? 'Youtube'
+                      : 'LinkedIn'
                     : tab === 'Penghargaan'
                       ? 'Prosedur Pengaduan'
                       : tab === 'Laporan Perusahaan'
@@ -220,7 +222,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? Icon4
                   : tab === 'Manajemen'
-                    ? isSelectedDetail ? Icon8 : Icon5
+                    ? isSelectedDetail
+                      ? Icon8
+                      : Icon5
                     : tab === 'Penghargaan'
                       ? Icon6
                       : tab === 'Laporan Perusahaan'
@@ -230,7 +234,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 tab === 'Sekilas Perusahaan'
                   ? 'Ikuti Kami'
                   : tab === 'Manajemen'
-                    ? isSelectedDetail ? 'Subscribe' : 'Ikuti Kami'
+                    ? isSelectedDetail
+                      ? 'Subscribe'
+                      : 'Ikuti Kami'
                     : tab === 'Penghargaan'
                       ? 'Lihat Prosedur'
                       : tab === 'Laporan Perusahaan'

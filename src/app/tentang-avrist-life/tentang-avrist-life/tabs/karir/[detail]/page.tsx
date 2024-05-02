@@ -1,7 +1,9 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Modal } from '../component/modal/modal';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -16,18 +18,102 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
-export const generateStaticParams = () => {
-  return [{ detail: 'detail', show: true }];
-};
+import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  contentDetailTransformer,
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type SearchParamProps = {
   searchParams: Record<string, string> | null | undefined;
 };
 
 const DetailKarir = ({ searchParams }: SearchParamProps) => {
-  console.log(searchParams)
+  const pathname = usePathname();
+  const pathSegments = pathname.split('/');
+  const slug = pathSegments[pathSegments.length - 1];
   const show = searchParams?.show;
+
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+  const [contentData, setContentData] = useState<any>();
+
+  const fetchData = () => {
+    try {
+      handleGetContentPage('hlm-karir-detail').then((res: any) => {
+        const { content } = pageTransformer(res);
+        const titleImage = singleImageTransformer(
+          content['title-image']
+        ).imageUrl;
+        const bannerImage = singleImageTransformer(
+          content['banner-image']
+        ).imageUrl;
+        const footerImage = singleImageTransformer(
+          content['cta1-image']
+        ).imageUrl;
+        setData({ titleImage, bannerImage, footerImage });
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchDetailData = async () => {
+    const response = await fetch(`/api/karir/${slug}`);
+    const jsonData = await response.json();
+
+    const { content } = contentDetailTransformer(jsonData);
+    const namaLoker = contentStringTransformer(content['nama-loker']);
+    const iconLokasiLoker = singleImageTransformer(
+      content['icon-lokasi-loker']
+    ).imageUrl;
+    const lokasiLoker = contentStringTransformer(content['lokasi-loker']);
+    const iconStatusLoker = singleImageTransformer(
+      content['icon-status-loker']
+    ).imageUrl;
+    const statusLoker = contentStringTransformer(content['status-loker']);
+    const iconWaktuLoker = singleImageTransformer(
+      content['icon-waktu-loker']
+    ).imageUrl;
+    const waktuLoker = contentStringTransformer(content['waktu-loker']);
+    const deskripsiPekerjaan = contentStringTransformer(
+      content['deskripsi-pekerjaan']
+    );
+    const deskripsiResponsibilities = contentStringTransformer(
+      content['deskripsi-responsibilities']
+    );
+    const deskripsiKualifikasi = contentStringTransformer(
+      content['deskripsi-kualifikasi']
+    );
+
+    const detail = {
+      namaLoker,
+      iconLokasiLoker,
+      lokasiLoker,
+      iconStatusLoker,
+      statusLoker,
+      iconWaktuLoker,
+      waktuLoker,
+      deskripsiPekerjaan,
+      deskripsiResponsibilities,
+      deskripsiKualifikasi
+    };
+
+    setContentData(detail);
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchDetailData();
+  }, []);
+
+  console.log(data);
+
   return (
     <>
       <Hero
@@ -39,40 +125,43 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
             href: '/tentang-avrist-life/tentang-avrist-life?tab=Karir'
           }
         ]}
+        imageUrl={data?.titleImage}
       />
 
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col gap-5 w-2/3 p-10">
           <div className="flex flex-col gap-5">
-            <p className="font-semibold text-[48px]">Marketing Manager</p>
+            <p className="font-semibold text-[48px]">
+              {contentData?.namaLoker}
+            </p>
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row gap-4 text-nowrap text-md">
                 <div className="flex w-full flex-row items-center gap-2">
-                  <Icon
-                    name="mapsPin"
-                    color="purple_verylight"
+                  <Image
+                    src={contentData?.iconLokasiLoker}
+                    alt="lokasi"
                     width={24}
-                    isSquare
+                    height={24}
                   />
-                  <p>Jakarta, Indonesia</p>
+                  <p>{contentData?.lokasiLoker}</p>
                 </div>
                 <div className="flex w-full flex-row items-center gap-2">
-                  <Icon
-                    name="briefcase"
-                    color="purple_verylight"
+                  <Image
+                    src={contentData?.iconStatusLoker}
+                    alt="status"
                     width={24}
-                    isSquare
+                    height={24}
                   />
-                  <p>Full time</p>
+                  <p>{contentData?.statusLoker}</p>
                 </div>
                 <div className="flex w-full flex-row items-center gap-2">
-                  <Icon
-                    name="clock"
-                    color="purple_verylight"
+                  <Image
+                    src={contentData?.iconWaktuLoker}
+                    alt="waktu"
                     width={24}
-                    isSquare
+                    height={24}
                   />
-                  <p>6 hari lalu</p>
+                  <p>{contentData?.waktuLoker}</p>
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
@@ -92,92 +181,27 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
           <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
             Deskripsi Pekerjaan
           </p>
-          <p>
-            We are currently seeking an experienced and dedicated IT Project
-            Manager to join our team. As an IT Project Manager, you will be
-            responsible for the planning, management, and execution of IT
-            projects to ensure successful achievement of business and technical
-            goals. You will collaborate with various functional teams and
-            possess strong leadership skills to ensure project smoothness.
-          </p>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: contentData?.deskripsiPekerjaan
+            }}
+          />
           <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
             Responsibilities
           </p>
-          <div>
-            <ul className="list-inside list-disc">
-              <li>
-                Develop a comprehensive project plan, including goals, schedule,
-                budget, resources, and risks.
-              </li>
-              <li>
-                Assess project needs and resources, identifying critical success
-                factors.
-              </li>
-              <li>
-                Manage the project team to ensure timely and quality
-                deliverables.
-              </li>
-              <li>
-                Coordinate with internal and external stakeholders to ensure
-                project implementation flows seamlessly.
-              </li>
-              <li>
-                Compile regular project progress reports for relevant
-                stakeholders.
-              </li>
-              <li>
-                Identify and evaluate project risks, developing mitigation
-                strategies.
-              </li>
-              <li>
-                Responsible for change management and project scope changes.
-              </li>
-              <li>
-                Foster and develop team members to enhance skills and work
-                efficiency.
-              </li>
-              <li>
-                Provide guidance and motivation to ensure optimal team
-                performance.
-              </li>
-              <li>
-                Communicate effectively with stakeholders, including the project
-                team, senior management, and other relevant parties.
-              </li>
-              <li>
-                Address project questions, issues, or roadblocks promptly and
-                efficiently.
-              </li>
-            </ul>
-          </div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: contentData?.deskripsiResponsibilities
+            }}
+          />
           <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
             Kualifikasi
           </p>
-          <div>
-            <ul className="list-inside list-disc">
-              <li>
-                Minimum of a Bachelor`s degree in Information Technology,
-                Project Management, or a related field.
-              </li>
-              <li>
-                Minimum of 5 years of experience as an IT Project Manager or in
-                a related role.
-              </li>
-              <li>
-                In-depth understanding of project life cycles and best project
-                management practices.
-              </li>
-              <li>
-                Strong leadership skills, excellent communication abilities, and
-                adaptability in a dynamic environment.
-              </li>
-              <li>
-                PMP (Project Management Professional) certification is
-                considered an advantage.
-              </li>
-              <li>Strong analytical and problem-solving skills.</li>
-            </ul>
-          </div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: contentData?.deskripsiResponsibilities
+            }}
+          />
           <div className="py-10">
             <Link href="/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail?show=true">
               <Button
@@ -197,6 +221,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
               title="List Lowongan"
               customButtonClass="rounded-xl bg-purple_dark"
               customTextClass="text-white"
+              onClick={() => window.history.back()}
             />
           </div>
         </div>
@@ -222,7 +247,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
               </p>
             </div>
           }
-          image={BlankImage}
+          image={data?.footerImage ?? BlankImage}
         />
         <RoundedFrameTop />
       </div>
