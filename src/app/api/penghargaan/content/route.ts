@@ -3,23 +3,21 @@ import { getContent } from '@/services/content-page.api';
 import { QueryParams } from '@/utils/httpService';
 
 export async function GET(request: NextRequest) {
-  const productFilter = request.nextUrl.searchParams.get('productFilter') || '';
-  const channelFilter = request.nextUrl.searchParams.get('channelFilter') || '';
+  const searchFilter = request.nextUrl.searchParams.get('searchFilter') || '';
 
-  if (channelFilter && channelFilter !== 'undefined') {
+  if (searchFilter && searchFilter !== 'undefined') {
     const queryParams: QueryParams = {
       includeAttributes: 'true',
-      productFilter,
-      channelFilter
+      searchFilter
     };
-    const data = await getContent('Produk-Avras', queryParams);
+    const data = await getContent('List-penghargaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   }
 
   const queryParams: QueryParams = {
     includeAttributes: 'true',
-    productFilter
+    searchFilter
   };
-  const data = await getContent('Produk-Avras', queryParams);
+  const data = await getContent('List-penghargaan', queryParams);
   return NextResponse.json(data, { status: 200 });
 }

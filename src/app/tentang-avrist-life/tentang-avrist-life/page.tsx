@@ -69,7 +69,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const tabs = [
     { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
     { name: 'Manajemen', url: 'manajemen' },
-    { name: 'Penghargaan', url: '' },
+    { name: 'Penghargaan', url: 'halaman-penghargaan-dan-sertifikasi-avram' },
     { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
     { name: 'Karir Bersama Avrist', url: 'halaman-karir' }
   ];

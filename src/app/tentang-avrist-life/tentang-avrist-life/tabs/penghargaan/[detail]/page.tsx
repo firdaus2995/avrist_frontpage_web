@@ -1,6 +1,8 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -18,13 +20,95 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
-export const generateStaticParams = () => {
-  return [{ detail: 'detail' }];
-};
+import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  contentDetailTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
   console.log(params);
+  const pathname = usePathname();
+  const pathSegments = pathname.split('/');
+  const slug = pathSegments[pathSegments.length - 1];
+
+  const [contentData, setContentData] = useState<any>();
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+
+  const fetchData = () => {
+    try {
+      handleGetContentPage('halaman-penghargaan-dan-sertifikasi-avram').then(
+        (res: any) => {
+          const { content } = pageTransformer(res);
+          const titleImage = singleImageTransformer(
+            content['title-image']
+          ).imageUrl;
+          const bannerImage = singleImageTransformer(
+            content['banner-image']
+          ).imageUrl;
+          const footerImage = singleImageTransformer(
+            content['cta1-image']
+          ).imageUrl;
+          setData({ titleImage, bannerImage, footerImage });
+        }
+      );
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchDetailData = async () => {
+    const response = await fetch(`/api/penghargaan/${slug}`);
+    const jsonData = await response.json();
+
+    const { content } = contentDetailTransformer(jsonData);
+
+    const tagline = content['penghargaan-tagline'].value;
+    const judul = content['penghargaan-judul'].value;
+    const nama = content['penghargaan-nama'].value;
+    const penulis = content['penghargaan-author'].value;
+    const bulan = content['bulan'].value;
+    const tahun = content['tahun'].value;
+    const deskripsiSingkat = content['penghargaan-deskripsisingkat'].value;
+    const deskripsiLengkap = content['penghargaan-deskripsilengkap'].value;
+    const image = singleImageTransformer(content['penghargaan-image']).imageUrl;
+    const imageDetail = singleImageTransformer(
+      content['penghargaan-imagedetail']
+    ).imageUrl;
+    const imageKoleksi = singleImageTransformer(
+      content['penghargaan-collectionimage']
+    ).imageUrl;
+    const tags = content['tags'].value;
+
+    const transformedData = {
+      tagline,
+      judul,
+      nama,
+      penulis,
+      bulan,
+      tahun,
+      deskripsiSingkat,
+      deskripsiLengkap,
+      image,
+      imageDetail,
+      imageKoleksi,
+      tags
+    };
+
+    setContentData(transformedData);
+
+    return transformedData;
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchDetailData();
+  }, []);
   return (
     <>
       <Hero
@@ -36,122 +120,119 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
           }
         ]}
-        bottomImage={BlankImage}
+        imageUrl={data?.titleImage}
+        bottomImage={contentData?.image ?? BlankImage}
       />
 
-      <div className="flex items-center justify-center w-full">
-        <div className="flex flex-col gap-10 w-2/3 p-10">
-          <div className="flex flex-col gap-5">
-            <p className="text-purple_dark font-semibold">Penghargaan</p>
-            <p className="font-semibold text-[48px]">
-              Best Insurance 2023: Avrist Cetak Prestasi Gemilang!
-            </p>
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-col gap-2">
-                <p>23 Februari 2024 | Budi Rahman</p>
-                <div className="flex flex-row gap-2">
-                  <MediumTag title="Asuransi" />
-                  <MediumTag title="Edukasi" />
-                  <MediumTag title="Artikel" />
+      {contentData && (
+        <div className="flex items-center justify-center w-full">
+          <div className="flex flex-col gap-10 w-2/3 p-10">
+            <div className="flex flex-col gap-5">
+              <span className="text-purple_dark font-semibold">
+                <span
+                  dangerouslySetInnerHTML={{ __html: contentData.tagline }}
+                />
+              </span>
+              <p className="font-semibold text-[48px]">{contentData.judul}</p>
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-col gap-2">
+                  <p>
+                    {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                    {contentData.penulis}
+                  </p>
+                  <div className="flex flex-row gap-2">
+                    <MediumTag title={contentData.tags} />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-1 items-center">
-                <div className="flex items-center" role="button">
-                  <Icon
-                    width={16}
-                    height={16}
-                    name="share"
-                    color="purple_verylight"
-                  />
-                </div>
+                <div className="flex flex-col gap-1 items-center">
+                  <div className="flex items-center" role="button">
+                    <Icon
+                      width={16}
+                      height={16}
+                      name="share"
+                      color="purple_verylight"
+                    />
+                  </div>
 
-                <div className="text-xs font-bold">Share</div>
+                  <div className="text-xs font-bold">Share</div>
+                </div>
               </div>
             </div>
-          </div>
-          <p>
-            <span className="font-bold">
-              Lorem ipsum dolor sit amet consectetur.
-            </span>{' '}
-            Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-            tortor sit dis nunc. Volutpat dictum venenatis non eget et. Augue
-            tortor aliquam sapien ultricies egestas phasellus venenatis
-            pulvinar. Consectetur magna dignissim turpis est ut et sapien.
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed. Fusce a
-            ipsum ipsum vestibulum metus orci libero aliquam. Augue vitae nam et
-            volutpat lectus tempus quam turpis eget.
-          </p>
-          <p className="text-[24px]">
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed.
-          </p>
-          <div className="bg-gray-200">
-            <Image src={BlankImage} alt="img" className="w-full" />
-          </div>
-          <p className="text-[32px] font-bold text-purple_dark pt-10 w-full border-t">
-            Lorem ipsum dolor sit amet
-          </p>
-          <p>
-            <span className="font-bold italic">
-              Lorem ipsum dolor sit amet consectetur.
-            </span>{' '}
-            Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-            tortor sit dis nunc. Volutpat dictum venenatis non eget et. Augue
-            tortor aliquam sapien ultricies egestas phasellus venenatis
-            pulvinar. Consectetur magna dignissim turpis est ut et sapien.
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed. Fusce a
-            ipsum ipsum vestibulum metus orci libero aliquam. Augue vitae nam et
-            volutpat lectus tempus quam turpis eget.
-          </p>
-          <div className="grid grid-cols-2 gap-5">
-            {[...Array(4)].map((_, index) => (
+            {
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: contentData.deskripsiSingkat
+                }}
+              />
+            }
+            <div className="bg-gray-200">
               <Image
-                src={BlankImage}
-                key={index}
+                src={contentData.imageDetail ?? BlankImage}
                 alt="img"
                 className="w-full"
+                width={238}
+                height={172}
               />
-            ))}
-          </div>
-          <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
-            <p className="font-semibold text-xl">Berita ini telah terbit di:</p>
-            <div className="flex flex-row gap-4">
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Kompas
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Media Indonesia
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Tribun
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Detik
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
             </div>
-            <div className="flex flex-row items-center justify-between">
-              <div className="flex flex-row gap-2 items-center">
-                <Image alt={'email'} className="w-6" src={Email} />
-                <p className="font-bold">corcom@avrist.com</p>
+            {
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: contentData.deskripsiLengkap
+                }}
+              />
+            }
+            <div className="grid grid-cols-2 gap-5">
+              {[...Array(4)].map((_, index) => (
+                <Image
+                  src={contentData.imageKoleksi ?? BlankImage}
+                  key={index}
+                  alt="img"
+                  className="w-full"
+                  width={238}
+                  height={172}
+                />
+              ))}
+            </div>
+            <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
+              <p className="font-semibold text-xl">
+                Berita ini telah terbit di:
+              </p>
+              <div className="flex flex-row gap-4">
+                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
+                  Kompas
+                  <Icon name="externalLink" color="purple_dark" width={10} />
+                </div>
+                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
+                  Media Indonesia
+                  <Icon name="externalLink" color="purple_dark" width={10} />
+                </div>
+                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
+                  Tribun
+                  <Icon name="externalLink" color="purple_dark" width={10} />
+                </div>
+                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
+                  Detik
+                  <Icon name="externalLink" color="purple_dark" width={10} />
+                </div>
               </div>
-              <div className="flex flex-row gap-2 items-center">
-                <Image alt={'phone'} className="w-6" src={Phone} />
-                <p className="font-bold">+62 21 5789 8188</p>
-              </div>
-              <div className="flex flex-row gap-2 items-center">
-                <Image alt={'office'} className="w-6" src={Office} />
-                <p className="font-bold">Sekilas Avrist Life Insurance</p>
+              <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-row gap-2 items-center">
+                  <Image alt={'email'} className="w-6" src={Email} />
+                  <p className="font-bold">corcom@avrist.com</p>
+                </div>
+                <div className="flex flex-row gap-2 items-center">
+                  <Image alt={'phone'} className="w-6" src={Phone} />
+                  <p className="font-bold">+62 21 5789 8188</p>
+                </div>
+                <div className="flex flex-row gap-2 items-center">
+                  <Image alt={'office'} className="w-6" src={Office} />
+                  <p className="font-bold">Sekilas Avrist Life Insurance</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="flex flex-col">
         <RoundedFrameBottom />
@@ -174,7 +255,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           }
-          image={BlankImage}
+          image={data?.footerImage ?? BlankImage}
         />
         <RoundedFrameTop />
       </div>
