@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import EmployeeBenefit from './tabs/EmployeeBenefit';
 
+import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -43,6 +45,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   const searchParams = useSearchParams();
 
   const tabs = ['Employee Benefit'];
+  const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState(searchParams.get('tab') || '');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -108,7 +111,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 
     const fetchDataContentWithCategory = async () => {
       try {
-        const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=korporasi&category=${activeTab}`);
+        const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`);
         const data = await contentCategoryResponse.json();
         const transformedDataContent = contentCategoryTransformer(data, activeTab);
         const dataContentValues = transformedDataContent.map(({ content }) => {
@@ -167,7 +170,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 
     fetchData().then();
     fetchDataContentWithCategory().then();
-  }, []);
+  }, [searchValue]);
 
   const paginatedData = dataContent
   ? dataContent.slice(startIndex, endIndex)
@@ -179,6 +182,10 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   const handlePageChange = (page: React.SetStateAction<number>) => {
     setCurrentPage(page);
   };
+
+  const handleChangeSearchParams = (value: string) => {
+    setSearchValue(value);
+  }
 
   return (
     <div className="flex flex-col">
@@ -205,11 +212,28 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
               placeholder="Cari"
               searchButtonTitle="Cari"
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
+              onSearch={handleChangeSearchParams}
             />
             <ButtonSelection buttonHelper={buttonHelper} />
           </div>
 
           {activeTab === 'Employee Benefit' && <EmployeeBenefit data={paginatedData}/>}
+          {dataContent?.length === 0 && (
+          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+            <Image src={Search} alt="search" />
+            <div className="flex flex-col gap-4">
+              <div className="w-[324px] text-center">
+                <p className="font-karla font-bold text-[24px]">
+                  Page Not Found
+                </p>
+                <p className="font-opensans text-[16px] mt-[12px]">
+                  Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                  cari.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">
