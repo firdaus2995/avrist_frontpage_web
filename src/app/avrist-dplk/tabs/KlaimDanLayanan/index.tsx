@@ -7,62 +7,88 @@ import YellowPaper from '@/assets/images/avrast/dplk/yellow-paper.svg';
 import YellowRecipt from '@/assets/images/avrast/dplk/yellow-receipt.svg';
 
 import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
+import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
+import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 
 const KlaimDanLayanan = () => {
   return (
-    <div>
+    <SimpleContainer>
+      <CategoryPills
+        buttonTitle={[
+          'Tentang Avrist DPLK',
+          'Dewan Pengawas DPLK',
+          'Manfaat Utama',
+          'Produk',
+          'Klaim & Layanan'
+        ]}
+        selectedCategory="Klaim & Layanan"
+        buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
+        buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
+        buttonActiveTextClassname="text-white"
+        links={{
+          'Tentang Avrist DPLK': '/avrist-dplk/#TentangAvristDPLK',
+          'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
+          'Manfaat Utama': '/avrist-dplk/#ManfaatUtama',
+          Produk: '/avrist-dplk/produk',
+          'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
+        }}
+      />
+
       <InformationCard
-        heading="Cara Kami menangani klaim Anda"
-        subHeading="Kami memberikan pelayanan dengan profesionalisme."
+        heading="Pusat informasi layanan DPLK Avrist"
+        subHeading="Informasi seputar panduan dan layanan DPLK Avrist Assurance"
         cards={[
           {
             cardIcon: YellowRecipt,
             cardTitle: 'Pengajuan Klaim',
             cardBody:
               'Perkembangan informasi dan keputusan secara jelas, efektif dan transparansi.',
-            cardButtonText: 'Panduan Klaim'
+            cardButtonText: 'Panduan Klaim',
+            href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             cardIcon: YellowContact,
             cardTitle: 'Pengkinian Data',
             cardBody:
               'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
-            cardButtonText: 'Login Employer'
+            cardButtonText: 'Login Employer',
+            href: '/klaim-layanan/layanan/kelola-polis'
           },
           {
             cardIcon: YellowContact,
             cardTitle: 'Pengkinian Data',
             cardBody:
               'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus.',
-            cardButtonText: 'Login Employee'
+            cardButtonText: 'Login Employee',
+            href: '#'
           },
           {
             cardIcon: YellowForm,
             cardTitle: 'Formulir dan Buku Panduan',
-            cardBody:
-              'Kami memberi kelancaran dengan ketentuan polis yang disepakati bersama.',
-            cardButtonText: 'Unduh dan Baca'
+            cardBody: 'Akses dokumen cepat, untuk kebutuhan Anda.',
+            cardButtonText: 'Unduh dan Baca',
+            href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
           },
           {
             cardIcon: YellowPaper,
             cardTitle: 'Penanganan Pengaduan',
-            cardBody:
-              'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
-            cardButtonText: 'Baca Aturan'
+            cardBody: 'Mekanisme Penanganan Pengaduan.',
+            cardButtonText: 'Selengkapnya',
+            href: 'https://avrist.com/Prosedur%20Singkat%20Pelayanan%20Nasabah%20Avrist%20_updated.pdf'
           },
           {
             cardIcon: YellowHelpDesk,
-            cardTitle: 'Butuh Bantuan',
-            cardBody:
-              'Melalui jalur komunikasi yang tersedia, Kami selalu siap untuk membantu Anda.',
-            cardButtonText: 'Hubungi Kami'
+            cardTitle: 'Bantuan',
+            cardBody: 'Kami di sini siap membantu Anda.',
+            cardButtonText: 'Hubungi Kami',
+            href: 'tel:+622157898188'
           }
         ]}
         cardClassname="border-b-dplk_yellow"
         cardButtonClassname="bg-dplk_yellow border-dplk_yellow"
         cardButtonTextClassname="text-white"
       />
-    </div>
+    </SimpleContainer>
   );
 };
 

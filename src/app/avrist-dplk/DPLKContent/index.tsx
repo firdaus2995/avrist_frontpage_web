@@ -5,7 +5,15 @@ import { Link as LinkScroll } from 'react-scroll';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatUtama from '../tabs/ManfaatUtama';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
+import { ContentData } from '@/types/content.type';
 
+type Props = {
+  dewanpengawasdplkJudul: string;
+  dewanpengawasdplkSubjudul: string;
+  dewanpengawasdplkDeskripsi: string;
+  pengawas: ContentData[];
+  pengurus: ContentData[];
+};
 const tabs = [
   'Tentang Avrist DPLK',
   'Dewan Pengawas DPLK',
@@ -14,7 +22,14 @@ const tabs = [
   'Klaim dan Layanan'
 ];
 
-const DPLKContent = () => {
+const DPLKContent = (props: Props) => {
+  const {
+    dewanpengawasdplkDeskripsi,
+    dewanpengawasdplkJudul,
+    dewanpengawasdplkSubjudul,
+    pengawas,
+    pengurus
+  } = props;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -66,9 +81,33 @@ const DPLKContent = () => {
           </LinkScroll>
         ))}
       </div>
-      {tab === 'Tentang Avrist DPLK' && <TentangAvristDPLK />}
-      {tab === 'Dewan Pengawas DPLK' && <DewanPengawasDPLK />}
-      {tab === 'Manfaat Utama' && <ManfaatUtama />}
+      {tab === 'Tentang Avrist DPLK' && (
+        <TentangAvristDPLK
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          pengawas={pengawas}
+          pengurus={pengurus}
+        />
+      )}
+      {tab === 'Dewan Pengawas DPLK' && (
+        <DewanPengawasDPLK
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          pengawas={pengawas}
+          pengurus={pengurus}
+        />
+      )}
+      {tab === 'Manfaat Utama' && (
+        <ManfaatUtama
+          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+          pengawas={pengawas}
+          pengurus={pengurus}
+        />
+      )}
     </div>
   );
 };

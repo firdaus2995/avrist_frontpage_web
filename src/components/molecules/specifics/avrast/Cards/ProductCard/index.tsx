@@ -50,14 +50,15 @@ const CardProduct = ({
       <p className="text-[32px] font-bold">{summary}</p>
       <p dangerouslySetInnerHTML={{ __html: description ?? '' }} />
       <div className="flex flex-row flex-wrap gap-[12px]">
-        {tags && tags.map((item: string, index: number) => (
-          <div
-            key={index}
-            className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
-          >
-            <p>{item}</p>
-          </div>
-        ))}
+        {tags &&
+          tags.map((item: string, index: number) => (
+            <div
+              key={index}
+              className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
+            >
+              <p>{item}</p>
+            </div>
+          ))}
       </div>
       {href ? (
         <Link href={href} className="w-full">

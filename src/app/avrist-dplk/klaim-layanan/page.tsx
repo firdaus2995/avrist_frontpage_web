@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import DPLKProductList from '../DPLKProduct';
+import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -14,42 +14,42 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 import {
-  handleGetContentPage,
-  handleGetContent
+  handleGetContentPage
+  // handleGetContent
 } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const ProdukDplk = async () => {
-  const pageBase = await handleGetContentPage('halaman-produk-dplk');
+const KlaimLayanan = async () => {
+  const pageBase = await handleGetContentPage('halaman-klaim-dan-layanan-dplk');
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
   const bannerImage = singleImageTransformer(content['banner-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
-  const contentBase = await handleGetContent('Produk-Avrast-DPLK', {
-    includeAttributes: 'true'
-  });
-  const products = contentBase.data.contentDataList;
+  // const contentBase = await handleGetContent('Halaman-Klaim-dan-Layanan-DPLK', {
+  //   includeAttributes: 'true'
+  // });
+  // const products = contentBase.data.contentDataList;
 
   return (
     <Suspense fallback={null}>
       <Hero
-        title="Produk DPLK"
+        title="Klaim dan Layanan"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           {
             title: 'Avrist Syariah',
             href: '/avrist-syariah?tab=Tentang+Avrist+Syariah'
           },
-          { title: 'Produk DPLK', href: '#' }
+          { title: 'Klaim dan Layanan', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}
       />
-      <DPLKProductList products={products} />
+      <KlaimDanLayanan />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
       <SimpleContainer>
         <HelpCard
@@ -100,4 +100,4 @@ const ProdukDplk = async () => {
   );
 };
 
-export default ProdukDplk;
+export default KlaimLayanan;

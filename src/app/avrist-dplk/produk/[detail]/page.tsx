@@ -24,20 +24,36 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+// import {
+//   handleGetContentDetail,
+//   handleGetContentPage
+// } from '@/services/content-page.api';
+// import {
+//   pageTransformer,
+//   singleImageTransformer
+// } from '@/utils/responseTransformer';
 
-const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
-  console.log(params);
-
+const ProdukSyariahDetail = async ({
+  params
+}: {
+  params: { detail: string };
+}) => {
+  // const pageData = await handleGetContentPage('halaman-detail-produk-dplk');
+  // const detailData = await handleGetContentDetail(params.detail);
+  // // page
+  // const { content } = pageTransformer(pageData);
+  // const titleImage = singleImageTransformer(content['title-image']);
+  // const cta1Image = singleImageTransformer(content['cta1-image']);
   return (
     <div className="flex flex-col">
       <Hero
         title="Klaim dan Layanan"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Produk', href: '/avrist-dplk' },
+          { title: 'Produk', href: '/avrist-dplk/produk' },
           {
             title: 'Klaim dan Layanan',
-            href: '/avrist-dplk/produk/carepack-pro'
+            href: `/avrist-dplk/produk/${params.detail}`
           }
         ]}
         bottomImage={HeroDplk3}
