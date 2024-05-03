@@ -29,13 +29,19 @@ import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
-  handleTransformedContent,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
 const IndividuProduk: React.FC<ParamsProps> = () => {
-  const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
+  const initialData = {
+    titleImageUrl: '',
+    bannerImageUrl: '',
+    titleAltText: '',
+    bannerAltText: '',
+    footerInfoAltText: '',
+    footerInfoImageUrl: ''
+  };
   const [data, setData] = useState<IDataPage>(initialData);
   const [dataContent, setDataContent] = useState<IDataContent[]>();
   const [channels, setChannels] = useState<any>();
@@ -44,11 +50,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  
+
   const tabs = [
     'Asuransi Jiwa',
     'Asuransi Kesehatan',
@@ -87,11 +93,15 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   const buttonHelper: ButtonHelperItem[] = [
-    { type: 'button', label: 'Individu', href: '/produk/individu' },
+    {
+      type: 'button',
+      label: 'Individu',
+      href: '/produk/individu?tab=Asuransi+Jiwa'
+    },
     {
       type: 'button',
       label: 'Korporasi',
-      href: '/produk/korporasi',
+      href: '/produk/korporasi?tab=Employee+Benefit',
       variant: 'outlined'
     }
   ];
@@ -100,20 +110,20 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/produk/individu`);
-				const data = await response.json();
+        const data = await response.json();
 
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
         const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
         setData({
-					titleImageUrl: titleImage.imageUrl,  
-					bannerImageUrl: bannerImage.imageUrl, 
-					titleAltText: titleImage.altText,
-					bannerAltText: bannerImage.altText,
-					footerInfoAltText: footerImage.altText,
-					footerInfoImageUrl: footerImage.imageUrl
-				});
+          titleImageUrl: titleImage.imageUrl,
+          bannerImageUrl: bannerImage.imageUrl,
+          titleAltText: titleImage.altText,
+          bannerAltText: bannerImage.altText,
+          footerInfoAltText: footerImage.altText,
+          footerInfoImageUrl: footerImage.imageUrl
+        });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -122,103 +132,84 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     const fetchDataContentWithCategory = async () => {
       try {
         if (activeTab) {
-          const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}`);
-          const data = await contentCategoryResponse.json();          
-          const transformedDataContent = contentCategoryTransformer(data, activeTab);
-          
-          const dataContentValues = transformedDataContent?.map(({ content, id }) => {
-            const namaProduk = contentStringTransformer(content['nama-produk']);
-            const tags = contentStringTransformer(content['tags']);
-            const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-            const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-            const jenisProduk = contentStringTransformer(content['jenis-produk']);
-            const channel = contentStringTransformer(content['channel']);
-            const produkImage = singleImageTransformer(content['produk-image']);
-            const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-  
-            return {
-              namaProduk,
-              tags,
-              deskripsiSingkatProduk,
-              deskripsiLengkapProduk,
-              jenisProduk,
-              channel,
-              produkImage,
-              kategoriProdukIcon,
-              id
-            };
-          });                  
+          const contentCategoryResponse = await fetch(
+            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}`
+          );
+          const data = await contentCategoryResponse.json();
+          const transformedDataContent = contentCategoryTransformer(
+            data,
+            activeTab
+          );
+
+          const dataContentValues = transformedDataContent?.map(
+            ({ content, id }) => {
+              const namaProduk = contentStringTransformer(
+                content['nama-produk']
+              );
+              const tags = contentStringTransformer(content['tags']);
+              const deskripsiSingkatProduk = contentStringTransformer(
+                content['deskripsi-singkat-produk']
+              );
+              const deskripsiLengkapProduk = contentStringTransformer(
+                content['deskripsi-lengkap-produk']
+              );
+              const jenisProduk = contentStringTransformer(
+                content['jenis-produk']
+              );
+              const channel = contentStringTransformer(content['channel']);
+              const produkImage = singleImageTransformer(
+                content['produk-image']
+              );
+              const kategoriProdukIcon = singleImageTransformer(
+                content['kategori-produk-icon']
+              );
+
+              return {
+                namaProduk,
+                tags,
+                deskripsiSingkatProduk,
+                deskripsiLengkapProduk,
+                jenisProduk,
+                channel,
+                produkImage,
+                kategoriProdukIcon,
+                id
+              };
+            }
+          );
           setDataContent(dataContentValues);
-  
+
           return dataContentValues;
         }
-
-        const contentResponse = await fetch(`/api/produk/content?productFilter=individu&channelFilter=${selectedChannels}`);
-        const data = await contentResponse.json();
-        
-        const newDataContent = data.data.contentDataList.map((item: any) => {
-          return { 
-            ...handleTransformedContent(item.contentData, item.title), 
-            categoryName: item.categoryName,
-            id: item.id
-          }
-        });                
-        const dataContentValues = newDataContent.map(({ content, categoryName, id }: { content: any, categoryName: string, id: number }) => {          
-          const namaProduk = contentStringTransformer(content['nama-produk']);
-          const tags = contentStringTransformer(content['tags']);
-          const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-          const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-          const jenisProduk = contentStringTransformer(content['jenis-produk']);
-          const channel = contentStringTransformer(content['channel']);
-          const produkImage = singleImageTransformer(content['produk-image']);
-          const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-
-          return {
-            categoryName,
-            namaProduk,
-            tags,
-            deskripsiSingkatProduk,
-            deskripsiLengkapProduk,
-            jenisProduk,
-            channel,
-            produkImage,
-            kategoriProdukIcon,
-            id
-          };
-        });        
-        setDataContent(dataContentValues);
-        return dataContentValues;      
-        
-      }
-      catch(error) {        
+      } catch (error) {
         console.error('Error: ', error);
       }
     };
 
     fetchData().then();
-    fetchDataContentWithCategory().then(
-      (dataContentValues) => {      
-        if (dataContentValues) {
-          const channelValues = dataContentValues.map((data: any) => {
-            return data['channel'];
-          });        
-          const uniqueChannels = new Set(channelValues?.filter((channel: string) => channel !== ''));
-          setChannels(Array.from(uniqueChannels));      
-        }
+    fetchDataContentWithCategory().then((dataContentValues) => {
+      if (dataContentValues) {
+        const channelValues = dataContentValues.map((data: any) => {
+          return data['channel'];
+        });
+        const uniqueChannels = new Set(
+          channelValues?.filter((channel: string) => channel !== '')
+        );
+        setChannels(Array.from(uniqueChannels));
       }
-    );
+    });
   }, [searchParams, selectedChannels, searchValue]);
 
   const paginatedData = dataContent
-  ? dataContent.slice(startIndex, endIndex)
-  : [];
+    ? dataContent.slice(startIndex, endIndex)
+    : [];
   const totalPages = dataContent
-  ? Math.ceil(dataContent.length / itemsPerPage)
-  : 0;  
+    ? Math.ceil(dataContent.length / itemsPerPage)
+    : 0;
 
   const handleSelectedChannels = (value: any) => {
     setSelectedChannels(value);
-  }
+  };
 
   const handlePageChange = (page: React.SetStateAction<number>) => {
     setCurrentPage(page);
@@ -228,37 +219,42 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     router.push(`?${createQueryString('nameOrTags', value)}`, {
       scroll: false
     });
-  }
+  };
 
   const renderCard = () => {
     if (!activeTab) {
       return (
-        dataContent &&
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
-          {paginatedData.map((item: any, index: number) => (
-            <CardCategoryA
-              key={index}
-              imageProduk={item.produkImage.imageUrl}
-              symbol={item.kategoriProdukIcon.imageUrl}
-              title={item.categoryName}
-              summary={item.namaProduk}
-              description={item.deskripsiSingkatProduk}
-              tags={item.tags.split(',')}
-              href={`/produk/individu/${item.id}`}
-            />
-          ))}
-        </div>
+        dataContent && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
+            {paginatedData.map((item: any, index: number) => (
+              <CardCategoryA
+                key={index}
+                imageProduk={item.produkImage.imageUrl}
+                symbol={item.kategoriProdukIcon.imageUrl}
+                title={item.categoryName}
+                summary={item.namaProduk}
+                description={item.deskripsiSingkatProduk}
+                tags={item.tags.split(',')}
+                href={`/produk/individu/${item.id}`}
+              />
+            ))}
+          </div>
+        )
       );
     }
-    const renderActiveTab =  {
-      'Asuransi Jiwa': () => (<AsuransiJiwa data={paginatedData}/>),
-      'Asuransi Kesehatan': () => (<AsuransiKesehatan data={paginatedData}/>),
-      'Asuransi Kecelakaan': () => (<AsuransiKecelakaan data={paginatedData} />),
-      'Asuransi Tambahan': () => <AsuransiTambahan data={paginatedData}/>
-    }
+    const renderActiveTab = {
+      'Asuransi Jiwa': () => <AsuransiJiwa data={paginatedData} />,
+      'Asuransi Kesehatan': () => <AsuransiKesehatan data={paginatedData} />,
+      'Asuransi Kecelakaan': () => <AsuransiKecelakaan data={paginatedData} />,
+      'Asuransi Tambahan': () => <AsuransiTambahan data={paginatedData} />
+    };
 
-    return (renderActiveTab[activeTab as keyof typeof renderActiveTab]as () => JSX.Element)();
-  }
+    return (
+      renderActiveTab[
+        activeTab as keyof typeof renderActiveTab
+      ] as () => JSX.Element
+    )();
+  };
 
   return (
     <div className="flex flex-col">
@@ -287,45 +283,48 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}
             />
-            <ButtonSelection buttonHelper={buttonHelper}  channels={channels} onSelectChannels={handleSelectedChannels} selectedChannels={selectedChannels}/>
+            <ButtonSelection
+              buttonHelper={buttonHelper}
+              channels={channels}
+              onSelectChannels={handleSelectedChannels}
+              selectedChannels={selectedChannels}
+            />
           </div>
-          { renderCard() }
+          {renderCard()}
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">
                 Menampilkan{' '}
                 <span className="font-bold text-purple_dark">
                   {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                  {Math.min(
-                    endIndex,
-                    dataContent ? dataContent.length : 0
-                  )}
-                </span>{' '}dari{' '}
-                <span className="font-bold">{dataContent?.length}</span> hasil
+                  {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+                </span>{' '}
+                dari <span className="font-bold">{dataContent?.length}</span>{' '}
+                hasil
               </p>
             </div>
             <div className="flex flex-row gap-[8px] items-center">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <div
-                      key={page}
-                      role="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                        currentPage === page ? 'text-purple_dark font-bold' : ''
-                      }`}
-                    >
-                      {page}
-                    </div>
-                  )
-                )}
-                <span
-                  className="mt-[3px]"
-                  role="button"
-                  onClick={() => handlePageChange(totalPages)}
-                >
-                  <Icon name="chevronRight" color="purple_dark" />
-                </span>
+                (page) => (
+                  <div
+                    key={page}
+                    role="button"
+                    onClick={() => handlePageChange(page)}
+                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                      currentPage === page ? 'text-purple_dark font-bold' : ''
+                    }`}
+                  >
+                    {page}
+                  </div>
+                )
+              )}
+              <span
+                className="mt-[3px]"
+                role="button"
+                onClick={() => handlePageChange(totalPages)}
+              >
+                <Icon name="chevronRight" color="purple_dark" />
+              </span>
             </div>
           </div>
         </div>
@@ -383,21 +382,21 @@ export interface IDataPage {
   titleImageUrl: string;
   titleAltText: string;
   bannerImageUrl: string;
-  bannerAltText: string
+  bannerAltText: string;
   footerInfoImageUrl: string;
-  footerInfoAltText: string
+  footerInfoAltText: string;
 }
 
 export interface IDataContent {
-  categoryName?: string
-  createdAt?: string
+  categoryName?: string;
+  createdAt?: string;
   namaProduk: string;
   tags: string;
   deskripsiSingkatProduk: string;
   deskripsiLengkapProduk: string;
   jenisProduk: string;
   channel: string;
-  produkImage: { imageUrl: string, altText: string };
-  kategoriProdukIcon: { imageUrl: string, altText: string };
+  produkImage: { imageUrl: string; altText: string };
+  kategoriProdukIcon: { imageUrl: string; altText: string };
   id: number;
 }

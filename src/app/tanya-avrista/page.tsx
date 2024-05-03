@@ -105,7 +105,7 @@ const TanyaAvrista = () => {
         const tempData = listFaq?.data?.categoryList[""];
         const transformedData = tempData.map(item => {
           const title = item.title;
-          const href = `/tanya-avrista/${title.toLowerCase().replace(/\s+/g, '-')}/`;
+          const href = `/tanya-avrista/${item.id}/`;
           const tagsData = item.contentData.find(content => content.fieldId === 'tags');
           const tags = tagsData ? tagsData.value : '';
         
@@ -130,8 +130,9 @@ const TanyaAvrista = () => {
   };
 
   useEffect(() => {
-    const filteredData = listData.filter(item => item.tags === 'selectedCards');
+    const filteredData = listData.filter(item => item.tags === selectedCards);
     setListFilteredData(filteredData);
+    console.log(filteredData)
   },[selectedCards])
 
   return (
@@ -182,7 +183,7 @@ const TanyaAvrista = () => {
             title: 'Panduan Polis',
             subtitle: 'Lebih Lanjut',
             icon: NOTES,
-            href: '/klaim-layanan/layanan?tab=Informasi+Nasabah'
+            href: '/klaim-layanan/layanan/kelola-polis'
           }
         ]}
       />

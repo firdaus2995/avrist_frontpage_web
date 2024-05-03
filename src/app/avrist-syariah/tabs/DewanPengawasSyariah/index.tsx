@@ -18,31 +18,31 @@ type Props = {
 };
 
 const DewanPengawasSyariah = (props: Props) => {
-  const { boards, desc, subTitle, title, manfaatUtamaDesc, manfaatUtamaJudul } =
-    props;
+  const { boards } = props;
 
   return (
     <div>
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-syariah_green"
-        headingText={title}
-        subHeadingText={subTitle}
-        description={desc}
+        headingText={'SEJARAH UNIT SYARIAH PT AVRIST ASSURANCE'}
+        description={
+          'PT Avrist Assurance (d/h PT Asuransi AIA Indonesia) memperoleh Izin untuk menjalankan usaha Asuransi berdasarkan Prinsip Syariah (Syariah Unit) pada tanggal 28 September 2005 dari Kementerian Keuangan Republik Indonesia, No. KEP – 326/KM.5/2005'
+        }
         tags={['Avrist Syariah', 'Premi Tetap', 'Kecelakaan Diri']}
         tagsClassname="bg-gray_bglightgray"
         tagsTextClassname="text-syariah_green"
         idTags="#TentangAvristSyariah"
       />
       <PersonCard
-        heading="Dewan Pengawas Syariah"
+        heading="DEWAN PENGAWAS SYARIAH PT AVRIST ASSURANCE"
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
       />
       <InformationCard
         heading="Tugas dan Peran"
-        subHeading="DPS PT Avrist Assurance sebagai berikut:"
+        subHeading="Tugas dan Peran DPS PT Avrist Assurance sebagai berikut:"
         cards={[
           {
             cardIcon: GreenBinocular,
@@ -68,8 +68,27 @@ const DewanPengawasSyariah = (props: Props) => {
           cards={[
             {
               cardIcon: GreenBinocular,
-              cardTitle: manfaatUtamaJudul,
-              cardBody: manfaatUtamaDesc
+              cardTitle: 'Dapat dibeli dengan mudah',
+              cardBody:
+                'Avrist Unit Syariah memiliki Jalur Distribusi lengkap mencakup Employee Benefit, Bancassurance dan Agency'
+            },
+            {
+              cardIcon: GreenHead,
+              cardTitle: 'Pilihan Produk yang lengkap',
+              cardBody:
+                'Memiliki beragam Produk Avrist Unit Syariah, sesuai dengan kebutuhan keluarga Indonesia'
+            },
+            {
+              cardIcon: GreenPeople,
+              cardTitle: 'Menggunakan Prinsip Murni Syariah',
+              cardBody:
+                "Dengan menggunakan Akad Wakalah Bil Ujrah, Akad Tabarru’, dan Akad Hibah Mu'allaqah bi al-Syarth."
+            },
+            {
+              cardIcon: GreenPeople,
+              cardTitle: 'Semakin dekat dengan Anda',
+              cardBody:
+                'Avrist Unit Syariah berada di 20 kota dengan 21 Kantor Cabang dan 13 Kantor Pemasaran Mandiri'
             }
           ]}
           cardClassname="border-b-syariah_green"

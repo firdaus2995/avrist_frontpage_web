@@ -13,22 +13,22 @@ const KlaimDanLayanan = () => {
   return (
     <div>
       <InformationCard
-        heading="Cara Kami menangani klaim Anda"
-        subHeading="Kami memberikan pelayanan dengan profesionalisme."
+        heading="Layanan Avrist Total Solution"
+        subHeading="Komitmen kami untuk mejaga kepercayaan Anda dengan pelayanan yang professional dan efisien"
         cards={[
           {
             cardIcon: GreenReceipt,
-            cardTitle: 'Pengajuan Klaim',
+            cardTitle: 'Kelola Klaim',
             cardBody:
-              'Perkembangan informasi dan keputusan secara jelas, efektif dan transparansi.',
+              'Informasi seputar panduan dan layanan klaim',
             cardButtonText: 'Panduan Klaim',
             href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             cardIcon: GreenContact,
-            cardTitle: 'Kelola Polis',
+            cardTitle: 'Kelola Perlindungan Anda',
             cardBody:
-              'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
+              'Kelola informasi seputar Polis Anda ',
             cardButtonText: 'Informasi Nasabah',
             href: '/klaim-layanan/layanan/kelola-polis'
           },
@@ -36,7 +36,7 @@ const KlaimDanLayanan = () => {
             cardIcon: GreenHospital,
             cardTitle: 'Rumah Sakit Rekanan',
             cardBody:
-              'Kami menjamin kelancaran proses klaim dengan ketentuan polis yang ada.',
+              'Jaringan Rekanan Rumah Sakit Avrist Assurance',
             cardButtonText: 'Cari Lokasi',
             href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
           },
@@ -44,7 +44,7 @@ const KlaimDanLayanan = () => {
             cardIcon: GreenForm,
             cardTitle: 'Formulir dan Buku Panduan',
             cardBody:
-              'Kami memberi kelancaran dengan ketentuan polis yang disepakati bersama.',
+              'Akses dokumen cepat, untuk kebutuhan Anda',
             cardButtonText: 'Unduh dan Baca',
             href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
           },
@@ -52,15 +52,15 @@ const KlaimDanLayanan = () => {
             cardIcon: GreenPaper,
             cardTitle: 'Penanganan Pengaduan',
             cardBody:
-              'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
-            cardButtonText: 'Baca Aturan',
-            href: '/klaim-layanan/layanan/penanganan-pengaduan'
+              'Mekanisme Penanganan Pengaduan',
+            cardButtonText: 'Selengkapnya',
+            href: 'https://avrist.com/Prosedur%20Singkat%20Pelayanan%20Nasabah%20Avrist%20_updated.pdf'
           },
           {
             cardIcon: GreenHelpDesk,
-            cardTitle: 'Butuh Bantuan',
+            cardTitle: 'Bantuan',
             cardBody:
-              'Melalui jalur komunikasi yang tersedia, Kami selalu siap untuk membantu Anda.',
+              'Kami di sini siap membantu Anda',
             cardButtonText: 'Hubungi Kami'
           }
         ]}

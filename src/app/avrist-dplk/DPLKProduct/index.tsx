@@ -107,7 +107,7 @@ const DPLKProductList = (props: Props) => {
           return (
             <CardProduct
               key={index}
-              image={produkImage.imageUrl}
+              imageProduk={produkImage.imageUrl}
               symbol={YellowHome}
               title={'Avrist DPLK'}
               summary={namaProduk}
