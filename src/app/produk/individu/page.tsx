@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import AsuransiJiwa from './tabs/AsuransiJiwa';
@@ -8,6 +9,7 @@ import AsuransiKecelakaan from './tabs/AsuransiKecelakaan';
 import AsuransiKesehatan from './tabs/AsuransiKesehatan';
 import AsuransiTambahan from './tabs/AsuransiTambahan';
 
+import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -44,8 +46,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   };
   const [data, setData] = useState<IDataPage>(initialData);
   const [dataContent, setDataContent] = useState<IDataContent[]>();
-  const [channels, setChannels] = useState<any>();
-  const [selectedChannels, setSelectedChannels] = useState();
+  const [channels, setChannels] = useState<any>([]);
+  const [selectedChannels, setSelectedChannels] = useState<any>([]);
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -61,12 +63,16 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     'Asuransi Kecelakaan',
     'Asuransi Tambahan'
   ];
-  const [searchValue, setSearchValue] = useState(searchParams.get('tab') || '');
+  const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState(searchParams.get('tab'));
   const [isOpen, setIsOpen] = useState(false);
+  const [isCategoryChange, setIsCategoryChange] = useState(true);
 
   const handleTabClick = (tabs: string) => {
     setActiveTab(tabs);
+    setSearchValue('');
+    setSelectedChannels([]);
+    setIsCategoryChange(true);
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
     });
@@ -133,7 +139,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       try {
         if (activeTab) {
           const contentCategoryResponse = await fetch(
-            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}`
+            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels?.length === channels?.length ? undefined : selectedChannels}&searchFilter=${searchValue}`
           );
           const data = await contentCategoryResponse.json();
           const transformedDataContent = contentCategoryTransformer(
@@ -188,13 +194,14 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
     fetchData().then();
     fetchDataContentWithCategory().then((dataContentValues) => {
-      if (dataContentValues) {
+      if (isCategoryChange && dataContentValues) {
         const channelValues = dataContentValues.map((data: any) => {
           return data['channel'];
         });
         const uniqueChannels = new Set(
           channelValues?.filter((channel: string) => channel !== '')
         );
+        setIsCategoryChange(false);
         setChannels(Array.from(uniqueChannels));
       }
     });
@@ -208,6 +215,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
+    console.log(value);
     setSelectedChannels(value);
   };
 
@@ -216,9 +224,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   };
 
   const handleChangeSearchParams = (value: string) => {
-    router.push(`?${createQueryString('nameOrTags', value)}`, {
-      scroll: false
-    });
+    setSearchValue(value);
   };
 
   const renderCard = () => {
@@ -291,6 +297,22 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             />
           </div>
           {renderCard()}
+          {dataContent?.length === 0 && (
+            <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+              <Image src={Search} alt="search" />
+              <div className="flex flex-col gap-4">
+                <div className="w-[324px] text-center">
+                  <p className="font-karla font-bold text-[24px]">
+                    Page Not Found
+                  </p>
+                  <p className="font-opensans text-[16px] mt-[12px]">
+                    Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                    cari.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">

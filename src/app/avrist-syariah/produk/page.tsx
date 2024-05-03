@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import Image from 'next/image';
+import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -28,9 +30,9 @@ import {
 
 const ProdukSyariah = () => {
   const [data, setData] = useState<PageResponse>();
-  const [dataContent, setDataContent] = useState<IDataContent[]>();
-  const [channels, setChannels] = useState<any>();
-  const [selectedChannels, setSelectedChannels] = useState();
+  const [dataContent, setDataContent] = useState<IDataContent[]>([]);
+  const [channels, setChannels] = useState<any>([]);
+  const [selectedChannels, setSelectedChannels] = useState([]);
 
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,7 +93,7 @@ const ProdukSyariah = () => {
     };
 
     fetchDataContentWithCategory().then((dataContentValues) => {
-      if (dataContentValues) {
+      if (selectedChannels?.length === 0 && dataContentValues) {
         const channelValues = dataContentValues.map((data: any) => {
           return data['channel'];
         });
@@ -176,7 +178,7 @@ const ProdukSyariah = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-[24px]">
-          {dataContent &&
+          {dataContent?.length > 0 &&
             paginatedData.map((item: any, index: number) => (
               <CardProduct
                 key={index}
@@ -194,6 +196,22 @@ const ProdukSyariah = () => {
               />
             ))}
         </div>
+        {dataContent.length === 0 && (
+          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+            <Image src={Search} alt="search" />
+            <div className="flex flex-col gap-4">
+              <div className="w-[324px] text-center">
+                <p className="font-karla font-bold text-[24px]">
+                  Page Not Found
+                </p>
+                <p className="font-opensans text-[16px] mt-[12px]">
+                  Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                  cari.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <div>
             <p className="text-[20px]">
