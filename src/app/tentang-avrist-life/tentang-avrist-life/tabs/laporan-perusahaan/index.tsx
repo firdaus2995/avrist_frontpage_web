@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Phone from '@/assets/images/common/phone.svg';
 import Button from '@/components/atoms/Button/Button';
@@ -15,38 +16,6 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
-
-const yearDropdown = (startYear: number) => {
-  const currentYear = new Date().getFullYear();
-
-  const years = [{ label: 'Pilih Tahun', value: '' }];
-
-  for (let year = currentYear; year >= startYear; year--) {
-    years.push({ label: year.toString(), value: year.toString() });
-  }
-
-  return years;
-};
-
-const monthDropdown = () => {
-  const month = [
-    { label: 'Pilih Bulan', value: '' },
-    { label: 'Januari', value: '01' },
-    { label: 'Februari', value: '02' },
-    { label: 'Maret', value: '03' },
-    { label: 'April', value: '04' },
-    { label: 'Mei', value: '05' },
-    { label: 'Juni', value: '06' },
-    { label: 'Juli', value: '07' },
-    { label: 'Agustus', value: '08' },
-    { label: 'September', value: '09' },
-    { label: 'Oktober', value: '10' },
-    { label: 'November', value: '11' },
-    { label: 'Desember', value: '12' }
-  ];
-
-  return month;
-};
 
 const LaporanPerusahaan = () => {
   const [contentData, setContentData] = useState<any>();
@@ -118,18 +87,110 @@ const LaporanPerusahaan = () => {
     setPagination({ ...pagination, currentPage: page });
   };
 
+  const yearDropdown = (startYear: number) => {
+    const currentYear = new Date().getFullYear();
+
+    const years = [
+      {
+        label: 'Pilih Tahun',
+        value: '',
+        onClick: () => setParams({ ...params, yearFilter: '' })
+      }
+    ];
+
+    for (let year = currentYear; year >= startYear; year--) {
+      years.push({
+        label: year.toString(),
+        value: year.toString(),
+        onClick: () => setParams({ ...params, yearFilter: year.toString() })
+      });
+    }
+
+    return years;
+  };
+
+  const monthDropdown = () => {
+    const month = [
+      {
+        label: 'Pilih Bulan',
+        value: '',
+        onClick: () => setParams({ ...params, monthFilter: '' })
+      },
+      {
+        label: 'Januari',
+        value: '01',
+        onClick: () => setParams({ ...params, monthFilter: '01' })
+      },
+      {
+        label: 'Februari',
+        value: '02',
+        onClick: () => setParams({ ...params, monthFilter: '02' })
+      },
+      {
+        label: 'Maret',
+        value: '03',
+        onClick: () => setParams({ ...params, monthFilter: '03' })
+      },
+      {
+        label: 'April',
+        value: '04',
+        onClick: () => setParams({ ...params, monthFilter: '04' })
+      },
+      {
+        label: 'Mei',
+        value: '05',
+        onClick: () => setParams({ ...params, monthFilter: '05' })
+      },
+      {
+        label: 'Juni',
+        value: '06',
+        onClick: () => setParams({ ...params, monthFilter: '06' })
+      },
+      {
+        label: 'Juli',
+        value: '07',
+        onClick: () => setParams({ ...params, monthFilter: '07' })
+      },
+      {
+        label: 'Agustus',
+        value: '08',
+        onClick: () => setParams({ ...params, monthFilter: '08' })
+      },
+      {
+        label: 'September',
+        value: '09',
+        onClick: () => setParams({ ...params, monthFilter: '09' })
+      },
+      {
+        label: 'Oktober',
+        value: '10',
+        onClick: () => setParams({ ...params, monthFilter: '10' })
+      },
+      {
+        label: 'November',
+        value: '11',
+        onClick: () => setParams({ ...params, monthFilter: '11' })
+      },
+      {
+        label: 'Desember',
+        value: '12',
+        onClick: () => setParams({ ...params, monthFilter: '12' })
+      }
+    ];
+
+    return month;
+  };
+
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          {/* <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
-            {params.category}{' '}
-            {params.category.includes('Perusahaan') ? '' : 'Perusahaan'}
+          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+            Laporan Keuangan Perusahaan
           </h2>
           <h2 className="text-[36px] mb-6">
-            Temukan {params.category.toLowerCase()}{' '}
-            {params.category.includes('Perusahaan') ? '' : 'perusahaan'} di sini
-          </h2> */}
+            Temukan laporan keuangan perusahaan di sini
+          </h2>
         </div>
         <CategoryWithThreeCards
           defaultSelectedCategory={params.category}
@@ -231,13 +292,14 @@ const LaporanPerusahaan = () => {
           title={
             <div className="flex flex-col items-center justify-center gap-4 bg-gray_bglightgray">
               <p className="text-[56px] font-bold">Hubungi Kami</p>
-              <div
+              <Link
+                href="tel:02157898188"
                 role="button"
                 className="p-4 border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark text-2xl font-bold bg-white"
               >
                 <Image src={Phone} alt="phone" className="w-10" />
                 <p>021 5789 8188</p>
-              </div>
+              </Link>
               <p>
                 <span className="font-bold">Waktu Operasional:</span> Senin -
                 Jumat, 08.00 - 17.00 WIB

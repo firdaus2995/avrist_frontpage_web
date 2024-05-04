@@ -146,26 +146,34 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 </p>
                 <div
                   role="button"
-                  className="p-4 bg-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-white font-medium"
+                  className=" bg-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-white font-medium"
                 >
                   {tab === 'Penghargaan' ? (
-                    <div className="flex flex-row items-center gap-2">
+                    <Link
+                      href={'https://id.linkedin.com/company/avristassurance'}
+                      target="blank"
+                      className="flex flex-row items-center justify-center gap-2 w-full p-4"
+                    >
                       <p>Ikuti kami di</p>
                       <Icon name="linkedInIcon" color="white" />
                       <p>LinkedIn</p>
-                    </div>
+                    </Link>
                   ) : tab === 'Manajemen' ? (
                     isSelectedDetail ? (
-                      <div className="flex flex-row items-center gap-2">
+                      <Link
+                        href={'https://www.facebook.com/avrist/'}
+                        target="blank"
+                        className="flex flex-row items-center justify-center gap-2 w-full p-4"
+                      >
                         <p>Ikuti kami di</p>
                         <Icon name="facebookIcon" color="white" />
                         <p>Facebook</p>
-                      </div>
+                      </Link>
                     ) : (
                       <Link
                         href="https://www.instagram.com/avristsolution/"
                         target="blank"
-                        className="flex flex-row items-center gap-2"
+                        className="flex flex-row items-center justify-center gap-2 w-full p-4"
                       >
                         <p>Ikuti kami di</p>
                         <Icon name="instaIcon" color="white" />
@@ -173,11 +181,15 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       </Link>
                     )
                   ) : (
-                    <div className="flex flex-row items-center gap-2">
+                    <Link
+                      href={'https://www.youtube.com/@avristian'}
+                      target="blank"
+                      className="flex flex-row items-center justify-center gap-2 w-full p-4"
+                    >
                       <p>Subscribe</p>
                       <Icon name="youtubeIcon" color="white" />
                       <p>Youtube</p>
-                    </div>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -193,17 +205,22 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             {
               title: 'Layanan Nasabah',
               icon: Icon1,
-              subtitle: '021 5789 8188'
+              subtitle: '021 5789 8188',
+              href: '02157898188',
+              hrefType: 'phone'
             },
             {
               title: 'Tanya Avrista',
               icon: Icon2,
-              subtitle: 'Lebih Lanjut'
+              subtitle: 'Lebih Lanjut',
+              href: '/tanya-avrista/'
             },
             {
               title: 'Tanya Lewat Email',
               icon: Icon3,
-              subtitle: 'Kirim Email'
+              subtitle: 'Kirim Email',
+              href: 'customer-service@avrist.com',
+              hrefType: 'email'
             },
             {
               title:
@@ -241,7 +258,29 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       ? 'Lihat Prosedur'
                       : tab === 'Laporan Perusahaan'
                         ? 'Lihat Prosedur'
-                        : 'Lihat Prosedur'
+                        : 'Lihat Prosedur',
+              href:
+                tab === 'Sekilas Perusahaan'
+                  ? 'https://www.facebook.com/avrist/'
+                  : tab === 'Manajemen'
+                    ? isSelectedDetail
+                      ? 'https://www.youtube.com/@avristian'
+                      : 'https://id.linkedin.com/company/avristassurance'
+                    : tab === 'Penghargaan'
+                      ? '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
+                      : tab === 'Laporan Perusahaan'
+                        ? '/tentang-avrist-life?tab=Laporan+Perusahaan'
+                        : '/tentang-avrist-life?tab=Sekilas+Perusahaan',
+              openInNewTab:
+                tab === 'Sekilas Perusahaan'
+                  ? true
+                  : tab === 'Manajemen'
+                    ? true
+                    : tab === 'Penghargaan'
+                      ? false
+                      : tab === 'Laporan Perusahaan'
+                        ? false
+                        : false
             }
           ]}
         />

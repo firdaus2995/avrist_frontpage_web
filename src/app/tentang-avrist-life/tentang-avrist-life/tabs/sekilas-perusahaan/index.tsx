@@ -28,57 +28,57 @@ const visiMisi = [
   {
     title: 'Visi',
     icon: VisiIcon,
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.'
+    desc: 'Satu Polis untuk setiap rumah tangga di Indonesia.'
   },
   {
     title: 'Misi',
     icon: MisiIcon,
     desc: [
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.',
-      'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti. Tincidunt nibh ac purus viverra urna bibendum fusce nec.'
+      'Merangkul dan meneladani semangat kepeloporan yang menjadi bagian dari sejarah kami yang besar.',
+      'Menciptakan tempat bekerja yang terbaik guna memajukan karier serta masa depan.',
+      'Menempatkan pemangku kepentingan (karyawan, mitra, dan nasabah) sebagai inti dari setiap hal yang Avrist lakukan.',
+      'Menawarkan produk dan layanan Avrist ke setiap rumah tangga.',
+      'Memastikan produk Avrist selalu mudah diakses dan terjangkau.',
+      'Mengembangkan bisnis Avrist dengan penuh kesigapan, kedispilinan, dan integritas yang tinggi.',
+      'Sepenuhnya mempercayai pemangku kepentingan agar mereka juga percaya kepada kami.'
     ]
   }
 ];
 
 const purposeData = [
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Lebih dari 45 Tahun',
+    desc: 'Berpengalaman lebih dari 45 tahun dalam melindungi keluarga Indonesia.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon1
   },
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Klaim Mudah',
+    desc: 'Klaim mudah, dapat melalui aplikasi Avrist Solution.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon2
   },
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Seluruh Indonesia',
+    desc: 'Kantor cabang, tersebar diseluruh Indonesia.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon3
   },
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Premi Terjangkau',
+    desc: 'Banyak pilihan perlindungan yang sesuai kebutuhan, premi terjangkau mulai dari Rp 7.000/hari.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon4
   },
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Rekanan Rumah Sakit',
+    desc: 'Memiliki 1000+ rekanan rumah sakit di seluruh Indonesia.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon5
   },
   {
-    title: 'Lorem ipsum',
-    desc: 'Lorem ipsum dolor sit amet consectetur. Purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti tincidunt nibh ac purus.',
+    title: 'Tenaga Pemasar Bepengalaman',
+    desc: 'Memiliki tenaga pemasar berpengalaman yang akan membantu Anda.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon6
   }
@@ -89,6 +89,8 @@ const SekilasPerusahaan = () => {
   const [contentPage, setContentPage] = useState<any>();
 
   useEffect(() => {
+    const groupedData: any = {};
+
     handleGetContentPage('halaman-sekilas-perusahaan').then((res: any) => {
       setContentPage(pageTransformer(res));
     });
@@ -143,7 +145,22 @@ const SekilasPerusahaan = () => {
         };
       };
 
-      setContentData(transformData(arrayOfObjects[0]?.contentData));
+      const transformedData = transformData(arrayOfObjects[0]?.contentData);
+
+      transformedData?.data.forEach((item: any) => {
+        const year = item.year;
+        if (!groupedData[year]) {
+          groupedData[year] = { year: year, data: [] };
+        }
+        groupedData[year]['data'].push({
+          title: item.title,
+          desc: item.desc
+        });
+      });
+
+      const mergedData = Object.values(groupedData);
+
+      setContentData(mergedData);
     });
   }, []);
 
@@ -154,11 +171,19 @@ const SekilasPerusahaan = () => {
           <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>
         <p>
-          Avrist Life Insurance merupakan perusahaan keuangan yang bergerak di
-          bidang pengelolaan investasi di pasar modal. Avram memiliki izin
-          sebagai perusahaan Pengelola Aset berdasarkan KEP-07/BL/MI/2012 oleh
-          BAPEPAM-LK pada tahun 2012 & Izin Penasihat Investasi oleh OJK pada
-          tahun 2017.
+          PT Avrist Assurance (Avrist) adalah perusahaan asuransi jiwa patungan
+          pertama di Indonesia yang telah berdiri sejak tahun 1975, Avrist
+          Assurance terus berkembang menjadi salah satu perusahaan asuransi jiwa
+          terkemuka yang mampu bersaing di industri asuransi jiwa di Indonesia.
+          Dengan pengalaman selama lebih dari 45 tahun, Avrist telah
+          mengembangkan beberapa kanal distribusi antara Iain Agency,
+          Bancassurance, Alternate Partnership, Employee Benefit, dan Syariah
+          yang menyediakan produk-produk asuransi jiwa, asuransi kecelakaan dan
+          kesehatan, asuransi berbasis syariah, asuransi jiwa kredit dan pensiun
+          baik untuk perorangan maupun korporasi. Perkembangan bisnis Avrist
+          juga tidak luput dari dukungan lebih dari 1.000 agen yang telah
+          memiliki sertifikasi dan lebih dari 300 karyawan yang tersebar di 21
+          kantor pemasaran Avrist.
         </p>
         <div className="flex justify-center w-full h-[650px] mb-16">
           <VideoPlayer
@@ -169,17 +194,17 @@ const SekilasPerusahaan = () => {
           />
         </div>
         <p>
-          Saat ini Avrist Life Insurance memiliki dana kelolaan lebih dari 3,9
-          triliun per Desember 2022 dan terus berkembang hingga saat ini. Avrist
-          Life Insurance berusaha memenuhi kebutuhan investasi yang dibutuhkan
-          masyarakat Indonesia, baik institusi maupun individu dengan
-          menyediakan berbagai produk unggulan Reksa Dana seperti Reksa Dana
-          Konvesnsional, Reksa Dana Syariah, maupun Reksa Dana Terproteksi.
+          Sejalan dengan perkembangannya tersebut, Avrist telah memiliki Dana
+          Pensiun Lembaga Keuangan (DPLK) Avrist dan 2 (dua) anak
+          perusahaan/subsidiary yaitu, PT Avrist General Insurance, dan PT
+          Avrist Asset Management. Dengan berlandaskan visi “Satu polis Avrist
+          di setiap rumah tangga di Indonesia”, Avrist berkomitmen untuk
+          memajukan kehidupan gemilang yang bermakna bagi karyawan, mitra bisnis
+          dan pemegang polis. PT Avrist Assurance berizin dan diawasi oleh
+          Otoritas Jasa Keuangan.
         </p>
         <div className="mt-20">
-          {contentData && (
-            <Timeline data={contentData?.data} title={contentData?.title} />
-          )}
+          {contentData && <Timeline data={contentData} />}
         </div>
         <VisiMisi data={visiMisi} />
       </div>
@@ -203,11 +228,12 @@ const SekilasPerusahaan = () => {
         </div>
         <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10">
           <p className="text-[36px] font-bold text-purple_dark">
-            Izin usaha Avrist dari OJK
+            PT Avirst Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan
+            (OJK)
           </p>
           <p className="text-[20px]">
-            PT Avrist Assurance nomor: KEP-037/KM.11/1986 tertanggal 10 Maret
-            1986.
+            Izin Usaha PT Avrist Assurance nomor: KEP-037/KM.11/1986 tertanggal
+            10 Maret 1986
           </p>
         </div>
       </div>
