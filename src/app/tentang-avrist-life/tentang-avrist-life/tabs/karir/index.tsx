@@ -282,13 +282,14 @@ const Karir = () => {
           title={
             <div className="flex flex-col items-center justify-center gap-4 bg-gray_bglightgray">
               <p className="text-[56px] font-bold">Hubungi Kami</p>
-              <div
+              <Link
+                href="tel:02157898188"
                 role="button"
                 className="p-4 border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark text-2xl font-bold bg-white"
               >
                 <Image src={Phone} alt="phone" className="w-10" />
                 <p>021 5789 8188</p>
-              </div>
+              </Link>
               <p>
                 <span className="font-bold">Waktu Operasional:</span> Senin -
                 Jumat, 08.00 - 17.00 WIB

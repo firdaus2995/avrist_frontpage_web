@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface IDataHistory {
   year: string;
-  title: string;
-  desc: string;
+  data: {
+    title: string;
+    desc: string;
+  }[];
 }
 
 interface IFooterInformation {
-  title: string;
   data: IDataHistory[];
 }
 
-const Timeline = ({ title, data }: IFooterInformation) => {
-  const [selectedItem, setSelectedItem] = useState('2023');
+const Timeline = ({ data }: IFooterInformation) => {
+  const [selectedItem, setSelectedItem] = useState('');
 
   const handleItemClick = (item: React.SetStateAction<string>) => {
     setSelectedItem(item);
   };
 
+  useEffect(() => {
+    setSelectedItem(data[0].year);
+  }, []);
+
   return (
     <ol className="items-center flex flex-col">
       <div className="flex justify-center items-center p-10">
-        <p className="text-[56px] font-bold text-purple_dark">{title}</p>
+        <p className="text-[56px] font-bold text-purple_dark">
+          {data.filter((val) => val.year === selectedItem)[0]?.data[0]?.title}
+        </p>
       </div>
       <div className="flex flex-row w-full items-center justify-center">
         {data.map((val, idx) => (
@@ -58,13 +65,19 @@ const Timeline = ({ title, data }: IFooterInformation) => {
         ))}
       </div>
       <div className="w-full px-20 mt-10">
-        <div className="mt-3 w-full flex flex-col gap-4 rounded-xl p-5 shadow-xl">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-left">
-            {data.filter((val) => val.year === selectedItem)[0]?.title}
-          </h3>
-          <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-            {data.filter((val) => val.year === selectedItem)[0]?.desc}
-          </p>
+        <div className="mt-3 w-full flex flex-col gap-8 rounded-xl p-5 shadow-xl">
+          {data
+            .filter((val) => val.year === selectedItem)[0]
+            .data.map((val, idx) => (
+              <div className="flex flex-col gap-4 " key={idx}>
+                <h3 className="text-lg font-semibold text-gray-900 text-left">
+                  {val.title}
+                </h3>
+                <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                  {val.desc}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </ol>

@@ -12,6 +12,7 @@ import Icon from '@/components/atoms/Icon';
 interface IOption {
   label: string;
   value: string;
+  onClick?: () => void;
 }
 interface ICategoryWithThreeCards {
   categories: string[];
@@ -195,7 +196,19 @@ const CategoryWithThreeCards = ({
                       />
                     ) : item.type === 'dropdown' ? (
                       <div className="p-2 border rounded-xl border-purple_dark text-purple_dark">
-                        <select key={index}>
+                        <select
+                          key={index}
+                          onChange={(e) => {
+                            const selectedValue = e.target.value;
+                            const selectedData = item?.options?.find(
+                              (i) => i.value === selectedValue
+                            );
+
+                            if (selectedData && selectedData.onClick) {
+                              selectedData.onClick();
+                            }
+                          }}
+                        >
                           {item?.options?.map((val, idx) => (
                             <option
                               defaultValue={val.label}
