@@ -7,10 +7,7 @@ import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg'
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
-import Office from '@/assets/images/common/office.svg';
-import Phone from '@/assets/images/common/phone.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -20,6 +17,7 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
   contentDetailTransformer,
@@ -68,22 +66,22 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
-    const tagline = content['penghargaan-tagline'].value;
-    const judul = content['penghargaan-judul'].value;
-    const nama = content['penghargaan-nama'].value;
-    const penulis = content['penghargaan-author'].value;
+    console.log(jsonData);
+
+    const tagline = content['tags'].value;
+    const judul = content['judul-artikel'].value;
+    const nama = content['nama-penghargaan'].value;
+    const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
-    const deskripsiSingkat = content['penghargaan-deskripsisingkat'].value;
-    const deskripsiLengkap = content['penghargaan-deskripsilengkap'].value;
-    const image = singleImageTransformer(content['penghargaan-image']).imageUrl;
-    const imageDetail = singleImageTransformer(
-      content['penghargaan-imagedetail']
-    ).imageUrl;
-    const imageKoleksi = singleImageTransformer(
-      content['penghargaan-collectionimage']
-    ).imageUrl;
+    const artikel = content['artikel-looping'].contentData[0].details;
+    const paragrafSatu = artikel[0].value;
+    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
+    const paragrafDua = artikel[2].value;
+    const artikelVideo = artikel[3].value;
+    const paragrafTiga = artikel[4].value;
     const tags = content['tags'].value;
+    const externalLink = content['external-link-info'].value;
 
     const transformedData = {
       tagline,
@@ -92,12 +90,13 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       penulis,
       bulan,
       tahun,
-      deskripsiSingkat,
-      deskripsiLengkap,
-      image,
-      imageDetail,
-      imageKoleksi,
-      tags
+      paragrafSatu,
+      artikelImage,
+      paragrafDua,
+      artikelVideo,
+      paragrafTiga,
+      tags,
+      externalLink
     };
 
     setContentData(transformedData);
@@ -121,7 +120,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
           }
         ]}
         imageUrl={data?.titleImage}
-        bottomImage={contentData?.image ?? BlankImage}
+        bottomImage={contentData?.artikelImage ?? BlankImage}
       />
 
       {contentData && (
@@ -133,7 +132,10 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   dangerouslySetInnerHTML={{ __html: contentData.tagline }}
                 />
               </span>
-              <p className="font-semibold text-[48px]">{contentData.judul}</p>
+              <p
+                className="font-semibold text-[48px]"
+                dangerouslySetInnerHTML={{ __html: contentData.judul }}
+              />
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col gap-2">
                   <p>
@@ -159,15 +161,15 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
             {
-              <span
+              <p
                 dangerouslySetInnerHTML={{
-                  __html: contentData.deskripsiSingkat
+                  __html: contentData.paragrafSatu
                 }}
               />
             }
             <div className="bg-gray-200">
               <Image
-                src={contentData.imageDetail ?? BlankImage}
+                src={contentData.artikelImage ?? BlankImage}
                 alt="img"
                 className="w-full"
                 width={238}
@@ -177,24 +179,28 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             {
               <span
                 dangerouslySetInnerHTML={{
-                  __html: contentData.deskripsiLengkap
+                  __html: contentData.paragrafDua
                 }}
               />
             }
-            <div className="grid grid-cols-2 gap-5">
-              {[...Array(4)].map((_, index) => (
-                <Image
-                  src={contentData.imageKoleksi ?? BlankImage}
-                  key={index}
-                  alt="img"
-                  className="w-full"
-                  width={238}
-                  height={172}
-                />
-              ))}
+            <div className="w-full h-[650px] mb-10">
+              <VideoPlayer
+                thumbnail=""
+                url={contentData.artikelVideo}
+                color="purple_dark"
+                type="Artikel Video"
+              />
             </div>
+
+            {
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: contentData.paragrafTiga
+                }}
+              />
+            }
             <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
-              <p className="font-semibold text-xl">
+              {/* <p className="font-semibold text-xl">
                 Berita ini telah terbit di:
               </p>
               <div className="flex flex-row gap-4">
@@ -228,7 +234,12 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   <Image alt={'office'} className="w-6" src={Office} />
                   <p className="font-bold">Sekilas Avrist Life Insurance</p>
                 </div>
-              </div>
+              </div> */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: contentData.externalLink
+                }}
+              />
             </div>
           </div>
         </div>
@@ -265,22 +276,26 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             {
               title: 'Hubungi Kami',
               icon: Icon1,
-              subtitle: 'Lebih Lanjut'
+              subtitle: 'Lebih Lanjut',
+              href: '/hubungi-kami/'
             },
             {
               title: 'Tanya Avrista',
               icon: Icon2,
-              subtitle: 'Lebih Lanjut'
+              subtitle: 'Lebih Lanjut',
+              href: '/tanya-avrista/'
             },
             {
               title: 'Panduan Klaim',
               icon: Icon3,
-              subtitle: 'Lebih Lanjut'
+              subtitle: 'Lebih Lanjut',
+              href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
             },
             {
               title: 'Asuransi Individu',
               icon: Icon4,
-              subtitle: 'Lihat Produk'
+              subtitle: 'Lihat Produk',
+              href: '/produk/individu?tab=Asuransi+Jiwa'
             }
           ]}
         />

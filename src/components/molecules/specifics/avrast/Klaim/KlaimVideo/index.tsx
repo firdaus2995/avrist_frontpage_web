@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { dataKlaim } from '../type';
 import BannerImg from '@/assets/images/avrast/component/klaim-video/img-video.svg';
 import PlayButton from '@/assets/images/play-button.svg';
 import Icon from '@/components/atoms/Icon';
 
-const KlaimVideo = ({ data } : { data?: dataKlaim}) => {
+const KlaimVideo = ({ data }: { data?: dataKlaim }) => {
   const renderCard = () => (
     <div
       className={`w-[75%] md:h-[35vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-white items-center justify-center text-center`}
@@ -14,8 +15,21 @@ const KlaimVideo = ({ data } : { data?: dataKlaim}) => {
       <div
         className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
       >
-        <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center"><span className='font-bold text-purple_dark'>Asuransi Anti Ribet:</span> Premi Seharga kopi...</p>
-        <div role='button' className='p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2'>Cerita Lebih Detail di<Icon name="youtubeIcon" color="white" /></div>
+        <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+          <span className="font-bold text-purple_dark">
+            Asuransi Anti Ribet:
+          </span>{' '}
+          Premi Seharga kopi...
+        </p>
+        <Link
+          href="https://www.youtube.com/@avristian"
+          target="blank"
+          role="button"
+          className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+        >
+          Cerita Lebih Detail di
+          <Icon name="youtubeIcon" color="white" />
+        </Link>
       </div>
       <div
         className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative`}

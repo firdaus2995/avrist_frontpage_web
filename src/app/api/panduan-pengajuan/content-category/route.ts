@@ -6,15 +6,13 @@ export async function GET(request: NextRequest) {
   try {
     const category = request.nextUrl.searchParams.get('category') || '';
     const searchFilter = request.nextUrl.searchParams.get('searchFilter') || '';
-    const yearFilter = request.nextUrl.searchParams.get('yearFilter') || '';
-    const monthFilter = request.nextUrl.searchParams.get('monthFilter') || '';
 
     if (category && category !== 'undefined') {
       const queryParams: QueryParams = {
         includeAttributes: 'true',
         category
       };
-      const data = await getContentCategory('Artikel-penghargaan', queryParams);
+      const data = await getContentCategory('klaim-data', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -23,36 +21,17 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         searchFilter
       };
-      const data = await getContentCategory('Artikel-penghargaan', queryParams);
-      return NextResponse.json(data, { status: 200 });
-    }
-
-    if (yearFilter && yearFilter !== 'undefined') {
-      const queryParams: QueryParams = {
-        includeAttributes: 'true',
-        yearFilter
-      };
-      const data = await getContentCategory('Artikel-penghargaan', queryParams);
-      return NextResponse.json(data, { status: 200 });
-    }
-
-    if (monthFilter && monthFilter !== 'undefined') {
-      const queryParams: QueryParams = {
-        includeAttributes: 'true',
-        monthFilter
-      };
-      const data = await getContentCategory('Artikel-penghargaan', queryParams);
+      const data = await getContentCategory('klaim-data', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
     const queryParams: QueryParams = {
       includeAttributes: 'true',
-      searchFilter,
-      yearFilter,
-      monthFilter
+      category,
+      searchFilter
     };
 
-    const data = await getContentCategory('Artikel-penghargaan', queryParams);
+    const data = await getContentCategory('lap-perusahaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(

@@ -25,7 +25,7 @@ const Penghargaan = () => {
   const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
   const endIndex = startIndex + pagination.itemsPerPage;
   const paginatedData = contentData
-    ? contentData.slice(startIndex, endIndex)
+    ? contentData?.slice(startIndex, endIndex)
     : [];
   const totalPages = contentData
     ? Math.ceil(contentData.length / pagination.itemsPerPage)
@@ -34,7 +34,7 @@ const Penghargaan = () => {
   const fetchContent = async () => {
     try {
       const apiContent = await fetch(
-        `/api/penghargaan/content?&searchFilter=${params.searchFilter}&yearFilter=${params.yearFilter}&monthFilter=${params.monthFilter}`
+        `/api/penghargaan/content?includeAttributes=true&searchFilter=${params.searchFilter}&yearFilter=${params.yearFilter}&monthFilter=${params.monthFilter}`
       );
       const response = await apiContent.json();
 
@@ -46,16 +46,19 @@ const Penghargaan = () => {
           item.title
         );
 
-        const judul = content['penghargaan-judul'].value;
-        const nama = content['penghargaan-nama'].value;
-        const waktu = content['penghargaan-waktu'].value;
-        const deskripsiSingkat = content['penghargaan-deskripsisingkat'].value;
+        const judul = content['judul-artikel'].value;
+        const nama = content['nama-penghargaan'].value;
+        const waktu = `${
+          monthDropdown().find((item) => item.value === content['bulan'].value)
+            ?.label
+        } ${content['tahun'].value}`;
+        const deskripsi = content['artikel-looping'].contentData[0].details;
         const image = singleImageTransformer(
-          content['penghargaan-imagedetail']
+          content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
 
-        return { judul, nama, waktu, deskripsiSingkat, image, id };
+        return { judul, nama, waktu, deskripsi, image, id };
       });
 
       setContentData(transformedData);
@@ -216,11 +219,18 @@ const Penghargaan = () => {
                         />
                         <div className="flex flex-col gap-2 p-5">
                           <p className="text-xs">{item.waktu}</p>
-                          <p className="text-[20px] font-bold">{item.judul}</p>
-                          <p className="text-[20px]">{item.nama}</p>
-                          <div
+                          <p
+                            className="text-[20px] font-bold"
                             dangerouslySetInnerHTML={{
-                              __html: item.deskripsiSingkat
+                              __html: item.judul
+                            }}
+                          />
+                          <p className="text-[20px]">{item.nama}</p>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                item.deskripsi[0].value.substring(0, 150) +
+                                '...'
                             }}
                             className="text-xs"
                           />
