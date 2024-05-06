@@ -9,6 +9,7 @@ interface ISliderInformation {
   image: string;
   isVideo?: boolean;
   bgColor?: string;
+  imageClassName?: string;
 }
 
 const SliderInformation = ({
@@ -17,10 +18,13 @@ const SliderInformation = ({
   image,
   isVideo,
   bgColor,
+  imageClassName
 }: ISliderInformation) => {
   return (
     <div className="flex px-[136px] py-[72px] bg-white w-full">
-      <div className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border`}>
+      <div
+        className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border`}
+      >
         <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
           <div>{title}</div>
           {buttonTitle && <Button title={buttonTitle} />}
@@ -30,7 +34,7 @@ const SliderInformation = ({
             height={0}
             width={0}
             alt="sliderInformationImage"
-            className="min-h-[400px] w-full object-cover"
+            className={`min-h-[400px] w-full object-cover ${imageClassName}`}
             src={image}
           />
           {isVideo && (
