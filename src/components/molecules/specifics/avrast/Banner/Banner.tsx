@@ -141,7 +141,6 @@ const BannerAvrast = () => {
                         className={`xs:text-[20px] md:text-[28px] text-purple_dark whitespace-nowrap xs:mt-10 md:mt-0`}
                       >
                         {contentStringTransformer(data['hero-teks1'])}
-                        {contentStringTransformer(data['hero-teks1'])}
                       </p>
                       <div
                         className="xs:text-[28px] md:text-[36px]"
