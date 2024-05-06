@@ -1,25 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import Link from 'next/link';
 import HeartIcon from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/product-section/chevron-right-purple.svg';
-import STEP1ICON1 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-1.svg';
-import STEP1ICON2 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-2.svg';
-import STEP1ICON3 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-3.svg';
-import STEP1ICON4 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-4.svg';
-import STEP1ICON5 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-5.svg';
-import STEP1ICON6 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-6.svg';
-import STEP1ICON7 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-7.svg';
-import STEP1ICON8 from '@/assets/images/avrast/component/proses-klaim/step-1-icon-8.svg';
-import STEP2ICON1 from '@/assets/images/avrast/component/proses-klaim/step-2-icon-1.svg';
-import STEP2ICON2 from '@/assets/images/avrast/component/proses-klaim/step-2-icon-2.svg';
-import STEP2ICON3 from '@/assets/images/avrast/component/proses-klaim/step-2-icon-3.svg';
-import STEP2ICON4 from '@/assets/images/avrast/component/proses-klaim/step-2-icon-4.svg';
-import STEP2ICON5 from '@/assets/images/avrast/component/proses-klaim/step-2-icon-5.svg';
 import STEP4ICON1 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-1.svg';
 import STEP4ICON2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-2.svg';
 import STEP4ICON3 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-3.svg';
@@ -27,6 +15,11 @@ import STEP4ICON4 from '@/assets/images/avrast/component/proses-klaim/step-4-ico
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import { handleGetContentCategory } from '@/services/content-page.api';
+import {
+  contentCategoryTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const data = [
   {
@@ -80,26 +73,10 @@ const data = [
 ];
 
 const detailData = [
-  {
-    category: 'Asuransi Jiwa Individu',
-    type: 'Klaim Manfaat Hidup',
-    list: [
-      'Perhatikan Informasi Sebelum Klaim',
-      'Lengkapi Dokumen Pendukung',
-      'Isi Formulir Klaim',
-      'Kirim Formulir dan Dokumen Pendukung'
-    ]
-  },
-  {
-    category: 'Asuransi Jiwa Korporasi',
-    type: 'Klaim Manfaat Hidup 2',
-    list: [
-      'Perhatikan Informasi Sebelum Klaim 2',
-      'Lengkapi Dokumen Pendukung 2',
-      'Isi Formulir Klaim 2',
-      'Kirim Formulir dan Dokumen Pendukung 2'
-    ]
-  }
+  'Perhatikan Informasi Sebelum Klaim',
+  'Lengkapi Dokumen Pendukung',
+  'Isi Formulir Klaim',
+  'Kirim Formulir dan Dokumen Pendukung'
 ];
 
 interface ProsesKlaimComponentProps {
@@ -111,112 +88,70 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   onSelectDetail,
   onChangeBannerImg
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState(data[0].category);
   const [selectedDetailCategory, setSelectedDetailCategory] =
     useState<number>(0);
-  const [selectedData, setSelectedData] = useState('');
+  const [selectedData, setSelectedData] = useState<any>();
   const [isSelectedData, setIsSelectedData] = useState(false);
-  const filteredData = data.find((item) => item.category === selectedCategory);
-
-  const itemsPerPage = 5; // Jumlah item yang ditampilkan per halaman
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedData = filteredData
-    ? filteredData.data.slice(startIndex, endIndex)
+  const [search, setSearch] = useState('');
+  const [params, setParams] = useState({
+    includeAttributes: 'true',
+    category: data[0].category,
+    searchFilter: ''
+  });
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    itemsPerPage: 5
+  });
+  const [contentData, setContentData] = useState<any>();
+  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const endIndex = startIndex + pagination.itemsPerPage;
+  const paginatedData = contentData
+    ? contentData.slice(startIndex, endIndex)
     : [];
 
-  const totalPages = filteredData
-    ? Math.ceil(filteredData.data.length / itemsPerPage)
+  const totalPages = contentData
+    ? Math.ceil(contentData.length / pagination.itemsPerPage)
     : 0;
 
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
+  const handlePageChange = (page: number) => {
+    setPagination({ ...pagination, currentPage: page });
   };
+
+  const fetchData = async () => {
+    try {
+      const fetchApi = await handleGetContentCategory('klaim-data', params);
+      const transformedData = contentCategoryTransformer(
+        fetchApi,
+        params.category
+      );
+      console.log(transformedData);
+      setContentData(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [params]);
 
   const renderStep = (idx: number) => {
     return (
       <div className="w-full flex flex-col items-center justify-start py-10 text-left p-4 border rounded-lg border-t-8 border-t-purple_dark">
         <h2 className="w-full text-[32px] font-bold mb-6 text-purple_dark">
-          {
-            detailData.filter(
-              (val) =>
-                val.category === selectedCategory && val.type === selectedData
-            )[0]?.list[idx]
-          }
+          {detailData[selectedDetailCategory]}
         </h2>
-        {detailData.filter(
-          (val) =>
-            val.category === selectedCategory && val.type === selectedData
-        )[0]?.list[idx].length > 0 && renderDetailStep(idx)}
+        {contentData && selectedData && renderDetailStep(idx)}
       </div>
     );
   };
-
-  const detailStep1Data = [
-    {
-      title: 'Hospital cash plan',
-      icon: STEP1ICON1
-    },
-    {
-      title: 'Waiver of premium',
-      icon: STEP1ICON2
-    },
-    {
-      title: 'Hospital surgical',
-      icon: STEP1ICON3
-    },
-    {
-      title: 'Monthly income benefit',
-      icon: STEP1ICON4
-    },
-    {
-      title: 'Penyakit kritis',
-      icon: STEP1ICON5
-    },
-    {
-      title: 'Medical check up',
-      icon: STEP1ICON6
-    },
-    {
-      title: 'Cacat sebagian atau cacat tetap',
-      icon: STEP1ICON7
-    },
-    {
-      title: 'Atau payor/family term (karena cacat)',
-      icon: STEP1ICON8
-    }
-  ];
-
-  const detailStep2Data = [
-    {
-      title:
-        'Surat keterangan asli atau diagnosa dari dokter yang memeriksa penyakit harus menandatangani surat ini',
-      icon: STEP2ICON1
-    },
-    {
-      title: 'Fotokopi seluruh rincian biaya perawatan',
-      icon: STEP2ICON2
-    },
-    {
-      title: 'Fotokopi hasil pemeriksaan medis',
-      icon: STEP2ICON3
-    },
-    {
-      title: 'Fotokopi KTP pemilik polis yang masih berlaku',
-      icon: STEP2ICON4
-    },
-    {
-      title: 'Fotokopi buku tabungan pemilik polis',
-      icon: STEP2ICON5
-    }
-  ];
 
   const detailStep3Data = [
     {
       title: 'Kirim Dokumen',
       link: 'Dengan Email',
-      icon: STEP4ICON1
+      icon: STEP4ICON1,
+      href: 'mailto:customer-service@avrist.com'
     },
     {
       title: 'WTC 2. Jend. Sudirman Kav. 52-53 Jakarta 12190',
@@ -226,12 +161,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     {
       title: 'Layanan Nasabah',
       link: '021 5789 8188',
-      icon: STEP4ICON3
+      icon: STEP4ICON3,
+      href: 'tel:02157898188'
     },
     {
       title: 'Tanya Avrista',
       link: 'Pelajari Lebih Lanjut',
-      icon: STEP4ICON4
+      icon: STEP4ICON4,
+      href: '/tanya-avrista/'
     }
   ];
 
@@ -239,73 +176,114 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     switch (idx) {
       case 0:
         return (
-          <div className="flex flex-col gap-4">
-            <p>
-              Dengan perlindungan dari kami, kamu dapat mengklaim delapan jenis
-              manfaat hidup, hanya dengan menggunakan satu formulir.
-            </p>
-            <p>
-              Formulir manfaat hidup ini dapat digunakan untuk beberapa manfaat
-              berikut:
-            </p>
+          <div className="w-full flex flex-col gap-4">
+            <p
+              dangerouslySetInnerHTML={{
+                __html: selectedData.content['tab-1-paragraf-1'].value
+              }}
+            />
+            <p
+              dangerouslySetInnerHTML={{
+                __html: selectedData.content['tab-1-paragraf-2'].value
+              }}
+            />
             <div className="grid md:grid-cols-2 xs:grid-cols-1 gap-4">
-              {detailStep1Data.map((val, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-row gap-2 font-semibold items-center"
-                >
-                  <Image src={val.icon} alt={val.title} className="w-7" />
-                  <p>{val.title}</p>
-                </div>
-              ))}
+              {selectedData.content['tab-1-list'].contentData.map(
+                (val: any, idx: number) =>
+                  val.details[1].value && (
+                    <div
+                      key={idx}
+                      className="flex flex-row gap-2 font-semibold items-center"
+                    >
+                      <Image
+                        src={singleImageTransformer(val.details[0]).imageUrl}
+                        alt={val.details[1].value}
+                        className="w-7"
+                        width={7}
+                        height={7}
+                      />
+                      <p>{val.details[1].value}</p>
+                    </div>
+                  )
+              )}
             </div>
-            <p>
-              Kamu juga dapat mengajukan klaim secara cepat dan mudah dengan
-              fitur klaim di Avrist Life Insurance. Akses klaim dengan mengunduh
-              aplikasi Avrist Life Insurance, gratis.
-            </p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: selectedData.content['tab-1-paragraf-3'].value
+              }}
+            />
           </div>
         );
       case 1:
         return (
-          <div className="flex flex-col gap-4">
-            {detailStep2Data.map((val, idx) => (
-              <div
-                key={idx}
-                className="flex flex-row gap-2 font-semibold items-center"
-              >
-                <Image src={val.icon} alt={val.title} className="w-7" />
-                <p>{val.title}</p>
-              </div>
-            ))}
+          <div className="w-full flex flex-col gap-4">
+            {selectedData.content['tab-2-list'].contentData.map(
+              (val: any, idx: number) =>
+                val.details[1].value && (
+                  <div
+                    key={idx}
+                    className="flex flex-row gap-2 font-semibold items-center"
+                  >
+                    <Image
+                      src={singleImageTransformer(val.details[0]).imageUrl}
+                      alt={val.details[1].value}
+                      className="w-7"
+                      width={7}
+                      height={7}
+                    />
+                    <p>{val.details[1].value}</p>
+                  </div>
+                )
+            )}
           </div>
         );
       case 2:
         return (
-          <div className="flex w-full md:flex-row xs:flex-col gap-4 shadow-xl justify-between rounded-lg border p-4">
-            <div className="flex flex-col gap-2">
-              <p className="text-[24px] font-bold">Klaim Manfaat Hidup</p>
-              <div className="flex flex-row gap-2 text-purple_dark font-medium">
-                <p className="p-2 bg-purple_dark/[0.06]">PDF Files</p>
-                <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p>
-              </div>
-            </div>
-            <div className="flex items-center justiffy-center">
-              <div className="p-2 px-8 rounded-lg text-white font-medium bg-purple_dark">
-                Unduh
-              </div>
-            </div>
+          <div className="w-full flex flex-col gap-4">
+            {selectedData.content['tab-3-list-file'].contentData.map(
+              (val: any, idx: number) => {
+                const file = val.details[1].value;
+                const getFormat = singleImageTransformer(
+                  val.details[1]
+                ).imageUrl.split('.');
+                const format = getFormat[getFormat.length - 1];
+                return (
+                  file !== '[]' && (
+                    <div
+                      className="flex w-full md:flex-row xs:flex-col gap-4 shadow-xl justify-between rounded-lg border p-4"
+                      key={idx}
+                    >
+                      <div className="flex flex-col gap-2">
+                        <p className="text-[24px] font-bold">
+                          {val.details[0].value}
+                        </p>
+                        <div className="flex flex-row gap-2 text-purple_dark font-medium">
+                          <p className="p-2 bg-purple_dark/[0.06]">
+                            {format.toUpperCase()}
+                          </p>
+                          {/* <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p> */}
+                        </div>
+                      </div>
+                      <div className="flex items-center justiffy-center">
+                        <div className="p-2 px-8 rounded-lg text-white font-medium bg-purple_dark">
+                          Unduh
+                        </div>
+                      </div>
+                    </div>
+                  )
+                );
+              }
+            )}
           </div>
         );
       case 3:
         return (
-          <div className="flex flex-col gap-4">
-            <p>
-              Untuk polis yang dibeli melalui agen Avrist Life Insurance atau
-              jalur penjualan Avrist Life Insurance lainnya sebelum 1 Desember
-              2020 atau melalui Avrist Life Insurance pada periode pembelian
-              setelah 1 Desember 2020, kamu bisa mengirimkan dokumen ke:
-            </p>
+          <div className="w-full flex flex-col gap-4">
+            <p
+              dangerouslySetInnerHTML={{
+                __html: selectedData.content['tab-4-paragraf'].value
+              }}
+            />
             <div className="grid md:grid-cols-2 xs:grid-cols-1 gap-2">
               {detailStep3Data.map((val, idx) => (
                 <div
@@ -313,10 +291,17 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   className="flex flex-row gap-10 font-bold items-center p-4 border rounded-lg shadow-lg"
                 >
                   <Image src={val.icon} alt={val.title} className="w-1/3" />
-                  <div className="flex flex-col gap-1 w-2/3">
-                    <p>{val.title}</p>
-                    <p className="text-purple_dark">{val.link}</p>
-                  </div>
+                  {val.href ? (
+                    <Link href={val.href} className="flex flex-col gap-1 w-2/3">
+                      <p>{val.title}</p>
+                      <p className="text-purple_dark">{val.link}</p>
+                    </Link>
+                  ) : (
+                    <div className="flex flex-col gap-1 w-2/3">
+                      <p>{val.title}</p>
+                      <p className="text-purple_dark">{val.link}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -337,7 +322,8 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             Kami proses Klaim Anda dengan efisien
           </h2>
           <h2 className="text-[20px] mb-6">
-          Cek jenis klaim yang akan Anda ajukan, dan dokumen pendukung yang dibutuhkan
+            Cek jenis klaim yang akan Anda ajukan, dan dokumen pendukung yang
+            dibutuhkan
           </h2>
         </div>
       )}
@@ -353,36 +339,33 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     key={idx}
                     role="button"
                     onClick={() => {
-                      setSelectedCategory(val.category);
+                      setParams({
+                        ...params,
+                        category: val.category
+                      });
                     }}
-                    className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === data.length && 'rounded-bl-lg'} ${selectedCategory !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                    className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === data.length && 'rounded-bl-lg'} ${params.category !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
                   >
                     {val.category}
                   </div>
                 ))
-              : detailData
-                  .filter(
-                    (val) =>
-                      val.category === selectedCategory &&
-                      val.type === selectedData
-                  )[0]
-                  ?.list?.map((val, idx) => (
-                    <div
-                      key={idx}
-                      role="button"
-                      onClick={() => {
-                        setSelectedDetailCategory(idx);
-                        if (idx > 0) {
-                          onChangeBannerImg(idx + 2);
-                        } else {
-                          onChangeBannerImg(2);
-                        }
-                      }}
-                      className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === detailData.filter((val) => val.category === selectedCategory && val.type === selectedData)[0].list.length && 'rounded-bl-lg'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
-                    >
-                      {val}
-                    </div>
-                  ))}
+              : detailData?.map((val, idx) => (
+                  <div
+                    key={idx}
+                    role="button"
+                    onClick={() => {
+                      setSelectedDetailCategory(idx);
+                      if (idx > 0) {
+                        onChangeBannerImg(idx + 2);
+                      } else {
+                        onChangeBannerImg(2);
+                      }
+                    }}
+                    className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === detailData.length && 'rounded-bl-lg'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                  >
+                    {val}
+                  </div>
+                ))}
           </div>
         </div>
         <div className="w-wull xs:block md:hidden">
@@ -394,14 +377,17 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 id="selected-categories"
                 onChange={(e) => {
                   const selectedValue = e.target.value;
-                  setSelectedCategory(selectedValue);
+                  setParams({
+                    ...params,
+                    category: selectedValue
+                  });
                 }}
                 className="p-2"
               >
                 {data.map((val, idx) => (
                   <option
                     key={idx}
-                    selected={val.category === selectedCategory}
+                    selected={val.category === params.category}
                     value={val.category}
                     className="w-[80%]"
                   >
@@ -423,29 +409,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 }}
                 className="p-2 bg-purple_light_bg"
               >
-                {detailData
-                  .filter(
-                    (val) =>
-                      val.category === selectedCategory &&
-                      val.type === selectedData
-                  )[0]
-                  ?.list?.map((val, idx) => (
-                    <option
-                      key={idx}
-                      selected={
-                        val ===
-                        detailData.filter(
-                          (val) =>
-                            val.category === selectedCategory &&
-                            val.type === selectedData
-                        )[0]?.list[selectedDetailCategory]
-                      }
-                      value={val}
-                      className="w-[80%]"
-                    >
-                      {val}
-                    </option>
-                  ))}
+                {detailData.map((val, idx) => (
+                  <option
+                    key={idx}
+                    selected={val === selectedData}
+                    value={val}
+                    className="w-[80%]"
+                  >
+                    {val}
+                  </option>
+                ))}
               </select>
             )}
           </div>
@@ -457,18 +430,24 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 type="text"
                 placeholder="Cari jenis klaim"
                 customInputClass="w-[90%]"
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
               />
               <Button
                 title="Cari"
                 customButtonClass="bg-purple_dark rounded-lg"
                 customTextClass="text-white"
+                onClick={() => {
+                  setParams({ ...params, searchFilter: search });
+                }}
               />
             </div>
           ) : (
             <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-lg p-4 text-purple_dark font-semibold">
               <div className="flex rlex-row items-center gap-2">
                 <Image src={HeartIcon} alt="heart-icon" className="w-7" />
-                <p>{selectedCategory}</p>
+                <p>{params.category}</p>
               </div>
               <div
                 className="flex rlex-row items-center gap-2"
@@ -487,7 +466,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           )}
           {!isSelectedData && (
             <div className="w-full flex flex-col gap-2">
-              {paginatedData.map((val, index) => (
+              {paginatedData.map((val: any, index: number) => (
                 <div
                   key={index}
                   role="button"
@@ -499,7 +478,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   }}
                   className="w-full p-4 bg-white border-2 rounded-lg flex flex-row justify-between font-black"
                 >
-                  {val}
+                  {val.title}
                   <Image
                     src={CHEVRONRIGHTPURPLE}
                     alt="chevron-right"
@@ -510,21 +489,22 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             </div>
           )}
           {!isSelectedData && (
-            <div className="w-full flex flex-row justify-between mt-4">
-              <div className="flex items-center text-sm">
-                Menampilkan{'\u00A0'}
-                <span className="font-bold text-purple_dark">
-                  {startIndex + 1}-
-                  {Math.min(
-                    endIndex,
-                    filteredData ? filteredData?.data.length : 0
-                  )}
-                </span>
-                {'\u00A0'}dari{'\u00A0'}
-                <span className="font-bold"> {filteredData?.data.length}</span>
-                {'\u00A0'}hasil
+            <div className="flex flex-col gap-4 sm:flex-row justify-between ">
+              <div>
+                <p className="text-[20px]">
+                  Menampilkan{' '}
+                  <span className="font-bold text-purple_dark">
+                    {contentData?.length === 0 ? 0 : startIndex + 1}-
+                    {Math.min(endIndex, contentData ? contentData.length : 0)}
+                  </span>{' '}
+                  dari{' '}
+                  <span className="font-bold">
+                    {contentData && contentData.length}
+                  </span>{' '}
+                  hasil
+                </p>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-row gap-[8px] items-center">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <div
@@ -532,7 +512,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                       role="button"
                       onClick={() => handlePageChange(page)}
                       className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                        currentPage === page ? 'text-purple_dark font-bold' : ''
+                        pagination.currentPage === page
+                          ? 'text-purple_dark font-bold'
+                          : ''
                       }`}
                     >
                       {page}
@@ -550,7 +532,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             </div>
           )}
           {selectedData && (
-            <div className='text-[36px] font-bold'>{selectedData}</div>
+            <div className="text-[36px] font-bold">{selectedData.title}</div>
           )}
           {selectedData && renderStep(selectedDetailCategory)}
         </div>

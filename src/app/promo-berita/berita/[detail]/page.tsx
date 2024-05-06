@@ -1,6 +1,8 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -9,7 +11,6 @@ import Email from '@/assets/images/common/email.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
 import Office from '@/assets/images/common/office.svg';
 import Phone from '@/assets/images/common/phone.svg';
-import PlayButton from '@/assets/images/play-button.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -19,13 +20,109 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
-export const generateStaticParams = () => {
-  return [{ detail: 'berita-dan-kegiatan' }];
-};
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  contentDetailTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   console.log(params);
+  const param = useSearchParams();
+  const id = param.get('id');
+
+  const [contentData, setContentData] = useState<any>({
+    tagline: '',
+    judul: '',
+    penulis: '',
+    bulan: '',
+    tahun: '',
+    paragrafSatu: '',
+    artikelImage: '',
+    paragrafDua: '',
+    artikelVideo: '',
+    paragrafTiga: '',
+    tags: '',
+    artikelPIC: '',
+    artikelPICJabatan: ''
+  });
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+
+  const fetchData = () => {
+    try {
+      handleGetContentPage('avrist-terkini-detail').then((res: any) => {
+        const { content } = pageTransformer(res);
+        const titleImage = singleImageTransformer(
+          content['title-image']
+        ).imageUrl;
+        const bannerImage = singleImageTransformer(
+          content['banner-image']
+        ).imageUrl;
+        const footerImage = singleImageTransformer(
+          content['cta1-image']
+        ).imageUrl;
+        setData({ titleImage, bannerImage, footerImage });
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchDetailData = async () => {
+    const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
+    const jsonData = await response.json();
+
+    const { content } = contentDetailTransformer(jsonData);
+
+    console.log(jsonData);
+
+    const tagline = content['tags'].value;
+    const judul = content['judul-artikel'].value;
+    const penulis = content['penulis-artikel'].value;
+    const bulan = content['bulan'].value;
+    const tahun = content['tahun'].value;
+    const artikel = content['artikel-looping'].contentData[0].details;
+    const paragrafSatu = artikel[0].value;
+    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
+    const paragrafDua = artikel[2].value;
+    const artikelVideo = artikel[3].value;
+    const paragrafTiga = artikel[4].value;
+    const tags = content['tags'].value;
+    const artikelPIC = content['artikel-pic'].value;
+    const artikelPICJabatan = content['artikel-pic-jabatan'].value;
+
+    const transformedData = {
+      tagline,
+      judul,
+      penulis,
+      bulan,
+      tahun,
+      paragrafSatu,
+      artikelImage,
+      paragrafDua,
+      artikelVideo,
+      paragrafTiga,
+      tags,
+      artikelPIC,
+      artikelPICJabatan
+    };
+
+    setContentData(transformedData);
+
+    return transformedData;
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchDetailData();
+  }, []);
+
   return (
     <>
       <Hero
@@ -37,25 +134,30 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
           }
         ]}
-        bottomImage={BlankImage}
+        imageUrl={data?.titleImage}
+        bottomImage={data?.bannerImage ?? BlankImage}
       />
 
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col gap-10 w-2/3 p-10">
           <div className="flex flex-col gap-5">
-            <p className="text-purple_dark font-semibold">
-              Tanggung Jawab Sosial
-            </p>
-            <p className="font-semibold text-[48px]">
-              Avrist Assurance: Edukasi Keuangan pada Komunitas{' '}
-            </p>
+            <span className="text-purple_dark font-semibold">
+              <span dangerouslySetInnerHTML={{ __html: contentData.tagline }} />
+            </span>
+            <p
+              className="font-semibold text-[48px]"
+              dangerouslySetInnerHTML={{ __html: contentData.judul }}
+            />
+
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col gap-2">
-                <p>23 Februari 2024 | Budi Rahman</p>
+                <p>
+                  {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                  {contentData.penulis}
+                </p>
+
                 <div className="flex flex-row gap-2">
-                  <MediumTag title="Asuransi" />
-                  <MediumTag title="Edukasi" />
-                  <MediumTag title="Artikel" />
+                  <MediumTag title={contentData.tags} />
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
@@ -137,48 +239,50 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           </div>
-          <p>
-            <span className="font-bold">
-              Lorem ipsum dolor sit amet consectetur.
-            </span>{' '}
-            Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-            tortor sit dis nunc. Volutpat dictum venenatis non eget et. Augue
-            tortor aliquam sapien ultricies egestas phasellus venenatis
-            pulvinar. Consectetur magna dignissim turpis est ut et sapien.
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed. Fusce a
-            ipsum ipsum vestibulum metus orci libero aliquam. Augue vitae nam et
-            volutpat lectus tempus quam turpis eget.
-          </p>
-          <div className="bg-gray-200">
-            <Image src={BlankImage} alt="img" className="w-full" />
-          </div>
-          <p>
-            <span className="font-bold italic">
-              Lorem ipsum dolor sit amet consectetur.
-            </span>{' '}
-            Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-            tortor sit dis nunc. Volutpat dictum venenatis non eget et. Augue
-            tortor aliquam sapien ultricies egestas phasellus venenatis
-            pulvinar. Consectetur magna dignissim turpis est ut et sapien.
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed. Fusce a
-            ipsum ipsum vestibulum metus orci libero aliquam. Augue vitae nam et
-            volutpat lectus tempus quam turpis eget.
-          </p>
-          <div className="flex relative bg-gray-200">
-            <Image
-              height={0}
-              width={0}
-              alt="sliderInformationImage"
-              className="min-h-[400px] w-full object-cover"
-              src={BlankImage}
+          {
+            <p
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafSatu
+              }}
             />
-            <div className="w-full h-full absolute flex items-center justify-center">
-              <Image alt={'play-button'} className="w-24" src={PlayButton} />
-            </div>
+          }
+
+          <div className="bg-gray-200">
+            <Image
+              src={contentData.artikelImage ?? BlankImage}
+              alt="img"
+              className="w-full"
+              width={238}
+              height={172}
+            />
           </div>
-          <div className="flex flex-row gap-4">
+
+          {
+            <span
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafDua
+              }}
+            />
+          }
+
+          <div className="w-full h-[650px] mb-10">
+            <VideoPlayer
+              thumbnail=""
+              url={contentData.artikelVideo}
+              color="purple_dark"
+              type="Artikel Video"
+            />
+          </div>
+
+          {
+            <span
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafTiga
+              }}
+            />
+          }
+
+          {/* <div className="flex flex-row gap-4">
             <div className="flex flex-row gap-4">
               <p className="text-sm font-medium">
                 Artikel ini telah di liput di:
@@ -200,16 +304,15 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 <Icon name="externalLink" color="purple_dark" width={10} />
               </div>
             </div>
-          </div>
+          </div> */}
+
           <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
             <p className="font-semibold text-xl">
               Informasi lebih lanjut, hubungi:
             </p>
             <div className="flex flex-col">
-              <p className="font-bold text-xl">Lika Shalia</p>
-              <p className="text-xl">
-                Head of Corporate & Marketing Communications
-              </p>
+              <p className="font-bold text-xl">{contentData?.artikelPIC}</p>
+              <p className="text-xl">{contentData?.artikelPICJabatan}</p>
             </div>
             <div className="flex flex-row items-center justify-between">
               <div className="flex flex-row gap-2 items-center">
@@ -250,31 +353,35 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           }
-          image={BlankImage}
+          image={data?.footerImage ?? BlankImage}
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="bg-white" />
       </div>
       <FooterCards
         cards={[
           {
             title: 'Hubungi Kami',
             icon: Icon1,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/hubungi-kami/'
           },
           {
             title: 'Tanya Avrista',
             icon: Icon2,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista/'
           },
           {
             title: 'Panduan Klaim',
             icon: Icon3,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             title: 'Asuransi Individu',
             icon: Icon4,
-            subtitle: 'Lihat Produk'
+            subtitle: 'Lihat Produk',
+            href: '/produk/individu?tab=Asuransi+Jiwa'
           }
         ]}
       />

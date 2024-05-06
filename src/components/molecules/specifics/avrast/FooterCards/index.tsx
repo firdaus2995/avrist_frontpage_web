@@ -15,6 +15,8 @@ interface IFooterCards {
     icon: StaticImport | string;
     subtitle?: string;
     href?: string;
+    hrefType?: string; // "phone" || "email"
+    openInNewTab?: boolean;
   }[];
   bgColor?: string;
 }
@@ -111,33 +113,46 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
     <div className={bgColor ?? ''}>
       <div className="px-8 mx-4 sm:mx-[136px] pb-[32px]">
         <Slider {...settings}>
-          {cards.map((item, index) => (
-            <Link
-              href={item?.href ?? '#'}
-              key={index}
-              className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
-            >
-              <div className="flex justify-center">
-                <Image
-                  alt={index.toString()}
-                  src={item.icon}
-                  className="w-[100px] h-[100px]"
-                />
-              </div>
-              <div className="flex flex-col justify-center mt-2 gap-2">
-                <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
-                  {item.title.split('\n').map((line, index) => (
-                    <span key={index}>{line}</span>
-                  ))}
-                </p>
-                {item.subtitle && (
-                  <p className="text-center font-bold md:text-lg 2xl:text-[24px] text-purple_dark">
-                    {item.subtitle}
+          {cards.map((item, index) => {
+            const href =
+              item?.hrefType === 'phone'
+                ? encodeURIComponent(item?.href ?? '')
+                : item?.href;
+            return (
+              <Link
+                href={
+                  item?.hrefType === 'phone'
+                    ? `tel:${href}`
+                    : item?.hrefType === 'email'
+                      ? `mailto:${href}`
+                      : href ?? '#'
+                }
+                key={index}
+                target={item.openInNewTab ? 'blank' : '_self'}
+                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+              >
+                <div className="flex justify-center">
+                  <Image
+                    alt={index.toString()}
+                    src={item.icon}
+                    className="w-[100px] h-[100px]"
+                  />
+                </div>
+                <div className="flex flex-col justify-center mt-2 gap-2">
+                  <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
+                    {item.title.split('\n').map((line, index) => (
+                      <span key={index}>{line}</span>
+                    ))}
                   </p>
-                )}
-              </div>
-            </Link>
-          ))}
+                  {item.subtitle && (
+                    <p className="text-center font-bold md:text-lg 2xl:text-[24px] text-purple_dark">
+                      {item.subtitle}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </Slider>
       </div>
     </div>
