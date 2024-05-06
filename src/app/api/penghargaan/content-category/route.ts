@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         category
       };
-      const data = await getContentCategory('List-penghargaan', queryParams);
+      const data = await getContentCategory('Artikel-penghargaan', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         searchFilter
       };
-      const data = await getContentCategory('List-penghargaan', queryParams);
+      const data = await getContentCategory('Artikel-penghargaan', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         yearFilter
       };
-      const data = await getContentCategory('List-penghargaan', queryParams);
+      const data = await getContentCategory('Artikel-penghargaan', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
         includeAttributes: 'true',
         monthFilter
       };
-      const data = await getContentCategory('List-penghargaan', queryParams);
+      const data = await getContentCategory('Artikel-penghargaan', queryParams);
       return NextResponse.json(data, { status: 200 });
     }
 
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
       monthFilter
     };
 
-    const data = await getContentCategory('List-penghargaan', queryParams);
+    const data = await getContentCategory('Artikel-penghargaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json(

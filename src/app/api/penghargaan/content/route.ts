@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       includeAttributes: 'true',
       searchFilter
     };
-    const data = await getContent('List-penghargaan', queryParams);
+    const data = await getContent('Artikel-penghargaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   }
 
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       includeAttributes: 'true',
       yearFilter
     };
-    const data = await getContent('List-penghargaan', queryParams);
+    const data = await getContent('Artikel-penghargaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   }
 
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       includeAttributes: 'true',
       monthFilter
     };
-    const data = await getContent('List-penghargaan', queryParams);
+    const data = await getContent('Artikel-penghargaan', queryParams);
     return NextResponse.json(data, { status: 200 });
   }
 
@@ -40,6 +40,6 @@ export async function GET(request: NextRequest) {
     yearFilter,
     monthFilter
   };
-  const data = await getContent('List-penghargaan', queryParams);
+  const data = await getContent('Artikel-penghargaan', queryParams);
   return NextResponse.json(data, { status: 200 });
 }
