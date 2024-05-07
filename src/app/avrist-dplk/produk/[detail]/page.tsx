@@ -1,13 +1,13 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 
-import HeroDplk3 from '@/assets/images/avrast/dplk/hero-dplk-3.svg';
+// import HeroDplk3 from '@/assets/images/avrast/dplk/hero-dplk-3.svg';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
-import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
+// import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
 import YellowHomeSun from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
 
-import BlankImage from '@/assets/images/blank-image.svg';
+// import BlankImage from '@/assets/images/blank-image.svg';
 
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
@@ -24,54 +24,98 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-// import {
-//   handleGetContentDetail,
-//   handleGetContentPage
-// } from '@/services/content-page.api';
-// import {
-//   pageTransformer,
-//   singleImageTransformer
-// } from '@/utils/responseTransformer';
+import {
+  handleGetContentDetail,
+  handleGetContentPage
+} from '@/services/content-page.api';
+import {
+  contentDetailTransformer,
+  pageTransformer,
+  singleImageTransformer,
+  contentStringTransformer
+} from '@/utils/responseTransformer';
 
 const ProdukSyariahDetail = async ({
   params
 }: {
   params: { detail: string };
 }) => {
-  // const pageData = await handleGetContentPage('halaman-detail-produk-dplk');
-  // const detailData = await handleGetContentDetail(params.detail);
-  // // page
-  // const { content } = pageTransformer(pageData);
-  // const titleImage = singleImageTransformer(content['title-image']);
-  // const cta1Image = singleImageTransformer(content['cta1-image']);
+  const pageData = await handleGetContentPage('halaman-detail-produk-dplk');
+  const detailData = await handleGetContentDetail(params.detail);
+  // page
+  const { content } = pageTransformer(pageData);
+  const titleImage = singleImageTransformer(content['title-image']);
+  const cta1Image = singleImageTransformer(content['cta1-image']);
+  // const bannerImage = singleImageTransformer(content['banner-image']);
+
+  // detail
+  const { content: contentDetail } = contentDetailTransformer(detailData);
+  const produkImage = singleImageTransformer(contentDetail['produk-image']);
+  // const channel = contentStringTransformer(contentDetail['channel']);
+  const namaProduk = contentStringTransformer(contentDetail['nama-produk']);
+  const taglineProduk = contentStringTransformer(
+    contentDetail['tagline-produk']
+  );
+  const deskripsiLengkapProduk = contentStringTransformer(
+    contentDetail['deskripsi-lurator-produk']
+  );
+  const tags = contentStringTransformer(contentDetail['tags']) as string;
+  // const videoProduk = contentStringTransformer(contentDetail['video-produk']);
+  // const captionVideoProduk = contentStringTransformer(
+  //   contentDetail['caption-video-produk']
+  // );
+  const deskripsiKeunggulanProduk = contentStringTransformer(
+    contentDetail['deskripsi-keunggulan-produk']
+  );
+  const deskripsiManfaatProduk = contentStringTransformer(
+    contentDetail['deskripsi-manfaat-produk']
+  );
+  const deskripsiFiturProduk = contentStringTransformer(
+    contentDetail['deskripsi-fitur-produk']
+  );
+  const deskripsiInformasiPenting = contentStringTransformer(
+    contentDetail['deskripsi-informasi-penting']
+  );
+  const deskripsiRiplay = contentStringTransformer(
+    contentDetail['deskripsi-riplay']
+  );
+  const fileRiplay = singleImageTransformer(contentDetail['file-riplay']);
+  const deskripsiBrosur = contentStringTransformer(
+    contentDetail['deskripsi-brosur']
+  );
+  const fileBrosur = singleImageTransformer(contentDetail['file-brosur']);
+  // const deskripsiJalurPemasaran = contentStringTransformer(
+  //   contentDetail['deskripsi-jalur-pemasaran']
+  // );
   return (
     <div className="flex flex-col">
       <Hero
-        title="Klaim dan Layanan"
+        title={namaProduk}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           { title: 'Produk', href: '/avrist-dplk/produk' },
           {
-            title: 'Klaim dan Layanan',
+            title: namaProduk,
             href: `/avrist-dplk/produk/${params.detail}`
           }
         ]}
-        bottomImage={HeroDplk3}
+        bottomImage={produkImage.imageUrl}
+        imageUrl={titleImage.imageUrl}
       />
       <SimpleContainer>
         <AboutHeading
           categoriesIcon={YellowHomeSun}
-          categoriesName="Avrist DPLK"
+          categoriesName="Avrist Syariah"
           categoriesClassname="text-dplk_yellow"
-          headingText="Avrist Carepack Pro (Pesangon)"
-          subHeadingText="Lorem ipsum dolor sit amet consectetur"
-          description="Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in."
-          tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
+          headingText={namaProduk}
+          subHeadingText={taglineProduk}
+          description={deskripsiLengkapProduk}
+          tags={tags.split(',')}
           tagsClassname="bg-gray_bglightgray"
           tagsTextClassname="text-dplk_yellow"
         />
         <div className="flex justify-center w-full">
-          <Image src={VideoDplk} alt="video" />
+          {/* <Image src={VideoDplk} alt="video" /> */}
         </div>
         <div>
           <CategorySideBySideSixCards
@@ -79,38 +123,34 @@ const ProdukSyariahDetail = async ({
               {
                 symbol: YellowShield,
                 title: 'Manfaat Produk',
-                description:
-                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
+                description: deskripsiKeunggulanProduk
               },
               {
                 symbol: YellowChat,
                 title: 'Keunggulan Produk',
-                description:
-                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
+                description: deskripsiManfaatProduk
               },
               {
                 symbol: YellowHeart,
                 title: 'Periode Perlindungan',
-                description:
-                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.'
+                description: deskripsiFiturProduk
               }
             ]}
             rightSide={[
               {
                 title: 'Informasi Penting',
-                description: `1. Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo.
-                2. Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo.`
+                description: deskripsiInformasiPenting
               },
               {
                 title: 'Ringkasan Produk',
-                description:
-                  'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus hendrerit nisi pulvinar. Ut adipiscing dolor ac mattis. Sit dignissim quam eros non maecenas porta justo. Quis metus et tristique at odio in.',
+                description: deskripsiRiplay,
+                urlDownload: fileRiplay.imageUrl,
                 hasDownloadButton: true
               },
               {
                 title: 'Download Brosur',
-                description:
-                  'Informasi lebih lanjut mengenai produk Avrist Pasti dengan mengunduh brosur.',
+                description: deskripsiBrosur,
+                urlDownload: fileBrosur.imageUrl,
                 hasDownloadButton: true
               }
             ]}
@@ -164,7 +204,8 @@ const ProdukSyariahDetail = async ({
           buttonClassname="bg-white border border-white"
           buttonTextClassname="text-dplk_yellow"
           buttonTitle="Tanya Avrista"
-          image={BlankImage}
+          href="/tanya-avrista"
+          image={cta1Image.imageUrl}
         />
       </SimpleContainer>
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
@@ -180,13 +221,13 @@ const ProdukSyariahDetail = async ({
             title: 'Klaim & Layanan',
             icon: ProdukClaim,
             subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
+            href: '/avrist-syariah/klaim-layanan'
           },
           {
             title: 'Kelola Polis',
             icon: ProdukPolis,
             subtitle: 'Login Akun',
-            href: 'https://my.avrist.com/welcome'
+            href: '/klaim-layanan/layanan/kelola-polis'
           },
           {
             title: 'Testimonial',
