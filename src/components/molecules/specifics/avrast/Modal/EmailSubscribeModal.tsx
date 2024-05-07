@@ -11,6 +11,7 @@ type Props = {
 export const EmailSubscribeModal = (props: Props) => {
   const { onClose, show } = props;
   const [isSuccessSubs, setIsSuccessSubs] = useState(false);
+  const [selected, setSelected] = useState('');
 
   useEffect(() => {
     if (show) {
@@ -92,13 +93,22 @@ export const EmailSubscribeModal = (props: Props) => {
                               Dapatkan informasi terkini
                             </p>
                             <div className=" w-full grid grid-cols-3 gap-[12px] mt-[40px]">
-                              <button className="bg-purple_dark rounded-xl py-[8px] font-opensans font-bold text-[18px] text-white">
+                              <button
+                                onClick={() => setSelected('Life Insurance')}
+                                className={`${selected === 'Life Insurance' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-purple_dark hover:text-white`}
+                              >
                                 Life Insurance
                               </button>
-                              <button className="bg-white rounded-xl py-[8px] font-opensans font-bold text-[18px] text-grey_video_footer">
-                                Life Insurance
+                              <button
+                                onClick={() => setSelected('General Insurance')}
+                                className={`${selected === 'General Insurance' ? 'bg-grey_video_footer text-white' : 'bg-white text-grey_video_footer'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-grey_video_footer hover:text-white`}
+                              >
+                                General Insurance
                               </button>
-                              <button className="bg-white rounded-xl py-[8px] font-opensans font-bold text-[18px] text-avram_green">
+                              <button
+                                onClick={() => setSelected('Asset Management')}
+                                className={`${selected === 'Asset Management' ? 'bg-avram_green text-white' : 'bg-white text-avram_green'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-avram_green hover:text-white`}
+                              >
                                 Asset Management
                               </button>
                             </div>

@@ -25,6 +25,7 @@ export interface ContentResponse {
     status: string;
     lastComment?: string;
     lastEdited?: string;
+    createdAt: string;
     contentData: ContentDatum[];
     formId?: number
   }
