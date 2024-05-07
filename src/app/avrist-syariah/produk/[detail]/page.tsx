@@ -35,11 +35,11 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
   const [data, setData] = useState<any>({
     titleImage: '',
-    bannerImage: '',
     footerImage: ''
   });
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
+  const [bannerImg, setBannerImg] = useState<any>();
   const [formValue, setFormValue] = useState({});
 
   useEffect(() => {
@@ -51,9 +51,8 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
-        const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setData({ titleImage, bannerImage, footerImage });
+        setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -135,6 +134,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
+      setBannerImg(singleImageTransformer(content['produk-image']));
       setDataDetail(detailData);
     }
 
@@ -271,7 +271,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               }
             ]}
             imageUrl={data.titleImage.imageUrl}
-            bottomImage={data.bannerImage.imageUrl}
+            bottomImage={bannerImg.imageUrl}
           />
           <SimpleContainer>
             <AboutHeading
@@ -281,7 +281,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               headingText={dataDetail?.namaProduk}
               subHeadingText={dataDetail?.taglineProduk}
               description={dataDetail?.deskripsiLengkapProduk}
-              tags={dataDetail?.tags.split(',')}
+              tags={dataDetail?.tags}
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-syariah_green"
             />
