@@ -91,7 +91,7 @@ const BannerAvrast = () => {
     }
   };
   return (
-    <div className="flex w-full overflow-x-hidden">
+    <div className="flex w-full overflow-x-hidden bg-white">
       <div className="w-full">
         <div className="w-full relative flex items-center justify-center">
           <Slider
@@ -120,7 +120,7 @@ const BannerAvrast = () => {
                                 .imageUrl
                             : BlankImage
                         }
-                        layout="fill"
+                        fill
                         className="w-full h-auto object-cover object-left-bottom"
                       />
                     </div>
@@ -133,6 +133,8 @@ const BannerAvrast = () => {
                                 .imageUrl
                             : BlankImage
                         }
+                        width={100}
+                        height={100}
                         className="w-screen h-auto object-cover"
                       />
                     </div>
@@ -143,7 +145,7 @@ const BannerAvrast = () => {
                         {contentStringTransformer(data['hero-teks1'])}
                       </p>
                       <div
-                        className="xs:text-[28px] md:text-[36px]"
+                        className="xs:text-[14px] md:text-[24px] xl:text-[36px]"
                         dangerouslySetInnerHTML={{
                           __html: contentStringTransformer(data['hero-teks2'])
                         }}
@@ -184,7 +186,7 @@ const BannerAvrast = () => {
             </div>
           </div>
         </div>
-        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col">
+        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-36">
           <div className="flex p-10 items-center justify-center text-white md:text-[28px] xs:text-[20px] text-left md:w-1/3 xs:w-full bg-dark-purple">
             <p>
               Temukan <span className="font-bold">kebutuhanmu </span> di sini?
@@ -205,31 +207,31 @@ const BannerAvrast = () => {
                 <Icon name="chevronDown" color="white" />
               )}
             </button>
+          </div>
             {dropdownVisible && (
               <div
-                className={`flex flex-col top-12 right-0 rounded-md bg-white w-full md:w-[37%] left-0 duration-300 transform h-full`}
+                className={`absolute flex flex-col top-28 right-0 rounded-md bg-white w-[40vh] left-[50%] duration-300 transform`}
               >
                 <Link
                   href="/produk/individu"
-                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                  className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium px-4 py-2 md:text-[20px] xs:text-[11px]"
                 >
                   Perlindungan Jiwa dan Kesehatan
                 </Link>
                 <Link
                   href={`${EXTERNAL_URL.agiUrl}`}
-                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                  className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
                 >
                   Perlindungan Harta Benda
                 </Link>
                 <Link
                   href={`${EXTERNAL_URL.avramUrl}`}
-                  className="font-karla text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px]"
+                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
                 >
                   Manajemen Investasi
                 </Link>
               </div>
             )}
-          </div>
         </div>
       </div>
     </div>

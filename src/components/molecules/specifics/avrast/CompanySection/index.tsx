@@ -152,6 +152,8 @@ const CompanySection = () => {
                 src={val.icon1}
                 alt={val.title1}
                 className="xs:w-7 md:w-15"
+                width={10}
+                height={10}
               />
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title1}
@@ -165,7 +167,13 @@ const CompanySection = () => {
                 >
                   {val.link1}
                 </p>
-                <Image src={val.linkIcon} alt={val.link1} className="w-4" />
+                <Image
+                  src={val.linkIcon}
+                  alt={val.link1}
+                  className="w-4"
+                  width={10}
+                  height={10}
+                />
               </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -173,6 +181,8 @@ const CompanySection = () => {
                 src={val.icon2}
                 alt={val.title2}
                 className="xs:w-7 md:w-15"
+                width={10}
+                height={10}
               />
               <p className="md:text-xl xs:text-xs font-semibold">
                 {val.title2}
@@ -187,7 +197,13 @@ const CompanySection = () => {
                 >
                   {val.link2}
                 </p>
-                <Image src={val.linkIcon} alt={val.link2} className="w-4" />
+                <Image
+                  src={val.linkIcon}
+                  alt={val.link2}
+                  className="w-4"
+                  width={10}
+                  height={10}
+                />
               </Link>
             </div>
           </div>
@@ -199,6 +215,8 @@ const CompanySection = () => {
             src={val.img ? val.img : BlankImage}
             alt={val.category}
             className="w-full md:rounded-r-xl xs:rounded-b-xl"
+            width={10}
+            height={10}
           />
         </div>
       </div>
