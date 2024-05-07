@@ -141,11 +141,13 @@ const BannerAvrast = () => {
                         className={`xs:text-[20px] md:text-[28px] text-purple_dark whitespace-nowrap xs:mt-10 md:mt-0`}
                       >
                         {contentStringTransformer(data['hero-teks1'])}
-                        {contentStringTransformer(data['hero-teks1'])}
                       </p>
-                      <p className="xs:text-[28px] md:text-[36px]">
-                        {contentStringTransformer(data['hero-teks2'])}
-                      </p>
+                      <div
+                        className="xs:text-[28px] md:text-[36px]"
+                        dangerouslySetInnerHTML={{
+                          __html: contentStringTransformer(data['hero-teks2'])
+                        }}
+                      />
                       <div>
                         <Link
                           href={contentStringTransformer(
