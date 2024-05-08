@@ -46,7 +46,7 @@ const CallMe =  () => {
       <Hero
         title="Hubungi Kami"
         breadcrumbsData={[
-          { title: 'Beranda', href: '/avrast' },
+          { title: 'Beranda', href: '/' },
           {
             title: 'Hubungi Kami',
             href: '/hubungi-kami'

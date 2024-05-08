@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import {
@@ -11,6 +12,8 @@ import {
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 
 export const RequirementForm = () => {
+  const [isPolicyHolder, setIsPolicyHolder] = useState('');
+
   return (
     <div className="mt-[64px] bg-purple_superlight">
       <div className="bg-white mt-[80px] mx-auto md:mx-[136px] border rounded-xl border-gray_light overflow-hidden">
@@ -25,6 +28,8 @@ export const RequirementForm = () => {
             {/* radio */}
             <SelectRadio
               title="Pemegang Polis"
+              isChecked={isPolicyHolder}
+              onSelectRadio={(value) => setIsPolicyHolder(value)}
               data={[
                 { id: 'ya', label: 'Ya' },
                 { id: 'tidak', label: 'Tidak' }

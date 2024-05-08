@@ -39,12 +39,12 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
   const [data, setData] = useState<any>({
     titleImage: '',
-    bannerImage: '',
     footerImage: ''
   });
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
   const [formValue, setFormValue] = useState({});
+  const [bannerImg, setBannerImg] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,9 +55,8 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
 
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
-        const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setData({ titleImage, bannerImage, footerImage });
+        setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -115,6 +114,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };     
       
+      setBannerImg(singleImageTransformer(content['produk-image']));
       setDataDetail(detailData);
     }
 
@@ -191,11 +191,10 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     }
   }, [dataDetail]);
 
-  let titleImage, bannerImage, footerImage;
+  let titleImage, footerImage;
 
-  if (data && data.bannerImage && data.footerImage) {
+  if (data && data.footerImage) {
     titleImage = data.titleImage.imageUrl;
-    bannerImage = data.bannerImage.imageUrl;
     footerImage = data.footerImage.imageUrl;
   }
 
@@ -225,7 +224,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             href: '/produk/individu/avrist-pasti'
           }
         ]}
-        bottomImage={bannerImage}
+        bottomImage={bannerImg?.imageUrl}
         imageUrl={titleImage}
       />
       <Suspense>
