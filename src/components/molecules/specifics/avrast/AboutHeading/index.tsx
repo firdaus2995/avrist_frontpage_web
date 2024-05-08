@@ -49,16 +49,17 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
         />
       </div>
       <div className="flex flex-row flex-nowrap my-[24px] gap-[12px]">
-        {tags.map((item: string, index: number) => (
-          <div
-            key={index}
-            className={`${tagsClassname} px-[8px] py-[4px] rounded-[2px]`}
-          >
-            <p className={`${tagsTextClassname} text-[14px] font-semibold`}>
-              {item}
-            </p>
-          </div>
-        ))}
+        {tags &&
+          tags.map((item: string, index: number) => (
+            <div
+              key={index}
+              className={`${tagsClassname} px-[8px] py-[4px] rounded-[2px]`}
+            >
+              <p className={`${tagsTextClassname} text-[14px] font-semibold`}>
+                {item}
+              </p>
+            </div>
+          ))}
       </div>
     </div>
   </div>

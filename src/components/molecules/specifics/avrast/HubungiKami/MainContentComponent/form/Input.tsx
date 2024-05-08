@@ -88,9 +88,11 @@ type SelectRadioProps = {
   title: string;
   require?: boolean;
   data: { label: string; id: string }[];
+  isChecked: string;
+  onSelectRadio: (value: string) => void;
 };
 export const SelectRadio = (props: SelectRadioProps) => {
-  const { title, require, data } = props;
+  const { title, require, data, isChecked, onSelectRadio } = props;
   return (
     <div>
       <p className="font-opensans font-bold text-[16px]">
@@ -100,7 +102,12 @@ export const SelectRadio = (props: SelectRadioProps) => {
       <div className="mt-[8px]">
         {data.map((i) => (
           <label className="mr-[32px]" key={i.id}>
-            <input type="radio" value={i.id} />
+            <input
+              type="radio"
+              checked={i.label === isChecked}
+              onChange={() => onSelectRadio(i.label)}
+              value={i.id}
+            />
             <span className="ml-[12px]">{i.label}</span>
           </label>
         ))}
@@ -186,7 +193,7 @@ export const SelectDropdown = (props: SelectProps) => {
 
 type SearchInputProps = {
   placeholder?: string;
-  onClickSearch: (value:string) => void
+  onClickSearch: (value: string) => void;
 };
 export const SearchInput = (props: SearchInputProps) => {
   const { placeholder, onClickSearch } = props;
@@ -199,7 +206,10 @@ export const SearchInput = (props: SearchInputProps) => {
         className="w-full rounded-xl p-[16px] bg-purple_dark/5 mr-[12px]"
         onChange={(event) => setKeyword(event.target.value)}
       />
-      <button onClick={() => onClickSearch(keyword)} className="bg-purple_dark rounded-lg font-opensans font-semibold text-white px-[40px]">
+      <button
+        onClick={() => onClickSearch(keyword)}
+        className="bg-purple_dark rounded-lg font-opensans font-semibold text-white px-[40px]"
+      >
         Cari
       </button>
     </div>
