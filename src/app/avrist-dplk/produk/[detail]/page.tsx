@@ -1,13 +1,8 @@
-// import Image from 'next/image';
-
-// import HeroDplk3 from '@/assets/images/avrast/dplk/hero-dplk-3.svg';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
-// import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
+import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
 import YellowHomeSun from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
-
-// import BlankImage from '@/assets/images/blank-image.svg';
 
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
@@ -24,7 +19,9 @@ import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import {
+  handleGetContent,
   handleGetContentDetail,
   handleGetContentPage
 } from '@/services/content-page.api';
@@ -32,7 +29,8 @@ import {
   contentDetailTransformer,
   pageTransformer,
   singleImageTransformer,
-  contentStringTransformer
+  contentStringTransformer,
+  handleTransformedContent
 } from '@/utils/responseTransformer';
 
 const ProdukSyariahDetail = async ({
@@ -42,6 +40,9 @@ const ProdukSyariahDetail = async ({
 }) => {
   const pageData = await handleGetContentPage('halaman-detail-produk-dplk');
   const detailData = await handleGetContentDetail(params.detail);
+  const productsData = await handleGetContent('Produk-Avrast-DPLK', {
+    includeAttributes: 'true'
+  });
   // page
   const { content } = pageTransformer(pageData);
   const titleImage = singleImageTransformer(content['title-image']);
@@ -60,10 +61,10 @@ const ProdukSyariahDetail = async ({
     contentDetail['deskripsi-lurator-produk']
   );
   const tags = contentStringTransformer(contentDetail['tags']) as string;
-  // const videoProduk = contentStringTransformer(contentDetail['video-produk']);
-  // const captionVideoProduk = contentStringTransformer(
-  //   contentDetail['caption-video-produk']
-  // );
+  const videoProduk = contentStringTransformer(contentDetail['video-produk']);
+  const captionVideoProduk = contentStringTransformer(
+    contentDetail['caption-video-produk']
+  );
   const deskripsiKeunggulanProduk = contentStringTransformer(
     contentDetail['deskripsi-keunggulan-produk']
   );
@@ -87,6 +88,8 @@ const ProdukSyariahDetail = async ({
   // const deskripsiJalurPemasaran = contentStringTransformer(
   //   contentDetail['deskripsi-jalur-pemasaran']
   // );
+
+  const products = productsData.data.contentDataList.slice(0, 3);
   return (
     <div className="flex flex-col">
       <Hero
@@ -114,8 +117,13 @@ const ProdukSyariahDetail = async ({
           tagsClassname="bg-gray_bglightgray"
           tagsTextClassname="text-dplk_yellow"
         />
-        <div className="flex justify-center w-full">
-          {/* <Image src={VideoDplk} alt="video" /> */}
+        <div className="flex justify-center w-full h-[650px]">
+          <VideoPlayer
+            color="syariah-green"
+            type={captionVideoProduk}
+            thumbnail={VideoDplk}
+            url={videoProduk}
+          />
         </div>
         <div>
           <CategorySideBySideSixCards
@@ -175,20 +183,35 @@ const ProdukSyariahDetail = async ({
           </p>
         </div>
         <div className="grid grid-cols-3 gap-[24px]">
-          {[...Array(3)].map((_, index) => (
-            <CardProduct
-              key={index}
-              symbol={YellowHomeSun}
-              title="Avrist DPLK"
-              summary="Lorem Ipsum"
-              description="Lorem ipsum dolor sit amet consectetur purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti."
-              tags={['Avrist DPLK', 'Premi Tetap', 'Premi Berkala']}
-              cardClassname="bg-white border-b-dplk_yellow"
-              cardTitleClassname="text-dplk_yellow"
-              cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-              cardButtonClassname="bg-dplk_yellow text-white"
-            />
-          ))}
+          {products.map((i, index) => {
+            const { content } = handleTransformedContent(
+              i.contentData,
+              i.title
+            );
+            const produkImage = singleImageTransformer(content['produk-image']);
+            const namaProduk = contentStringTransformer(content['nama-produk']);
+            const tags = contentStringTransformer(content['tags']) as string;
+            const deskripsiSingkatProduk = contentStringTransformer(
+              content['deskripsi-singkat-produk']
+            );
+            return (
+              <CardProduct
+                key={index}
+                imageProduk={produkImage.imageUrl}
+                symbol={YellowHomeSun}
+                title="Avrist DPLK"
+                summary={namaProduk}
+                href={`avrist-dplk/produk/${i.id}`}
+                description={deskripsiSingkatProduk}
+                // tags={['Avrist DPLK', 'Premi Tetap', 'Premi Berkala']}
+                tags={tags.length ? tags.split(',') : []}
+                cardClassname="bg-white border-b-dplk_yellow"
+                cardTitleClassname="text-dplk_yellow"
+                cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+                cardButtonClassname="bg-dplk_yellow text-white"
+              />
+            );
+          })}
         </div>
       </SimpleContainer>
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
