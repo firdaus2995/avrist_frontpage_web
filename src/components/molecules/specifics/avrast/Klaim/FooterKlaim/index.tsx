@@ -31,7 +31,7 @@ const dataInformasiNasabah = [
     icon: FOOTER_NASABAH_1,
     title: 'Kelola Polis',
     link1: 'Login Akun',
-    href: '/klaim-layanan/layanan/kelola-polis'
+    href: 'https://my.avrist.com/welcome'
   },
   {
     icon: FOOTER_NASABAH_2,
@@ -58,7 +58,7 @@ const dataFormulirPendaftaran = [
     icon: ARROW_CIRCLE_RIGHT,
     title: 'Kelola Polis',
     link1: 'Login Akun',
-    href: '/klaim-layanan/layanan/kelola-polis'
+    href: 'https://my.avrist.com/welcome'
   },
   {
     icon: RECEIPT,
