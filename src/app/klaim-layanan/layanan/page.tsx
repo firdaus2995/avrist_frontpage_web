@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Icon from '@/components/atoms/Icon';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
@@ -101,13 +102,13 @@ const InformationCustomer = () => {
               </span>{' '}
               Solusi Perlindungan Masa Depan
             </p>
-            <div
-              role="button"
+            <Link
+              href={'https://www.youtube.com/@avristian'}
               className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
             >
               Cerita Lebih Detail di
               <Icon name="youtubeIcon" color="white" />
-            </div>
+            </Link>
           </div>
         }
         image={data.footerInfoImageUrl}
