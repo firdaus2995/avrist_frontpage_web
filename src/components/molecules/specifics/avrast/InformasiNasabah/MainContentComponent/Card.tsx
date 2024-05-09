@@ -16,7 +16,7 @@ const mockData = [
     desc: 'Lihat detail panduan polis yang anda miliki di sini',
     icon: CONTACTS,
     btn: 'Lihat Di Sini',
-    link: 'layanan/kelola-polis'
+    link: 'https://my.avrist.com/welcome'
   },
   {
     id: '2',
