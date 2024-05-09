@@ -87,19 +87,21 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
   const fetchData = () => {
     try {
-      handleGetContentPage('avrist-terkini-detail').then((res: any) => {
-        const { content } = pageTransformer(res);
-        const titleImage = singleImageTransformer(
-          content['title-image']
-        ).imageUrl;
-        const bannerImage = singleImageTransformer(
-          content['banner-image']
-        ).imageUrl;
-        const footerImage = singleImageTransformer(
-          content['cta1-image']
-        ).imageUrl;
-        setData({ titleImage, bannerImage, footerImage });
-      });
+      handleGetContentPage('halaman-avrist-life-guide-detail').then(
+        (res: any) => {
+          const { content } = pageTransformer(res);
+          const titleImage = singleImageTransformer(
+            content['title-image']
+          ).imageUrl;
+          const bannerImage = singleImageTransformer(
+            content['banner-image']
+          ).imageUrl;
+          const footerImage = singleImageTransformer(
+            content['cta1-image']
+          ).imageUrl;
+          setData({ titleImage, bannerImage, footerImage });
+        }
+      );
     } catch (error) {
       console.error('Error:', error);
     }
