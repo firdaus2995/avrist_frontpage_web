@@ -9,7 +9,7 @@ export const BeAgent = () => {
       </span>
       <Link href={'/tentang-avrist-life/tentang-avrist-life?tab=Karir+Bersama+Avrist'}>
         <Button
-          title="Karir"
+          title="Selengkapnya"
           customButtonClass="bg-purple_dark mr-[24px]"
           customTextClass="text-white"
         />
