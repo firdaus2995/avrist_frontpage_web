@@ -12,6 +12,8 @@ interface ICardCategoryD {
   title: string;
   tags: string[];
   type?: string;
+  image?: string;
+  readTime?: string;
 }
 
 const CardCategoryD = ({
@@ -20,20 +22,28 @@ const CardCategoryD = ({
   time,
   title,
   tags,
-  type
+  type,
+  image,
+  readTime
 }: ICardCategoryD) => {
   return (
-    <div className={`flex ${type === 'row' ? 'flex-row-reverse p-4' : 'flex-col border-b-8 border-b-purple_dark'} gap-[18px] border border-gray_light rounded-[12px]`}>
-      <div className={`flex relative ${type === 'row' ? 'w-1/3 rounded-xl' : ''}`}>
+    <div
+      className={`flex ${type === 'row' ? 'flex-row-reverse p-4' : 'flex-col border-b-8 border-b-purple_dark'} gap-[18px] border border-gray_light rounded-[12px]`}
+    >
+      <div
+        className={`flex relative ${type === 'row' ? 'w-1/3 rounded-xl' : ''}`}
+      >
         <Image
           alt="blank-image"
           width={0}
           height={170}
-          src={BlankImage}
+          src={image?.includes('no-image') ? BlankImage : image}
           className="w-full object-cover rounded-xl"
         />
       </div>
-      <div className={`flex flex-col gap-4 p-5 ${type === 'row' ? 'w-2/3' : ''}`}>
+      <div
+        className={`flex flex-col gap-4 p-5 ${type === 'row' ? 'w-2/3' : ''}`}
+      >
         <p className="text-[14px] text-left">
           <span className="font-bold text-purple_dark">{category}</span> {time}
         </p>
@@ -41,7 +51,9 @@ const CardCategoryD = ({
         <p className="text-[16px] text-left line-clamp-2">{summary}</p>
         <div className="flex flex-row gap-2 items-center">
           <Image alt="book-image" width={0} height={20} src={Book} />
-          <p className="font-bold text-[14px]">Baca 2 menit</p>
+          <p className="font-bold text-[14px]">
+            {readTime && `Baca ${readTime}`}
+          </p>
         </div>
         <div className="flex flex-row gap-2 items-center">
           {tags.map((val, idx) => (

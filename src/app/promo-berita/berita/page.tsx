@@ -27,6 +27,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { ParamsProps } from '@/utils/globalTypes';
+import { handleDownload, htmlParser } from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer,
@@ -61,8 +62,12 @@ const Berita: React.FC<ParamsProps> = () => {
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>();
   const [search, setSearch] = useState('');
+  const [lifeGuideCategory, setLifeGuideCategory] = useState({
+    list: [],
+    selectedCategory: ''
+  });
   const [params, setParams] = useState({
-    category: 'Berita dan Kegiatan',
+    category: searchParams.get('category') ?? '',
     yearFilter: '',
     monthFilter: '',
     searchFilter: ''
@@ -107,8 +112,15 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     fetchData();
-    fetchContent();
-  }, [params]);
+
+    if (tab === 'Avrist Terkini') {
+      params.category === 'Avrist Life Guide'
+        ? fetchLifeGuide()
+        : params.category === 'AvriStory'
+          ? fetchAvriStory()
+          : fetchContent();
+    }
+  }, [params, lifeGuideCategory.selectedCategory, tab]);
 
   const fetchData = () => {
     try {
@@ -130,16 +142,46 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
+  const fetchAvriStory = async () => {
+    try {
+      const fetchData = await fetch(
+        `https://api-front-sit.avristcms.barito.tech/api/content/category/Bulletin-AvriStory?includeAttributes=true${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
+      );
+
+      const response = await fetchData.json();
+
+      const categoryList = response.data.categoryList;
+
+      const transformedData = categoryList[params.category]?.map(
+        (item: any) => {
+          const { content } = handleTransformedContent(
+            item.contentData,
+            item.title
+          );
+
+          const namaFile = content['nama-file-bulletin'].value;
+          const file = singleImageTransformer(
+            content['file-bulletin']
+          ).imageUrl;
+
+          return { namaFile, file };
+        }
+      );
+
+      setContentData(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchContent = async () => {
     try {
       const fetchContentCategory = await fetch(
-        `/api/berita-dan-kegiatan/content-category?includeAttributes=true&category=${params.category}&searchFilter=${params.searchFilter}&yearFilter=${params.yearFilter}&monthFilter=${params.monthFilter}`
+        `https://api-front-sit.avristcms.barito.tech/api/content/category/Berita-dan-Kegiatan-Detail?includeAttributes=true&category=${params.category}${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
       );
       const response = await fetchContentCategory.json();
 
       const categoryList = response.data.categoryList;
-
-      console.log(categoryList);
 
       const transformedData = categoryList[params.category]?.map(
         (item: any) => {
@@ -165,7 +207,55 @@ const Berita: React.FC<ParamsProps> = () => {
         }
       );
 
-      console.log(transformedData);
+      setContentData(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchLifeGuide = async () => {
+    try {
+      const fetchData = await fetch(
+        `https://api-front-sit.avristcms.barito.tech/api/content/category/list-avrist-life-guide?includeAttributes=true${lifeGuideCategory.selectedCategory && `&category=${lifeGuideCategory.selectedCategory}`}${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
+      );
+
+      const response = await fetchData.json();
+
+      const data = response.data.categoryList;
+
+      const categoryList: any = Object.keys(data);
+
+      setLifeGuideCategory({
+        ...lifeGuideCategory,
+        list: categoryList,
+        selectedCategory: categoryList[0]
+      });
+
+      const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
+        (item: any) => {
+          const { content } = handleTransformedContent(
+            item.contentData,
+            item.title
+          );
+
+          const judul = content['judul-artikel'].value;
+          const waktu = `${
+            monthDropdown().find(
+              (item) => item.label === content['bulan'].value
+            )?.label
+          } ${content['tahun'].value}`;
+          const deskripsi =
+            content['artikel-looping'].contentData[0].details[0].value;
+          const image = singleImageTransformer(
+            content['artikel-thumbnail']
+          ).imageUrl;
+          const id = item.id;
+          const tags = content['tags'].value;
+          const waktuBaca = content['waktu-baca-artikel'].value;
+
+          return { judul, waktu, deskripsi, image, id, tags, waktuBaca };
+        }
+      );
 
       setContentData(transformedData);
     } catch (err) {
@@ -339,7 +429,7 @@ const Berita: React.FC<ParamsProps> = () => {
           <h2 className="text-[32px] font-medium mb-6 text-purple_dark">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
-            {params.category === 'Avristory' && (
+            {params.category === 'AvriStory' && (
               <p>
                 <span className="font-black">AvriStory:</span> E-Bulletin hadir
                 setiap 3 bulan sekali
@@ -350,7 +440,7 @@ const Berita: React.FC<ParamsProps> = () => {
           <h2 className="text-[20px] mb-6">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
-            {params.category === 'Avristory' && (
+            {params.category === 'AvriStory' && (
               <p>
                 Informasi terbaru mengenai{' '}
                 <span className="font-black">Avrist Life Insurance</span>
@@ -394,8 +484,10 @@ const Berita: React.FC<ParamsProps> = () => {
                         <p
                           className="text-[16px] line-clamp-2"
                           dangerouslySetInnerHTML={{
-                            __html:
-                              item.deskripsi[0].value.substring(0, 250) + '...'
+                            __html: item.deskripsi
+                              ? item.deskripsi[0]?.value?.substring(0, 250) +
+                                '...'
+                              : '-'
                           }}
                         />
 
@@ -445,7 +537,7 @@ const Berita: React.FC<ParamsProps> = () => {
             categoryCard="B"
             categories={[
               'Berita dan Kegiatan',
-              'Avristory',
+              'AvriStory',
               'Avrist Life Guide'
             ]}
             tabs={[
@@ -488,43 +580,45 @@ const Berita: React.FC<ParamsProps> = () => {
                       </Link>
                     ))}
                   </div>
-                ) : params.category === 'Avristory' ? (
+                ) : params.category === 'AvriStory' ? (
                   <div className="grid grid-cols-1 gap-[24px] w-full">
-                    {[...Array(5)].map((_, index) => (
+                    {paginatedData?.map((item: any, index: number) => (
                       <div
                         key={index}
                         className="w-full flex flex-row justify-between items-center p-4 border rounded-xl"
                       >
                         <div className="flex flex-row gap-2 items-center">
-                          <p className="font-bold">
-                            AVRISTORY_E-Bulletin_Q1_2024
-                          </p>
+                          <p className="font-bold">{item.namaFile}</p>
                           <MediumTag title="PDF" />
                         </div>
                         <Button
                           title="Unduh"
                           customButtonClass="rounded-xl bg-purple_dark"
                           customTextClass="text-white"
+                          onClick={async () => await handleDownload(item.file)}
                         />
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 gap-[24px]">
-                    {[...Array(3)].map((_, index) => (
+                    {paginatedData?.map((item: any, index: number) => (
                       <Link
                         key={index}
-                        href={
-                          '/promo-berita/berita/life-guide/avrist-life-guide'
-                        }
+                        href={{
+                          pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                          query: { id: item.id }
+                        }}
                       >
                         <CardCategoryD
                           type="row"
-                          title="Lorem ipsum dolor sit amet consectetur."
-                          summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
-                          category="Daily Insight"
-                          time=" | 15 Menit yang lalu"
-                          tags={['Asuransi Jiwa Individual', 'Daily Insight']}
+                          title={htmlParser(item.judul)}
+                          summary={htmlParser(item.deskripsi)}
+                          category={item.tags}
+                          time={` | ${item.waktu}`}
+                          tags={[item.tags]}
+                          image={item.image}
+                          readTime={item.waktuBaca}
                         />
                       </Link>
                     ))}
@@ -579,56 +673,36 @@ const Berita: React.FC<ParamsProps> = () => {
             }
             customLeftContent={
               params.category === 'Avrist Life Guide' ? (
-                <div className="flex flex-col gap-4 mt-5 h-full">
+                <div className="flex flex-col gap-4 mt-5 h-auto">
                   <div className="border rounded-xl p-4 flex flex-col gap-4 text-left grow">
                     <p className="font-semibold pb-2 border-b">
                       Kategori Artikel
                     </p>
                     <div className="flex flex-col mt-5 gap-4">
-                      <div className="flex flex-row items-start gap-1 text-left">
-                        <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                          Lifestyle
-                        </p>
-                        <Icon
-                          width={16}
-                          height={16}
-                          name="chevronRight"
-                          color="purple_dark"
-                        />
-                      </div>
-                      <div className="flex flex-row items-start gap-1 text-left">
-                        <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                          Financial
-                        </p>
-                        <Icon
-                          width={16}
-                          height={16}
-                          name="chevronRight"
-                          color="purple_dark"
-                        />
-                      </div>
-                      <div className="flex flex-row items-start gap-1 text-left">
-                        <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                          Hobby
-                        </p>
-                        <Icon
-                          width={16}
-                          height={16}
-                          name="chevronRight"
-                          color="purple_dark"
-                        />
-                      </div>
-                      <div className="flex flex-row items-start gap-1 text-left">
-                        <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                          Tips and Tricks
-                        </p>
-                        <Icon
-                          width={16}
-                          height={16}
-                          name="chevronRight"
-                          color="purple_dark"
-                        />
-                      </div>
+                      {lifeGuideCategory?.list?.map(
+                        (item: any, index: number) => (
+                          <div
+                            key={index}
+                            className="flex flex-row items-start gap-1 text-left"
+                            onClick={() => {
+                              setLifeGuideCategory({
+                                ...lifeGuideCategory,
+                                selectedCategory: item
+                              });
+                            }}
+                          >
+                            <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                              {item}
+                            </p>
+                            <Icon
+                              width={16}
+                              height={16}
+                              name="chevronRight"
+                              color="purple_dark"
+                            />
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
                   <div className="border rounded-xl p-4 flex flex-col gap-4 text-left bg-purple_verylight">
@@ -648,21 +722,41 @@ const Berita: React.FC<ParamsProps> = () => {
                   <div className="border rounded-xl p-4 flex flex-col gap-4 text-left">
                     <p className="font-bold text-[16px]">Ikuti Kami</p>
                     <div className="flex flex-row gap-2">
-                      <div className="p-2 rounded-xl bg-purple_dark/[0.06]">
+                      <Link
+                        href="https://www.youtube.com/@avristian"
+                        target="blank"
+                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                      >
                         <Icon name="youtubeIcon" color="purple_dark" />
-                      </div>
-                      <div className="p-2 rounded-xl bg-purple_dark/[0.06]">
+                      </Link>
+                      <Link
+                        href="https://id.linkedin.com/company/avristassurance"
+                        target="blank"
+                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                      >
                         <Icon name="linkedInIcon" color="purple_dark" />
-                      </div>
-                      <div className="p-2 rounded-xl bg-purple_dark/[0.06]">
+                      </Link>
+                      <Link
+                        href="https://www.instagram.com/avristsolution/"
+                        target="blank"
+                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                      >
                         <Icon name="instaIcon" color="purple_dark" />
-                      </div>
-                      <div className="p-2 rounded-xl bg-purple_dark/[0.06]">
+                      </Link>
+                      <Link
+                        href="https://www.facebook.com/avrist/"
+                        target="blank"
+                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                      >
                         <Icon name="facebookIcon" color="purple_dark" />
-                      </div>
-                      <div className="p-2 rounded-xl bg-purple_dark/[0.06]">
+                      </Link>
+                      <Link
+                        href="https://www.tiktok.com/@avrist.assurance"
+                        target="blank"
+                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                      >
                         <Icon name="tiktokIcon" color="purple_dark" />
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -675,23 +769,28 @@ const Berita: React.FC<ParamsProps> = () => {
                     Terbaru
                   </p>
                   <div className="grid grid-cols-2 gap-[24px]">
-                    {[...Array(4)].map((_, index) => (
-                      <Link
-                        key={index}
-                        href={
-                          '/promo-berita/berita/life-guide/avrist-life-guide'
-                        }
-                      >
-                        <CardCategoryD
+                    {contentData
+                      ?.slice(0, 4)
+                      .map((item: any, index: number) => (
+                        <Link
                           key={index}
-                          title="Lorem ipsum dolor sit amet consectetur."
-                          summary="Dalam dunia keuangan yang dinamis, aset manajemen menjadi kompas penting bagi investor yang mencari peluang pertumbuhan dan keberlanjutan. Artikel ini akan mengulas panduan praktis dari perusahaan aset manajemen terkemuka, membantu Anda memahami strategi pintar dan memaksimalkan potensi investasi Anda."
-                          category="Daily Insight"
-                          time=" | 15 Menit yang lalu"
-                          tags={['Asuransi Jiwa Individual', 'Daily Insight']}
-                        />
-                      </Link>
-                    ))}
+                          href={{
+                            pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                            query: { id: item.id }
+                          }}
+                        >
+                          <CardCategoryD
+                            key={index}
+                            title={htmlParser(item.judul)}
+                            summary={htmlParser(item.deskripsi)}
+                            category={item.tags}
+                            time={` | ${item.waktu}`}
+                            tags={[item.tags]}
+                            image={item.image}
+                            readTime={item.waktuBaca}
+                          />
+                        </Link>
+                      ))}
                   </div>
                   <p className="font-semibold pb-2 text-left text-[24px] mt-10">
                     Artikel Lainnya

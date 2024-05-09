@@ -1,6 +1,9 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -15,21 +18,154 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
-export const generateStaticParams = () => {
-  return [{ detail: 'avrist-life-guide' }];
-};
-
-const categories = [
-  'Dasar-Dasar Asuransi',
-  'Commodo morbi',
-  'Quis non est',
-  'Augue tortor',
-  'Aenean libero'
-];
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { handleGetContentPage } from '@/services/content-page.api';
+import { htmlParser } from '@/utils/helpers';
+import {
+  contentDetailTransformer,
+  pageTransformer,
+  singleImageTransformer,
+  handleTransformedContent
+} from '@/utils/responseTransformer';
 
 const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   console.log(params);
+  const param = useSearchParams();
+  const id = param.get('id');
+
+  const [contentData, setContentData] = useState<any>({
+    tagline: '',
+    judul: '',
+    penulis: '',
+    bulan: '',
+    tahun: '',
+    paragrafSatu: '',
+    artikelImage: '',
+    paragrafDua: '',
+    artikelVideo: '',
+    paragrafTiga: '',
+    tags: '',
+    artikelPIC: '',
+    artikelPICJabatan: '',
+    waktuBaca: ''
+  });
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+  const [currentCategory, setCurrentCategory] = useState('');
+  const [listArticle, setListArticle] = useState<any>();
+
+  const fetchCategory = async () => {
+    try {
+      const fetchData = await fetch(
+        `https://api-front-sit.avristcms.barito.tech/api/content/category/list-avrist-life-guide?includeAttributes=true&category=${currentCategory}`
+      );
+
+      const response = await fetchData.json();
+
+      const data = response.data.categoryList;
+
+      const transformedData = data[currentCategory]?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
+
+        const judul = content['judul-artikel'].value;
+        const id = item.id;
+
+        return { judul, id };
+      });
+
+      setListArticle(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchData = () => {
+    try {
+      handleGetContentPage('avrist-terkini-detail').then((res: any) => {
+        const { content } = pageTransformer(res);
+        const titleImage = singleImageTransformer(
+          content['title-image']
+        ).imageUrl;
+        const bannerImage = singleImageTransformer(
+          content['banner-image']
+        ).imageUrl;
+        const footerImage = singleImageTransformer(
+          content['cta1-image']
+        ).imageUrl;
+        setData({ titleImage, bannerImage, footerImage });
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchDetailData = async () => {
+    const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
+    const jsonData = await response.json();
+
+    const { content } = contentDetailTransformer(jsonData);
+
+    setCurrentCategory(jsonData.data.categoryName);
+
+    const tagline = content['tags'].value;
+    const judul = content['judul-artikel'].value;
+    const penulis = content['penulis-artikel'].value;
+    const bulan = content['bulan'].value;
+    const tahun = content['tahun'].value;
+    const thumbnail = singleImageTransformer(
+      content['artikel-thumbnail']
+    ).imageUrl;
+    const artikel = content['artikel-looping'].contentData[0].details;
+    const paragrafSatu = artikel[0].value;
+    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
+    const paragrafDua = artikel[2].value;
+    const artikelVideo = artikel[3].value;
+    const paragrafTiga = artikel[4].value;
+    const tags = content['tags'].value;
+    const artikelPIC = content['artikel-pic'].value;
+    const artikelPICJabatan = content['artikel-pic-jabatan'].value;
+    const waktuBaca = content['waktu-baca-artikel'].value;
+
+    const transformedData = {
+      tagline,
+      judul,
+      penulis,
+      bulan,
+      tahun,
+      thumbnail,
+      paragrafSatu,
+      artikelImage,
+      paragrafDua,
+      artikelVideo,
+      paragrafTiga,
+      tags,
+      artikelPIC,
+      artikelPICJabatan,
+      waktuBaca
+    };
+
+    setContentData(transformedData);
+
+    return transformedData;
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchDetailData();
+  }, []);
+
+  useEffect(() => {
+    if (currentCategory) {
+      fetchCategory();
+    }
+  }, [currentCategory]);
+
   return (
     <div className="flex flex-col">
       <Hero
@@ -41,32 +177,37 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/berita?tab=Avrist+Terkini&category=Avrist+Life+Guide'
           }
         ]}
-        bottomImage={BlankImage}
+        imageUrl={data?.titleImage}
+        bottomImage={data?.bannerImage ?? BlankImage}
       />
       <div className="flex flex-row px-[136px] py-[72px] gap-[48px]">
         <div className="flex flex-col gap-10 py-10">
           <p className="font-semibold">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
-            {categories.map((item: string, index: number) =>
-              item === 'Dasar-Dasar Asuransi' ? (
+            {listArticle?.slice(0, 5).map((item: any, index: number) =>
+              item?.judul === contentData?.judul ? (
                 <div
                   key={index}
                   className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
                 >
                   <span className="font-bold text-purple_dark text-[18px]">
-                    {item}
+                    {htmlParser(item.judul)}
                   </span>
                 </div>
               ) : (
-                <div
+                <Link
+                  href={{
+                    pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                    query: { id: item.id }
+                  }}
                   key={index}
                   role="button"
                   className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
                 >
                   <span className="font-bold text-purple_mediumlight text-[18px]">
-                    {item}
+                    {item.judul}
                   </span>
-                </div>
+                </Link>
               )
             )}
           </div>
@@ -76,17 +217,20 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           <div className="flex items-center justify-start w-full">
             <div className="flex flex-col gap-10 w-2/3 py-10">
               <div className="flex flex-col gap-5">
-                <p className="text-purple_dark font-semibold">Daily Insight</p>
+                <p className="text-purple_dark font-semibold">
+                  {contentData?.tags}
+                </p>
                 <p className="font-semibold text-[48px]">
-                  Dasar-Dasar Asuransi yang Perlu Anda Ketahui
+                  {htmlParser(contentData?.judul)}
                 </p>
                 <div className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
-                    <p>1 Jam yang lalu | Budi Rahman</p>
+                    <p>
+                      {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                      {contentData.penulis}
+                    </p>
                     <div className="flex flex-row gap-2">
-                      <MediumTag title="Reksa Dana" />
-                      <MediumTag title="Investasi" />
-                      <MediumTag title="Artikel" />
+                      <MediumTag title={contentData?.tags} />
                     </div>
                   </div>
                   <div className="flex flex-col gap-1 items-center">
@@ -168,26 +312,48 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-purple_dark font-semibold text-3xl">
-                Lorem ipsum dolor sit amet
-              </p>
-              <p>
-                <span className="font-bold italic">
-                  Lorem ipsum dolor sit amet consectetur.
-                </span>{' '}
-                Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-                tortor sit dis nunc. Volutpat dictum venenatis non eget et.
-                Augue tortor aliquam sapien ultricies egestas phasellus
-                venenatis pulvinar. Consectetur magna dignissim turpis est ut et
-                sapien. Commodo morbi iaculis viverra eget elementum rutrum
-                duis. Magna urna et ullamcorper neque orci urna. Aenean libero
-                enim in sed. Fusce a ipsum ipsum vestibulum metus orci libero
-                aliquam. Augue vitae nam et volutpat lectus tempus quam turpis
-                eget.
-              </p>
+              {
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: contentData.paragrafSatu
+                  }}
+                />
+              }
+
               <div className="bg-gray-200">
-                <Image src={BlankImage} alt="img" className="w-full" />
+                <Image
+                  src={contentData.artikelImage ?? BlankImage}
+                  alt="img"
+                  className="w-full"
+                  width={238}
+                  height={172}
+                />
               </div>
+
+              {
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: contentData.paragrafDua
+                  }}
+                />
+              }
+
+              <div className="w-full h-[650px] mb-10">
+                <VideoPlayer
+                  thumbnail=""
+                  url={contentData.artikelVideo}
+                  color="purple_dark"
+                  type="Artikel Video"
+                />
+              </div>
+
+              {
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: contentData.paragrafTiga
+                  }}
+                />
+              }
             </div>
           </div>
         </div>
@@ -213,7 +379,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           }
-          image={BlankImage}
+          image={data?.footerImage ?? BlankImage}
         />
         <RoundedFrameTop />
       </div>
@@ -222,22 +388,26 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           {
             title: 'Hubungi Kami',
             icon: Icon1,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/hubungi-kami/'
           },
           {
             title: 'Tanya Avrista',
             icon: Icon2,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista/'
           },
           {
             title: 'Panduan Klaim',
             icon: Icon3,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             title: 'Asuransi Individu',
             icon: Icon4,
-            subtitle: 'Lihat Produk'
+            subtitle: 'Lihat Produk',
+            href: '/produk/individu?tab=Asuransi+Jiwa'
           }
         ]}
       />
