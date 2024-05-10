@@ -32,6 +32,7 @@ import {
   getBeritaPers
 } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
 import { handleDownload, htmlParser } from '@/utils/helpers';
 import {
@@ -91,6 +92,7 @@ const Berita: React.FC<ParamsProps> = () => {
     ? Math.ceil(contentData?.length / pagination.itemsPerPage)
     : 0;
   const [data, setData] = useState<any>({
+    slug: '',
     titleImage: '',
     bannerImage: '',
     footerImage: ''
@@ -112,8 +114,7 @@ const Berita: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    fetchData();
-
+    pageSlug();
     if (tab === 'Avrist Terkini') {
       params.category === 'Avrist Life Guide'
         ? fetchLifeGuide()
@@ -128,6 +129,12 @@ const Berita: React.FC<ParamsProps> = () => {
   }, [params, lifeGuideCategory.selectedCategory, tab]);
 
   useEffect(() => {
+    if (data.slug) {
+      fetchData();
+    }
+  }, [data]);
+
+  useEffect(() => {
     setParams({
       category: searchParams.get('category') ?? '',
       yearFilter: '',
@@ -136,9 +143,32 @@ const Berita: React.FC<ParamsProps> = () => {
     });
   }, [tab]);
 
+  const pageSlug = () => {
+    if (tab === 'Avrist Terkini') {
+      params.category === 'Avrist Life Guide'
+        ? setData({
+            ...data,
+            slug: BASE_SLUG.PROMO_BERITA.PAGE.AVRIST_LIFE_GUIDE
+          })
+        : params.category === 'AvriStory'
+          ? setData({ ...data, slug: BASE_SLUG.PROMO_BERITA.PAGE.AVRISTORY })
+          : setData({
+              ...data,
+              slug: BASE_SLUG.PROMO_BERITA.PAGE.AVRIST_TERKINI_DETAIL
+            });
+    }
+
+    if (tab === 'Kumpulan Berita Pers') {
+      setData({
+        ...data,
+        slug: BASE_SLUG.PROMO_BERITA.PAGE.KUMPULAN_BERITA_PERS
+      });
+    }
+  };
+
   const fetchData = () => {
     try {
-      handleGetContentPage('avrist-terkini-detail').then((res: any) => {
+      handleGetContentPage(data.slug).then((res: any) => {
         const { content } = pageTransformer(res);
         const titleImage = singleImageTransformer(
           content['title-image']
