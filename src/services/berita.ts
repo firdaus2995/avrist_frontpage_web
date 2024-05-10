@@ -35,3 +35,14 @@ export const getAvristLifeGuide = async (query: QueryParams) => {
     }
   );
 };
+
+export const getBeritaPers = async (query: QueryParams) => {
+  return await httpService<ContentCategoryResponse>(
+    'content/category',
+    BASE_SLUG.PROMO_BERITA.CONTENT.KUMPULAN_BERITA_PERS,
+    {
+      method: 'GET',
+      queryParams: filterAttributes(query)
+    }
+  );
+};

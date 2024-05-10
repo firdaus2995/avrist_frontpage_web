@@ -28,7 +28,8 @@ import SliderInformation from '@/components/molecules/specifics/avrast/SliderInf
 import {
   getAvristLifeGuide,
   getAvriStory,
-  getAvristTerkini
+  getAvristTerkini,
+  getBeritaPers
 } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -83,13 +84,8 @@ const Berita: React.FC<ParamsProps> = () => {
   });
   const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
   const endIndex = startIndex + pagination.itemsPerPage;
-  const latestFiveData = contentData?.slice(0, 5);
-  const nextData =
-    contentData?.length > 5
-      ? contentData?.slice(pagination.currentPage + 5, 6)
-      : contentData;
   const paginatedData = contentData
-    ? nextData?.slice(startIndex, endIndex)
+    ? contentData?.slice(startIndex, endIndex)
     : [];
   const totalPages = contentData
     ? Math.ceil(contentData?.length / pagination.itemsPerPage)
@@ -125,7 +121,20 @@ const Berita: React.FC<ParamsProps> = () => {
           ? fetchAvriStory()
           : fetchContent();
     }
+
+    if (tab === 'Kumpulan Berita Pers') {
+      fetchBeritaPers();
+    }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
+
+  useEffect(() => {
+    setParams({
+      category: searchParams.get('category') ?? '',
+      yearFilter: '',
+      monthFilter: '',
+      searchFilter: ''
+    });
+  }, [tab]);
 
   const fetchData = () => {
     try {
@@ -268,6 +277,35 @@ const Berita: React.FC<ParamsProps> = () => {
           return { judul, waktu, deskripsi, image, id, tags, waktuBaca };
         }
       );
+
+      setContentData(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const fetchBeritaPers = async () => {
+    try {
+      const fetchData = await getBeritaPers({
+        includeAttributes: 'true',
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
+
+      const data = fetchData.data.categoryList;
+
+      const transformedData = data['']?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
+
+        const judul = content['judul-berita-pers'].value;
+        const deskripsi = content['external-link-berita-pers'].value;
+
+        return { judul, deskripsi };
+      });
 
       setContentData(transformedData);
     } catch (err) {
@@ -475,7 +513,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }}
                 {...sliderSettings}
               >
-                {latestFiveData?.map((item: any, index: number) => (
+                {contentData?.slice(0, 5)?.map((item: any, index: number) => (
                   <SliderInformation
                     key={index}
                     bgColor="purple_superlight"
@@ -942,84 +980,102 @@ const Berita: React.FC<ParamsProps> = () => {
             Insurance. Melangkah bersama Kami!
           </h2>
 
-          <CategoryWithThreeCards
-            defaultSelectedCategory={params.category}
-            filterRowLayout={true}
-            hiddenCategory
-            categoryCard="B"
-            categories={[
-              'Berita dan Kegiatan',
-              'AvriStory',
-              'Avrist Life Guide'
-            ]}
-            tabs={[
-              {
-                type: 'dropdown',
-                label: 'tahun',
-                options: [
-                  { label: 'Pilih Tahun', value: 'option1' },
-                  { label: 'Option 2', value: 'option2' },
-                  { label: 'Option 3', value: 'option3' }
-                ]
-              },
-              {
-                type: 'dropdown',
-                label: 'Bulan',
-                options: [
-                  { label: 'Pilih Bulan', value: 'option1' },
-                  { label: 'Option 2', value: 'option2' },
-                  { label: 'Option 3', value: 'option3' }
-                ]
-              }
-            ]}
-            customContent={
-              <div className="grid grid-cols-1 gap-[24px] w-full">
-                {[...Array(3)].map((_, index) => (
-                  <div key={index} className="w-full p-4 border rounded-xl">
-                    <p className="font-bold text-left">
-                      Gelar Inspirative Talk, Avrist Hadirkan Penulis Novel
-                      Layangan Putus dan Co-Founder Kopi Soe Artikel ini telah
-                      tayang di Kompas.com dengan judul
-                    </p>
-                    <div className="flex flex-row gap-4 mt-5">
-                      <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                        Kompas
-                        <Icon
-                          name="externalLink"
-                          color="purple_dark"
-                          width={10}
-                        />
+          <div className="w-full">
+            <CategoryWithThreeCards
+              defaultSelectedCategory={params.category}
+              filterRowLayout={true}
+              hiddenCategory
+              categoryCard="B"
+              categories={[
+                'Berita dan Kegiatan',
+                'AvriStory',
+                'Avrist Life Guide'
+              ]}
+              hidePagination
+              onSearchChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              onSearch={() => {
+                setParams({ ...params, searchFilter: search });
+              }}
+              tabs={[
+                {
+                  type: 'dropdown',
+                  label: 'tahun',
+                  options: yearDropdown(2009)
+                },
+                {
+                  type: 'dropdown',
+                  label: 'Bulan',
+                  options: monthDropdown()
+                }
+              ]}
+              customContent={
+                <>
+                  <div className="grid grid-cols-1 gap-[24px] w-full">
+                    {paginatedData?.map((item: any, index: number) => (
+                      <div key={index} className="w-full p-4 border rounded-xl">
+                        <p className="font-bold text-left">{item.judul}</p>
+                        {
+                          <div
+                            className="mt-5 w-full flex"
+                            dangerouslySetInnerHTML={{
+                              __html: item.deskripsi
+                            }}
+                          />
+                        }
                       </div>
-                      <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                        Media Indonesia
-                        <Icon
-                          name="externalLink"
-                          color="purple_dark"
-                          width={10}
-                        />
-                      </div>
-                      <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                        Tribun
-                        <Icon
-                          name="externalLink"
-                          color="purple_dark"
-                          width={10}
-                        />
-                      </div>
-                      <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                        Detik
-                        <Icon
-                          name="externalLink"
-                          color="purple_dark"
-                          width={10}
-                        />
-                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                    <div>
+                      <p className="text-[20px]">
+                        Menampilkan{' '}
+                        <span className="font-bold text-purple_dark">
+                          {contentData?.length === 0 ? 0 : startIndex + 1}-
+                          {Math.min(
+                            endIndex,
+                            contentData ? contentData.length : 0
+                          )}
+                        </span>{' '}
+                        dari{' '}
+                        <span className="font-bold">
+                          {contentData && contentData.length}
+                        </span>{' '}
+                        hasil
+                      </p>
+                    </div>
+                    <div className="flex flex-row gap-[8px] items-center">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                        (page) => (
+                          <div
+                            key={page}
+                            role="button"
+                            onClick={() => handlePageChange(page)}
+                            className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                              pagination.currentPage === page
+                                ? 'text-purple_dark font-bold'
+                                : ''
+                            }`}
+                          >
+                            {page}
+                          </div>
+                        )
+                      )}
+                      <span
+                        className="mt-[3px]"
+                        role="button"
+                        onClick={() => handlePageChange(totalPages)}
+                      >
+                        <Icon name="chevronRight" color="purple_dark" />
+                      </span>
                     </div>
                   </div>
-                ))}
-              </div>
-            }
-          />
+                </>
+              }
+            />
+          </div>
         </div>
       )}
 
