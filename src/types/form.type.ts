@@ -25,3 +25,22 @@ export interface FormResponse {
     value: string | null;
     attributeList?: null;
   }
+
+  export interface SendEmailResponse {
+    code: number
+    status: string
+    data: dataSendEmail
+    errors: any
+    pagination: any
+  }
+  
+  export interface dataSendEmail {
+    id: string
+    pic: string
+    placeholderValue: placeholderValue[]
+  }
+
+  export interface placeholderValue {
+    name: string
+    value: string
+  }

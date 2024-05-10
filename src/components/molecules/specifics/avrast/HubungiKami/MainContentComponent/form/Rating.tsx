@@ -13,6 +13,7 @@ import VERY_HAPPY from '@/assets/images/rating/very-happy.svg';
 
 type RatingEmojiProps = {
   title: string;
+  onChange: (e: string) => void;
 };
 
 const listEmoji = [
@@ -23,7 +24,7 @@ const listEmoji = [
   { id: 'VERY_BAD', active: VERY_BAD_ACTIVE, inactive: VERY_BAD }
 ];
 export const RatingEmoji = (props: RatingEmojiProps) => {
-  const { title } = props;
+  const { title, onChange } = props;
   const [active, setActive] = React.useState('');
   return (
     <div>
@@ -36,7 +37,10 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
             width={85}
             height={85}
             className="mr-[64px] cursor-pointer"
-            onClick={() => setActive(i.id)}
+            onClick={() => {
+              setActive(i.id)
+              onChange(i.id)
+            }}
           />
         ))}
       </div>
