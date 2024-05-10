@@ -165,12 +165,15 @@ const TanyaAvrista = () => {
           {
             title: 'Tabel Suku Bunga',
             subtitle: 'Lebih Lanjut',
-            icon: DOCUMENT_CHART
+            icon: DOCUMENT_CHART,
+            openInNewTab: true,
+            href: 'https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx'
           },
           {
             title: 'Pengkinian Data',
             subtitle: 'Lebih Lanjut',
             icon: CONTACTS,
+            openInNewTab: true,
             href: 'https://my.avrist.com/welcome'
           },
           {
