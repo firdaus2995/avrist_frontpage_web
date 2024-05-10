@@ -17,6 +17,7 @@ interface IFooterCards {
     href?: string;
     hrefType?: string; // "phone" || "email"
     openInNewTab?: boolean;
+    textColor?: string;
   }[];
   bgColor?: string;
 }
@@ -145,7 +146,9 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                     ))}
                   </p>
                   {item.subtitle && (
-                    <p className="text-center font-bold md:text-lg 2xl:text-[24px] text-purple_dark">
+                    <p
+                      className={`text-center font-bold md:text-lg 2xl:text-[24px] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                    >
                       {item.subtitle}
                     </p>
                   )}
