@@ -86,7 +86,7 @@ const ProdukDplk = async () => {
             title: 'Kelola Polis',
             icon: ProdukPolis,
             subtitle: 'Login Akun',
-            href: '/klaim-layanan/layanan/kelola-polis'
+            href: 'https://my.avrist.com/welcome'
           },
           {
             title: 'Testimonial',
