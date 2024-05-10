@@ -52,3 +52,16 @@ export const filterAttributes = <T extends Record<string, any>>(
 
   return newObj;
 };
+
+export const getYouTubeId = (url: string): string | null => {
+  try {
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+
+    const videoId = params.get('v');
+    return videoId;
+  } catch (error) {
+    console.error('Invalid YouTube URL');
+    return '';
+  }
+};

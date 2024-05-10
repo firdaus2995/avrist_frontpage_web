@@ -46,3 +46,14 @@ export const getBeritaPers = async (query: QueryParams) => {
     }
   );
 };
+
+export const getTestimoni = async (query: QueryParams) => {
+  return await httpService<ContentCategoryResponse>(
+    'content/category',
+    BASE_SLUG.PROMO_BERITA.CONTENT.TESTIMONI,
+    {
+      method: 'GET',
+      queryParams: filterAttributes(query)
+    }
+  );
+};

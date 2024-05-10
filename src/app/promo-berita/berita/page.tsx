@@ -29,7 +29,8 @@ import {
   getAvristLifeGuide,
   getAvriStory,
   getAvristTerkini,
-  getBeritaPers
+  getBeritaPers,
+  getTestimoni
 } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
@@ -126,6 +127,10 @@ const Berita: React.FC<ParamsProps> = () => {
     if (tab === 'Kumpulan Berita Pers') {
       fetchBeritaPers();
     }
+
+    if (tab === 'Testimonial') {
+      fetchTestimoni();
+    }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
 
   useEffect(() => {
@@ -162,6 +167,13 @@ const Berita: React.FC<ParamsProps> = () => {
       setData({
         ...data,
         slug: BASE_SLUG.PROMO_BERITA.PAGE.KUMPULAN_BERITA_PERS
+      });
+    }
+
+    if (tab === 'Testimonial') {
+      setData({
+        ...data,
+        slug: BASE_SLUG.PROMO_BERITA.PAGE.TESTIMONI
       });
     }
   };
@@ -343,6 +355,38 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
+  const fetchTestimoni = async () => {
+    try {
+      const fetchData = await getTestimoni({
+        includeAttributes: 'true',
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
+
+      const data = fetchData.data.categoryList;
+
+      const transformedData = data['']?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
+
+        const judul = content['judul-testimoni'].value;
+        const deskripsi = content['deskripsi-singkat-testimoni'].value;
+        const penulis = content['penulis-testimoni'].value;
+        const titlePenulis = content['title-penulis-testimoni'].value;
+        const videoUrl = content['video-testimoni'].value;
+
+        return { judul, deskripsi, penulis, titlePenulis, videoUrl };
+      });
+
+      setContentData(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handlePageChange = (page: number) => {
     setPagination({ ...pagination, currentPage: page });
   };
@@ -480,6 +524,50 @@ const Berita: React.FC<ParamsProps> = () => {
   );
 
   const tabs = ['Avrist Terkini', 'Testimonial', 'Kumpulan Berita Pers'];
+
+  const renderPage = () => {
+    return (
+      <div className="flex flex-col gap-4 sm:flex-row justify-between">
+        <div>
+          <p className="text-[20px]">
+            Menampilkan{' '}
+            <span className="font-bold text-purple_dark">
+              {contentData?.length === 0 ? 0 : startIndex + 1}-
+              {Math.min(endIndex, contentData ? contentData.length : 0)}
+            </span>{' '}
+            dari{' '}
+            <span className="font-bold">
+              {contentData && contentData.length}
+            </span>{' '}
+            hasil
+          </p>
+        </div>
+        <div className="flex flex-row gap-[8px] items-center">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <div
+              key={page}
+              role="button"
+              onClick={() => handlePageChange(page)}
+              className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                pagination.currentPage === page
+                  ? 'text-purple_dark font-bold'
+                  : ''
+              }`}
+            >
+              {page}
+            </div>
+          ))}
+          <span
+            className="mt-[3px]"
+            role="button"
+            onClick={() => handlePageChange(totalPages)}
+          >
+            <Icon name="chevronRight" color="purple_dark" />
+          </span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
@@ -705,50 +793,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </div>
                 )}
 
-                <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                  <div>
-                    <p className="text-[20px]">
-                      Menampilkan{' '}
-                      <span className="font-bold text-purple_dark">
-                        {contentData?.length === 0 ? 0 : startIndex + 1}-
-                        {Math.min(
-                          endIndex,
-                          contentData ? contentData.length : 0
-                        )}
-                      </span>{' '}
-                      dari{' '}
-                      <span className="font-bold">
-                        {contentData && contentData.length}
-                      </span>{' '}
-                      hasil
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-[8px] items-center">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
-                        <div
-                          key={page}
-                          role="button"
-                          onClick={() => handlePageChange(page)}
-                          className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                            pagination.currentPage === page
-                              ? 'text-purple_dark font-bold'
-                              : ''
-                          }`}
-                        >
-                          {page}
-                        </div>
-                      )
-                    )}
-                    <span
-                      className="mt-[3px]"
-                      role="button"
-                      onClick={() => handlePageChange(totalPages)}
-                    >
-                      <Icon name="chevronRight" color="purple_dark" />
-                    </span>
-                  </div>
-                </div>
+                {renderPage()}
               </>
             }
             customLeftContent={
@@ -898,41 +943,38 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               {...sliderSettings}
             >
-              {[...Array(5)].map((_, index) => (
-                <SliderInformation
-                  key={index}
-                  isVideo
-                  bgColor="purple_superlight"
-                  title={
-                    <div className="flex flex-col gap-4 text-left">
-                      <p className="text-[36px] font-bold">
-                        Simak lebih lanjut tentang kisah Vicky
-                      </p>
-                      <p className="text-[16px] line-clamp-4">
-                        Lorem ipsum dolor sit amet consectetur. Et non nulla
-                        elit eget. Integer non a varius viverra. Amet proin
-                        libero augue amet nunc et. Ultrices habitasse diam quam
-                        consequat commodo. Amet tempor nam cras id egestas
-                        pulvinar egestas egestas vitae. Etiam tincidunt sit amet
-                        ultricies pharetra ultrices nisl nec tincidunt.
-                        Tincidunt gravida orci feugiat amet. At ridiculus dolor
-                        augue gravida. Risus ut neque leo fringilla tincidunt
-                        suspendisse fusce eu arcu. Blandit fermentum faucibus
-                        tempus varius quis at. Vulputate elit lorem purus
-                        faucibus blandit non ut. Ornare tortor pulvinar eget
-                        facilisis mi tortor vulputate.
-                      </p>
-                      <p className="text-[14px]">
-                        <span className="font-bold text-purple_dark">
-                          Francis Glover
-                        </span>{' '}
-                        | Human Accounts Agent
-                      </p>
-                    </div>
-                  }
-                  image={BlankImage}
-                />
-              ))}
+              {contentData?.slice(0, 5).map((item: any, index: number) => {
+                return (
+                  <SliderInformation
+                    key={index}
+                    isVideo
+                    bgColor="purple_superlight"
+                    title={
+                      <div className="flex flex-col gap-4 text-left">
+                        <p
+                          className="text-[36px] font-bold"
+                          dangerouslySetInnerHTML={{
+                            __html: item.judul
+                          }}
+                        />
+                        <p
+                          className="text-[16px] line-clamp-4"
+                          dangerouslySetInnerHTML={{
+                            __html: item.deskripsi
+                          }}
+                        />
+                        <p className="text-[14px]">
+                          <span className="font-bold text-purple_dark">
+                            {item.penulis}
+                          </span>{' '}
+                          | {item.titlePenulis}
+                        </p>
+                      </div>
+                    }
+                    image={item.videoUrl}
+                  />
+                );
+              })}
             </Slider>
             <div className="flex flex-row justify-between w-full px-20">
               <div
@@ -952,49 +994,56 @@ const Berita: React.FC<ParamsProps> = () => {
             </div>
           </div>
 
-          <CategoryWithThreeCards
-            defaultSelectedCategory={params.category}
-            filterRowLayout={true}
-            hiddenCategory
-            categoryCard="B"
-            categories={[
-              'Berita dan Kegiatan',
-              'AvriStory',
-              'Avrist Life Guide'
-            ]}
-            tabs={[
-              {
-                type: 'dropdown',
-                label: 'tahun',
-                options: [
-                  { label: 'Pilih Tahun', value: 'option1' },
-                  { label: 'Option 2', value: 'option2' },
-                  { label: 'Option 3', value: 'option3' }
-                ]
-              },
-              {
-                type: 'dropdown',
-                label: 'Bulan',
-                options: [
-                  { label: 'Pilih Bulan', value: 'option1' },
-                  { label: 'Option 2', value: 'option2' },
-                  { label: 'Option 3', value: 'option3' }
-                ]
+          <div className="w-full">
+            <CategoryWithThreeCards
+              hidePagination
+              defaultSelectedCategory={params.category}
+              filterRowLayout={true}
+              hiddenCategory
+              categoryCard="B"
+              categories={[
+                'Berita dan Kegiatan',
+                'AvriStory',
+                'Avrist Life Guide'
+              ]}
+              tabs={[
+                {
+                  type: 'dropdown',
+                  label: 'tahun',
+                  options: yearDropdown(2009)
+                },
+                {
+                  type: 'dropdown',
+                  label: 'Bulan',
+                  options: monthDropdown()
+                }
+              ]}
+              onSearchChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              onSearch={() => {
+                setParams({ ...params, searchFilter: search });
+              }}
+              customContent={
+                <>
+                  <div className="grid grid-cols-3 gap-[24px]">
+                    {paginatedData?.map((item: any, index: number) => (
+                      <CardCategoryC
+                        key={index}
+                        summary={htmlParser(item.judul)}
+                        name={item.penulis}
+                        position={` | ${item.titlePenulis}`}
+                        isVideo
+                        image={item.videoUrl}
+                      />
+                    ))}
+                  </div>
+
+                  {renderPage()}
+                </>
               }
-            ]}
-            customContent={
-              <div className="grid grid-cols-3 gap-[24px]">
-                {[...Array(3)].map((_, index) => (
-                  <CardCategoryC
-                    key={index}
-                    summary="Lorem ipsum dolor sit amet consectetur."
-                    name="Bruce Emmerich"
-                    position=" | Senior Quality Facilitator"
-                  />
-                ))}
-              </div>
-            }
-          />
+            />
+          </div>
         </div>
       )}
 
@@ -1058,50 +1107,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     ))}
                   </div>
 
-                  <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                    <div>
-                      <p className="text-[20px]">
-                        Menampilkan{' '}
-                        <span className="font-bold text-purple_dark">
-                          {contentData?.length === 0 ? 0 : startIndex + 1}-
-                          {Math.min(
-                            endIndex,
-                            contentData ? contentData.length : 0
-                          )}
-                        </span>{' '}
-                        dari{' '}
-                        <span className="font-bold">
-                          {contentData && contentData.length}
-                        </span>{' '}
-                        hasil
-                      </p>
-                    </div>
-                    <div className="flex flex-row gap-[8px] items-center">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                        (page) => (
-                          <div
-                            key={page}
-                            role="button"
-                            onClick={() => handlePageChange(page)}
-                            className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                              pagination.currentPage === page
-                                ? 'text-purple_dark font-bold'
-                                : ''
-                            }`}
-                          >
-                            {page}
-                          </div>
-                        )
-                      )}
-                      <span
-                        className="mt-[3px]"
-                        role="button"
-                        onClick={() => handlePageChange(totalPages)}
-                      >
-                        <Icon name="chevronRight" color="purple_dark" />
-                      </span>
-                    </div>
-                  </div>
+                  {renderPage()}
                 </>
               }
             />
