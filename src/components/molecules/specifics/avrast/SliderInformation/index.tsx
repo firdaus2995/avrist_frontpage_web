@@ -40,7 +40,7 @@ const SliderInformation = ({
           </div>
           <div
             className={`flex relative ${isVideo && 'cursor-pointer'}`}
-            onClick={() => setShow(true)}
+            onClick={() => isVideo && setShow(true)}
           >
             <Image
               height={0}

@@ -57,3 +57,14 @@ export const getTestimoni = async (query: QueryParams) => {
     }
   );
 };
+
+export const getPenawaran = async (query: QueryParams) => {
+  return await httpService<ContentCategoryResponse>(
+    'content/category',
+    BASE_SLUG.PROMO_BERITA.CONTENT.PENAWARAN,
+    {
+      method: 'GET',
+      queryParams: filterAttributes(query)
+    }
+  );
+};

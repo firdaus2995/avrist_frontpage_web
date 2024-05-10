@@ -80,8 +80,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
-    console.log(jsonData);
-
     const tagline = content['tags'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
