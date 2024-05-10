@@ -16,6 +16,7 @@ import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import { handleGetContentCategory } from '@/services/content-page.api';
+import { handleDownload } from '@/utils/helpers';
 import {
   contentCategoryTransformer,
   singleImageTransformer
@@ -265,7 +266,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         </div>
                       </div>
                       <div className="flex items-center justiffy-center">
-                        <div className="p-2 px-8 rounded-lg text-white font-medium bg-purple_dark">
+                        <div
+                          className="p-2 px-8 rounded-lg text-white font-medium bg-purple_dark cursor-pointer"
+                          onClick={async () =>
+                            await handleDownload(
+                              singleImageTransformer(val.details[1]).imageUrl
+                            )
+                          }
+                        >
                           Unduh
                         </div>
                       </div>
