@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Disclaimer from '../tabs/Disclaimer';
 import KepemilikanInformasi from '../tabs/KepemilikanInformasi';
 import KontenSitus from '../tabs/KontenSitus';
@@ -10,8 +10,6 @@ import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import Icon from '@/components/atoms/Icon';
 
 const MainContentSyaratPenggunaan = () => {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('Disclaimer');
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +20,6 @@ const MainContentSyaratPenggunaan = () => {
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
-    router.push(pathname + '?' + createQueryString('tab', tabs), {
-      scroll: false
-    });
     handleScrollToRef(getRefByTab(tabs));
   };
 
@@ -43,15 +38,13 @@ const MainContentSyaratPenggunaan = () => {
     }
   };
 
-  const createQueryString = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(name, value);
-    return params.toString();
-  };
-
   const handleScrollToRef = (ref: React.MutableRefObject<null> | null) => {
     if (ref?.current) {
-      (ref.current! as HTMLElement).scrollIntoView({ behavior: 'smooth', block: "end", inline: "start" });
+      (ref.current! as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'start'
+      });
     }
   };
 

@@ -58,6 +58,7 @@ const Pencarian = async () => {
         />
         <RoundedFrameTop />
         <FooterCards
+          bgColor='bg-purple_superlight'
           cards={[
             {
               title: 'Layanan Nasabah',

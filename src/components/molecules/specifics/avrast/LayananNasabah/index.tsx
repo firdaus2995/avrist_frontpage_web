@@ -82,7 +82,7 @@ const LayananNasabah = () => {
       <div
         className={`w-full md:p-10 xs:p-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-10 xs:gap-5`}
       >
-        <p className="md:text-3xl xs:text-xl font-black md:text-center xs:text-left w-full">
+        <p className="md:text-3xl xs:text-xl font-bold md:text-center xs:text-left w-full">
           {val.title}
         </p>
         <div className="flex flex-row items-center gap-4">
@@ -146,7 +146,7 @@ const LayananNasabah = () => {
         <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
           Layanan Nasabah
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center px-10">
+        <p className="md:text-4xl xs:text-2xl text-gray_bold_dark text-center px-10">
           Diskusikan kebutuhan Anda disini
         </p>
       </div>
