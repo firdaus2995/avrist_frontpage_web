@@ -1,3 +1,5 @@
+import { QueryParams } from './httpService';
+
 export const camelToKebabCase = (str: string) => {
   return str.toLowerCase().replace(/\s+/g, '-');
 };
@@ -31,4 +33,22 @@ export const htmlParser = (str: string): string => {
   }
 
   return '';
+};
+
+export const filterAttributes = <T extends Record<string, any>>(
+  obj: T
+): QueryParams => {
+  const newObj: QueryParams = {};
+
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+      const strValue = String(value);
+      if (strValue.trim()) {
+        newObj[key] = strValue;
+      }
+    }
+  }
+
+  return newObj;
 };

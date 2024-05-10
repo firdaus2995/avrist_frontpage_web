@@ -25,6 +25,11 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
+import {
+  getAvristLifeGuide,
+  getAvriStory,
+  getAvristTerkini
+} from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { ParamsProps } from '@/utils/globalTypes';
 import { handleDownload, htmlParser } from '@/utils/helpers';
@@ -144,13 +149,15 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const fetchAvriStory = async () => {
     try {
-      const fetchData = await fetch(
-        `https://api-front-sit.avristcms.barito.tech/api/content/category/Bulletin-AvriStory?includeAttributes=true${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
-      );
+      const fetchData = await getAvriStory({
+        includeAttributes: 'true',
+        category: params.category,
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
 
-      const response = await fetchData.json();
-
-      const categoryList = response.data.categoryList;
+      const categoryList = fetchData.data.categoryList;
 
       const transformedData = categoryList[params.category]?.map(
         (item: any) => {
@@ -176,12 +183,15 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const fetchContent = async () => {
     try {
-      const fetchContentCategory = await fetch(
-        `https://api-front-sit.avristcms.barito.tech/api/content/category/Berita-dan-Kegiatan-Detail?includeAttributes=true&category=${params.category}${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
-      );
-      const response = await fetchContentCategory.json();
+      const fetchContentCategory = await getAvristTerkini({
+        includeAttributes: 'true',
+        category: params.category,
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
 
-      const categoryList = response.data.categoryList;
+      const categoryList = fetchContentCategory.data.categoryList;
 
       const transformedData = categoryList[params.category]?.map(
         (item: any) => {
@@ -215,13 +225,15 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const fetchLifeGuide = async () => {
     try {
-      const fetchData = await fetch(
-        `https://api-front-sit.avristcms.barito.tech/api/content/category/list-avrist-life-guide?includeAttributes=true${lifeGuideCategory.selectedCategory && `&category=${lifeGuideCategory.selectedCategory}`}${params.searchFilter && `&searchFilter=${params.searchFilter}`}${params.yearFilter && `&yearFilter=${params.yearFilter}`}${params.monthFilter && `&monthFilter=${params.monthFilter}`}`
-      );
+      const fetchData = await getAvristLifeGuide({
+        includeAttributes: 'true',
+        category: lifeGuideCategory.selectedCategory,
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
 
-      const response = await fetchData.json();
-
-      const data = response.data.categoryList;
+      const data = fetchData.data.categoryList;
 
       const categoryList: any = Object.keys(data);
 

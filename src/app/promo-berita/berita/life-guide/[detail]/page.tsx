@@ -19,6 +19,7 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { getAvristLifeGuide } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { htmlParser } from '@/utils/helpers';
 import {
@@ -59,13 +60,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
   const fetchCategory = async () => {
     try {
-      const fetchData = await fetch(
-        `https://api-front-sit.avristcms.barito.tech/api/content/category/list-avrist-life-guide?includeAttributes=true&category=${currentCategory}`
-      );
+      const fetchData = await getAvristLifeGuide({
+        includeAttributes: 'true',
+        category: currentCategory
+      });
 
-      const response = await fetchData.json();
-
-      const data = response.data.categoryList;
+      const data = fetchData.data.categoryList;
 
       const transformedData = data[currentCategory]?.map((item: any) => {
         const { content } = handleTransformedContent(
