@@ -47,7 +47,6 @@ const ProdukSyariahDetail = async ({
   const { content } = pageTransformer(pageData);
   const titleImage = singleImageTransformer(content['title-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
-  // const bannerImage = singleImageTransformer(content['banner-image']);
 
   // detail
   const { content: contentDetail } = contentDetailTransformer(detailData);
@@ -85,10 +84,6 @@ const ProdukSyariahDetail = async ({
     contentDetail['deskripsi-brosur']
   );
   const fileBrosur = singleImageTransformer(contentDetail['file-brosur']);
-  // const deskripsiJalurPemasaran = contentStringTransformer(
-  //   contentDetail['deskripsi-jalur-pemasaran']
-  // );
-
   const products = productsData.data.contentDataList.slice(0, 3);
   return (
     <div className="flex flex-col">
