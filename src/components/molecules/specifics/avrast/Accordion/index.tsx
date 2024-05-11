@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import EXPAND from '@/assets/images/common/+.svg';
 import SUBTRACT from '@/assets/images/common/-.svg';
 
@@ -8,6 +9,8 @@ interface IAccordion {
   title?: string;
   description?: string;
   children?: React.ReactNode;
+  isUrl?: boolean;
+  url?: string;
 }
 
 interface IAccordionItem {
@@ -17,7 +20,7 @@ interface IAccordionItem {
 
 const Accordion: React.FC<IAccordion> & {
   Item: React.FC<IAccordionItem>;
-} = ({ title, description, children, bgColor }) => {
+} = ({ title, description, children, bgColor, isUrl, url }) => {
   const [expand, setExpand] = useState<boolean>(false);
   return (
     <div
@@ -25,14 +28,24 @@ const Accordion: React.FC<IAccordion> & {
     >
       <div className="flex flex-row justify-between items-center">
         <h1 className="text-xl 2xl:text-2xl font-bold">{title}</h1>
-        <Image
-          alt="toggle"
-          src={!expand ? EXPAND : SUBTRACT}
-          onClick={() => {
-            setExpand(!expand);
-          }}
-          className="cursor-pointer w-[24px] h-[24px]"
-        />
+        {isUrl ? (
+          <Link href={url ?? ''} target="blank">
+            <Image
+              alt="toggle"
+              src={EXPAND}
+              className="cursor-pointer w-[24px] h-[24px]"
+            />
+          </Link>
+        ) : (
+          <Image
+            alt="toggle"
+            src={!expand ? EXPAND : SUBTRACT}
+            onClick={() => {
+              setExpand(!expand);
+            }}
+            className="cursor-pointer w-[24px] h-[24px]"
+          />
+        )}
       </div>
 
       {expand && (

@@ -1,6 +1,9 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -16,13 +19,204 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InterestSection from '@/components/molecules/specifics/avrast/InterestSection';
+import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { getPenawaran } from '@/services/berita';
+import { handleGetContentPage } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
+import { htmlParser, getYouTubeId } from '@/utils/helpers';
+import {
+  contentDetailTransformer,
+  handleTransformedContent,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
-export const generateStaticParams = () => {
-  return [{ detail: 'promo-terbaru' }];
+const monthDropdown = () => {
+  const month = [
+    {
+      label: 'Pilih Bulan',
+      value: ''
+    },
+    {
+      label: 'Januari',
+      value: '01'
+    },
+    {
+      label: 'Februari',
+      value: '02'
+    },
+    {
+      label: 'Maret',
+      value: '03'
+    },
+    {
+      label: 'April',
+      value: '04'
+    },
+    {
+      label: 'Mei',
+      value: '05'
+    },
+    {
+      label: 'Juni',
+      value: '06'
+    },
+    {
+      label: 'Juli',
+      value: '07'
+    },
+    {
+      label: 'Agustus',
+      value: '08'
+    },
+    {
+      label: 'September',
+      value: '09'
+    },
+    {
+      label: 'Oktober',
+      value: '10'
+    },
+    {
+      label: 'November',
+      value: '11'
+    },
+    {
+      label: 'Desember',
+      value: '12'
+    }
+  ];
+
+  return month;
 };
 
-const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
-  console.log(params);
+const DetailPromoTerbaru = () => {
+  const param = useSearchParams();
+  const id = param.get('id');
+
+  const [contentData, setContentData] = useState<any>({
+    tagline: '',
+    judul: '',
+    penulis: '',
+    bulan: '',
+    tahun: '',
+    paragrafSatu: '',
+    artikelImage: '',
+    paragrafDua: '',
+    artikelVideo: '',
+    paragrafTiga: '',
+    tags: '',
+    artikelPIC: '',
+    artikelPICJabatan: ''
+  });
+  const [otherContent, setOtherContent] = useState<any>();
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    bannerImage: '',
+    footerImage: ''
+  });
+
+  const fetchData = () => {
+    try {
+      handleGetContentPage(BASE_SLUG.PROMO_BERITA.PAGE.PENAWARAN_DETAIL).then(
+        (res: any) => {
+          const { content } = pageTransformer(res);
+          const titleImage = singleImageTransformer(
+            content['title-image']
+          ).imageUrl;
+          const bannerImage = singleImageTransformer(
+            content['banner-image']
+          ).imageUrl;
+          const footerImage = singleImageTransformer(
+            content['cta1-image']
+          ).imageUrl;
+          setData({ titleImage, bannerImage, footerImage });
+        }
+      );
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchDetailData = async () => {
+    const response = await fetch(`/api/promo/${id}`);
+    const jsonData = await response.json();
+
+    const { content } = contentDetailTransformer(jsonData);
+
+    const tagline = content['tags'].value;
+    const judul = content['judul-artikel'].value;
+    const penulis = content['penulis-artikel'].value;
+    const bulan = content['bulan'].value;
+    const tahun = content['tahun'].value;
+    const artikel = content['artikel-looping'].contentData[0].details;
+    const paragrafSatu = artikel[0].value;
+    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
+    const paragrafDua = artikel[2].value;
+    const artikelVideo = artikel[3].value;
+    const paragrafTiga = artikel[4].value;
+    const tags = content['tags'].value;
+
+    const transformedData = {
+      tagline,
+      judul,
+      penulis,
+      bulan,
+      tahun,
+      paragrafSatu,
+      artikelImage,
+      paragrafDua,
+      artikelVideo,
+      paragrafTiga,
+      tags
+    };
+
+    setContentData(transformedData);
+
+    return transformedData;
+  };
+
+  const fetchOtherContent = async () => {
+    try {
+      const fetchContentCategory = await getPenawaran({
+        includeAttributes: 'true'
+      });
+
+      const data = fetchContentCategory.data.categoryList;
+
+      const transformedData = data['']?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
+
+        const judul = content['judul-artikel'].value;
+        const waktu = `${
+          monthDropdown().find((item) => item.label === content['bulan'].value)
+            ?.label
+        } ${content['tahun'].value}`;
+        const image = singleImageTransformer(
+          content['artikel-thumbnail']
+        ).imageUrl;
+        const id = item.id;
+
+        return { judul, waktu, image, id };
+      });
+
+      setOtherContent(transformedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchDetailData();
+    fetchOtherContent();
+  }, []);
+
+  console.log(otherContent);
+
   return (
     <>
       <Hero
@@ -34,19 +228,25 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/promo?tab=Promo+Terbaru'
           }
         ]}
-        bottomImage={BlankImage}
+        imageUrl={data?.titleImage}
+        bottomImage={data?.bannerImage ?? BlankImage}
       />
 
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col gap-10 w-2/3 p-10">
           <div className="flex flex-col gap-5">
-            <p className="text-purple_dark font-semibold">Penawaran</p>
+            <p className="text-purple_dark font-semibold">
+              {contentData?.tags}
+            </p>
             <p className="font-semibold text-[48px]">
-              Lorem ipsum dolor sit amet consectetur.
+              {contentData && htmlParser(contentData.judul)}
             </p>
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col gap-2">
-                <p>2 Januari 2024</p>
+                <p>
+                  {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                  {contentData.penulis}
+                </p>
               </div>
               <div className="flex flex-col gap-1 items-center">
                 <div className="flex items-center" role="button">
@@ -127,31 +327,46 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           </div>
-          <p>
-            <span className="font-bold">
-              Lorem ipsum dolor sit amet consectetur.
-            </span>{' '}
-            Quis non est egestas urna. Dictum pellentesque iaculis at tellus
-            tortor sit dis nunc. Volutpat dictum venenatis non eget et. Augue
-            tortor aliquam sapien ultricies egestas phasellus venenatis
-            pulvinar. Consectetur magna dignissim turpis est ut et sapien.
-            Commodo morbi iaculis viverra eget elementum rutrum duis. Magna urna
-            et ullamcorper neque orci urna. Aenean libero enim in sed. Fusce a
-            ipsum ipsum vestibulum metus orci libero aliquam. Augue vitae nam et
-            volutpat lectus tempus quam turpis eget.
-          </p>
+          {
+            <p
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafSatu
+              }}
+            />
+          }
           <div className="bg-gray-200">
-            <Image src={BlankImage} alt="img" className="w-full" />
+            <Image
+              src={contentData.artikelImage ?? BlankImage}
+              alt="img"
+              className="w-full"
+              width={238}
+              height={172}
+            />
           </div>
-          <div className="flex flex-row gap-4">
-            <div className="flex flex-row gap-4">
-              <p className="text-sm font-medium">Lihat Promo ini di:</p>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Apple Watch
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-            </div>
+          {
+            <span
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafDua
+              }}
+            />
+          }
+
+          <div className="w-full h-[650px] mb-10">
+            <VideoPlayer
+              thumbnail=""
+              url={getYouTubeId(contentData.artikelVideo) ?? ''}
+              color="purple_dark"
+              type="Artikel Video"
+            />
           </div>
+
+          {
+            <span
+              dangerouslySetInnerHTML={{
+                __html: contentData.paragrafTiga
+              }}
+            />
+          }
         </div>
       </div>
 
@@ -163,12 +378,25 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             Penawaran Promo Lainnya
           </p>
           <div className="grid grid-cols-3 gap-[24px] p-10">
-            {[...Array(3)].map((_, index) => (
-              <CardCategoryB
+            {otherContent?.map((item: any, index: number) => (
+              <Link
                 key={index}
-                summary="Lorem ipsum dolor sit amet consectetur."
-                description="2 Januari 2024"
-              />
+                href={{
+                  pathname: `/promo-berita/promo/promo-terbaru`,
+                  query: { id: item.id }
+                }}
+              >
+                <CardCategoryB
+                  key={index}
+                  summary={htmlParser(item.judul)}
+                  description={item.waktu}
+                  imageUrl={
+                    !item.image || item.image?.includes('no-image')
+                      ? BlankImage
+                      : item.image
+                  }
+                />
+              </Link>
             ))}
           </div>
         </div>
@@ -192,7 +420,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           }
-          image={BlankImage}
+          image={data?.footerImage ?? BlankImage}
         />
         <RoundedFrameTop />
       </div>
@@ -201,22 +429,26 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           {
             title: 'Hubungi Kami',
             icon: Icon1,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/hubungi-kami/'
           },
           {
             title: 'Tanya Avrista',
             icon: Icon2,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista/'
           },
           {
             title: 'Panduan Klaim',
             icon: Icon3,
-            subtitle: 'Lebih Lanjut'
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
           },
           {
             title: 'Asuransi Individu',
             icon: Icon4,
-            subtitle: 'Lihat Produk'
+            subtitle: 'Lihat Produk',
+            href: '/produk/individu?tab=Asuransi+Jiwa'
           }
         ]}
       />

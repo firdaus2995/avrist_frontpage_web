@@ -48,6 +48,8 @@ const Content = () => {
             bgColor="bg-purple_light_bg"
             title="Informasi Nilai Unit"
             description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
+            isUrl
+            url="https://polis.avrist.com/pages/DailyUnitPrice/pgeUnitPrice.aspx"
           ></Accordion>
 
           <Accordion
@@ -69,7 +71,9 @@ const Content = () => {
           <Accordion
             bgColor="bg-purple_light_bg"
             title="Tabel Suku Bunga"
+            isUrl
             description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
+            url="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
           ></Accordion>
         </section>
 

@@ -19,14 +19,14 @@ const CardCategoryB = ({ summary, description, imageUrl }: ICardCategoryB) => {
         src={imageUrl ?? BlankImage}
         className="w-auto rounded-t-[12px]"
       />
-      <div className="h-full flex flex-col justify-between p-5">
+      <div className="h-full flex flex-col justify-between px-5 pb-5">
         <p
           className="text-[20px] font-bold"
           dangerouslySetInnerHTML={{
             __html: summary
           }}
         />
-        <p className="text-xs">{description}</p>
+        <p className="text-xs mt-2">{description}</p>
       </div>
     </div>
   );
