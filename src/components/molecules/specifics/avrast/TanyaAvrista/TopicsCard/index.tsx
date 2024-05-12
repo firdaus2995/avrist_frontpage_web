@@ -25,7 +25,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                 width={60}
                 height={60}
               />
-              <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
+              <p className="text-center font-bold md:text-[32px] 2xl:text-[24px] leading-[2.4rem]">
                 {item.title.split('\n').map((line, index) => (
                   <p key={index}>{line}</p>
                 ))}
