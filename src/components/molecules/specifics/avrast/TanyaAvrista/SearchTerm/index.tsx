@@ -14,7 +14,7 @@ const SearchTerm = ({ bannerImage } : { bannerImage: string }) => {
             <p className="font-karla md:text-[48px] 2xl:text-5xl font-extrabold text-white">
               Halo, apa kabar?
             </p>
-            <p className="font-karla md:text-3xl 2xl:text-5xl text-white">
+            <p className="font-karla md:text-[48px] 2xl:text-5xl text-white">
             Bagaimana Avrista bisa membantumu?
             </p>
             <div className="w-full sm:mt-2 mt-6">
