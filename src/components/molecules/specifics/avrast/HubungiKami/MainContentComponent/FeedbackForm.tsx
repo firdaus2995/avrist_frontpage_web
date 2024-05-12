@@ -50,21 +50,7 @@ export const FeedbackForm = (props: Props) => {
   };
 
   const onSubmitData = async () => {
-    // const newData = {
-    //   name: 'Rating',
-    //   value: rating
-    // };
-
     const dataForm = [...formValue];
-
-    // const existingIndex = dataForm.findIndex((item) => item.name === 'Rating');
-
-    // if (existingIndex !== -1) {
-    //   dataForm[existingIndex].value = rating;
-    // } else {
-    //   dataForm.push(newData);
-    // }
-
     const queryParams = {
       id: formId,
       pic: formPic,
