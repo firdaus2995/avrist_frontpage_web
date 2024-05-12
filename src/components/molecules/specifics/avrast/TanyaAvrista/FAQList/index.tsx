@@ -98,7 +98,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
             </div>
             <Link
               href="/hubungi-kami"
-              className="bg-purple_dark text-white font-opensans font-semibold text-[20px] rounded-lg py-[18px] px-[40px] mt-[24px] text-center"
+              className="bg-purple_dark text-white font-opensans font-semibold text-[20px] rounded-lg py-[12px] px-[40px] mt-[24px] text-center"
             >
               Hubungi Kami
             </Link>
