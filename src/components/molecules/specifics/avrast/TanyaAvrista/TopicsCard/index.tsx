@@ -17,7 +17,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
       <div className="grid xs:grid-rows-1 md:grid-cols-2 xl:grid-cols-4 md:gap-4 2xl:gap-10 px-44 mt-8 mb-20">
         {cards.map((item, index) => (
           <div key={index} role='button' onClick={() => onClickCards(item.title)} className="flex flex-col items-center">
-            <div className="md:w-[200px] bg-white 2xl:w-[274px] md:h-[186px] 2xl:h-[260px] flex flex-col items-center justify-center p-[24px] gap-[24px] border border-gray_light rounded-t-xl">
+            <div className="md:w-[200px] bg-white 2xl:w-[274px] md:h-[186px] 2xl:h-[260px] flex flex-col items-center justify-center px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-t-xl">
               <Image
                 alt={item.title}
                 src={item.icon}
