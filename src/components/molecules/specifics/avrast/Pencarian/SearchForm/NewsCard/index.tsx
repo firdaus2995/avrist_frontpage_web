@@ -17,7 +17,7 @@ const NewsCard: React.FC<INewsCard> = ({
   tags
 }) => {
   return (
-    <div className="mx-3 rounded-xl border-2 border-gray_light p-6 flex flex-col gap-3">
+    <div className="mx-3 rounded-xl border-2 border-gray_light px-[24px] py-[36px] flex flex-col gap-3">
       <span className="flex flex-row gap-2">
         <p className="font-bold text-purple_dark text-sm">{label}</p>
         <span className="w-[1px] h-auto bg-black" />
