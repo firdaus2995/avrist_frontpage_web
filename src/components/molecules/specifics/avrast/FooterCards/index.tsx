@@ -130,7 +130,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 }
                 key={index}
                 target={item.openInNewTab ? 'blank' : '_self'}
-                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] p-[24px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
               >
                 <div className="flex justify-center">
                   <Image
