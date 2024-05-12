@@ -42,13 +42,13 @@ const FooterInformation = ({
                       ? ''
                       : ''
                 }
-                customTextClass={
-                  !buttonVariant || buttonVariant === 'primary'
+                customTextClass={`text-[20px]
+                  ${!buttonVariant || buttonVariant === 'primary'
                     ? 'text-white font-medium'
                     : buttonVariant === 'secondary'
                       ? ''
-                      : ''
-                }
+                      : ''}
+                `}
                 title={buttonTitle}
               />
             </Link>
