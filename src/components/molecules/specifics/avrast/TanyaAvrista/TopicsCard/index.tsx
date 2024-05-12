@@ -10,7 +10,7 @@ interface ITopicsCard {
 const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
   return (
     <div className="w-full flex flex-col gap-8 items-center bg-[#F7F4F8]">
-      <h1 className="mt-20 font-karla text-[56px] text-purple_dark">
+      <h1 className="mt-[100px] font-karla text-[56px] text-purple_dark">
       Apa yang ingin <span className="font-bold">Anda </span>
          ketahui?
       </h1>
