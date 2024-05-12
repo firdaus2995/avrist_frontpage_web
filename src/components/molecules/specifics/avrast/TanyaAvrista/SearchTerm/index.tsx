@@ -21,7 +21,7 @@ const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
             </div>
             <div className="w-full sm:mt-2 mt-6">
               <Input
-                customInputClass="md:w-[60%] 2xl:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px]"
+                customInputClass="md:w-[60%] 2xl:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
                 placeholder="Ketik kata kunci (misal: promosi berlangsung)"
               />
             </div>
