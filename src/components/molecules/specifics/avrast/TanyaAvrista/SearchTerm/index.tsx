@@ -11,7 +11,7 @@ const SearchTerm = ({ bannerImage } : { bannerImage: string }) => {
         <div className="w-full h-full grid grid-cols-2">
           <span />
           <div className="flex flex-col md:justify-center sm:gap-1 md:gap-4 md:ml-20 sm:ml-0">
-            <p className="font-karla md:text-4xl 2xl:text-5xl font-bold text-white">
+            <p className="font-karla md:text-[48px] 2xl:text-5xl font-extrabold text-white">
               Halo, apa kabar?
             </p>
             <p className="font-karla md:text-3xl 2xl:text-5xl text-white">

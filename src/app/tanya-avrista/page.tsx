@@ -132,7 +132,6 @@ const TanyaAvrista = () => {
   useEffect(() => {
     const filteredData = listData.filter(item => item.tags === selectedCards);
     setListFilteredData(filteredData);
-    console.log(filteredData)
   },[selectedCards])
 
   return (
