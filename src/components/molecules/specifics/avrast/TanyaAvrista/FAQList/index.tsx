@@ -32,7 +32,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
 
   return (
     <div className="w-full flex flex-col gap-8 items-center">
-      <h1 className="mt-20 font-karla text-[56px] text-purple_dark font-bold">
+      <h1 className="mt-20 font-karla text-[56px] text-purple_dark font-extrabold">
         {selected}
       </h1>
       {paginatedData?.length > 0 ? (
