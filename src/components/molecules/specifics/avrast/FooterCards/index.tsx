@@ -141,7 +141,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 </div>
                 <div className="flex flex-col justify-center mt-5">
                   <div className="flex items-center justify-center h-10">
-                    <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
+                    <p className="text-center font-bold text-[24px]">
                       {item.title.split('\n').map((line, index) => (
                         <span key={index}>{line}</span>
                       ))}
@@ -150,7 +150,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   {item.subtitle && (
                     <div className="flex items-end justify-center h-10">
                       <p
-                        className={`text-center items font-bold md:text-lg 2xl:text-[24px] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                        className={`text-center items font-bold text-[24px] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
                       >
                         {item.subtitle}
                       </p>
