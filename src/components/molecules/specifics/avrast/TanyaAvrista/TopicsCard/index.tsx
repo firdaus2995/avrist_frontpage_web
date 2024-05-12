@@ -14,10 +14,10 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
       Apa yang ingin <span className="font-bold">Anda </span>
          ketahui?
       </h1>
-      <div className="grid xs:grid-rows-1 md:grid-cols-2 xl:grid-cols-4 md:gap-4 2xl:gap-10 px-44 mt-8 mb-20">
+      <div className="grid xs:grid-rows-1 md:grid-cols-2 xl:grid-cols-4 md:gap-[24px] 2xl:gap-10 px-44 mt-8 mb-20">
         {cards.map((item, index) => (
           <div key={index} role='button' onClick={() => onClickCards(item.title)} className="flex flex-col items-center">
-            <div className="md:w-[200px] bg-white 2xl:w-[274px] md:h-[186px] 2xl:h-[260px] flex flex-col items-center justify-center px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-t-xl">
+            <div className="md:w-[274px] bg-white 2xl:w-[274px] md:h-[186px] 2xl:h-[260px] flex flex-col items-center justify-center px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-t-xl">
               <Image
                 alt={item.title}
                 src={item.icon}
@@ -32,7 +32,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
               </p>
             </div>
             <div
-              className={`h-[7px] md:w-[200px] 2xl:w-[274px] rounded-b-xl ${!item.color ? 'bg-purple_dark' : item.color}`}
+              className={`h-[7px] md:w-[274px] 2xl:w-[274px] rounded-b-xl ${!item.color ? 'bg-purple_dark' : item.color}`}
             ></div>
           </div>
         ))}
