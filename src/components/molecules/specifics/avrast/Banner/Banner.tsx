@@ -189,7 +189,7 @@ const BannerAvrast = () => {
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-36">
           <div className="flex p-10 items-center justify-center text-white md:text-[28px] xs:text-[20px] text-left md:w-1/3 xs:w-full bg-dark-purple">
             <p>
-              Temukan <span className="font-bold">kebutuhanmu </span> di sini?
+              Temukan <span className="font-bold">kebutuhanmu </span> di sini
             </p>
           </div>
           <div className="flex p-10 gap-4 items-center justify-left text-white md:text-[42px] xs:text-[24px] md:w-2/3 xs:w-full bg-purple_light relative">
