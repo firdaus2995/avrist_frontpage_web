@@ -138,7 +138,7 @@ const CompanySection = () => {
 
     return (
       <div
-        className={`w-full md:h-[40vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-${color} items-center justify-center text-center shadow-xl`}
+        className={`w-full md:h-[50vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-${color} items-center justify-center text-center shadow-xl`}
       >
         <div
           className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-10 text-white`}
@@ -226,14 +226,14 @@ const CompanySection = () => {
   return (
     <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">
       <div>
-        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
+        <p className="md:text-[64px] xs:text-3xl text-center font-extrabold text-purple_dark px-10">
           Mengapa Memilih Avrist?
         </p>
       </div>
-      <div className="w-full grid grid-cols-1  gap-4">
+      <div className="w-full grid grid-cols-1 gap-4">
         <Slider {...sliderSettings}>
           {data.map((val, idx) => (
-            <div key={idx}>{renderCard(val)}</div>
+            <div key={idx} className='w-full flex items-center justify-center px-5'>{renderCard(val)}</div>
           ))}
         </Slider>
       </div>

@@ -80,16 +80,20 @@ const LayananNasabah = () => {
         <Image src={val.icon} alt={val.title} className="w-20" />
       </div>
       <div
-        className={`w-full md:p-10 xs:p-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-10 xs:gap-5`}
+        className={`w-full md:pt-[24px] md:px-[32px] md:pb-[36px] xs:p-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-[24px] xs:gap-5`}
       >
-        <p className="md:text-3xl xs:text-xl font-bold md:text-center xs:text-left w-full">
-          {val.title}
-        </p>
         <div className="flex flex-row items-center gap-4">
           <div className="xs:hidden md:block">
-            <Image src={val.icon} alt={val.title} className="xs:w-10 md:w-28 mix-blend-multiply" />
+            <Image
+              src={val.icon}
+              alt={val.title}
+              className="xs:w-10 md:w-28 mix-blend-multiply"
+            />
           </div>
           <div className="flex flex-col gap-4">
+            <p className="md:text-[32px] xs:text-xl font-bold text-left w-full mb-2">
+              {val.title}
+            </p>
             <div className="flex flex-row items-center gap-2 flex-wrap">
               <Link
                 role="button"
@@ -99,7 +103,11 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link1}
                 </p>
-                <Image src={val.linkIcon} alt={val.link1} className="w-4 mix-blend-multiply" />
+                <Image
+                  src={val.linkIcon}
+                  alt={val.link1}
+                  className="w-4 mix-blend-multiply"
+                />
               </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -111,7 +119,11 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link2}
                 </p>
-                <Image src={val.linkIcon} alt={val.link2} className="w-4 mix-blend-multiply" />
+                <Image
+                  src={val.linkIcon}
+                  alt={val.link2}
+                  className="w-4 mix-blend-multiply"
+                />
               </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -123,7 +135,11 @@ const LayananNasabah = () => {
                 <p className={`font-semibold md:text-lg xs:text-xs`}>
                   {val.link3}
                 </p>
-                <Image src={val.linkIcon} alt={val.link3} className="w-4 mix-blend-multiply" />
+                <Image
+                  src={val.linkIcon}
+                  alt={val.link3}
+                  className="w-4 mix-blend-multiply"
+                />
               </Link>
             </div>
           </div>
