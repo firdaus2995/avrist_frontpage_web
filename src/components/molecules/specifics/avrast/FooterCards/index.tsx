@@ -130,7 +130,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 }
                 key={index}
                 target={item.openInNewTab ? 'blank' : '_self'}
-                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] sm:gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
               >
                 <div className="flex justify-center">
                   <Image
@@ -139,8 +139,8 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                     className="w-[100px] h-[100px]"
                   />
                 </div>
-                <div className="flex flex-col justify-center mt-5 gap-4">
-                  <div className="flex items-end justify-center h-10">
+                <div className="flex flex-col justify-center mt-5">
+                  <div className="flex items-center justify-center h-10">
                     <p className="text-center font-bold md:text-lg 2xl:text-[24px]">
                       {item.title.split('\n').map((line, index) => (
                         <span key={index}>{line}</span>
