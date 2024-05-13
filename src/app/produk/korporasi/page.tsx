@@ -113,7 +113,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`);
         const data = await contentCategoryResponse.json();
         const transformedDataContent = contentCategoryTransformer(data, activeTab);
-        const dataContentValues = transformedDataContent.map(({ content }) => {
+        const dataContentValues = transformedDataContent.map(({ content, id }) => {
           const namaProduk = contentStringTransformer(content['nama-produk']);
           const tags = contentStringTransformer(content['tags']);
           const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
@@ -156,6 +156,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
             kategoriProdukIcon,
             fileRiplay,
             fileBrosur,
+            id
           };
         });        
         setDataContent(dataContentValues);
@@ -320,3 +321,17 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 };
 
 export default ProdukKorporasi;
+
+export interface IDataContent {
+  categoryName?: string;
+  createdAt?: string;
+  namaProduk: string;
+  tags: string;
+  deskripsiSingkatProduk: string;
+  deskripsiLengkapProduk: string;
+  jenisProduk: string;
+  channel: string;
+  produkImage: { imageUrl: string; altText: string };
+  kategoriProdukIcon: { imageUrl: string; altText: string };
+  id: number;
+}
