@@ -10,7 +10,7 @@ try{
      }
     stage('Build Static HTML'){
         echo "Build Static HTML in Build Number : ${env.BUILD_NUMBER}"
-        sh "cp .env.sit .env"
+        sh "cp .env .env.production"
         sh "yarn"
         sh "yarn run build"
         echo "Build Successfully"
