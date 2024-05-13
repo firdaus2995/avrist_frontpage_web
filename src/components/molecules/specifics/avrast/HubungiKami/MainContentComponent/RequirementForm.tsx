@@ -76,7 +76,6 @@ export const RequirementForm = (props: Props) => {
           {dataForm && (
             <CustomForm
               dataForm={dataForm}
-              withoutSubmit
               customFormClassname="border-none p-[0px]"
               title=" "
               type="Hubungi Kami"

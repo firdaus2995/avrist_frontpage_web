@@ -14,7 +14,7 @@ function EmployeeBenefit({ data } : { data: any }) {
             summary={item.namaProduk}
             description={item.deskripsiSingkatProduk}
             tags={item.tags.split(',')}
-            href={`/produk/korporasi/produk-employee-benefit-` + index}
+          href={`/produk/korporasi/${item.id}`}
           />
         ))}
       </div>
@@ -24,6 +24,7 @@ function EmployeeBenefit({ data } : { data: any }) {
 export default EmployeeBenefit;
 
 interface IDataCard {
+  id: string;
   produkImage: {
     imageUrl: string,    
   },

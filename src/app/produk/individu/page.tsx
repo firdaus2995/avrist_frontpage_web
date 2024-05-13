@@ -5,9 +5,7 @@ import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import AsuransiJiwa from './tabs/AsuransiJiwa';
-import AsuransiKecelakaan from './tabs/AsuransiKecelakaan';
 import AsuransiKesehatan from './tabs/AsuransiKesehatan';
-import AsuransiTambahan from './tabs/AsuransiTambahan';
 
 import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
@@ -59,9 +57,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
   const tabs = [
     'Asuransi Jiwa',
-    'Asuransi Kesehatan',
-    'Asuransi Kecelakaan',
-    'Asuransi Tambahan'
+    'Asuransi Kesehatan'
   ];
   const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState(searchParams.get('tab'));
@@ -251,8 +247,6 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     const renderActiveTab = {
       'Asuransi Jiwa': () => <AsuransiJiwa data={paginatedData} />,
       'Asuransi Kesehatan': () => <AsuransiKesehatan data={paginatedData} />,
-      'Asuransi Kecelakaan': () => <AsuransiKecelakaan data={paginatedData} />,
-      'Asuransi Tambahan': () => <AsuransiTambahan data={paginatedData} />
     };
 
     return (
@@ -273,7 +267,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[80px] sm:pb-[100px] gap-[36px] sm:gap-[48px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab || ''}
@@ -325,7 +319,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
                 hasil
               </p>
             </div>
-            <div className="flex flex-row gap-[8px] items-center">
+            <div className="flex flex-row gap-[12px] items-center">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                 (page) => (
                   <div
