@@ -132,7 +132,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         onChange={(e) =>
                           updateFormDataByName(attribute.name, e.target.value)
                         }
-                        className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                        className="w-full px-[16px] py-[10px] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
                       >
                         <option value={''}>Pilih</option>
                         {attribute.value?.split(',').map((option, idx) => (
