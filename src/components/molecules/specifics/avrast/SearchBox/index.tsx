@@ -8,14 +8,16 @@ type SearchBoxProps = {
   buttonText?: string;
   onSearch: (target: string) => void;
   placeHolder?: string;
+  value?: string;
 };
 
 const SearchBox: React.FC<SearchBoxProps> = ({
   buttonText = 'Cari',
   onSearch,
-  placeHolder = 'Asuransi'
+  placeHolder = 'Asuransi',
+  value
 }) => {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState(value || '');
 
   return (
     <div className="w-auto flex md:flex-row flex-col items-stretch gap-2 py-3">

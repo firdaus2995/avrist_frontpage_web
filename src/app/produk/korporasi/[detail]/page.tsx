@@ -1,7 +1,8 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
-import { IDataContent } from '../../individu/page';
+import { useRouter } from 'next/navigation';
+import { IDataContent } from '../page';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -10,6 +11,7 @@ import GiveHeartSymbol from '@/assets/symbols/giveheart-symbol.svg';
 import HeartChatSymbol from '@/assets/symbols/heartchat-symbol.svg';
 import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import ShieldSymbol from '@/assets/symbols/shield-symbol.svg';
+
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
@@ -22,7 +24,10 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import VideoInformation from '@/components/molecules/specifics/avrast/Produk/ContentComponent/VideoInformation';
+import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
 import {
   contentDetailTransformer,
@@ -33,15 +38,21 @@ import {
 } from '@/utils/responseTransformer';
 
 const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
+  const router = useRouter();
   const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
   const [data, setData] = useState<any>({
     titleImage: '',
-    bannerImage: '',
     footerImage: ''
   });
   const [dataDetail, setDataDetail] = useState<any>();
+  const [bannerImg, setBannerImg] = useState<any>();
+
   const [dataForm, setDataForm] = useState<any>();
-  const [formValue, setFormValue] = useState({});
+  const [formId, setFormId] = useState<any>();
+  const [formPic, setFormPic] = useState<any>();
+  const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,9 +63,8 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
 
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
-        const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setData({ titleImage, bannerImage, footerImage });
+        setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -63,28 +73,51 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
     async function fetchDetailData() {
       const response = await fetch(`/api/produk/korporasi/${params.detail}`);
       const jsonData: ContentDetailResponse = await response.json();
-      
-      const { content } = contentDetailTransformer(jsonData)      
+
+      const { content } = contentDetailTransformer(jsonData);
       const namaProduk = contentStringTransformer(content['nama-produk']);
       const tags = contentStringTransformer(content['tags']);
-      const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
+      const deskripsiSingkatProduk = contentStringTransformer(
+        content['deskripsi-singkat-produk']
+      );
       const taglineProduk = contentStringTransformer(content['tagline-produk']);
-      const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
+      const deskripsiLengkapProduk = contentStringTransformer(
+        content['deskripsi-lengkap-produk']
+      );
       const videoProduk = contentStringTransformer(content['video-produk']);
-      const captionVideoProduk = contentStringTransformer(content['caption-video-produk']);
-      const deskripsiKeunggulanProduk = contentStringTransformer(content['deskripsi-keunggulan-produk']);
-      const deskripsiManfaatProduk = contentStringTransformer(content['deskripsi-manfaat-produk']);
-      const deskripsiFiturProduk = contentStringTransformer(content['deskripsi-fitur-produk']);
-      const deskripsiInformasiPenting = contentStringTransformer(content['deskripsi-informasi-penting']);
-      const deskripsiRiplay = contentStringTransformer(content['deskripsi-riplay']);
-      const deskripsiBrosur = contentStringTransformer(content['deskripsi-brosur']);
-      const deskripsiJalurPemasaran = contentStringTransformer(content['deskripsi-jalur-pemasaran']);
+      const captionVideoProduk = contentStringTransformer(
+        content['caption-video-produk']
+      );
+      const deskripsiKeunggulanProduk = contentStringTransformer(
+        content['deskripsi-keunggulan-produk']
+      );
+      const deskripsiManfaatProduk = contentStringTransformer(
+        content['deskripsi-manfaat-produk']
+      );
+      const deskripsiFiturProduk = contentStringTransformer(
+        content['deskripsi-fitur-produk']
+      );
+      const deskripsiInformasiPenting = contentStringTransformer(
+        content['deskripsi-informasi-penting']
+      );
+      const deskripsiRiplay = contentStringTransformer(
+        content['deskripsi-riplay']
+      );
+      const deskripsiBrosur = contentStringTransformer(
+        content['deskripsi-brosur']
+      );
+      const deskripsiJalurPemasaran = contentStringTransformer(
+        content['deskripsi-jalur-pemasaran']
+      );
       const jenisProduk = contentStringTransformer(content['jenis-produk']);
       const channel = contentStringTransformer(content['channel']);
       const produkImage = singleImageTransformer(content['produk-image']);
-      const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
+      const kategoriProdukIcon = singleImageTransformer(
+        content['kategori-produk-icon']
+      );
       const fileRiplay = singleImageTransformer(content['file-riplay']);
       const fileBrosur = singleImageTransformer(content['file-brosur']);
+      const formProduk = contentStringTransformer(content['form-produk']);
 
       const detailData = {
         namaProduk,
@@ -108,78 +141,110 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         fileRiplay,
         fileBrosur,
         categoryTitle: jsonData.data.categoryName,
-        formId: jsonData.data?.formId || '6979'
-      };     
-      
+        formId: jsonData.data?.formId || formProduk || '6979'
+      };
+
+      setBannerImg(singleImageTransformer(content['produk-image']));
       setDataDetail(detailData);
     }
 
     const fetchDataList = async () => {
       try {
-        const contentResponse = await fetch(`/api/produk/content?productFilter=korporasi`);
-        const data = await contentResponse.json();                
+        const contentResponse = await fetch(
+          `/api/produk/content?productFilter=korporasi`
+        );
+        const data = await contentResponse.json();
         const newDataContent = data.data.contentDataList.map((item: any) => {
-          return { 
-            ...handleTransformedContent(item.contentData, item.title), 
+          return {
+            ...handleTransformedContent(item.contentData, item.title),
             categoryName: item.categoryName,
             createdAt: item.createdAt,
             id: item.id
-          }
-        });                
-        const dataContentValues = newDataContent.map(({ content, categoryName, id, createdAt }: { content: any, categoryName: string, id: number, createdAt: string }) => {          
-          const namaProduk = contentStringTransformer(content['nama-produk']);
-          const tags = contentStringTransformer(content['tags']);
-          const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-          const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-          const jenisProduk = contentStringTransformer(content['jenis-produk']);
-          const channel = contentStringTransformer(content['channel']);
-          const produkImage = singleImageTransformer(content['produk-image']);
-          const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-
-          return {
-            categoryName,
-            namaProduk,
-            tags,
-            deskripsiSingkatProduk,
-            deskripsiLengkapProduk,
-            jenisProduk,
-            channel,
-            produkImage,
-            kategoriProdukIcon,
-            id,
-            createdAt
           };
         });
+        const dataContentValues = newDataContent.map(
+          ({
+            content,
+            categoryName,
+            id,
+            createdAt
+          }: {
+            content: any;
+            categoryName: string;
+            id: number;
+            createdAt: string;
+          }) => {
+            const namaProduk = contentStringTransformer(content['nama-produk']);
+            const tags = contentStringTransformer(content['tags']);
+            const deskripsiSingkatProduk = contentStringTransformer(
+              content['deskripsi-singkat-produk']
+            );
+            const deskripsiLengkapProduk = contentStringTransformer(
+              content['deskripsi-lengkap-produk']
+            );
+            const jenisProduk = contentStringTransformer(
+              content['jenis-produk']
+            );
+            const channel = contentStringTransformer(content['channel']);
+            const produkImage = singleImageTransformer(content['produk-image']);
+            const kategoriProdukIcon = singleImageTransformer(
+              content['kategori-produk-icon']
+            );
 
-      const sortedData = dataContentValues.sort((a: { createdAt: string }, b: { createdAt: string }) => {
-        const dateA = new Date(a.createdAt).getTime();
-        const dateB = new Date(b.createdAt).getTime();
-        return dateB - dateA;
-    });    
-                
+            return {
+              categoryName,
+              namaProduk,
+              tags,
+              deskripsiSingkatProduk,
+              deskripsiLengkapProduk,
+              jenisProduk,
+              channel,
+              produkImage,
+              kategoriProdukIcon,
+              id,
+              createdAt
+            };
+          }
+        );
+
+        const sortedData = dataContentValues.sort(
+          (a: { createdAt: string }, b: { createdAt: string }) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return dateB - dateA;
+          }
+        );
+
         setDataRekomendasi(sortedData);
-        return dataContentValues;              
-      }
-      catch(error: any) {        
+        return dataContentValues;
+      } catch (error: any) {
         throw new Error(error.message);
       }
     };
 
     fetchData().then();
-    fetchDetailData().then().catch(() => []);
-    fetchDataList().then().catch(() => []);
+    fetchDetailData()
+      .then()
+      .catch(() => []);
+    fetchDataList()
+      .then()
+      .catch(() => []);
   }, []);
 
   useEffect(() => {
-    setFormValue({})
+    setFormValue([{ name: '', value: '' }]);
     if (dataDetail?.formId) {
       const fetchDataForm = async () => {
         try {
-          const contentResponse = await fetch(`/api/form?id=${dataDetail.formId}`);
+          const contentResponse = await fetch(
+            `/api/form?id=${dataDetail.formId}`
+          );
           const dataFormJson = await contentResponse.json();
           setDataForm(dataFormJson.data.attributeList);
+          setFormId(dataFormJson.data.id);
+          setFormPic(dataFormJson.data.pic);
         } catch (error: any) {
-         throw new Error('Error fetching form data: ', error.message);
+          throw new Error('Error fetching form data: ', error.message);
         }
       };
 
@@ -187,26 +252,45 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
     }
   }, [dataDetail]);
 
-  let titleImage, bannerImage, footerImage;
+  let titleImage, footerImage;
 
-  if (data && data.bannerImage && data.footerImage) {
+  if (data && data.footerImage) {
     titleImage = data.titleImage.imageUrl;
-    bannerImage = data.bannerImage.imageUrl;
     footerImage = data.footerImage.imageUrl;
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;    
-    setFormValue(prevState => ({
+    const { name, value, type, checked } = e.target;
+    setFormValue((prevState) => ({
       ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : value
     }));
   };
 
-  const handleSubmit = () => {
-    // handle later when know how to submit form
-    setFormValue({})
-    console.info(formValue);
+  const receiveData = (
+    data: any,
+    isValid: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setFormIsValid(isValid);
+    setFormValue(data);
+  };
+
+  const onSubmitData = async () => {
+    const queryParams = {
+      id: formId,
+      pic: formPic,
+      placeholderValue: formValue
+    };
+
+    const data = await handleSendEmail(queryParams);
+    if (data.status === 'OK') {
+      router.refresh();
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+      router.refresh();
+    }
   };
 
   return (
@@ -215,74 +299,125 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         title="Produk"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Produk', href: '/produk/korporasi' },
+          { title: 'Produk', href: '/produk/individu' },
           {
             title: 'Avrist Pasti',
-            href: '/produk/korporasi/avrist-group-health-care-silver'
+            href: '/produk/individu/avrist-pasti'
           }
         ]}
-        bottomImage={bannerImage}
+        bottomImage={bannerImg?.imageUrl}
         imageUrl={titleImage}
       />
-      {
-      !dataDetail ? <></> :
-      <SimpleContainer>
-        <DescriptionCategoryA
-          categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
-          categoryTitle={dataDetail?.categoryTitle || ''}
-          productTitle={dataDetail?.namaProduk || ''}
-          tags={dataDetail?.tags || []}
-          tagLineProduk={dataDetail?.taglineProduk}
-          deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
-        />
-        {dataDetail && <VideoInformation url={dataDetail.videoProduk} type={dataDetail.captionVideoProduk}/>}
-        <CategorySideBySideSixCards
-          leftSide={[
-            {
-              symbol: ShieldSymbol,
-              title: 'Keunggulan Produk',
-              description: dataDetail?.deskripsiKeunggulanProduk     
-            },
-            {
-              symbol: HeartChatSymbol,
-              title: 'Manfaat Produk',
-              description: dataDetail?.deskripsiManfaatProduk
-
-            },
-            {
-              symbol: GiveHeartSymbol,
-              title: 'Fitur Produk',
-              description: dataDetail?.deskripsiFiturProduk
-            }
-          ]}
-          rightSide={[
-            {
-              title: 'Informasi Penting',
-              description: dataDetail?.deskripsiInformasiPenting
-            },
-            {
-              title: 'Ringkasan Produk',
-              description: dataDetail?.deskripsiRiplay,
-              hasDownloadButton: true,
-              urlDownload: dataDetail?.fileRiplay.imageUrl
-            },
-            {
-              title: 'Download Brosur',
-              description: dataDetail?.deskripsiBrosur,
-              hasDownloadButton: true,
-              urlDownload: dataDetail?.fileBrosur.imageUrl
-            }
-          ]}
-        />
-        <InfoError
-          symbol={InfoRedSymbol}
-          title="Jalur Pemasaran"
-          description={dataDetail?.deskripsiJalurPemasaran}
-        />
-    </SimpleContainer>
-      }
-      <SimpleContainer bgColor="purple_superlight">
-      {dataForm && <CustomForm onChange={handleChange} onSubmit={handleSubmit} dataForm={dataForm}/>}
+      <Suspense>
+        <SimpleContainer>
+          {!dataDetail || dataDetail?.length === 0 ? (
+            <></>
+          ) : (
+            <>
+              <DescriptionCategoryA
+                categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
+                categoryTitle={dataDetail?.categoryTitle || ''}
+                productTitle={dataDetail?.namaProduk || ''}
+                tags={dataDetail?.tags || []}
+                tagLineProduk={dataDetail?.taglineProduk}
+                deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
+              />
+              {dataDetail && (
+                <VideoInformation
+                  url={dataDetail.videoProduk}
+                  type={dataDetail.captionVideoProduk}
+                />
+              )}
+              <CategorySideBySideSixCards
+                leftSide={[
+                  {
+                    symbol: ShieldSymbol,
+                    title: 'Keunggulan Produk',
+                    description: dataDetail?.deskripsiKeunggulanProduk
+                  },
+                  {
+                    symbol: HeartChatSymbol,
+                    title: 'Manfaat Produk',
+                    description: dataDetail?.deskripsiManfaatProduk
+                  },
+                  {
+                    symbol: GiveHeartSymbol,
+                    title: 'Fitur Produk',
+                    description: dataDetail?.deskripsiFiturProduk
+                  }
+                ]}
+                rightSide={[
+                  {
+                    title: 'Informasi Penting',
+                    description: dataDetail?.deskripsiInformasiPenting
+                  },
+                  {
+                    title: 'Ringkasan Informasi Produk',
+                    description: dataDetail?.deskripsiRiplay,
+                    hasDownloadButton: true,
+                    urlDownload: dataDetail?.fileRiplay.imageUrl
+                  },
+                  {
+                    title: 'Download Brosur',
+                    description: dataDetail?.deskripsiBrosur,
+                    hasDownloadButton: true,
+                    urlDownload: dataDetail?.fileBrosur.imageUrl
+                  }
+                ]}
+              />
+              <InfoError
+                symbol={InfoRedSymbol}
+                title="Informasi Jalur Pemasaran"
+                description={dataDetail?.deskripsiJalurPemasaran}
+              />
+            </>
+          )}
+        </SimpleContainer>
+      </Suspense>
+      <SimpleContainer bgColor="purple_superlight" gap="gap-0">
+        {dataForm && (
+          <CustomForm
+            customFormClassname="border-none p-[0px] rounded-[12px]"
+            onChange={handleChange}
+            dataForm={dataForm}
+            resultData={receiveData}
+          />
+        )}
+        <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
+          <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={(e) => {
+                setIsChecked(e.target.checked);
+              }}
+            />
+            <label className="cursor-pointer" htmlFor="setuju">
+              Saya setuju memberikan data pribadi Saya kepada Avrist Life
+              Insurance dan telah membaca{' '}
+              <span
+                className="text-purple_dark font-bold"
+                onClick={() => window.open('/keamanan-online', '_blank')}
+              >
+                Keamanan Online
+              </span>{' '}
+              Avrist Life Insurance. Selanjutnya, Saya bersedia untuk dihubungi
+              oleh Avrist Life Insurance melalui media komunikasi pribadi Saya
+              sesuai hari dan jam operasional yang berlaku di Avrist Life
+              Insurance.
+            </label>
+          </div>
+          <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
+            <button
+              type="submit"
+              disabled={formIsValid ? (isChecked ? false : true) : true}
+              onClick={() => onSubmitData()}
+              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+            >
+              Kirim
+            </button>
+          </div>
+        </div>
       </SimpleContainer>
       <GridContainer
         gridCols={1}
@@ -293,18 +428,20 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         pySm="72px"
         textTitle="Rekomendasi Produk Lainnya"
       >
-        {dataRekomendasi && dataRekomendasi.length !== 0 && dataRekomendasi.map((item, index) => (
-          <CardCategoryA
-            key={index}
-            symbol={item.kategoriProdukIcon.imageUrl}
-            title={item.categoryName || ''}
-            summary={item.namaProduk}
-            description={item.deskripsiSingkatProduk}
-            tags={item.tags.split(',')}
-            href={`/produk/individu/${item.id}`}        
-            imageProduk={item.produkImage.imageUrl}
-          />
-        ))}
+        {dataRekomendasi &&
+          dataRekomendasi.length !== 0 &&
+          dataRekomendasi.map((item, index) => (
+            <CardCategoryA
+              key={index}
+              symbol={item.kategoriProdukIcon.imageUrl}
+              title={item.categoryName || ''}
+              summary={item.namaProduk}
+              description={item.deskripsiSingkatProduk}
+              tags={item.tags.split(',')}
+              href={`/produk/individu/${item.id}`}
+              imageProduk={item.produkImage.imageUrl}
+            />
+          ))}
       </GridContainer>
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
@@ -317,6 +454,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         }
         buttonTitle="Tanya Avrista"
         image={footerImage}
+        href="/tanya-avrista"
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards

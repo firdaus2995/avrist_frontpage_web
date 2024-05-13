@@ -113,7 +113,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`);
         const data = await contentCategoryResponse.json();
         const transformedDataContent = contentCategoryTransformer(data, activeTab);
-        const dataContentValues = transformedDataContent.map(({ content }) => {
+        const dataContentValues = transformedDataContent.map(({ content, id }) => {
           const namaProduk = contentStringTransformer(content['nama-produk']);
           const tags = contentStringTransformer(content['tags']);
           const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
@@ -156,6 +156,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
             kategoriProdukIcon,
             fileRiplay,
             fileBrosur,
+            id
           };
         });        
         setDataContent(dataContentValues);
@@ -197,7 +198,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[80px] sm:pb-[100px] gap-[36px] sm:gap-[48px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab}
@@ -247,7 +248,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
                 <span className="font-bold">{dataContent?.length}</span> hasil
               </p>
             </div>
-            <div className="flex flex-row gap-[8px] items-center">
+            <div className="flex flex-row gap-[12px] items-center">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <div
@@ -320,3 +321,17 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 };
 
 export default ProdukKorporasi;
+
+export interface IDataContent {
+  categoryName?: string;
+  createdAt?: string;
+  namaProduk: string;
+  tags: string;
+  deskripsiSingkatProduk: string;
+  deskripsiLengkapProduk: string;
+  jenisProduk: string;
+  channel: string;
+  produkImage: { imageUrl: string; altText: string };
+  kategoriProdukIcon: { imageUrl: string; altText: string };
+  id: number;
+}
