@@ -23,7 +23,7 @@ const FooterInformation = ({
   bgColor
 }: IFooterInformation) => {
   return (
-    <div className="w-full flex px-[136px] pt-[100px] pb-[120px] bg-avrast_product_bg justify-center">
+    <div className="w-full flex md:px-[136px] md:pt-[100px] md:pb-[120px] xs:px-[24px] xs:pt-[24px] xs:pb-[36px] bg-avrast_product_bg justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
           className={`flex flex-col gap-[24px] justify-center p-[36px] ${bgColor}`}
