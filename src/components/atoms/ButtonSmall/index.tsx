@@ -23,10 +23,10 @@ const ButtonSmall = ({
   return (
     <button
       type={type}
-      className={`px-[19px] py-[7px] rounded-[6px] ${variantButtonClassName} ${customClassName}`}
+      className={`px-[20px] py-[8px] rounded-[6px] ${variantButtonClassName} ${customClassName}`}
       onClick={onClick}
     >
-      <span className={`font-semibold ${variantTextClassName}`}>{title}</span>
+      <span className={`font-bold ${variantTextClassName}`}>{title}</span>
     </button>
   );
 };

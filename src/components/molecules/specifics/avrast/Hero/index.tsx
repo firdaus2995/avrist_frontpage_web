@@ -52,10 +52,11 @@ const Hero: React.FC<IHero> = ({
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-cover ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[200px]'}`}
+        className={`-z-[2] w-full top-0 absolute object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[200px]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
-        layout="fill"
+        width={100}
+        height={100}
       />
       {bottomImage && (
         <div className="-z-[1] w-full top-[100px] sm:top-[200px] absolute">

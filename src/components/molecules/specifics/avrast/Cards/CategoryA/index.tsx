@@ -41,18 +41,20 @@ const CardCategoryA = ({
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
       <p dangerouslySetInnerHTML={{ __html: description ?? '' }} />
-      <div className="flex flex-row flex-wrap gap-[12px]">
-        {tags.map((item: string, index: number) => (
-          <MediumTag key={index} title={item} />
-        ))}
+      <div className='flex flex-col justify-between grow gap-4'>
+        <div className="flex flex-row flex-wrap gap-[12px]">
+          {tags.map((item: string, index: number) => (
+            <MediumTag key={index} title={item} />
+          ))}
+        </div>
+        {href ? (
+          <Link href={href} className="w-full">
+            <ButtonSmall title="Pelajari Produk" customClassName="w-full text-[18px]" />
+          </Link>
+        ) : (
+          <ButtonSmall title="Pelajari Produk" />
+        )}
       </div>
-      {href ? (
-        <Link href={href} className="w-full">
-          <ButtonSmall title="Pelajari Produk" customClassName="w-full" />
-        </Link>
-      ) : (
-        <ButtonSmall title="Pelajari Produk" />
-      )}
     </div>
   );
 };
