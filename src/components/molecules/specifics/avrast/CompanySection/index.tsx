@@ -62,12 +62,12 @@ const CompanySection = () => {
       category: 'Avrist Life Insurance',
       icon1: ICON1PRODUCT1,
       icon2: ICON2PRODUCT1,
-      title1: 'Integritas.',
-      title2: '1000+ Rekanan di Indonesia',
-      link1: 'Penghargaan',
-      link2: 'Rumah Sakit Rekanan',
-      href1: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
-      href2: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+      title1: 'Perlindungan Komprehensif.',
+      title2: 'Proses Klaim mudah & cepat',
+      link1: 'Produk Avrist',
+      link2: 'Halaman Klaim',
+      href1: '/produk/individu?tab=Asuransi+Jiwa',
+      href2: '/klaim-layanan/klaim?tab=Informasi+Klaim',
       linkIcon: CHEVRONRIGHTPURPLE,
       img: img1.imageUrl
     },
@@ -126,44 +126,47 @@ const CompanySection = () => {
     let textColor: string;
 
     if (val.category === 'Avrist Life Insurance') {
-      color = 'avrast_product_bg';
-      textColor = 'avrast_product_text';
+      color = 'bg-avrast_product_bg';
+      textColor = 'text-avrast_product_text';
     } else if (val.category === 'Avrist Asset Management') {
-      color = 'avram_green';
-      textColor = 'avram_product_text';
+      color = 'bg-avram_green';
+      textColor = 'text-avram_product_text';
     } else {
-      color = 'agi_grey';
-      textColor = 'agi_product_text';
+      color = 'bg-agi_grey';
+      textColor = 'text-agi_product_text';
     }
 
     return (
       <div
-        className={`w-full md:h-[50vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-${color} items-center justify-center text-center shadow-xl`}
+        className={`md:mx-[4.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
-          className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-10 text-white`}
+          className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-6 md:gap-10 text-white`}
         >
-          <p className="md:text-5xl xs:text-2xl font-black text-left">
+          <p className="md:text-[3.5rem] xs:text-2xl font-black text-left font-karla leading-normal md:leading-[0.8]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
-            <div className="flex flex-row items-center gap-2 flex-wrap">
-              <Image
-                src={val.icon1}
-                alt={val.title1}
-                className="xs:w-7 md:w-15"
-                width={10}
-                height={10}
-              />
-              <p className="md:text-xl xs:text-xs font-semibold">
-                {val.title1}
-              </p>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
+              <div className="flex flex-row items-center gap-2">
+                <Image
+                  src={val.icon1}
+                  alt={val.title1}
+                  className="xs:w-7 md:w-15"
+                  width={10}
+                  height={10}
+                />
+                <p className="md:text-xl xs:text-xs font-bold font-karla">
+                  {val.title1}
+                </p>
+              </div>
+
               <Link
                 href={val.href1}
                 className="flex flex-row items-center gap-1"
               >
                 <p
-                  className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
+                  className={`font-bold md:text-xl xs:text-xs ${textColor} font-karla`}
                 >
                   {val.link1}
                 </p>
@@ -177,23 +180,26 @@ const CompanySection = () => {
               </Link>
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap">
-              <Image
-                src={val.icon2}
-                alt={val.title2}
-                className="xs:w-7 md:w-15"
-                width={10}
-                height={10}
-              />
-              <p className="md:text-xl xs:text-xs font-semibold">
-                {val.title2}
-              </p>
+              <div className="flex flex-row items-center gap-2">
+                <Image
+                  src={val.icon2}
+                  alt={val.title2}
+                  className="xs:w-7 md:w-15"
+                  width={10}
+                  height={10}
+                />
+                <p className="md:text-xl xs:text-xs font-bold font-karla">
+                  {val.title2}
+                </p>
+              </div>
+
               <Link
                 href={val.href2}
                 role="button"
                 className="flex flex-row items-center gap-1"
               >
                 <p
-                  className={`font-semibold md:text-xl xs:text-xs text-${textColor}`}
+                  className={`font-bold font-karla md:text-xl xs:text-xs ${textColor}`}
                 >
                   {val.link2}
                 </p>
@@ -209,12 +215,12 @@ const CompanySection = () => {
           </div>
         </div>
         <div
-          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
+          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
         >
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}
-            className="w-full md:rounded-r-xl xs:rounded-b-xl"
+            className="w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
             width={10}
             height={10}
           />
@@ -226,14 +232,19 @@ const CompanySection = () => {
   return (
     <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">
       <div>
-        <p className="md:text-[64px] xs:text-3xl text-center font-extrabold text-purple_dark px-10">
+        <p className="md:text-[4rem] xs:text-3xl text-center font-extrabold text-purple_dark px-10 font-karla">
           Mengapa Memilih Avrist?
         </p>
       </div>
       <div className="w-full grid grid-cols-1 gap-4">
         <Slider {...sliderSettings}>
           {data.map((val, idx) => (
-            <div key={idx} className='w-full flex items-center justify-center px-5'>{renderCard(val)}</div>
+            <div
+              key={idx}
+              className="w-full flex items-center justify-center px-5"
+            >
+              {renderCard(val)}
+            </div>
           ))}
         </Slider>
       </div>
