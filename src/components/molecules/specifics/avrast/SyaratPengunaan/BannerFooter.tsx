@@ -9,7 +9,7 @@ const imageUrl =
 export const BannerFooter: React.FC<BannerFooterProps> = (props) => {
   const { imageUrlSrc = imageUrl } = props;
   return (
-    <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-avrast_product_bg">
+    <div className="flex flex-col self-stretch items-center justify-center py-32 gap-[64px] bg-avrast_product_bg">
       <div className="w-full flex items-center justify-center gap-4 px-[136px]">
         <div
           className={`w-full md:h-[35vh] xs:h-[65vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl bg-white items-center justify-center text-center`}
