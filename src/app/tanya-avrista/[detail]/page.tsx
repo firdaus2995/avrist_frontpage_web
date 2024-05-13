@@ -29,7 +29,7 @@ const DetailTanyaAvrista = async ({
   const data = await handleGetContentPage('halaman-tanya-avrista-detail');
   const detail = await handleGetContentDetail(params.detail);
   // page
-  const { title, content } = pageTransformer(data);
+  const { content } = pageTransformer(data);
   const bannerImage = singleImageTransformer(content['title-image']);
   const footerImage = singleImageTransformer(content['cta1-image']);
   // contrent
@@ -44,15 +44,10 @@ const DetailTanyaAvrista = async ({
   return (
     <Suspense>
       <Hero
-        title={title}
+        title={titleContent}
         imageUrl={bannerImage.imageUrl}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Tanya Avrista', href: '/tanya-avrista' },
-          {
-            title: title,
-            href: '#'
-          },
           {
             title: titleContent,
             href: '#'
@@ -66,7 +61,7 @@ const DetailTanyaAvrista = async ({
       <RoundedFrameBottom />
       <FooterInformation
         title={
-          <p className="font-karla text-[56px]">
+          <p className="font-karla text-[2.5rem] md:text-[3.5rem] tracking-[-0.015em]">
             <span className="font-bold text-purple_dark">Komitmen</span> Kami,
             proses klaim yang{' '}
             <span className="font-bold text-purple_dark">efisien</span> dan{' '}
@@ -85,6 +80,7 @@ const DetailTanyaAvrista = async ({
             title: 'Kelola Polis',
             subtitle: 'Pengkinian Data',
             href: 'https://my.avrist.com/welcome',
+            openInNewTab: true,
             icon: CONTACTS
           },
           {

@@ -26,7 +26,7 @@ const FooterInformation = ({
     <div className="w-full flex md:px-[136px] md:pt-[100px] md:pb-[120px] xs:px-[24px] xs:pt-[24px] xs:pb-[36px] bg-avrast_product_bg justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`flex flex-col gap-[24px] justify-center py-[36px] pr-[36px] pl-[48px] ${bgColor}`}
+          className={`flex flex-col gap-[24px] justify-center py-[36px] md:pr-[36px] md:pl-[48px] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
@@ -43,11 +43,13 @@ const FooterInformation = ({
                       : ''
                 }
                 customTextClass={`text-[20px]
-                  ${!buttonVariant || buttonVariant === 'primary'
-                    ? 'text-white font-semibold'
-                    : buttonVariant === 'secondary'
-                      ? ''
-                      : ''}
+                  ${
+                    !buttonVariant || buttonVariant === 'primary'
+                      ? 'text-white font-semibold'
+                      : buttonVariant === 'secondary'
+                        ? ''
+                        : ''
+                  }
                 `}
                 title={buttonTitle}
               />

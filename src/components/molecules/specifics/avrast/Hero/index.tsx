@@ -29,7 +29,7 @@ const Hero: React.FC<IHero> = ({
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-10 md:px-20 xl:px-40 items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'pt-[50px]'}`}
+          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'pt-[50px]'}`}
         >
           <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
             {title}
