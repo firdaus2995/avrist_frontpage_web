@@ -138,7 +138,7 @@ const CompanySection = () => {
 
     return (
       <div
-        className={` md:mx-[8.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
+        className={`md:mx-[4.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
           className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-6 md:gap-10 text-white`}
@@ -215,12 +215,12 @@ const CompanySection = () => {
           </div>
         </div>
         <div
-          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
+          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
         >
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}
-            className="w-full md:rounded-r-xl xs:rounded-b-xl"
+            className="w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
             width={10}
             height={10}
           />
