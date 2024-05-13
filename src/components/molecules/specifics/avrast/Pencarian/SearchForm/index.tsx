@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import SearchBox from '../../SearchBox';
 import NewsCard from './NewsCard';
 import ServiceCard from './ServiceCard';
@@ -23,9 +24,10 @@ export interface IDataContent {
 }
 
 const SearchForm = () => {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('Asuransi Individu');
   const [currentSlug, setCurrentSlug] = useState('Produk-Avras');
-  const [searchKeyWords, setSearchKeywords] = useState('');
+  const [searchKeyWords, setSearchKeywords] = useState(searchParams.get('searchValue') ?? '');
   const [dataContent, setDataContent] = useState<IDataContent[]>();
 
   const itemsPerPage = 5;
@@ -112,6 +114,7 @@ const SearchForm = () => {
           onSearch={(value: string) => {
             setSearchKeywords(value);
           }}
+          value={searchKeyWords}
         />
 
         <div className="px-3 grid grid-cols-4 gap-x-[12px]">

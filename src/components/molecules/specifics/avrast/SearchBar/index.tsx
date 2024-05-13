@@ -25,10 +25,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={(ev) => setKeyword(ev.target.value)}
-        className={`${placeholderClassname} focus:outline-none px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] grow`}
+        className={`${placeholderClassname} focus:outline-none px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06] grow`}
       />
       <button
-        className={`${searchButtonClassname} px-[19px] py-[7px] rounded-[6px]`}
+        className={`${searchButtonClassname} px-[20px] py-[8px] rounded-[6px]`}
         onClick={() => onSearch ? onSearch(keyword) : {}}
       >
         {searchButtonTitle}
