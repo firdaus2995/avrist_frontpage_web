@@ -74,27 +74,27 @@ const PanduanPengajuanTab = () => {
         {data.map((val, idx) => (
           <div
             key={idx}
-            className={`max-w-sm flex ${idx === 0 ? 'flex-col row-span-3 border-b-8 border-b-purple_dark items-start' : 'flex-row items-center'} gap-4 justify-start p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+            className={`max-w-sm flex ${idx === 0 ? 'flex-col row-span-3 border-b-8 border-b-purple_dark items-start' : 'flex-row items-center'} gap-4 justify-start py-[36px] px-[24px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
           >
             <div className="flex w-1/3 items-center justify-start">
-              <Image src={val.icon} alt={val.title} className="w-20" />
+              <Image src={val.icon} alt={val.title} width={100} height={100} />
             </div>
             <div
               className={`flex ${idx === 0 ? 'w-full' : 'w-2/3'} flex-col justify-start items-start gap-2`}
             >
               <h5
-                className={`mb-2 ${idx === 0 ? 'text-[36px]' : 'text-[20px]'} font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-left`}
+                className={`mb-2 ${idx === 0 ? 'text-[48px] font-extrabold' : 'text-[24px] font-bold'}  tracking-tight text-gray-900 dark:text-white mt-5 text-left`}
               >
                 {val.title}
               </h5>
               {idx === 0 ? (
-                <div className="w-full flex items-center justify-start font-medium rounded-xl text-md text-left ml-0">
+                <div className="w-full flex items-center justify-start font-medium rounded-xl text-[24px] text-left ml-0">
                   {val.btnText}
                 </div>
               ) : (
                 <div
                   role="button"
-                  className="w-[80%] p-3 bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-xs text-center ml-0 whitespace-nowrap"
+                  className="w-[80%] py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-xl text-[24px] text-center ml-0 whitespace-nowrap"
                   onClick={val.onClick}
                 >
                   {val.btnText}
@@ -112,33 +112,34 @@ const PanduanPengajuanTab = () => {
           {...sliderSettings}
         >
           {data.map((val, idx) => (
-            <div
-              key={idx}
-              className={`w-full h-[35vh] flex ${idx === 0 ? 'flex-col row-span-3 border-b-8 border-b-purple_dark items-start' : 'flex-row items-center'} gap-4 justify-start p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
-            >
-              <div className="flex w-1/3 items-center justify-start">
-                <Image src={val.icon} alt={val.title} className="w-20" />
-              </div>
+            <div key={idx} className='p-4'>
               <div
-                className={`flex w-full flex-col justify-start items-start gap-2`}
+                className={`w-full h-[35vh] flex ${idx === 0 ? 'flex-col row-span-3 border-b-8 border-b-purple_dark items-start' : 'flex-row items-center'} gap-4 justify-start p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
               >
-                <h5
-                  className={`mb-2 text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-left`}
+                <div className="flex w-1/3 items-center justify-start">
+                  <Image src={val.icon} alt={val.title} className="w-20" />
+                </div>
+                <div
+                  className={`flex w-full flex-col justify-start items-start gap-2`}
                 >
-                  {val.title}
-                </h5>
-                {idx === 0 ? (
-                  <div className="w-full flex items-center justify-start font-medium rounded-xl text-md text-left ml-0">
-                    {val.btnText}
-                  </div>
-                ) : (
-                  <div
-                    role="button"
-                    className="w-full p-3 bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-xs text-center ml-0 whitespace-nowrap"
+                  <h5
+                    className={`mb-2 text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-left`}
                   >
-                    {val.btnText}
-                  </div>
-                )}
+                    {val.title}
+                  </h5>
+                  {idx === 0 ? (
+                    <div className="w-full flex items-center justify-start font-medium rounded-xl text-md text-left ml-0">
+                      {val.btnText}
+                    </div>
+                  ) : (
+                    <div
+                      role="button"
+                      className="w-full p-3 bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-xs text-center ml-0 whitespace-nowrap"
+                    >
+                      {val.btnText}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
