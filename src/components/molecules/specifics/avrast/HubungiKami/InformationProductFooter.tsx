@@ -21,7 +21,8 @@ const cards = [
     icon: homeYellow,
     title: 'AVRIST DPLK',
     subtitle: 'Lihat Produk',
-    href: '/avrist-dplk?tab=Produk'
+    href: '/avrist-dplk?tab=Produk',
+    textColor: 'text-dplk_yellow'
   },
   {
     icon: hospital,

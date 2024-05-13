@@ -41,9 +41,9 @@ interface ICard {
 const Card: React.FC<ICard> = ({ image, title, onClick }) => {
   return (
     <div className="flex flex-col cursor-pointer" onClick={onClick}>
-      <div className="w-auto h-[220px] bg-white rounded-t-xl p-4 grow shrink-0 flex flex-col gap-12 items-center justify-center">
+      <div className="w-auto h-[220px] bg-white rounded-t-xl pt-[24px] px-[24px] pb-[36px] grow shrink-0 flex flex-col gap-[24px] items-center justify-center">
         <Image alt={title} src={image} />
-        <p className="font-bold text-lg">{title}</p>
+        <p className="font-bold text-[20px] leading-[1.5rem]">{title}</p>
       </div>
       <div className="w-auto h-[10px] bg-purple_dark rounded-b-xl"></div>
     </div>

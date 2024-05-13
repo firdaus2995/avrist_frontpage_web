@@ -114,14 +114,15 @@ const SearchForm = () => {
           }}
         />
 
-        <div className="px-3 grid grid-cols-4 gap-x-4">
+        <div className="px-3 grid grid-cols-4 gap-x-[12px]">
           <Button
             title={'Asuransi Individu'}
             onClick={() => {
               setActiveTab('Asuransi Individu');
               setCurrentSlug('Produk-Avras');
             }}
-            customButtonClass={`${activeTab === 'Asuransi Individu' && 'bg-purple_dark text-white'}`}
+            customButtonClass={`${activeTab === 'Asuransi Individu' && 'bg-purple_dark text-white px-[20px] py-[8px]'}`}
+            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
           />
           <Button
             title={'Asuransi Korporasi'}
@@ -129,7 +130,8 @@ const SearchForm = () => {
               setActiveTab('Asuransi Korporasi');
               setCurrentSlug('Produk-Avras');
             }}
-            customButtonClass={`${activeTab === 'Asuransi Korporasi' && 'bg-purple_dark text-white'}`}
+            customButtonClass={`${activeTab === 'Asuransi Korporasi' && 'bg-purple_dark text-white px-[20px] py-[8px]'}`}
+            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
           />
           <Button
             title={'Avrist Syariah'}
@@ -137,7 +139,8 @@ const SearchForm = () => {
               setActiveTab('Avrist Syariah');
               setCurrentSlug('Produk-Avrast-Syariah');
             }}
-            customButtonClass={`${activeTab === 'Avrist Syariah' && 'bg-olive_green text-white'} !border-olive_green hover:bg-olive_green`}
+            customButtonClass={`${activeTab === 'Avrist Syariah' && 'bg-olive_green text-white'} !border-olive_green hover:bg-olive_green px-[20px] py-[8px]`}
+            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
           />
           <Button
             title={'Avrist DPLK'}
@@ -145,7 +148,8 @@ const SearchForm = () => {
               setActiveTab('Avrist DPLK');
               setCurrentSlug('Produk-Avrast-DPLK');
             }}
-            customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate`}
+            customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate px-[20px] py-[8px]`}
+            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
           />
         </div>
 

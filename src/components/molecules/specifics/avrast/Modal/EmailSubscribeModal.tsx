@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
+import { handleSubscribe } from '@/services/subscribe-service.api';
 
 type Props = {
   show: boolean;
@@ -12,12 +13,53 @@ export const EmailSubscribeModal = (props: Props) => {
   const { onClose, show } = props;
   const [isSuccessSubs, setIsSuccessSubs] = useState(false);
   const [selected, setSelected] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   useEffect(() => {
     if (show) {
       setIsSuccessSubs(false);
     }
   }, [show, setIsSuccessSubs]);
+
+  useEffect(() => {
+    setEmail('');
+    setSelected('');
+    setEmailError('');
+  }, [onClose]);
+
+  const handleSubmit = async () => {
+    if (!validateEmail(email)) {
+      setEmailError('Masukkan alamat email yang valid');
+      return;
+    }
+
+    if (selected === '') {
+      setEmailError('Pilih Salah Satu Entitas');
+      return;
+    }
+
+    setEmailError('');
+
+    const queryParams = {
+      email: email,
+      entity: selected
+    };
+    const data = await handleSubscribe(queryParams);
+    if (data.status === 'OK') {
+      setIsSuccessSubs(true);
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-[99]" onClose={onClose}>
@@ -94,20 +136,20 @@ export const EmailSubscribeModal = (props: Props) => {
                             </p>
                             <div className=" w-full grid grid-cols-3 gap-[12px] mt-[40px]">
                               <button
-                                onClick={() => setSelected('Life Insurance')}
-                                className={`${selected === 'Life Insurance' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-purple_dark hover:text-white`}
+                                onClick={() => setSelected('Avras')}
+                                className={`${selected === 'Avras' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-purple_dark hover:text-white`}
                               >
                                 Life Insurance
                               </button>
                               <button
-                                onClick={() => setSelected('General Insurance')}
-                                className={`${selected === 'General Insurance' ? 'bg-grey_video_footer text-white' : 'bg-white text-grey_video_footer'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-grey_video_footer hover:text-white`}
+                                onClick={() => setSelected('AGI')}
+                                className={`${selected === 'AGI' ? 'bg-grey_video_footer text-white' : 'bg-white text-grey_video_footer'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-grey_video_footer hover:text-white`}
                               >
                                 General Insurance
                               </button>
                               <button
-                                onClick={() => setSelected('Asset Management')}
-                                className={`${selected === 'Asset Management' ? 'bg-avram_green text-white' : 'bg-white text-avram_green'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-avram_green hover:text-white`}
+                                onClick={() => setSelected('Avram')}
+                                className={`${selected === 'Avram' ? 'bg-avram_green text-white' : 'bg-white text-avram_green'}  rounded-xl py-[8px] font-opensans font-bold text-[18px] hover:bg-avram_green hover:text-white`}
                               >
                                 Asset Management
                               </button>
@@ -116,15 +158,16 @@ export const EmailSubscribeModal = (props: Props) => {
                               className="flex flex-1 flex-row mt-[12px]"
                               onSubmit={(e) => {
                                 e.preventDefault();
-                                setIsSuccessSubs(true);
+                                handleSubmit();
                               }}
                             >
                               <input
                                 type="email"
                                 placeholder="Masukkan email Anda"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
                                 className="flex-1 rounded-md p-[12px] border-1 border-purple_verylight text-white bg-purple_verylight/20"
                               />
-
                               <button
                                 // type="submit"
                                 className="ml-[12px] bg-white rounded-md px-[20px] font-opensans font-semibold text-[16px] text-purple_dark"
@@ -132,6 +175,9 @@ export const EmailSubscribeModal = (props: Props) => {
                                 Subscribe Sekarang
                               </button>
                             </form>
+                            {emailError && (
+                              <p className="text-red-500 ml-2">{emailError}</p>
+                            )}
                           </div>
                         </div>
                       </div>
