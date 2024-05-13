@@ -13,7 +13,6 @@ interface CustomFormProps {
   dataForm?: Attribute[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: () => void;
-  withoutSubmit?: boolean;
   resultData?: (
     data: { name: string; value: string }[],
     isValid: boolean
@@ -26,15 +25,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
   customFormClassname = 'border-b-purple_dark',
   customFormButtonClassname = 'border-purple_dark text-purple_dark',
   dataForm,
-  onChange,
-  onSubmit,
-  withoutSubmit,
   resultData
 }) => {
-  const handleKeamananOnlineClick = () => {
-    window.open('/keamanan-online', '_blank');
-  };
-
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
 
   const updateFormDataByName = (name: string, value: string) => {
@@ -88,7 +80,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
     return (
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[8px]`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 `}
       >
         <p className="font-karla font-bold text-[36px] sm:text-[56px]">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
@@ -338,7 +330,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           name={attribute.name}
                           label={option}
                           value={option}
-                          onChange={onChange}
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
                         />
                       ))
                   ) : (
@@ -346,7 +340,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
                       placeholder={JSON.parse(attribute.config).placeholder}
                       name={attribute.name}
-                      onChange={onChange}
+                      onChange={(e) =>
+                        updateFormDataByName(attribute.name, e.target.value)
+                      }
                     />
                   )}
                 </div>
@@ -368,7 +364,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           name={attribute.name}
                           label={option}
                           value={option}
-                          onChange={onChange}
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
                         />
                       ))
                   ) : attribute.name.includes('Telepon') ? (
@@ -382,7 +380,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-4/5 sm:w-4/5 px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
                         placeholder="Masukan nomor telepon"
                         name={attribute.name}
-                        onChange={onChange}
+                        onChange={(e) =>
+                          updateFormDataByName(attribute.name, e.target.value)
+                        }
                       />
                     </div>
                   ) : (
@@ -390,51 +390,14 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
                       placeholder={JSON.parse(attribute.config).placeholder}
                       name={attribute.name}
-                      onChange={onChange}
+                      onChange={(e) =>
+                        updateFormDataByName(attribute.name, e.target.value)
+                      }
                     />
                   )}
                 </div>
               ))}
             </div>
-          </div>
-        )}
-
-        {!withoutSubmit && (
-          <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
-            <input
-              id="setuju"
-              type="checkbox"
-              value=""
-              onChange={onChange}
-              name="setuju"
-              className="mt-[6px] text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
-            />
-            <label className="cursor-pointer" htmlFor="setuju">
-              Saya setuju memberikan data pribadi Saya kepada Avrist Life
-              Insurance dan telah membaca{' '}
-              <span
-                className="text-purple_dark font-bold"
-                onClick={handleKeamananOnlineClick}
-              >
-                Keamanan Online
-              </span>{' '}
-              Avrist Life Insurance. Selanjutnya, Saya bersedia untuk dihubungi
-              oleh Avrist Life Insurance melalui media komunikasi pribadi Saya
-              sesuai hari dan jam operasional yang berlaku di Avrist Life
-              Insurance.
-            </label>
-          </div>
-        )}
-        {!withoutSubmit && (
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-[32px]">
-            <Image alt="captcha" src={CaptchaPicture} />
-            <button
-              type="button"
-              onClick={onSubmit}
-              className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
-            >
-              <p>Beli Sekarang</p>
-            </button>
           </div>
         )}
       </div>
@@ -533,7 +496,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
           <Image alt="captcha" src={CaptchaPicture} />
           <button
             type="button"
-            className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-10 py-3 border-1 rounded-[8px]`}
+            className={`${customFormButtonClassname} text-[20px] font-semibold h-[64px] px-[40px] py-[12px] border-1 rounded-[8px]`}
           >
             <p>Beli Sekarang</p>
           </button>
