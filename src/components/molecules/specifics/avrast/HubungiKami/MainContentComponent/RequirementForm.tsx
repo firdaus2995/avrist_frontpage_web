@@ -65,7 +65,7 @@ export const RequirementForm = (props: Props) => {
 
   return (
     <div className="mt-[64px] bg-purple_superlight">
-      <div className="bg-white mt-[80px] mx-auto md:mx-[136px] border rounded-xl border-gray_light overflow-hidden">
+      <div className="bg-white mx-auto md:mx-[136px] border rounded-xl border-gray_light overflow-hidden">
         <div className="p-[36px]">
           <p className="font-karla font-bold text-[36px] md:text-[56px]">
             Diskusikan kebutuhan Anda disini!

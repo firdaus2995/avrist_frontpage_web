@@ -18,7 +18,7 @@ export const MainContent = (props: Props) => {
   return (
     <div className=" w-full flex flex-col">
       <div className="bg-purple_superlight flex flex-col gap-6">
-        <div className="mt-[20px] mx-[32px] md:mx-[136px]">
+        <div className="mt-[100px] mx-[32px] md:mx-[136px]">
           <p className="font-karla font-bold text-[56px] text-center text-purple_dark">
             Kebutuhan Anda adalah prioritas kami
           </p>
