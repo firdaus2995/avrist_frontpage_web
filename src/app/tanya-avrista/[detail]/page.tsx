@@ -61,7 +61,7 @@ const DetailTanyaAvrista = async ({
       <RoundedFrameBottom />
       <FooterInformation
         title={
-          <p className="font-karla text-[3.5rem]">
+          <p className="font-karla text-[2.5rem] md:text-[3.5rem] tracking-[-0.015em]">
             <span className="font-bold text-purple_dark">Komitmen</span> Kami,
             proses klaim yang{' '}
             <span className="font-bold text-purple_dark">efisien</span> dan{' '}
