@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Menu } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { EmailSubscribeModal } from '../Modal';
@@ -18,59 +19,89 @@ import VectorLogo from '@/assets/images/avrast/vector-logo.svg';
 import BlackOverlay from '@/components/atoms/BlackOverlay';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const Header = () => {
+  const menuRef: any = useRef(null);
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
   const [isDropdownHeaderVisible, setIsDropdownHeaderVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
 
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsDropdownHeaderVisible(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="isolate sticky z-50 top-0">
       {/* White Section */}
-      <div className="flex flex-row justify-between items-center px-4 md:px-16 py-4 text-gray_black bg-white">
-        <div
-          className="flex flex-row gap-2 items-center relative cursor-pointer w-auto"
-          onClick={() => {
-            setIsDropdownHeaderVisible(!isDropdownHeaderVisible);
-          }}
-        >
-          <Image className="h-auto w-7" src={VectorLogo} alt="vector-logo" />
-          <p className="text-md font-bold text-black">Avrist Group</p>
-          <span
-            className={`transform transition-transform ${
-              isDropdownHeaderVisible ? 'rotate-180' : ''
-            }`}
-          >
-            <Icon width={10} height={10} name="chevronDown" color="black" />
-          </span>
+      <div className="flex flex-row justify-between items-center px-[2rem] md:px-[8.5rem] py-[1.25rem] text-gray_black bg-white">
+        <Menu>
+          <div ref={menuRef}>
+            <Menu.Button
+              className="flex flex-row gap-2 items-center relative cursor-pointer w-auto"
+              onClick={() => {
+                setIsDropdownHeaderVisible(!isDropdownHeaderVisible);
+              }}
+            >
+              <Image
+                className="h-auto w-7"
+                src={VectorLogo}
+                alt="vector-logo"
+              />
+              <p className="text-md font-bold text-black">Avrist Group</p>
+              <span
+                className={`transform transition-transform ${
+                  isDropdownHeaderVisible ? 'rotate-180' : ''
+                }`}
+              >
+                <Icon width={10} height={10} name="chevronDown" color="black" />
+              </span>
 
-          <div
-            className={`shadow-lg z-[99] rounded-md bg-white flex flex-col p-4 gap-4 w-[150%] h-auto absolute top-full left-0 transition-transform transition-opacity duration-300 transform ${
-              isDropdownHeaderVisible ? 'opacity-100' : 'opacity-0 hidden'
-            }`}
-          >
-            <Link
-              href="/produk/individu"
-              className="font-karla hover:text-purple_dark hover:font-medium"
-            >
-              Avrist Life Insurance
-            </Link>
-            <Link
-              href="/under-construction"
-              className="font-karla hover:text-purple_dark hover:font-medium"
-            >
-              Avrist General Insurance
-            </Link>
-            <Link
-              href="/under-construction"
-              className="font-karla hover:text-purple_dark hover:font-medium"
-            >
-              Avrist Asset Management
-            </Link>
+              <Menu.Items
+                className={`shadow-lg z-[99] rounded-md bg-white flex flex-col p-4 gap-4 w-[150%] h-auto absolute top-full left-0 text-start`}
+              >
+                <Menu.Item>
+                  <Link
+                    href="/produk/individu"
+                    className="font-karla hover:text-purple_dark hover:font-medium"
+                  >
+                    Avrist Life Insurance
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link
+                    href={EXTERNAL_URL.agiUrl}
+                    target="blank"
+                    className="font-karla hover:text-purple_dark hover:font-medium"
+                  >
+                    Avrist General Insurance
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link
+                    href={EXTERNAL_URL.avramUrl}
+                    target="blank"
+                    className="font-karla hover:text-purple_dark hover:font-medium"
+                  >
+                    Avrist Asset Management
+                  </Link>
+                </Menu.Item>
+              </Menu.Items>
+            </Menu.Button>
           </div>
-        </div>
-        <div className="flex flex-row gap-4 flex flex-row gap-4 md:divide-x-2">
+        </Menu>
+
+        <div className="flex flex-row justify-between gap-4 md:divide-x-2  justify-center items-center">
           <Link
             href={`/tanya-avrista`}
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden"
@@ -81,7 +112,7 @@ const Header = () => {
           <Link
             href={'https://shop.avrist.com/'}
             target="blank"
-            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="shoppingCart" color="gray_black" />
             <p className="font-bold text-sm">Beli Online</p>
@@ -89,19 +120,19 @@ const Header = () => {
           <Link
             href={'https://my.avrist.com/welcome'}
             target="blank"
-            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="lightBulb" color="gray_black" />
             <p className="font-bold text-sm">Avrist Solution</p>
           </Link>
           <div
-            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-2"
+            className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
             onClick={() => setIsShowEmailSubs(true)}
           >
             <Icon name="mail" color="gray_black" />
             <p className="font-bold text-sm">Subscribe</p>
           </div>
-          <div className="flex flex-row gap-2 cursor-pointer pl-2">
+          <div className="flex flex-row gap-2 cursor-pointer pl-3">
             <Link href={`/pencarian`}>
               <Icon name="search" />
             </Link>
@@ -111,9 +142,9 @@ const Header = () => {
 
       {/* Purple Section */}
 
-      <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-3 px-4 md:px-8 relative">
-        <div className="flex justify-between items-center w-full max-w-[90rem] m-auto gap-8">
-          <ul className="md:flex gap-8 items-center hidden">
+      <div className="bg-gradient-to-b  from-purple_dark to-purple_light w-full m-0 text-white py-[1.25rem] px-[2rem] md:px-[8.5rem] relative">
+        <div className="flex justify-between items-center w-full gap-8">
+          <ul className="md:flex gap-[2.5rem] items-center hidden">
             <Link href={`/`}>
               <Button.IconButton>
                 <Icon name="homeIcon" color="white" width={20} isSquare />
@@ -122,7 +153,7 @@ const Header = () => {
             {menus.map((item, idx) => (
               <React.Fragment key={item.title}>
                 <li
-                  className={`font-medium cursor-pointer relative ${styles['nav-list-item']}`}
+                  className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
                 >
                   {item.title}
                   <TriangleMarker
@@ -146,7 +177,7 @@ const Header = () => {
             <Icon name="hamburgerMenuIcon" color="white" />
           </Button.IconButton>
           <Link href={`/`}>
-            <Image alt="Avrist Logo" src={AVRIST_LOGO} />
+            <Image alt="Avrist Logo" src={AVRIST_LOGO} width={94} height={48} />
           </Link>
         </div>
         <NavDropdownMenus

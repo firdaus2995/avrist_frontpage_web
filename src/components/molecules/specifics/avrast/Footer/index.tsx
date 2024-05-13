@@ -19,7 +19,7 @@ const additionalInfo = [
   {
     title: 'Keamanan Online',
     href: '/keamanan-online'
-  },
+  }
 ];
 
 const Footer = () => {
@@ -27,7 +27,7 @@ const Footer = () => {
   if (pathname.includes('/under-construction')) return null;
   return (
     <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative">
-      <div className="md:p-16 p-8">
+      <div className="px-[2rem] md:px-[8.5rem] py-[4rem]">
         <Image
           alt="Avrist"
           width={0}
@@ -39,11 +39,11 @@ const Footer = () => {
         <div className="lg:grid lg:grid-cols-[minmax(10rem,_30rem)_minmax(8rem,_1fr)_1fr_1fr] mt-8 lg:gap-16 gap-10 flex flex-col">
           {/* Opening content */}
           <div className="flex flex-col gap-4 lg:gap-10">
-            <p className="font-semibold">
+            <p className="font-bold text-[1.25rem] md:w-[60%]">
               PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa
               Keuangan.
             </p>
-            <p className="text-xs font-extralight">
+            <p className="text-sm font-opensans">
               Hak Cipta © 2023.
               <br />
               PT Avrist Life Insurance.
@@ -59,43 +59,55 @@ const Footer = () => {
 
           {/* Communication content */}
           <div className="flex flex-col gap-4 whitespace-nowrap">
-            <p className="font-bold text-space_purpink">Tanya Avrista</p>
-            <div className="text-sm flex flex-col gap-4 justify-between h-full">
+            <p className="font-bold text-space_purpink text-xl">
+              Tanya Avrista
+            </p>
+            <div className="text-sm flex flex-col gap-4">
               <div>
-                <p className="font-semibold text-base">Layanan Nasabah</p>
-                <a href="tel:+622157898188" className="font-semibold text-lg">
+                <p className="font-bold text-lg">Layanan Nasabah</p>
+                <a
+                  href="tel:+622157898188"
+                  className="font-bold text-2xl font-karla"
+                >
                   021 5789 8188
                 </a>
               </div>
               <div>
-                <p className="font-semibold text-base">Waktu Operasional</p>
-                <p>Senin - Jumat, 08.00 - 17.00 WIB</p>
+                <p className="font-bold text-lg">Waktu Operasional</p>
+                <p className="text-sm font-opensans">
+                  Senin - Jumat, 08.00 - 17.00 WIB
+                </p>
               </div>
               <div>
-                <p className="font-semibold text-base">Email</p>
-                <a href="mailto:service@avrist.com">service@avrist.com</a>
+                <p className="font-bold text-lg">Email</p>
+                <a
+                  href="mailto:service@avrist.com"
+                  className="text-sm font-opensans"
+                >
+                  service@avrist.com
+                </a>
               </div>
             </div>
           </div>
 
           {/* Investation content */}
           <div className="flex flex-col gap-4">
-            <p className="font-bold text-space_purpink">Quick Links</p>
+            <p className="font-bold text-space_purpink text-xl">Quick Links</p>
             <div className="flex flex-col gap-2 h-full">
               <Link
                 href="/produk/individu?tab=Asuransi+Jiwa"
-                className="text-xs flex flex-col gap-2 font-light whitespace-nowrap"
+                className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
               >
-                <p className="text-base font-semibold">Asuransi Jiwa</p>
+                <p className="text-lg font-bold">Asuransi Jiwa</p>
               </Link>
               <Link href="/under-construction">
-                <p className="font-semibold">Investasi</p>
+                <p className="text-lg font-bold">Investasi</p>
               </Link>
               <Link href="/under-construction">
-                <p className="font-semibold">Bengkel Rekanan</p>
+                <p className="text-lg font-bold">Bengkel Rekanan</p>
               </Link>
               <Link href={'https://my.avrist.com/welcome'} target="blank">
-                <p className="font-semibold">Avrist Total Solution</p>
+                <p className="text-lg font-bold">Avrist Total Solution</p>
               </Link>
               <div className="flex flex-row gap-2">
                 <Link
@@ -132,15 +144,21 @@ const Footer = () => {
 
           {/* Quick links content */}
           <div className="flex flex-col gap-4 whitespace-nowrap">
-            <p className="font-bold text-space_purpink">Avrist Group</p>
-            <div className="flex flex-col gap-4 justify-between h-full">
-              <Link href="/produk/individu" className="font-semibold">
+            <p className="font-bold text-space_purpink text-xl">Avrist Group</p>
+            <div className="flex flex-col gap-4 ">
+              <Link href="/produk/individu" className="text-lg font-semibold">
                 Avrist Life Insurance
               </Link>
-              <Link href="/under-construction" className="font-semibold">
+              <Link
+                href="/under-construction"
+                className="text-lg font-semibold"
+              >
                 Avrist Asset Management
               </Link>
-              <Link href="/under-construction" className="font-semibold">
+              <Link
+                href="/under-construction"
+                className="text-lg font-semibold"
+              >
                 Avrist General Insurance
               </Link>
               <Image
@@ -162,11 +180,11 @@ const Footer = () => {
             {additionalInfo.map((item, index) => (
               <React.Fragment key={index}>
                 <Link href={item.href}>
-                  <span className="font-semibold">{item.title}</span>
-                  {index < 2 && (
-                    <div className="opacity-1 border-solid border-l border-white opacity-50 self-stretch" />
-                  )}
+                  <span className="font-bold text-lg">{item.title}</span>
                 </Link>
+                {index === 0 && (
+                  <div className="bg-white w-[2px] h-[70%] opacity-[50%]" />
+                )}
               </React.Fragment>
             ))}
           </div>

@@ -1,15 +1,15 @@
 export const BASE_URL = {
-  apiPage: 'https://api-front-sit.avristcms.barito.tech/api/page',
-  contentPage: 'https://api-front-sit.avristcms.barito.tech/api/content',
-  contentDetail: 'https://api-front-sit.avristcms.barito.tech/api/content/detail',
-  formUrl: 'https://api-front-sit.avristcms.barito.tech/api/form',
-  contentCategoryPage: 'https://api-front-sit.avristcms.barito.tech/api/content/category',
-  image: 'https://api-admin-sit.avristcms.barito.tech/api-cms/files/get',
-  provider: 'https://adev.avrist.com/provider/api/v1/user/providers',
-  default: 'https://api-front-sit.avristcms.barito.tech/api'
+  apiPage: `${process.env.NEXT_PUBLIC_AVRAS_API}/api/page`,
+  contentPage: `${process.env.NEXT_PUBLIC_AVRAS_API}/api/content`,
+  contentDetail: `${process.env.NEXT_PUBLIC_AVRAS_API}/api/content/detail`,
+  formUrl: `${process.env.NEXT_PUBLIC_AVRAS_API}/api/form`,
+  contentCategoryPage: `${process.env.NEXT_PUBLIC_AVRAS_API}/api/content/category`,
+  image: `${process.env.NEXT_PUBLIC_IMAGE_API}`,
+  provider: `${process.env.NEXT_PUBLIC_PROVIDER_API}`,
+  default: `${process.env.NEXT_PUBLIC_AVRAS_API}/api`
 };
 
 export const EXTERNAL_URL = {
-  agiUrl: 'https://front-sit-agi.avristcms.barito.tech/agi',
-  avramUrl: 'https://front-sit-avram.avristcms.barito.tech/avram'
-}
+  agiUrl: `${process.env.NEXT_PUBLIC_AGI_URL}/agi`,
+  avramUrl: `${process.env.NEXT_PUBLIC_AVRAM_URL}/avram`
+};

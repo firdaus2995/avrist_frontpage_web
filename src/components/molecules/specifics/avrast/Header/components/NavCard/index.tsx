@@ -84,18 +84,18 @@ const NavCard: React.FC<NavCardProps> = ({
     <div
       className={`${shouldForceHideBanner ? '!opacity-0 !invisible' : ''} font-karla w-full bg-white rounded-b-[72px] gap-4 shadow-xl text-gray_body ${customClass ?? ''}`}
     >
-      <div className="w-full max-w-[89rem] m-auto flex items-stretch justify-between gap-6 pr-16 divide-x-2">
+      <div className="w-full flex flex-row py-[3.125rem] justify-between px-[8.5rem] divide-x-2 m-auto">
         {content.map((val, idx) => (
           <div
             key={idx}
-            className="max-w-[35rem] w-full flex flex-col pl-12 py-16 my-5"
+            className={`w-full flex flex-col ${idx === 0 ? 'pr-[2.25rem]' : 'pl-[2.25rem]'}`}
           >
-            <div className="mt-8 flex flex-col gap-10">
-              <h2 className="text-3xl font-bold text-gray_title">
+            <div className="flex flex-col gap-6">
+              <h2 className="text-[2rem] font-bold text-gray_title font-karla">
                 {val.title}
               </h2>
               <div
-                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-4 w-full cursor-pointer`}
+                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-6 w-full cursor-pointer`}
               >
                 {val?.subMenus?.map((item, index) =>
                   item?.listMenu ? (
@@ -110,9 +110,9 @@ const NavCard: React.FC<NavCardProps> = ({
                           }
                         }}
                       >
-                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark hover:font-medium">
+                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark font-semibold text-[1.25rem]">
                           <Image
-                            className="w-4"
+                            className="w-[2.25rem] h-[2.25rem]"
                             src={ICON_MAPPING[indexData][item.icon]}
                             alt={item.title}
                           />
@@ -146,7 +146,7 @@ const NavCard: React.FC<NavCardProps> = ({
                                 }, 700);
                               }}
                             >
-                              <div className="flex flex-row gap-2 items-center whitespace-nowrap hover:text-purple_dark hover:font-medium">
+                              <div className="flex flex-row gap-2 items-center whitespace-nowrap hover:text-purple_dark font-semibold text-[1.25rem]">
                                 {value}
                               </div>
                             </Link>
@@ -156,10 +156,19 @@ const NavCard: React.FC<NavCardProps> = ({
                   ) : (
                     <React.Fragment key={index}>
                       <Link
-                        href={{
-                          pathname: `${!skipUrl ? `/${convertToKebabCase(title)}` : ''}/${camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
-                          query: { tab: item.title }
-                        }}
+                        href={
+                          indexData !== 1 || item.icon !== 2
+                            ? {
+                                pathname: `${!skipUrl ? `/${convertToKebabCase(title)}` : ''}/${camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
+                                query: { tab: item.title }
+                              }
+                            : 'https://my.avrist.com/welcome'
+                        }
+                        target={
+                          indexData === 1 && item.icon === 2
+                            ? '_blank'
+                            : '_self'
+                        }
                         className={`flex flex-row justify-between`}
                         onClick={() => {
                           setShouldForceHideBanner(true);
@@ -168,9 +177,9 @@ const NavCard: React.FC<NavCardProps> = ({
                           }, 700);
                         }}
                       >
-                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark hover:font-medium">
+                        <div className="flex flex-row gap-4 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans">
                           <Image
-                            className="w-4"
+                            className="w-[2.25rem] h-[2.25rem]"
                             src={ICON_MAPPING[indexData][item.icon]}
                             alt={item.title}
                           />
