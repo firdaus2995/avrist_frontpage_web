@@ -1,18 +1,67 @@
 'use client';
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import CustomForm from '../../CustomForm/Index';
+import { handleSendEmail } from '@/services/form.api';
 
-import {
-  SelectRadio,
-  TextInput,
-  TextInputArea,
-  TextInputPhone,
-  SelectDropdown
-} from './form/Input';
-import CaptchaPicture from '@/assets/images/form-captcha.svg';
+type Props = {
+  Id?: string;
+};
 
-export const RequirementForm = () => {
-  const [isPolicyHolder, setIsPolicyHolder] = useState('');
+export const RequirementForm = (props: Props) => {
+  const router = useRouter();
+  const { Id } = props;
+  const [dataForm, setDataForm] = useState<any>();
+  const [formId, setFormId] = useState<any>();
+  const [formPic, setFormPic] = useState<any>();
+  const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (Id) {
+      const fetchDataForm = async () => {
+        try {
+          const contentResponse = await fetch(`/api/form?id=${Id}`);
+          const dataFormJson = await contentResponse.json();
+
+          setFormId(dataFormJson.data.id);
+          setFormPic(dataFormJson.data.pic);
+          setDataForm(dataFormJson.data.attributeList);
+        } catch (error: any) {
+          throw new Error('Error fetching form data: ', error.message);
+        }
+      };
+
+      fetchDataForm().then();
+    }
+  }, [Id]);
+
+  const receiveData = (
+    data: any,
+    isValid: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setFormIsValid(isValid);
+    setFormValue(data);
+  };
+
+  const onSubmitData = async () => {
+    const queryParams = {
+      id: formId,
+      pic: formPic,
+      placeholderValue: formValue
+    };
+
+    const data = await handleSendEmail(queryParams);
+    if (data.status === 'OK') {
+      router.refresh();
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+      router.refresh();
+    }
+  };
 
   return (
     <div className="mt-[64px] bg-purple_superlight">
@@ -24,91 +73,48 @@ export const RequirementForm = () => {
           <p className="mt-[24px] md:mt-[36px] font-opensans text-[14px] md:text-[16px]">
             isi data berikut dan Kami akan menghubungi Anda.
           </p>
-          <form className="mt-[24px] md:mt-[36px]">
-            {/* radio */}
-            <SelectRadio
-              title="Pemegang Polis"
-              isChecked={isPolicyHolder}
-              onSelectRadio={(value) => setIsPolicyHolder(value)}
-              data={[
-                { id: 'ya', label: 'Ya' },
-                { id: 'tidak', label: 'Tidak' }
-              ]}
-              require
+          {dataForm && (
+            <CustomForm
+              dataForm={dataForm}
+              withoutSubmit
+              customFormClassname="border-none p-[0px]"
+              title=" "
+              type="Hubungi Kami"
+              resultData={receiveData}
             />
-            {/* name & email */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
-              <TextInput
-                title="Nama"
-                placeholder="Masukkan Nama Anda"
-                onChangeText={() => {}}
-                require
-              />
-              <TextInput
-                title="Alamat Email"
-                placeholder="Masukkan alamat e-mail anda"
-                onChangeText={() => {}}
-                require
+          )}
+          <div className="flex flex-row mt-[24px] md:mt-[36px]">
+            <div>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => {
+                  setIsChecked(e.target.checked);
+                }}
               />
             </div>
-            {/* no phone & domisili */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
-              <TextInputPhone
-                title="No. Telepon"
-                placeholder="Masukkan Nomor Telepon"
-                onChangeText={() => {}}
-                require
-              />
-              <TextInput
-                title="Domisili"
-                placeholder="Masukkan Domisili Anda"
-                onChangeText={() => {}}
-                require
-              />
-            </div>
-            {/* Text area */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-[24px] md:mt-[36px]">
-              <SelectDropdown
-                title="Pilih Kebutuhan Anda"
-                placeholder="Pilih"
-                data={[
-                  { id: '1', label: 'Placeholder' },
-                  { id: '2', label: 'Lainnya' }
-                ]}
-                require
-              />
-              <TextInputArea
-                title="Detail Kebutuhan"
-                placeholder="Tulis detail kebutuhan anda"
-                onChangeText={() => {}}
-                require
-                maxLength={500}
-              />
-            </div>
-            {/* snk */}
-            <div className="flex flex-row mt-[24px] md:mt-[36px]">
-              <div>
-                <input type="checkbox" />
-              </div>
-              <span className="ml-[12px]">
-                Saya /kami telah membaca, memahami dan memberikan persetujuan
-                saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
-                menggunakan dan mengungkapkan data pribadi saya/kami sesuai
-                dengan{' '}
-                <span className="font-bold text-purple_dark">
-                  Deklarasi Privasi *
-                </span>
+            <span className="ml-[12px]">
+              Saya /kami telah membaca, memahami dan memberikan persetujuan
+              saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
+              menggunakan dan mengungkapkan data pribadi saya/kami sesuai dengan{' '}
+              <span className="font-bold text-purple_dark">
+                Deklarasi Privasi *
               </span>
-            </div>
-            {/* submit */}
-            <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-between md:items-center">
-              {/* <img src={CaptchaPicture} alt="captha" className="md:w-auto" /> */}
-              <Image alt="captcha" src={CaptchaPicture} className="md:w-auto" />
-              <button className="bg-purple_dark text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0">
-                Kirim
-              </button>
-            </div>
-          </form>
+            </span>
+          </div>
+          {/* submit */}
+          <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
+            {/* <img src={CaptchaPicture} alt="captha" className="md:w-auto" /> */}
+            {/* <Image alt="captcha" src={CaptchaPicture} className="md:w-auto" /> */}
+            <button
+              type="submit"
+              disabled={formIsValid ? (isChecked ? false : true) : true}
+              onClick={() => onSubmitData()}
+              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+            >
+              Kirim
+            </button>
+          </div>
         </div>
         <div className="h-[8px] bg-purple_dark" />
       </div>

@@ -197,9 +197,9 @@ const TotalSolution = () => {
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center py-32 px-20 gap-16 bg-white rounded-b-[65px] relative">
+    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-20 gap-16 bg-white rounded-b-[65px] relative">
       <div>
-        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark">
+        <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark">
           Kami ada untuk Anda
         </p>
         <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center">

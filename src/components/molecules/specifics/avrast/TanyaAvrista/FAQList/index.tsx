@@ -32,7 +32,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
 
   return (
     <div className="w-full flex flex-col gap-8 items-center">
-      <h1 className="mt-20 font-karla text-[56px] text-purple_dark font-bold">
+      <h1 className="mt-20 font-karla text-[56px] text-purple_dark font-extrabold">
         {selected}
       </h1>
       {paginatedData?.length > 0 ? (
@@ -87,7 +87,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
       ) : (
         <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
             <Image src={Search} alt="search" />
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-[36px]'>
             <div className="w-[324px] text-center">
               <p className="font-karla font-bold text-[24px]">
                 Jawaban tidak ditemukan
@@ -98,7 +98,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
             </div>
             <Link
               href="/hubungi-kami"
-              className="bg-purple_dark text-white font-opensans font-semibold text-[20px] rounded-lg py-[18px] px-[40px] mt-[24px] text-center"
+              className="bg-purple_dark text-white font-opensans font-semibold text-[20px] rounded-lg py-[12px] px-[40px] mt-[24px] text-center"
             >
               Hubungi Kami
             </Link>

@@ -24,6 +24,7 @@ import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import LeftTabs from '@/components/molecules/specifics/avrast/LeftTabs';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
+import { handleGetContentPage } from '@/services/content-page.api';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
@@ -89,10 +90,8 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/produk/korporasi`);
-				const data = await response.json();
-
-        const { content } = pageTransformer(data);
+        const pageBase = await handleGetContentPage('produk-korporasi');
+        const { content } = pageTransformer(pageBase);
         const titleImage = singleImageTransformer(content['title-image']);
         const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);

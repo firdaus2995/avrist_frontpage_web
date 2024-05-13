@@ -8,7 +8,13 @@ import {
 } from './MainContentComponent';
 import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom-purple-light.svg';
 
-export const MainContent = () => {
+type Props = {
+  formId?: string;
+  formSaranId?: string;
+};
+
+export const MainContent = (props: Props) => {
+  const { formId, formSaranId } = props;
   return (
     <div className=" w-full flex flex-col">
       <div className="bg-purple_superlight flex flex-col gap-6">
@@ -17,9 +23,9 @@ export const MainContent = () => {
             Kebutuhan Anda adalah prioritas kami
           </p>
         </div>
-        <RequirementForm />
+        <RequirementForm Id={formId} />
         <ContactSupport />
-        <FeedbackForm />
+        <FeedbackForm Id={formSaranId} />
         <HighOffice />
         <BranchOffice />
       </div>

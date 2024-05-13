@@ -9,7 +9,7 @@ import {
   InformationProductFooter
 } from '@/components/molecules/specifics/avrast/HubungiKami';
 import { getHubungiKami } from '@/services/hubungi-kami.api';
-import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import { contentStringTransformer, pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 const handleGetContent = async (slug: string) => {
   try {    
@@ -24,6 +24,8 @@ const CallMe =  () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
+  const [formId, setFormId] = useState('');
+  const [formSaranId, setFormSaranId] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +36,8 @@ const CallMe =  () => {
         setTitleImage(singleImageTransformer(content['title-image']));
         setBannerImage(singleImageTransformer(content['banner-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
+        setFormId(contentStringTransformer(content['form-hubungikami']));
+        setFormSaranId(contentStringTransformer(content['form-saran']));
       } catch (error) {
         console.error('Error:', error);
       }
@@ -55,7 +59,7 @@ const CallMe =  () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent />
+      <MainContent formId={formId} formSaranId={formSaranId} />
       <FooterInformation
         title={
           <div
