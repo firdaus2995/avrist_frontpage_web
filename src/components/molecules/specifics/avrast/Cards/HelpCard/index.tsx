@@ -22,7 +22,7 @@ const HelpCard = ({
   href
 }: HelpCardProps) => {
   return (
-    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[100px]">
+    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:pt-[100px] sm:pb-[120px]">
       <div
         className={`${cardClassname} grid grid-cols-1 sm:grid-cols-2 rounded-[24px] overflow-hidden`}
       >
