@@ -269,7 +269,7 @@ const ProdukSyariah = () => {
         outerClassName="bg-white"
         buttonVariant="syariah"
         title={
-          <p className="text-[3.5rem] text-white font-karla">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>

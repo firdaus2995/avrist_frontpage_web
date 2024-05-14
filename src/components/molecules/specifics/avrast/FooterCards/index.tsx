@@ -114,7 +114,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
     <>
       {/* Desktop */}
       <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
-        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-10">
+        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] h-full">
           {cards.map((item, index) => {
             const href =
               item?.hrefType === 'phone'
@@ -176,7 +176,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   }
                   key={index}
                   target={item.openInNewTab ? 'blank' : '_self'}
-                  className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                  className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[300px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
                 >
                   <div className="flex justify-center">
                     <Image

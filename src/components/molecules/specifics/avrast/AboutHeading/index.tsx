@@ -29,26 +29,28 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
 }) => (
   <div className="flex flex-col flex-nowrap" id={idTags}>
     <div>
-      <div className="flex flex-row items-center gap-[12px] font-karla">
+      <div className="flex flex-row items-center gap-[0.75rem] font-karla">
         {categoriesIcon && (
           <Image width={36} height={36} alt="symbol" src={categoriesIcon} />
         )}
-        <p className={`${categoriesClassname} font-bold text-[24px]`}>
+        <p className={`${categoriesClassname} font-bold text-[1.5rem]`}>
           {categoriesName}
         </p>
       </div>
-      <div className="font-karla my-[12px]">
-        <h1 className="text-[56px] font-bold">{headingText}</h1>
+      <div className="font-karla my-[0.75rem]">
+        <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold">
+          {headingText}
+        </h1>
         <p
-          className="text-[36px] font-bold"
+          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem]"
           dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
         ></p>
         <p
-          className="text-[24px] font-light"
+          className="text-[1.5rem] font-light"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </div>
-      <div className="flex flex-row flex-nowrap my-[24px] gap-[12px]">
+      <div className="flex flex-row flex-nowrap my-[1.5rem] gap-[0.75rem]">
         {tags &&
           tags.map((item: string, index: number) => (
             <div
