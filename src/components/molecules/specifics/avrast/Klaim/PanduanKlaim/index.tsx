@@ -74,18 +74,20 @@ const PanduanKlaim = () => {
 
   const renderMobileVideo = () => {
     return videoData.map((item) => (
-      <SubCard onClick={handleSubcardClick} key={item.id} item={item} />
+      <div className='p-2' key={item.id}>
+        <SubCard onClick={handleSubcardClick} item={item} />
+      </div>
     ));
   };
 
   return (
-    <div className="w-full flex flex-col justify-center gap-4 relative pb-28 bg-purple_light_bg rounded-b-[65px]">
-      <div className="w-full max-w-[78rem] m-auto p-8 xs:p-5 flex flex-col gap-4">
+    <div className="w-full flex flex-col justify-center md:pt-[80px] md:md:px-[136px] md:pb-[100px] p-4 gap-4 relative pb-28 bg-purple_light_bg">
+      <div className="w-full max-w-[78rem] m-auto flex flex-col gap-[64px]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+          <h2 className="md:text-[56px] xs:text-[36px] font-medium text-purple_dark">
             Video Panduan Klaim
           </h2>
-          <h2 className="text-[20px] mb-6">
+          <h2 className="md:text-[36px] xs:text-[24px]">
             Kami memberikan <span className="font-bold">solusi</span> dan{' '}
             <span className="font-bold">efisiensi waktu</span> untuk Anda
           </h2>
@@ -113,13 +115,6 @@ const PanduanKlaim = () => {
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>
-      </div>
-      <div className="w-full absolute z-20 bottom-2 h-20 bg-purple_light_bg rounded-b-[65px]"></div>
-      <div className="w-full flex flex-row absolute z-10 bottom-0 h-20 rounded-b-[65px]">
-        <div className="w-1/4 h-full bg-purple_light rounded-bl-[65px]"></div>
-        <div className="w-1/4 h-full bg-green_border"></div>
-        <div className="w-1/4 h-full bg-orange_border"></div>
-        <div className="w-1/4 h-full bg-agi_grey rounded-br-[65px]"></div>
       </div>
     </div>
   );

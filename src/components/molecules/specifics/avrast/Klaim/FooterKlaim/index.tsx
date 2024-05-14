@@ -205,14 +205,7 @@ const FooterKlaim = () => {
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center py-24 gap-16 bg-white rounded-t-[65px] relative">
-      <div className="w-full absolute z-20 top-2 h-20 bg-white rounded-t-[65px]"></div>
-      <div className="w-full flex flex-row absolute z-10 top-0 h-20 rounded-t-[65px]">
-        <div className="w-1/4 h-full bg-purple_light rounded-tl-[65px]"></div>
-        <div className="w-1/4 h-full bg-green_border"></div>
-        <div className="w-1/4 h-full bg-orange_border"></div>
-        <div className="w-1/4 h-full bg-agi_grey rounded-tr-[65px]"></div>
-      </div>
+    <div className="flex flex-col self-stretch items-center justify-center py-24 gap-16 bg-white relative">
       <div className="w-full px-20 grid grid-cols-4 md:grid xs:hidden gap-10">
         {data.map((val, idx) => (
           <div key={idx}>{renderCard(val)}</div>
