@@ -55,7 +55,7 @@ const DPLKProductList = (props: Props) => {
   }
 
   return (
-    <div className='flex flex-col gap-[64px] sm:py-[80px] sm:px-[136px] xs:p-4'>
+    <div className='flex flex-col gap-[64px] sm:pt-[80px] sm:pb-[6px] sm:px-[136px] xs:p-4'>
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',

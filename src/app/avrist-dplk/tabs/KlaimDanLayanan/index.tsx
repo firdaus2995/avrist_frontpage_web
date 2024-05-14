@@ -8,11 +8,10 @@ import YellowRecipt from '@/assets/images/avrast/dplk/yellow-receipt.svg';
 
 import InformationCard from '@/components/molecules/specifics/avrast/Cards/InformationCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 
 const KlaimDanLayanan = () => {
   return (
-    <SimpleContainer>
+    <div className="flex flex-col gap-[64px] sm:pt-[100px] sm:pb-[26px] sm:px-[136px] xs:p-4">
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',
@@ -88,7 +87,7 @@ const KlaimDanLayanan = () => {
         cardButtonClassname="bg-dplk_yellow border-dplk_yellow"
         cardButtonTextClassname="text-white"
       />
-    </SimpleContainer>
+    </div>
   );
 };
 
