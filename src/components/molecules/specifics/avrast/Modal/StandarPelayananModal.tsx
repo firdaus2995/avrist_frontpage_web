@@ -71,7 +71,7 @@ export const StandarPelayananModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-y-auto">
                 <CardRainbow className="bg-white">
-                  <div className=" transition p-10 overflow-y-auto">
+                  <div className=" transition md:py-[64px] md:px-[72px] xs:p-10 overflow-y-auto">
                     <div className="absolute right-0 p-[24px]">
                       <button onClick={onClose}>
                         <Icon
@@ -84,8 +84,8 @@ export const StandarPelayananModal = (props: Props) => {
                     </div>
                     <div className="flex flex-col h-[80vh] w-[60vw]">
                       <div className="flex flex-col">
-                        <div className="my-[20px] flex flex-col gap-5">
-                          <p className="font-karla font-semibold text-purple_dark text-[48px]">
+                        <div className="my-[20px] flex flex-col gap-[24px]">
+                          <p className="font-karla font-bold text-purple_dark text-[48px]">
                           Komitmen Klaim
                           </p>
                           {data.map((val, idx) => (
@@ -95,7 +95,7 @@ export const StandarPelayananModal = (props: Props) => {
                               </p>
                               {val.child?.length > 0 && (
                                 <div>
-                                  <ul className="flex flex-col gap-5">
+                                  <ul className="flex flex-col gap-[24px]">
                                     {val.child.map((value, index) => (
                                       <li key={index}>
                                         <div className="flex flex-row gap-2 justify-start items-start">
