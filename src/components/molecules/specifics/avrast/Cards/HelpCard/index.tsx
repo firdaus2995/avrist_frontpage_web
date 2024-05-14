@@ -22,7 +22,7 @@ const HelpCard = ({
   href
 }: HelpCardProps) => {
   return (
-    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
+    <div className="flex px-[32px] py-[50px] sm:px-[136px] sm:py-[100px]">
       <div
         className={`${cardClassname} grid grid-cols-1 sm:grid-cols-2 rounded-[24px] overflow-hidden`}
       >
@@ -31,7 +31,7 @@ const HelpCard = ({
           <div className="flex justify-center sm:justify-start">
             <Link
               href={href ?? '#'}
-              className={`${buttonClassname} rounded-[8px] hover:shadow-lg px-[40px] py-[14px] w-[fit-content]`}
+              className={`${buttonClassname} rounded-[8px] hover:shadow-lg px-[40px] py-[12px] w-[fit-content]`}
             >
               <p className={`${buttonTextClassname} font-semibold text-[20px]`}>
                 {buttonTitle}

@@ -6,7 +6,6 @@ import YellowHome from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPillsBox';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import { ContentData } from '@/types/content.type';
 import {
@@ -56,7 +55,7 @@ const DPLKProductList = (props: Props) => {
   }
 
   return (
-    <SimpleContainer>
+    <div className='flex flex-col gap-[64px] sm:py-[80px] sm:px-[136px] xs:p-4'>
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',
@@ -77,16 +76,16 @@ const DPLKProductList = (props: Props) => {
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
       />
-      <div className="flex">
-        <div className="w-1/2">
+      <div className="flex sm:flex-row xs:flex-col-reverse xs:items-center sm:items-start sm:gap-0 xs:gap-4">
+        <div className="sm:w-1/2 xs:w-full flex-wrap">
           <CategoryPillsBox
             buttonTitle={tags}
-            buttonClassname="accent-dplk_yellow border-dplk_yellow"
-            buttonTextClassname="text-black"
+            buttonClassname="accent-dplk_yellow border-dplk_yellow w-[240px]"
+            buttonTextClassname="text-black whitespace-normal"
             onChangeFilter={setFilter}
           />
         </div>
-        <div className="w-1/2">
+        <div className="sm:w-1/2 xs:w-full">
           <SearchBar
             placeholder="Cari Produk"
             searchButtonTitle="Cari"
@@ -95,7 +94,7 @@ const DPLKProductList = (props: Props) => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-[24px]">
+      <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
         {filterByTags().map((i, index) => {
           const { content } = handleTransformedContent(i.contentData, i.title);
           const produkImage = singleImageTransformer(content['produk-image']);
@@ -138,7 +137,7 @@ const DPLKProductList = (props: Props) => {
           <Icon name="chevronRight" color="dplk_yellow" />
         </div>
       </div> */}
-    </SimpleContainer>
+    </div>
   );
 };
 
