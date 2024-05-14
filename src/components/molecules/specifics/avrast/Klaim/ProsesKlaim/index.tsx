@@ -125,7 +125,6 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         fetchApi,
         params.category
       );
-      console.log(transformedData);
       setContentData(transformedData);
     } catch (err) {
       console.error(err);
@@ -139,7 +138,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   const renderStep = (idx: number) => {
     return (
       <div className="w-full flex flex-col items-center justify-start py-10 text-left p-4 border rounded-[12px] border-t-8 border-t-purple_dark">
-        <h2 className="w-full text-[32px] font-bold mb-6 text-purple_dark">
+        <h2 className="w-full text-[36px] font-bold mb-6 text-purple_dark">
           {detailData[selectedDetailCategory]}
         </h2>
         {contentData && selectedData && renderDetailStep(idx)}
@@ -177,7 +176,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     switch (idx) {
       case 0:
         return (
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full flex flex-col gap-[36px] text-[20px]">
             <p
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
@@ -322,7 +321,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   return (
     <div
-      className={`w-full flex flex-col justify-center gap-[64px] relative sm:px-[136px] sm:pt-[80px] sm:pb-[100px] ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg'} rounded-b-[65px]`}
+      className={`w-full flex flex-col justify-center gap-[64px] relative sm:px-[136px] sm:pb-[100px] ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[80px]'} rounded-b-[65px]`}
     >
       {!isSelectedData && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
@@ -541,7 +540,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             </div>
           )}
           {selectedData && (
-            <div className="text-[36px] font-bold">{selectedData.title}</div>
+            <div className="md:text-[56px] xs:text-[24px] font-bold">{selectedData.title}</div>
           )}
           {selectedData && renderStep(selectedDetailCategory)}
         </div>
