@@ -111,16 +111,19 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
   };
 
   return (
-    <div className={bgColor ?? ''}>
-      <div className="xs:mx-10 md:mx-0 sm:px-[136px] pb-[80px] pt-[6px]">
-        <Slider {...settings}>
+    <>
+      {/* Desktop */}
+      <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
+        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-10">
           {cards.map((item, index) => {
             const href =
               item?.hrefType === 'phone'
                 ? encodeURIComponent(item?.href ?? '')
                 : item?.href;
+
             return (
               <Link
+                key={index}
                 href={
                   item?.hrefType === 'phone'
                     ? `tel:${href}`
@@ -128,41 +131,79 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       ? `mailto:${href}`
                       : href ?? '#'
                 }
-                key={index}
-                target={item.openInNewTab ? 'blank' : '_self'}
-                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                className="relative border border-gray_superlight w-full h-auto pt-[1.5rem] px-[1.5rem] pb-[2.5rem] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white"
               >
-                <div className="flex justify-center">
-                  <Image
-                    alt={index.toString()}
-                    src={item.icon}
-                    className="w-[100px] h-[100px]"
-                  />
-                </div>
-                <div className="flex flex-col justify-center mt-5 gap-4">
-                  <div className="flex items-center justify-center h-10">
-                    <p className="text-center font-bold text-[24px]">
-                      {item.title.split('\n').map((line, index) => (
-                        <span key={index}>{line}</span>
-                      ))}
-                    </p>
-                  </div>
+                <Image
+                  alt={index.toString()}
+                  src={item.icon}
+                  className="w-[100px] h-[100px]"
+                />
+                <span>
+                  <p className="font-bold text-[1.5rem]">{item.title}</p>
                   {item.subtitle && (
-                    <div className="flex items-end justify-center h-10">
+                    <div className="flex items-end justify-center">
                       <p
-                        className={`text-center items font-bold text-[24px] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                        className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
                       >
                         {item.subtitle}
                       </p>
                     </div>
                   )}
-                </div>
+                </span>
               </Link>
             );
           })}
-        </Slider>
+        </div>
       </div>
-    </div>
+
+      {/* Mobile */}
+      <div className={bgColor ?? ''}>
+        <div className="md:hidden xs:mx-10 sm:px-[8.5rem] pb-[5rem] pt-[6px]">
+          <Slider {...settings}>
+            {cards.map((item, index) => {
+              const href =
+                item?.hrefType === 'phone'
+                  ? encodeURIComponent(item?.href ?? '')
+                  : item?.href;
+              return (
+                <Link
+                  href={
+                    item?.hrefType === 'phone'
+                      ? `tel:${href}`
+                      : item?.hrefType === 'email'
+                        ? `mailto:${href}`
+                        : href ?? '#'
+                  }
+                  key={index}
+                  target={item.openInNewTab ? 'blank' : '_self'}
+                  className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                >
+                  <div className="flex justify-center">
+                    <Image
+                      alt={index.toString()}
+                      src={item.icon}
+                      className="w-[100px] h-[100px]"
+                    />
+                  </div>
+                  <div className="text-center pt-[1.5rem]">
+                    <p className="font-bold text-[1.5rem]">{item.title}</p>
+                    {item.subtitle && (
+                      <div className="flex items-end justify-center">
+                        <p
+                          className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                        >
+                          {item.subtitle}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </Slider>
+        </div>
+      </div>
+    </>
   );
 };
 

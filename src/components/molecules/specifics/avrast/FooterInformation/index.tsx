@@ -10,6 +10,7 @@ interface IFooterInformation {
   buttonVariant?: string;
   bgColor?: string;
   href?: string;
+  outerClassName?: string;
 }
 
 // button variants: primary, secondary
@@ -20,10 +21,13 @@ const FooterInformation = ({
   image,
   buttonVariant,
   href,
-  bgColor
+  bgColor,
+  outerClassName
 }: IFooterInformation) => {
   return (
-    <div className="w-full flex md:px-[136px] md:pt-[100px] md:pb-[120px] xs:px-[24px] xs:pt-[24px] xs:pb-[36px] bg-avrast_product_bg justify-center">
+    <div
+      className={`w-full flex md:px-[136px] md:pt-[100px] md:pb-[120px] xs:px-[24px] xs:pt-[24px] xs:pb-[36px] bg-avrast_product_bg justify-center ${outerClassName}`}
+    >
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
           className={`flex flex-col gap-[24px] justify-center py-[36px] md:pr-[36px] md:pl-[48px] xs:text-center md:text-start ${bgColor}`}
@@ -39,8 +43,10 @@ const FooterInformation = ({
                   !buttonVariant || buttonVariant === 'primary'
                     ? '!bg-purple_dark'
                     : buttonVariant === 'secondary'
-                      ? ''
-                      : ''
+                      ? 'bg-white'
+                      : buttonVariant === 'syariah'
+                        ? 'bg-white hover:bg-syariah_green hover:text-white border-none'
+                        : ''
                 }
                 customTextClass={`text-[20px]
                   ${
@@ -48,7 +54,9 @@ const FooterInformation = ({
                       ? 'text-white font-semibold'
                       : buttonVariant === 'secondary'
                         ? ''
-                        : ''
+                        : buttonVariant === 'syariah'
+                          ? 'text-syariah_green font-semibold hover:text-white'
+                          : ''
                   }
                 `}
                 title={buttonTitle}
