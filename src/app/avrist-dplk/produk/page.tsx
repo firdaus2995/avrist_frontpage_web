@@ -12,10 +12,7 @@ import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-import {
-  handleGetContentPage,
-  handleGetContent
-} from '@/services/content-page.api';
+import { handleGetContentPage } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
@@ -27,11 +24,6 @@ const ProdukDplk = async () => {
   const titleImage = singleImageTransformer(content['title-image']);
   const bannerImage = singleImageTransformer(content['banner-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
-
-  const contentBase = await handleGetContent('Produk-Avrast-DPLK', {
-    includeAttributes: 'true'
-  });
-  const products = contentBase.data.contentDataList;
 
   return (
     <Suspense fallback={null}>
@@ -48,7 +40,7 @@ const ProdukDplk = async () => {
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}
       />
-      <DPLKProductList products={products} />
+      <DPLKProductList />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
       <HelpCard
         title={

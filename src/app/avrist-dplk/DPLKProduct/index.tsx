@@ -1,61 +1,115 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import YellowHome from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 
+import Search from '@/assets/images/common/search.svg';
+import Icon from '@/components/atoms/Icon';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPillsBox';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
-import { ContentData } from '@/types/content.type';
 import {
+  contentCategoryTransformer,
   contentStringTransformer,
-  handleTransformedContent,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-type Props = {
-  products: ContentData[];
-};
-
-const DPLKProductList = (props: Props) => {
-  const { products } = props;
+const DPLKProductList = () => {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState<string[]>([]);
   const pathname = usePathname();
+  const [channels, setChannels] = useState<any>([]);
+  const [selectedChannels, setSelectedChannels] = useState<any>([]);
+  const [dataContent, setDataContent] = useState<IDataContent[]>();
+  const itemsPerPage = 9;
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
-  const tags = products
-    .map((i) => {
-      const { content } = handleTransformedContent(i.contentData, i.title);
-      return contentStringTransformer(content['tags']);
-    })
-    .filter((i) => i && i !== '-');
-
-  function filterBySearch(query: string): ContentData[] {
-    const filtered = products.filter((person) =>
-      person.title.toLowerCase().includes(query.toLowerCase())
-    );
-    return filtered;
-  }
-
-  function filterByTags(): ContentData[] {
-    if (filter.length === 0) {
-      return filterBySearch(search);
-    } else {
-      const filteredData = filterBySearch(search).filter((product) => {
-        const { content } = handleTransformedContent(
-          product.contentData,
-          product.title
+  useEffect(() => {
+    const fetchDataContentWithCategory = async () => {
+      try {
+        const contentCategoryResponse = await fetch(
+          `/api/produk-dplk/content-category?channelFilter=${selectedChannels?.length === channels?.length ? undefined : selectedChannels}&searchFilter=${search}`
         );
-        const tag = contentStringTransformer(content['tags']);
-        return filter.includes(tag);
-      });
-      return filteredData;
-    }
-  }
+        const data = await contentCategoryResponse.json();
+        const transformedDataContent = contentCategoryTransformer(data, '-');
+
+        const dataContentValues = transformedDataContent?.map(
+          ({ content, id }) => {
+            const namaProduk = contentStringTransformer(content['nama-produk']);
+            const tags = contentStringTransformer(content['tags']);
+            const deskripsiSingkatProduk = contentStringTransformer(
+              content['deskripsi-singkat-produk']
+            );
+            const deskripsiLengkapProduk = contentStringTransformer(
+              content['deskripsi-lengkap-produk']
+            );
+            const jenisProduk = contentStringTransformer(
+              content['jenis-produk']
+            );
+            const channel = contentStringTransformer(content['channel']);
+            const produkImage = singleImageTransformer(content['produk-image']);
+            const kategoriProdukIcon = singleImageTransformer(
+              content['kategori-produk-icon']
+            );
+
+            return {
+              namaProduk,
+              tags,
+              deskripsiSingkatProduk,
+              deskripsiLengkapProduk,
+              jenisProduk,
+              channel,
+              produkImage,
+              kategoriProdukIcon,
+              id
+            };
+          }
+        );
+
+        setDataContent(dataContentValues);
+
+        return dataContentValues;
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    };
+
+    fetchDataContentWithCategory().then((dataContentValues) => {
+      if (dataContentValues) {
+        const channelValues = dataContentValues.map((data: any) => {
+          return data['channel'];
+        });
+        const uniqueChannels = new Set(
+          channelValues?.filter((channel: string) => channel !== '')
+        );
+        setChannels(Array.from(uniqueChannels));
+      }
+    });
+  }, [selectedChannels, search]);
+
+  const paginatedData = dataContent
+    ? dataContent.slice(startIndex, endIndex)
+    : [];
+  const totalPages = dataContent
+    ? Math.ceil(dataContent.length / itemsPerPage)
+    : 0;
+
+  const handleSelectedChannels = (value: any) => {
+    setSelectedChannels(value[0]);
+  };
+
+  const handlePageChange = (page: React.SetStateAction<number>) => {
+    setCurrentPage(page);
+  };
+
+  const handleChangeSearchParams = (value: string) => {
+    setSearch(value);
+  };
 
   return (
-    <div className='flex flex-col gap-[64px] sm:pt-[80px] sm:pb-[6px] sm:px-[136px] xs:p-4'>
+    <div className="flex flex-col gap-[64px] sm:pt-[80px] sm:pb-[6px] sm:px-[136px] xs:p-4">
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',
@@ -79,10 +133,10 @@ const DPLKProductList = (props: Props) => {
       <div className="flex sm:flex-row xs:flex-col-reverse xs:items-center sm:items-start sm:gap-0 xs:gap-4">
         <div className="sm:w-1/2 xs:w-full flex-wrap">
           <CategoryPillsBox
-            buttonTitle={tags}
+            buttonTitle={channels}
             buttonClassname="accent-dplk_yellow border-dplk_yellow w-[240px]"
             buttonTextClassname="text-black whitespace-normal"
-            onChangeFilter={setFilter}
+            onChangeFilter={handleSelectedChannels}
           />
         </div>
         <div className="sm:w-1/2 xs:w-full">
@@ -90,30 +144,22 @@ const DPLKProductList = (props: Props) => {
             placeholder="Cari Produk"
             searchButtonTitle="Cari"
             searchButtonClassname="bg-dplk_yellow text-white"
-            onSearch={setSearch}
+            onSearch={handleChangeSearchParams}
           />
         </div>
       </div>
       <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
-        {filterByTags().map((i, index) => {
-          const { content } = handleTransformedContent(i.contentData, i.title);
-          const produkImage = singleImageTransformer(content['produk-image']);
-          const namaProduk = contentStringTransformer(content['nama-produk']);
-          const tags = contentStringTransformer(content['tags']) as string;
-          const deskripsiSingkatProduk = contentStringTransformer(
-            content['deskripsi-singkat-produk']
-          );
+        {paginatedData.map((i, index) => {
           return (
             <CardProduct
               key={index}
-              imageProduk={produkImage.imageUrl}
-              symbol={YellowHome}
+              imageProduk={i.produkImage.imageUrl}
+              symbol={i.kategoriProdukIcon.imageUrl}
               title={'Avrist DPLK'}
-              summary={namaProduk}
+              summary={i.namaProduk}
               href={`${pathname}/${i.id}`}
-              description={deskripsiSingkatProduk}
-              // tags={['Avrist Syariah', 'Premi Tetap', 'Premi Berkala']}
-              tags={tags.length ? tags.split(',') : []}
+              description={i.deskripsiSingkatProduk}
+              tags={i.tags.split(',')}
               cardClassname="bg-white border-b-dplk_yellow"
               cardTitleClassname="text-dplk_yellow"
               cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
@@ -122,23 +168,69 @@ const DPLKProductList = (props: Props) => {
           );
         })}
       </div>
-      {/* <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      {dataContent?.length === 0 && (
+        <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+          <Image src={Search} alt="search" />
+          <div className="flex flex-col gap-4">
+            <div className="w-[324px] text-center">
+              <p className="font-karla font-bold text-[24px]">Page Not Found</p>
+              <p className="font-opensans text-[16px] mt-[12px]">
+                Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                cari.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex flex-col gap-4 sm:flex-row justify-between">
         <div>
           <p className="text-[20px]">
-            Menampilkan <span className="font-bold text-dplk_yellow">1-9</span>{' '}
-            dari <span className="font-bold">20</span> hasil
+            Menampilkan{' '}
+            <span className="font-bold text-purple_dark">
+              {dataContent?.length === 0 ? 0 : startIndex + 1}-
+              {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+            </span>{' '}
+            dari <span className="font-bold">{dataContent?.length}</span> hasil
           </p>
         </div>
-        <div className="flex flex-row gap-[8px] items-center">
-          <p className="text-[20px] text-dplk_yellow font-bold">1</p>
-          <p className="text-[20px]">2</p>
-          <p className="text-[20px]">3</p>
-          <p className="text-[20px]">4</p>
-          <Icon name="chevronRight" color="dplk_yellow" />
+        <div className="flex flex-row gap-[12px] items-center">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <div
+              key={page}
+              role="button"
+              onClick={() => handlePageChange(page)}
+              className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                currentPage === page ? 'text-purple_dark font-bold' : ''
+              }`}
+            >
+              {page}
+            </div>
+          ))}
+          <span
+            className="mt-[3px]"
+            role="button"
+            onClick={() => handlePageChange(totalPages)}
+          >
+            <Icon name="chevronRight" color="purple_dark" />
+          </span>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
 
 export default DPLKProductList;
+
+export interface IDataContent {
+  categoryName?: string;
+  createdAt?: string;
+  namaProduk: string;
+  tags: string;
+  deskripsiSingkatProduk: string;
+  deskripsiLengkapProduk: string;
+  jenisProduk: string;
+  channel: string;
+  produkImage: { imageUrl: string; altText: string };
+  kategoriProdukIcon: { imageUrl: string; altText: string };
+  id: number;
+}
