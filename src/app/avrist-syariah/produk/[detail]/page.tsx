@@ -1,28 +1,29 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 import { IDataContent } from '../page';
-import NotFound from '@/app/not-found';
+// import NotFound from '@/app/not-found';
 import GreenHeartChat from '@/assets/images/avrast/avrist-syariah/green-chat-heart.svg';
 import GreenShield from '@/assets/images/avrast/avrist-syariah/green-shield.svg';
 import GreenGiveHeart from '@/assets/images/avrast/avrist-syariah/klaim-layanan.svg';
-import PlaceholderVideo from '@/assets/images/avrast/avrist-syariah/videotron-syariah.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-
+import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
-import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { ContentDetailResponse } from '@/types/content.type';
+import { getYouTubeId } from '@/utils/helpers';
 import {
   pageTransformer,
   singleImageTransformer,
@@ -141,7 +142,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
     const fetchDataList = async () => {
       try {
         const contentResponse = await fetch(
-          `/api/produk/content?productFilter=individu`
+          `/api/produk-syariah/content?productFilter=individu`
         );
         const data = await contentResponse.json();
         const newDataContent = data.data.contentDataList.map((item: any) => {
@@ -256,15 +257,12 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
   return (
     <Suspense>
-      {!dataDetail || dataDetail?.length === 0 ? (
-        <NotFound />
-      ) : (
+      {!dataDetail || dataDetail?.length === 0 ? null : (
         <div className="flex flex-col">
           <Hero
             title={dataDetail?.namaProduk}
             breadcrumbsData={[
               { title: 'Beranda', href: '/t' },
-              { title: 'Avrist Syariah', href: '/produk/syariah' },
               {
                 title: dataDetail?.namaProduk,
                 href: `#`
@@ -285,16 +283,16 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-syariah_green"
             />
-            <div className="flex justify-center w-full h-[650px]">
+            <div className="flex justify-center w-full h-[12.625rem] md:h-[40.688rem]">
               {/* <Image src={PlaceholderVideo} alt="video" /> */}
               <VideoPlayer
-                color="syariah-green"
+                thumbnail=""
+                color="syariah_green"
                 type={dataDetail?.captionVideoProduk}
-                thumbnail={PlaceholderVideo}
-                url={dataDetail?.videoProduk}
+                url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
               />
             </div>
-            <div>
+            <div className="mt-[3.75rem]">
               <CategorySideBySideSixCards
                 leftSide={[
                   {
@@ -338,62 +336,74 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 buttonClassname="border-syariah_green text-syariah_green"
               />
             </div>
+            <InfoError
+              symbol={InfoRedSymbol}
+              title="Informasi Jalur Pemasaran"
+              description={dataDetail?.deskripsiJalurPemasaran}
+            />
           </SimpleContainer>
-          <SimpleContainer bgColor="purple_superlight">
+          <div className="xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:py-[5rem] bg-green_superlight">
             {dataForm && (
               <CustomForm
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 dataForm={dataForm}
+                customFormClassname="border-b-syariah_green"
               />
             )}
-          </SimpleContainer>
+          </div>
           <SimpleContainer>
-            <div className="mx-32px text-center">
-              <p className="font-karla font-bold text-[56px]">
+            <div className="text-center">
+              <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]">
                 Rekomendasi Produk Lainnya
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-[24px]">
+            <div className="xs:flex xs:flex-col md:grid md:grid-cols-3 gap-[24px]">
               {dataRekomendasi &&
                 dataRekomendasi.length !== 0 &&
-                dataRekomendasi.map((item, index) => (
-                  <CardProduct
-                    key={index}
-                    imageProduk={item.produkImage.imageUrl}
-                    symbol={item.kategoriProdukIcon.imageUrl}
-                    title={item.jenisProduk}
-                    summary={item.namaProduk}
-                    description={item.deskripsiSingkatProduk}
-                    tags={item.tags.split(',')}
-                    href={`/avrist-syariah/produk/${item.id}`}
-                    cardClassname="bg-white border-b-syariah_green"
-                    cardTitleClassname="text-syariah_green"
-                    cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
-                    cardButtonClassname="bg-syariah_green_informing text-white"
-                  />
-                ))}
+                dataRekomendasi
+                  .filter((item) => item.namaProduk !== dataDetail?.namaProduk)
+                  .slice(0, 3)
+                  .map((item, index) => (
+                    <CardProduct
+                      key={index}
+                      imageProduk={item.produkImage.imageUrl}
+                      symbol={item.kategoriProdukIcon.imageUrl}
+                      title={item.jenisProduk}
+                      summary={item.namaProduk}
+                      description={item.deskripsiSingkatProduk}
+                      tags={item.tags.split(',')}
+                      href={`/avrist-syariah/produk/${item.id}`}
+                      cardClassname="bg-white border-b-syariah_green"
+                      cardTitleClassname="text-syariah_green"
+                      cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
+                      cardButtonClassname="bg-syariah_green_informing text-white"
+                    />
+                  ))}
             </div>
           </SimpleContainer>
+
           <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-          <SimpleContainer>
-            <HelpCard
-              title={
-                <p className="text-[56px] text-white">
-                  <span className="font-bold">Hello,</span> Ada yang bisa{' '}
-                  <span className="font-bold">Avrista</span> bantu?
-                </p>
-              }
-              cardClassname="bg-syariah_green_informing"
-              buttonClassname="bg-white border border-white"
-              buttonTextClassname="text-syariah_green_informing"
-              buttonTitle="Tanya Avrista"
-              href="/tanya-avrista"
-              image={data.footerImage.imageUrl}
-            />
-          </SimpleContainer>
-          <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+          <FooterInformation
+            bgColor="bg-syariah_green_informing"
+            outerClassName="bg-white"
+            buttonVariant="syariah"
+            title={
+              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+                <span className="font-bold">Hello,</span> Ada yang bisa{' '}
+                <span className="font-bold">Avrista</span> bantu?
+              </p>
+            }
+            buttonTitle="Tanya Avrista"
+            image={data.footerImage.imageUrl}
+            href={'/tanya-avrista'}
+          />
+          <RoundedFrameTop
+            bgColor="bg-purple_superlight"
+            frameColor="bg-white"
+          />
           <FooterCards
+            bgColor="bg-purple_superlight"
             cards={[
               {
                 title: 'Rumah Sakit Rekanan',

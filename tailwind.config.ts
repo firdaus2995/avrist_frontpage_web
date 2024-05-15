@@ -83,6 +83,7 @@ const config: Config = {
         soft_grey: '#F6F6F6',
         avram_bg: '#EBFCFA',
         green_border: '#A5C903',
+        green_superlight: '#F5F7F3',
         orange_border: '#F2A625',
         avrast_product_text: '#de64fc',
         avram_product_text: '#1effe1',
