@@ -151,7 +151,7 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
+    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
       {/* CATEGORIES */}
       <Dropdown categories={categories} selectedCategory={selectedCategory} />
       <div className="flex flex-col sm:block hidden">
@@ -169,17 +169,9 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row-reverse' : 'flex-col'}  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} flex-wrap  gap-5 justify-between`}
           >
-            <div className="flex flex-row gap-[12px] ">
-              <input
-                placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none w-[450px] px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
-                onChange={onSearchChange}
-              />
-              <ButtonSmall title="Cari" onClick={onSearch} />
-            </div>
-            <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
+            <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
               <div className="flex flex-row gap-[12px]">
                 {tabs.map(
                   (
@@ -225,6 +217,14 @@ const CategoryWithThreeCards = ({
                     )
                 )}
               </div>
+            </div>
+            <div className="flex flex-row gap-[12px] ">
+              <input
+                placeholder={searchPlaceholder ?? 'Cari'}
+                className="focus:outline-none min-w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                onChange={onSearchChange}
+              />
+              <ButtonSmall title="Cari" onClick={onSearch} />
             </div>
           </div>
         )}

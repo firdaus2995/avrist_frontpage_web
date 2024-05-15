@@ -99,12 +99,15 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
     swipeToSlide: false,
     responsive: [
       {
-        breakpoint: 640,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1.2,
           slidesToScroll: 1,
           nextArrow: <CustomNextArrow />,
-          prevArrow: <CustomPrevArrow />
+          prevArrow: <CustomPrevArrow />,
+          vertical: true,
+          swipeToSlide: true,
+          verticalSwiping: true
         }
       }
     ]
@@ -130,7 +133,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 }
                 key={index}
                 target={item.openInNewTab ? 'blank' : '_self'}
-                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[280px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white xs:max-md:min-w-full xs:max-md:mt-2"
               >
                 <div className="flex justify-center">
                   <Image
