@@ -1,9 +1,10 @@
+'use client';
+import React, { Suspense, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import NotFound from '@/app/not-found';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
-import VideoDplk from '@/assets/images/avrast/dplk/videotron-dplk.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
-import YellowHomeSun from '@/assets/images/avrast/dplk/yellow-dplk-home-sun.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
-
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -20,243 +21,482 @@ import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { handleSendEmail } from '@/services/form.api';
+import { ContentDetailResponse } from '@/types/content.type';
 import {
-  handleGetContent,
-  handleGetContentDetail,
-  handleGetContentPage
-} from '@/services/content-page.api';
-import {
-  contentDetailTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer,
-  handleTransformedContent
+  handleTransformedContent,
+  contentDetailTransformer
 } from '@/utils/responseTransformer';
 
-const ProdukSyariahDetail = async ({
-  params
-}: {
-  params: { detail: string };
-}) => {
-  const pageData = await handleGetContentPage('halaman-detail-produk-dplk');
-  const detailData = await handleGetContentDetail(params.detail);
-  const productsData = await handleGetContent('Produk-Avrast-DPLK', {
-    includeAttributes: 'true'
-  });
-  // page
-  const { content } = pageTransformer(pageData);
-  const titleImage = singleImageTransformer(content['title-image']);
-  const cta1Image = singleImageTransformer(content['cta1-image']);
+export interface IDataContent {
+  categoryName?: string;
+  createdAt?: string;
+  namaProduk: string;
+  tags: string;
+  deskripsiSingkatProduk: string;
+  jenisProduk: string;
+  channel: string;
+  produkImage: { imageUrl: string; altText: string };
+  kategoriProdukIcon: { imageUrl: string; altText: string };
+  id: number;
+}
 
-  // detail
-  const { content: contentDetail } = contentDetailTransformer(detailData);
-  const produkImage = singleImageTransformer(contentDetail['produk-image']);
-  // const channel = contentStringTransformer(contentDetail['channel']);
-  const namaProduk = contentStringTransformer(contentDetail['nama-produk']);
-  const taglineProduk = contentStringTransformer(
-    contentDetail['tagline-produk']
-  );
-  const deskripsiLengkapProduk = contentStringTransformer(
-    contentDetail['deskripsi-lurator-produk']
-  );
-  const tags = contentStringTransformer(contentDetail['tags']) as string;
-  const videoProduk = contentStringTransformer(contentDetail['video-produk']);
-  const captionVideoProduk = contentStringTransformer(
-    contentDetail['caption-video-produk']
-  );
-  const deskripsiKeunggulanProduk = contentStringTransformer(
-    contentDetail['deskripsi-keunggulan-produk']
-  );
-  const deskripsiManfaatProduk = contentStringTransformer(
-    contentDetail['deskripsi-manfaat-produk']
-  );
-  const deskripsiFiturProduk = contentStringTransformer(
-    contentDetail['deskripsi-fitur-produk']
-  );
-  const deskripsiInformasiPenting = contentStringTransformer(
-    contentDetail['deskripsi-informasi-penting']
-  );
-  const deskripsiRiplay = contentStringTransformer(
-    contentDetail['deskripsi-riplay']
-  );
-  const fileRiplay = singleImageTransformer(contentDetail['file-riplay']);
-  const deskripsiBrosur = contentStringTransformer(
-    contentDetail['deskripsi-brosur']
-  );
-  const fileBrosur = singleImageTransformer(contentDetail['file-brosur']);
-  const products = productsData.data.contentDataList.slice(0, 3);
-  return (
-    <div className="flex flex-col">
-      <Hero
-        title={namaProduk}
-        breadcrumbsData={[
-          { title: 'Beranda', href: '/' },
-          { title: 'Produk', href: '/avrist-dplk/produk' },
-          {
-            title: namaProduk,
-            href: `/avrist-dplk/produk/${params.detail}`
-          }
-        ]}
-        bottomImage={produkImage.imageUrl}
-        imageUrl={titleImage.imageUrl}
-      />
-      <SimpleContainer>
-        <AboutHeading
-          categoriesIcon={YellowHomeSun}
-          categoriesName="Avrist Syariah"
-          categoriesClassname="text-dplk_yellow"
-          headingText={namaProduk}
-          subHeadingText={taglineProduk}
-          description={deskripsiLengkapProduk}
-          tags={tags.split(',')}
-          tagsClassname="bg-gray_bglightgray"
-          tagsTextClassname="text-dplk_yellow"
-        />
-        <div className="flex justify-center w-full h-[650px]">
-          <VideoPlayer
-            color="syariah-green"
-            type={captionVideoProduk}
-            thumbnail={VideoDplk}
-            url={videoProduk}
-          />
-        </div>
-        <div>
-          <CategorySideBySideSixCards
-            leftSide={[
-              {
-                symbol: YellowShield,
-                title: 'Manfaat Produk',
-                description: deskripsiKeunggulanProduk
-              },
-              {
-                symbol: YellowChat,
-                title: 'Keunggulan Produk',
-                description: deskripsiManfaatProduk
-              },
-              {
-                symbol: YellowHeart,
-                title: 'Periode Perlindungan',
-                description: deskripsiFiturProduk
-              }
-            ]}
-            rightSide={[
-              {
-                title: 'Informasi Penting',
-                description: deskripsiInformasiPenting
-              },
-              {
-                title: 'Ringkasan Produk',
-                description: deskripsiRiplay,
-                urlDownload: fileRiplay.imageUrl,
-                hasDownloadButton: true
-              },
-              {
-                title: 'Download Brosur',
-                description: deskripsiBrosur,
-                urlDownload: fileBrosur.imageUrl,
-                hasDownloadButton: true
-              }
-            ]}
-            leftTitleClassname="text-dplk_yellow"
-            rightTitleClassname="text-black"
-            customLeftSideClassname="border-b-dplk_yellow"
-            customRightSideClassname="border-b-dplk_yellow"
-            buttonClassname="border-dplk_yellow text-dplk_yellow"
-          />
-        </div>
-      </SimpleContainer>
-      <SimpleContainer bgColor="purple_superlight">
-        <CustomForm
-          customFormClassname="border-b-dplk_yellow"
-          customFormButtonClassname="bg-dplk_yellow text-white"
-        />
-      </SimpleContainer>
-      <SimpleContainer>
-        <div className="mx-32px text-center">
-          <p className="font-karla font-bold text-[56px]">
-            Rekomendasi Produk Lainnya
-          </p>
-        </div>
-        <div className="grid grid-cols-3 gap-[24px]">
-          {products.map((i, index) => {
-            const { content } = handleTransformedContent(
-              i.contentData,
-              i.title
-            );
-            const produkImage = singleImageTransformer(content['produk-image']);
+const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
+  const router = useRouter();
+  const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
+  const [data, setData] = useState<any>({
+    titleImage: '',
+    footerImage: ''
+  });
+  const [dataDetail, setDataDetail] = useState<any>();
+  const [dataForm, setDataForm] = useState<any>();
+  const [bannerImg, setBannerImg] = useState<any>();
+
+  const [formId, setFormId] = useState<any>();
+  const [formPic, setFormPic] = useState<any>();
+  const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/produk-dplk-detail');
+        const data = await response.json();
+        setData(data);
+
+        const { content } = pageTransformer(data);
+        const titleImage = singleImageTransformer(content['title-image']);
+        const footerImage = singleImageTransformer(content['cta1-image']);
+        setData({ titleImage, footerImage });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    async function fetchDetailData() {
+      const response = await fetch(`/api/produk-dplk/produk/${params.detail}`);
+      const jsonData: ContentDetailResponse = await response.json();
+
+      const { content } = contentDetailTransformer(jsonData);
+      const namaProduk = contentStringTransformer(content['nama-produk']);
+      const tags = contentStringTransformer(content['tags']);
+      const deskripsiSingkatProduk = contentStringTransformer(
+        content['deskripsi-singkat-produk']
+      );
+      const taglineProduk = contentStringTransformer(content['tagline-produk']);
+      const deskripsiLengkapProduk = contentStringTransformer(
+        content['deskripsi-lengkap-produk']
+      );
+      const videoProduk = contentStringTransformer(content['video-produk']);
+      const captionVideoProduk = contentStringTransformer(
+        content['caption-video-produk']
+      );
+      const deskripsiKeunggulanProduk = contentStringTransformer(
+        content['deskripsi-keunggulan-produk']
+      );
+      const deskripsiManfaatProduk = contentStringTransformer(
+        content['deskripsi-manfaat-produk']
+      );
+      const deskripsiFiturProduk = contentStringTransformer(
+        content['deskripsi-fitur-produk']
+      );
+      const deskripsiInformasiPenting = contentStringTransformer(
+        content['deskripsi-informasi-penting']
+      );
+      const deskripsiRiplay = contentStringTransformer(
+        content['deskripsi-riplay']
+      );
+      const deskripsiBrosur = contentStringTransformer(
+        content['deskripsi-brosur']
+      );
+      const deskripsiJalurPemasaran = contentStringTransformer(
+        content['deskripsi-jalur-pemasaran']
+      );
+      const jenisProduk = contentStringTransformer(content['jenis-produk']);
+      const channel = contentStringTransformer(content['channel']);
+      const produkImage = singleImageTransformer(content['produk-image']);
+      const kategoriProdukIcon = singleImageTransformer(
+        content['kategori-produk-icon']
+      );
+      const fileRiplay = singleImageTransformer(content['file-riplay']);
+      const fileBrosur = singleImageTransformer(content['file-brosur']);
+      const formProduk = contentStringTransformer(content['form-produk']);
+
+      const detailData = {
+        namaProduk,
+        tags: tags.split(','),
+        deskripsiSingkatProduk,
+        taglineProduk,
+        deskripsiLengkapProduk,
+        videoProduk,
+        captionVideoProduk,
+        deskripsiKeunggulanProduk,
+        deskripsiManfaatProduk,
+        deskripsiFiturProduk,
+        deskripsiInformasiPenting,
+        deskripsiRiplay,
+        deskripsiBrosur,
+        deskripsiJalurPemasaran,
+        jenisProduk,
+        channel,
+        produkImage,
+        kategoriProdukIcon,
+        fileRiplay,
+        fileBrosur,
+        categoryTitle: jsonData.data.categoryName,
+        formId: jsonData.data?.formId || formProduk || '6979'
+      };
+
+      setBannerImg(singleImageTransformer(content['produk-image']));
+      setDataDetail(detailData);
+    }
+
+    const fetchDataList = async () => {
+      try {
+        const contentResponse = await fetch(
+          `/api/produk-dplk/content`
+        );
+        const data = await contentResponse.json();
+        const newDataContent = data.data.contentDataList.map((item: any) => {
+          return {
+            ...handleTransformedContent(item.contentData, item.title),
+            categoryName: item.categoryName,
+            createdAt: item.createdAt,
+            id: item.id
+          };
+        });
+        const dataContentValues = newDataContent.map(
+          ({
+            content,
+            categoryName,
+            id,
+            createdAt
+          }: {
+            content: any;
+            categoryName: string;
+            id: number;
+            createdAt: string;
+          }) => {
             const namaProduk = contentStringTransformer(content['nama-produk']);
-            const tags = contentStringTransformer(content['tags']) as string;
+            const tags = contentStringTransformer(content['tags']);
             const deskripsiSingkatProduk = contentStringTransformer(
               content['deskripsi-singkat-produk']
             );
-            return (
-              <CardProduct
-                key={index}
-                imageProduk={produkImage.imageUrl}
-                symbol={YellowHomeSun}
-                title="Avrist DPLK"
-                summary={namaProduk}
-                href={`avrist-dplk/produk/${i.id}`}
-                description={deskripsiSingkatProduk}
-                // tags={['Avrist DPLK', 'Premi Tetap', 'Premi Berkala']}
-                tags={tags.length ? tags.split(',') : []}
-                cardClassname="bg-white border-b-dplk_yellow"
-                cardTitleClassname="text-dplk_yellow"
-                cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                cardButtonClassname="bg-dplk_yellow text-white"
-              />
+            const deskripsiLengkapProduk = contentStringTransformer(
+              content['deskripsi-lengkap-produk']
             );
-          })}
+            const jenisProduk = contentStringTransformer(
+              content['jenis-produk']
+            );
+            const channel = contentStringTransformer(content['channel']);
+            const produkImage = singleImageTransformer(content['produk-image']);
+            const kategoriProdukIcon = singleImageTransformer(
+              content['kategori-produk-icon']
+            );
+
+            return {
+              categoryName,
+              namaProduk,
+              tags,
+              deskripsiSingkatProduk,
+              deskripsiLengkapProduk,
+              jenisProduk,
+              channel,
+              produkImage,
+              kategoriProdukIcon,
+              id,
+              createdAt
+            };
+          }
+        );
+
+        const sortedData = dataContentValues.sort(
+          (a: { createdAt: string }, b: { createdAt: string }) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return dateB - dateA;
+          }
+        );
+
+        setDataRekomendasi(sortedData);
+        return dataContentValues;
+      } catch (error: any) {
+        throw new Error(error.message);
+      }
+    };
+
+    fetchData().then();
+    fetchDetailData()
+      .then()
+      .catch(() => []);
+    fetchDataList()
+      .then()
+      .catch(() => []);
+  }, []);
+
+  useEffect(() => {
+    setFormValue([{ name: '', value: '' }]);
+    if (dataDetail?.formId) {
+      const fetchDataForm = async () => {
+        try {
+          const contentResponse = await fetch(
+            `/api/form?id=${dataDetail.formId}`
+          );
+          const dataFormJson = await contentResponse.json();
+          setDataForm(dataFormJson.data.attributeList);
+          setFormId(dataFormJson.data.id);
+          setFormPic(dataFormJson.data.pic);
+        } catch (error: any) {
+          throw new Error('Error fetching form data: ', error.message);
+        }
+      };
+
+      fetchDataForm().then();
+    }
+  }, [dataDetail]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormValue((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const receiveData = (
+    data: any,
+    isValid: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setFormIsValid(isValid);
+    setFormValue(data);
+  };
+
+  const onSubmitData = async () => {
+    const queryParams = {
+      id: formId,
+      pic: formPic,
+      placeholderValue: formValue
+    };
+
+    const data = await handleSendEmail(queryParams);
+    if (data.status === 'OK') {
+      router.refresh();
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+      router.refresh();
+    }
+  };
+
+  return (
+    <Suspense>
+      {!dataDetail || dataDetail?.length === 0 ? (
+        <NotFound />
+      ) : (
+        <div className="flex flex-col">
+          <Hero
+            title={dataDetail?.namaProduk}
+            breadcrumbsData={[
+              { title: 'Beranda', href: '/' },
+              { title: 'Produk DPLK', href: '/avrist-dplk/produk' },
+              {
+                title: dataDetail?.namaProduk,
+                href: `/avrist-dplk/produk/${params.detail}`
+              }
+            ]}
+            imageUrl={data.titleImage.imageUrl}
+            bottomImage={bannerImg.imageUrl}
+          />
+          <SimpleContainer>
+            <AboutHeading
+              categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
+              categoriesName="Avrist DPLK"
+              categoriesClassname="text-dplk_yellow"
+              headingText={dataDetail?.namaProduk}
+              subHeadingText={dataDetail?.taglineProduk}
+              description={dataDetail?.deskripsiLengkapProduk}
+              tags={dataDetail?.tags}
+              tagsClassname="bg-gray_bglightgray"
+              tagsTextClassname="text-dplk_yellow"
+            />
+            <div className="flex justify-center w-full h-[650px]">
+              {/* <Image src={PlaceholderVideo} alt="video" /> */}
+              <VideoPlayer
+                color="dplk_yellow"
+                type={dataDetail?.captionVideoProduk}
+                url={dataDetail?.videoProduk}
+              />
+            </div>
+            <div>
+              <CategorySideBySideSixCards
+                leftSide={[
+                  {
+                    symbol: YellowShield,
+                    title: 'Keunggulan Produk',
+                    description: dataDetail?.deskripsiKeunggulanProduk
+                  },
+                  {
+                    symbol: YellowChat,
+                    title: 'Manfaat Produk',
+                    description: dataDetail?.deskripsiManfaatProduk
+                  },
+                  {
+                    symbol: YellowHeart,
+                    title: 'Periode Perlindungan',
+                    description: dataDetail?.deskripsiFiturProduk
+                  }
+                ]}
+                rightSide={[
+                  {
+                    title: 'Informasi Penting',
+                    description: dataDetail?.deskripsiInformasiPenting
+                  },
+                  {
+                    title: 'Ringkasan Produk',
+                    description: dataDetail?.deskripsiRiplay,
+                    hasDownloadButton: true,
+                    urlDownload: dataDetail?.fileRiplay.imageUrl
+                  },
+                  {
+                    title: 'Download Brosur',
+                    description: dataDetail?.deskripsiBrosur,
+                    hasDownloadButton: true,
+                    urlDownload: dataDetail?.fileBrosur.imageUrl
+                  }
+                ]}
+                leftTitleClassname="text-dplk_yellow"
+                rightTitleClassname="text-black"
+                customLeftSideClassname="border-b-dplk_yellow"
+                customRightSideClassname="border-b-dplk_yellow"
+                buttonClassname="border-dplk_yellow text-dplk_yellow"
+              />
+            </div>
+          </SimpleContainer>
+          <SimpleContainer bgColor="purple_superlight">
+            {dataForm && (
+              <CustomForm
+                customFormClassname="border-none p-[0px] rounded-[12px]"
+                onChange={handleChange}
+                dataForm={dataForm}
+                resultData={receiveData}
+              />
+            )}
+            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
+              <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={(e) => {
+                    setIsChecked(e.target.checked);
+                  }}
+                />
+                <label className="cursor-pointer" htmlFor="setuju">
+                  Saya setuju memberikan data pribadi Saya kepada Avrist Life
+                  Insurance dan telah membaca{' '}
+                  <span
+                    className="text-purple_dark font-bold"
+                    onClick={() => window.open('/keamanan-online', '_blank')}
+                  >
+                    Keamanan Online
+                  </span>{' '}
+                  Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
+                  dihubungi oleh Avrist Life Insurance melalui media komunikasi
+                  pribadi Saya sesuai hari dan jam operasional yang berlaku di
+                  Avrist Life Insurance.
+                </label>
+              </div>
+              <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
+                <button
+                  type="submit"
+                  disabled={formIsValid ? (isChecked ? false : true) : true}
+                  onClick={() => onSubmitData()}
+                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+                >
+                  Kirim
+                </button>
+              </div>
+            </div>
+          </SimpleContainer>
+          <SimpleContainer>
+            <div className="mx-32px text-center">
+              <p className="font-karla font-bold text-[56px]">
+                Rekomendasi Produk Lainnya
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
+              {dataRekomendasi &&
+                dataRekomendasi.length !== 0 &&
+                dataRekomendasi.map((item, index) => (
+                  <CardProduct
+                    key={index}
+                    imageProduk={item.produkImage.imageUrl}
+                    symbol={item.kategoriProdukIcon.imageUrl}
+                    title={item.jenisProduk}
+                    summary={item.namaProduk}
+                    description={item.deskripsiSingkatProduk}
+                    tags={item.tags.split(',')}
+                    href={`/avrist-dplk/produk/${item.id}`}
+                    cardClassname="bg-white border-b-dplk_yellow"
+                    cardTitleClassname="text-dplk_yellow"
+                    cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+                    cardButtonClassname="bg-dplk_yellow text-white"
+                  />
+                ))}
+            </div>
+          </SimpleContainer>
+          <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
+          <HelpCard
+            title={
+              <p className="text-[56px] text-black">
+                <span className="font-bold">Hello,</span> Ada yang bisa{' '}
+                <span className="font-bold">Avrista</span> bantu?
+              </p>
+            }
+            cardClassname="bg-dplk_yellow"
+            buttonClassname="bg-white border border-white"
+            buttonTextClassname="text-dplk_yellow"
+            buttonTitle="Tanya Avrista"
+            href="/tanya-avrista"
+            image={data.footerImage.imageUrl}
+          />
+          <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+          <FooterCards
+            cards={[
+              {
+                title: 'Rumah Sakit Rekanan',
+                icon: ProdukRumahSakit,
+                subtitle: 'Lebih Lanjut',
+                href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
+              },
+              {
+                title: 'Klaim & Layanan',
+                icon: ProdukClaim,
+                subtitle: 'Lebih Lanjut',
+                href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
+              },
+              {
+                title: 'Kelola Polis',
+                icon: ProdukPolis,
+                subtitle: 'Login Akun',
+                href: 'https://my.avrist.com/welcome'
+              },
+              {
+                title: 'Testimonial',
+                icon: ProdukTestimoni,
+                subtitle: 'Lebih Lanjut',
+                href: '/promo-berita/berita?tab=Testimonial'
+              }
+            ]}
+          />
         </div>
-      </SimpleContainer>
-      <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-      <SimpleContainer>
-        <HelpCard
-          title={
-            <p className="text-[56px] text-black">
-              <span className="font-bold">Hello,</span> Ada yang bisa{' '}
-              <span className="font-bold">Avrista</span> bantu?
-            </p>
-          }
-          cardClassname="bg-dplk_yellow"
-          buttonClassname="bg-white border border-white"
-          buttonTextClassname="text-dplk_yellow"
-          buttonTitle="Tanya Avrista"
-          href="/tanya-avrista"
-          image={cta1Image.imageUrl}
-        />
-      </SimpleContainer>
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
-      <FooterCards
-        cards={[
-          {
-            title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit,
-            subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
-          },
-          {
-            title: 'Klaim & Layanan',
-            icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut',
-            href: '/avrist-syariah/klaim-layanan'
-          },
-          {
-            title: 'Kelola Polis',
-            icon: ProdukPolis,
-            subtitle: 'Login Akun',
-            href: '/klaim-layanan/layanan/kelola-polis'
-          },
-          {
-            title: 'Testimonial',
-            icon: ProdukTestimoni,
-            subtitle: 'Lebih Lanjut',
-            href: '/promo-berita/berita?tab=Testimonial'
-          }
-        ]}
-      />
-    </div>
+      )}
+    </Suspense>
   );
 };
 
-export default ProdukSyariahDetail;
+export default ProdukDplkDetail;

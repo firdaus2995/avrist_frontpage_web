@@ -9,14 +9,10 @@ import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-import {
-  handleGetContentPage,
-  handleGetContent
-} from '@/services/content-page.api';
+import { handleGetContentPage } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
@@ -28,11 +24,6 @@ const ProdukDplk = async () => {
   const titleImage = singleImageTransformer(content['title-image']);
   const bannerImage = singleImageTransformer(content['banner-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
-
-  const contentBase = await handleGetContent('Produk-Avrast-DPLK', {
-    includeAttributes: 'true'
-  });
-  const products = contentBase.data.contentDataList;
 
   return (
     <Suspense fallback={null}>
@@ -49,24 +40,22 @@ const ProdukDplk = async () => {
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}
       />
-      <DPLKProductList products={products} />
+      <DPLKProductList />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-      <SimpleContainer>
-        <HelpCard
-          title={
-            <p className="text-[56px] text-black">
-              <span className="font-bold">Hello,</span> Ada yang bisa{' '}
-              <span className="font-bold">Avrista</span> bantu?
-            </p>
-          }
-          cardClassname="bg-dplk_yellow"
-          buttonClassname="bg-white border border-white"
-          buttonTextClassname="text-dplk_yellow"
-          buttonTitle="Tanya Avrista"
-          href="/tanya-avrista"
-          image={cta1Image.imageUrl}
-        />
-      </SimpleContainer>
+      <HelpCard
+        title={
+          <p className="text-[56px] text-black">
+            <span className="font-bold">Hello,</span> Ada yang bisa{' '}
+            <span className="font-bold">Avrista</span> bantu?
+          </p>
+        }
+        cardClassname="bg-dplk_yellow"
+        buttonClassname="bg-white border border-white"
+        buttonTextClassname="text-dplk_yellow"
+        buttonTitle="Tanya Avrista"
+        href="/tanya-avrista"
+        image={cta1Image.imageUrl}
+      />
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
       <FooterCards
         cards={[

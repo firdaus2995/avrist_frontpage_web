@@ -28,11 +28,11 @@ const CategoryPillsBox: React.FC<CategoryPillsBoxProps> = ({
     onChangeFilter && onChangeFilter(newData);
   };
   return (
-    <div className="flex flex-nowrap gap-2">
+    <div className="flex flex-wrap gap-2">
       {buttonTitle.map((item, index) => (
         <div
           key={index}
-          className={`${buttonClassname} flex flex-row items-center whitespace-nowrap gap-[6px] px-[19px] py-[7px] rounded-[6px] border cursor-default`}
+          className={`${buttonClassname} flex flex-row items-center whitespace-nowrap gap-[8px] px-[12px] py-[8px] rounded-[6px] border cursor-default`}
         >
           <input
             id={item}

@@ -8,7 +8,7 @@ import PlayButton from '@/assets/images/play-button.svg';
 
 export type VideoPlayerProps = {
   url: string;
-  thumbnail: string;
+  thumbnail?: string;
   type: string;
   color: string;
 };

@@ -35,7 +35,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
   return (
     <>
       <div className="xs:hidden md:block">
-        <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
+        <div className="flex xs:flex-wrap sm:flex-nowrap w-full justify-between gap-[12px] items-stretch">
           {buttonTitle.map((item, index) => {
             const link = links?.[item] || '';
             return link.startsWith('/') ? (
@@ -43,7 +43,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
                 <Link href={link}>
                   <button
                     key={index}
-                    className={`${selectedCategory === item ? buttonActiveClassname : buttonInactiveClassname} w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer`}
+                    className={`${selectedCategory === item ? buttonActiveClassname : buttonInactiveClassname} w-full min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer`}
                   >
                     <span
                       className={`${selectedCategory === item ? buttonActiveTextClassname : buttonInactiveTextClassname} font-semibold text-[16px] font-opensans`}
