@@ -597,7 +597,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[53px] font-medium mb-6 text-purple_dark">
+          <h2 className="text-[53px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (

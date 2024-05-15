@@ -151,7 +151,7 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] sm:flex-row">
+    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
       {/* CATEGORIES */}
       <Dropdown categories={categories} selectedCategory={selectedCategory} />
       <div className="flex flex-col sm:block hidden">
