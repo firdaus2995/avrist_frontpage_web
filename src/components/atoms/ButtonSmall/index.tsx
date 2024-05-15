@@ -26,7 +26,7 @@ const ButtonSmall = ({
       className={`px-[20px] py-[8px] rounded-[6px] ${variantButtonClassName} ${customClassName}`}
       onClick={onClick}
     >
-      <span className={`font-bold ${variantTextClassName}`}>{title}</span>
+      <span className={`font-semibold ${variantTextClassName}`}>{title}</span>
     </button>
   );
 };

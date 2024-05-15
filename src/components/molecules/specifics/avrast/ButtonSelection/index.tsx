@@ -14,10 +14,21 @@ interface ButtonSelectionProps {
   buttonHelper: ButtonHelperItem[];
   channels?: string[];
   onSelectChannels?: (channelValues: any) => void;
-  selectedChannels?: any
+  selectedChannels?: any;
+  customColor?: {
+    accent?: string;
+    border?: string;
+    text?: string;
+  };
 }
 
-const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper, channels, onSelectChannels, selectedChannels }) => {
+const ButtonSelection: React.FC<ButtonSelectionProps> = ({
+  buttonHelper,
+  channels,
+  onSelectChannels,
+  selectedChannels,
+  customColor
+}) => {
   let buttonHelperAdditional = buttonHelper;
 
   if (channels && channels.length !== 0) {
@@ -26,14 +37,11 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper, channel
       label: channel
     })) as ButtonHelperItem[];
 
-    buttonHelperAdditional = [
-      ...buttonHelper,
-      ...checkboxButtons,
-    ]
+    buttonHelperAdditional = [...buttonHelper, ...checkboxButtons];
   }
-  
+
   const handleSelectedChannels = (text: string, isChecked: boolean) => {
-    if (onSelectChannels){
+    if (onSelectChannels) {
       const newSelectedChannels = new Set(selectedChannels);
 
       if (isChecked) {
@@ -41,10 +49,10 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper, channel
       } else {
         newSelectedChannels.delete(text);
       }
-    
+
       onSelectChannels(Array.from(newSelectedChannels));
     }
-  }
+  };
 
   return (
     <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
@@ -72,12 +80,13 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({ buttonHelper, channel
               name={item.label}
               title={item.label}
               handleChange={handleSelectedChannels}
+              customColor={customColor}
             />
           ) : null
         )}
       </div>
     </div>
   );
-}
+};
 
 export default ButtonSelection;

@@ -28,21 +28,21 @@ const InformationCard: React.FC<InformationCardProps> = ({
   cardButtonTextClassname,
   idTags
 }) => (
-  <div className="font-karla my-[64px] mx-auto" id={idTags}>
-    <div className="text-center mb-[24px]">
+  <div className="flex flex-col font-karla my-[64px] mx-auto gap-[64px]" id={idTags}>
+    <div className="sm:text-center xs:text-left mb-[24px]">
       <p className="font-bold text-[56px]">{heading}</p>
       {subHeading && <p className="text-[36px]">{subHeading}</p>}
     </div>
-    <div className="grid grid-cols-3 justify-center items-center gap-[24px]">
+    <div className="grid sm:grid-cols-3 xs:grid-cols-1 justify-center items-center gap-[24px]">
       {cards.map((item, index) => (
         <div
           key={index}
-          className={`${cardClassname} flex flex-col justify-between max-w-[370px] min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
+          className={`${cardClassname} flex flex-col justify-between sm:max-w-[370px] xs:w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
         >
           <div className="flex w-full justify-center mt-[24px]">
             <Image
               alt="blank-image"
-              width={0}
+              width={100}
               height={100}
               src={item.cardIcon}
               className="w-auto"
@@ -64,7 +64,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
               <div className="h-full mb-[24px]">
                 <Link href={item.href ?? '#'}>
                   <button
-                    className={`${cardButtonClassname} rounded-[8px] px-[20px] py-[8px] w-3/4`}
+                    className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
                   >
                     <p
                       className={`${cardButtonTextClassname} font-semibold text-[16px]`}

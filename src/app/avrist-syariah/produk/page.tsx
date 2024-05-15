@@ -12,11 +12,11 @@ import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import ButtonSelection from '@/components/molecules/specifics/avrast/ButtonSelection';
-import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import { handleGetContentPage } from '@/services/content-page.api';
@@ -130,7 +130,6 @@ const ProdukSyariah = () => {
         title="Produk Syariah"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Avrist Syariah', href: '/avrist-syariah' },
           { title: 'Produk Syariah', href: '/avrist-syariah/produk' }
         ]}
         imageUrl={titleImage.imageUrl}
@@ -159,113 +158,129 @@ const ProdukSyariah = () => {
             'Klaim & Layanan': '/avrist-syariah/klaim-layanan'
           }}
         />
-        <div className="flex">
-          <div className="w-1/2">
-            <ButtonSelection
-              buttonHelper={[]}
-              channels={channels}
-              onSelectChannels={handleSelectedChannels}
-              selectedChannels={selectedChannels}
-            />
-          </div>
-          <div className="w-1/2">
-            <SearchBar
-              placeholder="Cari Produk"
-              searchButtonTitle="Cari"
-              searchButtonClassname="bg-syariah_green_informing text-white"
-              onSearch={handleChangeSearchParams}
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-[24px]">
-          {dataContent?.length > 0 &&
-            paginatedData.map((item: any, index: number) => (
-              <CardProduct
-                key={index}
-                imageProduk={item.produkImage.imageUrl}
-                symbol={item.kategoriProdukIcon.imageUrl}
-                title={item.jenisProduk}
-                summary={item.namaProduk}
-                description={item.deskripsiSingkatProduk}
-                tags={item.tags === '' ? '' : item.tags.split(',')}
-                href={`/avrist-syariah/produk/${item.id}`}
-                cardClassname="bg-white border-b-syariah_green"
-                cardTitleClassname="text-syariah_green"
-                cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
-                cardButtonClassname="bg-syariah_green_informing text-white"
+        <div className="flex flex-col gap-[1.5rem]">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="xs:w-full md:w-1/2">
+              <ButtonSelection
+                buttonHelper={[]}
+                channels={channels}
+                onSelectChannels={handleSelectedChannels}
+                selectedChannels={selectedChannels}
+                customColor={{
+                  accent: 'accent-syariah_green',
+                  border: 'border-syariah_green',
+                  text: 'text-syariah_green'
+                }}
               />
-            ))}
-        </div>
-        {dataContent.length === 0 && (
-          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
-            <Image src={Search} alt="search" />
-            <div className="flex flex-col gap-4">
-              <div className="w-[324px] text-center">
-                <p className="font-karla font-bold text-[24px]">
-                  Page Not Found
-                </p>
-                <p className="font-opensans text-[16px] mt-[12px]">
-                  Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
-                  cari.
-                </p>
-              </div>
+            </div>
+            <div className="xs:w-full md:w-1/2">
+              <SearchBar
+                placeholder="Cari Produk"
+                searchButtonTitle="Cari"
+                searchButtonClassname="bg-syariah_green_informing text-white"
+                onSearch={handleChangeSearchParams}
+              />
             </div>
           </div>
-        )}
-        <div className="flex flex-col gap-4 sm:flex-row justify-between">
-          <div>
-            <p className="text-[20px]">
-              Menampilkan{' '}
-              <span className="font-bold text-purple_dark">
-                {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                {Math.min(endIndex, dataContent ? dataContent.length : 0)}
-              </span>{' '}
-              dari <span className="font-bold">{dataContent?.length}</span>{' '}
-              hasil
-            </p>
+
+          <div className="xs:flex xs:flex-col md:grid md:grid-cols-3 gap-[24px]">
+            {dataContent?.length > 0 &&
+              paginatedData.map((item: any, index: number) => (
+                <CardProduct
+                  key={index}
+                  imageProduk={item.produkImage.imageUrl}
+                  symbol={item.kategoriProdukIcon.imageUrl}
+                  title={item.jenisProduk}
+                  summary={item.namaProduk}
+                  description={item.deskripsiSingkatProduk}
+                  tags={item.tags === '' ? '' : item.tags.split(',')}
+                  href={`/avrist-syariah/produk/${item.id}`}
+                  cardClassname="bg-white border-b-syariah_green"
+                  cardTitleClassname="text-syariah_green"
+                  cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
+                  cardButtonClassname="bg-syariah_green_informing text-white"
+                  onClickTags={(item: string) => {
+                    handleChangeSearchParams(item);
+                  }}
+                />
+              ))}
           </div>
-          <div className="flex flex-row gap-[8px] items-center">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <div
-                key={page}
-                role="button"
-                onClick={() => handlePageChange(page)}
-                className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                  currentPage === page ? 'text-purple_dark font-bold' : ''
-                }`}
-              >
-                {page}
+
+          {dataContent.length === 0 && (
+            <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+              <Image src={Search} alt="search" />
+              <div className="flex flex-col gap-4">
+                <div className="w-[324px] text-center">
+                  <p className="font-karla font-bold text-[24px]">
+                    Page Not Found
+                  </p>
+                  <p className="font-opensans text-[16px] mt-[12px]">
+                    Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                    cari.
+                  </p>
+                </div>
               </div>
-            ))}
-            <span
-              className="mt-[3px]"
-              role="button"
-              onClick={() => handlePageChange(totalPages)}
-            >
-              <Icon name="chevronRight" color="purple_dark" />
-            </span>
+            </div>
+          )}
+          <div className="flex flex-col gap-4 sm:flex-row justify-between">
+            <div>
+              <p className="text-[1.25rem]">
+                Menampilkan{' '}
+                <span className="font-bold text-syariah_green">
+                  {dataContent?.length === 0 ? 0 : startIndex + 1}-
+                  {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+                </span>{' '}
+                dari{' '}
+                <span className="font-bold text-syariah_green">
+                  {dataContent?.length}
+                </span>{' '}
+                hasil
+              </p>
+            </div>
+            <div className="flex flex-row gap-[8px] items-center">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <div
+                    key={page}
+                    role="button"
+                    onClick={() => handlePageChange(page)}
+                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                      currentPage === page ? 'text-syariah_green font-bold' : ''
+                    }`}
+                  >
+                    {page}
+                  </div>
+                )
+              )}
+              <span
+                className="mt-[3px]"
+                role="button"
+                onClick={() => handlePageChange(totalPages)}
+              >
+                <Icon name="chevronRight" color="syariah_green" />
+              </span>
+            </div>
           </div>
         </div>
       </SimpleContainer>
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-      <SimpleContainer>
-        <HelpCard
-          title={
-            <p className="text-[56px] text-white">
-              <span className="font-bold">Hello,</span> Ada yang bisa{' '}
-              <span className="font-bold">Avrista</span> bantu?
-            </p>
-          }
-          cardClassname="bg-syariah_green_informing"
-          buttonClassname="bg-white border border-white"
-          buttonTextClassname="text-syariah_green_informing"
-          buttonTitle="Tanya Avrista"
-          href="/tanya-avrista"
-          image={footer.imageUrl}
-        />
-      </SimpleContainer>
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+      <FooterInformation
+        bgColor="bg-syariah_green_informing"
+        outerClassName="bg-white"
+        buttonVariant="syariah"
+        title={
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+            <span className="font-bold">Hello,</span> Ada yang bisa{' '}
+            <span className="font-bold">Avrista</span> bantu?
+          </p>
+        }
+        buttonTitle="Tanya Avrista"
+        image={footer.imageUrl}
+        href={'/tanya-avrista'}
+      />
+      <RoundedFrameTop bgColor="bg-purple_superlight" frameColor="bg-white" />
       <FooterCards
+        bgColor="bg-purple_superlight"
         cards={[
           {
             title: 'Rumah Sakit Rekanan',

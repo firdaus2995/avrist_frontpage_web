@@ -211,7 +211,6 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
-    console.log(value);
     setSelectedChannels(value);
   };
 

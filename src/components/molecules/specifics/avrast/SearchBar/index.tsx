@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [keyword, setKeyword] = useState('');
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex flex-row items-center gap-[12px]">
       <input
         type="text"
         placeholder={placeholder}
