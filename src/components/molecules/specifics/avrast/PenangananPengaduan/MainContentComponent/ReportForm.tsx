@@ -93,8 +93,8 @@ const UploadBox = (props: UploadBoxProps) => {
 
 export const ReportForm = () => {
   return (
-    <div className="mt-[80px] bg-purple_superlight">
-      <div className="bg-white mt-[80px] mx-[136px] border rounded-xl border-gray_light overflow-hidden">
+    <div className="mt-[80px] bg-purple_superlight sm:px-[136px] xs:px-[24px]">
+      <div className="bg-white mt-[80px] border rounded-xl border-gray_light overflow-hidden">
         <div className="p-[36px]">
           <p className="font-karla font-bold text-[56px]">Form Pengaduan</p>
           <form className="mt-[36px]">
@@ -115,7 +115,7 @@ export const ReportForm = () => {
               </div>
             </div>
             {/* name & email */}
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8">
               <TextInput title="Nama" placeholder="Masukkan Nama Anda" />
               <TextInput
                 title="Alamat Email"
@@ -123,7 +123,7 @@ export const ReportForm = () => {
               />
             </div>
             {/* no phone & domisili */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8 mt-[36px]">
               <TextInputPhone
                 title="No. Telepon"
                 placeholder="Masukkan Nomor Telepon"
@@ -141,13 +141,13 @@ export const ReportForm = () => {
               />
             </div>
             {/* Upload Doc & contact */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8 mt-[36px]">
               {/* upload */}
               <div>
                 <p className="font-opensans font-bold text-[16px]">
                   Upload Dokumen
                 </p>
-                <div className="grid grid-cols-3 gap-2 mt-[8px]">
+                <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[8px]">
                   <UploadBox title="Upload KTP" textWidth={64} />
                   <UploadBox title="Upload Formulir" textWidth={64} />
                   <UploadBox title="Dokumen Pendukung" textWidth={140} />
@@ -205,7 +205,7 @@ export const ReportForm = () => {
               </span>
             </div>
             {/* submit */}
-            <div className="mt-[36px] flex flex-row justify-between items-center">
+            <div className="mt-[36px] flex sm:flex-row xs:flex-col justify-between items-center">
               <Image width={277} height={84} alt="symbol" src={CaptchaPicture} />                   
               <button className="bg-purple_dark text-white h-[64px] w-[132px] rounded-lg">
                 Kirim
@@ -215,7 +215,7 @@ export const ReportForm = () => {
         </div>
         <div className="h-[8px] bg-purple_dark" />
       </div>
-      <div className="px-[136px] mt-[24px] mb-[26px]">
+      <div className="sm:px-[136px] mt-[24px] mb-[26px]">
         <CardMenuDownload desc="Formulir Pengaduan" />
       </div>
     </div>

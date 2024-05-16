@@ -34,7 +34,7 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
     <div
       role="button"
       onClick={() => {}}
-      className="w-full p-4 items-center bg-white border-2 rounded-lg flex flex-row justify-between font-black mt-3"
+      className="w-full p-[24px] items-center bg-white border-2 rounded-[12px] flex flex-row justify-between font-bold mt-3 text-[24px] gap-[12px]"
     >
       <span>
         {desc}{' '}
@@ -43,7 +43,7 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
         </span>
       </span>
       <button
-        className="font-opensans font-semibold text-[16px] bg-purple_dark text-white w-[136px] h-[40px] rounded-md"
+        className="font-opensans font-semibold text-[16px] bg-purple_dark text-white w-[136px] h-[40px] rounded-md px-[20px] py-[8px]"
         onClick={() => onDownload && onDownload(href!)}
       >
         Unduh
