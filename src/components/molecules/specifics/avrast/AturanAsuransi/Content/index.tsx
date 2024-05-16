@@ -4,7 +4,10 @@ import Button from '@/components/atoms/Button/Button';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import { getContent } from '@/services/content-page.api';
 import { QueryParams } from '@/utils/httpService';
-import { contentStringTransformer, contentTransformer } from '@/utils/responseTransformer';
+import {
+  contentStringTransformer,
+  contentTransformer
+} from '@/utils/responseTransformer';
 
 const titleSideTab = [
   'Hak - Hak Nasabah',
@@ -14,7 +17,8 @@ const titleSideTab = [
 
 const contentTab: any = {
   'Hak - Hak Nasabah': {
-    title: 'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan,',
+    title:
+      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan,',
     subTitle: 'Hak Konsumen meliputi :',
     content: [
       'Mendapatkan keamanan dalam menggunakan produk dan/atau memanfaatkan layanan sesuai yang ditetapkan dalam ketentuan peraturan perundang-undangan dan/atau Polis.',
@@ -29,7 +33,8 @@ const contentTab: any = {
     ]
   },
   'Kewajiban Nasabah': {
-    title: 'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan.',
+    title:
+      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan.',
     subTitle: 'Kewajiban konsumen meliputi :',
     content: [
       'Mendengarkan penjelasan informasi mengenai produk dan/ layanan yang disampaikan dengan metode pemasaran tertentu oleh Perusahaan sebelum membeli produk dan/atau layanan Perusahaan.',
@@ -40,36 +45,49 @@ const contentTab: any = {
       'Mengikuti upaya penyelesaian Sengketa Pelindungan Konsumen sesuai dengan ketentuan perundang-undangan.'
     ]
   }
-}
+};
 
-  const renderContent = (description: string) => {
-    const isOrdered = description.includes('<ol>');
-    const isUnordered = description.includes('<ul>');
+const renderContent = (description: string) => {
+  const isOrdered = description.includes('<ol>');
+  const isUnordered = description.includes('<ul>');
 
-    if (isOrdered) {
-      return (
-        <p className="text-xl gap-4" dangerouslySetInnerHTML={{ __html: description.replace('<ol>', '<ol class="list-decimal pl-5">') }} />
-      );
-    }
-    if (isUnordered) {
-      return (
-        <p className="text-xl gap-4" dangerouslySetInnerHTML={{ __html: description.replace('<ul>', '<ul class="list-disc pl-5">') }} />
-      );
-    }
-    
+  if (isOrdered) {
     return (
-      <p className="text-xl gap-4" dangerouslySetInnerHTML={{ __html: description} }/>
-  );
+      <p
+        className="text-xl gap-4"
+        dangerouslySetInnerHTML={{
+          __html: description.replace('<ol>', '<ol class="list-decimal pl-5">')
+        }}
+      />
+    );
+  }
+  if (isUnordered) {
+    return (
+      <p
+        className="text-xl gap-4"
+        dangerouslySetInnerHTML={{
+          __html: description.replace('<ul>', '<ul class="list-disc pl-5">')
+        }}
+      />
+    );
   }
 
-  const renderedtabContent = (content: string[]) => (
-    <ol className='list-decimal marker:font-bold pl-5 text-xl'>
-      {content.map((item: string, index: number) => (
-        <li key={index} className='mb-4'>
-          <p className="text-xl gap-4">{item}</p>
-        </li>
-      ))}
-    </ol>
+  return (
+    <p
+      className="text-xl gap-4"
+      dangerouslySetInnerHTML={{ __html: description }}
+    />
+  );
+};
+
+const renderedtabContent = (content: string[]) => (
+  <ol className="list-decimal marker:font-bold pl-5 text-xl">
+    {content.map((item: string, index: number) => (
+      <li key={index} className="mb-4">
+        <p className="text-xl gap-4">{item}</p>
+      </li>
+    ))}
+  </ol>
 );
 
 const Content = () => {
@@ -78,24 +96,23 @@ const Content = () => {
 
   useEffect(() => {
     const fetchLastContentData = async () => {
-      const queryParams: QueryParams = { 
-        includeAttributes: 'true',
+      const queryParams: QueryParams = {
+        includeAttributes: 'true'
       };
       try {
-      const fetchedContent = await getContent('Hak-Nasabah', queryParams);
-      const { content } = contentTransformer(fetchedContent);
-      const title = contentStringTransformer(content['body-judul-konten']);
-      const isiKonten = contentStringTransformer(content['body-isi-konten']);
+        const fetchedContent = await getContent('Hak-Nasabah', queryParams);
+        const { content } = contentTransformer(fetchedContent);
+        const title = contentStringTransformer(content['body-judul-konten']);
+        const isiKonten = contentStringTransformer(content['body-isi-konten']);
 
-      setLastContentValue({
-        title, 
-        isiKonten
-      });
-      }
-      catch(error: any) {
+        setLastContentValue({
+          title,
+          isiKonten
+        });
+      } catch (error: any) {
         throw new Error(error);
       }
-    }
+    };
 
     if (titleSideTab[tab] === 'Cara Avrist Life Tangani Keluhan Nasabah') {
       fetchLastContentData().then();
@@ -104,7 +121,7 @@ const Content = () => {
 
   return (
     <div className="bg-purple_dark -mt-1">
-      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-[0.375rem] rounded-t-[65px] flex xs:flex-col md:flex-row justify-between gap-10">
+      <div className="bg-white pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[0.375rem] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between gap-[2.5rem]">
         <ButtonMenuVertical
           item={[
             {
@@ -128,48 +145,64 @@ const Content = () => {
           ]}
           outerClass="xs:w-full md:w-[12.5rem]"
         />
-        <div className="xs:w-full md:w-[82%] flex flex-col gap-8">
+        <div className="xs:w-full md:w-[82%] flex flex-col gap-[2rem]">
           <h1 className="xs:text-2xl md:text-4xl font-karla text-purple_dark font-medium">
             {titleSideTab[tab]}
           </h1>
-          {
-            !lastContentValue && titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ?
+          {!lastContentValue &&
+          titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ? (
             <>
-              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].title }} />
-              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].subTitle }} />
-              <div className="flex flex-col gap-8">
-                <span className="flex flex-col gap-4">
+              <h2
+                className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
+                dangerouslySetInnerHTML={{
+                  __html: contentTab[titleSideTab[tab]].title
+                }}
+              />
+              <h2
+                className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
+                dangerouslySetInnerHTML={{
+                  __html: contentTab[titleSideTab[tab]].subTitle
+                }}
+              />
+              <div className="flex flex-col gap-[2rem]">
+                <span className="flex flex-col gap-[1rem]">
                   <Suspense>
                     {renderedtabContent(contentTab[titleSideTab[tab]].content)}
                   </Suspense>
                 </span>
               </div>
             </>
-            :
-            ( lastContentValue && <>
-              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: lastContentValue.title }} />                          
-              <div className="flex flex-col gap-8">
-                <span className="flex flex-col gap-4">
-                  <Suspense>
-                    {renderContent(lastContentValue.isiKonten)}
-                  </Suspense>
-                </span>
-              </div>
-            </>)
-          }
-          <div className="p-[24px] border border-gray_light rounded-[12px] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[24px]">
-            <p className="font-bold text-[20px] text-purple_dark">
+          ) : (
+            lastContentValue && (
+              <>
+                <h2
+                  className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
+                  dangerouslySetInnerHTML={{ __html: lastContentValue.title }}
+                />
+                <div className="flex flex-col gap-[2rem]">
+                  <span className="flex flex-col gap-[1rem]">
+                    <Suspense>
+                      {renderContent(lastContentValue.isiKonten)}
+                    </Suspense>
+                  </span>
+                </div>
+              </>
+            )
+          )}
+          <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[1.5rem]">
+            <p className="font-bold text-[1.25rem] text-purple_dark">
               Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
             </p>
             <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-            <Button customButtonClass="bg-purple_dark text-white py-[8px] px-[20px]">
-              Ajukan Pengaduan
-            </Button>
+              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[1.25rem]">
+                Ajukan Pengaduan
+              </Button>
             </Link>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 

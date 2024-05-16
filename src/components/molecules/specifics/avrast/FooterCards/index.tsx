@@ -139,7 +139,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 <Image
                   alt={index.toString()}
                   src={item.icon}
-                  className="w-[100px] h-[100px]"
+                  className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                 />
                 <span>
                   <p className="font-bold text-[1.5rem]">{item.title}</p>
@@ -161,7 +161,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
 
       {/* Mobile */}
       <div className={bgColor ?? ''}>
-        <div className="md:hidden xs:mx-10 sm:px-[8.5rem] pb-[5rem] pt-[6px]">
+        <div className="md:hidden xs:mx-[2.5rem] sm:px-[8.5rem] pb-[5rem] pt-[0.375rem]">
           <Slider {...settings}>
             {cards.map((item, index) => {
               const href =
@@ -179,13 +179,13 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   }
                   key={index}
                   target={item.openInNewTab ? 'blank' : '_self'}
-                  className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[300px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
+                  className="flex flex-col justify-between w-full max-w-[17.125rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
                 >
                   <div className="flex justify-center">
                     <Image
                       alt={index.toString()}
                       src={item.icon}
-                      className="w-[100px] h-[100px]"
+                      className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                     />
                   </div>
                   <div className="text-center pt-[1.5rem]">

@@ -34,16 +34,16 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
     <div
       role="button"
       onClick={() => {}}
-      className="w-full p-[24px] items-center bg-white border-2 rounded-[12px] flex flex-row justify-between font-bold mt-3 text-[24px] gap-[12px]"
+      className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex flex-row justify-between font-bold mt-3 text-[1.5rem] gap-[0.75rem]"
     >
       <span>
         {desc}{' '}
-        <span className="font-opensans font-semibold text-[14px] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[8px] py-[4px] ml-[12px]">
+        <span className="font-opensans font-semibold text-[0.875rem] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[0.5rem] py-[0.25rem] ml-[0.75rem]">
           PDF
         </span>
       </span>
       <button
-        className="font-opensans font-semibold text-[16px] bg-purple_dark text-white w-[136px] h-[40px] rounded-md px-[20px] py-[8px]"
+        className="font-opensans font-semibold text-[1rem] bg-purple_dark text-white w-[8.5rem] h-[2.5rem] rounded-md px-[1.25rem] py-[0.5rem]"
         onClick={() => onDownload && onDownload(href!)}
       >
         Unduh

@@ -42,8 +42,8 @@ const Button: RootButton & React.FC<IButton> = ({
     <button
       className={`${
         disabled
-          ? `px-[20px] py-[8px] text-sm font-semibold ${BASE_DISABLE_BUTTON_CLASS}`
-          : `${BASE_BUTTON_CLASS} px-[20px] py-[8px] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
+          ? `px-[1.25rem] py-[0.5rem] text-sm font-semibold ${BASE_DISABLE_BUTTON_CLASS}`
+          : `${BASE_BUTTON_CLASS} px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
       }`}
       disabled={disabled ?? false}
       onClick={onClick}
