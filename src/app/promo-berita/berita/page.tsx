@@ -332,19 +332,20 @@ const Berita: React.FC<ParamsProps> = () => {
         includeAttributes: 'true',
         searchFilter: params.searchFilter,
         yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+        monthFilter: params.monthFilter,
+        category: params?.category
       });
 
       const data = fetchData.data.categoryList;
 
-      const transformedData = data['']?.map((item: any) => {
+      const transformedData = data['Berita Pers']?.map((item: any) => {
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
 
-        const judul = content['judul-berita-pers'].value;
-        const deskripsi = content['external-link-berita-pers'].value;
+        const judul = content['judul-artikel'].value;
+        const deskripsi = content['external-links'].value;
 
         return { judul, deskripsi };
       });
@@ -503,10 +504,12 @@ const Berita: React.FC<ParamsProps> = () => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      if (value !== 'Avrist Terkini') {
-        params.delete('category');
-      } else {
+      if (value === 'Avrist Terkini') {
         params.set('category', 'Berita dan Kegiatan');
+      } else if (value === 'Kumpulan Berita Pers') {
+        params.set('category', 'Berita Pers');
+      } else {
+        params.delete('category');
       }
 
       return params.toString();
@@ -532,7 +535,7 @@ const Berita: React.FC<ParamsProps> = () => {
           <p className="text-[20px]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
-              {contentData?.length === 0 ? 0 : startIndex + 1}-
+              {contentData?.length === 0 || contentData === undefined ? 0 : startIndex + 1}-
               {Math.min(endIndex, contentData ? contentData.length : 0)}
             </span>{' '}
             dari{' '}
@@ -1052,18 +1055,18 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-44">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
+          <h2 className="text-[53px] xs:max-sm:px-[136px] font-bold mb-6 text-purple_dark">
             Kumpulan Berita Pers
           </h2>
-          <h2 className="text-[20px] mb-6">
+          <h2 className="text-[2.25rem] mb-6 xl:px-[136px]">
             Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
             <span className="font-bold">kegiatan, produk</span> dan{' '}
             <span className="font-bold">layanan</span> dari Avrist Life
             Insurance. Melangkah bersama Kami!
           </h2>
 
-          <div className="w-full">
+          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
@@ -1098,10 +1101,15 @@ const Berita: React.FC<ParamsProps> = () => {
                   <div className="grid grid-cols-1 gap-[24px] w-full">
                     {paginatedData?.map((item: any, index: number) => (
                       <div key={index} className="w-full p-4 border rounded-xl">
-                        <p className="font-bold text-left">{item.judul}</p>
+                        <div
+                            className="font-bold text-left text-2xl"
+                            dangerouslySetInnerHTML={{
+                              __html: item.judul
+                            }}
+                          />
                         {
                           <div
-                            className="mt-5 w-full flex"
+                            className="mt-5 w-full flex text-sm text-[#5E217C]"
                             dangerouslySetInnerHTML={{
                               __html: item.deskripsi
                             }}
@@ -1130,13 +1138,13 @@ const Berita: React.FC<ParamsProps> = () => {
                 customButtonClass="bg-purple_dark rounded-xl"
                 customTextClass="text-white font-bold"
               />
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full" />
               </div>
             </div>
           }
