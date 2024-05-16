@@ -135,8 +135,8 @@ const Content = () => {
           {
             !lastContentValue && titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ?
             <>
-              <h2 className="xs:text-4xl md:text-[10rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].title }} />
-              <h2 className="xs:text-4xl md:text-[10rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].subTitle }} />
+              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].title }} />
+              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].subTitle }} />
               <div className="flex flex-col gap-8">
                 <span className="flex flex-col gap-4">
                   <Suspense>
@@ -147,7 +147,7 @@ const Content = () => {
             </>
             :
             ( lastContentValue && <>
-              <h2 className="xs:text-4xl md:text-[10rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: lastContentValue.title }} />                          
+              <h2 className="xs:text-4xl md:text-[3.5rem] font-karla font-bold" dangerouslySetInnerHTML={{ __html: lastContentValue.title }} />                          
               <div className="flex flex-col gap-8">
                 <span className="flex flex-col gap-4">
                   <Suspense>

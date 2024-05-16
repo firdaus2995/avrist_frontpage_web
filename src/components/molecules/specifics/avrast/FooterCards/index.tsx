@@ -117,7 +117,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
     <>
       {/* Desktop */}
       <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
-        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] h-full">
+        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] pt-[0.375rem] h-full">
           {cards.map((item, index) => {
             const href =
               item?.hrefType === 'phone'
