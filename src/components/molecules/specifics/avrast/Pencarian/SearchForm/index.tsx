@@ -44,7 +44,6 @@ const SearchForm = () => {
           searchFilter: searchKeyWords
         };
         const data = await handleGetContentCategory(currentSlug, queryParams);
-        console.log(data);
 
         if (activeTab === 'Asuransi Individu') {
           const data1 = contentCategoryTransformer(data, 'Asuransi Jiwa');
