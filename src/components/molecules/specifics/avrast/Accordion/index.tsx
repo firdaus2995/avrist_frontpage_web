@@ -24,16 +24,16 @@ const Accordion: React.FC<IAccordion> & {
   const [expand, setExpand] = useState<boolean>(false);
   return (
     <div
-      className={`rounded-xl border border-gray_light p-4 ${bgColor ?? 'bg-white'} flex flex-col gap-4 shadow-sm`}
+      className={`rounded-xl border border-gray_light p-[1.5rem] ${bgColor ?? 'bg-white'} flex flex-col gap-[1rem] shadow-sm`}
     >
       <div className="flex flex-row justify-between items-center">
-        <h1 className="text-xl 2xl:text-2xl font-bold">{title}</h1>
+        <h1 className="text-2xl font-bold">{title}</h1>
         {isUrl ? (
           <Link href={url ?? ''} target="blank">
             <Image
               alt="toggle"
               src={EXPAND}
-              className="cursor-pointer w-[24px] h-[24px]"
+              className="cursor-pointer w-[1.5rem] h-[1.5rem]"
             />
           </Link>
         ) : (
@@ -43,7 +43,7 @@ const Accordion: React.FC<IAccordion> & {
             onClick={() => {
               setExpand(!expand);
             }}
-            className="cursor-pointer w-[24px] h-[24px]"
+            className="cursor-pointer w-[1.5rem] h-[1.5rem]"
           />
         )}
       </div>

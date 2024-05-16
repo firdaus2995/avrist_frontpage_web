@@ -26,7 +26,7 @@ interface IButton {
 }
 
 const BASE_BUTTON_CLASS =
-  'inline-block text-sm font-medium border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
+  'inline-block text-sm font-semibold border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
 const BASE_DISABLE_BUTTON_CLASS =
   'bg-gray_light text-gray_black rounded cursor-not-allowed';
 
@@ -42,8 +42,8 @@ const Button: RootButton & React.FC<IButton> = ({
     <button
       className={`${
         disabled
-          ? `px-10 py-3 text-sm font-medium ${BASE_DISABLE_BUTTON_CLASS}`
-          : `${BASE_BUTTON_CLASS} px-10 py-3 text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
+          ? `px-[1.25rem] py-[0.5rem] text-sm font-semibold ${BASE_DISABLE_BUTTON_CLASS}`
+          : `${BASE_BUTTON_CLASS} px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white ${customButtonClass}`
       }`}
       disabled={disabled ?? false}
       onClick={onClick}
