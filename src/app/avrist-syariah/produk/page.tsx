@@ -297,7 +297,8 @@ const ProdukSyariah = () => {
             title: 'Kelola Polis',
             icon: ProdukPolis,
             subtitle: 'Login Akun',
-            href: 'https://my.avrist.com/welcome'
+            href: 'https://my.avrist.com/welcome',
+            openInNewTab: true
           },
           {
             title: 'Testimonial',

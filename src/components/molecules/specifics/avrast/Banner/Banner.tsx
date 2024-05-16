@@ -29,6 +29,7 @@ const handleGetContent = async (slug: string) => {
 
 const BannerAvrast = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const dropdownRef = useRef<any>(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [bannerData, setBannerData] = useState<any>([]);
 
@@ -46,6 +47,19 @@ const BannerAvrast = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: any): void => {
+      if (!dropdownRef?.current?.contains(e.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick, false);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick, false);
+    };
+  }, [dropdownVisible]);
 
   const sliderSettings = {
     dots: true,
@@ -66,7 +80,7 @@ const BannerAvrast = () => {
       <div
         style={{
           position: 'absolute',
-          left: 36,
+          left: 126,
           width: 150,
           bottom: 32
         }}
@@ -109,7 +123,7 @@ const BannerAvrast = () => {
                 ) => (
                   <div
                     key={index}
-                    className="flex w-full xs:h-[65vh] md:h-[auto] relative"
+                    className="flex w-full xs:min-h-[49rem] md:h-[40rem] relative"
                   >
                     <div className="md:hidden">
                       <Image
@@ -121,7 +135,7 @@ const BannerAvrast = () => {
                             : BlankImage
                         }
                         fill
-                        className="w-full h-auto object-cover object-left-bottom"
+                        className="w-full h-auto object-cover object-right-bottom"
                       />
                     </div>
                     <div className="md:block xs:hidden">
@@ -138,19 +152,19 @@ const BannerAvrast = () => {
                         className="w-screen h-auto object-cover"
                       />
                     </div>
-                    <div className="flex flex-col md:w-[40%] md:p-20 xs:p-10 gap-4 absolute z-50 top-10">
+                    <div className="flex flex-col 2xl:w-[50%] md:px-[9rem] md:py-10 absolute z-50 top-10 w-full xs:items-center md:items-start">
                       <p
-                        className={`xs:text-[20px] md:text-[28px] text-purple_dark whitespace-nowrap xs:mt-10 md:mt-0`}
+                        className={`xs:text-[1.5rem] md:text-[28px] text-purple_dark whitespace-nowrap font-karla font-medium`}
                       >
                         {contentStringTransformer(data['hero-teks1'])}
                       </p>
                       <div
-                        className="xs:text-[14px] md:text-[24px] xl:text-[36px]"
+                        className="xs:px-[2rem] md:px-0 xs:text-[2.813rem] md:text-[1.5rem] xl:text-[2.25rem] xs:text-center md:text-left font-karla md:font-normal leading-[3rem]"
                         dangerouslySetInnerHTML={{
                           __html: contentStringTransformer(data['hero-teks2'])
                         }}
                       />
-                      <div>
+                      <div className="mt-3">
                         <Link
                           href={contentStringTransformer(
                             data['hero-linkbutton']
@@ -169,69 +183,96 @@ const BannerAvrast = () => {
                 )
               )}
           </Slider>
-          <div className="flex flex-row justify-between absolute top-[50%] w-full px-5">
-            <div
-              className="p-2 border-2 rounded-full border-purple_dark"
-              role="button"
-              onClick={previous}
-            >
-              <Icon name="chevronLeft" color="purple_dark" />
-            </div>
-            <div
-              className="p-2 border-2 rounded-full border-purple_dark"
-              role="button"
-              onClick={next}
-            >
-              <Icon name="chevronRight" color="purple_dark" />
+          <div className="xs:hidden md:block absolute top-[50%] w-full">
+            <div className="flex flex-row justify-between w-full px-10">
+              <div
+                className="p-2 border-2 rounded-full border-purple_dark"
+                role="button"
+                onClick={previous}
+              >
+                <Icon name="chevronLeft" color="purple_dark" />
+              </div>
+              <div
+                className="p-2 border-2 rounded-full border-purple_dark"
+                role="button"
+                onClick={next}
+              >
+                <Icon name="chevronRight" color="purple_dark" />
+              </div>
             </div>
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
-          <div className="flex p-10 items-center justify-center text-white md:text-[36px] xs:text-[20px] text-left md:w-1/3 xs:w-full bg-dark-purple">
-            <p>
+          <div className="flex p-10 items-center xs:justify-start md:justify-center text-white md:text-4xl xs:text-xl text-left md:w-1/3 xs:w-full bg-dark-purple">
+            <p className="font-karla font-light">
               Temukan <span className="font-bold">kebutuhanmu </span> di sini
             </p>
           </div>
-          <div className="flex p-10 gap-4 items-center justify-left text-white md:text-[48px] xs:text-[24px] md:w-2/3 xs:w-full bg-purple_light relative">
-            <p>
+          <div className="flex xs:p-10 md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
+            <p className="font-karla font-medium">
               <span className="font-bold">Saya </span> membutuhkan
             </p>
             <button
-              className="text-white font-medium rounded-full text-sm p-2 text-center border-2"
+              className="text-white font-medium rounded-full text-sm p-2 text-center border-2 xs:w-[2rem] xs:h-[2rem] md:w-[2.5rem] md:h-[2.5rem]"
               type="button"
               onClick={toggleDropdown}
             >
               {dropdownVisible ? (
-                <Icon name="chevronRight" color="white" />
+                <>
+                  <div className="md:hidden rotate-[180deg]">
+                    <Icon
+                      name="chevronDown"
+                      color="white"
+                      width={12}
+                      height={12}
+                    />
+                  </div>
+                  <div className="xs:hidden md:block rotate-[180deg]">
+                    <Icon name="chevronDown" color="white" />
+                  </div>
+                </>
               ) : (
-                <Icon name="chevronDown" color="white" />
+                <>
+                  <div className="md:hidden">
+                    <Icon
+                      name="chevronDown"
+                      color="white"
+                      width={12}
+                      height={12}
+                    />
+                  </div>
+                  <div className="xs:hidden md:block">
+                    <Icon name="chevronDown" color="white" />
+                  </div>
+                </>
               )}
             </button>
           </div>
-            {dropdownVisible && (
-              <div
-                className={`absolute flex flex-col top-28 right-0 rounded-md bg-white w-[40vh] left-[50%] duration-300 transform`}
+          {dropdownVisible && (
+            <div
+              className={`absolute flex flex-col xs:top-44 md:top-28 right-0 rounded-md bg-white w-[40vh] md:right-[8.5rem] duration-300 transform`}
+              ref={dropdownRef}
+            >
+              <Link
+                href="/produk/individu"
+                className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium px-4 py-2 md:text-[20px] xs:text-[11px]"
               >
-                <Link
-                  href="/produk/individu"
-                  className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium px-4 py-2 md:text-[20px] xs:text-[11px]"
-                >
-                  Perlindungan Jiwa dan Kesehatan
-                </Link>
-                <Link
-                  href={`${EXTERNAL_URL.agiUrl}`}
-                  className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
-                >
-                  Perlindungan Harta Benda
-                </Link>
-                <Link
-                  href={`${EXTERNAL_URL.avramUrl}`}
-                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
-                >
-                  Manajemen Investasi
-                </Link>
-              </div>
-            )}
+                Perlindungan Jiwa dan Kesehatan
+              </Link>
+              <Link
+                href={`${EXTERNAL_URL.agiUrl}`}
+                className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
+              >
+                Perlindungan Harta Benda
+              </Link>
+              <Link
+                href={`${EXTERNAL_URL.avramUrl}`}
+                className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
+              >
+                Manajemen Investasi
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

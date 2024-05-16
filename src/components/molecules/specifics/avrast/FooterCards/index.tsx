@@ -104,7 +104,10 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
           slidesToShow: 1.2,
           slidesToScroll: 1,
           nextArrow: <CustomNextArrow />,
-          prevArrow: <CustomPrevArrow />
+          prevArrow: <CustomPrevArrow />,
+          vertical: true,
+          swipeToSlide: true,
+          verticalSwiping: true
         }
       }
     ]
@@ -131,7 +134,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       ? `mailto:${href}`
                       : href ?? '#'
                 }
-                className="relative border border-gray_superlight w-full h-auto pt-[1.5rem] px-[1.5rem] pb-[2.5rem] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white"
+                className="relative border border-gray_superlight w-full h-auto pt-[1.5rem] px-[1.5rem] pb-[2.5rem] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
                   alt={index.toString()}
