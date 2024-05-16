@@ -548,7 +548,7 @@ const Berita: React.FC<ParamsProps> = () => {
               key={page}
               role="button"
               onClick={() => handlePageChange(page)}
-              className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+              className={`w-6 h-6 flex items-center justify-center cursor-pointer text-xl ${
                 pagination.currentPage === page
                   ? 'text-purple_dark font-bold'
                   : ''
@@ -577,24 +577,27 @@ const Berita: React.FC<ParamsProps> = () => {
           { title: 'Beranda', href: '/' },
           { title: tab === 'Avrist Terkini' ? params.category : tab, href: '#' }
         ]}
+        bottomImage={data?.bannerImage}
         imageUrl={data?.titleImage}
       />
-      <div className="w-full grid grid-cols-3 gap-2 px-[136px] py-20 absolute z-20 top-32 rounded-t-[76px] bg-white">
-        {tabs.map((val, idx) => (
-          <div
-            key={idx}
-            role="button"
-            onClick={() => handleTabClick(val)}
-            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
-          >
-            {val}
-          </div>
-        ))}
+      <div className="w-full z-20 top-32">
+        <div className="grid lg:grid-cols-3 gap-2 px-[136px] py-20 bg-white">
+          {tabs.map((val, idx) => (
+            <div
+              key={idx}
+              role="button"
+              onClick={() => handleTabClick(val)}
+              className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+            >
+              {val}
+            </div>
+          ))}
+        </div>
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-44">
-          <h2 className="text-[32px] font-medium mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
+          <h2 className="text-[53px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -605,7 +608,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="text-[20px] mb-6">
+          <h2 className="text-[33px] mb-6">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -697,206 +700,80 @@ const Berita: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-
-          <CategoryWithThreeCards
-            defaultSelectedCategory={params.category}
-            onCategoryChange={(tab) => onCategoryChange(tab)}
-            filterRowLayout={true}
-            categoryCard="B"
-            categories={[
-              'Berita dan Kegiatan',
-              'AvriStory',
-              'Avrist Life Guide'
-            ]}
-            tabs={[
-              {
-                type: 'dropdown',
-                label: 'tahun',
-                options: yearDropdown(2009)
-              },
-              {
-                type: 'dropdown',
-                label: 'Bulan',
-                options: monthDropdown()
-              }
-            ]}
-            hidePagination
-            searchPlaceholder="Cari Kegiatan"
-            onSearchChange={(e) => {
-              setSearch(e.target.value);
-            }}
-            onSearch={() => {
-              setParams({ ...params, searchFilter: search });
-            }}
-            customContent={
-              <>
-                {params.category === 'Berita dan Kegiatan' ? (
-                  <div className="grid grid-cols-3 gap-[24px]">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <Link
-                        key={index}
-                        href={{
-                          pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
-                          query: { id: item.id }
-                        }}
-                      >
-                        <CardCategoryB
-                          summary={item.judul}
-                          description={item.waktu}
-                          imageUrl={item.image}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                ) : params.category === 'AvriStory' ? (
-                  <div className="grid grid-cols-1 gap-[24px] w-full">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <div
-                        key={index}
-                        className="w-full flex flex-row justify-between items-center p-4 border rounded-xl"
-                      >
-                        <div className="flex flex-row gap-2 items-center">
-                          <p className="font-bold">{item.namaFile}</p>
-                          <MediumTag title="PDF" />
-                        </div>
-                        <Button
-                          title="Unduh"
-                          customButtonClass="rounded-xl bg-purple_dark"
-                          customTextClass="text-white"
-                          onClick={async () => await handleDownload(item.file)}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 gap-[24px]">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <Link
-                        key={index}
-                        href={{
-                          pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                          query: { id: item.id }
-                        }}
-                      >
-                        <CardCategoryD
-                          type="row"
-                          title={htmlParser(item.judul)}
-                          summary={htmlParser(item.deskripsi)}
-                          category={item.tags}
-                          time={` | ${item.waktu}`}
-                          tags={[item.tags]}
-                          image={item.image}
-                          readTime={item.waktuBaca}
-                        />
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
-                {renderPage()}
-              </>
-            }
-            customLeftContent={
-              params.category === 'Avrist Life Guide' ? (
-                <div className="flex flex-col gap-4 mt-5 h-auto">
-                  <div className="border rounded-xl p-4 flex flex-col gap-4 text-left grow">
-                    <p className="font-semibold pb-2 border-b">
-                      Kategori Artikel
-                    </p>
-                    <div className="flex flex-col mt-5 gap-4">
-                      {lifeGuideCategory?.list?.map(
-                        (item: any, index: number) => (
-                          <div
-                            key={index}
-                            className="flex flex-row items-start gap-1 text-left"
-                            onClick={() => {
-                              setLifeGuideCategory({
-                                ...lifeGuideCategory,
-                                selectedCategory: item
-                              });
-                            }}
-                          >
-                            <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                              {item}
-                            </p>
-                            <Icon
-                              width={16}
-                              height={16}
-                              name="chevronRight"
-                              color="purple_dark"
-                            />
+          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
+            <CategoryWithThreeCards
+              defaultSelectedCategory={params.category}
+              onCategoryChange={(tab) => onCategoryChange(tab)}
+              filterRowLayout={true}
+              categoryCard="B"
+              categories={[
+                'Berita dan Kegiatan',
+                'AvriStory',
+                'Avrist Life Guide'
+              ]}
+              tabs={[
+                {
+                  type: 'dropdown',
+                  label: 'tahun',
+                  options: yearDropdown(2009)
+                },
+                {
+                  type: 'dropdown',
+                  label: 'Bulan',
+                  options: monthDropdown()
+                }
+              ]}
+              hidePagination
+              searchPlaceholder="Cari Buletin"
+              onSearchChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              onSearch={() => {
+                setParams({ ...params, searchFilter: search });
+              }}
+              customContent={
+                <>
+                  {params.category === 'Berita dan Kegiatan' ? (
+                    <div className="grid grid-cols-3 gap-[24px]">
+                      {paginatedData?.map((item: any, index: number) => (
+                        <Link
+                          key={index}
+                          href={{
+                            pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                            query: { id: item.id }
+                          }}
+                        >
+                          <CardCategoryB
+                            summary={item.judul}
+                            description={item.waktu}
+                            imageUrl={item.image}
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  ) : params.category === 'AvriStory' ? (
+                    <div className="grid lg:grid-cols-1 gap-[24px] w-full">
+                      {paginatedData?.map((item: any, index: number) => (
+                        <div
+                          key={index}
+                          className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
+                        >
+                          <div className="flex flex-row gap-2 items-center">
+                            <p className="font-bold text-2xl">{item.namaFile}</p>
+                            <MediumTag title="PDF" />
                           </div>
-                        )
-                      )}
+                          <Button
+                            title="Unduh"
+                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
+                            customTextClass="text-white text-xl"
+                            onClick={async () => await handleDownload(item.file)}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                  <div className="border rounded-xl p-4 flex flex-col gap-4 text-left bg-purple_verylight">
-                    <p className="font-bold text-[24px] text-purple_dark">
-                      Subscribe!
-                    </p>
-                    <p className="text-[14px]">
-                      Informasi terkini mengenai Avrist Life Insurance
-                    </p>
-                    <Input placeholder="Masukkan email Anda" />
-                    <Button
-                      title="Subscribe"
-                      customButtonClass="bg-purple_dark rounded-xl"
-                      customTextClass="text-white font-bold"
-                    />
-                  </div>
-                  <div className="border rounded-xl p-4 flex flex-col gap-4 text-left">
-                    <p className="font-bold text-[16px]">Ikuti Kami</p>
-                    <div className="flex flex-row gap-2">
-                      <Link
-                        href="https://www.youtube.com/@avristian"
-                        target="blank"
-                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
-                      >
-                        <Icon name="youtubeIcon" color="purple_dark" />
-                      </Link>
-                      <Link
-                        href="https://id.linkedin.com/company/avristassurance"
-                        target="blank"
-                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
-                      >
-                        <Icon name="linkedInIcon" color="purple_dark" />
-                      </Link>
-                      <Link
-                        href="https://www.instagram.com/avristsolution/"
-                        target="blank"
-                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
-                      >
-                        <Icon name="instaIcon" color="purple_dark" />
-                      </Link>
-                      <Link
-                        href="https://www.facebook.com/avrist/"
-                        target="blank"
-                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
-                      >
-                        <Icon name="facebookIcon" color="purple_dark" />
-                      </Link>
-                      <Link
-                        href="https://www.tiktok.com/@avrist.assurance"
-                        target="blank"
-                        className="p-2 rounded-xl bg-purple_dark/[0.06]"
-                      >
-                        <Icon name="tiktokIcon" color="purple_dark" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ) : null
-            }
-            customRightContent={
-              params.category === 'Avrist Life Guide' ? (
-                <div className="flex flex-col gap-4 mt-5 h-full">
-                  <p className="font-semibold pb-2 text-left text-[24px]">
-                    Terbaru
-                  </p>
-                  <div className="grid grid-cols-2 gap-[24px]">
-                    {contentData
-                      ?.slice(0, 4)
-                      .map((item: any, index: number) => (
+                  ) : (
+                    <div className="grid grid-cols-1 gap-[24px]">
+                      {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
                           href={{
@@ -905,7 +782,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           }}
                         >
                           <CardCategoryD
-                            key={index}
+                            type="row"
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
                             category={item.tags}
@@ -916,14 +793,141 @@ const Berita: React.FC<ParamsProps> = () => {
                           />
                         </Link>
                       ))}
+                    </div>
+                  )}
+
+                  {renderPage()}
+                </>
+              }
+              customLeftContent={
+                params.category === 'Avrist Life Guide' ? (
+                  <div className="flex flex-col gap-4 mt-5 h-auto">
+                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left grow">
+                      <p className="font-semibold pb-2 border-b">
+                        Kategori Artikel
+                      </p>
+                      <div className="flex flex-col mt-5 gap-4">
+                        {lifeGuideCategory?.list?.map(
+                          (item: any, index: number) => (
+                            <div
+                              key={index}
+                              className="flex flex-row items-start gap-1 text-left"
+                              onClick={() => {
+                                setLifeGuideCategory({
+                                  ...lifeGuideCategory,
+                                  selectedCategory: item
+                                });
+                              }}
+                            >
+                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                                {item}
+                              </p>
+                              <Icon
+                                width={16}
+                                height={16}
+                                name="chevronRight"
+                                color="purple_dark"
+                              />
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left bg-purple_verylight">
+                      <p className="font-bold text-2xl text-purple_dark">
+                        Subscribe!
+                      </p>
+                      <p className="text-[14px]">
+                        Informasi terkini mengenai Avrist Life Insurance
+                      </p>
+                      <Input placeholder="Masukkan email Anda" />
+                      <Button
+                        title="Subscribe"
+                        customButtonClass="bg-purple_dark rounded-xl"
+                        customTextClass="text-white font-bold"
+                      />
+                    </div>
+                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left">
+                      <p className="font-bold text-[16px]">Ikuti Kami</p>
+                      <div className="flex flex-row gap-2">
+                        <Link
+                          href="https://www.youtube.com/@avristian"
+                          target="blank"
+                          className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                        >
+                          <Icon name="youtubeIcon" color="purple_dark" />
+                        </Link>
+                        <Link
+                          href="https://id.linkedin.com/company/avristassurance"
+                          target="blank"
+                          className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                        >
+                          <Icon name="linkedInIcon" color="purple_dark" />
+                        </Link>
+                        <Link
+                          href="https://www.instagram.com/avristsolution/"
+                          target="blank"
+                          className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                        >
+                          <Icon name="instaIcon" color="purple_dark" />
+                        </Link>
+                        <Link
+                          href="https://www.facebook.com/avrist/"
+                          target="blank"
+                          className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                        >
+                          <Icon name="facebookIcon" color="purple_dark" />
+                        </Link>
+                        <Link
+                          href="https://www.tiktok.com/@avrist.assurance"
+                          target="blank"
+                          className="p-2 rounded-xl bg-purple_dark/[0.06]"
+                        >
+                          <Icon name="tiktokIcon" color="purple_dark" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <p className="font-semibold pb-2 text-left text-[24px] mt-10">
-                    Artikel Lainnya
-                  </p>
-                </div>
-              ) : null
-            }
-          />
+                ) : null
+              }
+              customRightContent={
+                params.category === 'Avrist Life Guide' ? (
+                  <div className="flex flex-col gap-4 mt-5 h-full">
+                    <p className="font-semibold pb-2 text-left text-[24px]">
+                      Terbaru
+                    </p>
+                    <div className="grid grid-cols-2 gap-[24px]">
+                      {contentData
+                        ?.slice(0, 4)
+                        .map((item: any, index: number) => (
+                          <Link
+                            key={index}
+                            href={{
+                              pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                              query: { id: item.id }
+                            }}
+                          >
+                            <CardCategoryD
+                              key={index}
+                              title={htmlParser(item.judul)}
+                              summary={htmlParser(item.deskripsi)}
+                              category={item.tags}
+                              time={` | ${item.waktu}`}
+                              tags={[item.tags]}
+                              image={item.image}
+                              readTime={item.waktuBaca}
+                            />
+                          </Link>
+                        ))}
+                    </div>
+                    <p className="font-semibold pb-2 text-left text-[24px] mt-10">
+                      Artikel Lainnya
+                    </p>
+                  </div>
+                ) : null
+              }
+            />
+          </div>
         </div>
       )}
 
@@ -1119,7 +1123,7 @@ const Berita: React.FC<ParamsProps> = () => {
         <RoundedFrameBottom />
         <FooterInformation
           title={
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 px-2">
               <p className="text-[56px]">Subscribe Informasi Terkini!</p>
               <Button
                 title="Avrist Life Insurance"
