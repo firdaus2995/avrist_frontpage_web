@@ -104,7 +104,7 @@ const Content = () => {
 
   return (
     <div className="bg-purple_dark -mt-1">
-      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2 rounded-t-[65px] flex xs:flex-col md:flex-row justify-between gap-10">
+      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-[6px] rounded-t-[65px] flex xs:flex-col md:flex-row justify-between gap-10">
         <ButtonMenuVertical
           item={[
             {
@@ -126,7 +126,7 @@ const Content = () => {
               }
             }
           ]}
-          outerClass="xs:w-full md:w-[26%]"
+          outerClass="xs:w-full md:w-[200px]"
         />
         <div className="xs:w-full md:w-[82%] flex flex-col gap-8">
           <h1 className="xs:text-2xl md:text-4xl font-karla text-purple_dark font-medium">
@@ -135,8 +135,8 @@ const Content = () => {
           {
             !lastContentValue && titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ?
             <>
-              <h2 className="xs:text-4xl md:text-[50px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].title }} />
-              <h2 className="xs:text-4xl md:text-[50px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].subTitle }} />
+              <h2 className="xs:text-4xl md:text-[56px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].title }} />
+              <h2 className="xs:text-4xl md:text-[56px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: contentTab[titleSideTab[tab]].subTitle }} />
               <div className="flex flex-col gap-8">
                 <span className="flex flex-col gap-4">
                   <Suspense>
@@ -147,7 +147,7 @@ const Content = () => {
             </>
             :
             ( lastContentValue && <>
-              <h2 className="xs:text-4xl md:text-[50px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: lastContentValue.title }} />                          
+              <h2 className="xs:text-4xl md:text-[56px] font-karla font-bold" dangerouslySetInnerHTML={{ __html: lastContentValue.title }} />                          
               <div className="flex flex-col gap-8">
                 <span className="flex flex-col gap-4">
                   <Suspense>
@@ -157,12 +157,12 @@ const Content = () => {
               </div>
             </>)
           }
-          <div className="p-4 border border-gray_light rounded-xl flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-4">
-            <p className="font-bold text-xl text-purple_dark">
+          <div className="p-[24px] border border-gray_light rounded-[12px] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[24px]">
+            <p className="font-bold text-[20px] text-purple_dark">
               Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
             </p>
             <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-            <Button customButtonClass="bg-purple_dark text-white">
+            <Button customButtonClass="bg-purple_dark text-white py-[8px] px-[20px]">
               Ajukan Pengaduan
             </Button>
             </Link>

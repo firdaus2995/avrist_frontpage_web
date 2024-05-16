@@ -105,7 +105,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
           slidesToScroll: 1,
           nextArrow: <CustomNextArrow />,
           prevArrow: <CustomPrevArrow />,
-          vertical: true,
+          vertical: false,
           swipeToSlide: true,
           verticalSwiping: true
         }
