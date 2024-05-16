@@ -109,6 +109,7 @@ const Promo: React.FC<ParamsProps> = () => {
       handleGetContentPage(BASE_SLUG.PROMO_BERITA.PAGE.PENAWARAN).then(
         (res: any) => {
           const { content } = pageTransformer(res);
+          console.log({ content });
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
@@ -267,7 +268,7 @@ const Promo: React.FC<ParamsProps> = () => {
     return (
       <div className="flex flex-col gap-4 sm:flex-row justify-between">
         <div>
-          <p className="text-[20px]">
+          <p className="text-[1.25rem]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
               {contentData?.length === 0 ? 0 : startIndex + 1}-
@@ -280,7 +281,7 @@ const Promo: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <div className="flex flex-row gap-[8px] items-center">
+        <div className="flex flex-row gap-[0.5rem] items-center">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <div
               key={page}
@@ -296,7 +297,7 @@ const Promo: React.FC<ParamsProps> = () => {
             </div>
           ))}
           <span
-            className="mt-[3px]"
+            className="mt-[0.18rem]"
             role="button"
             onClick={() => handlePageChange(totalPages)}
           >
@@ -307,6 +308,7 @@ const Promo: React.FC<ParamsProps> = () => {
     );
   };
 
+  console.log({ data });
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
       <Hero
@@ -319,20 +321,21 @@ const Promo: React.FC<ParamsProps> = () => {
         bottomImage={data?.bannerImage ?? BlankImage}
       />
       <div className="w-full flex flex-col items-center justify-center py-20 text-center relative">
-        <div className="-mt-20 absolute z-20 top-2 w-full rounded-t-[76px] bg-white py-20">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+        <div className="-mt-20 absolute z-20 top-2 w-full rounded-t-[4.75rem] bg-white pt-20 pb-16 flex flex-col items-center">
+          <h2 className="text-6xl font-bold mb-3 text-purple_dark font-karla">
             Avrist Promo Terbaru
           </h2>
-          <h2 className="text-[24px] mb-6">
+          <h2 className="mb-6 font-normal text-gray_body font-karla text-4xl">
             Ikuti terus kuis menarik di Instagram{' '}
             <span className="font-semibold text-purple_dark">
               @avristsolution{' '}
             </span>
+            <br />
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
           </h2>
         </div>
 
-        <div className="w-full p-10 mt-10">
+        <div className="w-full pb-16 mt-10">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;
@@ -344,16 +347,16 @@ const Promo: React.FC<ParamsProps> = () => {
                 key={index}
                 title={
                   <div className="flex flex-col gap-4 text-left">
-                    <p className="text-[24px] font-bold">
+                    <p className="text-[1.5rem] font-bold">
                       {htmlParser(item.judul)}
                     </p>
-                    <p className="text-[16px] line-clamp-4">
+                    <p className="text-[1rem] line-clamp-4">
                       {htmlParser(item.deskripsi).substring(0, 250)}
                     </p>
-                    <div className="flex flex-row flex-wrap gap-[12px]">
+                    <div className="flex flex-row flex-wrap gap-[0.75rem]">
                       <MediumTag title={item.tags} />
                     </div>
-                    <div className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark">
+                    <div className="flex flex-row items-center flex-wrap gap-[0.75rem] font-bold text-purple_dark">
                       Selengkapnya
                       <Icon name="chevronRight" color="purple_dark" />
                     </div>
@@ -367,7 +370,7 @@ const Promo: React.FC<ParamsProps> = () => {
               />
             ))}
           </Slider>
-          <div className="flex flex-row justify-between w-full px-20">
+          <div className="flex flex-row justify-between w-full container mx-auto mt-4">
             <div
               className="p-2 border-2 rounded-full border-purple_dark"
               role="button"
@@ -387,6 +390,7 @@ const Promo: React.FC<ParamsProps> = () => {
 
         <div className="w-full">
           <CategoryWithThreeCards
+            searchPlaceholder="Cari Buletin"
             hidePagination
             defaultSelectedCategory={category}
             filterRowLayout={true}
@@ -417,7 +421,7 @@ const Promo: React.FC<ParamsProps> = () => {
             }}
             customContent={
               <>
-                <div className="grid grid-cols-3 gap-[24px] w-full">
+                <div className="grid grid-cols-3 gap-[1.5rem] w-full">
                   {paginatedData?.map((item: any, index: number) => (
                     <Link
                       key={index}
@@ -449,7 +453,7 @@ const Promo: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="text-[3.5rem] font-karla font-normal">Subscribe Informasi Terkini!</p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
@@ -461,7 +465,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl" customTextClass="text-[1rem]" />
               </div>
             </div>
           }
