@@ -47,8 +47,8 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
             <Button
               key={i}
               title={i}
-              customButtonClass={`w-full flex-1 h-full ${params === i ? 'bg-purple_dark' : ''}`}
-              customTextClass={`${params === i ? 'text-white' : ''}`}
+              customButtonClass={`w-full flex-1 h-full py-[8px] px-[20px] ${params === i ? 'bg-purple_dark' : ''}`}
+              customTextClass={`${params === i ? 'text-white' : ''} font-semibold`}
             />
           </Link>
         ))}
@@ -74,7 +74,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
               <Button
                 key={i}
                 title={i}
-                customButtonClass={`w-full h-full ${params === i ? 'bg-purple_dark' : ''}`}
+                customButtonClass={`w-[95%] h-full ${params === i ? 'bg-purple_dark' : ''}`}
                 customTextClass={`${params === i ? 'text-white' : ''} line-clamp-1`}
               />
             </Link>
