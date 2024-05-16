@@ -4,7 +4,6 @@ import Icon2 from '@/assets/images/common/home-add.svg';
 import MisiIcon from '@/assets/images/common/misi.svg';
 import Icon6 from '@/assets/images/common/money-hand.svg';
 import Icon5 from '@/assets/images/common/money-leaf.svg';
-import SampleVideo from '@/assets/images/common/sample-video.svg';
 import Icon3 from '@/assets/images/common/store.svg';
 import VisiIcon from '@/assets/images/common/visi.svg';
 import Icon4 from '@/assets/images/common/wallet.svg';
@@ -17,6 +16,7 @@ import {
   handleGetContent,
   handleGetContentPage
 } from '@/services/content-page.api';
+import { getYouTubeId } from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer
@@ -165,12 +165,12 @@ const SekilasPerusahaan = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col bg-white justify-center">
-      <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
-        <p className="text-[48px]">
+    <div className="w-full flex flex-col bg-white justify-center ">
+      <div className="flex flex-col gap-[1.25rem] px-[2rem] md:px-[8.5rem] xs:py-[1.5rem] md:py-[4rem] font-karla">
+        <p className="text-[3rem]">
           <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>
-        <p>
+        <p className="text-[1.5rem] font-light">
           PT Avrist Assurance (Avrist) adalah perusahaan asuransi jiwa patungan
           pertama di Indonesia yang telah berdiri sejak tahun 1975, Avrist
           Assurance terus berkembang menjadi salah satu perusahaan asuransi jiwa
@@ -185,15 +185,16 @@ const SekilasPerusahaan = () => {
           memiliki sertifikasi dan lebih dari 300 karyawan yang tersebar di 21
           kantor pemasaran Avrist.
         </p>
-        <div className="flex justify-center w-full h-[650px] mb-16">
+        <div className="flex justify-center w-full md:h-[650px] my-[1.25rem]">
           <VideoPlayer
             color="purple_dark"
-            type={contentPage?.content['sekilasavrist-captionvideo'].value}
-            url={contentPage?.content['sekilasavrist-video'].value}
-            thumbnail={SampleVideo}
+            url={
+              getYouTubeId(contentPage?.content['sekilasavrist-video'].value) ??
+              ''
+            }
           />
         </div>
-        <p>
+        <p className="font-karla text-[1.5rem] font-light">
           Sejalan dengan perkembangannya tersebut, Avrist telah memiliki Dana
           Pensiun Lembaga Keuangan (DPLK) Avrist dan 2 (dua) anak
           perusahaan/subsidiary yaitu, PT Avrist General Insurance, dan PT
@@ -203,9 +204,12 @@ const SekilasPerusahaan = () => {
           dan pemegang polis. PT Avrist Assurance berizin dan diawasi oleh
           Otoritas Jasa Keuangan.
         </p>
-        <div className="mt-20">
-          {contentData && <Timeline data={contentData} />}
-        </div>
+      </div>
+
+      <div className="w-full">
+        {contentData && <Timeline data={contentData} />}
+      </div>
+      <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
         <VisiMisi data={visiMisi} />
       </div>
 

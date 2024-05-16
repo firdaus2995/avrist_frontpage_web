@@ -1,9 +1,8 @@
 'use client';
-import React, { useCallback, useEffect, useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Karir from './tabs/karir';
 import LaporanPerusahaan from './tabs/laporan-perusahaan';
 import Manajemen from './tabs/management';
@@ -20,6 +19,7 @@ import Icon7 from '@/assets/images/common/procedure.svg';
 import Icon8 from '@/assets/images/common/youtube.svg';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -32,8 +32,6 @@ import {
 } from '@/utils/responseTransformer';
 
 const TentangAvristLife: React.FC<ParamsProps> = () => {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
   const [data, setData] = useState<PageResponse>();
@@ -42,22 +40,6 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     ctaImage: ''
   });
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
-
-  const handleTabClick = (tabs: string) => {
-    setTab(tabs);
-    router.push(pathname + '?' + createQueryString('tab', tabs), {
-      scroll: false
-    });
-  };
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   useEffect(() => {
     const value = searchParams.get('tab');
@@ -100,7 +82,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white">
+    <div className="flex flex-col items-center justify-center bg-purple_dark">
       <Hero
         title={tab}
         breadcrumbsData={[
@@ -109,22 +91,26 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={transformedData.titleImage}
       />
-      <div className="w-full grid grid-cols-5 gap-2 px-[136px] py-20 absolute z-20 top-80 rounded-t-[76px] bg-white ">
-        {tabs.map((value, idx) => (
-          <div
-            key={idx}
-            role="button"
-            onClick={() => {
-              handleTabClick(value.name);
-              handleSelectedDetail(false);
-            }}
-            className={`p-2 border border-purple_dark rounded-lg text-center ${tab === value.name ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
-          >
-            {value.name}
-          </div>
-        ))}
+      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white">
+        <CategoryPills
+          buttonTitle={tabs.map((item: any) => item.name)}
+          buttonActiveClassname="bg-purple_dark border-purple_dark"
+          buttonInactiveClassname="bg-transparent border-purple_dark text-purple_dark hover:bg-purple_dark hover:border-purple_dark hover:text-white"
+          buttonActiveTextClassname="text-white"
+          links={{
+            'Sekilas Perusahaan':
+              '/tentang-avrist-life/tentang-avrist-life?tab=Sekilas+Perusahaan',
+            Manajemen: '/tentang-avrist-life/tentang-avrist-life?tab=Manajemen',
+            Penghargaan:
+              '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
+            'Laporan Perusahaan':
+              '/tentang-avrist-life/tentang-avrist-life?tab=Laporan+Perusahaan',
+            'Karir Bersama Avrist':
+              '/tentang-avrist-life/tentang-avrist-life?tab=Karir+Bersama+Avrist'
+          }}
+        />
       </div>
-      <div className="mt-44 w-full">
+      <div className="w-full">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
         {tab === 'Manajemen' && (
           <Manajemen onSelectDetail={handleSelectedDetail} />
