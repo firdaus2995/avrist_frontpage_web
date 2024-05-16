@@ -106,7 +106,8 @@ const CompanySection = () => {
     centerMode: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    adaptiveHeight: true
   };
 
   const renderCard = (val: {
@@ -141,7 +142,7 @@ const CompanySection = () => {
         className={`md:mx-[4.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
-          className={`md:w-1/2 xs:w-full p-5 flex h-full flex-col items-start justify-center gap-6 md:gap-10 text-white`}
+          className={`xs:h-[250px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
         >
           <p className="md:text-[3.5rem] xs:text-2xl font-black text-left font-karla leading-normal md:leading-[0.8]">
             {val.category}
@@ -179,7 +180,7 @@ const CompanySection = () => {
                 />
               </Link>
             </div>
-            <div className="flex flex-row items-center gap-2 flex-wrap">
+            <div className="flex flex-row items-center gap-2 flex-wrap text-left">
               <div className="flex flex-row items-center gap-2">
                 <Image
                   src={val.icon2}
