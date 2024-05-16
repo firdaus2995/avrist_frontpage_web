@@ -53,19 +53,19 @@ export const ReportList = ({
       <div className="w-full flex md:flex-row xs:flex-col">
         <div className="xs:hidden md:block">
           <div
-            className={`flex flex-col bg-purple_light_bg rounded-lg w-[200px]`}
+            className={`flex flex-col bg-purple_light_bg rounded-[12px] w-[200px]`}
           >
             {[...categoriesInitial].map((category, index) => (
               <div
                 key={index}
                 role="button"
                 className={`${
-                  index === 0 && 'rounded-tl-lg'
+                  index === 0 && 'rounded-tl-[12px]'
                 } ${
-                  index + 1 === categoriesInitial.length && 'rounded-bl-lg'
+                  index + 1 === categoriesInitial.length && 'rounded-bl-[12px]'
                 } ${
                   selectedCategory !== category && 'opacity-50'
-                } border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                } border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-[18px]`}
                 onClick={() => onSelectedCategory(category)}
               >
                 {category}
@@ -74,11 +74,11 @@ export const ReportList = ({
           </div>
         </div>
 
-        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 ml-[48px]">
+        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px]">
           <div>
             {/* filter */}
-            <div className="flex flex-row justify-between mb-[24px]">
-              <div className="text-purple_dark border-1 px-[5px] py-[8px] rounded-md border-purple_dark">
+            <div className="flex sm:flex-row xs:flex-col justify-between mb-[24px] gap-[24px]">
+              <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark">
                 <select value={selectedYear} onChange={handleYearChange}>
                   <option value="" disabled selected>
                     Pilih Tahun
@@ -92,14 +92,14 @@ export const ReportList = ({
                   }
                 </select>
               </div>
-              <div>
+              <div className='flex flex-row gap-[8px]'>
                 <input
                   placeholder="Cari Laporan"
-                  className="w-[365px] py-[8px] px-[16px] rounded-xl bg-purple_dark/5"
+                  className="w-[365px] py-[12px] px-[16px] rounded-xl bg-purple_dark/5"
                   onChange={handleSeachChange}
                   value={keyword}
                 />
-                <button className="py-[8px] px-[20px] bg-purple_dark text-white rounded-md ml-[12px]" onClick={() => onChangeSearch(keyword)}>
+                <button className="py-[8px] px-[20px] bg-purple_dark text-white rounded-[6px]" onClick={() => onChangeSearch(keyword)}>
                   Cari
                 </button>
               </div>

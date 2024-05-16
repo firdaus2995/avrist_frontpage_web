@@ -93,29 +93,29 @@ const UploadBox = (props: UploadBoxProps) => {
 
 export const ReportForm = () => {
   return (
-    <div className="mt-[80px] bg-purple_superlight">
-      <div className="bg-white mt-[80px] mx-[136px] border rounded-xl border-gray_light overflow-hidden">
-        <div className="p-[36px]">
-          <p className="font-karla font-bold text-[56px]">Form Pengaduan</p>
-          <form className="mt-[36px]">
+    <div className="mt-[5rem] bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem]">
+      <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden">
+        <div className="p-[2.25rem]">
+          <p className="font-karla font-bold text-[3.5rem]">Form Pengaduan</p>
+          <form className="mt-[2.25rem]">
             {/* radio */}
             <div>
-              <p className="font-opensans font-bold text-[16px]">
+              <p className="font-opensans font-bold text-[1rem]">
                 Pemegang Polis <span className="text-red_error">*</span>
               </p>
-              <div className="mt-[8px]">
+              <div className="mt-[0.5rem]">
                 <label>
                   <input type="radio" value="option1" />
-                  <span className="ml-[12px]">Ya</span>
+                  <span className="ml-[0.75rem]">Ya</span>
                 </label>
-                <label className="ml-[32px]">
+                <label className="ml-[2rem]">
                   <input type="radio" value="option1" />
-                  <span className="ml-[12px]">Tidak</span>
+                  <span className="ml-[0.75rem]">Tidak</span>
                 </label>
               </div>
             </div>
             {/* name & email */}
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8">
               <TextInput title="Nama" placeholder="Masukkan Nama Anda" />
               <TextInput
                 title="Alamat Email"
@@ -123,7 +123,7 @@ export const ReportForm = () => {
               />
             </div>
             {/* no phone & domisili */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8 mt-[2.25rem]">
               <TextInputPhone
                 title="No. Telepon"
                 placeholder="Masukkan Nomor Telepon"
@@ -134,67 +134,72 @@ export const ReportForm = () => {
               />
             </div>
             {/* Text area */}
-            <div className="mt-[36px]">
+            <div className="mt-[2.25rem]">
               <TextInputArea
                 title="Detail Pengaduan"
                 placeholder="Tulis detail pengaduan anda"
               />
             </div>
             {/* Upload Doc & contact */}
-            <div className="grid grid-cols-2 gap-8 mt-[36px]">
+            <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8 mt-[2.25rem]">
               {/* upload */}
               <div>
-                <p className="font-opensans font-bold text-[16px]">
+                <p className="font-opensans font-bold text-[1rem]">
                   Upload Dokumen
                 </p>
-                <div className="grid grid-cols-3 gap-2 mt-[8px]">
-                  <UploadBox title="Upload KTP" textWidth={64} />
-                  <UploadBox title="Upload Formulir" textWidth={64} />
-                  <UploadBox title="Dokumen Pendukung" textWidth={140} />
+                <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[0.5rem]">
+                  <UploadBox title="Upload KTP" textWidth={4} />
+                  <UploadBox title="Upload Formulir" textWidth={4} />
+                  <UploadBox title="Dokumen Pendukung" textWidth={8.75} />
                 </div>
               </div>
               {/* contact support */}
               <div className="border border-gray_light rounded-xl flex flex-col justify-between overflow-hidden">
-                <div className="p-[24px]">
+                <div className="p-[1.5rem]">
                   <div className="flex flex-row items-center">
-                     <Image width={24} height={24} alt="symbol" src={CUSTOMER_SERVICE} />                   
-                    <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
+                    <Image
+                      width={1.5}
+                      height={1.5}
+                      alt="symbol"
+                      src={CUSTOMER_SERVICE}
+                    />
+                    <span className=" ml-[1.5rem] font-opensans font-bold text-[1rem] w-[11.5625rem]">
                       Layanan Nasabah
                     </span>
-                    <span className="text-purple_dark font-normal text-[16px]">
+                    <span className="text-purple_dark font-normal text-[1rem]">
                       021 5789 8188
                     </span>
                   </div>
                   {/*  */}
-                  <div className="flex flex-row items-center mt-[12px]">
-                    <Image width={24} height={24} alt="symbol" src={EMAIL} />                   
-                    <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
+                  <div className="flex flex-row items-center mt-[0.75rem]">
+                    <Image width={1.5} height={1.5} alt="symbol" src={EMAIL} />
+                    <span className=" ml-[1.5rem] font-opensans font-bold text-[1rem] w-[11.5625rem]">
                       Email
                     </span>
-                    <span className="text-purple_dark font-normal text-[16px]">
+                    <span className="text-purple_dark font-normal text-[1rem]">
                       customer@avrist.com
                     </span>
                   </div>
                   {/*  */}
-                  <div className="flex flex-row items-center mt-[12px]">
-                  <Image width={24} height={24} alt="symbol" src={CLOCK} /> 
-                    <span className=" ml-[24px] font-opensans font-bold text-[16px] w-[185px]">
+                  <div className="flex flex-row items-center mt-[0.75rem]">
+                    <Image width={1.5} height={1.5} alt="symbol" src={CLOCK} />
+                    <span className=" ml-[1.5rem] font-opensans font-bold text-[1rem] w-[11.5625rem]">
                       Waktu Operasional
                     </span>
-                    <span className="text-purple_dark font-normal text-[16px]">
+                    <span className="text-purple_dark font-normal text-[1rem]">
                       Senin - Jumat, 08.00 - 17.00 WIB
                     </span>
                   </div>
                 </div>
-                <div className="h-[8px] bg-purple_dark" />
+                <div className="h-[0.5rem] bg-purple_dark" />
               </div>
             </div>
             {/* snk */}
-            <div className="flex flex-row mt-[36px]">
+            <div className="flex flex-row mt-[2.25rem]">
               <div>
                 <input type="checkbox" />
               </div>
-              <span className="ml-[12px]">
+              <span className="ml-[0.75rem]">
                 Saya /kami telah membaca, memahami dan memberikan persetujuan
                 saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
                 menggunakan dan mengungkapkan data pribadi saya/kami sesuai
@@ -205,17 +210,22 @@ export const ReportForm = () => {
               </span>
             </div>
             {/* submit */}
-            <div className="mt-[36px] flex flex-row justify-between items-center">
-              <Image width={277} height={84} alt="symbol" src={CaptchaPicture} />                   
-              <button className="bg-purple_dark text-white h-[64px] w-[132px] rounded-lg">
+            <div className="mt-[2.25rem] flex sm:flex-row xs:flex-col justify-between items-center">
+              <Image
+                width={17.3125}
+                height={5.25}
+                alt="symbol"
+                src={CaptchaPicture}
+              />
+              <button className="bg-purple_dark text-white h-[4rem] w-[8.25rem] rounded-lg">
                 Kirim
               </button>
             </div>
           </form>
         </div>
-        <div className="h-[8px] bg-purple_dark" />
+        <div className="h-[0.5rem] bg-purple_dark" />
       </div>
-      <div className="px-[136px] mt-[24px] mb-[26px]">
+      <div className="sm:px-[8.5rem] mt-[1.5rem] mb-[1.625rem]">
         <CardMenuDownload desc="Formulir Pengaduan" />
       </div>
     </div>

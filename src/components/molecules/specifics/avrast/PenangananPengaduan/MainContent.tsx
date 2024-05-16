@@ -87,9 +87,9 @@ export const MainContent = ({ videoData }: any) => {
   }
 
   return (
-    <div className=" w-full flex flex-col">
-      <div className="bg-white rounded-t-[80px] flex flex-col gap-6">
-        <div className="mt-[100px] mx-[32px] md:mx-[136px]">
+    <div className="w-full flex flex-col">
+      <div className="bg-white flex flex-col gap-6">
+        <div className="pt-[100px] px-[32px] md:px-[136px] md:pb-[80px] gap-[64px]">
           <ButtonMenu />
           <Content />
           <VideoInformation pageVideoData={videoData}/>

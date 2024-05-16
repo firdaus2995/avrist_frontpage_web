@@ -17,6 +17,7 @@ import PERSON_HOME_YELLOW from '@/assets/images/common/person-home-yellow.svg';
 import RECEIPT from '@/assets/images/common/receipt.svg';
 import UMBRELLA_GREEN from '@/assets/images/common/umbrella-green.svg';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { FormulirPendaftaran } from '@/components/molecules/specifics/avrast/FormulirPendaftaran';
@@ -203,7 +204,7 @@ const InformationCustomer = () => {
   }, [params]);
 
   return (
-    <div className="flex flex-col bg-avrast_product_bg">
+    <div className="flex flex-col">
       <Hero
         title={params}
         breadcrumbsData={[
@@ -247,6 +248,7 @@ const InformationCustomer = () => {
         }
         image={data.footerInfoImageUrl}
       />
+      <RoundedFrameTop bgColor='bg-white' />
       <FooterCards
         bgColor="bg-white"
         cards={
