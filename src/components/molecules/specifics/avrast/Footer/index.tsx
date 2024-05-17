@@ -74,7 +74,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="font-bold text-lg">Waktu Operasional</p>
-                <p className="text-sm font-opensans">
+                <p className="text-sm font-opensans whitespace-normal">
                   Senin - Jumat, 08.00 - 17.00 WIB
                 </p>
               </div>
