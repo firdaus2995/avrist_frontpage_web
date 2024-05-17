@@ -51,8 +51,10 @@ const VisiMisi = ({ data }: IVisiMisi) => {
             </p>
           ) : !isExpanded ? (
             <div className="flex flex-col gap-4">
-              <div className="flex flex-row xs:gap-[2rem] md:gap-[4.75rem] items-center">
-                <p className="text-[64px] font-semibold text-purple_dark">1</p>
+              <div className="flex flex-row xs:gap-[2rem] md:gap-[3.75rem] items-center">
+                <p className="xs:text-[4rem] md:text-[6.25rem] font-bold text-purple_light font-karla">
+                  1
+                </p>
                 <p className="text-[1.25rem] md:text-[2.25rem]">
                   {val.desc[0]}
                 </p>
@@ -74,14 +76,20 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 key={index}
                 className="p-10 flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"
               >
-                <div className="flex xs:flex-col md:flex-row items-center w-full text-center">
-                  <span className="w-[5rem]">
-                    <p className="text-[64px] font-semibold text-purple_dark">
+                <div className="flex xs:flex-col md:flex-row items-center w-full xs:text-center md:text-start">
+                  <span className="w-[7rem]">
+                    <p
+                      className={`xs:text-[4rem] md:text-[6.25rem] font-bold text-purple_light font-karla ${index + 1 === 1 ? 'md:pl-4' : ''}`}
+                    >
                       {index + 1}
                     </p>
                   </span>
 
-                  <p className="text-[1.25rem] md:text-[2.25rem]">{value}</p>
+                  <span className="w-full">
+                    <p className="text-base md:text-[2.25rem] leading-snug">
+                      {value}
+                    </p>
+                  </span>
                 </div>
               </div>
             ))
