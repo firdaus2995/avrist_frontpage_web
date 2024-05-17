@@ -169,10 +169,10 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} flex-wrap  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-sm:flex-wrap  gap-5 justify-between`}
           >
             <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
-              <div className="flex flex-row gap-[12px]">
+              <div className="flex flex-row gap-[12px] w-full">
                 {tabs.map(
                   (
                     item: { type: string; label: string; options?: IOption[] },
@@ -218,10 +218,10 @@ const CategoryWithThreeCards = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-row gap-[12px] ">
+            <div className="flex flex-row gap-[12px] xs:max-sm:w-full">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none min-w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                className="focus:outline-none min-w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] xl:min-w-[30rem] xs:max-sm:min-w-[75%]"
                 onChange={onSearchChange}
               />
               <ButtonSmall title="Cari" onClick={onSearch} />
