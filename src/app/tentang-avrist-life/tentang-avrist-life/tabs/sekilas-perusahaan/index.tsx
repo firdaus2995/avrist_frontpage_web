@@ -167,10 +167,10 @@ const SekilasPerusahaan = () => {
   return (
     <div className="w-full flex flex-col bg-white justify-center ">
       <div className="flex flex-col gap-[1.25rem] px-[2rem] md:px-[8.5rem] xs:py-[1.5rem] md:py-[4rem] font-karla">
-        <p className="text-[3rem]">
+        <p className="xs:text-[2.25rem] md:text-[3rem]">
           <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>
-        <p className="text-[1.5rem] font-light">
+        <p className="xs:text-xl md:text-[1.5rem] font-light">
           PT Avrist Assurance (Avrist) adalah perusahaan asuransi jiwa patungan
           pertama di Indonesia yang telah berdiri sejak tahun 1975, Avrist
           Assurance terus berkembang menjadi salah satu perusahaan asuransi jiwa
@@ -194,7 +194,7 @@ const SekilasPerusahaan = () => {
             }
           />
         </div>
-        <p className="font-karla text-[1.5rem] font-light">
+        <p className="font-karla xs:text-xl md:text-[1.5rem] font-light">
           Sejalan dengan perkembangannya tersebut, Avrist telah memiliki Dana
           Pensiun Lembaga Keuangan (DPLK) Avrist dan 2 (dua) anak
           perusahaan/subsidiary yaitu, PT Avrist General Insurance, dan PT
@@ -209,17 +209,17 @@ const SekilasPerusahaan = () => {
       <div className="w-full">
         {contentData && <Timeline data={contentData} />}
       </div>
-      <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
+      <div className="md:my-[6.25rem] md:px-[8.5rem] xs:px-[2rem] xs:my-[1.25rem]">
         <VisiMisi data={visiMisi} />
       </div>
 
-      <div className="flex flex-col gap-4 items-center justify-center bg-purple_superlight w-full p-20">
+      <div className="flex flex-col items-center justify-center bg-purple_superlight w-full md:px-[8.5rem] xs:px-[2rem]">
         <div className="flex justify-center items-center p-10">
-          <p className="text-[56px] font-bold text-purple_dark">
+          <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark font-karla xs:text-center md:text-left">
             Mengapa Avrist Life Insurance?
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
           {purposeData.map((val, idx) => (
             <PurposeCard
               key={idx}
@@ -231,11 +231,11 @@ const SekilasPerusahaan = () => {
           ))}
         </div>
         <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10">
-          <p className="text-[36px] font-bold text-purple_dark">
+          <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold text-purple_dark font-karla">
             PT Avirst Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan
             (OJK)
           </p>
-          <p className="text-[20px]">
+          <p className="xs:text-lg md:text-xl font-opensans">
             Izin Usaha PT Avrist Assurance nomor: KEP-037/KM.11/1986 tertanggal
             10 Maret 1986
           </p>

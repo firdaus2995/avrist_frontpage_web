@@ -40,7 +40,9 @@ const Timeline = ({ data }: IFooterInformation) => {
   return (
     <ol className="items-center flex flex-col">
       <div className="flex justify-center items-center p-10">
-        <p className="text-[56px] font-bold text-purple_dark">Sejarah</p>
+        <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark">
+          Sejarah
+        </p>
       </div>
       <div className="flex flex-row w-full h-full items-center justify-center pb-1">
         {/* {data.map((val, idx) => (

@@ -25,11 +25,11 @@ const Hero: React.FC<IHero> = ({
 }) => {
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'h-[200px]'}`}
+      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'pt-[50px]'}`}
+          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'xs:pt-[60px] md:pt-[50px]'}`}
         >
           <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
             {title}
@@ -52,7 +52,7 @@ const Hero: React.FC<IHero> = ({
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[200px]'}`}
+        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[250px]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
         width={100}

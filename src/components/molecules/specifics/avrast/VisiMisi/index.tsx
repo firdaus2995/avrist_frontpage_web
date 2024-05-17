@@ -18,7 +18,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="p-20 flex flex-col gap-4">
+    <div className="flex flex-col gap-[1.5rem] font-karla">
       {data.map((val, idx) => (
         <div
           key={idx}
@@ -26,8 +26,14 @@ const VisiMisi = ({ data }: IVisiMisi) => {
         >
           <div className="flex flex-row justify-between gap-4 items-center">
             <div className="flex flex-row gap-4 items-center">
-              <Image src={val.icon} className="w-20" alt="logo" />
-              <p className="text-[56px] font-semibold">{val.title}</p>
+              <Image
+                src={val.icon}
+                className="xs:w-[2.25rem] md:w-[5rem]"
+                alt="logo"
+              />
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold">
+                {val.title}
+              </p>
             </div>
             {Array.isArray(val.desc) && isExpanded ? (
               <Image
@@ -40,12 +46,16 @@ const VisiMisi = ({ data }: IVisiMisi) => {
             ) : null}
           </div>
           {!Array.isArray(val.desc) ? (
-            <p className="text-[24px]">{val.desc}</p>
+            <p className="text-[1.25rem] md:text-[2.25rem] font-light">
+              {val.desc}
+            </p>
           ) : !isExpanded ? (
             <div className="flex flex-col gap-4">
-              <div className="flex flex-row justify-between gap-10 items-center">
+              <div className="flex flex-row xs:gap-[2rem] md:gap-[4.75rem] items-center">
                 <p className="text-[64px] font-semibold text-purple_dark">1</p>
-                <p className="text-[24px]">{val.desc[0]}</p>
+                <p className="text-[1.25rem] md:text-[2.25rem]">
+                  {val.desc[0]}
+                </p>
               </div>
               <div
                 role="button"
@@ -64,11 +74,14 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 key={index}
                 className="p-10 flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"
               >
-                <div className="flex flex-row gap-10 items-center">
-                  <p className="text-[64px] font-semibold text-purple_dark">
-                    {index + 1}
-                  </p>
-                  <p className="text-[24px]">{value}</p>
+                <div className="flex xs:flex-col md:flex-row items-center w-full text-center">
+                  <span className="w-[5rem]">
+                    <p className="text-[64px] font-semibold text-purple_dark">
+                      {index + 1}
+                    </p>
+                  </span>
+
+                  <p className="text-[1.25rem] md:text-[2.25rem]">{value}</p>
                 </div>
               </div>
             ))
