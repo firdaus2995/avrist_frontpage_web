@@ -157,7 +157,7 @@ const Header = () => {
                 >
                   {item.title}
                   <TriangleMarker
-                    customClass={`absolute bottom-0 left-1/2 -translate-x-1/2 top-[60px] cursor-default ${styles['nav-transition']}`}
+                    customClass={`absolute left-1/2 -translate-x-1/2 z-50 top-[2.5rem] cursor-default ${styles['nav-transition']}`}
                   />
                 </li>
                 <NavCard
