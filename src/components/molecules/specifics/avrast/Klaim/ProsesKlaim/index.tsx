@@ -321,24 +321,24 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   return (
     <div
-      className={`w-full flex flex-col justify-center gap-[64px] relative sm:px-[136px] sm:pb-[100px] ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[80px]'} rounded-b-[65px]`}
+      className={`w-full flex flex-col justify-center gap-[4rem] relative sm:px-[8.5rem] sm:pb-[6.25rem] ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[5rem]'} rounded-b-[4.0625rem]`}
     >
       {!isSelectedData && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[56px] xs:text-[36px] font-bold text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
             Kami proses Klaim Anda dengan efisien
           </h2>
-          <h2 className="md:text-[36px] xs:text-[24px]">
+          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
             Cek jenis klaim yang akan Anda ajukan, dan dokumen pendukung yang
             dibutuhkan
           </h2>
         </div>
       )}
 
-      <div className="w-full flex md:flex-row xs:flex-col gap-5 md:px-20 xs:px-5">
+      <div className="w-full flex md:flex-row xs:flex-col gap-5 md:px-[5rem] xs:px-[1.25rem]">
         <div className="w-1/4 xs:hidden md:block">
           <div
-            className={`w-full flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[12px]`}
+            className={`w-full flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem]`}
           >
             {!isSelectedData
               ? data.map((val, idx) => (
@@ -351,7 +351,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         category: val.category
                       });
                     }}
-                    className={`${idx === 0 && 'rounded-tl-[12px]'} ${idx + 1 === data.length && 'rounded-bl-[12px]'} ${params.category !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[18px] font-bold text-purple_dark`}
+                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
                   >
                     {val.category}
                   </div>
@@ -368,16 +368,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         onChangeBannerImg(2);
                       }
                     }}
-                    className={`${idx === 0 && 'rounded-tl-[12px]'} ${idx + 1 === detailData.length && 'rounded-bl-[12px]'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
+                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === detailData.length && 'rounded-bl-[0.75rem]'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
                   >
                     {val}
                   </div>
                 ))}
           </div>
         </div>
-        <div className="w-wull xs:block md:hidden">
+        <div className="w-full xs:block md:hidden">
           <div
-            className={`w-full p-2 flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[12px] border-l-8 border-l-purple_dark font-semibold text-purple_dark`}
+            className={`w-full p-2 flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem] border-l-8 border-l-purple_dark font-semibold text-purple_dark`}
           >
             {!isSelectedData ? (
               <select
@@ -436,28 +436,28 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               <Input
                 type="text"
                 placeholder="Cari jenis klaim"
-                customInputClass="w-[90%] rounded-[12px] px-[16px] py-[12px]"
+                customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
                 onChange={(e) => {
                   setSearch(e.target.value);
                 }}
               />
               <Button
                 title="Cari"
-                customButtonClass="bg-purple_dark rounded-[12px] py-[12px] px-[40px]"
-                customTextClass="text-white text-[20px] font-semibold"
+                customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
+                customTextClass="text-white text-[1.25rem] font-semibold"
                 onClick={() => {
                   setParams({ ...params, searchFilter: search });
                 }}
               />
             </div>
           ) : (
-            <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[12px] p-4 text-purple_dark font-semibold">
-              <div className="flex rlex-row items-center gap-2">
+            <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-4 text-purple_dark font-semibold">
+              <div className="flex flex-row items-center gap-2">
                 <Image src={HeartIcon} alt="heart-icon" className="w-7" />
-                <p>{params.category}</p>
+                <p className="text-[1.5rem] font-bold">{params.category}</p>
               </div>
               <div
-                className="flex rlex-row items-center gap-2"
+                className="flex flex-row items-center gap-2 text-[1.25rem] font-semibold"
                 role="button"
                 onClick={() => {
                   setSelectedData('');
@@ -483,7 +483,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     onSelectDetail(true);
                     onChangeBannerImg(2);
                   }}
-                  className="w-full p-4 bg-white border-2 text-[24px] rounded-[12px] flex flex-row justify-between font-bold"
+                  className="w-full p-4 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold"
                 >
                   {val.title}
                   <Image
@@ -499,7 +499,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           {!isSelectedData && (
             <div className="flex flex-col gap-4 sm:flex-row justify-between ">
               <div>
-                <p className="text-[20px]">
+                <p className="text-[1.25rem]">
                   Menampilkan{' '}
                   <span className="font-bold text-purple_dark">
                     {contentData?.length === 0 ? 0 : startIndex + 1}-
@@ -512,7 +512,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   hasil
                 </p>
               </div>
-              <div className="flex flex-row gap-[8px] items-center">
+              <div className="flex flex-row gap-[0.5rem] items-center">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <div
@@ -530,7 +530,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   )
                 )}
                 <span
-                  className="mt-[3px]"
+                  className="mt-[0.1875rem]"
                   role="button"
                   onClick={() => handlePageChange(totalPages)}
                 >
@@ -540,7 +540,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             </div>
           )}
           {selectedData && (
-            <div className="md:text-[56px] xs:text-[24px] font-bold">{selectedData.title}</div>
+            <div className="md:text-[3.5rem] xs:text-[1.5rem] font-bold">
+              {selectedData.title}
+            </div>
           )}
           {selectedData && renderStep(selectedDetailCategory)}
         </div>
