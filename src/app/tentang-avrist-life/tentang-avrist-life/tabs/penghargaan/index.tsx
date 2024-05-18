@@ -255,15 +255,15 @@ const Penghargaan = () => {
 
             <div className="flex flex-col gap-4 sm:flex-row justify-between">
               <div>
-                <p className="text-[20px]">
+                <p className="text-[1.25rem]">
                   Menampilkan{' '}
                   <span className="font-bold text-purple_dark">
-                    {contentData?.length === 0 ? 0 : startIndex + 1}-
+                    {contentData ? startIndex + 1 : 0}-
                     {Math.min(endIndex, contentData ? contentData.length : 0)}
                   </span>{' '}
                   dari{' '}
                   <span className="font-bold">
-                    {contentData && contentData.length}
+                    {contentData ? contentData.length : 0}
                   </span>{' '}
                   hasil
                 </p>
