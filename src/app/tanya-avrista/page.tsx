@@ -91,6 +91,7 @@ const TanyaAvrista = () => {
 
         setTitleImage(singleImageTransformer(content['title-image']));
         setBannerImage(singleImageTransformer(content['banner-image']));
+        console.log('aa')
         setFooterImage(singleImageTransformer(content['cta1-image']));
 
         const listCards = topics.map((topic) => ({
