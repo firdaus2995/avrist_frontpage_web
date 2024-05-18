@@ -8,10 +8,13 @@ import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg'
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email.svg';
+import Email from '@/assets/images/common/email_color.svg';
+import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
+import Linkedin from '@/assets/images/common/linkedin_color.svg';
 import Office from '@/assets/images/common/office.svg';
 import Phone from '@/assets/images/common/phone.svg';
+import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -252,10 +255,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           role="button"
                           // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={Email}
+                          src={Whatsapp}
                           alt="whatsapp"
                         />
-                        <div className="text-xs font-bold">Whatsapp</div>
+                        <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
@@ -265,27 +268,27 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           src={Email}
                           alt="email"
                         />
-                        <div className="text-xs font-bold">Email</div>
+                        <div className="text-xs font-bold cursor-pointer">Email</div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
                           // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={Email}
+                          src={Linkedin}
                           alt="linkedin"
                         />
-                        <div className="text-xs font-bold">LinkedIn</div>
+                        <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
                           // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={Email}
+                          src={Facebook}
                           alt="facebook"
                         />
-                        <div className="text-xs font-bold">Facebook</div>
+                        <div className="text-xs font-bold cursor-pointer">Facebook</div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <div
@@ -300,7 +303,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                             color="purple_verylight"
                           />
                         </div>
-                        <div className="text-xs font-bold">Copy URL</div>
+                        <div className="text-xs font-bold cursor-pointer">Copy URL</div>
                       </div>
                     </div>
                   </PopoverBody>
