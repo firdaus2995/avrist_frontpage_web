@@ -37,7 +37,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1,
           slidesToScroll: 1,
           vertical: false,
           swipeToSlide: true,
@@ -103,7 +103,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
 
       {/* Mobile */}
       <div className={'bg-white'}>
-        <div className="md:hidden xs:mx-[2.5rem] sm:px-[8.5rem] pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
+        <div className="md:hidden pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
           <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => {
               const href =
@@ -111,42 +111,45 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   ? encodeURIComponent(item?.href ?? '')
                   : item?.href;
               return (
-                <Link
-                  href={
-                    item?.hrefType === 'phone'
-                      ? `tel:${href}`
-                      : item?.hrefType === 'email'
-                        ? `mailto:${href}`
-                        : href ?? '#'
-                  }
-                  key={index}
-                  target={item.openInNewTab ? 'blank' : '_self'}
-                  className="flex flex-col justify-between w-full max-w-[17.125rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
-                >
-                  <div className="flex justify-center">
-                    <Image
-                      alt={index.toString()}
-                      src={item.icon}
-                      className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
-                    />
-                  </div>
-                  <div className="text-center pt-[1.5rem]">
-                    <p className="font-bold text-[1.5rem]">{item.title}</p>
-                    {item.subtitle && (
-                      <div className="flex items-end justify-center">
-                        <p
-                          className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
-                        >
-                          {item.subtitle}
-                        </p>
+                <div key={index}>
+                  <div className="w-full flex justify-center">
+                    <Link
+                      href={
+                        item?.hrefType === 'phone'
+                          ? `tel:${href}`
+                          : item?.hrefType === 'email'
+                            ? `mailto:${href}`
+                            : href ?? '#'
+                      }
+                      target={item.openInNewTab ? 'blank' : '_self'}
+                      className="flex flex-col justify-between w-full mx-[2.5rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
+                    >
+                      <div className="flex justify-center">
+                        <Image
+                          alt={index.toString()}
+                          src={item.icon}
+                          className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
+                        />
                       </div>
-                    )}
+                      <div className="text-center pb-[2rem]">
+                        <p className="font-bold text-[1.5rem]">{item.title}</p>
+                        {item.subtitle && (
+                          <div className="flex items-end justify-center">
+                            <p
+                              className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                            >
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </Slider>
-          <div className="w-full flex flex-row justify-between">
+          <div className="w-full flex flex-row justify-between px-[2.5rem]">
             <Image
               style={{ rotate: '-90deg' }}
               width={36}
