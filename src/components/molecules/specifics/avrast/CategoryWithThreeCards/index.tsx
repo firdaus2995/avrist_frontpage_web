@@ -228,6 +228,7 @@ const CategoryWithThreeCards = ({
                 placeholder={searchPlaceholder ?? 'Cari'}
                 className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
+                onKeyDown={onSearch}
               />
               <ButtonSmall title="Cari" onClick={onSearch} />
             </div>
