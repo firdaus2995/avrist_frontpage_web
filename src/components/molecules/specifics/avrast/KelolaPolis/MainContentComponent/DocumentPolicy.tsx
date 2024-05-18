@@ -14,11 +14,11 @@ export const DocumentPolicy = ({ policyContentData }: PolicyContent) => {
         desc="Panduan Pembayaran Premi"
         href="panduan-pembayaran-premi"
       />
-      <div className="mt-[24px]">
+      <div className="mt-[1.5rem]">
         {Object.keys(policyContentData).map((category, index) => (
           <div key={index} className='mt-4'>
             <CardMenuChildren desc={category}>
-            <div className="mt-[24px]">
+            <div className="mt-[1.5rem]">
               {policyContentData[category].map((item: any, itemIndex: number) => (
                 <CardMenuDownload
                   key={itemIndex}
@@ -32,7 +32,7 @@ export const DocumentPolicy = ({ policyContentData }: PolicyContent) => {
           </div>
         ))}
       </div>
-      <div className="mt-[24px]">
+      <div className="mt-[1.5rem]">
         <CardMenuLink desc="Masuk untuk mengetahui informasi polis Anda" href='https://my.avrist.com/welcome'/>
       </div>
     </div>

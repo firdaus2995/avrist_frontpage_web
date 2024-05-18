@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { ButtonMenu } from '../InformasiNasabah/MainContentComponent';
 import {
   Content,
@@ -7,7 +6,7 @@ import {
   DocumentPolicy
 } from './MainContentComponent';
 import { Item, IVideoData } from '@/app/klaim-layanan/layanan/kelola-polis/page';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import { handleGetContent as handleGetMainContent } from '@/services/content-page.api';
 import { handleTransformedContent } from '@/utils/responseTransformer';
 
@@ -19,21 +18,16 @@ export const MainContent = ({ videoData } : { videoData: IVideoData[] | undefine
     }, []);
 
   return (
-    <div className=" w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col gap-6">
-        <div className="mt-[100px] mx-[32px] md:mx-[136px]">
+        <div className="pt-[6.25rem] pb-[1.625rem] xs:px-[2rem] sm:px-[8.5rem] flex flex-col gap-[4rem]">
           <ButtonMenu />
           <Content />
           { videoData && <VideoInformation pageVideoData={videoData}/>}
           {dataMainContent && <DocumentPolicy policyContentData={dataMainContent}/>}
         </div>
       </div>
-      <Image
-        alt="border-bottom"
-        className="w-full h-auto"
-        src={ROUNDED_FRAME_BOTTOM}
-        style={{ userSelect: 'none' }}
-      />
+      <RoundedFrameBottom />
     </div>
   );
 };
