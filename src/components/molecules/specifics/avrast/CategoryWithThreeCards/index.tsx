@@ -151,10 +151,15 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
+    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
       {/* CATEGORIES */}
       {!hiddenCategory && (
-        <Dropdown categories={categories} selectedCategory={selectedCategory} />
+        <span className="hidden">
+          <Dropdown
+            categories={categories}
+            selectedCategory={selectedCategory}
+          />
+        </span>
       )}
       <div className={`flex flex-col ${hiddenCategory ? 'hidden' : ''}`}>
         <CategoryList
@@ -169,10 +174,10 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} flex-wrap  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-sm:flex-wrap  gap-5 justify-between`}
           >
             <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
-              <div className="flex flex-row gap-[12px]">
+              <div className="flex flex-row gap-[12px] w-full">
                 {tabs.map(
                   (
                     item: { type: string; label: string; options?: IOption[] },

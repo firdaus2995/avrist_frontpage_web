@@ -30,9 +30,9 @@ const SliderInformation = ({
 
   return (
     <>
-      <div className="flex px-[136px] py-[72px] bg-white w-full">
+      <div className="flex lg:px-[40px] py-[72px] bg-white w-full">
         <div
-          className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border`}
+          className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
         >
           <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
             <div>{title}</div>
