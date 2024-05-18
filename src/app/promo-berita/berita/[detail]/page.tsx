@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
+import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -54,6 +55,59 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     footerImage: ''
   });
 
+  const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
+
+  const month = [
+    {
+      label: 'Januari',
+      value: '01'
+    },
+    {
+      label: 'Februari',
+      value: '02'
+    },
+    {
+      label: 'Maret',
+      value: '03'
+    },
+    {
+      label: 'April',
+      value: '04'
+    },
+    {
+      label: 'Mei',
+      value: '05'
+    },
+    {
+      label: 'Juni',
+      value: '06'
+    },
+    {
+      label: 'Juli',
+      value: '07'
+    },
+    {
+      label: 'Agustus',
+      value: '08'
+    },
+    {
+      label: 'September',
+      value: '09'
+    },
+    {
+      label: 'Oktober',
+      value: '10'
+    },
+    {
+      label: 'November',
+      value: '11'
+    },
+    {
+      label: 'Desember',
+      value: '12'
+    }
+  ]
+
   const fetchData = () => {
     try {
       handleGetContentPage('avrist-terkini-detail').then((res: any) => {
@@ -91,14 +145,16 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const paragrafSatu = artikel[0].value;
     const artikelImage = singleImageTransformer(artikel[1])?.imageUrl;
     const paragrafDua = artikel[2]?.value;
-    console.log('step 1 <<<<<', artikelImage);
     const artikelVideo = artikel[3]?.value;
     const paragrafTiga = artikel[4]?.value;
     const tags = content['tags']?.value;
     const artikelPIC = content['artikel-pic']?.value;
     const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
     const date = new Date(jsonData?.data?.createdAt).getDate();
-
+    const monthInText = month.find((item) => item.value === bulan)?.label;
+    const externalLink = content['list-external-link'].contentData;
+    console.log('>>>', externalLink);
+    
     const transformedData = {
       tagline,
       judul,
@@ -113,7 +169,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       tags,
       artikelPIC,
       artikelPICJabatan,
-      date
+      date,
+      monthInText,
+      externalLink
     };
 
     setContentData(transformedData);
@@ -161,7 +219,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col gap-2">
                 <p>
-                  {`${contentData?.date} ${contentData.bulan} ${contentData.tahun}`} |{' '}
+                  {`${contentData?.date} ${contentData.monthInText} ${contentData.tahun}`} |{' '}
                   {contentData.penulis}
                 </p>
 
@@ -170,7 +228,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
-                <div className="flex items-center" role="button">
+                <div className="flex items-center" role="button" id="PopoverFocus" onClick={() => setIsOPenPopover(!isOpenPopover)}>
                   <Icon
                     width={16}
                     height={16}
@@ -180,58 +238,60 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
 
                 <div className="text-xs font-bold">Share</div>
-
-                {/* {isVisible && (
-                  <div
-                    className="absolute right-0 mt-10 z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2"
-                    role="menu"
-                  >
-                    <div className="py-1 flex flex-row gap-5" role="none">
-                      <div className="flex flex-col gap-1 items-center">
+                <UncontrolledPopover
+                  placement="right"
+                  target="PopoverFocus"
+                  trigger="focus"
+                  isOpen={isOpenPopover}
+                  toggle={() => setIsOPenPopover(false)}
+                >
+                  <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
+                  <div className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap" role="none">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={Whatsapp}
+                          src={Email}
                           alt="whatsapp"
                         />
                         <div className="text-xs font-bold">Whatsapp</div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
                           src={Email}
                           alt="email"
                         />
                         <div className="text-xs font-bold">Email</div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={LinkedIn}
+                          src={Email}
                           alt="linkedin"
                         />
                         <div className="text-xs font-bold">LinkedIn</div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={Facebook}
+                          src={Email}
                           alt="facebook"
                         />
                         <div className="text-xs font-bold">Facebook</div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <div
                           role="button"
                           className="items-center"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                         >
                           <Icon
                             width={18}
@@ -243,13 +303,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                         <div className="text-xs font-bold">Copy URL</div>
                       </div>
                     </div>
-                  </div>
-                )} */}
+                  </PopoverBody>
+                </UncontrolledPopover>
               </div>
             </div>
           </div>
           {
             <p
+              className='text-xl'
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafSatu
               }}
@@ -268,6 +329,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
           {
             <span
+              className='text-xl'
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafDua
               }}
@@ -285,56 +347,49 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
           {
             <span
+              className='text-xl'
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafTiga
               }}
             />
           }
 
-          {/* <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4">
             <div className="flex flex-row gap-4">
               <p className="text-sm font-medium">
                 Artikel ini telah di liput di:
               </p>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Kompas
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Media Indonesia
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Tribun
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
-              <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                Detik
-                <Icon name="externalLink" color="purple_dark" width={10} />
-              </div>
+              {
+                contentData?.externalLink?.map((item:any, index:number) => (
+                  <div key={index} className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark">
+                    {item.details[0]?.value}
+                    {item.details[0]?.value !== '-' && <Icon name="externalLink" color="purple_dark" width={10} />}
+                  </div>
+                ))
+              }
             </div>
-          </div> */}
+          </div>
 
           <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
-            <p className="font-semibold text-xl">
+            <p className="font-bold text-2xl">
               Informasi lebih lanjut, hubungi:
             </p>
             <div className="flex flex-col">
               <p className="font-bold text-xl">{contentData?.artikelPIC}</p>
               <p className="text-xl">{contentData?.artikelPICJabatan}</p>
             </div>
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between xs:max-md:flex-wrap">
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'email'} className="w-6" src={Email} />
-                <p className="font-bold">corcom@avrist.com</p>
+                <p className="font-bold text-sm">corcom@avrist.com</p>
               </div>
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'phone'} className="w-6" src={Phone} />
-                <p className="font-bold">+62 21 5789 8188</p>
+                <p className="font-bold text-sm">+62 21 5789 8188</p>
               </div>
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'office'} className="w-6" src={Office} />
-                <p className="font-bold">Sekilas Avrist Life Insurance</p>
+                <p className="font-bold text-sm">Sekilas Avrist Life Insurance</p>
               </div>
             </div>
           </div>
