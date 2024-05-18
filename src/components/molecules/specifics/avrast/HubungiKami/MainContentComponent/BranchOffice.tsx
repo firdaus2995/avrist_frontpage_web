@@ -43,7 +43,9 @@ export const BranchOffice = () => {
           id: item.id,
           name: item.name,
           address: item.address,
-          phone: formattedPhoneNumber
+          phone: formattedPhoneNumber,
+          lat: item.latitude,
+          lng: item.longitude
         }});
         setData(fetchedData);
     };
