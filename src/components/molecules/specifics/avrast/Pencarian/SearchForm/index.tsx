@@ -109,8 +109,8 @@ const SearchForm = () => {
   };
 
   return (
-    <div className="bg-purple_dark w-full flex flex-col -mt-[0.0625rem]">
-      <div className="sm:px-[0.625rem] md:px-[2.5rem] 2xl:px-[6rem] pt-[0.75rem] bg-white rounded-t-[5rem] flex flex-col gap-[0.375rem]">
+    <div className="bg-purple_dark w-full flex flex-col -mt-[-0.0625rem]">
+      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[5rem] flex flex-col gap-[3rem]">
         <SearchBox
           onSearch={(value: string) => {
             setSearchKeywords(value);
@@ -118,7 +118,7 @@ const SearchForm = () => {
           value={searchKeyWords}
         />
 
-        <div className="px-[0.1875rem] grid grid-cols-4 gap-x-[0.75rem]">
+        <div className="px-[0.1875rem] grid sm:grid-cols-4 xs:grid-cols-1 gap-[0.75rem]">
           <Button
             title={'Asuransi Individu'}
             onClick={() => {
@@ -159,7 +159,7 @@ const SearchForm = () => {
 
         <ServiceCard />
 
-        <div className="flex flex-col gap-[0.1875rem]">
+        <div className="flex flex-col gap-[0.75rem]">
           {dataContent &&
             paginatedData.map((item, index) => (
               <Link href="" key={index}>
