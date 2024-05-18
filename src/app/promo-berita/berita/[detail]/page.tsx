@@ -77,23 +77,27 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   const fetchDetailData = async () => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
-
+    
+    
     const { content } = contentDetailTransformer(jsonData);
+    console.log(content, 'content', jsonData);
 
-    const tagline = content['tags'].value;
+    const tagline = content['topik-artikel'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData[0].details;
     const paragrafSatu = artikel[0].value;
-    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
-    const paragrafDua = artikel[2].value;
-    const artikelVideo = artikel[3].value;
-    const paragrafTiga = artikel[4].value;
-    const tags = content['tags'].value;
-    const artikelPIC = content['artikel-pic'].value;
-    const artikelPICJabatan = content['artikel-pic-jabatan'].value;
+    const artikelImage = singleImageTransformer(artikel[1])?.imageUrl;
+    const paragrafDua = artikel[2]?.value;
+    console.log('step 1 <<<<<', artikelImage);
+    const artikelVideo = artikel[3]?.value;
+    const paragrafTiga = artikel[4]?.value;
+    const tags = content['tags']?.value;
+    const artikelPIC = content['artikel-pic']?.value;
+    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+    const date = new Date(jsonData?.data?.createdAt).getDate();
 
     const transformedData = {
       tagline,
@@ -108,13 +112,16 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       paragrafTiga,
       tags,
       artikelPIC,
-      artikelPICJabatan
+      artikelPICJabatan,
+      date
     };
 
     setContentData(transformedData);
 
     return transformedData;
   };
+  console.log(contentData, 'content data');
+  
 
   useEffect(() => {
     fetchData();
@@ -140,17 +147,21 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         <div className="flex flex-col gap-10 w-2/3 p-10">
           <div className="flex flex-col gap-5">
             <span className="text-purple_dark font-semibold">
-              <span dangerouslySetInnerHTML={{ __html: contentData.tagline }} />
+              {
+                contentData[0] === '<' ? <span dangerouslySetInnerHTML={{ __html: contentData?.tagline }} /> :
+                <span className='text-[24px]'>{contentData?.tagline}</span>
+              }
+              
             </span>
             <p
-              className="font-semibold text-[48px]"
+              className="font-semibold text-[56px]"
               dangerouslySetInnerHTML={{ __html: contentData.judul }}
             />
 
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col gap-2">
                 <p>
-                  {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                  {`${contentData?.date} ${contentData.bulan} ${contentData.tahun}`} |{' '}
                   {contentData.penulis}
                 </p>
 
