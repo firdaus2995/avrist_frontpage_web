@@ -240,7 +240,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchContent = async () => {
+  const fetchContent = async () => {    
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
@@ -257,12 +257,12 @@ const Berita: React.FC<ParamsProps> = () => {
           const { content } = handleTransformedContent(
             item.contentData,
             item.title
-          );          
+          );      
 
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.label === content['bulan'].value
+              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi = content['artikel-looping'].contentData[0].details;
@@ -272,8 +272,9 @@ const Berita: React.FC<ParamsProps> = () => {
           const id = item.id;
           const tags = content['tags'].value;
           const date = new Date(item.createdAt).getDate();
+          const artikelTopic = content['topik-artikel'].value
 
-          return { judul, waktu, deskripsi, image, id, tags, date };
+          return { judul, waktu, deskripsi, image, id, tags, date, artikelTopic };
         }
       );
 
@@ -576,7 +577,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       </div>
     );
-  };
+  };  
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
@@ -651,7 +652,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <div className="flex flex-col gap-4 text-left">
                         <p className="text-[14px]">
                           <span className="font-bold text-purple_dark text-sm">
-                            {htmlParser(item.judul)}
+                            {htmlParser(item.artikelTopic)}
                           </span>{' '}
                           | {`${item.date} ${item.waktu}`}
                         </p>

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,95 +22,37 @@ interface IFooterCards {
   bgColor?: string;
 }
 
-interface CustomPrevArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  disabled?: boolean;
-}
-
-interface CustomNextArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  disabled?: boolean;
-}
-
-const CustomNextArrow: React.FC<CustomNextArrowProps> = (props) => {
-  const { className, ...rest } = props;
-
-  const isDisabled = className?.includes('slick-disabled');
-
-  return (
-    <div
-      {...rest}
-      className={className}
-      style={{
-        ...props.style,
-        position: 'relative',
-        left: '100%',
-        bottom: '0',
-        opacity: isDisabled ? 0.5 : 1
-      }}
-    >
-      <Image
-        style={{ rotate: '90deg' }}
-        width={36}
-        height={36}
-        alt="next"
-        src={ArrowCarouselRight}
-      />
-    </div>
-  );
-};
-
-const CustomPrevArrow: React.FC<CustomPrevArrowProps> = (props) => {
-  const { className, ...rest } = props;
-
-  const isDisabled = className?.includes('slick-disabled');
-
-  return (
-    <div
-      {...rest}
-      className={className}
-      style={{
-        ...props.style,
-        position: 'relative',
-        bottom: '-302px',
-        opacity: isDisabled ? 0.5 : 1
-      }}
-    >
-      <Image
-        style={{ rotate: '-90deg' }}
-        width={36}
-        height={36}
-        alt="next"
-        src={ArrowCarouselLeft}
-      />
-    </div>
-  );
-};
-
 const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
+  const sliderRef: any = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const settings = {
     slidesToShow: 4,
     initialSlide: 0,
     infinite: false,
     swipeToSlide: false,
+    beforeChange: (oldIndex: number, newIndex: number) =>
+      setCurrentSlide(Math.ceil(newIndex)),
     responsive: [
       {
         breakpoint: 640,
         settings: {
           slidesToShow: 1.2,
           slidesToScroll: 1,
-          nextArrow: <CustomNextArrow />,
-          prevArrow: <CustomPrevArrow />,
           vertical: false,
           swipeToSlide: true,
           verticalSwiping: true
         }
       }
     ]
+  };
+
+  const next = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const previous = () => {
+    sliderRef.current.slickPrev();
   };
 
   return (
@@ -160,9 +102,9 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       </div>
 
       {/* Mobile */}
-      <div className={bgColor ?? ''}>
-        <div className="md:hidden xs:mx-[2.5rem] sm:px-[8.5rem] pb-[5rem] pt-[0.375rem]">
-          <Slider {...settings}>
+      <div className={'bg-white'}>
+        <div className="md:hidden xs:mx-[2.5rem] sm:px-[8.5rem] pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
+          <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => {
               const href =
                 item?.hrefType === 'phone'
@@ -204,6 +146,28 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
               );
             })}
           </Slider>
+          <div className="w-full flex flex-row justify-between">
+            <Image
+              style={{ rotate: '-90deg' }}
+              width={36}
+              height={36}
+              alt="next"
+              src={ArrowCarouselLeft}
+              onClick={previous}
+              className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+            />
+            <Image
+              style={{ rotate: '90deg' }}
+              width={36}
+              height={36}
+              alt="next"
+              src={ArrowCarouselRight}
+              onClick={next}
+              className={
+                currentSlide === cards.length - 1 ? 'opacity-50' : 'opacity-100'
+              }
+            />
+          </div>
         </div>
       </div>
     </>

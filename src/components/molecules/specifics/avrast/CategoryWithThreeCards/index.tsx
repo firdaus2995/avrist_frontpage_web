@@ -153,14 +153,14 @@ const CategoryWithThreeCards = ({
   return (
     <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
       {/* CATEGORIES */}
-      <Dropdown categories={categories} selectedCategory={selectedCategory} />
-      <div className="flex flex-col sm:block hidden">
-        {!hiddenCategory && (
-          <CategoryList
-            categories={categories}
-            selectedCategory={selectedCategory}
-          />
-        )}
+      {!hiddenCategory && (
+        <Dropdown categories={categories} selectedCategory={selectedCategory} />
+      )}
+      <div className={`flex flex-col ${hiddenCategory ? 'hidden' : ''}`}>
+        <CategoryList
+          categories={categories}
+          selectedCategory={selectedCategory}
+        />
         {customLeftContent ?? null}
       </div>
 
@@ -218,10 +218,10 @@ const CategoryWithThreeCards = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-row gap-[12px] xs:max-sm:w-full">
+            <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none min-w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06] xl:min-w-[30rem] xs:max-sm:min-w-[75%]"
+                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
               />
               <ButtonSmall title="Cari" onClick={onSearch} />
