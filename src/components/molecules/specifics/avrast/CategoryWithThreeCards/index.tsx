@@ -169,10 +169,10 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} flex-wrap  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-sm:flex-wrap  gap-5 justify-between`}
           >
             <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
-              <div className="flex flex-row gap-[12px]">
+              <div className="flex flex-row gap-[12px] w-full">
                 {tabs.map(
                   (
                     item: { type: string; label: string; options?: IOption[] },

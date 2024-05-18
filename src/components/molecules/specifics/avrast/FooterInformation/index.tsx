@@ -64,7 +64,7 @@ const FooterInformation = ({
             </Link>
           )}
         </div>
-        <div className="flex rounded-r-[24px]">
+        <div className="flex rounded-r-[24px] xs:max-sm:px-[20px]">
           <Image
             height={0}
             width={0}
