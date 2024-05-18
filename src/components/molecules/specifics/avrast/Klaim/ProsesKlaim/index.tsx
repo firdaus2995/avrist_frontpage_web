@@ -5,13 +5,8 @@ import React, { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
-import Link from 'next/link';
 import HeartIcon from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/product-section/chevron-right-purple.svg';
-import STEP4ICON1 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-1.svg';
-import STEP4ICON2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-2.svg';
-import STEP4ICON3 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-3.svg';
-import STEP4ICON4 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -137,8 +132,8 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   const renderStep = (idx: number) => {
     return (
-      <div className="w-full flex flex-col items-center justify-start py-10 text-left p-4 border rounded-[12px] border-t-8 border-t-purple_dark">
-        <h2 className="w-full text-[36px] font-bold mb-6 text-purple_dark">
+      <div className="w-full flex flex-col items-center justify-start py-10 text-left p-[2.25rem] border rounded-[0.75rem] border-t-8 border-t-purple_dark">
+        <h2 className="w-full text-[2.25rem] font-bold mb-6 text-purple_dark">
           {detailData[selectedDetailCategory]}
         </h2>
         {contentData && selectedData && renderDetailStep(idx)}
@@ -146,37 +141,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     );
   };
 
-  const detailStep3Data = [
-    {
-      title: 'Kirim Dokumen',
-      link: 'Dengan Email',
-      icon: STEP4ICON1,
-      href: 'mailto:customer-service@avrist.com'
-    },
-    {
-      title: 'WTC 2. Jend. Sudirman Kav. 52-53 Jakarta 12190',
-      link: '',
-      icon: STEP4ICON2
-    },
-    {
-      title: 'Layanan Nasabah',
-      link: '021 5789 8188',
-      icon: STEP4ICON3,
-      href: 'tel:02157898188'
-    },
-    {
-      title: 'Tanya Avrista',
-      link: 'Pelajari Lebih Lanjut',
-      icon: STEP4ICON4,
-      href: '/tanya-avrista/'
-    }
-  ];
-
   const renderDetailStep = (idx: number) => {
     switch (idx) {
       case 0:
         return (
-          <div className="w-full flex flex-col gap-[36px] text-[20px]">
+          <div className="w-full flex flex-col gap-[2.25rem] text-[1.25rem]">
             <p
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
@@ -198,9 +167,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                       <Image
                         src={singleImageTransformer(val.details[0]).imageUrl}
                         alt={val.details[1].value}
-                        className="w-7"
-                        width={7}
-                        height={7}
+                        className="w-[2.25rem]"
+                        width={2.25}
+                        height={2.25}
                       />
                       <p>{val.details[1].value}</p>
                     </div>
@@ -216,20 +185,20 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         );
       case 1:
         return (
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full flex flex-col gap-[2.25rem]">
             {selectedData.content['tab-2-list'].contentData.map(
               (val: any, idx: number) =>
                 val.details[1].value && (
                   <div
                     key={idx}
-                    className="flex flex-row gap-2 font-semibold items-center"
+                    className="flex flex-row gap-2 text-[1.25rem] font-semibold items-center"
                   >
                     <Image
                       src={singleImageTransformer(val.details[0]).imageUrl}
                       alt={val.details[1].value}
-                      className="w-7"
-                      width={7}
-                      height={7}
+                      className="w-[2.25rem]"
+                      width={2.25}
+                      height={2.25}
                     />
                     <p>{val.details[1].value}</p>
                   </div>
@@ -239,7 +208,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         );
       case 2:
         return (
-          <div className="w-full flex flex-col gap-4">
+          <div className="w-full flex flex-col gap-[2.25rem]">
             {selectedData.content['tab-3-list-file'].contentData.map(
               (val: any, idx: number) => {
                 const file = val.details[1].value;
@@ -250,23 +219,23 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 return (
                   file !== '[]' && (
                     <div
-                      className="flex w-full md:flex-row xs:flex-col gap-4 shadow-xl justify-between rounded-[12px] border p-4"
+                      className="flex w-full md:flex-row xs:flex-col gap-[1.5rem] shadow-xl justify-between rounded-[0.75rem] border p-[1.5rem]"
                       key={idx}
                     >
                       <div className="flex flex-col gap-2">
-                        <p className="text-[24px] font-bold">
+                        <p className="text-[1.5rem] font-bold">
                           {val.details[0].value}
                         </p>
                         <div className="flex flex-row gap-2 text-purple_dark font-medium">
-                          <p className="p-2 bg-purple_dark/[0.06]">
+                          <p className="bg-purple_dark/[0.06] text-[0.875rem] py-[0.25rem] px-[0.5rem]">
                             {format.toUpperCase()}
                           </p>
                           {/* <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p> */}
                         </div>
                       </div>
-                      <div className="flex items-center justiffy-center">
+                      <div className="flex items-center justify-center">
                         <div
-                          className="p-2 px-8 rounded-[12px] text-white font-medium bg-purple_dark cursor-pointer"
+                          className="py-[0.5rem] px-[1.25rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer"
                           onClick={async () =>
                             await handleDownload(
                               singleImageTransformer(val.details[1]).imageUrl
@@ -287,31 +256,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         return (
           <div className="w-full flex flex-col gap-4">
             <p
+              className="text-[1.25rem]"
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-4-paragraf'].value
               }}
             />
-            <div className="grid md:grid-cols-2 xs:grid-cols-1 gap-2">
-              {detailStep3Data.map((val, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-row gap-10 font-bold items-center p-4 border rounded-[12px] shadow-lg"
-                >
-                  <Image src={val.icon} alt={val.title} className="w-1/3" />
-                  {val.href ? (
-                    <Link href={val.href} className="flex flex-col gap-1 w-2/3">
-                      <p>{val.title}</p>
-                      <p className="text-purple_dark">{val.link}</p>
-                    </Link>
-                  ) : (
-                    <div className="flex flex-col gap-1 w-2/3">
-                      <p>{val.title}</p>
-                      <p className="text-purple_dark">{val.link}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         );
       default:
@@ -335,7 +284,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         </div>
       )}
 
-      <div className="w-full flex md:flex-row xs:flex-col gap-5 md:px-[5rem] xs:px-[1.25rem]">
+      <div className="w-full flex md:flex-row xs:flex-col gap-5 md:px-[5rem] xs:p-[1.25rem]">
         <div className="w-1/4 xs:hidden md:block">
           <div
             className={`w-full flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem]`}
