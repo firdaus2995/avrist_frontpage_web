@@ -31,34 +31,39 @@ const Content = () => {
         page: '1',
         city_contain: 'jakarta',
         name_contain: searchParam
-      }
+      };
       const data = await handleGetProvider(queryParams);
-      if (data.responseMessage !== 'SUCCESS'){
+      if (data.responseMessage !== 'SUCCESS') {
         return [];
       }
       const { content } = data;
       const fetchedData = content.map((item: ProviderContent) => {
         const phoneSplit = item.phone.split('-');
-        const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;          
+        const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;
         return {
           id: item.id,
           name: item.name,
           address: item.address,
-          phone: formattedPhoneNumber
-        }});
-        setData(fetchedData);
+          phone: formattedPhoneNumber,
+          lat: item.latitude,
+          lng: item.longitude
+        };
+      });
+      setData(fetchedData);
     };
 
-    fetchProviderData().then().catch(() => []);
+    fetchProviderData()
+      .then()
+      .catch(() => []);
   }, [searchParam]);
 
   const handleChangeSearchParams = (value: string) => {
     setSearchParam(value);
-  }
+  };
 
   return (
-    <div className="z-[1] w-full bg-purple_dark -mt-1">    
-      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
+    <div className="z-[1] w-full bg-purple_dark -mt-1">
+      <div className="bg-white flex flex-col pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-2 gap-[4rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -68,12 +73,13 @@ const Content = () => {
           ]}
         />
 
-        <section className="w-full flex flex-col items-center text-center my-[60px]">
-          <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
+        <section className="w-full flex flex-col items-center text-center">
+          <h1 className="font-karla text-[3rem] 2xl:text-[3.5rem] text-purple_dark font-medium">
             Jaringan Rekanan Rumah Sakit Avrist Assurance
           </h1>
-          <h2 className="font-karla text-[28px] 2xl:text-[36px]">
-            Komitmen kami untuk memberikan rasa aman dan nyaman bersama lebih dari 1000 rumah sakit rekanan di seluruh Indonesia
+          <h2 className="font-karla text-[1.75rem] 2xl:text-[2.25rem]">
+            Komitmen kami untuk memberikan rasa aman dan nyaman bersama lebih
+            dari 1000 rumah sakit rekanan di seluruh Indonesia
           </h2>
         </section>
 
@@ -82,7 +88,7 @@ const Content = () => {
             <ButtonMenuVertical item={btnVerticalData} />
           </div>
 
-          <Maps hospitalData={data} onClickSearch={handleChangeSearchParams}/>
+          <Maps hospitalData={data} onClickSearch={handleChangeSearchParams} />
         </section>
       </div>
       <RoundedFrameBottom />
@@ -93,8 +99,10 @@ const Content = () => {
 export default Content;
 
 export interface IDAta {
-  id: number,
-  name: string, 
-  address: string, 
-  phone: string 
+  id: number;
+  name: string;
+  address: string;
+  phone: string;
+  lat: number;
+  lng: number;
 }
