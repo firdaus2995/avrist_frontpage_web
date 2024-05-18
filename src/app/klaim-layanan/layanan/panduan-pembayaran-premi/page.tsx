@@ -2,12 +2,16 @@
 import { useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
 import { MainContent } from '@/components/molecules/specifics/avrast/PanduanPembayaranPolis';
 import { getPanduanPembayaran } from '@/services/layanan.api';
-import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const handleGetContent = async (slug: string) => {
   try {
@@ -41,12 +45,15 @@ const TutorialPayment = () => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-avrast_product_bg">
+    <div className="flex flex-col">
       <Hero
         title={'Informasi Nasabah'}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Informasi Nasabah', href: '/klaim-layanan/layanan?tab=Informasi+Nasabah' },
+          {
+            title: 'Informasi Nasabah',
+            href: '/klaim-layanan/layanan?tab=Informasi+Nasabah'
+          },
           { title: 'Panduan Pembayaran', href: '#' }
         ]}
         imageUrl={titleImage.imageUrl}
@@ -75,6 +82,7 @@ const TutorialPayment = () => {
         }
         image={footerImage.imageUrl}
       />
+      <RoundedFrameTop bgColor="bg-white" />
       <FooterKlaim />
     </div>
   );
