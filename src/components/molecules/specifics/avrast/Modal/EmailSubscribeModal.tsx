@@ -88,8 +88,8 @@ export const EmailSubscribeModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
-                  {isSuccessSubs ? (
-                    <div className="h-[50vh] w-[50vw] transition">
+                  {!isSuccessSubs ? (
+                    <div className="sm:h-[50vh] sm:w-[50vw] xs:w-full xs:h-full transition xs:p-4">
                       <div className="absolute right-0 p-[1.5rem]">
                         <button onClick={onClose}>
                           <Icon
@@ -101,7 +101,7 @@ export const EmailSubscribeModal = (props: Props) => {
                         </button>
                       </div>
                       <div className="flex flex-1 flex-col items-center justify-center h-full text-center px-[4.5rem]">
-                        <p className="font-karla font-semibold text-[3rem] text-white">
+                        <p className="font-karla font-semibold sm:text-[3rem] xs:text-[2rem]  text-white">
                           Terima kasih sudah mendaftar
                         </p>
                         <p className="font-opensans font-normal text-[1.125rem] text-white">
