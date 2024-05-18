@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { UncontrolledPopover, PopoverBody } from 'reactstrap';
+import { month } from './month';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -60,57 +61,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
-  const month = [
-    {
-      label: 'Januari',
-      value: '01'
-    },
-    {
-      label: 'Februari',
-      value: '02'
-    },
-    {
-      label: 'Maret',
-      value: '03'
-    },
-    {
-      label: 'April',
-      value: '04'
-    },
-    {
-      label: 'Mei',
-      value: '05'
-    },
-    {
-      label: 'Juni',
-      value: '06'
-    },
-    {
-      label: 'Juli',
-      value: '07'
-    },
-    {
-      label: 'Agustus',
-      value: '08'
-    },
-    {
-      label: 'September',
-      value: '09'
-    },
-    {
-      label: 'Oktober',
-      value: '10'
-    },
-    {
-      label: 'November',
-      value: '11'
-    },
-    {
-      label: 'Desember',
-      value: '12'
-    }
-  ]
-
   const fetchData = () => {
     try {
       handleGetContentPage('avrist-terkini-detail').then((res: any) => {
@@ -135,9 +85,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
     
-    
     const { content } = contentDetailTransformer(jsonData);
-    console.log(content, 'content', jsonData);
 
     const tagline = content['topik-artikel'].value;
     const judul = content['judul-artikel'].value;
@@ -156,7 +104,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const date = new Date(jsonData?.data?.createdAt).getDate();
     const monthInText = month.find((item) => item.value === bulan)?.label;
     const externalLink = content['list-external-link'].contentData;
-    console.log('>>>', externalLink);
     
     const transformedData = {
       tagline,
@@ -181,8 +128,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
     return transformedData;
   };
-  console.log(contentData, 'content data');
-  
 
   useEffect(() => {
     fetchData();

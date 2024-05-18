@@ -22,7 +22,8 @@ export const BASE_SLUG = {
   },
   TENTANG_AVRIST_LIFE: {
     CONTENT: {
-      LIST_PENGHARGAAN: 'Artikel-penghargaan'
+      LIST_PENGHARGAAN: 'Artikel-penghargaan',
+      LAPORAN_PERUSAHAAN: 'lap-perusahaan'
     }
   }
 };

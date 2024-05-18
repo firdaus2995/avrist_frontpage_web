@@ -8,7 +8,7 @@ import HEART_HAND from '@/assets/images/common/heart-hand.svg';
 const ServiceCard = () => {
   const router = useRouter();
   return (
-    <div className="mx-3 p-6 bg-gray_bglightgray rounded-xl grid grid-cols-3 gap-6">
+    <div className="mx-3 p-6 bg-gray_bglightgray rounded-xl grid sm:grid-cols-3 xs:grid-cols-1 gap-6">
       <Card
         image={HEART_HAND}
         title="Klaim & Layanan"

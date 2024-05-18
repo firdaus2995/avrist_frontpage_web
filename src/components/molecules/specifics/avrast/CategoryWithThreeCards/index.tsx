@@ -151,10 +151,15 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
+    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
       {/* CATEGORIES */}
       {!hiddenCategory && (
-        <Dropdown categories={categories} selectedCategory={selectedCategory} />
+        <span className="hidden">
+          <Dropdown
+            categories={categories}
+            selectedCategory={selectedCategory}
+          />
+        </span>
       )}
       <div className={`flex flex-col ${hiddenCategory ? 'hidden' : ''}`}>
         <CategoryList
