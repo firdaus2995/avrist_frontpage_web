@@ -10,9 +10,11 @@ import {
   handleGetContent
 } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
+import { handleDownload } from '@/utils/helpers';
 import {
   singleImageTransformer,
-  handleTransformedContent
+  handleTransformedContent,
+  pageTransformer
 } from '@/utils/responseTransformer';
 interface ManagementComponentProps {
   onSelectDetail: (isSelected: boolean) => void;
@@ -29,14 +31,23 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
 
   // Page
 
-  const [, setData] = useState<PageResponse>();
+  const [data, setData] = useState<string>();
 
   // Content
 
   const [contentData, setContentData] = useState<any>();
 
   useEffect(() => {
-    handleGetContentPage('manajemen').then((res) => setData(res));
+    handleGetContentPage('halaman-manajemen-avras').then(
+      (res: PageResponse) => {
+        const { content } = pageTransformer(res);
+
+        const filePdf = singleImageTransformer(
+          content['file-struktur-organisasi']
+        ).imageUrl;
+        return setData(filePdf);
+      }
+    );
 
     handleGetContent('Profil-Manajemen', {
       includeAttributes: 'true'
@@ -182,6 +193,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
                 title="Lihat Di Sini"
                 customButtonClass="bg-purple_dark rounded-lg"
                 customTextClass="text-white font-bold"
+                onClick={async () => {
+                  data ? await handleDownload(data) : null;
+                }}
               />
             </div>
           </div>

@@ -28,7 +28,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
         {heading}
       </p>
     </div>
-    <div className="flex flex-row justify-center items-center gap-[24px]">
+    <div className="flex xs:flex-col md:flex-row justify-center items-center gap-[24px]">
       {cards.map((item, index) => (
         <div
           key={index}
@@ -41,10 +41,12 @@ const PersonCard: React.FC<PersonCardProps> = ({
             width={0}
             height={372}
             src={item.image}
-            className="rounded-t-[12px] w-full"
+            className="rounded-t-[12px] w-[372px]"
           />
-          <div className="text-center mx-2 my-[32px] font-bold font-karla">
-            <p className="xs:text-[1.5rem] md:text-[2.25rem]">{item.name}</p>
+          <div className="text-center mx-2 my-[32px] font-bold font-karla h-auto">
+            <p className="xs:text-[1.5rem] md:text-[2.25rem] line-clamp-1">
+              {item.name}
+            </p>
             <p
               className={`${roleClassname} xs:text-[1.25rem] md:text-[1.5rem]`}
             >
