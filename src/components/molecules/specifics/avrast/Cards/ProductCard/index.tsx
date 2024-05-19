@@ -52,40 +52,48 @@ const CardProduct = ({
         </p>
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
-      <p className='line-clamp-3' dangerouslySetInnerHTML={{ __html: description ?? '' }} />
-      <div className="flex flex-row flex-wrap gap-[12px]">
-        {tags &&
-          tags.map((item: string, index: number) => (
-            <Link
-              key={index}
-              href={{
-                pathname: `/pencarian`,
-                query: { searchValue: item }
-              }}
-              onClick={() => {
-                onClickTags ? onClickTags(item) : null;
-              }}
-              className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
-            >
-              <p>{item}</p>
-            </Link>
-          ))}
+      <div>
+        <p
+          className="line-clamp-3"
+          dangerouslySetInnerHTML={{ __html: description ?? '' }}
+        />
+        <div className="flex flex-row flex-wrap gap-[12px]">
+          {tags &&
+            tags.map((item: string, index: number) => (
+              <Link
+                key={index}
+                href={{
+                  pathname: `/pencarian`,
+                  query: { searchValue: item }
+                }}
+                onClick={() => {
+                  onClickTags ? onClickTags(item) : null;
+                }}
+                className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
+              >
+                <p>{item}</p>
+              </Link>
+            ))}
+        </div>
       </div>
-      {href ? (
-        <Link href={href} className="w-full">
+
+      <div className="h-full flex items-end">
+        {href ? (
+          <Link href={href} className="w-full">
+            <button
+              className={`${cardButtonClassname} w-full px-[20px] py-[8px] rounded-[6px] font-bold text-[18px]`}
+            >
+              <p>Pelajari Produk</p>
+            </button>
+          </Link>
+        ) : (
           <button
             className={`${cardButtonClassname} w-full px-[20px] py-[8px] rounded-[6px] font-bold text-[18px]`}
           >
             <p>Pelajari Produk</p>
           </button>
-        </Link>
-      ) : (
-        <button
-          className={`${cardButtonClassname} w-full px-[20px] py-[8px] rounded-[6px] font-bold text-[18px]`}
-        >
-          <p>Pelajari Produk</p>
-        </button>
-      )}
+        )}
+      </div>
     </div>
   );
 };
