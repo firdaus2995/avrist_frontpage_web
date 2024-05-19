@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Modal } from '../component/modal/modal';
+import { useRouter } from 'next/navigation';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -17,35 +16,37 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  KarirModal,
+  SuccessModal
+} from '@/components/molecules/specifics/avrast/Modal';
 import { getDetailKarir } from '@/services/detail-karir.api';
 import {
-  contentDetailTransformer,
   contentStringTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-type SearchParamProps = {
-  searchParams: Record<string, string> | null | undefined;
-};
-
-const DetailKarir = ({ searchParams }: SearchParamProps) => {
-  const pathname = usePathname();
-  const pathSegments = pathname.split('/');
-  const slug = pathSegments[pathSegments.length - 1];
-  const show = searchParams?.show;
-
+const DetailKarir = () => {
+  const router = useRouter();
+  // const pathSegments = pathname.split('/');
+  // const slug = pathSegments[pathSegments.length - 1];
+  const [show, setShow] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
-    footerImage: ''
+    footerImage: '',
+    judul: '',
+    deskripsiJudul: '',
+    subjudul: '',
+    deskripsiSubjudul: '',
+    formId: ''
   });
-  const [, setContentData] = useState<any>();
 
   const fetchData = () => {
     try {
-      handleGetContentPage('hlm-karir-detail').then((res: any) => {
+      getDetailKarir('halaman-detail-karir-avras').then((res: any) => {
         const { content } = pageTransformer(res);
         const titleImage = singleImageTransformer(
           content['title-image']
@@ -56,65 +57,40 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
         const footerImage = singleImageTransformer(
           content['cta1-image']
         ).imageUrl;
-        setData({ titleImage, bannerImage, footerImage });
-      });
-
-      getDetailKarir('halaman-detail-karir-avras').then((res) => {
-        console.log(res);
+        const judul = contentStringTransformer(content['judul-section']);
+        const deskripsiJudul = contentStringTransformer(
+          content['deskripsi-judul']
+        );
+        const subjudul = contentStringTransformer(content['subjudul-section']);
+        const deskripsiSubjudul = contentStringTransformer(
+          content['deskripsi-subjudul']
+        );
+        const formId = contentStringTransformer(content['form-karir']);
+        setData({
+          titleImage,
+          bannerImage,
+          footerImage,
+          judul,
+          deskripsiJudul,
+          subjudul,
+          deskripsiSubjudul,
+          formId
+        });
       });
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  const fetchDetailData = async () => {
-    const response = await fetch(`/api/karir/${slug}`);
-    const jsonData = await response.json();
-
-    const { content } = contentDetailTransformer(jsonData);
-    const namaLoker = contentStringTransformer(content['nama-loker']);
-    const iconLokasiLoker = singleImageTransformer(
-      content['icon-lokasi-loker']
-    ).imageUrl;
-    const lokasiLoker = contentStringTransformer(content['lokasi-loker']);
-    const iconStatusLoker = singleImageTransformer(
-      content['icon-status-loker']
-    ).imageUrl;
-    const statusLoker = contentStringTransformer(content['status-loker']);
-    const iconWaktuLoker = singleImageTransformer(
-      content['icon-waktu-loker']
-    ).imageUrl;
-    const waktuLoker = contentStringTransformer(content['waktu-loker']);
-    const deskripsiPekerjaan = contentStringTransformer(
-      content['deskripsi-pekerjaan']
-    );
-    const deskripsiResponsibilities = contentStringTransformer(
-      content['deskripsi-responsibilities']
-    );
-    const deskripsiKualifikasi = contentStringTransformer(
-      content['deskripsi-kualifikasi']
-    );
-
-    const detail = {
-      namaLoker,
-      iconLokasiLoker,
-      lokasiLoker,
-      iconStatusLoker,
-      statusLoker,
-      iconWaktuLoker,
-      waktuLoker,
-      deskripsiPekerjaan,
-      deskripsiResponsibilities,
-      deskripsiKualifikasi
-    };
-
-    setContentData(detail);
-  };
-
   useEffect(() => {
     fetchData();
-    fetchDetailData();
   }, []);
+
+  useEffect(() => {
+    if (showSuccess) {
+      setShow(false);
+    }
+  }, [showSuccess]);
 
   return (
     <div className="flex flex-col items-center justify-center bg-purple_dark">
@@ -133,39 +109,39 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
       <div className="mb-1 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-24 md:-mt-28 z-[10]">
         <div className="flex flex-col gap-[3rem]">
           <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-karla font-bold">
-            Rekrutmen Tenaga Pemasar
+            {data.judul ?? ''}
           </h1>
 
-          <p className="text-xl font-opensans flex flex-col">
-            Bagi kamu yang menyukai tantangan, memiliki jaringan yang luas, dan
-            memiliki hasrat membangun bisnis sendiri, mari bergabung sebagai
-            Tenaga Pemasar/marketing Asuransi PT Avrist Assurance!
-            <br /> <br />
-            Sebagai penasihat finansial mandiri, kamu akan dibekali dengan
-            berbagai macam produk finansial yang dapat membantu kamu menyediakan
-            solusi terbaik sesuai dengan kebutuhan nasabah.
-          </p>
+          <p
+            className="text-xl font-opensans flex flex-col"
+            dangerouslySetInnerHTML={{
+              __html: data.deskripsiJudul
+            }}
+          />
 
           <div className="flex flex-col gap-[1rem]">
             <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark">
-              Keuntungan Menjadi Tenaga Pemasar / Marketing Asuransi PT Avrist
-              Assurance
+              {data.subjudul}
             </h2>
-            <ul className="list-disc list-inside text-xl font-opensans">
-              <li>Waktu kerja fleksibel</li>
-              <li>Unlimited income</li>
-              <li>Bimbingan dan pelatihan bisnis yang berkesinambungan</li>
-              <li>Mendapatkan penghargaan sebagai yang terbaik</li>
-              <li>Promosi</li>
-              <li>Bonus jalan-jalan keluar negeri GRATIS</li>
-            </ul>
+            <p
+              className="text-xl font-opensans flex flex-col"
+              dangerouslySetInnerHTML={{
+                __html: data.deskripsiSubjudul.replace(
+                  '<ul>',
+                  "<ul class='list-disc list-inside font-opensans'>"
+                )
+              }}
+            />
           </div>
 
-          <div>
+          <div className="w-full flex xs:justify-center md:justify-start">
             <Button
               customButtonClass="rounded-xl bg-purple_dark"
               customTextClass="text-white font-opensans text-xl font-semibold my-2 mx-[2.5rem]"
               title="Yuk, isi form berikut!"
+              onClick={() => {
+                setShow(true);
+              }}
             />
           </div>
 
@@ -218,7 +194,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
         />
         <RoundedFrameTop />
       </div>
-      <div className="w-full h-full bg-purple_superlight pb-20">
+      <div className="w-full h-full bg-purple_superlight">
         <FooterCards
           cards={[
             {
@@ -244,7 +220,23 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
           ]}
         />
       </div>
-      {show && <Modal />}
+      <div className="absolute">
+        <KarirModal
+          id={data.formId}
+          show={show}
+          onClose={() => {
+            setShow(false);
+          }}
+          setSuccess={setShowSuccess}
+        />
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            router.refresh();
+          }}
+        />
+      </div>
     </div>
   );
 };
