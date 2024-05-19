@@ -15,17 +15,19 @@ interface IHero {
   }[];
   bottomImage?: StaticImport | string;
   imageUrl?: string;
+  customClassName?: string;
 }
 
 const Hero: React.FC<IHero> = ({
   title,
   breadcrumbsData,
   bottomImage,
-  imageUrl
+  imageUrl,
+  customClassName
 }) => {
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
+      className={`${customClassName} relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
     >
       <div className="w-full flex items-center">
         <div

@@ -73,6 +73,16 @@ const Berita: React.FC<ParamsProps> = () => {
     ]
   };
 
+  const sliderTabSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -189,7 +199,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const fetchData = () => {
     try {
-      handleGetContentPage(data.slug).then((res: any) => {
+      handleGetContentPage(data.slug.toLowerCase()).then((res: any) => {
         const { content } = pageTransformer(res);
         const titleImage = singleImageTransformer(
           content['title-image']
@@ -241,7 +251,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchContent = async () => {    
+  const fetchContent = async () => {
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
@@ -258,12 +268,14 @@ const Berita: React.FC<ParamsProps> = () => {
           const { content } = handleTransformedContent(
             item.contentData,
             item.title
-          );      
+          );
 
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
+              (item) =>
+                item.value === content['bulan'].value ||
+                item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi = content['artikel-looping'].contentData[0].details;
@@ -273,9 +285,18 @@ const Berita: React.FC<ParamsProps> = () => {
           const id = item.id;
           const tags = content['tags'].value;
           const date = new Date(item.createdAt).getDate();
-          const artikelTopic = content['topik-artikel'].value
+          const artikelTopic = content['topik-artikel'].value;
 
-          return { judul, waktu, deskripsi, image, id, tags, date, artikelTopic };
+          return {
+            judul,
+            waktu,
+            deskripsi,
+            image,
+            id,
+            tags,
+            date,
+            artikelTopic
+          };
         }
       );
 
@@ -285,7 +306,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };  
 
-  const fetchLifeGuide = async () => {    
+  const fetchLifeGuide = async () => {
     try {
       const fetchData = await getAvristLifeGuide({
         includeAttributes: 'true',
@@ -546,8 +567,10 @@ const Berita: React.FC<ParamsProps> = () => {
           <p className="text-[20px]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
-              {contentData?.length === 0 || contentData === undefined ? 0 : startIndex + 1}-
-              {Math.min(endIndex, contentData ? contentData.length : 0)}
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : startIndex + 1}
+              -{Math.min(endIndex, contentData ? contentData.length : 0)}
             </span>{' '}
             dari{' '}
             <span className="font-bold">
@@ -581,7 +604,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       </div>
     );
-  };  
+  };
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
@@ -593,8 +616,10 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
+        customClassName="xs:h-[150px] md:h-[200px]"
       />
-      <div className="w-full z-20 top-32">
+      {/* Tab Desktop */}
+      <div className="w-full z-20 top-32 xs:hidden md:block">
         <div className="grid lg:grid-cols-3 gap-2 px-[136px] py-20 bg-white">
           {tabs.map((val, idx) => (
             <div
@@ -606,6 +631,25 @@ const Berita: React.FC<ParamsProps> = () => {
               {val}
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Tab Mobile */}
+      <div className="w-full z-20 top-32 md:hidden px-[2rem]">
+        <div className="pt-[3rem]">
+          <Slider {...sliderTabSettings}>
+            {tabs.map((val, idx) => (
+              <div key={idx}>
+                <div
+                  role="button"
+                  onClick={() => handleTabClick(val)}
+                  className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+                >
+                  {val}
+                </div>
+              </div>
+            ))}
+          </Slider>
         </div>
       </div>
 
@@ -773,14 +817,18 @@ const Berita: React.FC<ParamsProps> = () => {
                           className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
                         >
                           <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-2xl">{item.namaFile}</p>
+                            <p className="font-bold text-2xl">
+                              {item.namaFile}
+                            </p>
                             <MediumTag title="PDF" />
                           </div>
                           <Button
                             title="Unduh"
                             customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
                             customTextClass="text-white text-xl"
-                            onClick={async () => await handleDownload(item.file)}
+                            onClick={async () =>
+                              await handleDownload(item.file)
+                            }
                           />
                         </div>
                       ))}
@@ -1066,16 +1114,18 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-44">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
-            Kumpulan Berita Pers
-          </h2>
-          <h2 className="text-[20px] mb-6">
-            Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
-            <span className="font-bold">kegiatan, produk</span> dan{' '}
-            <span className="font-bold">layanan</span> dari Avrist Life
-            Insurance. Melangkah bersama Kami!
-          </h2>
+        <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
+          <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
+            <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+              Kumpulan Berita Pers
+            </h2>
+            <h2 className="text-[20px] mb-6">
+              Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
+              <span className="font-bold">kegiatan, produk</span> dan{' '}
+              <span className="font-bold">layanan</span> dari Avrist Life
+              Insurance. Melangkah bersama Kami!
+            </h2>
+          </div>
 
           <div className="w-full">
             <CategoryWithThreeCards
