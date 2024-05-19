@@ -4,12 +4,17 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import { formatTimeDifference } from '../../format-time';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
+import Email from '@/assets/images/common/email_color.svg';
+import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
+import Linkedin from '@/assets/images/common/linkedin_color.svg';
+import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -34,6 +39,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   const param = useSearchParams();
   const id = param.get('id');
 
+  const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
   const [contentData, setContentData] = useState<any>({
     tagline: '',
     judul: '',
@@ -249,7 +255,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-1 items-center">
-                    <div className="flex items-center" role="button">
+                    <div className="flex items-center" id="PopoverFocus" role="button" onClick={() => setIsOPenPopover(!isOpenPopover)}>
                       <Icon
                         width={16}
                         height={16}
@@ -259,58 +265,60 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     </div>
 
                     <div className="text-xs font-bold">Share</div>
-
-                    {/* {isVisible && (
-                      <div
-                        className="absolute right-0 mt-10 z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2"
-                        role="menu"
-                      >
-                        <div className="py-1 flex flex-row gap-5" role="none">
-                          <div className="flex flex-col gap-1 items-center">
+                    <UncontrolledPopover
+                      placement="right"
+                      target="PopoverFocus"
+                      trigger="focus"
+                      isOpen={isOpenPopover}
+                      toggle={() => setIsOPenPopover(false)}
+                    >
+                      <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
+                      <div className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap" role="none">
+                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                             <Image
                               role="button"
-                              onClick={() => setIsVisible(!isVisible)}
+                              // onClick={() => setIsVisible(!isVisible)}
                               className="h-auto w-5"
                               src={Whatsapp}
                               alt="whatsapp"
                             />
-                            <div className="text-xs font-bold">Whatsapp</div>
+                            <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
                           </div>
-                          <div className="flex flex-col gap-1 items-center">
+                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                             <Image
                               role="button"
-                              onClick={() => setIsVisible(!isVisible)}
+                              // onClick={() => setIsVisible(!isVisible)}
                               className="h-auto w-5"
                               src={Email}
                               alt="email"
                             />
-                            <div className="text-xs font-bold">Email</div>
+                            <div className="text-xs font-bold cursor-pointer">Email</div>
                           </div>
-                          <div className="flex flex-col gap-1 items-center">
+                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                             <Image
                               role="button"
-                              onClick={() => setIsVisible(!isVisible)}
+                              // onClick={() => setIsVisible(!isVisible)}
                               className="h-auto w-5"
-                              src={LinkedIn}
+                              src={Linkedin}
                               alt="linkedin"
                             />
-                            <div className="text-xs font-bold">LinkedIn</div>
+                            <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
                           </div>
-                          <div className="flex flex-col gap-1 items-center">
+                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                             <Image
                               role="button"
-                              onClick={() => setIsVisible(!isVisible)}
+                              // onClick={() => setIsVisible(!isVisible)}
                               className="h-auto w-5"
                               src={Facebook}
                               alt="facebook"
                             />
-                            <div className="text-xs font-bold">Facebook</div>
+                            <div className="text-xs font-bold cursor-pointer">Facebook</div>
                           </div>
-                          <div className="flex flex-col gap-1 items-center">
+                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                             <div
                               role="button"
                               className="items-center"
-                              onClick={() => setIsVisible(!isVisible)}
+                              // onClick={() => setIsVisible(!isVisible)}
                             >
                               <Icon
                                 width={18}
@@ -319,11 +327,11 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                                 color="purple_verylight"
                               />
                             </div>
-                            <div className="text-xs font-bold">Copy URL</div>
+                            <div className="text-xs font-bold cursor-pointer">Copy URL</div>
                           </div>
                         </div>
-                      </div>
-                    )} */}
+                      </PopoverBody>
+                    </UncontrolledPopover>
                   </div>
                 </div>
               </div>
