@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
-import { formatTimeDifference } from './format-time'
+import { formatTimeDifference } from './format-time';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -304,7 +304,7 @@ const Berita: React.FC<ParamsProps> = () => {
     } catch (err) {
       console.error(err);
     }
-  };  
+  };
 
   const fetchLifeGuide = async () => {
     try {
@@ -333,11 +333,13 @@ const Berita: React.FC<ParamsProps> = () => {
             item.title
           );
 
-          const date = new Date(item.createdAt).getDate()
+          const date = new Date(item.createdAt).getDate();
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
+              (item) =>
+                item.value === content['bulan'].value ||
+                item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi =
@@ -349,9 +351,22 @@ const Berita: React.FC<ParamsProps> = () => {
           const tags = content['tags'].value;
           const waktuBaca = content['waktu-baca-artikel'].value;
 
-          const differenceTime = formatTimeDifference(new Date(item.createdAt), new Date())
+          const differenceTime = formatTimeDifference(
+            new Date(item.createdAt),
+            new Date()
+          );
 
-          return { judul, waktu, deskripsi, image, id, tags, waktuBaca, date, differenceTime };
+          return {
+            judul,
+            waktu,
+            deskripsi,
+            image,
+            id,
+            tags,
+            waktuBaca,
+            date,
+            differenceTime
+          };
         }
       );
 
@@ -1183,7 +1198,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       )}
 
-      <div className="flex flex-col">
+      <div className="w-full flex flex-col">
         <RoundedFrameBottom />
         <FooterInformation
           title={
@@ -1208,7 +1223,7 @@ const Berita: React.FC<ParamsProps> = () => {
         />
         <RoundedFrameTop />
       </div>
-      <div className="w-full h-full bg-purple_superlight pb-20">
+      <div className="w-full h-full bg-purple_superlight">
         <FooterCards
           cards={[
             {
