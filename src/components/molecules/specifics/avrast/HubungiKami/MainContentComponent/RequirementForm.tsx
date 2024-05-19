@@ -64,25 +64,25 @@ export const RequirementForm = (props: Props) => {
   };
 
   return (
-    <div className="mt-[64px] bg-purple_superlight">
-      <div className="bg-white mx-auto md:mx-[136px] border rounded-xl border-gray_light overflow-hidden">
-        <div className="p-[36px]">
-          <p className="font-karla font-bold text-[36px] md:text-[56px]">
+    <div className="mt-[4rem] bg-purple_superlight">
+      <div className="bg-white mx-auto md:mx-[8.5rem] border rounded-xl border-gray_light overflow-hidden">
+        <div className="p-[2.25rem]">
+          <p className="font-karla font-bold text-[2.25rem] md:text-[3.5rem]">
             Diskusikan kebutuhan Anda disini!
           </p>
-          <p className="mt-[24px] md:mt-[36px] font-opensans text-[14px] md:text-[16px]">
+          <p className="mt-[1.5rem] md:mt-[2.25rem] font-opensans text-[0.875rem] md:text-[1rem]">
             isi data berikut dan Kami akan menghubungi Anda.
           </p>
           {dataForm && (
             <CustomForm
               dataForm={dataForm}
-              customFormClassname="border-none p-[0px]"
+              customFormClassname="border-none p-[0rem]"
               title=" "
               type="Hubungi Kami"
               resultData={receiveData}
             />
           )}
-          <div className="flex flex-row mt-[24px] md:mt-[36px]">
+          <div className="flex flex-row mt-[1.5rem] md:mt-[2.25rem]">
             <div>
               <input
                 type="checkbox"
@@ -92,7 +92,7 @@ export const RequirementForm = (props: Props) => {
                 }}
               />
             </div>
-            <span className="ml-[12px]">
+            <span className="ml-[0.75rem]">
               Saya /kami telah membaca, memahami dan memberikan persetujuan
               saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
               menggunakan dan mengungkapkan data pribadi saya/kami sesuai dengan{' '}
@@ -102,20 +102,20 @@ export const RequirementForm = (props: Props) => {
             </span>
           </div>
           {/* submit */}
-          <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
+          <div className="mt-[1.5rem] md:mt-[2.25rem] flex flex-col md:flex-row md:justify-end md:items-center">
             {/* <img src={CaptchaPicture} alt="captha" className="md:w-auto" /> */}
             {/* <Image alt="captcha" src={CaptchaPicture} className="md:w-auto" /> */}
             <button
               type="submit"
               disabled={formIsValid ? (isChecked ? false : true) : true}
               onClick={() => onSubmitData()}
-              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[2.75rem] md:h-[4rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0`}
             >
               Kirim
             </button>
           </div>
         </div>
-        <div className="h-[8px] bg-purple_dark" />
+        <div className="h-[0.5rem] bg-purple_dark" />
       </div>
     </div>
   );
