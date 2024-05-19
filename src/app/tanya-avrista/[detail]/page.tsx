@@ -66,10 +66,12 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           }
         ]}
       />
-      <ArtikelTanyaAvrista
-        title={titleContent}
-        content={mainContent as string}
-      />
+      <div className="-mt-32 relative z-[10]">
+        <ArtikelTanyaAvrista
+          title={titleContent}
+          content={mainContent as string}
+        />
+      </div>
       <RoundedFrameBottom />
       <FooterInformation
         title={
