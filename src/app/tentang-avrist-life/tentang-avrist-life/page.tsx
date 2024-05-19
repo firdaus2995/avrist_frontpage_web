@@ -182,7 +182,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             }
             image={transformedData.ctaImage ?? BlankImage}
           />
-          <RoundedFrameTop />
+          <div className="-mb-2">
+            <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
+          </div>
         </div>
       ) : null}
       <div className="w-full h-full bg-purple_superlight">

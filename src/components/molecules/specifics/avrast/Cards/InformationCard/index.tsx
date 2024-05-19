@@ -28,20 +28,21 @@ const InformationCard: React.FC<InformationCardProps> = ({
   cardButtonTextClassname,
   idTags
 }) => (
-  <div className="flex flex-col font-karla mx-auto" id={idTags}>
-    <div className="xs:text-center xs:text-left mb-[1.5rem]">
-      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem] mb-[0.75rem]">
-        {heading}
-      </p>
+  <div
+    className="flex flex-col font-karla xs:py-[2.25rem] md:py-[4rem] mx-auto xs:gap-[1.5rem] md:gap-[4rem]"
+    id={idTags}
+  >
+    <div className="sm:text-center text-center">
+      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem]">{heading}</p>
       {subHeading && (
         <p className="xs:text-[1.5rem] md:text-[2.25rem]">{subHeading}</p>
       )}
     </div>
-    <div className="grid sm:grid-cols-3 xs:grid-cols-1 justify-center items-center gap-[24px]">
+    <div className="grid sm:grid-cols-3 xs:grid-cols-1 justify-center items-center gap-[1.5rem]">
       {cards.map((item, index) => (
         <div
           key={index}
-          className={`${cardClassname} flex flex-col justify-between w-full xs:w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
+          className={`${cardClassname} flex flex-col justify-between w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
         >
           <div className="flex w-full justify-center my-[1.5rem]">
             <Image
@@ -52,7 +53,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
               className="w-auto"
             />
           </div>
-          <div className="text-center mx-[1.5rem] flex flex-col gap-[0.75rem]">
+          <div className="text-center mb-[1.75rem] mx-[1.5rem] flex flex-col gap-[0.75rem]">
             {item.cardTitle && (
               <p className="text-[2rem] font-bold font-karla">
                 {item.cardTitle}
