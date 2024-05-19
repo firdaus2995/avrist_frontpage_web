@@ -92,7 +92,6 @@ const AvristSyariah = async () => {
           bgColor="xs:bg-white md:bg-purple_superlight"
         />
         <FooterCards
-          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Rumah Sakit Rekanan',
