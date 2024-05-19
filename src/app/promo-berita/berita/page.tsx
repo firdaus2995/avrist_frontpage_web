@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
+import { formatTimeDifference } from './format-time'
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -282,7 +283,7 @@ const Berita: React.FC<ParamsProps> = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  };  
 
   const fetchLifeGuide = async () => {    
     try {
@@ -301,7 +302,7 @@ const Berita: React.FC<ParamsProps> = () => {
       setLifeGuideCategory({
         ...lifeGuideCategory,
         list: categoryList,
-        selectedCategory: categoryList[0]
+        selectedCategory: categoryList[0] ?? lifeGuideCategory.selectedCategory
       });
 
       const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
@@ -311,10 +312,11 @@ const Berita: React.FC<ParamsProps> = () => {
             item.title
           );
 
+          const date = new Date(item.createdAt).getDate()
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.label === content['bulan'].value
+              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi =
@@ -326,7 +328,9 @@ const Berita: React.FC<ParamsProps> = () => {
           const tags = content['tags'].value;
           const waktuBaca = content['waktu-baca-artikel'].value;
 
-          return { judul, waktu, deskripsi, image, id, tags, waktuBaca };
+          const differenceTime = formatTimeDifference(new Date(item.createdAt), new Date())
+
+          return { judul, waktu, deskripsi, image, id, tags, waktuBaca, date, differenceTime };
         }
       );
 
@@ -796,7 +800,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
                             category={item.tags}
-                            time={` | ${item.waktu}`}
+                            time={` | ${item.date} ${item.waktu}`}
                             tags={[item.tags]}
                             image={item.image}
                             readTime={item.waktuBaca}
@@ -922,7 +926,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               title={htmlParser(item.judul)}
                               summary={htmlParser(item.deskripsi)}
                               category={item.tags}
-                              time={` | ${item.waktu}`}
+                              time={` | ${item?.differenceTime} yang lalu`}
                               tags={[item.tags]}
                               image={item.image}
                               readTime={item.waktuBaca}
