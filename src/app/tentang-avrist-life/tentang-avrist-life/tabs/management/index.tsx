@@ -72,6 +72,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
     role: string;
     desc: string;
   }) => {
+    window.scrollTo(0, 200);
     setShowDetail(true);
     onSelectDetail(true);
     const data = {
@@ -90,10 +91,15 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       {showDetail ? (
-        <div className="px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
-          <div className="flex flex-col gap-7 border rounded-xl p-4">
-            <div className="flex flex-row gap-5 items-center border rounded-xl">
-              <div className="w-[213px] h-[213px] bg-red-200 rounded-xl">
+        <div
+          className="px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]"
+          onClick={() => {
+            setShowDetail(false);
+          }}
+        >
+          <div className="flex flex-col gap-7 border rounded-xl p-4 shadow-lg">
+            <div className="flex xs:flex-col md:flex-row gap-5 items-center border rounded-xl">
+              <div className="w-[213px] h-[213px] rounded-xl">
                 <Image
                   alt="blank-image"
                   src={detailData.image}
@@ -102,20 +108,20 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
                   className="rounded-xl w-[213px] h-[213px]"
                 />
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 xs:text-center md:text-start">
                 <p className="text-[36px] font-bold">{detailData.name}</p>
                 <p className="text-[24px] font-semibold text-purple_dark">
                   {detailData.role}
                 </p>
               </div>
             </div>
-            <p>{detailData.desc}</p>
+            <p className="font-opensans text-xl">{detailData.desc}</p>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]">
+        <div className="flex flex-col gap-[3rem] xs:py-[1.5rem] md:py-[4rem]">
           {contentData &&
-            contentData.map((item: any, index: number) => {
+            contentData?.map((item: any, index: number) => {
               const transformData = (data: any) => {
                 return data.map((i: any) => {
                   // Extract details
@@ -162,15 +168,14 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
                 </>
               );
             })}
-
-          <div className="flex flex-col gap-4 items-center justify-center w-full p-10">
-            <div className="flex justify-center items-center p-10">
-              <p className="text-[56px] font-bold text-purple_dark">
+          <div className="flex flex-col gap-4 items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem]">
+            <div className="flex justify-center items-center">
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark xs:text-center md:text-start">
                 Struktur Organisasi
               </p>
             </div>
-            <div className="w-full flex flex-row justify-between items-center p-4 border rounded-xl">
-              <p className="font-bold">
+            <div className="w-full flex xs:flex-col md:flex-row justify-between items-center p-4 border rounded-xl">
+              <p className="font-bold text-2xl xs:text-center md:text-start xs:mb-4 md:mb-0">
                 Struktur Organisasi PT Avrist Assurance
               </p>
               <Button
@@ -182,6 +187,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
           </div>
         </div>
       )}
+
       <RoundedFrameBottom />
     </div>
   );
