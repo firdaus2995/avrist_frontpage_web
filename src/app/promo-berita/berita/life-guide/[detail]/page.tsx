@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { formatTimeDifference } from '../../format-time';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -133,6 +134,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
     const waktuBaca = content['waktu-baca-artikel']?.value;
     const daftarIsi = content['artikel-looping']?.contentData;
+    const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
 
     const transformedData = {
       tagline,
@@ -150,7 +152,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       artikelPIC,
       artikelPICJabatan,
       waktuBaca,
-      daftarIsi
+      daftarIsi,
+      differenceTime
     };
 
     setContentData(transformedData);
@@ -237,8 +240,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                 />
                 <div className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
-                    <p>
-                      {`${contentData.bulan} ${contentData.tahun}`} |{' '}
+                    <p className='text-base'>
+                      {`${contentData?.differenceTime} yang lalu`} |{' '}
                       {contentData.penulis}
                     </p>
                     <div className="flex flex-row gap-2">
