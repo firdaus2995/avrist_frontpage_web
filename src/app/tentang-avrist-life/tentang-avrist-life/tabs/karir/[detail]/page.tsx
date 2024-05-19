@@ -12,13 +12,13 @@ import Icon3 from '@/assets/images/common/email.svg';
 import Phone from '@/assets/images/common/phone.svg';
 import Icon4 from '@/assets/images/common/procedure.svg';
 import Button from '@/components/atoms/Button/Button';
-import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { getDetailKarir } from '@/services/detail-karir.api';
 import {
   contentDetailTransformer,
   contentStringTransformer,
@@ -41,7 +41,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
     bannerImage: '',
     footerImage: ''
   });
-  const [contentData, setContentData] = useState<any>();
+  const [, setContentData] = useState<any>();
 
   const fetchData = () => {
     try {
@@ -57,6 +57,10 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
           content['cta1-image']
         ).imageUrl;
         setData({ titleImage, bannerImage, footerImage });
+      });
+
+      getDetailKarir('halaman-detail-karir-avras').then((res) => {
+        console.log(res);
       });
     } catch (error) {
       console.error('Error:', error);
@@ -112,10 +116,8 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
     fetchDetailData();
   }, []);
 
-  console.log(data);
-
   return (
-    <>
+    <div className="flex flex-col items-center justify-center bg-purple_dark">
       <Hero
         title="Karir Bersama Avrist"
         breadcrumbsData={[
@@ -128,101 +130,60 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
         imageUrl={data?.titleImage}
       />
 
-      <div className="flex items-center justify-center w-full">
-        <div className="flex flex-col gap-5 w-2/3 p-10">
-          <div className="flex flex-col gap-5">
-            <p className="font-semibold text-[48px]">
-              {contentData?.namaLoker}
-            </p>
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-row gap-4 text-nowrap text-md">
-                <div className="flex w-full flex-row items-center gap-2">
-                  <Image
-                    src={contentData?.iconLokasiLoker}
-                    alt="lokasi"
-                    width={24}
-                    height={24}
-                  />
-                  <p>{contentData?.lokasiLoker}</p>
-                </div>
-                <div className="flex w-full flex-row items-center gap-2">
-                  <Image
-                    src={contentData?.iconStatusLoker}
-                    alt="status"
-                    width={24}
-                    height={24}
-                  />
-                  <p>{contentData?.statusLoker}</p>
-                </div>
-                <div className="flex w-full flex-row items-center gap-2">
-                  <Image
-                    src={contentData?.iconWaktuLoker}
-                    alt="waktu"
-                    width={24}
-                    height={24}
-                  />
-                  <p>{contentData?.waktuLoker}</p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 items-center">
-                <div className="flex items-center" role="button">
-                  <Icon
-                    width={16}
-                    height={16}
-                    name="share"
-                    color="purple_verylight"
-                  />
-                </div>
+      <div className="mb-1 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-24 md:-mt-28 z-[10]">
+        <div className="flex flex-col gap-[3rem]">
+          <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-karla font-bold">
+            Rekrutmen Tenaga Pemasar
+          </h1>
 
-                <div className="text-xs font-bold">Share</div>
-              </div>
-            </div>
+          <p className="text-xl font-opensans flex flex-col">
+            Bagi kamu yang menyukai tantangan, memiliki jaringan yang luas, dan
+            memiliki hasrat membangun bisnis sendiri, mari bergabung sebagai
+            Tenaga Pemasar/marketing Asuransi PT Avrist Assurance!
+            <br /> <br />
+            Sebagai penasihat finansial mandiri, kamu akan dibekali dengan
+            berbagai macam produk finansial yang dapat membantu kamu menyediakan
+            solusi terbaik sesuai dengan kebutuhan nasabah.
+          </p>
+
+          <div className="flex flex-col gap-[1rem]">
+            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark">
+              Keuntungan Menjadi Tenaga Pemasar / Marketing Asuransi PT Avrist
+              Assurance
+            </h2>
+            <ul className="list-disc list-inside text-xl font-opensans">
+              <li>Waktu kerja fleksibel</li>
+              <li>Unlimited income</li>
+              <li>Bimbingan dan pelatihan bisnis yang berkesinambungan</li>
+              <li>Mendapatkan penghargaan sebagai yang terbaik</li>
+              <li>Promosi</li>
+              <li>Bonus jalan-jalan keluar negeri GRATIS</li>
+            </ul>
           </div>
-          <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
-            Deskripsi Pekerjaan
-          </p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: contentData?.deskripsiPekerjaan
-            }}
-          />
-          <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
-            Responsibilities
-          </p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: contentData?.deskripsiResponsibilities
-            }}
-          />
-          <p className="text-[32px] font-bold text-purple_dark pt-5 w-full">
-            Kualifikasi
-          </p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: contentData?.deskripsiResponsibilities
-            }}
-          />
-          <div className="py-10">
-            <Link href="/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail?show=true">
+
+          <div>
+            <Button
+              customButtonClass="rounded-xl bg-purple_dark"
+              customTextClass="text-white font-opensans text-xl font-semibold my-2 mx-[2.5rem]"
+              title="Yuk, isi form berikut!"
+            />
+          </div>
+
+          <div className="w-full border border-gray_light flex xs:flex-col md:flex-row xs:gap-4 md:justify-between items-center p-[1.5rem] rounded-xl">
+            <p className="font-bold text-2xl text-purple_dark xs:text-center md:text-start">
+              Belum tertarik dengan lowongan ini?
+            </p>
+            <Link
+              href={
+                '/tentang-avrist-life/tentang-avrist-life?tab=Karir+Bersama+Avrist'
+              }
+            >
               <Button
-                title="Apply For This Job"
                 customButtonClass="rounded-xl bg-purple_dark"
-                customTextClass="text-white"
+                customTextClass="text-white font-opensans font-semibold"
+                title="List Lowongan"
               />
             </Link>
-          </div>
-          <div className="w-full flex flex-row justify-between items-center p-4 border rounded-xl">
-            <div className="flex flex-row gap-2 items-center">
-              <p className="font-bold text-purple_dark">
-                Belum tertarik dengan lowongan ini?
-              </p>
-            </div>
-            <Button
-              title="List Lowongan"
-              customButtonClass="rounded-xl bg-purple_dark"
-              customTextClass="text-white"
-              onClick={() => window.history.back()}
-            />
           </div>
         </div>
       </div>
@@ -233,16 +194,21 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
           bgColor="bg-gray_bglightgray"
           title={
             <div className="flex flex-col items-center justify-center gap-4 bg-gray_bglightgray">
-              <p className="text-[56px] font-bold">Hubungi Kami</p>
-              <Link
-                href="tel:02157898188"
-                role="button"
-                className="p-4 border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark text-2xl font-bold bg-white"
-              >
-                <Image src={Phone} alt="phone" className="w-10" />
-                <p>021 5789 8188</p>
-              </Link>
-              <p>
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-extrabold font-karla">
+                Hubungi Kami
+              </p>
+              <div>
+                <Link
+                  href="tel:02157898188"
+                  role="button"
+                  className="py-4 px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
+                >
+                  <Image src={Phone} alt="phone" className="w-10" />
+                  <p>021 5789 8188</p>
+                </Link>
+              </div>
+
+              <p className="text-xl">
                 <span className="font-bold">Waktu Operasional:</span> Senin -
                 Jumat, 08.00 - 17.00 WIB
               </p>
@@ -279,7 +245,7 @@ const DetailKarir = ({ searchParams }: SearchParamProps) => {
         />
       </div>
       {show && <Modal />}
-    </>
+    </div>
   );
 };
 

@@ -127,7 +127,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           <FooterInformation
             title={
               <div className="flex flex-col gap-4">
-                <p className="text-[56px] font-semibold text-purple_dark">
+                <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold font-karla text-purple_dark">
                   Hubungi Kami
                 </p>
                 <div
