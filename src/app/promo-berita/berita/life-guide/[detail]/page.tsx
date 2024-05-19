@@ -21,7 +21,6 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { getAvristLifeGuide } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { htmlParser } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   pageTransformer,
@@ -123,16 +122,17 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     const thumbnail = singleImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
-    const artikel = content['artikel-looping'].contentData[0].details;
-    const paragrafSatu = artikel[0].value;
-    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
-    const paragrafDua = artikel[2].value;
-    const artikelVideo = artikel[3].value;
-    const paragrafTiga = artikel[4].value;
-    const tags = content['tags'].value;
-    const artikelPIC = content['artikel-pic'].value;
-    const artikelPICJabatan = content['artikel-pic-jabatan'].value;
-    const waktuBaca = content['waktu-baca-artikel'].value;
+    const artikel = content['artikel-looping'].contentData[0]?.details;
+    const paragrafSatu = artikel[0]?.value;
+    const artikelImage = (artikel[1])?.imageUrl ? singleImageTransformer(artikel[1])?.imageUrl : null;
+    const paragrafDua = artikel[2]?.value;
+    const artikelVideo = artikel[3]?.value;
+    const paragrafTiga = artikel[4]?.value;
+    const tags = content['tags']?.value;
+    const artikelPIC = content['artikel-pic']?.value;
+    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+    const waktuBaca = content['waktu-baca-artikel']?.value;
+    const daftarIsi = content['artikel-looping']?.contentData;
 
     const transformedData = {
       tagline,
@@ -149,7 +149,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       tags,
       artikelPIC,
       artikelPICJabatan,
-      waktuBaca
+      waktuBaca,
+      daftarIsi
     };
 
     setContentData(transformedData);
@@ -192,9 +193,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   key={index}
                   className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
                 >
-                  <span className="font-bold text-purple_dark text-[18px]">
-                    {htmlParser(item.judul)}
-                  </span>
+                  <div
+                    className="font-bold text-purple_dark text-[18px]"
+                    dangerouslySetInnerHTML={{
+                      __html: item.judul
+                    }}
+                  />
                 </div>
               ) : (
                 <Link
@@ -206,9 +210,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   role="button"
                   className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
                 >
-                  <span className="font-bold text-purple_mediumlight text-[18px]">
-                    {item.judul}
-                  </span>
+                  <div
+                    className="font-bold text-purple_mediumlight text-[18px]"
+                    dangerouslySetInnerHTML={{
+                      __html: item.judul
+                    }}
+                  />
                 </Link>
               )
             )}
@@ -222,9 +229,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                 <p className="text-purple_dark font-semibold">
                   {contentData?.tags}
                 </p>
-                <p className="font-semibold text-[48px]">
-                  {htmlParser(contentData?.judul)}
-                </p>
+                <p
+                  className="font-semibold text-[48px]"
+                  dangerouslySetInnerHTML={{
+                    __html: contentData?.judul
+                  }}
+                />
                 <div className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
                     <p>
