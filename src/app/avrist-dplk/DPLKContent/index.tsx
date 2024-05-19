@@ -73,7 +73,7 @@ const DPLKContent = (props: Props) => {
       <div className="flex flex-nowrap w-full justify-between gap-2 overflow-x-auto">
         {tabs.map((val, idx) => (
           <div className="w-full" key={idx}>
-            <div className="xs:w-[250px] md:w-full">
+            <div className="xs:w-[250px] sm:w-full sm:h-[4.375rem] md:h-full">
               <LinkScroll
                 to={'#' + val.replace(/\s+/g, '')}
                 spy={true}
