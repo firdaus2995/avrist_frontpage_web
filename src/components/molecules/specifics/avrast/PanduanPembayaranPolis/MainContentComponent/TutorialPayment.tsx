@@ -50,11 +50,13 @@ export const TutorialPayment = () => {
   );
 
   return (
-    <div className={`w-full flex flex-col justify-center relative pb-28 pt-20`}>
+    <div
+      className={`w-full flex flex-col justify-center relative`}
+    >
       <div className="w-full flex md:flex-row xs:flex-col">
         <div className="xs:hidden md:block">
           <div
-            className={`flex flex-col bg-purple_light_bg rounded-lg w-[200px]`}
+            className={`flex flex-col bg-purple_light_bg rounded-lg w-[12.5rem]`}
           >
             {data.map((val, idx) => (
               <div
@@ -71,10 +73,10 @@ export const TutorialPayment = () => {
           </div>
         </div>
 
-        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 ml-[48px]">
+        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[3rem] xs:ml-0">
           {selectedData?.data.map((i) => (
             <CardMenuChildren desc={i.name} key={i.id}>
-              <div className="font-opensans font-normal text-[20px] text-gray_body ml-[20px]">
+              <div className="font-opensans font-normal text-[1.25rem] text-gray_body ml-[1.25rem]">
                 <ul className="list-disc">
                   {i.list.map((l) => (
                     <li key={l}>{l}</li>

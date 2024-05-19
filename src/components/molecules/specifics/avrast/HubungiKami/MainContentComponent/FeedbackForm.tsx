@@ -74,32 +74,38 @@ export const FeedbackForm = (props: Props) => {
   };
 
   return (
-    <div className="bg-white py-[80px] px-[136px]">
+    <div className="bg-white sm:px-[8.5rem] sm:py-[4rem] xs:py-[1.875rem] xs:px-[1.3125rem]">
       <div className="border rounded-xl flex flex-col justify-between overflow-hidden">
-        <div className="p-[36px]">
-          <p className="font-bold font-karla text-[36px] text-purple_dark">
+        <div className="p-[2.25rem]">
+          <p className="font-bold font-karla text-[2.25rem] text-purple_dark">
             Bagikan Saran Anda
           </p>
           {dataForm && (
             <CustomForm
               dataForm={dataForm}
-              customFormClassname="border-none p-[0px]"
+              customFormClassname="border-none p-[0rem]"
               title=" "
               type="Form Saran"
               resultData={receiveData}
             />
           )}
-          <div className="mt-[36px]">
+          <div className="mt-[2.25rem]">
             <RatingEmoji
               title="Penilaian Anda terhadap produk dan layanan Avrist Life Insurance"
               onChange={onEmojiChange}
             />
           </div>
-          <div className="mt-[36px]">
+          <div className="mt-[2.25rem]">
             <button
               disabled={formIsValid ? (isChecked ? false : true) : true}
               onClick={() => onSubmitData()}
-              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+              className={`${
+                formIsValid
+                  ? isChecked
+                    ? 'bg-purple_dark'
+                    : 'bg-dark-grey'
+                  : 'bg-dark-grey'
+              } text-white h-[2.75rem] md:h-[4rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0`}
             >
               Kirim
             </button>

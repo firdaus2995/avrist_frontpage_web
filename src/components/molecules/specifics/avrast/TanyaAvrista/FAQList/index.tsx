@@ -31,26 +31,26 @@ const FAQList = ({ selected, data }: ICardsProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 items-center">
-      <h1 className="mt-20 font-karla text-[56px] text-purple_dark font-extrabold">
+    <div className="w-full flex flex-col gap-[7.5rem] items-center sm:px-[8.5rem] sm:pt-[3.125rem] xs:pb-[1.625rem] xs:py-[3rem] xs:px-[2.25rem]">
+      <h1 className="font-karla text-[3.5rem] text-purple_dark font-extrabold">
         {selected}
       </h1>
       {paginatedData?.length > 0 ? (
         <div className="w-full">
-          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4">
+          <div className="w-full flex flex-col gap-[3rem]">
             {paginatedData.map((item, index) => (
               <Link
                 href={item.href}
                 key={index}
-                className="w-full border border-gray_light rounded-xl px-4 py-6 flex flex-row justify-between items-center"
+                className="w-full border border-gray_light rounded-xl px-[0.25rem] py-[0.375rem] sm:px-[0.5rem] sm:py-[0.75rem] flex flex-row justify-between items-center"
               >
                 <p className="text-xl font-bold">{item.title}</p>
                 <Image alt="chevron" src={CHEVRON_RIGHT_PURPLE} />
               </Link>
             ))}
           </div>
-          <div className="w-full flex flex-row justify-between md:px-52 2xl:px-[345px] mt-8 mb-10">
-            <div className="flex items-center text-sm">
+          <div className="w-full flex flex-row justify-between mt-[1rem] mb-[1.25rem]">
+            <div className="flex items-center text-[0.625rem]">
               Menampilkan{'\u00A0'}
               <span className="font-bold text-purple_dark">
                 {startIndex + 1}-{Math.min(endIndex, data ? data?.length : 0)}
@@ -59,14 +59,14 @@ const FAQList = ({ selected, data }: ICardsProps) => {
               <span className="font-bold"> {data.length}</span>
               {'\u00A0'}hasil
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-[0.125rem]">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                 (page) => (
                   <div
                     key={page}
                     role="button"
                     onClick={() => handlePageChange(page)}
-                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                    className={`w-[0.375rem] h-[0.375rem] flex items-center justify-center cursor-pointer ${
                       currentPage === page ? 'text-purple_dark font-bold' : ''
                     }`}
                   >
@@ -75,7 +75,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
                 )
               )}
               <span
-                className="mt-[3px]"
+                className="mt-[0.1875rem]"
                 role="button"
                 onClick={() => handlePageChange(totalPages)}
               >
@@ -85,20 +85,21 @@ const FAQList = ({ selected, data }: ICardsProps) => {
           </div>
         </div>
       ) : (
-        <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
-            <Image src={Search} alt="search" />
-          <div className='flex flex-col gap-[36px]'>
-            <div className="w-[324px] text-center">
-              <p className="font-karla font-bold text-[24px]">
+        <div className="w-full flex flex-col gap-[1rem] items-center justify-center">
+          <Image src={Search} alt="search" />
+          <div className="flex flex-col gap-[2.25rem]">
+            <div className="w-[20.25rem] text-center">
+              <p className="font-karla font-bold text-[1.5rem]">
                 Jawaban tidak ditemukan
               </p>
-              <p className="font-opensans text-[16px] mt-[12px]">
-                Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda cari.
+              <p className="font-opensans text-[1rem] mt-[0.75rem]">
+                Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                cari.
               </p>
             </div>
             <Link
               href="/hubungi-kami"
-              className="bg-purple_dark text-white font-opensans font-semibold text-[20px] rounded-lg py-[12px] px-[40px] mt-[24px] text-center"
+              className="bg-purple_dark text-white font-opensans font-semibold text-[1.25rem] rounded-lg py-[0.75rem] px-[2.5rem] mt-[1.5rem] text-center"
             >
               Hubungi Kami
             </Link>

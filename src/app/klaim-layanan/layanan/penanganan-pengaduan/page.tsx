@@ -6,6 +6,7 @@ import FOOTER_NASABAH_2 from '@/assets/images/avrast/component/footer-klaim/foot
 import FOOTER_NASABAH_3 from '@/assets/images/avrast/component/footer-klaim/footer-img-3.svg';
 import FOOTER_NASABAH_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -46,7 +47,7 @@ const HandleComplaint = () => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-avrast_product_bg">
+    <div className="flex flex-col">
       <Hero
         title={'Informasi Nasabah'}
         breadcrumbsData={[
@@ -83,6 +84,7 @@ const HandleComplaint = () => {
         }
         image={footerImage.imageUrl}
       />
+      <RoundedFrameTop bgColor="bg-white" />
       <div className="w-full">
         <FooterCards
           bgColor="bg-white"
