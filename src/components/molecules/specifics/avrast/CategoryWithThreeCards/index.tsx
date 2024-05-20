@@ -153,14 +153,19 @@ const CategoryWithThreeCards = ({
   return (
     <div className="flex flex-col mx-auto container py-12  gap-[2.25rem] sm:flex-row">
       {/* CATEGORIES */}
-      <Dropdown categories={categories} selectedCategory={selectedCategory} />
-      <div className="flex flex-col sm:block hidden">
-        {!hiddenCategory && (
-          <CategoryList
+      {!hiddenCategory && (
+        <span className="hidden">
+          <Dropdown
             categories={categories}
             selectedCategory={selectedCategory}
           />
-        )}
+        </span>
+      )}
+      <div className={`flex flex-col ${hiddenCategory ? 'hidden' : ''}`}>
+        <CategoryList
+          categories={categories}
+          selectedCategory={selectedCategory}
+        />
         {customLeftContent ?? null}
       </div>
 
@@ -169,18 +174,10 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'md:flex-row-reverse flex-col' : 'flex-col'}  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-sm:flex-wrap  gap-5 justify-between`}
           >
-            <div id="cari-input-field-wrapper" className="flex flex-row gap-[0.75rem] ">
-              <input
-                placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none w-[28.125rem] px-[1rem] py-[0.5rem] rounded-[0.75rem] bg-purple_dark/[.06]"
-                onChange={onSearchChange}
-              />
-              <ButtonSmall title="Cari" onClick={onSearch} />
-            </div>
-            <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
-              <div className="flex flex-row gap-[0.75rem]">
+            <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
+              <div className="flex flex-row gap-[12px] w-full">
                 {tabs.map(
                   (
                     item: { type: string; label: string; options?: IOption[] },
@@ -225,6 +222,15 @@ const CategoryWithThreeCards = ({
                     )
                 )}
               </div>
+            </div>
+            <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
+              <input
+                placeholder={searchPlaceholder ?? 'Cari'}
+                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                onChange={onSearchChange}
+                onKeyDown={onSearch}
+              />
+              <ButtonSmall title="Cari" onClick={onSearch} />
             </div>
           </div>
         )}

@@ -9,7 +9,7 @@ import PlayButton from '@/assets/images/play-button.svg';
 export type VideoPlayerProps = {
   url: string;
   thumbnail?: string;
-  type: string;
+  type?: string;
   color: string;
 };
 
@@ -91,7 +91,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           alt="Thumbnail"
           width={0}
           height={0}
-          className="absolute h-full w-full rounded-t-2xl"
+          className={`absolute h-full w-full ${type ? 'rounded-t-2xl' : 'rounded-2xl'}`}
           src={
             thumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
           }
@@ -118,11 +118,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         iframeClassName="-z-1 w-full h-full"
         onReady={handleReady}
       />
-      <div
-        className={`p-4 w-full bg-${color} rounded-b-xl text-sm text-white font-semibold`}
-      >
-        {type}
-      </div>
+      {type && (
+        <div
+          className={`p-4 w-full bg-${color} rounded-b-xl text-sm text-white font-semibold`}
+        >
+          {type}
+        </div>
+      )}
     </div>
   );
 };

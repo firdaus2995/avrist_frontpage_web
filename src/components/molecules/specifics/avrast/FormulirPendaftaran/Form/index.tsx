@@ -64,7 +64,7 @@ const renderDownloadListFileButton = (listData: any) => {
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
+      <div className="bg-white flex flex-col pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] gap-[4rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -74,16 +74,16 @@ const renderDownloadListFileButton = (listData: any) => {
           ]}
         />
 
-        <section className="w-full flex flex-col items-center text-center my-[60px]">
-          <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
+        <section className="w-full flex flex-col items-center text-center">
+          <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-medium">
             List formulir dan buku panduan yang mungkin Anda butuhkan
           </h1>
-          <h2 className="font-karla text-[28px] 2xl:text-[36px]">
+          <h2 className="font-karla sm:text-4xl xs:text-[1.5rem]">
             Silahkan pilih dan unduh formulir dan buku panduan yang Anda butuhkan
           </h2>
         </section>
 
-        <section className="mb-2">
+        <section className="">
           <div className="flex xs:flex-col md:flex-row gap-10">
             <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl">
               { btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}

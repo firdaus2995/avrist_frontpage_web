@@ -219,7 +219,7 @@ const FooterKlaim = () => {
           {...sliderSettings}
         >
           {data.map((val, idx) => (
-            <div key={idx}>{renderCard(val)}</div>
+            <div className='p-4' key={idx}>{renderCard(val)}</div>
           ))}
         </Slider>
         <div className="flex flex-row justify-between mx-5">

@@ -126,13 +126,15 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
 
   const renderMobileVideo = () => {
     return videoData.map((item) => (
-      <SubCard onClick={handleSubcardClick} key={item.id} item={item} />
+      <div className='w-full' key={item.id}>
+        <SubCard onClick={handleSubcardClick} item={item} />
+      </div>
     ));
   };
 
   return (
     <div className="w-full">
-      <div className="w-full m-auto p-8 xs:p-5 flex flex-col gap-4">
+      <div className="w-full m-auto flex flex-col gap-4">
         {videoData.length >= 1 && (
           <div
             className={`transition-all hidden md:grid rounded-xl ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}

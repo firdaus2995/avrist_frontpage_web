@@ -28,7 +28,10 @@ const InformationCard: React.FC<InformationCardProps> = ({
   cardButtonTextClassname,
   idTags
 }) => (
-  <div className="flex flex-col font-karla my-[64px] mx-auto gap-[64px]" id={idTags}>
+  <div
+    className="flex flex-col font-karla my-[64px] mx-auto gap-[64px]"
+    id={idTags}
+  >
     <div className="sm:text-center xs:text-left mb-[24px]">
       <p className="font-bold text-[56px]">{heading}</p>
       {subHeading && <p className="text-[36px]">{subHeading}</p>}
@@ -39,7 +42,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
           key={index}
           className={`${cardClassname} flex flex-col justify-between sm:max-w-[370px] xs:w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
         >
-          <div className="flex w-full justify-center mt-[24px]">
+          <div className="flex w-full justify-center my-[1.5rem]">
             <Image
               alt="blank-image"
               width={100}
@@ -48,20 +51,20 @@ const InformationCard: React.FC<InformationCardProps> = ({
               className="w-auto"
             />
           </div>
-          <div className="text-center mx-[12px] my-[32px]">
+          <div className="text-center mx-[1.5rem] flex flex-col gap-[0.75rem]">
             {item.cardTitle && (
-              <p className="text-[32px] font-bold font-karla">
+              <p className="text-[2rem] font-bold font-karla">
                 {item.cardTitle}
               </p>
             )}
             <div
               dangerouslySetInnerHTML={{ __html: item.cardBody }}
-              className="text-[16px]"
+              className="text-base font-opensans"
             />
           </div>
           <div className="text-center">
             {item.cardButtonText && (
-              <div className="h-full mb-[24px]">
+              <div className="h-full mt-[1.5rem] mb-[1.75rem] px-[3.542rem]">
                 <Link href={item.href ?? '#'}>
                   <button
                     className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}

@@ -32,7 +32,7 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
   return (
     <div
       onClick={() => onClick(item.id)}
-      className="w-full md:max-w-[25rem] flex flex-col rounded-xl shadow-md cursor-pointer group mt-10"
+      className="w-[95%] md:max-w-[25rem] flex flex-col rounded-xl shadow-md cursor-pointer group mt-10"
     >
       <div className="w-full relative h-[15rem] md:h-[10rem] overflow-hidden rounded-t-xl">
         <Image

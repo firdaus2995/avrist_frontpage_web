@@ -10,6 +10,6 @@ export const BASE_URL = {
 };
 
 export const EXTERNAL_URL = {
-  agiUrl: `${process.env.NEXT_PUBLIC_AGI_URL}/agi`,
-  avramUrl: `${process.env.NEXT_PUBLIC_AVRAM_URL}/avram`
+  agiUrl: `${process.env.NEXT_PUBLIC_AGI_URL}`,
+  avramUrl: `${process.env.NEXT_PUBLIC_AVRAM_URL}`
 };

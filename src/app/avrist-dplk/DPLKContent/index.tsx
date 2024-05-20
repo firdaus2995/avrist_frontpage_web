@@ -62,7 +62,12 @@ const DPLKContent = (props: Props) => {
     if (value !== null) {
       setTab(value);
     }
+
+    if (value === 'Klaim dan Layanan') {
+      router.push(`${pathname}/klaim-layanan`);
+    }
   }, [searchParams]);
+
   return (
     <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
       <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">

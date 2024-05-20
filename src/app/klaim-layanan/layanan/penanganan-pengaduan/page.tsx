@@ -1,13 +1,21 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { IVideoData } from '../kelola-polis/page';
+import FOOTER_NASABAH_1 from '@/assets/images/avrast/component/footer-klaim/footer-img-1.svg';
+import FOOTER_NASABAH_2 from '@/assets/images/avrast/component/footer-klaim/footer-img-2.svg';
+import FOOTER_NASABAH_3 from '@/assets/images/avrast/component/footer-klaim/footer-img-3.svg';
+import FOOTER_NASABAH_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
 import { MainContent } from '@/components/molecules/specifics/avrast/PenangananPengaduan';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const HandleComplaint = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
@@ -15,17 +23,16 @@ const HandleComplaint = () => {
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [videoData, setVideoData] = useState<IVideoData[] | undefined>();
 
-
   useEffect(() => {
-  const fetchData = async () => {
+    const fetchData = async () => {
       try {
         const data = await handleGetContentPage('halaman-penanganan-pengaduan');
         const { content } = pageTransformer(data);
         const dataWithVideo = Object.entries(content)
-        .filter(([key]) => key.includes("video"))
-        .reduce((obj: any, [key, value]) => { 
-          obj[key] = value; 
-          return obj;
+          .filter(([key]) => key.includes('video'))
+          .reduce((obj: any, [key, value]) => {
+            obj[key] = value;
+            return obj;
           }, {});
 
         setTitleImage(singleImageTransformer(content['title-image']));
@@ -33,25 +40,28 @@ const HandleComplaint = () => {
         setFooterImage(singleImageTransformer(content['cta1-image']));
         setVideoData(dataWithVideo);
       } catch (error) {
-          console.error('Error:', error);
+        console.error('Error:', error);
       }
     };
     fetchData();
   }, []);
-  
+
   return (
-    <div className="flex flex-col bg-avrast_product_bg">
+    <div className="flex flex-col">
       <Hero
         title={'Informasi Nasabah'}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Informasi Nasabah', href: '/klaim-layanan/layanan?tab=Informasi+Nasabah' },
+          {
+            title: 'Informasi Nasabah',
+            href: '/klaim-layanan/layanan?tab=Informasi+Nasabah'
+          },
           { title: 'Penanganan Pengaduan', href: '#' }
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent videoData={videoData}/>
+      <MainContent videoData={videoData} />
       <FooterInformation
         title={
           <div
@@ -74,7 +84,38 @@ const HandleComplaint = () => {
         }
         image={footerImage.imageUrl}
       />
-      <FooterKlaim />
+      <RoundedFrameTop bgColor="bg-white" />
+      <div className="w-full">
+        <FooterCards
+          bgColor="bg-white"
+          cards={[
+            {
+              icon: FOOTER_NASABAH_1,
+              title: 'Kelola Polis',
+              subtitle: 'Login Akun',
+              href: 'https://my.avrist.com/welcome'
+            },
+            {
+              icon: FOOTER_NASABAH_2,
+              title: 'Download Formulir',
+              subtitle: 'Lihat Lainnya',
+              href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
+            },
+            {
+              icon: FOOTER_NASABAH_3,
+              title: 'Avrist Terkini',
+              subtitle: 'Lebih Lanjut',
+              href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
+            },
+            {
+              icon: FOOTER_NASABAH_4,
+              title: 'Prosedur Pengaduan',
+              subtitle: 'Lihat Prosedur',
+              href: '/klaim-layanan/layanan/penanganan-pengaduan'
+            }
+          ]}
+        />
+      </div>
     </div>
   );
 };

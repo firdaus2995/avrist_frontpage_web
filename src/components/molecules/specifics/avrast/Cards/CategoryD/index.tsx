@@ -52,7 +52,7 @@ const CardCategoryD = ({
         <div className="flex flex-row gap-2 items-center">
           <Image alt="book-image" width={0} height={20} src={Book} />
           <p className="font-bold text-[14px]">
-            {readTime && `Baca ${readTime}`}
+            {readTime && `${readTime}`}
           </p>
         </div>
         <div className="flex flex-row gap-2 items-center">

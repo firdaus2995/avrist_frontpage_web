@@ -11,6 +11,7 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { getListLaporanPerusahaan } from '@/services/laporan-perusahaan';
 import { handleDownload } from '@/utils/helpers';
 import {
   pageTransformer,
@@ -55,16 +56,19 @@ const LaporanPerusahaan = () => {
 
   const fetchContent = async () => {
     try {
-      const apiContent = await fetch(
-        `/api/laporan-perusahaan/content-category?includeAttributes=true&category=${params.category}&searchFilter=${params.searchFilter}&yearFilter=${params.yearFilter}&monthFilter=${params.monthFilter}`
-      );
-      const response = await apiContent.json();
+      const apiContent = await getListLaporanPerusahaan({
+        includeAttributes: 'true',
+        category: params.category,
+        searchFilter: params.searchFilter,
+        yearFilter: params.yearFilter,
+        monthFilter: params.monthFilter
+      });
 
-      const categoryList = Object.keys(response.data.categoryList);
+      const categoryList = Object.keys(apiContent.data.categoryList);
 
       categories.length < 1 && setCategories(categoryList);
 
-      setContentData(response.data.categoryList[params.category]);
+      setContentData(apiContent.data.categoryList[params.category]);
     } catch (err) {
       console.error(err);
     }
@@ -184,11 +188,11 @@ const LaporanPerusahaan = () => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center text-center mt-[3rem] gap-[0.75rem] px-[2rem]">
+          <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-medium font-karla text-purple_dark">
             Laporan Keuangan Perusahaan
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="xs:text-[1.25rem] md:text-[2.25rem] font-karla">
             Temukan laporan keuangan perusahaan di sini
           </h2>
         </div>
@@ -224,7 +228,7 @@ const LaporanPerusahaan = () => {
                   (item: any, index: number) => (
                     <div
                       key={index}
-                      className="w-full flex flex-row justify-between items-center p-4 border rounded-xl"
+                      className="w-full flex flex-row justify-between items-center p-4 border rounded-xl gap-2"
                     >
                       <div className="flex flex-row gap-2 items-center">
                         <p className="font-bold">{item.name}</p>
@@ -242,15 +246,15 @@ const LaporanPerusahaan = () => {
 
               <div className="flex flex-col gap-4 sm:flex-row justify-between">
                 <div>
-                  <p className="text-[20px]">
+                  <p className="text-[1.25rem]">
                     Menampilkan{' '}
                     <span className="font-bold text-purple_dark">
-                      {contentData?.length === 0 ? 0 : startIndex + 1}-
+                      {contentData ? startIndex + 1 : 0}-
                       {Math.min(endIndex, contentData ? contentData.length : 0)}
                     </span>{' '}
                     dari{' '}
                     <span className="font-bold">
-                      {contentData && contentData.length}
+                      {contentData ? contentData.length : 0}
                     </span>{' '}
                     hasil
                   </p>

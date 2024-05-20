@@ -1,5 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
+import Image from 'next/image';
+import BOOK from '@/assets/images/common/book.svg';
 
 interface INewsCard {
   label: string;
@@ -17,10 +19,10 @@ const NewsCard: React.FC<INewsCard> = ({
   tags
 }) => {
   return (
-    <div className="mx-3 rounded-xl border-2 border-gray_light px-[24px] py-[36px] flex flex-col gap-3">
+    <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[1.5rem]">
       <span className="flex flex-row gap-2">
         <p className="font-bold text-purple_dark text-sm">{label}</p>
-        <span className="w-[1px] h-auto bg-black" />
+        <span className="w-[0.0625rem] h-auto bg-black" />
         <p className="text-sm">{format(new Date(date), 'dd MMMM yyyy')}</p>
       </span>
       <p className="text-2xl w-[74%] font-bold">{title}</p>
@@ -36,18 +38,17 @@ const NewsCard: React.FC<INewsCard> = ({
           tags.map((item, index) => (
             <p
               key={index}
-              className="text-purple_dark font-medium bg-gray_bglightgray px-2 py-1 text-sm"
+              className="text-purple_dark font-semibold bg-gray_bglightgray px-2 py-1 text-sm"
             >
               {item}
             </p>
           ))}
       </div>
 
-      {/* temporary hide */}
-      {/* <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2">
         <Image alt="book" src={BOOK} />
         <p className="text-sm font-bold">Baca 2 Menit</p>
-      </div> */}
+      </div>
     </div>
   );
 };
