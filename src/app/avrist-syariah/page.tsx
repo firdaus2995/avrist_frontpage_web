@@ -22,14 +22,18 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
-import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  handleGetContentCategory,
+  handleGetContentPage
+} from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
+import { QueryParams } from '@/utils/httpService';
 import {
+  contentCategoryTransformer,
   contentStringTransformer,
   pageTransformer,
   singleImageTransformer
@@ -50,6 +54,13 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   const [tab, setTab] = useState('');
   // content
   const [data, setData] = useState<PageResponse>();
+  const [manajemenData, setManajemenData] = useState([
+    {
+      image: '',
+      name: '',
+      role: ''
+    }
+  ]);
   const { content } = pageTransformer(data);
 
   const titleImage = singleImageTransformer(content['title-image']);
@@ -64,15 +75,6 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   const dewanPengawasDeskripsi = contentStringTransformer(
     content['dewanpengawassyariah-deskripsi']
   );
-  const dewanPengawasImage = singleImageTransformer(
-    content['dewanpengawassyariah-imagedewan']
-  );
-  const dewanPengawasNama = contentStringTransformer(
-    content['dewanpengawassyariah-namadewan']
-  );
-  const dewanPengawasTitleDewan = contentStringTransformer(
-    content['dewanpengawassyariah-titledewan']
-  );
 
   const manfaatUtamaJudul = contentStringTransformer(
     content['manfaatutama-judul']
@@ -82,6 +84,58 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   );
 
   const footerImage = singleImageTransformer(content['cta1-image']);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const queryParams: QueryParams = {
+          includeAttributes: 'true'
+        };
+        const data = await handleGetContentCategory(
+          'manajemen-avrist-syariah',
+          queryParams
+        );
+        const newDataContentWithCategory = contentCategoryTransformer(data, '');
+
+        const dataContentValues = newDataContentWithCategory?.map(
+          ({ content }) => {
+            const data = content['list-pengawas'].contentData;
+            return {
+              data
+            };
+          }
+        );
+
+        const transformedData = dataContentValues[0].data.map(
+          (item: { details: any[] }) => {
+            const details = item.details.reduce(
+              (
+                acc: { image: string; name: any; role: any },
+                detail: { fieldId: string; value: any }
+              ) => {
+                if (detail.fieldId === 'foto') {
+                  acc.image = singleImageTransformer(detail).imageUrl;
+                } else if (detail.fieldId === 'nama') {
+                  acc.name = detail.value;
+                } else if (detail.fieldId === 'jabatan') {
+                  acc.role = detail.value;
+                }
+                return acc;
+              },
+              {}
+            );
+            return details;
+          }
+        );
+
+        setManajemenData(transformedData);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
@@ -132,7 +186,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         bottomImage={bannerImage.imageUrl}
       />
       <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
-        <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
+        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-2 items-stretch">
           {tabs.map((val, idx) => (
             <LinkScroll
               key={idx}
@@ -153,13 +207,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
             title={dewanPengawasJudul}
             subTitle={dewanPengawasSubJudul}
             desc={dewanPengawasDeskripsi}
-            boards={[
-              {
-                image: dewanPengawasImage.imageUrl,
-                name: dewanPengawasNama,
-                role: dewanPengawasTitleDewan
-              }
-            ]}
+            boards={manajemenData}
             manfaatUtamaJudul={manfaatUtamaJudul}
             manfaatUtamaDesc={manfaatUtamaDeskripsi}
           />
@@ -169,13 +217,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
             title={dewanPengawasJudul}
             subTitle={dewanPengawasSubJudul}
             desc={dewanPengawasDeskripsi}
-            boards={[
-              {
-                image: dewanPengawasImage.imageUrl,
-                name: dewanPengawasNama,
-                role: dewanPengawasTitleDewan
-              }
-            ]}
+            boards={manajemenData}
             manfaatUtamaJudul={manfaatUtamaJudul}
             manfaatUtamaDesc={manfaatUtamaDeskripsi}
           />
@@ -185,13 +227,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
             title={dewanPengawasJudul}
             subTitle={dewanPengawasSubJudul}
             desc={dewanPengawasDeskripsi}
-            boards={[
-              {
-                image: dewanPengawasImage.imageUrl,
-                name: dewanPengawasNama,
-                role: dewanPengawasTitleDewan
-              }
-            ]}
+            boards={manajemenData}
             manfaatUtamaJudul={manfaatUtamaJudul}
             manfaatUtamaDesc={manfaatUtamaDeskripsi}
           />
@@ -201,22 +237,20 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
       </div>
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
-      <SimpleContainer>
-        <HelpCard
-          title={
-            <p className="text-[56px] text-white">
-              <span className="font-bold">Hello,</span> Ada yang bisa{' '}
-              <span className="font-bold">Avrista</span> bantu?
-            </p>
-          }
-          cardClassname="bg-syariah_green_informing"
-          buttonClassname="bg-white border border-white"
-          buttonTextClassname="text-syariah_green_informing"
-          buttonTitle="Tanya Avrista"
-          image={footerImage.imageUrl}
-          href="/tanya-avrista"
-        />
-      </SimpleContainer>
+      <HelpCard
+        title={
+          <p className="text-[56px] text-white">
+            <span className="font-bold">Hello,</span> Ada yang bisa{' '}
+            <span className="font-bold">Avrista</span> bantu?
+          </p>
+        }
+        cardClassname="bg-syariah_green_informing"
+        buttonClassname="bg-white border border-white"
+        buttonTextClassname="text-syariah_green_informing"
+        buttonTitle="Tanya Avrista"
+        image={footerImage.imageUrl}
+        href="/tanya-avrista"
+      />
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
       {tab.includes('Klaim dan Layanan') ? (
         <FooterCards
