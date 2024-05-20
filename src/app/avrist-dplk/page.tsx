@@ -87,10 +87,7 @@ const AvristSyariah = async () => {
         href={'/tanya-avrista'}
       />
       <div>
-        <RoundedFrameTop
-          frameColor="bg-white"
-          bgColor="xs:bg-white md:bg-purple_superlight"
-        />
+        <RoundedFrameTop frameColor="bg-white" bgColor="bg-white" />
         <FooterCards
           cards={[
             {

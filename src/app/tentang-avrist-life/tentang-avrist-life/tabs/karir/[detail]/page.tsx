@@ -192,9 +192,9 @@ const DetailKarir = () => {
           }
           image={data?.footerImage ?? BlankImage}
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
       </div>
-      <div className="w-full h-full bg-purple_superlight">
+      <div className="w-full h-full bg-purple_superlight xs:-mt-2 md:mt-0">
         <FooterCards
           cards={[
             {
