@@ -27,6 +27,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { getYouTubeId } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   pageTransformer,
@@ -84,7 +85,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   const fetchDetailData = async () => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
-    
+
     const { content } = contentDetailTransformer(jsonData);
 
     const tagline = content['topik-artikel'].value;
@@ -104,7 +105,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const date = new Date(jsonData?.data?.createdAt).getDate();
     const monthInText = month.find((item) => item.value === bulan)?.label;
     const externalLink = content['list-external-link'].contentData;
-    
+
     const transformedData = {
       tagline,
       judul,
@@ -149,26 +150,28 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         bottomImage={data?.bannerImage ?? BlankImage}
       />
 
-      <div className="flex items-center justify-center w-full">
-        <div className="flex flex-col gap-10 w-2/3 p-10">
+      <div className="w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
+        <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-5">
             <span className="text-purple_dark font-semibold">
-              {
-                contentData[0] === '<' ? <span dangerouslySetInnerHTML={{ __html: contentData?.tagline }} /> :
-                <span className='text-[24px]'>{contentData?.tagline}</span>
-              }
-              
+              {contentData[0] === '<' ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: contentData?.tagline }}
+                />
+              ) : (
+                <span className="text-[24px]">{contentData?.tagline}</span>
+              )}
             </span>
             <p
-              className="font-semibold text-[56px]"
+              className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]"
               dangerouslySetInnerHTML={{ __html: contentData.judul }}
             />
 
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row justify-between items-center font-opensans">
               <div className="flex flex-col gap-2">
                 <p>
-                  {`${contentData?.date} ${contentData.monthInText} ${contentData.tahun}`} |{' '}
-                  {contentData.penulis}
+                  {`${contentData?.date} ${contentData.monthInText} ${contentData.tahun}`}{' '}
+                  | {contentData.penulis}
                 </p>
 
                 <div className="flex flex-row gap-2">
@@ -176,7 +179,12 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
-                <div className="flex items-center" role="button" id="PopoverFocus" onClick={() => setIsOPenPopover(!isOpenPopover)}>
+                <div
+                  className="flex items-center"
+                  role="button"
+                  id="PopoverFocus"
+                  onClick={() => setIsOPenPopover(!isOpenPopover)}
+                >
                   <Icon
                     width={16}
                     height={16}
@@ -194,7 +202,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   toggle={() => setIsOPenPopover(false)}
                 >
                   <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
-                  <div className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap" role="none">
+                    <div
+                      className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap"
+                      role="none"
+                    >
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
@@ -203,7 +214,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           src={Whatsapp}
                           alt="whatsapp"
                         />
-                        <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Whatsapp
+                        </div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
@@ -213,7 +226,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           src={Email}
                           alt="email"
                         />
-                        <div className="text-xs font-bold cursor-pointer">Email</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Email
+                        </div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
@@ -223,7 +238,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           src={Linkedin}
                           alt="linkedin"
                         />
-                        <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          LinkedIn
+                        </div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
@@ -233,7 +250,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                           src={Facebook}
                           alt="facebook"
                         />
-                        <div className="text-xs font-bold cursor-pointer">Facebook</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Facebook
+                        </div>
                       </div>
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <div
@@ -248,7 +267,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                             color="purple_verylight"
                           />
                         </div>
-                        <div className="text-xs font-bold cursor-pointer">Copy URL</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Copy URL
+                        </div>
                       </div>
                     </div>
                   </PopoverBody>
@@ -258,10 +279,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           </div>
           {
             <p
-              className='text-xl'
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafSatu
               }}
+              className="font-opensans text-xl"
             />
           }
 
@@ -277,17 +298,17 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
           {
             <span
-              className='text-xl'
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafDua
               }}
+              className="font-opensans text-xl"
             />
           }
 
-          <div className="w-full h-[650px] mb-10">
+          <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
             <VideoPlayer
               thumbnail=""
-              url={contentData.artikelVideo}
+              url={getYouTubeId(contentData?.artikelVideo) ?? ''}
               color="purple_dark"
               type="Artikel Video"
             />
@@ -295,7 +316,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
           {
             <span
-              className='text-xl'
+              className="text-xl"
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafTiga
               }}
@@ -307,14 +328,17 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <p className="text-sm font-medium">
                 Artikel ini telah di liput di:
               </p>
-              {
-                contentData?.externalLink?.map((item:any, index:number) => (
-                  <div key={index} className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark">
-                    {item.details[0]?.value}
-                    {item.details[0]?.value !== '-' && <Icon name="externalLink" color="purple_dark" width={10} />}
-                  </div>
-                ))
-              }
+              {contentData?.externalLink?.map((item: any, index: number) => (
+                <div
+                  key={index}
+                  className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
+                >
+                  {item.details[0]?.value}
+                  {item.details[0]?.value !== '-' && (
+                    <Icon name="externalLink" color="purple_dark" width={10} />
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -326,7 +350,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <p className="font-bold text-xl">{contentData?.artikelPIC}</p>
               <p className="text-xl">{contentData?.artikelPICJabatan}</p>
             </div>
-            <div className="flex flex-row items-center justify-between xs:max-md:flex-wrap">
+            <div className="flex xs:flex-col md:flex-row md:items-center xs:gap-4 justify-between">
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'email'} className="w-6" src={Email} />
                 <p className="font-bold text-sm">corcom@avrist.com</p>
@@ -337,7 +361,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </div>
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'office'} className="w-6" src={Office} />
-                <p className="font-bold text-sm">Sekilas Avrist Life Insurance</p>
+                <p className="font-bold text-sm">
+                  Sekilas Avrist Life Insurance
+                </p>
               </div>
             </div>
           </div>
