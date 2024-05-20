@@ -52,31 +52,31 @@ const CardProduct = ({
         </p>
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
-      <div>
+      <span>
         <p
           className="line-clamp-3"
           dangerouslySetInnerHTML={{ __html: description ?? '' }}
         />
-        <div className="flex flex-row flex-wrap gap-[12px]">
-          {tags &&
-            tags.map((item: string, index: number) => (
-              <Link
-                key={index}
-                href={{
-                  pathname: `/pencarian`,
-                  query: { searchValue: item }
-                }}
-                onClick={() => {
-                  onClickTags ? onClickTags(item) : null;
-                }}
-                className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
-              >
-                <p>{item}</p>
-              </Link>
-            ))}
-        </div>
-      </div>
+      </span>
 
+      <div className="flex flex-row flex-wrap gap-[12px]">
+        {tags &&
+          tags.map((item: string, index: number) => (
+            <Link
+              key={index}
+              href={{
+                pathname: `/pencarian`,
+                query: { searchValue: item }
+              }}
+              onClick={() => {
+                onClickTags ? onClickTags(item) : null;
+              }}
+              className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
+            >
+              <p>{item}</p>
+            </Link>
+          ))}
+      </div>
       <div className="h-full flex items-end">
         {href ? (
           <Link href={href} className="w-full">

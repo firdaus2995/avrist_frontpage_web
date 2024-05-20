@@ -14,39 +14,41 @@ interface PersonCardProps {
   cards: Card[];
   roleClassname?: string;
   idTags?: string;
+  headingClassname?: string;
 }
 
 const PersonCard: React.FC<PersonCardProps> = ({
   heading,
   cards,
   roleClassname,
-  idTags
+  idTags,
+  headingClassname
 }) => (
-  <div className="font-karla mx-[2.25rem]" id={idTags}>
-    <div className="text-center mb-[24px]">
-      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla text-purple_dark">
+  <div className="font-karla" id={idTags}>
+    <div className="text-center mb-[1.5rem]">
+      <p
+        className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla ${headingClassname ?? 'text-purple_dark'}`}
+      >
         {heading}
       </p>
     </div>
-    <div className="flex xs:flex-col md:flex-row justify-center items-center gap-[24px]">
+    <div className="flex xs:flex-col md:flex-row justify-center items-center gap-[1.5rem]">
       {cards.map((item, index) => (
         <div
           key={index}
           role="button"
           onClick={() => item.onClick && item.onClick(item)}
-          className="max-w-[372px] border-1 rounded-[12px] shadow-md"
+          className="max-w-[23.25rem] border-1 rounded-[12px] shadow-md"
         >
           <Image
             alt="blank-image"
             width={0}
             height={372}
             src={item.image}
-            className="rounded-t-[12px] w-[372px]"
+            className="rounded-t-[12px] h-[23.25rem] w-full object-cover"
           />
-          <div className="text-center mx-2 my-[32px] font-bold font-karla h-auto">
-            <p className="xs:text-[1.5rem] md:text-[2.25rem] line-clamp-1">
-              {item.name}
-            </p>
+          <div className="text-center md:m-[2rem] font-bold font-karla h-[150px] flex flex-col items-center justify-center">
+            <p className="xs:text-[1.5rem] md:text-[2.25rem]">{item.name}</p>
             <p
               className={`${roleClassname} xs:text-[1.25rem] md:text-[1.5rem]`}
             >

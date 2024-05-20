@@ -13,12 +13,12 @@ import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
-import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleSendEmail } from '@/services/form.api';
@@ -157,9 +157,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
     const fetchDataList = async () => {
       try {
-        const contentResponse = await fetch(
-          `/api/produk-dplk/content`
-        );
+        const contentResponse = await fetch(`/api/produk-dplk/content`);
         const data = await contentResponse.json();
         const newDataContent = data.data.contentDataList.map((item: any) => {
           return {
@@ -303,7 +301,6 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             title={dataDetail?.namaProduk}
             breadcrumbsData={[
               { title: 'Beranda', href: '/' },
-              { title: 'Produk DPLK', href: '/avrist-dplk/produk' },
               {
                 title: dataDetail?.namaProduk,
                 href: `/avrist-dplk/produk/${params.detail}`
@@ -324,7 +321,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-dplk_yellow"
             />
-            <div className="flex justify-center w-full h-[650px]">
+            <div className="flex justify-center w-full xs:h-[250px] md:h-[650px] xs:mb-[1.5rem] xs:-mt-12 md:mt-0">
               {/* <Image src={PlaceholderVideo} alt="video" /> */}
               <VideoPlayer
                 color="dplk_yellow"
@@ -377,92 +374,97 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               />
             </div>
           </SimpleContainer>
-          <SimpleContainer bgColor="purple_superlight">
+          <SimpleContainer bgColor="yellow_light">
             {dataForm && (
               <CustomForm
-                customFormClassname="border-none p-[0px] rounded-[12px]"
+                customFormClassname="border p-[1.5rem] rounded-[12px]"
                 onChange={handleChange}
                 dataForm={dataForm}
                 resultData={receiveData}
               />
             )}
-            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
-              <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={(e) => {
-                    setIsChecked(e.target.checked);
-                  }}
-                />
-                <label className="cursor-pointer" htmlFor="setuju">
-                  Saya setuju memberikan data pribadi Saya kepada Avrist Life
-                  Insurance dan telah membaca{' '}
-                  <span
-                    className="text-purple_dark font-bold"
-                    onClick={() => window.open('/keamanan-online', '_blank')}
+            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-20 border-x border-x-gray_light">
+              <div className="accent-dplk_yellow flex xs:flex-col md:flex-row items-center gap-[12px] h-full">
+                <div className="flex flex-row gap-4">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={(e) => {
+                      setIsChecked(e.target.checked);
+                    }}
+                  />
+                  <label className="cursor-pointer" htmlFor="setuju">
+                    Saya setuju memberikan data pribadi Saya kepada Avrist Life
+                    Insurance dan telah membaca{' '}
+                    <span
+                      className="text-dplk_yellow font-bold"
+                      onClick={() => window.open('/keamanan-online', '_blank')}
+                    >
+                      Keamanan Online
+                    </span>{' '}
+                    Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
+                    dihubungi oleh Avrist Life Insurance melalui media
+                    komunikasi pribadi Saya sesuai hari dan jam operasional yang
+                    berlaku di Avrist Life Insurance.
+                  </label>
+                </div>
+
+                <div className=" flex flex-col md:flex-row md:justify-end md:items-center">
+                  <button
+                    type="submit"
+                    disabled={formIsValid}
+                    onClick={() => onSubmitData()}
+                    className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full w-[132px] rounded-lg mt-[12px] md:mt-0`}
                   >
-                    Keamanan Online
-                  </span>{' '}
-                  Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
-                  dihubungi oleh Avrist Life Insurance melalui media komunikasi
-                  pribadi Saya sesuai hari dan jam operasional yang berlaku di
-                  Avrist Life Insurance.
-                </label>
-              </div>
-              <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
-                <button
-                  type="submit"
-                  disabled={formIsValid ? (isChecked ? false : true) : true}
-                  onClick={() => onSubmitData()}
-                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
-                >
-                  Kirim
-                </button>
+                    Kirim
+                  </button>
+                </div>
               </div>
             </div>
           </SimpleContainer>
           <SimpleContainer>
             <div className="mx-32px text-center">
-              <p className="font-karla font-bold text-[56px]">
+              <p className="font-karla font-bold  xs:text-[2.25rem] md:text-[3.5rem]">
                 Rekomendasi Produk Lainnya
               </p>
             </div>
-            <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
+            <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[1rem]">
               {dataRekomendasi &&
                 dataRekomendasi.length !== 0 &&
-                dataRekomendasi.map((item, index) => (
-                  <CardProduct
-                    key={index}
-                    imageProduk={item.produkImage.imageUrl}
-                    symbol={item.kategoriProdukIcon.imageUrl}
-                    title={item.jenisProduk}
-                    summary={item.namaProduk}
-                    description={item.deskripsiSingkatProduk}
-                    tags={item.tags.split(',')}
-                    href={`/avrist-dplk/produk/${item.id}`}
-                    cardClassname="bg-white border-b-dplk_yellow"
-                    cardTitleClassname="text-dplk_yellow"
-                    cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                    cardButtonClassname="bg-dplk_yellow text-white"
-                  />
-                ))}
+                dataRekomendasi
+                  .slice(0, 3)
+                  .map((item, index) => (
+                    <CardProduct
+                      key={index}
+                      imageProduk={item.produkImage.imageUrl}
+                      symbol={item.kategoriProdukIcon.imageUrl}
+                      title={item.jenisProduk}
+                      summary={item.namaProduk}
+                      description={item.deskripsiSingkatProduk}
+                      tags={item.tags.split(',')}
+                      href={`/avrist-dplk/produk/${item.id}`}
+                      cardClassname="bg-white border-b-dplk_yellow"
+                      cardTitleClassname="text-dplk_yellow"
+                      cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+                      cardButtonClassname="bg-dplk_yellow text-white"
+                    />
+                  ))}
             </div>
           </SimpleContainer>
           <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-          <HelpCard
+          <FooterInformation
+            bgColor="bg-dplk_yellow"
+            outerClassName="bg-white"
+            buttonVariant="dplk"
             title={
-              <p className="text-[56px] text-black">
+              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
                 <span className="font-bold">Hello,</span> Ada yang bisa{' '}
                 <span className="font-bold">Avrista</span> bantu?
               </p>
             }
-            cardClassname="bg-dplk_yellow"
-            buttonClassname="bg-white border border-white"
-            buttonTextClassname="text-dplk_yellow"
             buttonTitle="Tanya Avrista"
-            href="/tanya-avrista"
             image={data.footerImage.imageUrl}
+            href={'/tanya-avrista'}
           />
           <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
           <FooterCards
