@@ -186,7 +186,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         bottomImage={bannerImage.imageUrl}
       />
       <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
-        <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
+        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-2 items-stretch">
           {tabs.map((val, idx) => (
             <LinkScroll
               key={idx}
