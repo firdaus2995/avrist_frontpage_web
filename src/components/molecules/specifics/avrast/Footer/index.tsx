@@ -36,10 +36,10 @@ const Footer = () => {
           src={AVRIST_LOGO}
         />
         {/* Main Content */}
-        <div className="lg:grid lg:grid-cols-[minmax(10rem,_30rem)_minmax(8rem,_1fr)_1fr_1fr] mt-8 lg:gap-16 gap-10 flex flex-col">
+        <div className="grid xs:grid-cols-1 md:grid-cols-[calc(25%+48px)_minmax(8rem,_1fr)_1fr_1fr] gap-[1.5rem] mt-9">
           {/* Opening content */}
-          <div className="flex flex-col gap-4 lg:gap-10">
-            <p className="font-bold text-[1.25rem] md:w-[60%]">
+          <div className="flex flex-col gap-4 lg:gap-9">
+            <p className="font-bold text-[1.25rem] 2xl:w-[60%]">
               PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa
               Keuangan.
             </p>
@@ -49,8 +49,8 @@ const Footer = () => {
               PT Avrist Life Insurance.
             </p>
             <Image
-              width={0}
-              height={0}
+              width={320}
+              height={63.6}
               alt="Avrist"
               className="h-auto min-w-[5rem] max-w-[25rem] w-full"
               src={FOOTER_IMAGE}
@@ -63,7 +63,7 @@ const Footer = () => {
               Tanya Avrista
             </p>
             <div className="text-sm flex flex-col gap-4">
-              <div>
+              <div className="flex flex-col gap-2">
                 <p className="font-bold text-lg">Layanan Nasabah</p>
                 <a
                   href="tel:+622157898188"
@@ -72,13 +72,13 @@ const Footer = () => {
                   021 5789 8188
                 </a>
               </div>
-              <div>
+              <div className="flex flex-col gap-2">
                 <p className="font-bold text-lg">Waktu Operasional</p>
-                <p className="text-sm font-opensans">
+                <p className="text-sm font-opensans whitespace-normal">
                   Senin - Jumat, 08.00 - 17.00 WIB
                 </p>
               </div>
-              <div>
+              <div className="flex flex-col gap-2">
                 <p className="font-bold text-lg">Email</p>
                 <a
                   href="mailto:service@avrist.com"
@@ -93,7 +93,7 @@ const Footer = () => {
           {/* Investation content */}
           <div className="flex flex-col gap-4">
             <p className="font-bold text-space_purpink text-xl">Quick Links</p>
-            <div className="flex flex-col gap-2 h-full">
+            <div className="flex flex-col gap-4 h-full">
               <Link
                 href="/produk/individu?tab=Asuransi+Jiwa"
                 className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
@@ -120,7 +120,7 @@ const Footer = () => {
                     alt="Google Play"
                     width={0}
                     height={0}
-                    className="h-auto w-28"
+                    className="h-auto w-[7.143rem]"
                     src={GOOGLEPLAY}
                   />
                 </Link>
@@ -134,7 +134,7 @@ const Footer = () => {
                     alt="App Store"
                     width={0}
                     height={0}
-                    className="h-auto w-28"
+                    className="h-auto w-[7.143rem]"
                     src={APPSTORE}
                   />
                 </Link>
@@ -143,9 +143,9 @@ const Footer = () => {
           </div>
 
           {/* Quick links content */}
-          <div className="flex flex-col gap-4 whitespace-nowrap">
+          <div className="flex flex-col gap-4">
             <p className="font-bold text-space_purpink text-xl">Avrist Group</p>
-            <div className="flex flex-col gap-4 ">
+            <div className="flex flex-col gap-4 h-full">
               <Link href="/produk/individu" className="text-lg font-semibold">
                 Avrist Life Insurance
               </Link>
@@ -161,18 +161,20 @@ const Footer = () => {
               >
                 Avrist General Insurance
               </Link>
-              <Image
-                alt="Reksadana"
-                width={0}
-                height={0}
-                className="h-auto min-w-[8rem] max-w-[15rem]"
-                src={REKSADANA_IMAGE}
-              />
+              <div className="w-full mt-2">
+                <Image
+                  alt="Reksadana"
+                  width={0}
+                  height={0}
+                  className="h-auto w-[9.912rem]"
+                  src={REKSADANA_IMAGE}
+                />
+              </div>
             </div>
           </div>
         </div>
         {/* Separator */}
-        <div className="border-solid border-purple_separator border-b my-8"></div>
+        <div className="border-solid border-purple_separator border-b my-9"></div>
         {/* Bottom content */}
         <div className="flex md:flex-row flex-col justify-between md:gap-4 gap-8 flex-wrap">
           {/* Additional information */}

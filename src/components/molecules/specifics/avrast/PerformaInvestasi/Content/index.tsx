@@ -1,29 +1,62 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import DownloadFileButton from '@/components/molecules/specifics/avrast/DownloadFileButton';
 import Disclaimer from '@/components/molecules/specifics/avrast/PerformaInvestasi/Disclaimer';
-
-const PDFData = [
-  {
-    title: 'Avrist Syariah Equity',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Avrist Syariah Equity',
-    fileType: 'PDF'
-  },
-  {
-    title: 'Avrist Syariah Equity',
-    fileType: 'PDF'
-  }
-];
+import { handleGetContentCategory } from '@/services/content-page.api';
+import { QueryParams } from '@/utils/httpService';
+import {
+  contentCategoryTransformer,
+  contentStringTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const Content = () => {
+  const [dataContent, setDataContent] = useState<any>();
+
+  const fetchData = async () => {
+    const queryParams: QueryParams = {
+      includeAttributes: 'true',
+      category: 'Kinerja Investasi'
+    };
+    try {
+      const fetchApi = await handleGetContentCategory(
+        'Performa-Investasi',
+        queryParams
+      );
+      const transformedData = contentCategoryTransformer(
+        fetchApi,
+        queryParams.category
+      );
+
+      const dataContentValues = transformedData?.map(({ content, id }) => {
+        const title = contentStringTransformer(
+          content['performainvestasi-namafile']
+        );
+        const path = singleImageTransformer(content['performainvestasi-file']);
+
+        return {
+          title,
+          path,
+          id
+        };
+      });
+
+      setDataContent(dataContentValues);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <div className="bg-white pt-[100px] px-[32px] md:px-[136px] pb-2">
+      <div className="bg-white flex flex-col gap-[4rem] sm:pt-[6.25rem] sm:px-[8.5rem] sm:pb-[1.625rem] xs:p-4">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -33,11 +66,11 @@ const Content = () => {
           ]}
         />
 
-        <section className="w-full flex flex-col items-center text-center my-[60px]">
-          <h1 className="font-karla text-[48px] 2xl:text-[56px] text-purple_dark font-medium">
+        <section className="w-full flex flex-col items-center text-center">
+          <h1 className="font-karla xs:text-[3rem] sm:text-[3.5rem] text-purple_dark font-medium">
             Kinerja Investasi
           </h1>
-          <h2 className="font-karla text-[28px] 2xl:text-[36px]">
+          <h2 className="font-karla xs:text-[1.75rem] sm:text-[2.25rem]">
             Laporan kinerja Investasi{' '}
             <span className="font-bold">Avrist Assurance</span>
           </h2>
@@ -58,13 +91,20 @@ const Content = () => {
             description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
           >
             <Accordion.Item>
-              {PDFData.map((item, index) => (
-                <DownloadFileButton
-                  title={item.title}
-                  fileType={item.fileType}
-                  key={index}
-                />
-              ))}
+              {dataContent &&
+                dataContent.map(
+                  (
+                    item: { title: string; path: any },
+                    index: React.Key | null | undefined
+                  ) => (
+                    <DownloadFileButton
+                      title={item.title}
+                      fileType="PDF"
+                      key={index}
+                      filePath={item?.path?.imageUrl ?? ''}
+                    />
+                  )
+                )}
             </Accordion.Item>
           </Accordion>
 

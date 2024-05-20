@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
+import { formatTimeDifference } from './format-time'
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -61,7 +62,15 @@ const Berita: React.FC<ParamsProps> = () => {
     centerMode: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 640,
+        settings: {
+          centerMode: false
+        }
+      }
+    ]
   };
 
   const router = useRouter();
@@ -232,7 +241,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchContent = async () => {
+  const fetchContent = async () => {    
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
@@ -249,12 +258,12 @@ const Berita: React.FC<ParamsProps> = () => {
           const { content } = handleTransformedContent(
             item.contentData,
             item.title
-          );
+          );      
 
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.label === content['bulan'].value
+              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi = content['artikel-looping'].contentData[0].details;
@@ -263,8 +272,10 @@ const Berita: React.FC<ParamsProps> = () => {
           ).imageUrl;
           const id = item.id;
           const tags = content['tags'].value;
+          const date = new Date(item.createdAt).getDate();
+          const artikelTopic = content['topik-artikel'].value
 
-          return { judul, waktu, deskripsi, image, id, tags };
+          return { judul, waktu, deskripsi, image, id, tags, date, artikelTopic };
         }
       );
 
@@ -272,9 +283,9 @@ const Berita: React.FC<ParamsProps> = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  };  
 
-  const fetchLifeGuide = async () => {
+  const fetchLifeGuide = async () => {    
     try {
       const fetchData = await getAvristLifeGuide({
         includeAttributes: 'true',
@@ -291,7 +302,7 @@ const Berita: React.FC<ParamsProps> = () => {
       setLifeGuideCategory({
         ...lifeGuideCategory,
         list: categoryList,
-        selectedCategory: categoryList[0]
+        selectedCategory: categoryList[0] ?? lifeGuideCategory.selectedCategory
       });
 
       const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
@@ -301,10 +312,11 @@ const Berita: React.FC<ParamsProps> = () => {
             item.title
           );
 
+          const date = new Date(item.createdAt).getDate()
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.label === content['bulan'].value
+              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi =
@@ -316,7 +328,9 @@ const Berita: React.FC<ParamsProps> = () => {
           const tags = content['tags'].value;
           const waktuBaca = content['waktu-baca-artikel'].value;
 
-          return { judul, waktu, deskripsi, image, id, tags, waktuBaca };
+          const differenceTime = formatTimeDifference(new Date(item.createdAt), new Date())
+
+          return { judul, waktu, deskripsi, image, id, tags, waktuBaca, date, differenceTime };
         }
       );
 
@@ -570,7 +584,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       </div>
     );
-  };
+  };  
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
@@ -580,7 +594,7 @@ const Berita: React.FC<ParamsProps> = () => {
           { title: 'Beranda', href: '/' },
           { title: tab === 'Avrist Terkini' ? params.category : tab, href: '#' }
         ]}
-        bottomImage={data?.bannerImage}
+        bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
       />
       <div className="w-full z-20 top-32">
@@ -600,7 +614,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[53px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
+          <h2 className="text-[56px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -611,7 +625,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="text-[33px] mb-6">
+          <h2 className="text-[36px] mb-6">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -644,10 +658,10 @@ const Berita: React.FC<ParamsProps> = () => {
                     title={
                       <div className="flex flex-col gap-4 text-left">
                         <p className="text-[14px]">
-                          <span className="font-bold text-purple_dark">
-                            {item.tags}
+                          <span className="font-bold text-purple_dark text-sm">
+                            {htmlParser(item.artikelTopic)}
                           </span>{' '}
-                          | {item.waktu}
+                          | {`${item.date} ${item.waktu}`}
                         </p>
                         <p
                           className="text-[36px] font-bold"
@@ -737,7 +751,7 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid grid-cols-3 gap-[24px]">
+                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1">
                       {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
@@ -748,7 +762,7 @@ const Berita: React.FC<ParamsProps> = () => {
                         >
                           <CardCategoryB
                             summary={item.judul}
-                            description={item.waktu}
+                            description={`${item.date} ${item.waktu}`}
                             imageUrl={item.image}
                           />
                         </Link>
@@ -789,7 +803,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
                             category={item.tags}
-                            time={` | ${item.waktu}`}
+                            time={` | ${item.date} ${item.waktu}`}
                             tags={[item.tags]}
                             image={item.image}
                             readTime={item.waktuBaca}
@@ -915,7 +929,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               title={htmlParser(item.judul)}
                               summary={htmlParser(item.deskripsi)}
                               category={item.tags}
-                              time={` | ${item.waktu}`}
+                              time={` | ${item?.differenceTime} yang lalu`}
                               tags={[item.tags]}
                               image={item.image}
                               readTime={item.waktuBaca}
@@ -935,11 +949,11 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-44">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-10">
+          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
-          <h2 className="text-[20px] mb-6">
+          <h2 className="text-[36px] mb-6">
             Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
           </h2>
 

@@ -49,8 +49,8 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   );
 
   return (
-    <div className="w-full flex flex-col self-stretch items-center justify-center md:px-20 xs:px-4 bg-white py-20 gap-[64px]">
-      <div className="flex md:flex-row xs:flex-col gap-4 rounded-lg gap-[12px] flex-wrap mb-10">
+    <div className="w-full flex flex-col self-stretch items-center justify-center md:px-[8.5rem] xs:px-1 bg-white pt-[6.25rem] pb-[5rem] gap-[4rem]">
+      <div className="flex w-full md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap mb-10">
         {data.map((val, idx) => (
           <div
             key={idx}
@@ -59,7 +59,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
               handleTabClick(val);
               onChangeBannerImg(idx);
             }}
-            className={`w-[384px] h-[40px] flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[16px] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+            className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
           >
             {val}
           </div>

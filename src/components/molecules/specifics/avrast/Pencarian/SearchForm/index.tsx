@@ -27,7 +27,9 @@ const SearchForm = () => {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('Asuransi Individu');
   const [currentSlug, setCurrentSlug] = useState('Produk-Avras');
-  const [searchKeyWords, setSearchKeywords] = useState(searchParams.get('searchValue') ?? '');
+  const [searchKeyWords, setSearchKeywords] = useState(
+    searchParams.get('searchValue') ?? ''
+  );
   const [dataContent, setDataContent] = useState<IDataContent[]>();
 
   const itemsPerPage = 5;
@@ -44,7 +46,6 @@ const SearchForm = () => {
           searchFilter: searchKeyWords
         };
         const data = await handleGetContentCategory(currentSlug, queryParams);
-        console.log(data);
 
         if (activeTab === 'Asuransi Individu') {
           const data1 = contentCategoryTransformer(data, 'Asuransi Jiwa');
@@ -108,8 +109,8 @@ const SearchForm = () => {
   };
 
   return (
-    <div className="bg-purple_dark w-full flex flex-col -mt-[1px]">
-      <div className="sm:px-10 md:px-40 2xl:px-96 pt-12 bg-white rounded-t-[80px] flex flex-col gap-6">
+    <div className="bg-purple_dark w-full flex flex-col -mt-[-0.0625rem]">
+      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[5rem] flex flex-col gap-[3rem]">
         <SearchBox
           onSearch={(value: string) => {
             setSearchKeywords(value);
@@ -117,15 +118,15 @@ const SearchForm = () => {
           value={searchKeyWords}
         />
 
-        <div className="px-3 grid grid-cols-4 gap-x-[12px]">
+        <div className="px-[0.1875rem] grid sm:grid-cols-4 xs:grid-cols-1 gap-[0.75rem]">
           <Button
             title={'Asuransi Individu'}
             onClick={() => {
               setActiveTab('Asuransi Individu');
               setCurrentSlug('Produk-Avras');
             }}
-            customButtonClass={`${activeTab === 'Asuransi Individu' && 'bg-purple_dark text-white px-[20px] py-[8px]'}`}
-            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
+            customButtonClass={`${activeTab === 'Asuransi Individu' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
           <Button
             title={'Asuransi Korporasi'}
@@ -133,8 +134,8 @@ const SearchForm = () => {
               setActiveTab('Asuransi Korporasi');
               setCurrentSlug('Produk-Avras');
             }}
-            customButtonClass={`${activeTab === 'Asuransi Korporasi' && 'bg-purple_dark text-white px-[20px] py-[8px]'}`}
-            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
+            customButtonClass={`${activeTab === 'Asuransi Korporasi' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
           <Button
             title={'Avrist Syariah'}
@@ -142,8 +143,8 @@ const SearchForm = () => {
               setActiveTab('Avrist Syariah');
               setCurrentSlug('Produk-Avrast-Syariah');
             }}
-            customButtonClass={`${activeTab === 'Avrist Syariah' && 'bg-olive_green text-white'} !border-olive_green hover:bg-olive_green px-[20px] py-[8px]`}
-            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
+            customButtonClass={`${activeTab === 'Avrist Syariah' && 'bg-olive_green text-white'} !border-olive_green hover:bg-olive_green px-[1.25rem] py-[0.5rem]`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
           <Button
             title={'Avrist DPLK'}
@@ -151,14 +152,14 @@ const SearchForm = () => {
               setActiveTab('Avrist DPLK');
               setCurrentSlug('Produk-Avrast-DPLK');
             }}
-            customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate px-[20px] py-[8px]`}
-            customTextClass='text-[16px] font-semibold leading-[1.48rem]'
+            customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate px-[1.25rem] py-[0.5rem]`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
         </div>
 
         <ServiceCard />
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-[0.75rem]">
           {dataContent &&
             paginatedData.map((item, index) => (
               <Link href="" key={index}>
@@ -173,9 +174,9 @@ const SearchForm = () => {
             ))}
         </div>
 
-        <div className="flex flex-col gap-4 sm:flex-row justify-between">
+        <div className="flex flex-col gap-[0.25rem] sm:flex-row justify-between">
           <div>
-            <p className="text-[20px]">
+            <p className="text-[1.25rem]">
               Menampilkan{' '}
               <span className="font-bold text-purple_dark">
                 {dataContent?.length === 0 ? 0 : startIndex + 1}-
@@ -185,21 +186,19 @@ const SearchForm = () => {
               hasil
             </p>
           </div>
-          <div className="flex flex-row gap-[8px] items-center">
+          <div className="flex flex-row gap-[0.5rem] items-center">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <div
                 key={page}
                 role="button"
                 onClick={() => handlePageChange(page)}
-                className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                  currentPage === page ? 'text-purple_dark font-bold' : ''
-                }`}
+                className={`w-[1.5rem] h-[1.5rem] flex items-center justify-center cursor-pointer ${currentPage === page ? 'text-purple_dark font-bold' : ''}`}
               >
                 {page}
               </div>
             ))}
             <span
-              className="mt-[3px]"
+              className="mt-[0.1875rem]"
               role="button"
               onClick={() => handlePageChange(totalPages)}
             >

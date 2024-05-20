@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,90 +22,24 @@ interface IFooterCards {
   bgColor?: string;
 }
 
-interface CustomPrevArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  disabled?: boolean;
-}
-
-interface CustomNextArrowProps {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  disabled?: boolean;
-}
-
-const CustomNextArrow: React.FC<CustomNextArrowProps> = (props) => {
-  const { className, ...rest } = props;
-
-  const isDisabled = className?.includes('slick-disabled');
-
-  return (
-    <div
-      {...rest}
-      className={className}
-      style={{
-        ...props.style,
-        position: 'relative',
-        left: '100%',
-        bottom: '0',
-        opacity: isDisabled ? 0.5 : 1
-      }}
-    >
-      <Image
-        style={{ rotate: '90deg' }}
-        width={36}
-        height={36}
-        alt="next"
-        src={ArrowCarouselRight}
-      />
-    </div>
-  );
-};
-
-const CustomPrevArrow: React.FC<CustomPrevArrowProps> = (props) => {
-  const { className, ...rest } = props;
-
-  const isDisabled = className?.includes('slick-disabled');
-
-  return (
-    <div
-      {...rest}
-      className={className}
-      style={{
-        ...props.style,
-        position: 'relative',
-        bottom: '-302px',
-        opacity: isDisabled ? 0.5 : 1
-      }}
-    >
-      <Image
-        style={{ rotate: '-90deg' }}
-        width={36}
-        height={36}
-        alt="next"
-        src={ArrowCarouselLeft}
-      />
-    </div>
-  );
-};
-
 const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
+  const sliderRef: any = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
   const settings = {
     slidesToShow: 4,
     initialSlide: 0,
     infinite: false,
     swipeToSlide: false,
+    beforeChange: (oldIndex: number, newIndex: number) =>
+      setCurrentSlide(Math.ceil(newIndex)),
     responsive: [
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1,
           slidesToScroll: 1,
-          nextArrow: <CustomNextArrow />,
-          prevArrow: <CustomPrevArrow />,
-          vertical: true,
+          vertical: false,
           swipeToSlide: true,
           verticalSwiping: true
         }
@@ -113,11 +47,19 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
     ]
   };
 
+  const next = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const previous = () => {
+    sliderRef.current.slickPrev();
+  };
+
   return (
     <>
       {/* Desktop */}
       <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
-        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] h-full">
+        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] pt-[0.375rem] h-full">
           {cards.map((item, index) => {
             const href =
               item?.hrefType === 'phone'
@@ -139,7 +81,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                 <Image
                   alt={index.toString()}
                   src={item.icon}
-                  className="w-[100px] h-[100px]"
+                  className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                 />
                 <span>
                   <p className="font-bold text-[1.5rem]">{item.title}</p>
@@ -160,50 +102,75 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       </div>
 
       {/* Mobile */}
-      <div className={bgColor ?? ''}>
-        <div className="md:hidden xs:mx-10 sm:px-[8.5rem] pb-[5rem] pt-[6px]">
-          <Slider {...settings}>
+      <div className={'bg-white'}>
+        <div className="md:hidden pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
+          <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => {
               const href =
                 item?.hrefType === 'phone'
                   ? encodeURIComponent(item?.href ?? '')
                   : item?.href;
               return (
-                <Link
-                  href={
-                    item?.hrefType === 'phone'
-                      ? `tel:${href}`
-                      : item?.hrefType === 'email'
-                        ? `mailto:${href}`
-                        : href ?? '#'
-                  }
-                  key={index}
-                  target={item.openInNewTab ? 'blank' : '_self'}
-                  className="flex flex-col justify-between w-full max-w-[274px] h-full min-h-[300px] px-[24px] pt-[24px] pb-[36px] gap-[24px] border border-gray_light rounded-[12px] shadow-md bg-white"
-                >
-                  <div className="flex justify-center">
-                    <Image
-                      alt={index.toString()}
-                      src={item.icon}
-                      className="w-[100px] h-[100px]"
-                    />
-                  </div>
-                  <div className="text-center pt-[1.5rem]">
-                    <p className="font-bold text-[1.5rem]">{item.title}</p>
-                    {item.subtitle && (
-                      <div className="flex items-end justify-center">
-                        <p
-                          className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
-                        >
-                          {item.subtitle}
-                        </p>
+                <div key={index}>
+                  <div className="w-full flex justify-center">
+                    <Link
+                      href={
+                        item?.hrefType === 'phone'
+                          ? `tel:${href}`
+                          : item?.hrefType === 'email'
+                            ? `mailto:${href}`
+                            : href ?? '#'
+                      }
+                      target={item.openInNewTab ? 'blank' : '_self'}
+                      className="flex flex-col justify-between w-full mx-[2.5rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
+                    >
+                      <div className="flex justify-center">
+                        <Image
+                          alt={index.toString()}
+                          src={item.icon}
+                          className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
+                        />
                       </div>
-                    )}
+                      <div className="text-center pb-[2rem]">
+                        <p className="font-bold text-[1.5rem]">{item.title}</p>
+                        {item.subtitle && (
+                          <div className="flex items-end justify-center">
+                            <p
+                              className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                            >
+                              {item.subtitle}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </Slider>
+          <div className="w-full flex flex-row justify-between px-[2.5rem]">
+            <Image
+              style={{ rotate: '-90deg' }}
+              width={36}
+              height={36}
+              alt="next"
+              src={ArrowCarouselLeft}
+              onClick={previous}
+              className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+            />
+            <Image
+              style={{ rotate: '90deg' }}
+              width={36}
+              height={36}
+              alt="next"
+              src={ArrowCarouselRight}
+              onClick={next}
+              className={
+                currentSlide === cards.length - 1 ? 'opacity-50' : 'opacity-100'
+              }
+            />
+          </div>
         </div>
       </div>
     </>

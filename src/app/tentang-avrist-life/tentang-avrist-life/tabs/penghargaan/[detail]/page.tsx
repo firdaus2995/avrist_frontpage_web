@@ -66,8 +66,6 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
-    console.log(jsonData);
-
     const tagline = content['tags'].value;
     const judul = content['judul-artikel'].value;
     const nama = content['nama-penghargaan'].value;
@@ -124,8 +122,8 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <div className="flex items-center justify-center w-full">
-          <div className="flex flex-col gap-10 w-2/3 p-10">
+        <div className="flex items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem] py-[1.25rem]">
+          <div className="flex flex-col gap-10 font-opensans">
             <div className="flex flex-col gap-5">
               <span className="text-purple_dark font-semibold">
                 <span
@@ -133,7 +131,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 />
               </span>
               <p
-                className="font-semibold text-[48px]"
+                className="font-bold xs:text-[1.5rem] md:text-[3.5rem] font-karla"
                 dangerouslySetInnerHTML={{ __html: contentData.judul }}
               />
               <div className="flex flex-row justify-between items-center">
@@ -183,7 +181,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 }}
               />
             }
-            <div className="w-full h-[650px] mb-10">
+            <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
               <VideoPlayer
                 thumbnail=""
                 url={contentData.artikelVideo}
@@ -270,7 +268,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
         />
         <RoundedFrameTop />
       </div>
-      <div className="w-full h-full bg-purple_superlight pb-20">
+      <div className="w-full h-full bg-purple_superlight">
         <FooterCards
           cards={[
             {

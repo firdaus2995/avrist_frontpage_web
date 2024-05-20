@@ -9,7 +9,7 @@ interface IMarkerCard {
 
 const MarkerCard: React.FC<IMarkerCard> = ({ name, address, phone }) => {
     return (
-    <div className="rounded-xl border border-gray_light py-4 px-6 w-[200px] lg:w-[248px] h-auto lg:h-[36vh] flex flex-col gap-4">
+    <div className="rounded-xl border border-gray_light py-4 px-6 w-[95%] h-auto lg:h-[36vh] flex flex-col gap-4">
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-2xl text-sm">{name}</h1>
         <Icon

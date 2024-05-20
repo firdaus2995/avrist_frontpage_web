@@ -20,5 +20,11 @@ export const BASE_SLUG = {
       PENAWARAN: 'halaman-penawaran',
       PENAWARAN_DETAIL: 'halaman-penawaran-detail'
     }
+  },
+  TENTANG_AVRIST_LIFE: {
+    CONTENT: {
+      LIST_PENGHARGAAN: 'Artikel-penghargaan',
+      LAPORAN_PERUSAHAAN: 'lap-perusahaan'
+    }
   }
 };

@@ -26,11 +26,11 @@ const FooterInformation = ({
 }: IFooterInformation) => {
   return (
     <div
-      className={`w-full flex md:px-[136px] md:pt-[6.25rem] md:pb-[7.5rem] xs:px-[2rem] xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
+      className={`w-full md:px-[136px] md:pt-[6.25rem] md:pb-[7.5rem] xs:px-[2rem] xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`xs:px-[1.5rem] xs:min-h-[400px] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[36px] md:pr-[36px] md:pl-[48px] xs:text-center md:text-start ${bgColor}`}
+          className={`xs:px-[1.5rem] xs:pb-16 sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pr-[36px] md:pl-[48px] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
@@ -64,7 +64,7 @@ const FooterInformation = ({
             </Link>
           )}
         </div>
-        <div className="flex rounded-r-[24px]">
+        <div className="flex rounded-r-[24px] xs:max-sm:px-[20px]">
           <Image
             height={0}
             width={0}
