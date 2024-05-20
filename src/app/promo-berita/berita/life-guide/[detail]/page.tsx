@@ -4,17 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import { formatTimeDifference } from '../../format-time';
+import ContentPopover from './content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email_color.svg';
-import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
-import Linkedin from '@/assets/images/common/linkedin_color.svg';
-import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -310,73 +306,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     </div>
 
                     <div className="text-xs font-bold">Share</div>
-                    <UncontrolledPopover
-                      placement="right"
-                      target="PopoverFocus"
-                      trigger="focus"
-                      isOpen={isOpenPopover}
-                      toggle={() => setIsOPenPopover(false)}
-                    >
-                      <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
-                      <div className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap" role="none">
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Whatsapp}
-                              alt="whatsapp"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Email}
-                              alt="email"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Email</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Linkedin}
-                              alt="linkedin"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Facebook}
-                              alt="facebook"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Facebook</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <div
-                              role="button"
-                              className="items-center"
-                              // onClick={() => setIsVisible(!isVisible)}
-                            >
-                              <Icon
-                                width={18}
-                                height={18}
-                                name="copyUrl"
-                                color="purple_verylight"
-                              />
-                            </div>
-                            <div className="text-xs font-bold cursor-pointer">Copy URL</div>
-                          </div>
-                        </div>
-                      </PopoverBody>
-                    </UncontrolledPopover>
+                    <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
                   </div>
                 </div>
               </div>
