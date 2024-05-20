@@ -635,13 +635,13 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid lg:grid-cols-3 gap-2 px-[136px] py-20 bg-white">
+        <div className="grid lg:grid-cols-3 gap-[12px] px-[136px] py-20 bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
               role="button"
               onClick={() => handleTabClick(val)}
-              className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
             >
               {val}
             </div>
@@ -829,7 +829,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       {paginatedData?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
+                          className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
                         >
                           <div className="flex flex-row gap-2 items-center">
                             <p className="font-bold text-2xl">

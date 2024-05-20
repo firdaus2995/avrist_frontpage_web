@@ -104,7 +104,7 @@ const CategoryWithThreeCards = ({
               <div
                 key={index}
                 onClick={() => handleSelect(item)}
-                className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
+                className={`border-l-4 px-[15px] py-[12px] cursor-pointer font-bold text-[18px] ${
                   selected === item
                     ? 'border-purple_dark text-purple_dark'
                     : 'border-purple_mediumlight text-purple_mediumlight'
@@ -128,7 +128,7 @@ const CategoryWithThreeCards = ({
         selectedCategory === item ? (
           <div
             key={index}
-            className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+            className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
           >
             <span className="font-bold text-purple_dark text-[18px]">
               {item}
@@ -139,7 +139,7 @@ const CategoryWithThreeCards = ({
             key={index}
             role="button"
             onClick={() => handleCategoryChange(item)}
-            className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
+            className="border-l-4 border-purple_mediumlight px-[15px] py-[12px] cursor-pointer text-left"
           >
             <span className="font-bold text-purple_mediumlight text-[18px]">
               {item}
@@ -226,7 +226,7 @@ const CategoryWithThreeCards = ({
             <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
                 onKeyDown={onSearch}
               />
