@@ -637,7 +637,7 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
-        customClassName="xs:h-[150px] md:h-[200px]"
+        // customClassName="xs:h-[150px] md:h-[200px]"
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
