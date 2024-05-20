@@ -1,27 +1,27 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import CardCategoryD from '../../Cards/CategoryD';
 import SearchBox from '../../SearchBox';
 import NewsCard from './NewsCard';
 import ServiceCard from './ServiceCard';
+import { formatTimeDifference } from '@/app/promo-berita/berita/format-time';
+import BOOK from '@/assets/images/common/book.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import MediumTag from '@/components/atoms/Tag/MediumTag';
 import { handleGetContentCategory } from '@/services/content-page.api';
+import { handleDownload, htmlParser } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
-  contentStringTransformer
+  contentStringTransformer,
+  singleImageTransformer
 } from '@/utils/responseTransformer';
-
-export interface IDataContent {
-  label: string;
-  date: string;
-  title: string;
-  description: string;
-  tags: string;
-}
 
 const SearchForm = () => {
   const searchParams = useSearchParams();
@@ -30,7 +30,7 @@ const SearchForm = () => {
   const [searchKeyWords, setSearchKeywords] = useState(
     searchParams.get('searchValue') ?? ''
   );
-  const [dataContent, setDataContent] = useState<IDataContent[]>();
+  const [dataContent, setDataContent] = useState<any>();
 
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +58,31 @@ const SearchForm = () => {
             'Employee Benefit'
           );
           listData = newDataContentWithCategory;
+        } else if (activeTab === 'Berita & Kegiatan') {
+          const data1 = contentCategoryTransformer(data, '');
+          const data2 = contentCategoryTransformer(data, '-');
+          const data3 = contentCategoryTransformer(data, 'Berita Pers');
+          const data4 = contentCategoryTransformer(data, 'Berita dan Kegiatan');
+          const newDataContentWithCategory = data1.concat(data2, data3, data4);
+          listData = newDataContentWithCategory;
+        } else if (activeTab === 'Avristory') {
+          const newDataContentWithCategory = contentCategoryTransformer(
+            data,
+            'AvriStory'
+          );
+          listData = newDataContentWithCategory;
+        } else if (activeTab === 'Avrist Life Guide') {
+          const newDataContentWithCategory = contentCategoryTransformer(
+            data,
+            'Tips and Tricks'
+          );
+          listData = newDataContentWithCategory;
+        } else if (activeTab === 'Penghargaan') {
+          const newDataContentWithCategory = contentCategoryTransformer(
+            data,
+            ''
+          );
+          listData = newDataContentWithCategory;
         } else {
           const newDataContentWithCategory = contentCategoryTransformer(
             data,
@@ -68,27 +93,87 @@ const SearchForm = () => {
 
         const dataContentValues = listData?.map(
           ({ content, id, createdAt }) => {
-            const label = contentStringTransformer(content['jenis-produk']);
-            const date = createdAt;
-            const title = contentStringTransformer(content['nama-produk']);
-            const description = contentStringTransformer(
-              content['deskripsi-lengkap-produk']
-            );
-            const tags = contentStringTransformer(content['tags']);
+            if (activeTab === 'Avristory') {
+              const namaFile = contentStringTransformer(
+                content['nama-file-bulletin']
+              );
+              const file = singleImageTransformer(
+                content['file-bulletin']
+              ).imageUrl;
 
-            return {
-              label,
-              date,
-              title,
-              description,
-              tags,
-              id
-            };
+              return { namaFile, file };
+            } else if (activeTab === 'Avrist Life Guide') {
+              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const judul = content['judul-artikel'].value;
+              const deskripsi =
+                content['artikel-looping'].contentData[0].details[0].value;
+              const image = singleImageTransformer(
+                content['artikel-thumbnail']
+              ).imageUrl;
+              const tags = content['tags'].value;
+              const waktuBaca = content['waktu-baca-artikel'].value;
+
+              const differenceTime = formatTimeDifference(
+                new Date(createdAt),
+                new Date()
+              );
+
+              return {
+                judul,
+                deskripsi,
+                image,
+                id,
+                tags,
+                waktuBaca,
+                date,
+                differenceTime
+              };
+            } else if (activeTab === 'Penghargaan') {
+              const judul = content['judul-artikel'].value;
+              const nama = content['nama-penghargaan'].value;
+              const waktu = format(new Date(createdAt), 'dd MMMM yyyy');
+              const deskripsi =
+                content['artikel-looping'].contentData[0].details[0].value;
+
+              return { judul, nama, waktu, deskripsi, id };
+            } else if (activeTab === 'Berita & Kegiatan') {
+              const label = '';
+              const title = contentStringTransformer(content['judul-artikel']);
+              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const description =
+                content['artikel-looping'].contentData[0].details[0].value;
+
+              return {
+                label,
+                date,
+                title,
+                description,
+                id
+              };
+            } else {
+              const label = contentStringTransformer(content['jenis-produk']);
+              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const title = contentStringTransformer(content['nama-produk']);
+              const description = contentStringTransformer(
+                content['deskripsi-lengkap-produk']
+              );
+              const tags = contentStringTransformer(content['tags']);
+
+              return {
+                label,
+                date,
+                title,
+                description,
+                tags,
+                id
+              };
+            }
           }
         );
 
         setCurrentPage(1);
         setDataContent(dataContentValues);
+        console.log(dataContentValues);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -138,6 +223,33 @@ const SearchForm = () => {
             customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
           <Button
+            title={'Berita & Kegiatan'}
+            onClick={() => {
+              setActiveTab('Berita & Kegiatan');
+              setCurrentSlug('Berita-dan-Kegiatan-Detail');
+            }}
+            customButtonClass={`${activeTab === 'Berita & Kegiatan' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+          />
+          <Button
+            title={'Avristory'}
+            onClick={() => {
+              setActiveTab('Avristory');
+              setCurrentSlug('Bulletin-AvriStory');
+            }}
+            customButtonClass={`${activeTab === 'Avristory' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+          />
+          <Button
+            title={'Avrist Life Guide'}
+            onClick={() => {
+              setActiveTab('Avrist Life Guide');
+              setCurrentSlug('List-Avrist-Life-Guide');
+            }}
+            customButtonClass={`${activeTab === 'Avrist Life Guide' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+          />
+          <Button
             title={'Avrist Syariah'}
             onClick={() => {
               setActiveTab('Avrist Syariah');
@@ -155,24 +267,167 @@ const SearchForm = () => {
             customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate px-[1.25rem] py-[0.5rem]`}
             customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
           />
+          <Button
+            title={'Penghargaan'}
+            onClick={() => {
+              setActiveTab('Penghargaan');
+              setCurrentSlug('Artikel-Penghargaan');
+            }}
+            customButtonClass={`${activeTab === 'Penghargaan' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
+            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+          />
         </div>
 
         <ServiceCard />
-
-        <div className="flex flex-col gap-[0.75rem]">
-          {dataContent &&
-            paginatedData.map((item, index) => (
-              <Link href="" key={index}>
-                <NewsCard
-                  label={item.label}
-                  date={item.date}
-                  title={item.title}
-                  description={item.description}
-                  tags={item.tags.split(',')}
+        {activeTab === 'Avristory' ? (
+          <div className="grid lg:grid-cols-1 gap-[24px] w-full">
+            {paginatedData?.map((item: any, index: number) => (
+              <div
+                key={index}
+                className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
+              >
+                <div className="flex flex-row gap-2 items-center">
+                  <p className="font-bold text-2xl">{item.namaFile}</p>
+                  <MediumTag title="PDF" />
+                </div>
+                <Button
+                  title="Unduh"
+                  customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
+                  customTextClass="text-white text-xl"
+                  onClick={async () => await handleDownload(item.file)}
+                />
+              </div>
+            ))}
+          </div>
+        ) : activeTab === 'Avrist Life Guide' ? (
+          <div className="grid grid-cols-1 gap-[24px]">
+            {paginatedData?.map((item: any, index: number) => (
+              <Link
+                key={index}
+                href={{
+                  pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                  query: { id: item.id }
+                }}
+              >
+                <CardCategoryD
+                  type="row"
+                  title={htmlParser(item.judul)}
+                  summary={htmlParser(item.deskripsi)}
+                  category={item.tags}
+                  time={` | ${item.date}`}
+                  tags={[item.tags]}
+                  image={item.image}
+                  readTime={item.waktuBaca}
                 />
               </Link>
             ))}
-        </div>
+          </div>
+        ) : activeTab === 'Penghargaan' ? (
+          <div className="grid grid-cols-1 gap-[24px]">
+            {paginatedData?.map((item: any, index: number) => (
+              <Link
+                key={index}
+                href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
+              >
+                <div
+                  key={index}
+                  className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                >
+                  <div className="flex flex-col gap-2 p-5 h-full">
+                    <p className="text-xs">{item.waktu}</p>
+                    <p
+                      className="text-[20px] font-bold"
+                      dangerouslySetInnerHTML={{
+                        __html: item.judul
+                      }}
+                    />
+                    <p className="text-[20px]">{item.nama}</p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: item.deskripsi
+                      }}
+                      className="text-xs"
+                    />
+                    <div className="flex flex-row items-end gap-1 text-left h-full">
+                      <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                        Baca Berita Pers
+                      </p>
+                      <Icon
+                        width={16}
+                        height={16}
+                        name="chevronRight"
+                        color="purple_dark"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : activeTab === 'Berita & Kegiatan' ? (
+          <div className="grid grid-cols-1 gap-[24px]">
+            {paginatedData?.map((item: any, index: number) => (
+              <Link
+                key={index}
+                href={{
+                  pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                  query: { id: item.id }
+                }}
+              >
+                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[1.5rem]">
+                  <p className="text-sm">{item.date}</p>
+                  <p
+                    className="text-2xl w-[74%] font-bold"
+                    dangerouslySetInnerHTML={{
+                      __html: item.title
+                    }}
+                  />
+                  <div
+                    className="text-sm text-body-text-1 line-clamp-2"
+                    dangerouslySetInnerHTML={{
+                      __html: item.description
+                    }}
+                  />
+
+                  <div className="flex flex-row gap-2">
+                    <Image alt="book" src={BOOK} />
+                    <p className="text-sm font-bold">Baca 2 Menit</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-[0.75rem]">
+            {dataContent &&
+              paginatedData.map(
+                (
+                  item: {
+                    id: string;
+                    label: string;
+                    date: string;
+                    title: string;
+                    description: string;
+                    tags: string;
+                  },
+                  index: React.Key | null | undefined
+                ) => (
+                  <Link
+                    href={`${activeTab === 'Asuransi Individu' ? '/produk/individu/' : activeTab === 'Asuransi Korporasi' ? '/produk/korporasi/' : activeTab === 'Avrist DPLK' ? '/avrist-dplk/produk/' : '/avrist-syariah/produk/'}${item.id}`}
+                    key={index}
+                  >
+                    <NewsCard
+                      label={item.label}
+                      date={item.date}
+                      title={item.title}
+                      description={item.description}
+                      tags={item?.tags?.split(',')}
+                    />
+                  </Link>
+                )
+              )}
+          </div>
+        )}
 
         <div className="flex flex-col gap-[0.25rem] sm:flex-row justify-between">
           <div>
