@@ -377,6 +377,8 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const fetchBeritaPers = async () => {
+    console.log('step 1<<<<');
+    
     try {
       const fetchData = await getBeritaPers({
         includeAttributes: 'true',
@@ -386,27 +388,37 @@ const Berita: React.FC<ParamsProps> = () => {
       });
 
       const data = fetchData.data.categoryList;
+      console.log(data, '<<<<<');
+      
 
       const transformedData = data['']?.map((item: any) => {
+        console.log(item, 'item >>>>');
+        
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
+        console.log(content);
+        
 
-        const judul = content['judul-berita-pers'].value;
-        const deskripsi = content['external-link-berita-pers'].value;
-        const newValue = `<div class="flex">
-        ${deskripsi}
-        <img class="ml-1" src="https://via.placeholder.com/50" alt="" />
-        </div>`
-        
-        
-        console.log(newValue, 'deskripsi');
-        return { judul, deskripsi: newValue };
+        const judul = content['judul-artikel']?.value;
+        // const deskripsi = content['external-link-berita-pers'].value;
+        // let newLink = {}
+        const externalLink = content['list-external-link']?.contentData;
+        console.log(externalLink, 'externalLink');
+        externalLink.map((el:any) => {
+          console.log(el['details']);
+          // newLink = {
+          //   label: el['details'].
+          // }
+        })
+        return { judul };
       });
 
       setContentData(transformedData);
     } catch (err) {
+      console.log(err);
+      
       console.error(err);
     }
   };
