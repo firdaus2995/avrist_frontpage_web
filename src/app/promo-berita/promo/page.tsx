@@ -109,7 +109,6 @@ const Promo: React.FC<ParamsProps> = () => {
       handleGetContentPage(BASE_SLUG.PROMO_BERITA.PAGE.PENAWARAN).then(
         (res: any) => {
           const { content } = pageTransformer(res);
-          console.log({ content });
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
@@ -308,7 +307,6 @@ const Promo: React.FC<ParamsProps> = () => {
     );
   };
 
-  console.log({ data });
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
       <Hero
