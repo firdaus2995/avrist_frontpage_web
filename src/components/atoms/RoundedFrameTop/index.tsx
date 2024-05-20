@@ -16,13 +16,13 @@ const RoundedFrameTop: React.FC<IRoundedFrameTop> = ({
         className={`xs:hidden md:block relative ${frameColor ?? 'bg-avrast_product_bg'} -mt-1 mb-2`}
       >
         <span
-          className={`w-full absolute z-20 top-3 h-[74px] ${bgColor ?? 'bg-purple_superlight'} rounded-t-[65px]`}
+          className={`w-full absolute z-20 top-2 h-[4.625rem] ${bgColor ?? 'bg-purple_superlight'} rounded-t-[4.0625rem]`}
         />
-        <div className="w-full flex flex-row z-10 top-0 h-[74px] rounded-t-[65px]">
-          <span className="w-1/4 h-full bg-purple_light rounded-tl-[65px]" />
+        <div className="w-full flex flex-row z-10 top-0 h-[4.625rem] rounded-t-[4.0625rem]">
+          <span className="w-1/4 h-full bg-purple_light rounded-tl-[4.0625rem]" />
           <span className="w-1/4 h-full bg-green_border" />
           <span className="w-1/4 h-full bg-orange_border" />
-          <span className="w-1/4 h-full bg-agi_grey rounded-tr-[65px]" />
+          <span className="w-1/4 h-full bg-agi_grey rounded-tr-[4.0625rem]" />
         </div>
       </div>
 
@@ -31,13 +31,13 @@ const RoundedFrameTop: React.FC<IRoundedFrameTop> = ({
         className={`md:hidden relative ${frameColor ?? 'bg-avrast_product_bg'} -mt-1 mb-2`}
       >
         <span
-          className={`w-full absolute z-20 top-2 h-[74px] bg-white rounded-t-[65px]`}
+          className={`w-full absolute z-20 top-2 xs:h-[4.2rem] md:h-[4.625rem] ${bgColor ?? 'bg-purple_superlight'} rounded-t-[4.0625rem]`}
         />
-        <div className="w-full flex flex-row z-10 top-0 h-[74px] rounded-t-[65px]">
-          <span className="w-1/4 h-full bg-purple_light rounded-tl-[65px]" />
+        <div className="w-full flex flex-row z-10 top-0 h-[4.625rem] rounded-t-[4.0625rem]">
+          <span className="w-1/4 h-full bg-purple_light rounded-tl-[4.0625rem]" />
           <span className="w-1/4 h-full bg-green_border" />
           <span className="w-1/4 h-full bg-orange_border" />
-          <span className="w-1/4 h-full bg-agi_grey rounded-tr-[65px]" />
+          <span className="w-1/4 h-full bg-agi_grey rounded-tr-[4.0625rem]" />
         </div>
       </div>
     </>

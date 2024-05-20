@@ -74,6 +74,7 @@ const config: Config = {
         green_approval: '#417C40',
         yellow_warning: '#E5E500',
         yellow_alternate: '#F3B03F',
+        yellow_light: '#FFFCF8',
         red_error: '#DB3838',
         gray_border: '#ABA7AF',
         space_purpink: '#D96DFF',

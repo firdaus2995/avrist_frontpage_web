@@ -295,7 +295,9 @@ const LaporanPerusahaan = () => {
           bgColor="bg-gray_bglightgray"
           title={
             <div className="flex flex-col items-center justify-center gap-4 bg-gray_bglightgray">
-              <p className="text-[56px] font-bold">Hubungi Kami</p>
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-extrabold font-karla">
+                Hubungi Kami
+              </p>
               <Link
                 href="tel:02157898188"
                 role="button"

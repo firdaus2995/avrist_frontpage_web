@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 
+import Link from 'next/link';
 import MainContentKeamananOnline from './component/MainContentKeamananOnline';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import {
-  BannerFooter,
-  InformationAvrastFooter
-} from '@/components/molecules/specifics/avrast/SyaratPengunaan';
+import { InformationAvrastFooter } from '@/components/molecules/specifics/avrast/SyaratPengunaan';
 import {
   contentStringTransformer,
   pageTransformer,
@@ -47,7 +47,7 @@ const SyaratPengunaan = () => {
     footerImage = data.footerImage.imageUrl;
   }
   return (
-    <div className="flex flex-col bg-avrast_product_bg">
+    <div className="flex flex-col">
       <Hero
         title="Keamanan Online"
         breadcrumbsData={[
@@ -57,7 +57,30 @@ const SyaratPengunaan = () => {
         imageUrl={bannerImage}
       />
       <MainContentKeamananOnline />
-      <BannerFooter imageUrlSrc={footerImage} />
+      <FooterInformation
+        title={
+          <div
+            className={`w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
+          >
+            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+              <span className="font-bold text-purple_dark">Komitmen</span> Kami,
+              proses klaim yang{' '}
+              <span className="font-bold text-purple_dark">efisien</span> dan{' '}
+              <span className="font-bold text-purple_dark">solusi</span>
+            </p>
+            <Link href="/produk/individu" className="font-semibold">
+              <div
+                role="button"
+                className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              >
+                Panduan Klaim
+              </div>
+            </Link>
+          </div>
+        }
+        image={footerImage}
+      />
+      <RoundedFrameTop />
       <InformationAvrastFooter />
     </div>
   );

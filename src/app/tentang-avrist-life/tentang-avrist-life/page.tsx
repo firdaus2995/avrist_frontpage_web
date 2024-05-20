@@ -50,7 +50,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
 
   const tabs = [
     { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
-    { name: 'Manajemen', url: 'manajemen' },
+    { name: 'Manajemen', url: 'halaman-manajemen-avras' },
     { name: 'Penghargaan', url: 'halaman-penghargaan-dan-sertifikasi-avram' },
     { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
     { name: 'Karir Bersama Avrist', url: 'halaman-karir' }
@@ -127,7 +127,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           <FooterInformation
             title={
               <div className="flex flex-col gap-4">
-                <p className="text-[56px] font-semibold text-purple_dark">
+                <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold font-karla text-purple_dark">
                   Hubungi Kami
                 </p>
                 <div
@@ -182,7 +182,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             }
             image={transformedData.ctaImage ?? BlankImage}
           />
-          <RoundedFrameTop />
+          <div className="-mb-2">
+            <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
+          </div>
         </div>
       ) : null}
       <div className="w-full h-full bg-purple_superlight">

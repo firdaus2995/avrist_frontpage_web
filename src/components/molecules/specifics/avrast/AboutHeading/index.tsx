@@ -42,7 +42,7 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
           {headingText}
         </h1>
         <p
-          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem]"
+          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0"
           dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
         ></p>
         <p
@@ -57,7 +57,9 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
               key={index}
               className={`${tagsClassname} px-[8px] py-[4px] rounded-[2px]`}
             >
-              <p className={`${tagsTextClassname} text-[14px] font-semibold`}>
+              <p
+                className={`${tagsTextClassname} text-[14px] font-semibold font-opensans`}
+              >
                 {item}
               </p>
             </div>

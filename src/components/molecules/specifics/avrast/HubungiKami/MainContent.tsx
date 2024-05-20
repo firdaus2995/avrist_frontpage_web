@@ -16,10 +16,10 @@ type Props = {
 export const MainContent = (props: Props) => {
   const { formId, formSaranId } = props;
   return (
-    <div className=" w-full flex flex-col">
-      <div className="bg-purple_superlight flex flex-col gap-6">
-        <div className="mt-[100px] mx-[32px] md:mx-[136px]">
-          <p className="font-karla font-bold text-[56px] text-center text-purple_dark">
+    <div className="w-full flex flex-col">
+      <div className="bg-purple_superlight flex flex-col gap-6 xs:p-4 sm:p-0">
+        <div className="mt-[6.25rem] mx-[2rem] md:mx-[8.5rem]">
+          <p className="font-karla font-bold text-[3.5rem] text-center text-purple_dark">
             Kebutuhan Anda adalah prioritas kami
           </p>
         </div>
@@ -27,7 +27,9 @@ export const MainContent = (props: Props) => {
         <ContactSupport />
         <FeedbackForm Id={formSaranId} />
         <HighOffice />
-        <BranchOffice />
+        <div className="sm:px-[8.5rem] sm:pb-[4rem] xs:pb-[1.875rem] xs:px-[1.3125rem]">
+          <BranchOffice />
+        </div>
       </div>
       <Image
         alt="border-bottom"

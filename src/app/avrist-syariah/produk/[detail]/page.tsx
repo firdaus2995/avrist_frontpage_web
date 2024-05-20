@@ -1,5 +1,6 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { IDataContent } from '../page';
 // import NotFound from '@/app/not-found';
 import GreenHeartChat from '@/assets/images/avrast/avrist-syariah/green-chat-heart.svg';
@@ -22,6 +23,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
 import { getYouTubeId } from '@/utils/helpers';
 import {
@@ -33,6 +35,7 @@ import {
 } from '@/utils/responseTransformer';
 
 const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
+  const router = useRouter();
   const [dataRekomendasi, setDataRekomendasi] = useState<IDataContent[]>();
   const [data, setData] = useState<any>({
     titleImage: '',
@@ -41,7 +44,11 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
   const [bannerImg, setBannerImg] = useState<any>();
+  const [formId, setFormId] = useState<any>();
+  const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState({});
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -232,6 +239,8 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           );
           const dataFormJson = await contentResponse.json();
           setDataForm(dataFormJson.data.attributeList);
+          setFormId(dataFormJson.data.id);
+          setFormPic(dataFormJson.data.pic);
         } catch (error: any) {
           throw new Error('Error fetching form data: ', error.message);
         }
@@ -241,6 +250,14 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
     }
   }, [dataDetail]);
 
+  const receiveData = (
+    data: any,
+    isValid: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setFormIsValid(isValid);
+    setFormValue(data);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormValue((prevState) => ({
@@ -249,10 +266,22 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
     }));
   };
 
-  const handleSubmit = () => {
-    // handle later when know how to submit form
-    setFormValue({});
-    console.info(formValue);
+  const handleSubmit = async () => {
+    const queryParams = {
+      id: formId,
+      pic: formPic,
+      placeholderValue: formValue
+    };
+
+    const data = await handleSendEmail(queryParams);
+    if (data.status === 'OK') {
+      router.refresh();
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+      router.refresh();
+    }
   };
 
   return (
@@ -349,8 +378,47 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 onSubmit={handleSubmit}
                 dataForm={dataForm}
                 customFormClassname="border-b-syariah_green"
+                resultData={receiveData}
               />
             )}
+            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
+              <div className="accent-syariah_green flex xs:flex-col md:flex-row items-center gap-[12px] h-full">
+                <div className="flex flex-row gap-4">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={(e) => {
+                      setIsChecked(e.target.checked);
+                    }}
+                  />
+                  <label className="cursor-pointer" htmlFor="setuju">
+                    Saya setuju memberikan data pribadi Saya kepada Avrist Life
+                    Insurance dan telah membaca{' '}
+                    <span
+                      className="text-syariah_green font-bold"
+                      onClick={() => window.open('/keamanan-online', '_blank')}
+                    >
+                      Keamanan Online
+                    </span>{' '}
+                    Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
+                    dihubungi oleh Avrist Life Insurance melalui media
+                    komunikasi pribadi Saya sesuai hari dan jam operasional yang
+                    berlaku di Avrist Life Insurance.
+                  </label>
+                </div>
+
+                <div className=" flex flex-col md:flex-row md:justify-end md:items-center">
+                  <button
+                    type="submit"
+                    disabled={formIsValid}
+                    onClick={() => handleSubmit()}
+                    className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full w-[132px] rounded-lg mt-[12px] md:mt-0`}
+                  >
+                    Kirim
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <SimpleContainer>
             <div className="text-center">

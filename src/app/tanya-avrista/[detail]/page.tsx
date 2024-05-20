@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+'use client';
+import React, { Suspense, useEffect, useState } from 'react';
 
 import CONTACTS from '@/assets/images/common/contacts.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
@@ -21,25 +22,36 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const DetailTanyaAvrista = async ({
-  params
-}: {
-  params: { detail: string };
-}) => {
-  const data = await handleGetContentPage('halaman-tanya-avrista-detail');
-  const detail = await handleGetContentDetail(params.detail);
-  // page
-  const { content } = pageTransformer(data);
-  const bannerImage = singleImageTransformer(content['title-image']);
-  const footerImage = singleImageTransformer(content['cta1-image']);
-  // contrent
-  const { content: contentDetail } = contentDetailTransformer(detail);
-  const titleContent = contentStringTransformer(
-    contentDetail['pertanyaan-tanya-avrista']
-  );
-  const mainContent = contentStringTransformer(
-    contentDetail['jawaban-tanya-avrista']
-  );
+const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
+  const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
+  const [titleContent, setTitleContent] = useState('');
+  const [mainContent, setMainContent] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContentPage('halaman-tanya-avrista-detail');
+        const detail = await handleGetContentDetail(params.detail);
+        // page
+        const { content } = pageTransformer(data);
+        setBannerImage(singleImageTransformer(content['title-image']));
+        setFooterImage(singleImageTransformer(content['cta1-image']));
+        // contrent
+        const { content: contentDetail } = contentDetailTransformer(detail);
+        setTitleContent(
+          contentStringTransformer(contentDetail['pertanyaan-tanya-avrista'])
+        );
+        setMainContent(
+          contentStringTransformer(contentDetail['jawaban-tanya-avrista'])
+        );
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Suspense>
@@ -54,10 +66,12 @@ const DetailTanyaAvrista = async ({
           }
         ]}
       />
-      <ArtikelTanyaAvrista
-        title={titleContent}
-        content={mainContent as string}
-      />
+      <div className="-mt-32 relative z-[10]">
+        <ArtikelTanyaAvrista
+          title={titleContent}
+          content={mainContent as string}
+        />
+      </div>
       <RoundedFrameBottom />
       <FooterInformation
         title={

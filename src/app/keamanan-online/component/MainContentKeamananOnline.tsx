@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import KeamananOnline from '../tabs/keamanan-online';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 
 const MainContentKeamananOnline = () => {
   const router = useRouter();
@@ -39,20 +38,20 @@ const MainContentKeamananOnline = () => {
 
   const tabs = ['Keamanan Online'];
   return (
-    <div className=" w-full flex flex-col relative">
-      <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
-        <div className="px-[136px] py-[100px] flex flex-row">
+    <div className="w-full flex flex-col relative">
+      <div className="bg-white rounded-t-[5rem] w-full min-h-[3.75rem]">
+        <div className="sm:px-[8.5rem] sm:py-[6.25rem] xs:px-10 xs:py-16 flex sm:flex-row xs:flex-col">
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg">
-            <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
+            <div className="flex flex-col shrink min-w-[13.125rem] bg-purple_light_bg rounded-r-[0.75rem] rounded-l-[0.25rem] overflow-hidden">
               {tabs.map((val, idx) =>
                 tab === val ? (
                   <div
                     key={idx}
                     role="button"
-                    className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+                    className="border-l-4 border-purple_dark px-[0.9375rem] py-[0.625rem] cursor-pointer text-left"
                   >
-                    <span className="font-bold text-purple_dark text-[18px]">
+                    <span className="font-bold text-purple_dark text-[1.125rem]">
                       {val}
                     </span>
                   </div>
@@ -61,9 +60,9 @@ const MainContentKeamananOnline = () => {
                     key={idx}
                     role="button"
                     onClick={() => handleTabClick(val)}
-                    className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
+                    className="border-l-4 border-purple_mediumlight px-[0.9375rem] py-[0.625rem] cursor-pointer text-left"
                   >
-                    <span className="font-bold text-purple_mediumlight text-[18px]">
+                    <span className="font-bold text-purple_mediumlight text-[1.125rem]">
                       {val}
                     </span>
                   </div>
@@ -73,7 +72,7 @@ const MainContentKeamananOnline = () => {
           </div>
           <div className="relative sm:hidden block">
             <div
-              className="flex justify-between items-center border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[18px]"
+              className="flex justify-between items-center border-l-4 border-purple_dark px-[0.9375rem] py-[0.625rem] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[1.125rem]"
               onClick={() => setIsOpen(!isOpen)}
             >
               <span>{tab}</span>
@@ -92,7 +91,7 @@ const MainContentKeamananOnline = () => {
                     key={idx}
                     role="button"
                     onClick={() => handleTabClick(val)}
-                    className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
+                    className={`border-l-4 px-[0.9375rem] py-[0.625rem] cursor-pointer font-bold text-[1.125rem] ${
                       tab === val
                         ? 'border-purple_dark text-purple_dark'
                         : 'border-purple_mediumlight text-purple_mediumlight'
@@ -105,17 +104,12 @@ const MainContentKeamananOnline = () => {
             )}
           </div>
           {/* end tabs kiri */}
-          <div className="ml-[48px]">
+          <div className="sm:ml-[3rem]">
             {tab === 'Keamanan Online' && <KeamananOnline />}
           </div>
         </div>
       </div>
-      <Image
-        alt="border-bottom"
-        className="w-full h-auto"
-        src={ROUNDED_FRAME_BOTTOM}
-        style={{ userSelect: 'none' }}
-      />
+      <RoundedFrameBottom />
     </div>
   );
 };

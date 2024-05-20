@@ -90,7 +90,7 @@ const ManfaatUtama = (props: Props) => {
         ]}
         cardClassname="border-b-dplk_yellow"
       />
-      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-gray_bglightgray">
+      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] 136px] bg-gray_bglightgray">
         <InformationCard
           heading="Keuntungan memilih DPLK Avrist"
           cards={[

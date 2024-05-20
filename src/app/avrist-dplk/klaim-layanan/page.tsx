@@ -8,8 +8,8 @@ import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 import {
@@ -39,10 +39,6 @@ const KlaimLayanan = async () => {
         title="Klaim dan Layanan"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          {
-            title: 'Avrist Syariah',
-            href: '/avrist-syariah?tab=Tentang+Avrist+Syariah'
-          },
           { title: 'Klaim dan Layanan', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
@@ -50,19 +46,19 @@ const KlaimLayanan = async () => {
       />
       <KlaimDanLayanan />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
-      <HelpCard
+      <FooterInformation
+        bgColor="bg-dplk_yellow"
+        outerClassName="bg-white"
+        buttonVariant="dplk"
         title={
-          <p className="text-[56px] text-black">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white md:text-black font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>
         }
-        cardClassname="bg-dplk_yellow"
-        buttonClassname="bg-white border border-white"
-        buttonTextClassname="text-dplk_yellow"
         buttonTitle="Tanya Avrista"
-        href="/tanya-avrista"
         image={cta1Image.imageUrl}
+        href={'/tanya-avrista'}
       />
       <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
       <FooterCards

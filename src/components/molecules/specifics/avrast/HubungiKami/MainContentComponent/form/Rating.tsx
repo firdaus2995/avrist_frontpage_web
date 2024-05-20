@@ -28,7 +28,7 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
   const [active, setActive] = React.useState('');
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap">
         {listEmoji.map((i) => (
           <Image
             key={i.id}
@@ -36,7 +36,7 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
             alt={i.id}
             width={85}
             height={85}
-            className="mr-[64px] cursor-pointer"
+            className="mr-[4rem] cursor-pointer"
             onClick={() => {
               setActive(i.id)
               onChange(i.id)
@@ -44,7 +44,7 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
           />
         ))}
       </div>
-      <p className="font-bold text-[16px] mt-[24px]">{title}</p>
+      <p className="font-bold mt-[1.5rem]">{title}</p>
     </div>
   );
 };

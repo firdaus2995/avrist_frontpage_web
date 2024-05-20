@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from '@/components/atoms/Button/Button';
+// import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
   title: ReactElement;
@@ -34,11 +34,9 @@ const FooterInformation = ({
         >
           <div>{title}</div>
           {buttonTitle && (
-            <Link
-              href={href ?? ''}
-              className="flex justify-center sm:justify-start"
-            >
-              <Button
+            <div className="w-auto">
+              <Link href={href ?? ''}>
+                {/* <Button
                 customButtonClass={
                   !buttonVariant || buttonVariant === 'primary'
                     ? '!bg-purple_dark'
@@ -48,7 +46,7 @@ const FooterInformation = ({
                         ? 'bg-white hover:bg-syariah_green hover:text-white border-none'
                         : ''
                 }
-                customTextClass={`text-[20px]
+                customTextClass={`text-[20px] text-white
                   ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'text-white font-semibold'
@@ -60,11 +58,29 @@ const FooterInformation = ({
                   }
                 `}
                 title={buttonTitle}
-              />
-            </Link>
+              /> */}
+                <button
+                  className={`px-[2.5rem] py-[1.125rem] rounded-xl ${
+                    !buttonVariant || buttonVariant === 'primary'
+                      ? 'bg-purple_dark text-white'
+                      : buttonVariant === 'secondary'
+                        ? 'bg-white'
+                        : buttonVariant === 'syariah'
+                          ? 'text-syariah_green bg-white'
+                          : buttonVariant === 'dplk'
+                            ? 'text-dplk_yellow bg-white'
+                            : ''
+                  }`}
+                >
+                  <p className="font-opensans text-xl font-semibold">
+                    {buttonTitle}
+                  </p>
+                </button>
+              </Link>
+            </div>
           )}
         </div>
-        <div className="flex rounded-r-[24px] xs:max-sm:px-[20px]">
+        <div className="flex rounded-r-[24px]">
           <Image
             height={0}
             width={0}
