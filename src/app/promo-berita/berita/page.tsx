@@ -395,8 +395,14 @@ const Berita: React.FC<ParamsProps> = () => {
 
         const judul = content['judul-berita-pers'].value;
         const deskripsi = content['external-link-berita-pers'].value;
-
-        return { judul, deskripsi };
+        const newValue = `<div class="flex">
+        ${deskripsi}
+        <img class="ml-1" src="https://via.placeholder.com/50" alt="" />
+        </div>`
+        
+        
+        console.log(newValue, 'deskripsi');
+        return { judul, deskripsi: newValue };
       });
 
       setContentData(transformedData);
@@ -635,7 +641,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid lg:grid-cols-3 gap-2 px-[136px] py-20 bg-white">
+        <div className="grid grid-cols-3 gap-2 px-[136px] py-20 bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
