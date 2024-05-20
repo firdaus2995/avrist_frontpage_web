@@ -28,7 +28,7 @@ import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlay
 import { getAvristLifeGuide } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
-  contentDetailTransformer,
+  // contentDetailTransformer
   pageTransformer,
   singleImageTransformer,
   handleTransformedContent
@@ -72,17 +72,61 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       });
 
       const data = fetchData.data.categoryList;
-
+      
       const transformedData = data[currentCategory]?.map((item: any) => {
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-
-        const judul = content['judul-artikel'].value;
+        
         const id = item.id;
+        const tagline = content['tags'].value;
+        const judul = content['judul-artikel'].value;
+        const penulis = content['penulis-artikel'].value;
+        const bulan = content['bulan'].value;
+        const tahun = content['tahun'].value;
+        const thumbnail = singleImageTransformer(
+          content['artikel-thumbnail']
+        ).imageUrl;
+        const artikel = content['artikel-looping'].contentData[0]?.details;
+        const paragrafSatu = artikel[0]?.value;
+        const paragrafDua = artikel[1]?.value;
+        const artikelImage = artikel[2]?.value ? singleImageTransformer(artikel[2])?.imageUrl : null;
+        const artikelText = artikel[3]?.value;
+        const artikelVideo = artikel[4]?.value;
+        const paragrafTiga = artikel[5]?.value;
+        const tags = content['tags']?.value;
+        const artikelPIC = content['artikel-pic']?.value;
+        const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+        const waktuBaca = content['waktu-baca-artikel']?.value;
+        const daftarIsi = content['artikel-looping']?.contentData;
+        const differenceTime = formatTimeDifference(new Date(item?.createdAt), new Date())
 
-        return { judul, id };
+        const transformedData = {
+          tagline,
+          judul,
+          penulis,
+          bulan,
+          tahun,
+          thumbnail,
+          paragrafSatu,
+          artikelImage,
+          paragrafDua,
+          artikelVideo,
+          paragrafTiga,
+          tags,
+          artikelPIC,
+          artikelPICJabatan,
+          waktuBaca,
+          daftarIsi,
+          differenceTime,
+          id,
+          artikelText
+        };
+
+        setContentData(transformedData);
+
+        return transformedData;
       });
 
       setListArticle(transformedData);
@@ -116,55 +160,56 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   const fetchDetailData = async () => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
+    
 
-    const { content } = contentDetailTransformer(jsonData);
+    // const { content } = contentDetailTransformer(jsonData);
 
     setCurrentCategory(jsonData.data.categoryName);
 
-    const tagline = content['tags'].value;
-    const judul = content['judul-artikel'].value;
-    const penulis = content['penulis-artikel'].value;
-    const bulan = content['bulan'].value;
-    const tahun = content['tahun'].value;
-    const thumbnail = singleImageTransformer(
-      content['artikel-thumbnail']
-    ).imageUrl;
-    const artikel = content['artikel-looping'].contentData[0]?.details;
-    const paragrafSatu = artikel[0]?.value;
-    const artikelImage = (artikel[1])?.imageUrl ? singleImageTransformer(artikel[1])?.imageUrl : null;
-    const paragrafDua = artikel[2]?.value;
-    const artikelVideo = artikel[3]?.value;
-    const paragrafTiga = artikel[4]?.value;
-    const tags = content['tags']?.value;
-    const artikelPIC = content['artikel-pic']?.value;
-    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
-    const waktuBaca = content['waktu-baca-artikel']?.value;
-    const daftarIsi = content['artikel-looping']?.contentData;
-    const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
+    // const tagline = content['tags'].value;
+    // const judul = content['judul-artikel'].value;
+    // const penulis = content['penulis-artikel'].value;
+    // const bulan = content['bulan'].value;
+    // const tahun = content['tahun'].value;
+    // const thumbnail = singleImageTransformer(
+    //   content['artikel-thumbnail']
+    // ).imageUrl;
+    // const artikel = content['artikel-looping'].contentData[0]?.details;
+    // const paragrafSatu = artikel[0]?.value;
+    // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
+    // const paragrafDua = artikel[2]?.value;
+    // const artikelVideo = artikel[3]?.value;
+    // const paragrafTiga = artikel[4]?.value;
+    // const tags = content['tags']?.value;
+    // const artikelPIC = content['artikel-pic']?.value;
+    // const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+    // const waktuBaca = content['waktu-baca-artikel']?.value;
+    // const daftarIsi = content['artikel-looping']?.contentData;
+    // const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
 
-    const transformedData = {
-      tagline,
-      judul,
-      penulis,
-      bulan,
-      tahun,
-      thumbnail,
-      paragrafSatu,
-      artikelImage,
-      paragrafDua,
-      artikelVideo,
-      paragrafTiga,
-      tags,
-      artikelPIC,
-      artikelPICJabatan,
-      waktuBaca,
-      daftarIsi,
-      differenceTime
-    };
+    // const transformedData = {
+    //   tagline,
+    //   judul,
+    //   penulis,
+    //   bulan,
+    //   tahun,
+    //   thumbnail,
+    //   paragrafSatu,
+    //   artikelImage,
+    //   paragrafDua,
+    //   artikelVideo,
+    //   paragrafTiga,
+    //   tags,
+    //   artikelPIC,
+    //   artikelPICJabatan,
+    //   waktuBaca,
+    //   daftarIsi,
+    //   differenceTime
+    // };
 
-    setContentData(transformedData);
+    // setContentData(transformedData);
 
-    return transformedData;
+    // return transformedData;
   };
 
   useEffect(() => {
@@ -192,18 +237,18 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="flex flex-row px-[136px] py-[72px] gap-[48px]">
-        <div className="flex flex-col gap-10 py-10">
-          <p className="font-semibold">Daftar Isi</p>
+      <div className="flex flex-row px-[136px] pt-[80px] pb-[100px] gap-[48px]">
+        <div className="flex flex-col gap-[24px] py-10">
+          <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
             {listArticle?.slice(0, 5).map((item: any, index: number) =>
               item?.judul === contentData?.judul ? (
                 <div
                   key={index}
-                  className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+                  className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
                 >
                   <div
-                    className="font-bold text-purple_dark text-[18px]"
+                    className="font-bold text-purple_dark text-lg font-['Source Sans Pro']"
                     dangerouslySetInnerHTML={{
                       __html: item.judul
                     }}
@@ -220,7 +265,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
                 >
                   <div
-                    className="font-bold text-purple_mediumlight text-[18px]"
+                    className="font-bold text-purple_mediumlight text-lg font-['Source Sans Pro']"
                     dangerouslySetInnerHTML={{
                       __html: item.judul
                     }}
@@ -342,6 +387,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   }}
                 />
               }
+              {
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: contentData.paragrafDua
+                  }}
+                />
+              }
 
               <div className="bg-gray-200">
                 <Image
@@ -356,7 +408,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
               {
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: contentData.paragrafDua
+                    __html: contentData.artikelText
                   }}
                 />
               }
@@ -369,14 +421,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   type="Artikel Video"
                 />
               </div>
-
-              {
+              {/* {
                 <span
                   dangerouslySetInnerHTML={{
                     __html: contentData.paragrafTiga
                   }}
                 />
-              }
+              } */}
             </div>
           </div>
         </div>
