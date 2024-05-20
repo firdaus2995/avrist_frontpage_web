@@ -635,7 +635,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid lg:grid-cols-3 gap-[12px] px-[136px] py-20 bg-white">
+        <div className="grid lg:grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
@@ -670,7 +670,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[56px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
+          <h2 className="text-[56px] xs:max-sm:px-[136px] font-bold mb-6 text-purple_dark">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -691,7 +691,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </p>
             )}
             {params.category === 'Avrist Life Guide' && (
-              <p>
+              <p className='text-[36px] font-normal'>
                 Kumpulan artikel mengenai{' '}
                 <span className="font-bold text-purple_dark">asuransi</span> dan{' '}
                 <span className="font-bold text-purple_dark">gaya hidup.</span>
@@ -879,8 +879,8 @@ const Berita: React.FC<ParamsProps> = () => {
               customLeftContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-5 h-auto">
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left grow">
-                      <p className="font-semibold pb-2 border-b">
+                    <div className="border rounded-xl py-[36px] px-[24px] flex flex-col gap-4 text-left grow">
+                      <p className="font-bold pb-2 border-b text-[24px]">
                         Kategori Artikel
                       </p>
                       <div className="flex flex-col mt-5 gap-4">
@@ -896,35 +896,37 @@ const Berita: React.FC<ParamsProps> = () => {
                                 });
                               }}
                             >
-                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left text-[20px]">
                                 {item}
                               </p>
-                              <Icon
-                                width={16}
-                                height={16}
-                                name="chevronRight"
-                                color="purple_dark"
-                              />
+                              <div className='mt-1'>
+                                <Icon
+                                  width={16}
+                                  height={16}
+                                  name="chevronRight"
+                                  color="purple_dark"
+                                />
+                              </div>
                             </div>
                           )
                         )}
                       </div>
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left bg-purple_verylight">
-                      <p className="font-bold text-2xl text-purple_dark">
+                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-purple_verylight">
+                      <p className="font-bold text-4xl text-purple_dark">
                         Subscribe!
                       </p>
-                      <p className="text-[14px]">
+                      <p className="text-2xl font-light font-['Source Sans Pro']">
                         Informasi terkini mengenai Avrist Life Insurance
                       </p>
                       <Input placeholder="Masukkan email Anda" />
                       <Button
                         title="Subscribe"
                         customButtonClass="bg-purple_dark rounded-xl"
-                        customTextClass="text-white font-bold"
+                        customTextClass="text-white font-semibold text-base"
                       />
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left">
+                    <div className="border rounded-xl p-4 flex flex-col gap-[24px] text-left">
                       <p className="font-bold text-[16px]">Ikuti Kami</p>
                       <div className="flex flex-row gap-2">
                         <Link
@@ -997,7 +999,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           </Link>
                         ))}
                     </div>
-                    <p className="font-semibold pb-2 text-left text-[24px] mt-10">
+                    <p className="font-bold pb-2 text-left text-[36px] mt-10">
                       Artikel Lainnya
                     </p>
                   </div>

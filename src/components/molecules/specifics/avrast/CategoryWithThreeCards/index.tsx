@@ -192,7 +192,7 @@ const CategoryWithThreeCards = ({
                         title={item.label}
                       />
                     ) : item.type === 'dropdown' ? (
-                      <div className="p-2 border rounded-xl border-purple_dark text-purple_dark">
+                      <div className="py-[8px] px-[12px] border rounded-xl border-purple_dark text-purple_dark">
                         <select
                           key={index}
                           onChange={(e) => {
