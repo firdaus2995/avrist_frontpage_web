@@ -1,10 +1,12 @@
 import React from 'react';
 import Content from '@/components/molecules/specifics/avrast/RSRekanan/Content';
 
-export const RSRekanan = () => {
+const RSRekanan = () => {
   return (
     <>
       <Content />
     </>
   );
 };
+
+export default RSRekanan;
