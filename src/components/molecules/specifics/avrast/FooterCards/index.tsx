@@ -102,7 +102,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       </div>
 
       {/* Mobile */}
-      <div className={'bg-white'}>
+      <div className={`${bgColor ?? ''}`}>
         <div className="md:hidden pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
           <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => {

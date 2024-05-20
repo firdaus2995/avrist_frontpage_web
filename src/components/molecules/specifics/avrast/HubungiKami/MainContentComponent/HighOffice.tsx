@@ -43,7 +43,7 @@ export const HighOffice = () => {
   };
 
   return (
-    <div className="flex flex-col sm:px-[8.5rem] sm:pt-[6.25rem] xs:pt-[1.875rem] xs:px-[1.3125rem] gap-[6.25rem]">
+    <div className="flex flex-col gap-[4rem]">
       <p className="font-karla font-bold text-[3.5rem] text-center text-purple_dark">
         Lokasi Kantor Pusat Avrist Assurance
       </p>

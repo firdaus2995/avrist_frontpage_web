@@ -1,18 +1,25 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import love from '@/assets/images/common/heart-check.svg';
+import home from '@/assets/images/common/home-add.svg';
+import hospital from '@/assets/images/common/hospital.svg';
+import homeYellow from '@/assets/images/common/person-home-yellow.svg';
+import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import {
-  MainContent,
-  InformationProductFooter
-} from '@/components/molecules/specifics/avrast/HubungiKami';
+import { MainContent } from '@/components/molecules/specifics/avrast/HubungiKami';
 import { getHubungiKami } from '@/services/hubungi-kami.api';
-import { contentStringTransformer, pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  contentStringTransformer,
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const handleGetContent = async (slug: string) => {
-  try {    
+  try {
     const data = await getHubungiKami(slug);
     return data;
   } catch (error) {
@@ -20,7 +27,7 @@ const handleGetContent = async (slug: string) => {
   }
 };
 
-const CallMe =  () => {
+const CallMe = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
@@ -46,7 +53,7 @@ const CallMe =  () => {
     fetchData();
   }, []);
   return (
-    <div className="flex flex-col bg-avrast_product_bg ">
+    <div className="flex flex-col bg-purple_superlight">
       <Hero
         title="Hubungi Kami"
         breadcrumbsData={[
@@ -83,7 +90,39 @@ const CallMe =  () => {
         }
         image={footerImage.imageUrl}
       />
-      <InformationProductFooter />
+      <RoundedFrameTop />
+      <div className="flex w-full items-center justify-center bg-purple_superlight">
+        <FooterCards
+          bgColor="bg-purple_superlight"
+          cards={[
+            {
+              icon: love,
+              title: 'Asuransi Individu',
+              subtitle: 'Lihat Produk',
+              href: '/produk/individu?tab=Asuransi+Jiwa'
+            },
+            {
+              icon: home,
+              title: 'Asuransi Korporasi',
+              subtitle: 'Lihat Produk',
+              href: '/produk/korporasi'
+            },
+            {
+              icon: homeYellow,
+              title: 'AVRIST DPLK',
+              subtitle: 'Lihat Produk',
+              href: '/avrist-dplk?tab=Produk',
+              textColor: 'text-dplk_yellow'
+            },
+            {
+              icon: hospital,
+              title: 'Rumah Sakit',
+              subtitle: 'Rekanan',
+              href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
+            }
+          ]}
+        />
+      </div>
     </div>
   );
 };
