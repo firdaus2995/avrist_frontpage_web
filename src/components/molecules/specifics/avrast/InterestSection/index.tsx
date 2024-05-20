@@ -7,13 +7,13 @@ import Radio from '@/components/atoms/Radio';
 
 const InterestSection = () => {
   return (
-    <div className="w-full flex px-[136px] py-[72px] bg-purple_superlight justify-center">
-      <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
-        <p className="font-karla font-bold text-[56px]">
+    <div className="w-full flex  py-[5.125rem] bg-purple_superlight justify-center">
+      <div className="flex container mx-auto flex-col self-stretch bg-white p-9 gap-9 border border-gray_light border-b-8 border-b-purple_dark rounded-xl">
+        <p className="font-karla font-bold text-[3.5rem]">
           Saya tertarik dengan produk Avrist Life!
         </p>
-        <div className="grid grid-cols-2 gap-[32px]">
-          <div className="flex flex-col gap-[4px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Saya adalah <span className="text-reddist">*</span>
             </p>
@@ -24,23 +24,23 @@ const InterestSection = () => {
             />
             <Radio id="nasabah" name="tipe_nasabah" label="Nasabah" />
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Bapak/Ibu <span className="text-reddist">*</span>
             </p>
             <Radio id="bapak" name="jenis_kelamin" label="Bapak" />
             <Radio id="ibu" name="jenis_kelamin" label="Ibu" />
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Alamat Email <span className="text-reddist">*</span>
             </p>
             <input
-              className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
+              className="w-full px-[1rem] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
               placeholder="Masukan alamat e-mail Anda"
             />
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Nama <span className="text-reddist">*</span>
             </p>
@@ -49,7 +49,7 @@ const InterestSection = () => {
               placeholder="Masukan nama Anda"
             />
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Kota <span className="text-reddist">*</span>
             </p>
@@ -58,7 +58,7 @@ const InterestSection = () => {
               placeholder="Kota terdekat dari domisili Anda"
             />
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               No Telepon <span className="text-reddist">*</span>
             </p>
@@ -77,7 +77,7 @@ const InterestSection = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Pilih produk <span className="text-reddist">*</span>
             </p>
@@ -90,7 +90,7 @@ const InterestSection = () => {
               </option>
             </select>
           </div>
-          <div className="flex flex-col gap-[4px]">
+          <div className="flex flex-col gap-1">
             <p className="font-bold">
               Detail Kebutuhan <span className="text-reddist">*</span>
             </p>
@@ -118,11 +118,11 @@ const InterestSection = () => {
             Insurance.
           </label>
         </div>
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between sm:items-center items-baseline">
           <Image alt="captcha" src={CaptchaPicture} />
           <Button
             title="Kirim"
-            customButtonClass="rounded-lg bg-purple_dark"
+            customButtonClass="rounded-lg bg-purple_dark px-[2.5rem] py-[1.125rem]"
             customTextClass="text-white"
           />
         </div>

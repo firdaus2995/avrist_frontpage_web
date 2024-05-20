@@ -354,10 +354,12 @@ const Promo: React.FC<ParamsProps> = () => {
                     <div className="flex flex-row flex-wrap gap-[0.75rem]">
                       <MediumTag title={item.tags} />
                     </div>
-                    <div className="flex flex-row items-center flex-wrap gap-[0.75rem] font-bold text-purple_dark">
-                      Selengkapnya
-                      <Icon name="chevronRight" color="purple_dark" />
-                    </div>
+                    <Link href={`/promo-berita/promo/${item.id}`}>
+                      <div className="flex flex-row items-center flex-wrap gap-[0.75rem] font-bold text-purple_dark">
+                        Selengkapnya
+                        <Icon name="chevronRight" color="purple_dark" />
+                      </div>
+                    </Link>
                   </div>
                 }
                 image={
@@ -451,7 +453,9 @@ const Promo: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4">
-              <p className="text-[3.5rem] font-karla font-normal">Subscribe Informasi Terkini!</p>
+              <p className="text-[3.5rem] font-karla font-normal">
+                Subscribe Informasi Terkini!
+              </p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
@@ -463,7 +467,11 @@ const Promo: React.FC<ParamsProps> = () => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" customTextClass="text-[1rem]" />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl"
+                  customTextClass="text-[1rem]"
+                />
               </div>
             </div>
           }

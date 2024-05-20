@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -90,9 +90,8 @@ const monthDropdown = () => {
   return month;
 };
 
-const DetailPromoTerbaru = () => {
-  const param = useSearchParams();
-  const id = param.get('id');
+const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
+  const id = params.detail;
 
   const [contentData, setContentData] = useState<any>({
     tagline: '',
@@ -121,6 +120,8 @@ const DetailPromoTerbaru = () => {
       handleGetContentPage(BASE_SLUG.PROMO_BERITA.PAGE.PENAWARAN_DETAIL).then(
         (res: any) => {
           const { content } = pageTransformer(res);
+
+          console.log({ res, content });
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
@@ -235,15 +236,15 @@ const DetailPromoTerbaru = () => {
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col gap-10 w-2/3 p-10">
           <div className="flex flex-col gap-5">
-            <p className="text-purple_dark font-semibold">
+            <p className="text-purple_dark font-semibold text-[1.5rem]">
               {contentData?.tags}
             </p>
-            <p className="font-semibold text-[48px]">
+            <p className="font-semibold text-[3.5rem] font-karla">
               {contentData && htmlParser(contentData.judul)}
             </p>
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col gap-2">
-                <p>
+                <p className="text-base text-gray_body">
                   {`${contentData.bulan} ${contentData.tahun}`} |{' '}
                   {contentData.penulis}
                 </p>
@@ -372,12 +373,12 @@ const DetailPromoTerbaru = () => {
 
       <InterestSection />
 
-      <div className="flex flex-col">
-        <div className="flex flex-col items-center justify-center gap-10 p-10">
-          <p className="text-purple_dark font-bold text-[36px]">
+      <div className="flex container mx-auto flex-col">
+        <div className="flex flex-col items-center justify-center gap-10 py-[5.25rem]">
+          <p className="text-purple_dark font-bold text-[2.25rem]">
             Penawaran Promo Lainnya
           </p>
-          <div className="grid grid-cols-3 gap-[24px] p-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 p-10 gap-6">
             {otherContent?.map((item: any, index: number) => (
               <Link
                 key={index}
