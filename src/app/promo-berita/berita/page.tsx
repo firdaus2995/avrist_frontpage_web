@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
+import { constructData } from './construct-data';
 import { formatTimeDifference } from './format-time';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
@@ -377,8 +378,6 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const fetchBeritaPers = async () => {
-    console.log('step 1<<<<');
-    
     try {
       const fetchData = await getBeritaPers({
         includeAttributes: 'true',
@@ -388,11 +387,8 @@ const Berita: React.FC<ParamsProps> = () => {
       });
 
       const data = fetchData.data.categoryList;
-      console.log(data, '<<<<<');
-      
 
       const transformedData = data['']?.map((item: any) => {
-        console.log(item, 'item >>>>');
         
         const { content } = handleTransformedContent(
           item.contentData,
@@ -403,16 +399,13 @@ const Berita: React.FC<ParamsProps> = () => {
 
         const judul = content['judul-artikel']?.value;
         // const deskripsi = content['external-link-berita-pers'].value;
-        // let newLink = {}
+        let newLink;
         const externalLink = content['list-external-link']?.contentData;
-        console.log(externalLink, 'externalLink');
         externalLink.map((el:any) => {
-          console.log(el['details']);
-          // newLink = {
-          //   label: el['details'].
-          // }
+          newLink = constructData(el['details'][0]?.value, el['details'][1]?.value)
         })
-        return { judul };
+        
+        return { judul, newLink };
       });
 
       setContentData(transformedData);
@@ -1195,15 +1188,23 @@ const Berita: React.FC<ParamsProps> = () => {
                   <div className="grid grid-cols-1 gap-[24px] w-full">
                     {paginatedData?.map((item: any, index: number) => (
                       <div key={index} className="w-full p-4 border rounded-xl">
-                        <p className="font-bold text-left">{item.judul}</p>
                         {
-                          <div
-                            className="mt-5 w-full flex"
+                          <p
+                            className="text-[24px] font-bold font-['Source Sans Pro']"
                             dangerouslySetInnerHTML={{
-                              __html: item.deskripsi
+                              __html: item.judul
                             }}
                           />
                         }
+                        {/* {
+                          <div
+                            className="mt-5 w-full flex"
+                            dangerouslySetInnerHTML={{
+                              __html: item.newLink
+                            }}
+                          />
+                        } */}
+                        {item.newLink}
                       </div>
                     ))}
                   </div>
