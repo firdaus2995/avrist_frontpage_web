@@ -69,21 +69,24 @@ const DPLKContent = (props: Props) => {
   }, [searchParams]);
 
   return (
-    <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
-      <div className="flex flex-nowrap w-full justify-between gap-2 items-stretch">
+    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] gap-[4rem] my-[3.125rem]">
+      <div className="flex flex-nowrap w-full justify-between gap-2 overflow-x-auto">
         {tabs.map((val, idx) => (
-          <LinkScroll
-            key={idx}
-            to={'#' + val.replace(/\s+/g, '')}
-            spy={true}
-            smooth={true}
-            offset={-200}
-            duration={500}
-            onClick={() => handleTabClick(val)}
-            className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-black'} font-semibold`}
-          >
-            <span className="font-semibold text-[16px]">{val}</span>
-          </LinkScroll>
+          <div className="w-full" key={idx}>
+            <div className="xs:w-[250px] sm:w-full sm:h-[4.375rem] md:h-full">
+              <LinkScroll
+                to={'#' + val.replace(/\s+/g, '')}
+                spy={true}
+                smooth={true}
+                offset={-200}
+                duration={500}
+                onClick={() => handleTabClick(val)}
+                className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-black'} font-semibold`}
+              >
+                <span className="font-semibold text-[16px]">{val}</span>
+              </LinkScroll>
+            </div>
+          </div>
         ))}
       </div>
       {tab === 'Tentang Avrist DPLK' && (

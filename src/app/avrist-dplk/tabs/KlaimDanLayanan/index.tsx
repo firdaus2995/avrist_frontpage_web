@@ -11,7 +11,7 @@ import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills
 
 const KlaimDanLayanan = () => {
   return (
-    <div className="flex flex-col gap-[64px] sm:pt-[100px] sm:pb-[26px] sm:px-[136px] xs:p-4">
+    <div className="flex flex-col mt-[3.125rem] sm:pb-[6px] xs:px-[2rem] sm:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',

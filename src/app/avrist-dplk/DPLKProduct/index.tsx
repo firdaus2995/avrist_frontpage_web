@@ -109,7 +109,7 @@ const DPLKProductList = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[64px] sm:pt-[80px] sm:pb-[6px] sm:px-[136px] xs:p-4">
+    <div className="flex flex-col xs:gap-[2.25rem] md:gap-[4rem] mt-[3.125rem] sm:pb-[6px] xs:px-[2rem] md:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang Avrist DPLK',
@@ -130,7 +130,7 @@ const DPLKProductList = () => {
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
       />
-      <div className="flex sm:flex-row xs:flex-col-reverse xs:items-center sm:items-start sm:gap-0 xs:gap-4">
+      <div className="flex sm:flex-row xs:flex-col xs:items-center sm:items-start sm:gap-0 xs:gap-[1.5rem]">
         <div className="sm:w-1/2 xs:w-full flex-wrap">
           <CategoryPillsBox
             buttonTitle={channels}

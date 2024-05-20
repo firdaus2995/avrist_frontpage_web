@@ -15,31 +15,36 @@ interface IHero {
   }[];
   bottomImage?: StaticImport | string;
   imageUrl?: string;
+  customClassName?: string;
 }
 
 const Hero: React.FC<IHero> = ({
   title,
   breadcrumbsData,
   bottomImage,
-  imageUrl
+  imageUrl,
+  customClassName
 }) => {
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
+      className={`${customClassName} relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
     >
       <div className="w-full flex items-center">
         <div
           className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'xs:pt-[60px] md:pt-[50px]'}`}
         >
-          <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
-            {title}
-          </p>
+          <div className="line-clamp-1">
+            <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
+              {title}
+            </p>
+          </div>
+
           <span className="flex flex-row gap-2">
             {breadcrumbsData.map((item, index) => (
               <React.Fragment key={index}>
                 <Link
                   href={item.href}
-                  className={`font-opensans text-white text-[18px] ${index === breadcrumbsData.length - 1 ? 'font-bold' : ''}`}
+                  className={`font-opensans text-white text-[18px] ${index === breadcrumbsData.length - 1 ? 'font-bold line-clamp-1' : ''}`}
                 >
                   {item.title}
                 </Link>

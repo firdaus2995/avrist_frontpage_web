@@ -80,7 +80,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
     return (
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white gap-[2.25rem] border border-gray_light border-b-8  rounded-xl`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 rounded-xl`}
       >
         <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem]">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
