@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll } from 'react-scroll';
 
+import Slider from 'react-slick';
 import DewanPengawasSyariah from './tabs/DewanPengawasSyariah';
 import KlaimDanLayanan from './tabs/KlaimDanLayanan';
 import ManfaatUtama from './tabs/ManfaatUtama';
@@ -24,7 +25,8 @@ import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import {
   handleGetContentCategory,
   handleGetContentPage
@@ -84,6 +86,16 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   );
 
   const footerImage = singleImageTransformer(content['cta1-image']);
+
+  const sliderTabSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -186,7 +198,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         bottomImage={bannerImage.imageUrl}
       />
       <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
-        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-2 items-stretch">
+        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-[12px] items-stretch xs:hidden md:block">
           {tabs.map((val, idx) => (
             <LinkScroll
               key={idx}
@@ -196,12 +208,30 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
               offset={-200}
               duration={500}
               onClick={() => handleTabClick(val)}
-              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
             >
               <span className="font-semibold text-[16px]">{val}</span>
             </LinkScroll>
           ))}
         </div>
+        {/* Tab Mobile */}
+      <div className="w-[95%] z-20 top-32 md:hidden">
+        <div className="">
+          <Slider {...sliderTabSettings}>
+            {tabs.map((val, idx) => (
+              <div key={idx} className='w-full'>
+                <div
+                  role="button"
+                  onClick={() => handleTabClick(val)}
+                  className={`mx-[10px] flex justify-center items-center w-[95%] min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+                >
+                  {val}
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
         {tab === 'Tentang Avrist Syariah' && (
           <TentangAvristSyariah
             title={dewanPengawasJudul}

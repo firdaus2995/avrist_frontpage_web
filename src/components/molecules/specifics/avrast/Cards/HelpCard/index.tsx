@@ -26,7 +26,7 @@ const HelpCard = ({
       <div
         className={`${cardClassname} grid grid-cols-1 sm:grid-cols-2 rounded-[24px] overflow-hidden`}
       >
-        <div className="flex flex-col gap-[24px] justify-center p-[36px]">
+        <div className="flex flex-col gap-[24px] justify-center py-[36px] pr-[36px] pl-[48px]">
           <div>{title}</div>
           <div className="flex justify-center sm:justify-start">
             <Link

@@ -40,14 +40,14 @@ const TentangAvristSyariah = (props: Props) => {
         idTags="#TentangAvristSyariah"
       />
       <PersonCard
-        heading="Dewan Pengawas Syariah"
+        heading="Dewan Pengawas Syariah PT Avrist Assurance"
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
       />
       <InformationCard
         heading="Tugas dan Peran"
-        subHeading="DPS PT Avrist Assurance sebagai berikut:"
+        subHeading="Tugas dan Peran DPS PT Avrist Assurance sebagai berikut:"
         cards={[
           {
             cardIcon: GreenBinocular,
