@@ -91,7 +91,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={transformedData.titleImage}
       />
-      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[60px] bg-white xs:-mt-24 md:-mt-[6.2rem] z-[10]">
+      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[9.4rem] md:-mt-[6.2rem] z-[10]">
         <CategoryPills
           buttonTitle={tabs.map((item: any) => item.name)}
           buttonActiveClassname="bg-purple_dark border-purple_dark"
@@ -110,7 +110,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           }}
         />
       </div>
-      <div className="w-full">
+      <div className="w-full z-10 xs:mt-1 md:mt-0">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
         {tab === 'Manajemen' && (
           <Manajemen onSelectDetail={handleSelectedDetail} />

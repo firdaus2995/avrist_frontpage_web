@@ -39,7 +39,7 @@ const MainContentKeamananOnline = () => {
   const tabs = ['Keamanan Online'];
   return (
     <div className="w-full flex flex-col relative">
-      <div className="bg-white rounded-t-[5rem] w-full min-h-[3.75rem] relative">
+      <div className="bg-white rounded-t-[3.75rem] w-full min-h-[3.75rem] relative">
         <div className="sm:px-[8.5rem] sm:py-[6.25rem] xs:px-10 xs:py-16 flex sm:flex-row xs:flex-col xs:gap-[2.25rem] sm:gap-0">
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg">
