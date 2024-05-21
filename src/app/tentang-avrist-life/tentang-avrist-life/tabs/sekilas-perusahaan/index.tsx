@@ -232,7 +232,7 @@ const SekilasPerusahaan = () => {
         </div>
         <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10">
           <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold text-purple_dark font-karla">
-            PT Avirst Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan
+            PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan
             (OJK)
           </p>
           <p className="xs:text-lg md:text-xl font-opensans">

@@ -11,6 +11,8 @@ import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg'
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
+import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
+import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -270,8 +272,10 @@ const Promo: React.FC<ParamsProps> = () => {
           <p className="text-[20px]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
-              {contentData?.length === 0 ? 0 : startIndex + 1}-
-              {Math.min(endIndex, contentData ? contentData.length : 0)}
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : startIndex + 1}
+              -{Math.min(endIndex, contentData ? contentData.length : 0)}
             </span>{' '}
             dari{' '}
             <span className="font-bold">
@@ -318,12 +322,12 @@ const Promo: React.FC<ParamsProps> = () => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="w-full flex flex-col items-center justify-center py-20 text-center relative">
-        <div className="-mt-20 absolute z-20 top-2 w-full rounded-t-[76px] bg-white py-20">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+      <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative">
+        <div className="xs:-mt-24 md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
+          <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold mb-[0.75rem] text-purple_dark">
             Avrist Promo Terbaru
           </h2>
-          <h2 className="text-[24px] mb-6">
+          <h2 className="xs:text-[1.5rem] md:text-[2.25rem]">
             Ikuti terus kuis menarik di Instagram{' '}
             <span className="font-semibold text-purple_dark">
               @avristsolution{' '}
@@ -332,7 +336,7 @@ const Promo: React.FC<ParamsProps> = () => {
           </h2>
         </div>
 
-        <div className="w-full p-10 mt-10">
+        <div className="w-full pt-[8rem] md:px-[4rem]">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;
@@ -344,19 +348,28 @@ const Promo: React.FC<ParamsProps> = () => {
                 key={index}
                 title={
                   <div className="flex flex-col gap-4 text-left">
-                    <p className="text-[24px] font-bold">
+                    <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold font-karla">
                       {htmlParser(item.judul)}
                     </p>
-                    <p className="text-[16px] line-clamp-4">
-                      {htmlParser(item.deskripsi).substring(0, 250)}
+                    <p className="line-clamp-4 font-opensans">
+                      {htmlParser(item.deskripsi)}
                     </p>
                     <div className="flex flex-row flex-wrap gap-[12px]">
-                      <MediumTag title={item.tags} />
+                      <MediumTag
+                        title={item.tags}
+                        customClass="font-opensans"
+                      />
                     </div>
-                    <div className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark">
+                    <Link
+                      href={{
+                        pathname: `/promo-berita/promo/promo-terbaru`,
+                        query: { id: item.id }
+                      }}
+                      className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark font-opensans text-sm cursor-pointer"
+                    >
                       Selengkapnya
                       <Icon name="chevronRight" color="purple_dark" />
-                    </div>
+                    </Link>
                   </div>
                 }
                 image={
@@ -367,25 +380,27 @@ const Promo: React.FC<ParamsProps> = () => {
               />
             ))}
           </Slider>
-          <div className="flex flex-row justify-between w-full px-20">
-            <div
-              className="p-2 border-2 rounded-full border-purple_dark"
-              role="button"
+          <div className="flex flex-row justify-between w-full xs:px-[2rem] md:px-20">
+            <Image
+              src={ArrowCarouselLeft}
+              alt="prev"
               onClick={previous}
-            >
-              <Icon name="chevronLeft" color="purple_dark" />
-            </div>
-            <div
-              className="p-2 border-2 rounded-full border-purple_dark"
-              role="button"
+              className="-rotate-[90deg] cursor-pointer"
+              width={36}
+              height={36}
+            />
+            <Image
+              src={ArrowCarouselRight}
+              alt="next"
               onClick={next}
-            >
-              <Icon name="chevronRight" color="purple_dark" />
-            </div>
+              className="rotate-[90deg] cursor-pointer"
+              width={36}
+              height={36}
+            />
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="w-full xs:pt-[2.25rem] md:pt-0">
           <CategoryWithThreeCards
             hidePagination
             defaultSelectedCategory={category}
@@ -417,7 +432,7 @@ const Promo: React.FC<ParamsProps> = () => {
             }}
             customContent={
               <>
-                <div className="grid grid-cols-3 gap-[24px] w-full">
+                <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px] w-full">
                   {paginatedData?.map((item: any, index: number) => (
                     <Link
                       key={index}
@@ -449,7 +464,9 @@ const Promo: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="xs:text-[2.25rem] md:text-[3.5rem]">
+                Subscribe Informasi Terkini!
+              </p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
@@ -467,10 +484,11 @@ const Promo: React.FC<ParamsProps> = () => {
           }
           image={data?.footerImage ?? BlankImage}
         />
-        <RoundedFrameTop bgColor="bg-white" />
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       </div>
       <div className="w-full">
         <FooterCards
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Hubungi Kami',

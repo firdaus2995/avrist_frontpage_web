@@ -40,17 +40,9 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({
     buttonHelperAdditional = [...buttonHelper, ...checkboxButtons];
   }
 
-  const handleSelectedChannels = (text: string, isChecked: boolean) => {
+  const handleSelectedChannels = (text: string) => {
     if (onSelectChannels) {
-      const newSelectedChannels = new Set(selectedChannels);
-
-      if (isChecked) {
-        newSelectedChannels.add(text);
-      } else {
-        newSelectedChannels.delete(text);
-      }
-
-      onSelectChannels(Array.from(newSelectedChannels));
+      onSelectChannels(text);
     }
   };
 
@@ -81,6 +73,7 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({
               title={item.label}
               handleChange={handleSelectedChannels}
               customColor={customColor}
+              selected={selectedChannels}
             />
           ) : null
         )}

@@ -45,7 +45,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const [data, setData] = useState<IDataPage>(initialData);
   const [dataContent, setDataContent] = useState<IDataContent[]>();
   const [channels, setChannels] = useState<any>([]);
-  const [selectedChannels, setSelectedChannels] = useState<any>([]);
+  const [selectedChannels, setSelectedChannels] = useState<any>('');
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -135,7 +135,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       try {
         if (activeTab) {
           const contentCategoryResponse = await fetch(
-            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels?.length === channels?.length ? undefined : selectedChannels}&searchFilter=${searchValue}`
+            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}&searchFilter=${searchValue}`
           );
           const data = await contentCategoryResponse.json();
           const transformedDataContent = contentCategoryTransformer(
@@ -211,7 +211,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
-    setSelectedChannels(value);
+    if (selectedChannels === value){
+      setSelectedChannels('');
+    }else{
+      setSelectedChannels(value);
+    }
   };
 
   const handlePageChange = (page: React.SetStateAction<number>) => {

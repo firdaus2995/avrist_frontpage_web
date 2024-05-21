@@ -383,18 +383,19 @@ const Berita: React.FC<ParamsProps> = () => {
         includeAttributes: 'true',
         searchFilter: params.searchFilter,
         yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+        monthFilter: params.monthFilter,
+        category: params?.category
       });
 
       const data = fetchData.data.categoryList;
+      
 
-      const transformedData = data['']?.map((item: any) => {
+      const transformedData = data['Berita Pers']?.map((item: any) => {
         
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-        console.log(content);
         
 
         const judul = content['judul-artikel']?.value;
@@ -564,10 +565,12 @@ const Berita: React.FC<ParamsProps> = () => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      if (value !== 'Avrist Terkini') {
-        params.delete('category');
-      } else {
+      if (value === 'Avrist Terkini') {
         params.set('category', 'Berita dan Kegiatan');
+      } else if (value === 'Kumpulan Berita Pers') {
+        params.set('category', 'Berita Pers');
+      } else {
+        params.delete('category');
       }
 
       return params.toString();
@@ -642,17 +645,17 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
-        customClassName="xs:h-[150px] md:h-[200px]"
+        // customClassName="xs:h-[150px] md:h-[200px]"
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid lg:grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
               role="button"
               onClick={() => handleTabClick(val)}
-              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold content-center md:w-auto`}
             >
               {val}
             </div>
@@ -661,7 +664,7 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {/* Tab Mobile */}
-      <div className="w-full z-20 top-32 md:hidden px-[2rem]">
+      <div className="w-[95%] z-20 top-32 md:hidden">
         <div className="pt-[3rem]">
           <Slider {...sliderTabSettings}>
             {tabs.map((val, idx) => (
@@ -680,8 +683,8 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[56px] xs:max-sm:px-[136px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34 sm:max-md:w-[90%]">
+          <h2 className="text-[56px] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-6 text-purple_dark xs:max-md:text-4xl md:text-4xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -692,7 +695,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="text-[36px] mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -986,7 +989,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     <p className="font-semibold pb-2 text-left text-[24px]">
                       Terbaru
                     </p>
-                    <div className="grid grid-cols-2 gap-[24px]">
+                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1">
                       {contentData
                         ?.slice(0, 4)
                         .map((item: any, index: number) => (
@@ -1023,10 +1026,10 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-10">
-          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+          <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
             Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
           </h2>
 
@@ -1120,7 +1123,7 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               customContent={
                 <>
-                  <div className="grid grid-cols-3 gap-[24px]">
+                  <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
                     {paginatedData?.map((item: any, index: number) => (
                       <CardCategoryC
                         key={index}
@@ -1144,10 +1147,10 @@ const Berita: React.FC<ParamsProps> = () => {
       {tab === 'Kumpulan Berita Pers' && (
         <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
           <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
-            <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+            <h2 className="text-[56px] font-bold mb-6 text-purple_dark text-center">
               Kumpulan Berita Pers
             </h2>
-            <h2 className="text-[20px] mb-6">
+            <h2 className="text-[36px] mb-6 font-normal text-center">
               Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
               <span className="font-bold">kegiatan, produk</span> dan{' '}
               <span className="font-bold">layanan</span> dari Avrist Life
@@ -1155,7 +1158,7 @@ const Berita: React.FC<ParamsProps> = () => {
             </h2>
           </div>
 
-          <div className="w-full">
+          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
@@ -1192,7 +1195,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <div key={index} className="w-full p-4 border rounded-xl">
                         {
                           <p
-                            className="text-[24px] font-bold font-['Source Sans Pro']"
+                            className="text-[24px] font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
@@ -1224,19 +1227,19 @@ const Berita: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="text-[56px] md:text-4xl">Subscribe Informasi Terkini!</p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
+                customTextClass="text-white font-bold md:w-full"
               />
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full md:w-full" />
               </div>
             </div>
           }
