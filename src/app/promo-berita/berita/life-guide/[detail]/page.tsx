@@ -233,7 +233,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="flex flex-row px-[136px] pt-[80px] pb-[100px] gap-[48px]">
+      <div className="flex xl:flex-row xs:max-lg:flex-wrap xl:px-[136px] xs:px-[50px] pt-[80px] pb-[100px] gap-[48px]">
         <div className="flex flex-col gap-[24px] py-10">
           <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
@@ -274,13 +274,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
         <div className="flex flex-col grow">
           <div className="flex items-center justify-start w-full">
-            <div className="flex flex-col gap-10 w-2/3 py-10">
+            <div className="flex flex-col gap-10 w-2/3 xs:max-lg:w-full py-10">
               <div className="flex flex-col gap-5">
                 <p className="text-purple_dark font-semibold">
                   {contentData?.tags}
                 </p>
                 <p
-                  className="font-semibold text-[48px]"
+                  className="font-semibold text-[48px] xs:max-lg:text-4xl"
                   dangerouslySetInnerHTML={{
                     __html: contentData?.judul
                   }}
