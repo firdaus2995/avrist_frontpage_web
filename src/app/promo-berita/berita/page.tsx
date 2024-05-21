@@ -1147,10 +1147,10 @@ const Berita: React.FC<ParamsProps> = () => {
       {tab === 'Kumpulan Berita Pers' && (
         <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
           <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
-            <h2 className="text-[56px] font-bold mb-6 text-purple_dark text-center">
+            <h2 className="lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
               Kumpulan Berita Pers
             </h2>
-            <h2 className="text-[36px] mb-6 font-normal text-center">
+            <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
               Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
               <span className="font-bold">kegiatan, produk</span> dan{' '}
               <span className="font-bold">layanan</span> dari Avrist Life
@@ -1195,20 +1195,12 @@ const Berita: React.FC<ParamsProps> = () => {
                       <div key={index} className="w-full p-4 border rounded-xl">
                         {
                           <p
-                            className="text-[24px] font-bold font-['Source Sans Pro'] text-left mb-1"
+                            className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
                           />
                         }
-                        {/* {
-                          <div
-                            className="mt-5 w-full flex"
-                            dangerouslySetInnerHTML={{
-                              __html: item.newLink
-                            }}
-                          />
-                        } */}
                         {item.newLink}
                       </div>
                     ))}
