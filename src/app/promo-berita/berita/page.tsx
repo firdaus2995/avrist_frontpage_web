@@ -383,7 +383,8 @@ const Berita: React.FC<ParamsProps> = () => {
         includeAttributes: 'true',
         searchFilter: params.searchFilter,
         yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+        monthFilter: params.monthFilter,
+        category: params?.category
       });
 
       const data = fetchData.data.categoryList;
@@ -564,10 +565,12 @@ const Berita: React.FC<ParamsProps> = () => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      if (value !== 'Avrist Terkini') {
-        params.delete('category');
-      } else {
+      if (value === 'Avrist Terkini') {
         params.set('category', 'Berita dan Kegiatan');
+      } else if (value === 'Kumpulan Berita Pers') {
+        params.set('category', 'Berita Pers');
+      } else {
+        params.delete('category');
       }
 
       return params.toString();
@@ -1144,10 +1147,10 @@ const Berita: React.FC<ParamsProps> = () => {
       {tab === 'Kumpulan Berita Pers' && (
         <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
           <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
-            <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
+            <h2 className="text-[56px] font-bold mb-6 text-purple_dark text-center">
               Kumpulan Berita Pers
             </h2>
-            <h2 className="text-[20px] mb-6">
+            <h2 className="text-[36px] mb-6 font-normal text-center">
               Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
               <span className="font-bold">kegiatan, produk</span> dan{' '}
               <span className="font-bold">layanan</span> dari Avrist Life
@@ -1155,7 +1158,7 @@ const Berita: React.FC<ParamsProps> = () => {
             </h2>
           </div>
 
-          <div className="w-full">
+          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
@@ -1192,7 +1195,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <div key={index} className="w-full p-4 border rounded-xl">
                         {
                           <p
-                            className="text-[24px] font-bold font-['Source Sans Pro']"
+                            className="text-[24px] font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
@@ -1230,13 +1233,13 @@ const Berita: React.FC<ParamsProps> = () => {
                 customButtonClass="bg-purple_dark rounded-xl"
                 customTextClass="text-white font-bold"
               />
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full" />
               </div>
             </div>
           }
