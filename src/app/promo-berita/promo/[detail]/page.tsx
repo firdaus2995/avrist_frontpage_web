@@ -4,11 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
+import Email from '@/assets/images/common/email_color.svg';
+import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
+import Linkedin from '@/assets/images/common/linkedin_color.svg';
+import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -115,6 +120,7 @@ const DetailPromoTerbaru = () => {
     bannerImage: '',
     footerImage: ''
   });
+  const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
   const fetchData = () => {
     try {
@@ -192,7 +198,7 @@ const DetailPromoTerbaru = () => {
 
         const judul = content['judul-artikel'].value;
         const waktu = `${
-          monthDropdown().find((item) => item.label === content['bulan'].value)
+          monthDropdown().find((item) => item.value === content['bulan'].value)
             ?.label
         } ${content['tahun'].value}`;
         const image = singleImageTransformer(
@@ -233,23 +239,28 @@ const DetailPromoTerbaru = () => {
       />
 
       <div className="flex items-center justify-center w-full">
-        <div className="flex flex-col gap-10 w-2/3 p-10">
-          <div className="flex flex-col gap-5">
-            <p className="text-purple_dark font-semibold">
+        <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[23.281rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
+          <div className="flex flex-col gap-[0.5rem]">
+            <p className="text-purple_dark font-bold font-karla text-2xl">
               {contentData?.tags}
             </p>
-            <p className="font-semibold text-[48px]">
+            <p className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]">
               {contentData && htmlParser(contentData.judul)}
             </p>
-            <div className="flex flex-row justify-between items-center">
+            <div className="flex xs:flex-col md:flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-2">
                 <p>
                   {`${contentData.bulan} ${contentData.tahun}`} |{' '}
                   {contentData.penulis}
                 </p>
               </div>
-              <div className="flex flex-col gap-1 items-center">
-                <div className="flex items-center" role="button">
+              <div className="flex flex-col gap-1 md:items-center">
+                <div
+                  className="flex items-center"
+                  role="button"
+                  id="PopoverFocus"
+                  onClick={() => setIsOPenPopover(!isOpenPopover)}
+                >
                   <Icon
                     width={16}
                     height={16}
@@ -259,58 +270,71 @@ const DetailPromoTerbaru = () => {
                 </div>
 
                 <div className="text-xs font-bold">Share</div>
-
-                {/* {isVisible && (
-                  <div
-                    className="absolute right-0 mt-10 z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2"
-                    role="menu"
-                  >
-                    <div className="py-1 flex flex-row gap-5" role="none">
-                      <div className="flex flex-col gap-1 items-center">
+                <UncontrolledPopover
+                  placement="right"
+                  target="PopoverFocus"
+                  trigger="focus"
+                  isOpen={isOpenPopover}
+                  toggle={() => setIsOPenPopover(false)}
+                >
+                  <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
+                    <div
+                      className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap"
+                      role="none"
+                    >
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
                           src={Whatsapp}
                           alt="whatsapp"
                         />
-                        <div className="text-xs font-bold">Whatsapp</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Whatsapp
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
                           src={Email}
                           alt="email"
                         />
-                        <div className="text-xs font-bold">Email</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Email
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
-                          src={LinkedIn}
+                          src={Linkedin}
                           alt="linkedin"
                         />
-                        <div className="text-xs font-bold">LinkedIn</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          LinkedIn
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                           className="h-auto w-5"
                           src={Facebook}
                           alt="facebook"
                         />
-                        <div className="text-xs font-bold">Facebook</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Facebook
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-1 items-center">
+                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <div
                           role="button"
                           className="items-center"
-                          onClick={() => setIsVisible(!isVisible)}
+                          // onClick={() => setIsVisible(!isVisible)}
                         >
                           <Icon
                             width={18}
@@ -319,11 +343,13 @@ const DetailPromoTerbaru = () => {
                             color="purple_verylight"
                           />
                         </div>
-                        <div className="text-xs font-bold">Copy URL</div>
+                        <div className="text-xs font-bold cursor-pointer">
+                          Copy URL
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )} */}
+                  </PopoverBody>
+                </UncontrolledPopover>
               </div>
             </div>
           </div>
@@ -351,7 +377,7 @@ const DetailPromoTerbaru = () => {
             />
           }
 
-          <div className="w-full h-[650px] mb-10">
+          <div className="w-full xs:h-[250px] md:h-[650px] mb-10">
             <VideoPlayer
               thumbnail=""
               url={getYouTubeId(contentData.artikelVideo) ?? ''}
@@ -373,11 +399,11 @@ const DetailPromoTerbaru = () => {
       <InterestSection />
 
       <div className="flex flex-col">
-        <div className="flex flex-col items-center justify-center gap-10 p-10">
-          <p className="text-purple_dark font-bold text-[36px]">
+        <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
+          <p className="text-purple_dark font-bold xs:text-[2.25rem] md:text-[3.5rem] text-center font-karla">
             Penawaran Promo Lainnya
           </p>
-          <div className="grid grid-cols-3 gap-[24px] p-10">
+          <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px]">
             {otherContent?.map((item: any, index: number) => (
               <Link
                 key={index}
@@ -404,7 +430,9 @@ const DetailPromoTerbaru = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="xs:text-[2.25rem] md:text-[3.5rem]">
+                Subscribe Informasi Terkini!
+              </p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
@@ -422,9 +450,10 @@ const DetailPromoTerbaru = () => {
           }
           image={data?.footerImage ?? BlankImage}
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       </div>
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Hubungi Kami',

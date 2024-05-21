@@ -21,12 +21,12 @@ const CardCategoryB = ({ summary, description, imageUrl }: ICardCategoryB) => {
       />
       <div className="h-full flex flex-col justify-between px-5 pb-5">
         <p
-          className="text-[20px] font-bold"
+          className="text-[20px] font-bold font-karla"
           dangerouslySetInnerHTML={{
             __html: summary
           }}
         />
-        <p className="text-xs mt-2">{description}</p>
+        <p className="text-xs mt-2 font-opensans">{description}</p>
       </div>
     </div>
   );
