@@ -989,7 +989,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     <p className="font-semibold pb-2 text-left text-[24px]">
                       Terbaru
                     </p>
-                    <div className="grid grid-cols-2 gap-[24px]">
+                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1">
                       {contentData
                         ?.slice(0, 4)
                         .map((item: any, index: number) => (
