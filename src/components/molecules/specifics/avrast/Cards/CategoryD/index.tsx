@@ -42,7 +42,7 @@ const CardCategoryD = ({
         />
       </div>
       <div
-        className={`flex flex-col gap-4 p-5 ${type === 'row' ? 'w-2/3' : ''}`}
+        className={`flex flex-col gap-4 py-[36px] px-[24px] ${type === 'row' ? 'w-2/3' : ''}`}
       >
         <p className="text-[14px] text-left">
           <span className="font-bold text-purple_dark">{category}</span> {time}
