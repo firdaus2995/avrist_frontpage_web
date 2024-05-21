@@ -169,7 +169,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   }, [tab]);
 
   useEffect(() => {
-    handleGetContentPage('halaman-tentang-avrist-syariah').then((res) =>
+    handleGetContentPage('halaman-tentang-avrist-syariah-new').then((res) =>
       setData(res)
     );
   }, []);
