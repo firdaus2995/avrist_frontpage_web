@@ -223,7 +223,7 @@ const CategoryWithThreeCards = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
+            <div className="flex flex-row gap-[12px] xs:w-full md:w-60">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
                 className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
