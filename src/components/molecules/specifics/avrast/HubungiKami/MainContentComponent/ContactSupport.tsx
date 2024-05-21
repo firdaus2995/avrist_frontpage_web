@@ -8,7 +8,7 @@ import phone from '@/assets/images/common/phone.svg';
 
 export const ContactSupport = () => {
   return (
-    <div className="sm:px-[8.5rem] sm:py-[4rem] xs:py-[1.875rem] xs:px-[1.3125rem] grid grid-rows-1 md:grid-cols-5 gap-[1.5rem]">
+    <div className="grid grid-rows-1 md:grid-cols-5 gap-[1.5rem]">
       <div className="h-[20.1875rem] col-span-1 md:col-span-2 border bg-white border-b-8 border-b-purple_dark rounded-2xl border-gray_light overflow-hidden flex flex-col xs:items-center md:items-start justify-between">
         <div className="p-[2.25rem] gap-[1.5rem] flex flex-col h-full">
           <Image src={phone} alt="phone" width={100} height={100} />
