@@ -88,21 +88,20 @@ const SyaratPengunaan = () => {
         image={footerImage}
       />
       <div className="xs:-mb-2 md:mb-0">
-        <RoundedFrameTop bgColor="xs:bg-white md:bg-bg-purple_superlight" />
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       </div>
 
       <FooterCards
-        bgColor="xs:bg-white md:bg-bg-purple_superlight"
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Kelola Polis',
             subtitle: 'Pengkinian Data',
             href: 'https://my.avrist.com/welcome',
-            openInNewTab: true,
             icon: CONTACTS
           },
           {
-            title: 'Rumah Sakit \n \n Rekanan',
+            title: 'Rumah Sakit Rekanan',
             subtitle: 'Lebih Lanjut',
             href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
             icon: HOSPITAL
