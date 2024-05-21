@@ -1026,10 +1026,10 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-10">
-          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+          <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
             Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
           </h2>
 
@@ -1123,7 +1123,7 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               customContent={
                 <>
-                  <div className="grid grid-cols-3 gap-[24px]">
+                  <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
                     {paginatedData?.map((item: any, index: number) => (
                       <CardCategoryC
                         key={index}
