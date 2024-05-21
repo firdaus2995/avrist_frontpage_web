@@ -27,11 +27,11 @@ const Hero: React.FC<IHero> = ({
 }) => {
   return (
     <div
-      className={`${customClassName} relative w-full sm:auto z-0 overflow-hidden ${bottomImage ? 'h-[46.25rem] sm:h-[52.5rem]' : 'xs:h-[5rem] sm:h-[18.75rem]'}`}
+      className={`${customClassName} relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[46.25rem] sm:h-[52.5rem]' : 'xs:h-[15.625rem] md:h-[18.75rem]'}`}
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-[2rem] sm:px-[8.5rem] items-center ${bottomImage ? 'xs:pt-[2.5rem]' : 'xs:pt-[2.5rem]'} sm:pt-[4.375rem]`}
+          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center xs:pt-[2.5rem] md:pt-[3.75rem]`}
         >
           <div className="line-clamp-1">
             <p className="hidden sm:block font-karla text-white text-[1.125rem] sm:text-[3rem] font-light">
@@ -44,12 +44,12 @@ const Hero: React.FC<IHero> = ({
               <React.Fragment key={index}>
                 <Link
                   href={item.href}
-                  className={`font-opensans text-white text-[1.125rem] ${index === breadcrumbsData.length - 1 ? 'font-bold line-clamp-1' : ''}`}
+                  className={`font-opensans text-white text-[1.125rem] ${index === breadcrumbsData.length - 1 ? 'font-bold line-clamp-1 cursor-default' : ''}`}
                 >
                   {item.title}
                 </Link>
                 {index < breadcrumbsData.length - 1 && (
-                  <span className="w-[0.0625rem] h-auto bg-[#AA95B4]" />
+                  <span className="w-[0.063rem] h-auto bg-[#AA95B4]" />
                 )}
               </React.Fragment>
             ))}
@@ -57,7 +57,7 @@ const Hero: React.FC<IHero> = ({
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[46.25rem] sm:h-[52.5rem]' : 'xs:h-[5rem] sm:h-[18.75rem]'}`}
+        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[9.375rem] sm:h-[17.5rem]' : 'h-[15.625rem]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
         width={100}
@@ -66,7 +66,7 @@ const Hero: React.FC<IHero> = ({
       {bottomImage && (
         <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
-            className="rounded-t-[3.75rem] w-full object-cover h-[40rem] xs:max-sm:object-cover"
+            className="rounded-t-[3.75rem] w-full object-cover h-[40rem] xs:max-md:object-cover"
             alt="gambar-produk-individu"
             width={100}
             height={100}

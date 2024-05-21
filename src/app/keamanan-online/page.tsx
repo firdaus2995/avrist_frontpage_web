@@ -51,7 +51,7 @@ const SyaratPengunaan = () => {
     footerImage = data.footerImage.imageUrl;
   }
   return (
-    <div className="flex flex-col bg-purple_superlight">
+    <div className="bg-purple_dark">
       <Hero
         title="Keamanan Online"
         breadcrumbsData={[
@@ -60,7 +60,10 @@ const SyaratPengunaan = () => {
         ]}
         imageUrl={bannerImage}
       />
-      <MainContentKeamananOnline />
+      <div className="w-full xs:-mt-[9.4rem] md:-mt-[6.3rem]">
+        <MainContentKeamananOnline />
+      </div>
+
       <FooterInformation
         title={
           <div
@@ -84,19 +87,21 @@ const SyaratPengunaan = () => {
         }
         image={footerImage}
       />
-      <RoundedFrameTop />
+      <div className="xs:-mb-2 md:mb-0">
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
+      </div>
+
       <FooterCards
-        bgColor="bg-purple_superlight"
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Kelola Polis',
             subtitle: 'Pengkinian Data',
             href: 'https://my.avrist.com/welcome',
-            openInNewTab: true,
             icon: CONTACTS
           },
           {
-            title: 'Rumah Sakit \n \n Rekanan',
+            title: 'Rumah Sakit Rekanan',
             subtitle: 'Lebih Lanjut',
             href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
             icon: HOSPITAL
