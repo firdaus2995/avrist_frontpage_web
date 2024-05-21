@@ -88,20 +88,20 @@ export const EmailSubscribeModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
-                  {!isSuccessSubs ? (
+                  {isSuccessSubs ? (
                     <div className="sm:h-[50vh] sm:w-[50vw] xs:w-full xs:h-full transition xs:p-4">
                       <div className="absolute right-0 p-[1.5rem]">
                         <button onClick={onClose}>
                           <Icon
                             name="close"
-                            width={1.5}
-                            height={1.5}
+                            width={24}
+                            height={24}
                             color="white"
                           />
                         </button>
                       </div>
-                      <div className="flex flex-1 flex-col items-center justify-center h-full text-center px-[4.5rem]">
-                        <p className="font-karla font-semibold sm:text-[3rem] xs:text-[2rem]  text-white">
+                      <div className="flex flex-1 flex-col items-center justify-center h-full text-center sm:px-[4.5rem] sm:py-[6.25rem] xs:px-[2rem] xs:py-[3.125rem]">
+                        <p className="font-karla font-bold text-[3rem] text-white">
                           Terima kasih sudah mendaftar
                         </p>
                         <p className="font-opensans font-normal text-[1.125rem] text-white">
@@ -110,31 +110,31 @@ export const EmailSubscribeModal = (props: Props) => {
                       </div>
                     </div>
                   ) : (
-                    <div className="sm:h-[80vh] sm:w-[60vw] xs:w-full xs:h-full transition">
-                      <div className="absolute right-0 p-[1.5rem]">
+                    <div className="sm:h-[90vh] sm:w-[60vw] xs:w-full xs:h-full transition overflow-auto">
+                      <div className="absolute right-0 p-[1.5rem] z-50">
                         <button onClick={onClose}>
                           <Icon
                             name="close"
-                            width={1.5}
-                            height={1.5}
+                            width={24}
+                            height={24}
                             color="white"
                           />
                         </button>
                       </div>
-                      <div className="grid grid-rows-2 sm:h-[80vh] sm:w-[60vw] xs:w-full xs:h-full">
-                        <div className="bg-white">
+                      <div className="flex flex-col sm:h-[90vh] sm:w-[60vw] xs:w-full xs:h-full overflow-auto">
+                        <div className="bg-white xs:h-[9.375rem] sm:h-[20rem]">
                           <img
                             src="https://bertuahpos.com/wp-content/uploads/2023/05/Modus-penipuan-via-email.jpg"
                             alt="modal-home-banner"
-                            className="object-cover"
+                            className="object-cover xs:h-[9.375rem] sm:h-[20rem] w-full"
                           />
                         </div>
                         <div className="bg-[#7e3f96] flex items-center flex-col sm:p-0 xs:p-4">
-                          <div className="mt-[2.5rem]">
-                            <p className="font-karla font-extrabold sm:text-[3rem] xs:text-[1.5rem] text-white">
+                          <div className="py-[2.5rem]">
+                            <p className="font-karla font-extrabold sm:text-[3rem] xs:text-[2.813rem] text-white text-center">
                               Dapatkan informasi terkini
                             </p>
-                            <div className="w-full grid grid-cols-3 gap-[0.75rem] mt-[2.5rem]">
+                            <div className="w-full grid sm:grid-cols-3 xs:grid-cols-1 gap-[0.75rem] mt-[2.5rem]">
                               <button
                                 onClick={() => setSelected('Avras')}
                                 className={`${selected === 'Avras' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'} rounded-xl py-[0.5rem] font-opensans font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-purple_dark hover:text-white`}

@@ -4,17 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import { formatTimeDifference } from '../../format-time';
+import ContentPopover from './content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email_color.svg';
-import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
-import Linkedin from '@/assets/images/common/linkedin_color.svg';
-import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -28,7 +24,7 @@ import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlay
 import { getAvristLifeGuide } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
-  contentDetailTransformer,
+  // contentDetailTransformer
   pageTransformer,
   singleImageTransformer,
   handleTransformedContent
@@ -72,17 +68,61 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       });
 
       const data = fetchData.data.categoryList;
-
+      
       const transformedData = data[currentCategory]?.map((item: any) => {
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-
-        const judul = content['judul-artikel'].value;
+        
         const id = item.id;
+        const tagline = content['tags'].value;
+        const judul = content['judul-artikel'].value;
+        const penulis = content['penulis-artikel'].value;
+        const bulan = content['bulan'].value;
+        const tahun = content['tahun'].value;
+        const thumbnail = singleImageTransformer(
+          content['artikel-thumbnail']
+        ).imageUrl;
+        const artikel = content['artikel-looping'].contentData[0]?.details;
+        const paragrafSatu = artikel[0]?.value;
+        const paragrafDua = artikel[1]?.value;
+        const artikelImage = artikel[2]?.value ? singleImageTransformer(artikel[2])?.imageUrl : null;
+        const artikelText = artikel[3]?.value;
+        const artikelVideo = artikel[4]?.value;
+        const paragrafTiga = artikel[5]?.value;
+        const tags = content['tags']?.value;
+        const artikelPIC = content['artikel-pic']?.value;
+        const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+        const waktuBaca = content['waktu-baca-artikel']?.value;
+        const daftarIsi = content['artikel-looping']?.contentData;
+        const differenceTime = formatTimeDifference(new Date(item?.createdAt), new Date())
 
-        return { judul, id };
+        const transformedData = {
+          tagline,
+          judul,
+          penulis,
+          bulan,
+          tahun,
+          thumbnail,
+          paragrafSatu,
+          artikelImage,
+          paragrafDua,
+          artikelVideo,
+          paragrafTiga,
+          tags,
+          artikelPIC,
+          artikelPICJabatan,
+          waktuBaca,
+          daftarIsi,
+          differenceTime,
+          id,
+          artikelText
+        };
+
+        setContentData(transformedData);
+
+        return transformedData;
       });
 
       setListArticle(transformedData);
@@ -116,55 +156,56 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   const fetchDetailData = async () => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
+    
 
-    const { content } = contentDetailTransformer(jsonData);
+    // const { content } = contentDetailTransformer(jsonData);
 
     setCurrentCategory(jsonData.data.categoryName);
 
-    const tagline = content['tags'].value;
-    const judul = content['judul-artikel'].value;
-    const penulis = content['penulis-artikel'].value;
-    const bulan = content['bulan'].value;
-    const tahun = content['tahun'].value;
-    const thumbnail = singleImageTransformer(
-      content['artikel-thumbnail']
-    ).imageUrl;
-    const artikel = content['artikel-looping'].contentData[0]?.details;
-    const paragrafSatu = artikel[0]?.value;
-    const artikelImage = (artikel[1])?.imageUrl ? singleImageTransformer(artikel[1])?.imageUrl : null;
-    const paragrafDua = artikel[2]?.value;
-    const artikelVideo = artikel[3]?.value;
-    const paragrafTiga = artikel[4]?.value;
-    const tags = content['tags']?.value;
-    const artikelPIC = content['artikel-pic']?.value;
-    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
-    const waktuBaca = content['waktu-baca-artikel']?.value;
-    const daftarIsi = content['artikel-looping']?.contentData;
-    const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
+    // const tagline = content['tags'].value;
+    // const judul = content['judul-artikel'].value;
+    // const penulis = content['penulis-artikel'].value;
+    // const bulan = content['bulan'].value;
+    // const tahun = content['tahun'].value;
+    // const thumbnail = singleImageTransformer(
+    //   content['artikel-thumbnail']
+    // ).imageUrl;
+    // const artikel = content['artikel-looping'].contentData[0]?.details;
+    // const paragrafSatu = artikel[0]?.value;
+    // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
+    // const paragrafDua = artikel[2]?.value;
+    // const artikelVideo = artikel[3]?.value;
+    // const paragrafTiga = artikel[4]?.value;
+    // const tags = content['tags']?.value;
+    // const artikelPIC = content['artikel-pic']?.value;
+    // const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+    // const waktuBaca = content['waktu-baca-artikel']?.value;
+    // const daftarIsi = content['artikel-looping']?.contentData;
+    // const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
 
-    const transformedData = {
-      tagline,
-      judul,
-      penulis,
-      bulan,
-      tahun,
-      thumbnail,
-      paragrafSatu,
-      artikelImage,
-      paragrafDua,
-      artikelVideo,
-      paragrafTiga,
-      tags,
-      artikelPIC,
-      artikelPICJabatan,
-      waktuBaca,
-      daftarIsi,
-      differenceTime
-    };
+    // const transformedData = {
+    //   tagline,
+    //   judul,
+    //   penulis,
+    //   bulan,
+    //   tahun,
+    //   thumbnail,
+    //   paragrafSatu,
+    //   artikelImage,
+    //   paragrafDua,
+    //   artikelVideo,
+    //   paragrafTiga,
+    //   tags,
+    //   artikelPIC,
+    //   artikelPICJabatan,
+    //   waktuBaca,
+    //   daftarIsi,
+    //   differenceTime
+    // };
 
-    setContentData(transformedData);
+    // setContentData(transformedData);
 
-    return transformedData;
+    // return transformedData;
   };
 
   useEffect(() => {
@@ -192,18 +233,18 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="flex flex-row px-[136px] py-[72px] gap-[48px]">
-        <div className="flex flex-col gap-10 py-10">
-          <p className="font-semibold">Daftar Isi</p>
+      <div className="flex flex-row px-[136px] pt-[80px] pb-[100px] gap-[48px]">
+        <div className="flex flex-col gap-[24px] py-10">
+          <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
             {listArticle?.slice(0, 5).map((item: any, index: number) =>
               item?.judul === contentData?.judul ? (
                 <div
                   key={index}
-                  className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+                  className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
                 >
                   <div
-                    className="font-bold text-purple_dark text-[18px]"
+                    className="font-bold text-purple_dark text-lg font-['Source Sans Pro']"
                     dangerouslySetInnerHTML={{
                       __html: item.judul
                     }}
@@ -220,7 +261,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
                 >
                   <div
-                    className="font-bold text-purple_mediumlight text-[18px]"
+                    className="font-bold text-purple_mediumlight text-lg font-['Source Sans Pro']"
                     dangerouslySetInnerHTML={{
                       __html: item.judul
                     }}
@@ -265,73 +306,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     </div>
 
                     <div className="text-xs font-bold">Share</div>
-                    <UncontrolledPopover
-                      placement="right"
-                      target="PopoverFocus"
-                      trigger="focus"
-                      isOpen={isOpenPopover}
-                      toggle={() => setIsOPenPopover(false)}
-                    >
-                      <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
-                      <div className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap" role="none">
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Whatsapp}
-                              alt="whatsapp"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Email}
-                              alt="email"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Email</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Linkedin}
-                              alt="linkedin"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <Image
-                              role="button"
-                              // onClick={() => setIsVisible(!isVisible)}
-                              className="h-auto w-5"
-                              src={Facebook}
-                              alt="facebook"
-                            />
-                            <div className="text-xs font-bold cursor-pointer">Facebook</div>
-                          </div>
-                          <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                            <div
-                              role="button"
-                              className="items-center"
-                              // onClick={() => setIsVisible(!isVisible)}
-                            >
-                              <Icon
-                                width={18}
-                                height={18}
-                                name="copyUrl"
-                                color="purple_verylight"
-                              />
-                            </div>
-                            <div className="text-xs font-bold cursor-pointer">Copy URL</div>
-                          </div>
-                        </div>
-                      </PopoverBody>
-                    </UncontrolledPopover>
+                    <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
                   </div>
                 </div>
               </div>
@@ -339,6 +314,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                 <p
                   dangerouslySetInnerHTML={{
                     __html: contentData.paragrafSatu
+                  }}
+                />
+              }
+              {
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: contentData.paragrafDua
                   }}
                 />
               }
@@ -356,7 +338,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
               {
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: contentData.paragrafDua
+                    __html: contentData.artikelText
                   }}
                 />
               }
@@ -369,14 +351,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   type="Artikel Video"
                 />
               </div>
-
-              {
+              {/* {
                 <span
                   dangerouslySetInnerHTML={{
                     __html: contentData.paragrafTiga
                   }}
                 />
-              }
+              } */}
             </div>
           </div>
         </div>
