@@ -26,7 +26,7 @@ const FooterInformation = ({
 }: IFooterInformation) => {
   return (
     <div
-      className={`w-full flex  md:pt-[6.25rem] md:pb-[7.5rem]  xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
+      className={`w-full md:px-[8.5rem] md:pt-[6.25rem] md:pb-[7.5rem] xs:px-[2rem] xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
     >
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
@@ -60,7 +60,7 @@ const FooterInformation = ({
                 title={buttonTitle}
               /> */}
                 <button
-                  className={`px-[2.5rem] py-[1.125rem] rounded-xl ${
+                  className={`px-[2.5rem] py-[0.75rem] rounded-xl ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'bg-purple_dark text-white'
                       : buttonVariant === 'secondary'

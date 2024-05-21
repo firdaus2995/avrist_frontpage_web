@@ -28,7 +28,7 @@ const ButtonSmallWithCheck = ({
   return (
     <button
       type="button"
-      className={`flex flex-row items-center whitespace-nowrap gap-[6px] px-[19px] py-[7px] rounded-[6px] ${customColor?.accent ?? 'accent-purple_dark'} bg-transparent border ${customColor?.border ?? 'border-purple_dark'} cursor-default`}
+      className={`flex flex-row items-center whitespace-nowrap gap-[6px] px-[12px] py-[8px] rounded-[6px] ${customColor?.accent ?? 'accent-purple_dark'} bg-transparent border ${customColor?.border ?? 'border-purple_dark'} cursor-default`}
     >
       <input
         id={name}
