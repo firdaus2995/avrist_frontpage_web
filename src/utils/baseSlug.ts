@@ -8,7 +8,6 @@ export const BASE_SLUG = {
       KUMPULAN_BERITA_PERS_NEW: 'Berita-dan-Kegiatan-Detail',
       TESTIMONI: 'List-Testimoni',
       PENAWARAN: 'List-Penawaran',
-      KUMPULAN_BERITA_PERS_NEW: 'berita-dan-kegiatan-detail'
     },
     PAGE: {
       AVRIST_TERKINI: 'halaman-avrist-terkini',
