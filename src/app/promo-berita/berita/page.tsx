@@ -645,17 +645,17 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
-        customClassName="xs:h-[150px] md:h-[200px]"
+        // customClassName="xs:h-[150px] md:h-[200px]"
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid lg:grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
               role="button"
               onClick={() => handleTabClick(val)}
-              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold content-center md:w-auto`}
             >
               {val}
             </div>
@@ -664,7 +664,7 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {/* Tab Mobile */}
-      <div className="w-full z-20 top-32 md:hidden px-[2rem]">
+      <div className="w-[95%] z-20 top-32 md:hidden">
         <div className="pt-[3rem]">
           <Slider {...sliderTabSettings}>
             {tabs.map((val, idx) => (
@@ -683,8 +683,8 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[56px] xs:max-sm:px-[136px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34 sm:max-md:w-[90%]">
+          <h2 className="text-[56px] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-6 text-purple_dark xs:max-md:text-4xl md:text-4xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -695,7 +695,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="text-[36px] mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -1227,19 +1227,19 @@ const Berita: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="text-[56px] md:text-4xl">Subscribe Informasi Terkini!</p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
+                customTextClass="text-white font-bold md:w-full"
               />
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap">
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full"
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full" />
+                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full md:w-full" />
               </div>
             </div>
           }
