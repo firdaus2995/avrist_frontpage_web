@@ -13,7 +13,6 @@ import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.s
 import BlankImage from '@/assets/images/blank-image.svg';
 import Icon3 from '@/assets/images/common/email.svg';
 import Icon4 from '@/assets/images/common/facebook.svg';
-import Icon6 from '@/assets/images/common/instagram.svg';
 import Icon5 from '@/assets/images/common/linkedIn.svg';
 import Icon7 from '@/assets/images/common/procedure.svg';
 import Icon8 from '@/assets/images/common/youtube.svg';
@@ -91,7 +90,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={transformedData.titleImage}
       />
-      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-24 md:-mt-28 z-[10]">
+      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[9.4rem] md:-mt-[6.2rem] z-[10]">
         <CategoryPills
           buttonTitle={tabs.map((item: any) => item.name)}
           buttonActiveClassname="bg-purple_dark border-purple_dark"
@@ -110,7 +109,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           }}
         />
       </div>
-      <div className="w-full">
+      <div className="w-full z-10 xs:mt-1 md:mt-0">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
         {tab === 'Manajemen' && (
           <Manajemen onSelectDetail={handleSelectedDetail} />
@@ -189,6 +188,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       ) : null}
       <div className="w-full h-full bg-purple_superlight">
         <FooterCards
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Layanan Nasabah',
@@ -231,7 +231,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       ? Icon8
                       : Icon5
                     : tab === 'Penghargaan'
-                      ? Icon6
+                      ? Icon7
                       : tab === 'Laporan Perusahaan'
                         ? Icon7
                         : Icon7,
@@ -255,15 +255,15 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       ? 'https://www.youtube.com/@avristian'
                       : 'https://id.linkedin.com/company/avristassurance'
                     : tab === 'Penghargaan'
-                      ? '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
+                      ? '/klaim-layanan/layanan/penanganan-pengaduan'
                       : tab === 'Laporan Perusahaan'
-                        ? '/tentang-avrist-life?tab=Laporan+Perusahaan'
-                        : '/tentang-avrist-life?tab=Sekilas+Perusahaan',
+                        ? '/klaim-layanan/layanan/penanganan-pengaduan'
+                        : '/klaim-layanan/layanan/penanganan-pengaduan',
               openInNewTab:
                 tab === 'Sekilas Perusahaan'
-                  ? true
+                  ? false
                   : tab === 'Manajemen'
-                    ? true
+                    ? false
                     : tab === 'Penghargaan'
                       ? false
                       : tab === 'Laporan Perusahaan'
