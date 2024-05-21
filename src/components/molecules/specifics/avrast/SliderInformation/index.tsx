@@ -35,7 +35,7 @@ const SliderInformation = ({
         <div
           className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-md:flex-wrap xs:max-md:flex xs:max-md:grid-cols-1`}
         >
-          <div className="flex flex-col gap-[24px] items-start justify-center p-[36px]">
+          <div className="flex flex-col gap-[24px] items-start justify-center py-[36px] px-[24px]">
             <div>{title}</div>
             {buttonTitle && <Button title={buttonTitle} />}
           </div>

@@ -1025,7 +1025,7 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-10">
+        <div className="w-full flex flex-col items-center justify-center py-[100px] px-[136px] text-center mt-10">
           <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
