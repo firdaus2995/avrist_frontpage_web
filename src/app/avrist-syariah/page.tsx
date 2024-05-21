@@ -197,41 +197,41 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <div className="flex flex-col justify-center mx-[32px] my-[50px] sm:mx-[136px] sm:my-[72px] gap-[64px]">
-        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-[12px] items-stretch xs:hidden md:block">
+      <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[4.5rem] gap-[4rem]">
+        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:block">
           {tabs.map((val, idx) => (
             <LinkScroll
               key={idx}
               to={'#' + val.replace(/\s+/g, '')}
               spy={true}
               smooth={true}
-              offset={-200}
+              offset={-12.5}
               duration={500}
               onClick={() => handleTabClick(val)}
-              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
             >
-              <span className="font-semibold text-[16px]">{val}</span>
+              <span className="font-semibold text-[1rem]">{val}</span>
             </LinkScroll>
           ))}
         </div>
         {/* Tab Mobile */}
-      <div className="w-[95%] z-20 top-32 md:hidden">
-        <div className="">
-          <Slider {...sliderTabSettings}>
-            {tabs.map((val, idx) => (
-              <div key={idx} className='w-full'>
-                <div
-                  role="button"
-                  onClick={() => handleTabClick(val)}
-                  className={`mx-[10px] flex justify-center items-center w-[95%] min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
-                >
-                  {val}
+        <div className="w-[95%] z-20 top-8 md:hidden">
+          <div className="">
+            <Slider {...sliderTabSettings}>
+              {tabs.map((val, idx) => (
+                <div key={idx} className="w-full">
+                  <div
+                    role="button"
+                    onClick={() => handleTabClick(val)}
+                    className={`mx-[0.625rem] flex justify-center items-center w-[95%] min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+                  >
+                    {val}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          </div>
         </div>
-      </div>
         {tab === 'Tentang Avrist Syariah' && (
           <TentangAvristSyariah
             title={dewanPengawasJudul}
@@ -269,7 +269,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
       <HelpCard
         title={
-          <p className="text-[56px] text-white">
+          <p className="text-[3.5rem] text-white">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>

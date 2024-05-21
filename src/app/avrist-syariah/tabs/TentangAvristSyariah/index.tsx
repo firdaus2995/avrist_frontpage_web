@@ -67,7 +67,7 @@ const TentangAvristSyariah = (props: Props) => {
         ]}
         cardClassname="border-b-syariah_green"
       />
-      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-gray_bglightgray">
+      <div className="flex mx-[-2rem] mb-[-3.125rem] sm:mx-[-8.5rem] sm:mb-[-4.5rem] px-[2rem] sm:px-[8.5rem] bg-gray_bglightgray">
         <InformationCard
           heading="Mengapa Avrist Syariah?"
           cards={[
