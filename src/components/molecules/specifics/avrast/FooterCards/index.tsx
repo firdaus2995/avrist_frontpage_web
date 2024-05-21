@@ -76,6 +76,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       ? `mailto:${href}`
                       : href ?? '#'
                 }
+                target={item.openInNewTab ? '_blank' : '_self'}
                 className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[24px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
@@ -121,7 +122,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                             ? `mailto:${href}`
                             : href ?? '#'
                       }
-                      target={item.openInNewTab ? 'blank' : '_self'}
+                      target={item.openInNewTab ? '_blank' : '_self'}
                       className="flex flex-col justify-between w-full mx-[2.5rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
                     >
                       <div className="flex justify-center">

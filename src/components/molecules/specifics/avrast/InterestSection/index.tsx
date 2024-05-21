@@ -7,12 +7,12 @@ import Radio from '@/components/atoms/Radio';
 
 const InterestSection = () => {
   return (
-    <div className="w-full flex px-[136px] py-[72px] bg-purple_superlight justify-center">
+    <div className="w-full flex xs:px-[2rem] md:px-[8.5rem] xs:py-[3.125rem] md:py-[5.125rem] bg-purple_superlight justify-center">
       <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
-        <p className="font-karla font-bold text-[56px]">
+        <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]">
           Saya tertarik dengan produk Avrist Life!
         </p>
-        <div className="grid grid-cols-2 gap-[32px]">
+        <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-[32px] font-opensans">
           <div className="flex flex-col gap-[4px]">
             <p className="font-bold">
               Saya adalah <span className="text-reddist">*</span>
@@ -101,7 +101,7 @@ const InterestSection = () => {
             <p className="text-right">0/500</p>
           </div>
         </div>
-        <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
+        <div className="accent-purple_dark flex flex-row items-start gap-[12px] font-opensans">
           <input
             id="setuju"
             type="checkbox"
@@ -118,12 +118,12 @@ const InterestSection = () => {
             Insurance.
           </label>
         </div>
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex xs:flex-col md:flex-row justify-between items-center xs:gap-[2rem] md:gap-0">
           <Image alt="captcha" src={CaptchaPicture} />
           <Button
             title="Kirim"
-            customButtonClass="rounded-lg bg-purple_dark"
-            customTextClass="text-white"
+            customButtonClass="rounded-lg bg-purple_dark px-[2.5rem] py-[1.125rem]"
+            customTextClass="text-white font-opensans font-semibold text-xl"
           />
         </div>
       </div>
