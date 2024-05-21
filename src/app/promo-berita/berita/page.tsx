@@ -388,14 +388,14 @@ const Berita: React.FC<ParamsProps> = () => {
       });
 
       const data = fetchData.data.categoryList;
+      
 
-      const transformedData = data['']?.map((item: any) => {
+      const transformedData = data['Berita Pers']?.map((item: any) => {
         
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-        console.log(content);
         
 
         const judul = content['judul-artikel']?.value;
