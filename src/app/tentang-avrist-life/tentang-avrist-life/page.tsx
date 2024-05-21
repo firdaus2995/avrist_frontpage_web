@@ -13,7 +13,6 @@ import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.s
 import BlankImage from '@/assets/images/blank-image.svg';
 import Icon3 from '@/assets/images/common/email.svg';
 import Icon4 from '@/assets/images/common/facebook.svg';
-import Icon6 from '@/assets/images/common/instagram.svg';
 import Icon5 from '@/assets/images/common/linkedIn.svg';
 import Icon7 from '@/assets/images/common/procedure.svg';
 import Icon8 from '@/assets/images/common/youtube.svg';
@@ -232,7 +231,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       ? Icon8
                       : Icon5
                     : tab === 'Penghargaan'
-                      ? Icon6
+                      ? Icon7
                       : tab === 'Laporan Perusahaan'
                         ? Icon7
                         : Icon7,
@@ -256,10 +255,10 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       ? 'https://www.youtube.com/@avristian'
                       : 'https://id.linkedin.com/company/avristassurance'
                     : tab === 'Penghargaan'
-                      ? '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
+                      ? '/klaim-layanan/layanan/penanganan-pengaduan'
                       : tab === 'Laporan Perusahaan'
-                        ? '/tentang-avrist-life?tab=Laporan+Perusahaan'
-                        : '/tentang-avrist-life?tab=Sekilas+Perusahaan',
+                        ? '/klaim-layanan/layanan/penanganan-pengaduan'
+                        : '/klaim-layanan/layanan/penanganan-pengaduan',
               openInNewTab:
                 tab === 'Sekilas Perusahaan'
                   ? false

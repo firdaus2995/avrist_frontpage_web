@@ -198,24 +198,30 @@ const DetailKarir = () => {
         <FooterCards
           cards={[
             {
-              title: 'Hubungi Kami',
+              title: 'Layanan Nasabah',
               icon: Icon1,
-              subtitle: 'Lebih Lanjut'
+              subtitle: '021 5789 8188',
+              href: '02157898188',
+              hrefType: 'phone'
             },
             {
               title: 'Tanya Avrista',
               icon: Icon2,
-              subtitle: 'Lebih Lanjut'
+              subtitle: 'Lebih Lanjut',
+              href: '/tanya-avrista/'
             },
             {
               title: 'Tanya Lewat Email',
               icon: Icon3,
-              subtitle: 'Kirim Email'
+              subtitle: 'Kirim Email',
+              href: 'contact_us@avristsalesforce.com',
+              hrefType: 'email'
             },
             {
               title: 'Prosedur Pengaduan',
               icon: Icon4,
-              subtitle: 'Lihat Prosedur'
+              subtitle: 'Lihat Prosedur',
+              href: '/klaim-layanan/layanan/penanganan-pengaduan'
             }
           ]}
         />
