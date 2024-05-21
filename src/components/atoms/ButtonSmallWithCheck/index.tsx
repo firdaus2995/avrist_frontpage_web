@@ -7,13 +7,15 @@ interface IButtonSmallWithCheck {
     border?: string;
     text?: string;
   };
+  selected?: string;
 }
 
 const ButtonSmallWithCheck = ({
   name,
   title,
   handleChange,
-  customColor
+  customColor,
+  selected
 }: IButtonSmallWithCheck) => {
   const onlickCheckBox = (event: any) => {
     if (handleChange) {
@@ -32,6 +34,7 @@ const ButtonSmallWithCheck = ({
         id={name}
         type="checkbox"
         value={name}
+        checked={selected ? selected === title : false}
         className="w-4 h-4 text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
         onChange={onlickCheckBox}
       />
