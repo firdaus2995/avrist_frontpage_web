@@ -57,7 +57,7 @@ const Hero: React.FC<IHero> = ({
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[250px]'}`}
+        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'lg:h-[250px] xs:h-[150px]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
         width={100}
