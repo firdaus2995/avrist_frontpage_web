@@ -3,14 +3,16 @@ import React from 'react';
 const KeamananOnline = () => {
   return (
     <div>
-      <p className="font-karla font-bold text-[56px]">Keamanan Online</p>
-      <p className="font-karla font-bold text-[36px] text-purple_dark mt-[24px]">
+      <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem]">
+        Keamanan Online
+      </p>
+      <p className="font-karla font-bold sm:text-[2.25rem] xs:text-[1.75rem] text-purple_dark mt-[1.5rem]">
         Kebijakan Keamanan Informasi
       </p>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[1.25rem] text-gray_body mt-[1.5rem]">
         PT. AVRIST ASSURANCE berkomitmen untuk:
       </p>
-      <ol className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] list-decimal">
+      <ol className="font-opensans font-normal text-[1.25rem] text-gray_body mt-[1.5rem] list-decimal">
         <li>
           Menerapkan sistem manajemen keamanan informasi berdasarkan ISO
           27001:2013, serta mematuhi peraturan perundangan dan persyaratan
@@ -26,7 +28,7 @@ const KeamananOnline = () => {
           Mengendalikan risiko keamanan informasi guna mencegah insiden akibat
           kebocoran informasi berdasarkan perundangan dan persyaratan yang
           relevan dengan:
-          <div className="ml-10">
+          <div className="ml-[2.5rem]">
             <p>
               3.a. Menyediakan sumber daya yang dibutuhkan untuk menjamin sistem
               keamanan informasi.
