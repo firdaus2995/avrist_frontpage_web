@@ -189,6 +189,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       ) : null}
       <div className="w-full h-full bg-purple_superlight">
         <FooterCards
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Layanan Nasabah',
@@ -261,9 +262,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                         : '/tentang-avrist-life?tab=Sekilas+Perusahaan',
               openInNewTab:
                 tab === 'Sekilas Perusahaan'
-                  ? true
+                  ? false
                   : tab === 'Manajemen'
-                    ? true
+                    ? false
                     : tab === 'Penghargaan'
                       ? false
                       : tab === 'Laporan Perusahaan'
