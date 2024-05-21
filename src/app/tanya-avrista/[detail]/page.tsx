@@ -61,7 +61,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           {
-            title: titleContent,
+            title: 'Detail',
             href: '#'
           }
         ]}
