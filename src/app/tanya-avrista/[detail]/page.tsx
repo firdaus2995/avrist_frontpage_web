@@ -54,70 +54,72 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   return (
-    <Suspense>
-      <Hero
-        title={titleContent}
-        imageUrl={bannerImage.imageUrl}
-        breadcrumbsData={[
-          { title: 'Beranda', href: '/' },
-          {
-            title: 'Detail',
-            href: '#'
-          }
-        ]}
-      />
-      <div className="-mt-32 relative z-[10]">
-        <ArtikelTanyaAvrista
+    <div className='bg-purple_superlight'>
+      <Suspense>
+        <Hero
           title={titleContent}
-          content={mainContent as string}
+          imageUrl={bannerImage.imageUrl}
+          breadcrumbsData={[
+            { title: 'Beranda', href: '/' },
+            {
+              title: 'Detail',
+              href: '#'
+            }
+          ]}
         />
-      </div>
-      <RoundedFrameBottom />
-      <FooterInformation
-        title={
-          <p className="font-karla text-[2.5rem] md:text-[3.5rem] tracking-[-0.015em]">
-            <span className="font-bold text-purple_dark">Komitmen</span> Kami,
-            proses klaim yang{' '}
-            <span className="font-bold text-purple_dark">efisien</span> dan{' '}
-            <span className="font-bold text-purple_dark">solusi</span>
-          </p>
-        }
-        buttonTitle="Panduan Klaim"
-        href="/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan"
-        image={footerImage.imageUrl}
-      />
-      <RoundedFrameTop />
-      <FooterCards
-        bgColor="bg-purple_superlight"
-        cards={[
-          {
-            title: 'Kelola Polis',
-            subtitle: 'Pengkinian Data',
-            href: 'https://my.avrist.com/welcome',
-            openInNewTab: true,
-            icon: CONTACTS
-          },
-          {
-            title: 'Rumah Sakit \n \n Rekanan',
-            subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
-            icon: HOSPITAL
-          },
-          {
-            title: 'Tanya Avrista',
-            subtitle: 'Lebih Lanjut',
-            href: '/tanya-avrista',
-            icon: MESSAGE
-          },
-          {
-            title: 'Prosedur Pengaduan',
-            subtitle: 'Lihat Prosedur',
-            href: '/klaim-layanan/layanan/penanganan-pengaduan',
-            icon: DOCUMENT_SEARCH
+        <div className="-mt-32 relative z-[10]">
+          <ArtikelTanyaAvrista
+            title={titleContent}
+            content={mainContent as string}
+          />
+        </div>
+        <RoundedFrameBottom />
+        <FooterInformation
+          title={
+            <p className="font-karla text-[2.5rem] md:text-[3.5rem] tracking-[-0.015em]">
+              <span className="font-bold text-purple_dark">Komitmen</span> Kami,
+              proses klaim yang{' '}
+              <span className="font-bold text-purple_dark">efisien</span> dan{' '}
+              <span className="font-bold text-purple_dark">solusi</span>
+            </p>
           }
-        ]}
-      />
-    </Suspense>
+          buttonTitle="Panduan Klaim"
+          href="/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan"
+          image={footerImage.imageUrl}
+        />
+        <RoundedFrameTop />
+        <FooterCards
+          bgColor="bg-purple_superlight"
+          cards={[
+            {
+              title: 'Kelola Polis',
+              subtitle: 'Pengkinian Data',
+              href: 'https://my.avrist.com/welcome',
+              openInNewTab: true,
+              icon: CONTACTS
+            },
+            {
+              title: 'Rumah Sakit \n \n Rekanan',
+              subtitle: 'Lebih Lanjut',
+              href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+              icon: HOSPITAL
+            },
+            {
+              title: 'Tanya Avrista',
+              subtitle: 'Lebih Lanjut',
+              href: '/tanya-avrista',
+              icon: MESSAGE
+            },
+            {
+              title: 'Prosedur Pengaduan',
+              subtitle: 'Lihat Prosedur',
+              href: '/klaim-layanan/layanan/penanganan-pengaduan',
+              icon: DOCUMENT_SEARCH
+            }
+          ]}
+        />
+      </Suspense>
+    </div>
   );
 };
 
