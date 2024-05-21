@@ -76,7 +76,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       ? `mailto:${href}`
                       : href ?? '#'
                 }
-                className="relative border border-gray_superlight w-full h-auto pt-[1.5rem] px-[1.5rem] pb-[2.5rem] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
+                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[24px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
                   alt={index.toString()}
@@ -102,7 +102,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
       </div>
 
       {/* Mobile */}
-      <div className={'bg-white'}>
+      <div className={`${bgColor ?? ''}`}>
         <div className="md:hidden pb-[5rem] pt-[0.375rem] flex flex-col gap-[2.25rem]">
           <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => {
