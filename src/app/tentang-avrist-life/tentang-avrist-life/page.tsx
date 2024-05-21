@@ -207,7 +207,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               title: 'Tanya Lewat Email',
               icon: Icon3,
               subtitle: 'Kirim Email',
-              href: 'customer-service@avrist.com',
+              href: 'contact_us@avristsalesforce.com',
               hrefType: 'email'
             },
             {
