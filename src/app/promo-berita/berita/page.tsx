@@ -396,7 +396,6 @@ const Berita: React.FC<ParamsProps> = () => {
           item.contentData,
           item.title
         );
-        console.log(content);
         
 
         const judul = content['judul-artikel']?.value;
