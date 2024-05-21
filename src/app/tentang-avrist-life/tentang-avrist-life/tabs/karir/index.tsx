@@ -315,7 +315,7 @@ const Karir = () => {
               : BlankImage
           }
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
       </div>
     </div>
   );
