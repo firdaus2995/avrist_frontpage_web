@@ -72,7 +72,7 @@ const CallMe = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="sm:text-[3.5rem] xs:text-[2.5rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Bijak Berasuransi.
               </span>{' '}
@@ -81,7 +81,7 @@ const CallMe = () => {
             </p>
             <Link
               role="button"
-              className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="px-[2.5rem] py-[0.75rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2"
               href={'/klaim-layanan/klaim?tab=Informasi+Klaim'}
             >
               Standar Pelayanan

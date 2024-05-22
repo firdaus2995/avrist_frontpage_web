@@ -31,7 +31,7 @@ const Hero: React.FC<IHero> = ({
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center xs:pt-[2.5rem] md:pt-[3.75rem]`}
+          className={`w-full flex sm:flex-row xs:flex-row-reverse justify-between px-[2rem] md:px-[8.5rem] items-center xs:pt-[2.5rem] md:pt-[3.75rem]`}
         >
           <div className="line-clamp-1">
             <p className="hidden sm:block font-karla text-white text-[1.125rem] sm:text-[3rem] font-light">
