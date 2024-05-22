@@ -35,7 +35,7 @@ const Pencarian = async () => {
 
   return (
     <Suspense>
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-purple_superlight">
         <Hero
           title="Pencarian"
           breadcrumbsData={breadcrumbsData}

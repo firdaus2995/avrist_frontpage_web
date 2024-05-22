@@ -110,7 +110,7 @@ export const EmailSubscribeModal = (props: Props) => {
                       </div>
                     </div>
                   ) : (
-                    <div className="sm:h-[90vh] sm:w-[60vw] xs:w-full xs:h-full transition overflow-auto">
+                    <div className="sm:h-[40.938rem] sm:w-[48.75rem] xs:w-full xs:h-full transition">
                       <div className="absolute right-0 p-[1.5rem] z-50">
                         <button onClick={onClose}>
                           <Icon
@@ -121,7 +121,7 @@ export const EmailSubscribeModal = (props: Props) => {
                           />
                         </button>
                       </div>
-                      <div className="flex flex-col sm:h-[90vh] sm:w-[60vw] xs:w-full xs:h-full overflow-auto">
+                      <div className="flex flex-col sm:h-[40.938rem] sm:w-[48.75rem] xs:w-full xs:h-full">
                         <div className="bg-white xs:h-[9.375rem] sm:h-[20rem]">
                           <img
                             src="https://bertuahpos.com/wp-content/uploads/2023/05/Modus-penipuan-via-email.jpg"
@@ -130,7 +130,7 @@ export const EmailSubscribeModal = (props: Props) => {
                           />
                         </div>
                         <div className="bg-[#7e3f96] flex items-center flex-col sm:p-0 xs:p-4">
-                          <div className="py-[2.5rem]">
+                          <div className="pt-[2rem] pb-[6.25rem]">
                             <p className="font-karla font-extrabold sm:text-[3rem] xs:text-[2.813rem] text-white text-center">
                               Dapatkan informasi terkini
                             </p>

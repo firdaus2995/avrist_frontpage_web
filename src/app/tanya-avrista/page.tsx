@@ -135,7 +135,7 @@ const TanyaAvrista = () => {
   },[selectedCards])
 
   return (
-    <div>
+    <div className='bg-purple_superlight'>
       <Hero
         title="Tanya Avrista"
         breadcrumbsData={breadcrumbsData}
@@ -147,7 +147,7 @@ const TanyaAvrista = () => {
       <RoundedFrameBottom />
       <FooterInformation
         title={
-          <p className="font-karla text-[56px]">
+          <p className="font-karla sm:text-[3.5rem] xs:text-[2.5rem]">
             <span className="font-bold text-purple_dark">Perlindungan</span>{' '}
             dini dan optimal dari{' '}
             <span className="font-bold text-purple_dark">sekarang!</span>

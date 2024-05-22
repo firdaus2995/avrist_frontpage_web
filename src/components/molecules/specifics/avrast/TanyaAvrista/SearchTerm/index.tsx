@@ -8,20 +8,20 @@ const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
       <div className="w-full h-[640px] flex items-center absolute">
-        <div className="w-full h-full grid grid-cols-2">
+        <div className="w-full h-full grid sm:grid-cols-2 xs:grid-cols-1">
           <span />
-          <div className="flex flex-col md:justify-center sm:gap-1 md:gap-[36px] md:ml-20 sm:ml-0">
+          <div className="flex flex-col xs:justify-center sm:gap-1 xs:gap-[36px] xs:px-[36px] sm:px-0 sm:pb-0 xs:pb-[4rem]">
             <div>
-              <p className="font-karla md:text-[48px] 2xl:text-5xl font-extrabold text-white">
+              <p className="font-karla xs:text-[48px] sm:text-5xl font-extrabold text-white">
                 Halo, apa kabar?
               </p>
-              <p className="font-karla md:text-[48px] 2xl:text-5xl text-white">
+              <p className="font-karla xs:text-[48px] sm:text-5xl text-white">
                 Bagaimana Avrista bisa membantumu?
               </p>
             </div>
             <div className="w-full sm:mt-2 mt-6">
               <Input
-                customInputClass="md:w-[60%] 2xl:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
+                customInputClass="xs:w-full sm:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
                 placeholder="Ketik kata kunci (misal: promosi berlangsung)"
               />
             </div>
@@ -29,7 +29,7 @@ const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
         </div>
       </div>
       <Image
-        className="rounded-t-[65px] w-full object-cover h-[640px]"
+        className="rounded-t-[65px] w-full sm:object-cover xs:object-none xs:object-right sm:object-center h-[640px]"
         alt="gambar-produk-individu"
         src={bannerImage}
         width={0}

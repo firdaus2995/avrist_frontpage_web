@@ -31,8 +31,8 @@ const FAQList = ({ selected, data }: ICardsProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col gap-[7.5rem] items-center sm:px-[8.5rem] sm:pt-[3.125rem] xs:pb-[1.625rem] xs:py-[3rem] xs:px-[2.25rem]">
-      <h1 className="font-karla text-[3.5rem] text-purple_dark font-extrabold">
+    <div className="w-full bg-white flex flex-col sm:gap-[7.5rem] xs:gap-[2.25rem] items-center sm:px-[8.5rem] sm:pt-[3.125rem] xs:pb-[1.625rem] xs:py-[3rem] xs:px-[2.25rem]">
+      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-extrabold">
         {selected}
       </h1>
       {paginatedData?.length > 0 ? (
