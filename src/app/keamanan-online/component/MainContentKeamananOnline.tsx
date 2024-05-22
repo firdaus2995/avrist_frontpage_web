@@ -73,7 +73,7 @@ const MainContentKeamananOnline = () => {
           <div className="relative sm:hidden block">
             <div
               className="flex justify-between items-center border-l-4 border-purple_dark px-[0.9375rem] py-[0.625rem] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[1.125rem]"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => tabs.length > 1 && setIsOpen(!isOpen)}
             >
               <span>{tab}</span>
               <div
@@ -81,7 +81,7 @@ const MainContentKeamananOnline = () => {
                   isOpen ? 'rotate-180' : ''
                 }`}
               >
-                <Icon name="chevronDown" color="purple_dark" />
+                {tabs.length > 1 && <Icon name="chevronDown" color="purple_dark" />}
               </div>
             </div>
             {isOpen && (
