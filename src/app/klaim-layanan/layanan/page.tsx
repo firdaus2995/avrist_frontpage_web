@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import FOOTER_NASABAH_1 from '@/assets/images/avrast/component/footer-klaim/footer-img-1.svg';
@@ -25,12 +26,16 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { MainContent } from '@/components/molecules/specifics/avrast/InformasiNasabah';
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import { PerformaInvestasi } from '@/components/molecules/specifics/avrast/PerformaInvestasi';
-import { RSRekanan } from '@/components/molecules/specifics/avrast/RSRekanan';
 import { getContentPage } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+
+const ComponentB = dynamic(
+  () => import('@/components/molecules/specifics/avrast/RSRekanan'),
+  { ssr: false }
+);
 
 const dataInformasiNasabah = [
   {
@@ -221,7 +226,7 @@ const InformationCustomer = () => {
       ) : params.includes('Performa Investasi') ? (
         <PerformaInvestasi />
       ) : params.includes('Rumah Sakit Rekanan') ? (
-        <RSRekanan />
+        <ComponentB />
       ) : (
         <></>
       )}
@@ -248,7 +253,7 @@ const InformationCustomer = () => {
         }
         image={data.footerInfoImageUrl}
       />
-      <RoundedFrameTop bgColor='bg-white' />
+      <RoundedFrameTop bgColor="bg-white" />
       <FooterCards
         bgColor="bg-white"
         cards={

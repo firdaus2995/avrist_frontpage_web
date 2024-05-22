@@ -1,12 +1,13 @@
+'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import Icon2 from '@/assets/images/avrast/about/menagemen.svg';
 import Icon3 from '@/assets/images/avrast/about/penghargaan.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Icon1 from '@/assets/images/common/office.svg';
 import Phone from '@/assets/images/common/phone.svg';
-import SampleVideo from '@/assets/images/common/sample-video.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
@@ -16,6 +17,7 @@ import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/Cate
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { getYouTubeId } from '@/utils/helpers';
 import {
   pageTransformer,
   singleImageTransformer
@@ -46,6 +48,9 @@ const purposeData = [
 ];
 
 const Karir = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [category, setCategory] = useState('Karyawan');
   const [contentPage, setContentPage] = useState<any>();
   const [contentData, setContentData] = useState<any>();
@@ -53,14 +58,22 @@ const Karir = () => {
     currentPage: 1,
     itemsPerPage: 3
   });
+  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const endIndex = startIndex + pagination.itemsPerPage;
+  const paginatedData = contentData
+    ? contentData?.slice(startIndex, endIndex)
+    : [];
+  const totalPages = contentData
+    ? Math.ceil(contentData?.length / pagination.itemsPerPage)
+    : 0;
 
   const fetchContentCategory = async () => {
     try {
       const fetchContentCategory = await fetch(
-        `/api/karir/content-category?includeAttributes=true&category=${category}&channelFilter=`
+        `/api/karir/content-category?includeAttributes=true`
       );
       const data = await fetchContentCategory.json();
-      const transformData = data.data.categoryList[category];
+      const transformData = data.data.categoryList[''];
 
       const transformedData = transformData?.map((item: any) => {
         const content = item.contentData;
@@ -69,11 +82,7 @@ const Karir = () => {
         const lokasiLoker = content[2].value;
         const iconStatusLoker = singleImageTransformer(content[3]).imageUrl;
         const statusLoker = content[4].value;
-        const iconWaktuLoker = singleImageTransformer(content[5]).imageUrl;
-        const waktuLoker = content[6].value;
-        const deskripsiPekerjaan = content[7].value;
-        const deskripsiResponsibilities = content[8].value;
-        const deskripsiKualifikasi = content[9].value;
+        const urlLoker = content[5].value;
         const id = item.id;
 
         return {
@@ -82,11 +91,7 @@ const Karir = () => {
           lokasiLoker,
           iconStatusLoker,
           statusLoker,
-          iconWaktuLoker,
-          waktuLoker,
-          deskripsiPekerjaan,
-          deskripsiResponsibilities,
-          deskripsiKualifikasi,
+          urlLoker,
           id
         };
       });
@@ -98,6 +103,10 @@ const Karir = () => {
     }
   };
 
+  const handlePageChange = (page: number) => {
+    setPagination({ ...pagination, currentPage: page });
+  };
+
   useEffect(() => {
     handleGetContentPage('halaman-karir').then((res: any) => {
       setContentPage(pageTransformer(res));
@@ -107,55 +116,46 @@ const Karir = () => {
   }, []);
 
   useEffect(() => {
-    fetchContentCategory();
-  }, [category]);
-
-  const renderPages = () => {
-    if (contentData) {
-      for (
-        let i = 0;
-        i < Math.ceil(contentData.length / pagination.itemsPerPage);
-        i++
-      ) {
-        return (
-          <p
-            className={`text-[20px] ${i + 1 === pagination.currentPage ? 'text-purple_dark font-bold' : ''} cursor-pointer`}
-            onClick={() => setPagination({ ...pagination, currentPage: i + 1 })}
-          >
-            {i + 1}
-          </p>
-        );
-      }
+    if (category === 'Karyawan') {
+      fetchContentCategory();
+    } else {
+      router.push(`${pathname}/tabs/karir/detail`);
     }
-  };
+  }, [category]);
 
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
-      <div className="flex flex-col gap-4">
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+      <div className="flex flex-col gap-4 xs:px-[2rem] md:px-[8.5rem]">
+        <div className="w-full flex flex-col items-center justify-center pt-[4rem] text-center font-karla">
+          <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-medium text-purple_dark xs:mb-6 md:mb-0">
             Tingkatkan karier bersama Avrist Assurance
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="xs:text-[1.5rem] md:text-[2.25rem] mb-6">
             Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
             nomor 1 di Indonesia.
           </h2>
         </div>
-        <div className="flex justify-center h-[600px] mb-16 mx-24">
+        <div className="flex justify-center xs:h-[200px] md:h-[651px] mb-[6.25rem]">
           <VideoPlayer
             color="purple_dark"
             type={contentPage?.content['mengapabergabung-captionvideo'].value}
-            url={contentPage?.content['mengapabergabung-video'].value}
-            thumbnail={SampleVideo}
+            url={
+              getYouTubeId(
+                contentPage?.content['mengapabergabung-video'].value
+              ) ?? ''
+            }
+            thumbnail={''}
           />
         </div>
-        <div className="w-full p-20 bg-purple_superlight flex flex-col gap-10 items-center justify-center">
+      </div>
+      <div className="flex flex-col w-full">
+        <div className="w-full bg-purple_superlight flex flex-col gap-10 items-center justify-center py-[5rem] xs:px-[2rem] md:px-[8.5rem]">
           <div className="flex flex-col">
-            <h2 className="text-[56px] text-center font-semibold text-purple_dark">
+            <h2 className="xs:text-[2.25rem] md:text-[3.5rem] text-center font-semibold text-purple_dark">
               Mengapa berkarier bersama Avrist Assurance
             </h2>
           </div>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
             {purposeData.map((val, idx) => (
               <PurposeCard
                 key={idx}
@@ -168,7 +168,7 @@ const Karir = () => {
             ))}
           </div>
         </div>
-        <h2 className="text-[56px] text-center font-semibold mb-6 text-purple_dark mt-20">
+        <h2 className="xs:text-[2.25rem] md:text-[3.5rem] text-center font-medium text-purple_dark xs:mt-[1.25rem] md:mt-[5rem] font-karla">
           Lihat Lowongan di Avrist Life Insurance
         </h2>
         <CategoryWithThreeCards
@@ -178,27 +178,19 @@ const Karir = () => {
           filterRowLayout={true}
           hidePagination
           categories={['Karyawan', 'Tenaga Pemasar']}
-          tabs={[
-            {
-              type: 'dropdown',
-              label: 'tahun',
-              options: [
-                { label: 'Pilih Tahun', value: 'option1' },
-                { label: 'Option 2', value: 'option2' },
-                { label: 'Option 3', value: 'option3' }
-              ]
-            }
-          ]}
+          tabs={[]}
           customContent={
             <>
-              <div className="grid grid-cols-3 gap-[24px]">
+              <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[1.5rem]">
                 {contentData &&
-                  contentData?.map((item: any, index: number) => (
+                  paginatedData?.map((item: any, index: number) => (
                     <div
                       key={index}
                       className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
                     >
-                      <p className="font-bold text-[24px]">{item.namaLoker}</p>
+                      <p className="font-bold text-[1.5rem]">
+                        {item.namaLoker}
+                      </p>
                       <div className="flex w-full flex-row items-center gap-2">
                         <Image
                           src={item.iconLokasiLoker}
@@ -206,7 +198,9 @@ const Karir = () => {
                           width={24}
                           height={24}
                         />
-                        <p>{item.lokasiLoker}</p>
+                        <p className="font-opensans font-lg">
+                          {item.lokasiLoker}
+                        </p>
                       </div>
                       <div className="flex w-full flex-row items-center gap-2">
                         <Image
@@ -215,26 +209,30 @@ const Karir = () => {
                           width={24}
                           height={24}
                         />
-                        <p>{item.statusLoker}</p>
+                        <p className="font-opensans font-lg">
+                          {item.statusLoker}
+                        </p>
                       </div>
-                      <div className="flex w-full flex-row items-center gap-2">
+                      <div className="flex w-full flex-row items-center gap-2 hidden">
                         <Image
                           src={item.iconWaktuLoker}
                           alt="waktu"
                           width={24}
                           height={24}
                         />
-                        <p>{item.waktuLoker}</p>
+                        <p className="font-opensans font-lg">
+                          {item.waktuLoker}
+                        </p>
                       </div>
                       <Link
-                        key={index}
                         className="w-full"
-                        href={`/tentang-avrist-life/tentang-avrist-life/tabs/karir/${item.id}`}
+                        href={item.urlLoker}
+                        target="blank"
                       >
                         <Button
                           title="Lihat Detail"
-                          customButtonClass="rounded-xl bg-purple_dark w-full mt-5"
-                          customTextClass="text-white"
+                          customButtonClass="rounded-xl bg-purple_dark w-full mt-2"
+                          customTextClass="text-white font-opensans text-xl font-normal"
                         />
                       </Link>
                     </div>
@@ -243,29 +241,40 @@ const Karir = () => {
 
               <div className="flex flex-col gap-4 sm:flex-row justify-between">
                 <div>
-                  <p className="text-[20px]">
+                  <p className="text-[1.25rem]">
                     Menampilkan{' '}
                     <span className="font-bold text-purple_dark">
-                      {pagination.currentPage}-
-                      {contentData && contentData.length}
+                      {contentData ? startIndex + 1 : 0}-
+                      {Math.min(endIndex, contentData ? contentData.length : 0)}
                     </span>{' '}
                     dari{' '}
                     <span className="font-bold">
-                      {contentData && contentData.length}
+                      {contentData ? contentData.length : 0}
                     </span>{' '}
                     hasil
                   </p>
                 </div>
                 <div className="flex flex-row gap-[8px] items-center">
-                  {renderPages()}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <div
+                        key={page}
+                        role="button"
+                        onClick={() => handlePageChange(page)}
+                        className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                          pagination.currentPage === page
+                            ? 'text-purple_dark font-bold'
+                            : ''
+                        }`}
+                      >
+                        {page}
+                      </div>
+                    )
+                  )}
                   <span
-                    className="cursor-pointer"
-                    onClick={() =>
-                      setPagination({
-                        ...pagination,
-                        currentPage: pagination.currentPage + 1
-                      })
-                    }
+                    className="mt-[3px]"
+                    role="button"
+                    onClick={() => handlePageChange(totalPages)}
                   >
                     <Icon name="chevronRight" color="purple_dark" />
                   </span>
@@ -274,23 +283,26 @@ const Karir = () => {
             </>
           }
         />
-      </div>
-      <div className="flex flex-col w-full">
         <RoundedFrameBottom />
         <FooterInformation
           bgColor="bg-gray_bglightgray"
           title={
             <div className="flex flex-col items-center justify-center gap-4 bg-gray_bglightgray">
-              <p className="text-[56px] font-bold">Hubungi Kami</p>
-              <Link
-                href="tel:02157898188"
-                role="button"
-                className="p-4 border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark text-2xl font-bold bg-white"
-              >
-                <Image src={Phone} alt="phone" className="w-10" />
-                <p>021 5789 8188</p>
-              </Link>
-              <p>
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-extrabold font-karla">
+                Hubungi Kami
+              </p>
+              <div>
+                <Link
+                  href="tel:02157898188"
+                  role="button"
+                  className="py-4 px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
+                >
+                  <Image src={Phone} alt="phone" className="w-10" />
+                  <p>021 5789 8188</p>
+                </Link>
+              </div>
+
+              <p className="text-xl">
                 <span className="font-bold">Waktu Operasional:</span> Senin -
                 Jumat, 08.00 - 17.00 WIB
               </p>
@@ -303,7 +315,7 @@ const Karir = () => {
               : BlankImage
           }
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
       </div>
     </div>
   );

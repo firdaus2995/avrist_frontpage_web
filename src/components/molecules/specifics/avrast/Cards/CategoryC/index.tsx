@@ -50,8 +50,8 @@ const CardCategoryC = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-4 p-5">
-          <p className="text-[20px] font-bold text-left">{summary}</p>
+        <div className="flex flex-col gap-4 px-[24px] pb-[36px]">
+          <p className="text-[24px] font-bold text-left">{summary}</p>
           <p className="text-[14px] text-left">
             <span className="font-bold text-purple_dark">{name}</span>{' '}
             {position}

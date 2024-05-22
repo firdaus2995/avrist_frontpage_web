@@ -25,7 +25,7 @@ export const getAvriStory = async (query: QueryParams) => {
   );
 };
 
-export const getAvristLifeGuide = async (query: QueryParams) => {
+export const getAvristLifeGuide = async (query: QueryParams) => {  
   return await httpService<ContentCategoryResponse>(
     'content/category',
     BASE_SLUG.PROMO_BERITA.CONTENT.AVRIST_LIFE_GUIDE,
@@ -39,7 +39,7 @@ export const getAvristLifeGuide = async (query: QueryParams) => {
 export const getBeritaPers = async (query: QueryParams) => {
   return await httpService<ContentCategoryResponse>(
     'content/category',
-    BASE_SLUG.PROMO_BERITA.CONTENT.KUMPULAN_BERITA_PERS,
+    BASE_SLUG.PROMO_BERITA.CONTENT.KUMPULAN_BERITA_PERS_NEW,
     {
       method: 'GET',
       queryParams: filterAttributes(query)

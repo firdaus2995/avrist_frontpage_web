@@ -32,7 +32,7 @@ const ProdukSyariah = () => {
   const [data, setData] = useState<PageResponse>();
   const [dataContent, setDataContent] = useState<IDataContent[]>([]);
   const [channels, setChannels] = useState<any>([]);
-  const [selectedChannels, setSelectedChannels] = useState([]);
+  const [selectedChannels, setSelectedChannels] = useState('');
 
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(1);
@@ -113,7 +113,11 @@ const ProdukSyariah = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
-    setSelectedChannels(value);
+    if (selectedChannels === value){
+      setSelectedChannels('');
+    }else{
+      setSelectedChannels(value);
+    }
   };
 
   const handlePageChange = (page: React.SetStateAction<number>) => {

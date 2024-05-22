@@ -6,7 +6,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
-import { formatTimeDifference } from './format-time'
+import { constructData } from './construct-data';
+import { formatTimeDifference } from './format-time';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -71,6 +72,16 @@ const Berita: React.FC<ParamsProps> = () => {
         }
       }
     ]
+  };
+
+  const sliderTabSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
   };
 
   const router = useRouter();
@@ -189,7 +200,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const fetchData = () => {
     try {
-      handleGetContentPage(data.slug).then((res: any) => {
+      handleGetContentPage(data.slug.toLowerCase()).then((res: any) => {
         const { content } = pageTransformer(res);
         const titleImage = singleImageTransformer(
           content['title-image']
@@ -241,7 +252,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchContent = async () => {    
+  const fetchContent = async () => {
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
@@ -258,12 +269,14 @@ const Berita: React.FC<ParamsProps> = () => {
           const { content } = handleTransformedContent(
             item.contentData,
             item.title
-          );      
+          );
 
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
+              (item) =>
+                item.value === content['bulan'].value ||
+                item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi = content['artikel-looping'].contentData[0].details;
@@ -273,9 +286,18 @@ const Berita: React.FC<ParamsProps> = () => {
           const id = item.id;
           const tags = content['tags'].value;
           const date = new Date(item.createdAt).getDate();
-          const artikelTopic = content['topik-artikel'].value
+          const artikelTopic = content['topik-artikel'].value;
 
-          return { judul, waktu, deskripsi, image, id, tags, date, artikelTopic };
+          return {
+            judul,
+            waktu,
+            deskripsi,
+            image,
+            id,
+            tags,
+            date,
+            artikelTopic
+          };
         }
       );
 
@@ -283,9 +305,9 @@ const Berita: React.FC<ParamsProps> = () => {
     } catch (err) {
       console.error(err);
     }
-  };  
+  };
 
-  const fetchLifeGuide = async () => {    
+  const fetchLifeGuide = async () => {
     try {
       const fetchData = await getAvristLifeGuide({
         includeAttributes: 'true',
@@ -312,11 +334,13 @@ const Berita: React.FC<ParamsProps> = () => {
             item.title
           );
 
-          const date = new Date(item.createdAt).getDate()
+          const date = new Date(item.createdAt).getDate();
           const judul = content['judul-artikel'].value;
           const waktu = `${
             monthDropdown().find(
-              (item) => item.value === content['bulan'].value || item.label === content['bulan'].value
+              (item) =>
+                item.value === content['bulan'].value ||
+                item.label === content['bulan'].value
             )?.label
           } ${content['tahun'].value}`;
           const deskripsi =
@@ -328,9 +352,22 @@ const Berita: React.FC<ParamsProps> = () => {
           const tags = content['tags'].value;
           const waktuBaca = content['waktu-baca-artikel'].value;
 
-          const differenceTime = formatTimeDifference(new Date(item.createdAt), new Date())
+          const differenceTime = formatTimeDifference(
+            new Date(item.createdAt),
+            new Date()
+          );
 
-          return { judul, waktu, deskripsi, image, id, tags, waktuBaca, date, differenceTime };
+          return {
+            judul,
+            waktu,
+            deskripsi,
+            image,
+            id,
+            tags,
+            waktuBaca,
+            date,
+            differenceTime
+          };
         }
       );
 
@@ -346,25 +383,36 @@ const Berita: React.FC<ParamsProps> = () => {
         includeAttributes: 'true',
         searchFilter: params.searchFilter,
         yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+        monthFilter: params.monthFilter,
+        category: params?.category
       });
 
       const data = fetchData.data.categoryList;
+      
 
-      const transformedData = data['']?.map((item: any) => {
+      const transformedData = data['Berita Pers']?.map((item: any) => {
+        
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
+        
 
-        const judul = content['judul-berita-pers'].value;
-        const deskripsi = content['external-link-berita-pers'].value;
-
-        return { judul, deskripsi };
+        const judul = content['judul-artikel']?.value;
+        // const deskripsi = content['external-link-berita-pers'].value;
+        let newLink;
+        const externalLink = content['list-external-link']?.contentData;
+        externalLink.map((el:any) => {
+          newLink = constructData(el['details'][0]?.value, el['details'][1]?.value)
+        })
+        
+        return { judul, newLink };
       });
 
       setContentData(transformedData);
     } catch (err) {
+      console.log(err);
+      
       console.error(err);
     }
   };
@@ -517,10 +565,12 @@ const Berita: React.FC<ParamsProps> = () => {
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      if (value !== 'Avrist Terkini') {
-        params.delete('category');
-      } else {
+      if (value === 'Avrist Terkini') {
         params.set('category', 'Berita dan Kegiatan');
+      } else if (value === 'Kumpulan Berita Pers') {
+        params.set('category', 'Berita Pers');
+      } else {
+        params.delete('category');
       }
 
       return params.toString();
@@ -546,8 +596,10 @@ const Berita: React.FC<ParamsProps> = () => {
           <p className="text-[20px]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
-              {contentData?.length === 0 || contentData === undefined ? 0 : startIndex + 1}-
-              {Math.min(endIndex, contentData ? contentData.length : 0)}
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : startIndex + 1}
+              -{Math.min(endIndex, contentData ? contentData.length : 0)}
             </span>{' '}
             dari{' '}
             <span className="font-bold">
@@ -581,7 +633,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       </div>
     );
-  };  
+  };
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
@@ -593,15 +645,17 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
+        // customClassName="xs:h-[150px] md:h-[200px]"
       />
-      <div className="w-full z-20 top-32">
-        <div className="grid lg:grid-cols-3 gap-2 px-[136px] py-20 bg-white">
+      {/* Tab Desktop */}
+      <div className="w-full z-20 top-32 xs:hidden md:block">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
               role="button"
               onClick={() => handleTabClick(val)}
-              className={`p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold content-center md:w-auto`}
             >
               {val}
             </div>
@@ -609,9 +663,28 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       </div>
 
+      {/* Tab Mobile */}
+      <div className="w-[95%] z-20 top-32 md:hidden">
+        <div className="pt-[3rem]">
+          <Slider {...sliderTabSettings}>
+            {tabs.map((val, idx) => (
+              <div key={idx}>
+                <div
+                  role="button"
+                  onClick={() => handleTabClick(val)}
+                  className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+                >
+                  {val}
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </div>
+
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
-          <h2 className="text-[56px] xs:max-sm:px-[136px] font-medium mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34 sm:max-md:w-[90%]">
+          <h2 className="text-[56px] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-6 text-purple_dark xs:max-md:text-4xl md:text-4xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -622,7 +695,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="text-[36px] mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -632,7 +705,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </p>
             )}
             {params.category === 'Avrist Life Guide' && (
-              <p>
+              <p className='text-[36px] font-normal'>
                 Kumpulan artikel mengenai{' '}
                 <span className="font-bold text-purple_dark">asuransi</span> dan{' '}
                 <span className="font-bold text-purple_dark">gaya hidup.</span>
@@ -770,17 +843,21 @@ const Berita: React.FC<ParamsProps> = () => {
                       {paginatedData?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
+                          className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
                         >
                           <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-2xl">{item.namaFile}</p>
+                            <p className="font-bold text-2xl">
+                              {item.namaFile}
+                            </p>
                             <MediumTag title="PDF" />
                           </div>
                           <Button
                             title="Unduh"
                             customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
                             customTextClass="text-white text-xl"
-                            onClick={async () => await handleDownload(item.file)}
+                            onClick={async () =>
+                              await handleDownload(item.file)
+                            }
                           />
                         </div>
                       ))}
@@ -816,8 +893,8 @@ const Berita: React.FC<ParamsProps> = () => {
               customLeftContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-5 h-auto">
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left grow">
-                      <p className="font-semibold pb-2 border-b">
+                    <div className="border rounded-xl py-[36px] px-[24px] flex flex-col gap-4 text-left grow">
+                      <p className="font-bold pb-2 border-b text-[24px]">
                         Kategori Artikel
                       </p>
                       <div className="flex flex-col mt-5 gap-4">
@@ -833,35 +910,37 @@ const Berita: React.FC<ParamsProps> = () => {
                                 });
                               }}
                             >
-                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left text-[20px]">
                                 {item}
                               </p>
-                              <Icon
-                                width={16}
-                                height={16}
-                                name="chevronRight"
-                                color="purple_dark"
-                              />
+                              <div className='mt-1'>
+                                <Icon
+                                  width={16}
+                                  height={16}
+                                  name="chevronRight"
+                                  color="purple_dark"
+                                />
+                              </div>
                             </div>
                           )
                         )}
                       </div>
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left bg-purple_verylight">
-                      <p className="font-bold text-2xl text-purple_dark">
+                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-purple_verylight">
+                      <p className="font-bold text-4xl text-purple_dark">
                         Subscribe!
                       </p>
-                      <p className="text-[14px]">
+                      <p className="text-2xl font-light font-['Source Sans Pro']">
                         Informasi terkini mengenai Avrist Life Insurance
                       </p>
                       <Input placeholder="Masukkan email Anda" />
                       <Button
                         title="Subscribe"
                         customButtonClass="bg-purple_dark rounded-xl"
-                        customTextClass="text-white font-bold"
+                        customTextClass="text-white font-semibold text-base"
                       />
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-4 text-left">
+                    <div className="border rounded-xl p-4 flex flex-col gap-[24px] text-left">
                       <p className="font-bold text-[16px]">Ikuti Kami</p>
                       <div className="flex flex-row gap-2">
                         <Link
@@ -906,11 +985,11 @@ const Berita: React.FC<ParamsProps> = () => {
               }
               customRightContent={
                 params.category === 'Avrist Life Guide' ? (
-                  <div className="flex flex-col gap-4 mt-5 h-full">
+                  <div className="flex flex-col gap-4 mt-1 h-full">
                     <p className="font-semibold pb-2 text-left text-[24px]">
                       Terbaru
                     </p>
-                    <div className="grid grid-cols-2 gap-[24px]">
+                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1">
                       {contentData
                         ?.slice(0, 4)
                         .map((item: any, index: number) => (
@@ -934,7 +1013,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           </Link>
                         ))}
                     </div>
-                    <p className="font-semibold pb-2 text-left text-[24px] mt-10">
+                    <p className="font-bold pb-2 text-left text-[36px] mt-10">
                       Artikel Lainnya
                     </p>
                   </div>
@@ -946,11 +1025,11 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-10">
-          <h2 className="text-[56px] font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center py-[100px] px-[136px] text-center mt-10">
+          <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
-          <h2 className="text-[36px] mb-6">
+          <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
             Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
           </h2>
 
@@ -1044,7 +1123,7 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               customContent={
                 <>
-                  <div className="grid grid-cols-3 gap-[24px]">
+                  <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
                     {paginatedData?.map((item: any, index: number) => (
                       <CardCategoryC
                         key={index}
@@ -1066,18 +1145,20 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-44">
-          <h2 className="text-[32px] font-bold mb-6 text-purple_dark">
-            Kumpulan Berita Pers
-          </h2>
-          <h2 className="text-[20px] mb-6">
-            Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
-            <span className="font-bold">kegiatan, produk</span> dan{' '}
-            <span className="font-bold">layanan</span> dari Avrist Life
-            Insurance. Melangkah bersama Kami!
-          </h2>
+        <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
+          <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
+            <h2 className="lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
+              Kumpulan Berita Pers
+            </h2>
+            <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
+              Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
+              <span className="font-bold">kegiatan, produk</span> dan{' '}
+              <span className="font-bold">layanan</span> dari Avrist Life
+              Insurance. Melangkah bersama Kami!
+            </h2>
+          </div>
 
-          <div className="w-full">
+          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
@@ -1112,15 +1193,15 @@ const Berita: React.FC<ParamsProps> = () => {
                   <div className="grid grid-cols-1 gap-[24px] w-full">
                     {paginatedData?.map((item: any, index: number) => (
                       <div key={index} className="w-full p-4 border rounded-xl">
-                        <p className="font-bold text-left">{item.judul}</p>
                         {
-                          <div
-                            className="mt-5 w-full flex"
+                          <p
+                            className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
-                              __html: item.deskripsi
+                              __html: item.judul
                             }}
                           />
                         }
+                        {item.newLink}
                       </div>
                     ))}
                   </div>
@@ -1133,24 +1214,24 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       )}
 
-      <div className="flex flex-col">
+      <div className="w-full flex flex-col">
         <RoundedFrameBottom />
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="text-[56px] md:text-4xl">Subscribe Informasi Terkini!</p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
+                customTextClass="text-white font-bold md:w-full"
               />
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full md:w-full" />
               </div>
             </div>
           }
@@ -1158,7 +1239,7 @@ const Berita: React.FC<ParamsProps> = () => {
         />
         <RoundedFrameTop />
       </div>
-      <div className="w-full h-full bg-purple_superlight pb-20">
+      <div className="w-full h-full bg-purple_superlight">
         <FooterCards
           cards={[
             {

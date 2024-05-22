@@ -4,10 +4,14 @@ import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import MainContentKeamananOnline from './component/MainContentKeamananOnline';
+import CONTACTS from '@/assets/images/common/contacts.svg';
+import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
+import HOSPITAL from '@/assets/images/common/hospital.svg';
+import MESSAGE from '@/assets/images/common/message.svg';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import { InformationAvrastFooter } from '@/components/molecules/specifics/avrast/SyaratPengunaan';
 import {
   contentStringTransformer,
   pageTransformer,
@@ -47,7 +51,7 @@ const SyaratPengunaan = () => {
     footerImage = data.footerImage.imageUrl;
   }
   return (
-    <div className="flex flex-col">
+    <div className="bg-purple_dark">
       <Hero
         title="Keamanan Online"
         breadcrumbsData={[
@@ -56,7 +60,10 @@ const SyaratPengunaan = () => {
         ]}
         imageUrl={bannerImage}
       />
-      <MainContentKeamananOnline />
+      <div className="w-full xs:-mt-[9.4rem] md:-mt-[6.3rem]">
+        <MainContentKeamananOnline />
+      </div>
+
       <FooterInformation
         title={
           <div
@@ -71,7 +78,7 @@ const SyaratPengunaan = () => {
             <Link href="/produk/individu" className="font-semibold">
               <div
                 role="button"
-                className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+                className="px-[2.5rem] py-[0.75rem] bg-purple_dark rounded-xl text-[1.25rem] font-semibold text-white flex flex-row gap-2"
               >
                 Panduan Klaim
               </div>
@@ -80,8 +87,39 @@ const SyaratPengunaan = () => {
         }
         image={footerImage}
       />
-      <RoundedFrameTop />
-      <InformationAvrastFooter />
+      <div className="xs:-mb-2 md:mb-0">
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
+      </div>
+
+      <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
+        cards={[
+          {
+            title: 'Kelola Polis',
+            subtitle: 'Pengkinian Data',
+            href: 'https://my.avrist.com/welcome',
+            icon: CONTACTS
+          },
+          {
+            title: 'Rumah Sakit Rekanan',
+            subtitle: 'Lebih Lanjut',
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+            icon: HOSPITAL
+          },
+          {
+            title: 'Tanya Avrista',
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista',
+            icon: MESSAGE
+          },
+          {
+            title: 'Prosedur Pengaduan',
+            subtitle: 'Lihat Prosedur',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan',
+            icon: DOCUMENT_SEARCH
+          }
+        ]}
+      />
     </div>
   );
 };

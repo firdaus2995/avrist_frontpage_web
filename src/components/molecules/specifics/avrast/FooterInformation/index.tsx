@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Button from '@/components/atoms/Button/Button';
+// import Button from '@/components/atoms/Button/Button';
 
 interface IFooterInformation {
   title: ReactElement;
@@ -30,15 +30,13 @@ const FooterInformation = ({
     >
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`xs:px-[1.5rem] xs:pb-16 sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pr-[36px] md:pl-[48px] xs:text-center md:text-start ${bgColor}`}
+          className={`xs:px-[1.5rem] xs:pb-[2.25rem] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pr-[48px] md:pl-[2.25rem] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
-            <Link
-              href={href ?? ''}
-              className="flex justify-center sm:justify-start"
-            >
-              <Button
+            <div className="w-auto">
+              <Link href={href ?? ''}>
+                {/* <Button
                 customButtonClass={
                   !buttonVariant || buttonVariant === 'primary'
                     ? '!bg-purple_dark'
@@ -48,7 +46,7 @@ const FooterInformation = ({
                         ? 'bg-white hover:bg-syariah_green hover:text-white border-none'
                         : ''
                 }
-                customTextClass={`text-[20px]
+                customTextClass={`text-[20px] text-white
                   ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'text-white font-semibold'
@@ -60,11 +58,29 @@ const FooterInformation = ({
                   }
                 `}
                 title={buttonTitle}
-              />
-            </Link>
+              /> */}
+                <button
+                  className={`px-[2.5rem] py-[1.125rem] rounded-xl ${
+                    !buttonVariant || buttonVariant === 'primary'
+                      ? 'bg-purple_dark text-white'
+                      : buttonVariant === 'secondary'
+                        ? 'bg-white'
+                        : buttonVariant === 'syariah'
+                          ? 'text-syariah_green bg-white'
+                          : buttonVariant === 'dplk'
+                            ? 'text-dplk_yellow bg-white'
+                            : ''
+                  }`}
+                >
+                  <p className="font-opensans text-xl font-semibold">
+                    {buttonTitle}
+                  </p>
+                </button>
+              </Link>
+            </div>
           )}
         </div>
-        <div className="flex rounded-r-[24px] xs:max-sm:px-[20px]">
+        <div className="flex rounded-r-[24px]">
           <Image
             height={0}
             width={0}

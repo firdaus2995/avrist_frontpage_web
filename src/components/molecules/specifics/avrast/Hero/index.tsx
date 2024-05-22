@@ -15,36 +15,41 @@ interface IHero {
   }[];
   bottomImage?: StaticImport | string;
   imageUrl?: string;
+  customClassName?: string;
 }
 
 const Hero: React.FC<IHero> = ({
   title,
   breadcrumbsData,
   bottomImage,
-  imageUrl
+  imageUrl,
+  customClassName
 }) => {
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[740px] sm:h-[840px]' : 'xs:h-[250px] md:h-[300px]'}`}
+      className={`${customClassName} relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[46.25rem] sm:h-[52.5rem]' : 'xs:h-[15.625rem] md:h-[18.75rem]'}`}
     >
       <div className="w-full flex items-center">
         <div
-          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center ${bottomImage ? 'pt-[40px] sm:pt-[70px]' : 'xs:pt-[60px] md:pt-[50px]'}`}
+          className={`w-full flex flex-row justify-between px-[2rem] md:px-[8.5rem] items-center xs:pt-[2.5rem] md:pt-[3.75rem]`}
         >
-          <p className="hidden sm:block font-karla text-white text-[18px] sm:text-[48px] font-light">
-            {title}
-          </p>
+          <div className="line-clamp-1">
+            <p className="hidden sm:block font-karla text-white text-[1.125rem] sm:text-[3rem] font-light">
+              {title}
+            </p>
+          </div>
+
           <span className="flex flex-row gap-2">
             {breadcrumbsData.map((item, index) => (
               <React.Fragment key={index}>
                 <Link
                   href={item.href}
-                  className={`font-opensans text-white text-[18px] ${index === breadcrumbsData.length - 1 ? 'font-bold' : ''}`}
+                  className={`font-opensans text-white text-[1.125rem] ${index === breadcrumbsData.length - 1 ? 'font-bold line-clamp-1 cursor-default' : ''}`}
                 >
                   {item.title}
                 </Link>
                 {index < breadcrumbsData.length - 1 && (
-                  <span className="w-[1px] h-auto bg-[#AA95B4]" />
+                  <span className="w-[0.063rem] h-auto bg-[#AA95B4]" />
                 )}
               </React.Fragment>
             ))}
@@ -52,16 +57,16 @@ const Hero: React.FC<IHero> = ({
         </div>
       </div>
       <Image
-        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[150px] sm:h-[280px]' : 'h-[250px]'}`}
+        className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[9.375rem] sm:h-[17.5rem]' : 'lg:h-[15.625rem] xs:h-[150px]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
         width={100}
         height={100}
       />
       {bottomImage && (
-        <div className="-z-[1] w-full top-[100px] sm:top-[200px] absolute">
+        <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
-            className="rounded-t-[60px] w-full object-cover h-[640px]"
+            className="rounded-t-[3.75rem] w-full object-cover h-[40rem] xs:max-md:object-cover"
             alt="gambar-produk-individu"
             width={100}
             height={100}

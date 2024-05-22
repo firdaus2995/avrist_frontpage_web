@@ -174,7 +174,7 @@ const CategoryWithThreeCards = ({
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-sm:flex-wrap  gap-5 justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-lg:flex-wrap  gap-[24px] justify-between`}
           >
             <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
               <div className="flex flex-row gap-[12px] w-full">
@@ -192,7 +192,7 @@ const CategoryWithThreeCards = ({
                         title={item.label}
                       />
                     ) : item.type === 'dropdown' ? (
-                      <div className="p-2 border rounded-xl border-purple_dark text-purple_dark">
+                      <div className="py-[8px] px-[12px] border rounded-xl border-purple_dark text-purple_dark">
                         <select
                           key={index}
                           onChange={(e) => {
@@ -226,7 +226,7 @@ const CategoryWithThreeCards = ({
             <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[8px] rounded-[12px] bg-purple_dark/[.06]"
+                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
                 onKeyDown={onSearch}
               />

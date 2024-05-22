@@ -5,8 +5,9 @@ export const BASE_SLUG = {
       AVRISTORY: 'Bulletin-AvriStory',
       AVRIST_LIFE_GUIDE: 'list-avrist-life-guide',
       KUMPULAN_BERITA_PERS: 'List-Kumpulan-Berita-Pers',
+      KUMPULAN_BERITA_PERS_NEW: 'Berita-dan-Kegiatan-Detail',
       TESTIMONI: 'List-Testimoni',
-      PENAWARAN: 'List-Penawaran'
+      PENAWARAN: 'List-Penawaran',
     },
     PAGE: {
       AVRIST_TERKINI: 'halaman-avrist-terkini',

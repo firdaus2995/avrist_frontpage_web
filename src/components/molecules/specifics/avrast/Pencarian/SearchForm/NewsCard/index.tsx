@@ -1,5 +1,4 @@
 import React from 'react';
-import { format } from 'date-fns';
 import Image from 'next/image';
 import BOOK from '@/assets/images/common/book.svg';
 
@@ -23,7 +22,7 @@ const NewsCard: React.FC<INewsCard> = ({
       <span className="flex flex-row gap-2">
         <p className="font-bold text-purple_dark text-sm">{label}</p>
         <span className="w-[0.0625rem] h-auto bg-black" />
-        <p className="text-sm">{format(new Date(date), 'dd MMMM yyyy')}</p>
+        <p className="text-sm">{date}</p>
       </span>
       <p className="text-2xl w-[74%] font-bold">{title}</p>
       <div

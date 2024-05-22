@@ -70,9 +70,9 @@ const InterestSection = (props: Props) => {
   };
 
   return (
-    <div className="w-full flex  py-[5.125rem] bg-purple_superlight justify-center">
-      <div className="flex container mx-auto flex-col self-stretch bg-white p-9 gap-9 border border-gray_light border-b-8 border-b-purple_dark rounded-xl">
-        <p className="font-karla font-bold text-[3.5rem]">
+    <div className="w-full flex xs:px-[2rem] md:px-[8.5rem] xs:py-[3.125rem] md:py-[5.125rem] bg-purple_superlight justify-center">
+      <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
+        <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]">
           Saya tertarik dengan produk Avrist Life!
         </p>
         {dataForm && (
@@ -105,21 +105,15 @@ const InterestSection = (props: Props) => {
             Insurance.
           </label>
         </div>
-        <div className="flex flex-col sm:flex-row justify-between sm:items-center items-baseline">
+        <div className="flex xs:flex-col md:flex-row justify-between items-center xs:gap-[2rem] md:gap-0">
           <Image alt="captcha" src={CaptchaPicture} />
           <Button
             isLoading={loading}
-            disabled={
-              formIsValid && loading === false
-                ? isChecked
-                  ? false
-                  : true
-                : true
-            }
+            disabled={formIsValid ? (isChecked ? false : true) : true}
             title="Kirim"
             onClick={() => onSubmitData()}
             customButtonClass="rounded-lg bg-purple_dark px-[2.5rem] py-[1.125rem]"
-            customTextClass="text-white"
+            customTextClass="text-white font-opensans font-semibold text-xl"
           />
         </div>
       </div>

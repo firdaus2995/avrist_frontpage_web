@@ -1,13 +1,12 @@
 'use client';
 import React, { useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Disclaimer from '../tabs/Disclaimer';
 import KepemilikanInformasi from '../tabs/KepemilikanInformasi';
 import KontenSitus from '../tabs/KontenSitus';
 import SyaratPenggunaan from '../tabs/SyaratPenggunaan';
-import ROUNDED_FRAME_BOTTOM from '@/assets/images/rounded-frame-bottom.svg';
 import Icon from '@/components/atoms/Icon';
+import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 
 const MainContentSyaratPenggunaan = () => {
   const searchParams = useSearchParams();
@@ -146,12 +145,7 @@ const MainContentSyaratPenggunaan = () => {
           </div>
         </div>
       </div>
-      <Image
-        alt="border-bottom"
-        className="w-full h-auto"
-        src={ROUNDED_FRAME_BOTTOM}
-        style={{ userSelect: 'none' }}
-      />
+      <RoundedFrameBottom />
     </div>
   );
 };
