@@ -24,7 +24,6 @@ type Props = {
 
 const TentangAvristDPLK = (props: Props) => {
   const {
-    dewanpengawasdplkJudul,
     dewanpengawasdplkSubjudul,
     dewanpengawasdplkDeskripsi,
     pengawas,
@@ -48,7 +47,9 @@ const TentangAvristDPLK = (props: Props) => {
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-dplk_yellow"
-        headingText={dewanpengawasdplkJudul}
+        headingText={
+          'Sejarah Singkat Dana Pensiun Lembaga Keuangan (DPLK) Avrist'
+        }
         subHeadingText={dewanpengawasdplkSubjudul}
         description={dewanpengawasdplkDeskripsi}
         tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
@@ -107,10 +108,14 @@ const TentangAvristDPLK = (props: Props) => {
             {
               cardIcon: YellowHead,
               cardTitle: 'Consultative Approach',
-              cardBody: `Kami memiliki team ahli yang : \n
-              1. Memiliki Pengetahuan Cukup \n
-              2. Memiliki Pengalaman Cukup \n
-              3. Professional dan Berintegritas`
+              cardBody: `Kami memiliki team ahli yang:
+              <div class="w-full">
+                <p><span class="font-bold">1.</span> Memiliki Pengetahuan Cukup</p>
+                <p><span class="font-bold">2.</span> Memiliki Pengalaman Cukup</p>
+                <p><span class="font-bold">3.</span> Professional dan Berintegritas</p>
+              </div>
+
+`
             },
             {
               cardIcon: YellowPeople,
