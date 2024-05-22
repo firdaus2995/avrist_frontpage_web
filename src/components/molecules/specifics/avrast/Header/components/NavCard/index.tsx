@@ -110,7 +110,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           }
                         }}
                       >
-                        <div className="flex flex-row gap-2 items-center hover:text-purple_dark font-semibold text-[1.25rem]">
+                        <div className="flex flex-row gap-4 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans">
                           <Image
                             className="w-[2.25rem] h-[2.25rem]"
                             src={ICON_MAPPING[indexData][item.icon]}
@@ -146,7 +146,7 @@ const NavCard: React.FC<NavCardProps> = ({
                                 }, 700);
                               }}
                             >
-                              <div className="flex flex-row gap-2 items-center whitespace-nowrap hover:text-purple_dark font-semibold text-[1.25rem]">
+                              <div className="flex flex-row gap-2 items-center whitespace-nowrap hover:text-purple_dark font-semibold text-[1.25rem] font-opensans">
                                 {value}
                               </div>
                             </Link>
