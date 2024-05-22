@@ -28,7 +28,7 @@ const RoundedFrameTop: React.FC<IRoundedFrameTop> = ({
 
       {/* Mobile */}
       <div
-        className={`md:hidden relative ${frameColor ?? 'bg-avrast_product_bg'} -mt-1 lg:mb-2 xs:mb-0`}
+        className={`md:hidden relative ${frameColor ?? 'bg-avrast_product_bg'} -mt-1`}
       >
         <span
           className={`w-full absolute z-20 top-2 xs:h-[4.2rem] md:h-[4.625rem] ${bgColor ?? 'bg-purple_superlight'} rounded-t-[4.0625rem]`}

@@ -26,11 +26,11 @@ const FooterInformation = ({
 }: IFooterInformation) => {
   return (
     <div
-      className={`w-full flex  md:pt-[6.25rem] md:pb-[7.5rem]  xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
+      className={`w-full md:px-[8.5rem] md:pt-[6.25rem] md:pb-[7.5rem] xs:px-[2rem] xs:py-[3.125rem] bg-avrast_product_bg justify-center ${outerClassName}`}
     >
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`xs:px-[1.5rem] xs:pb-[2.25rem] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pr-[48px] md:pl-[2.25rem] xs:text-center md:text-start ${bgColor}`}
+          className={`xs:px-[1.5rem] xs:pb-[2.25rem] xs:min-h-[212px] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pl-[3rem] md:pr-[2.25rem] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
@@ -60,7 +60,7 @@ const FooterInformation = ({
                 title={buttonTitle}
               /> */}
                 <button
-                  className={`px-[2.5rem] py-[1.125rem] rounded-xl ${
+                  className={`px-[2.5rem] py-[0.75rem] rounded-xl ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'bg-purple_dark text-white'
                       : buttonVariant === 'secondary'
@@ -85,7 +85,7 @@ const FooterInformation = ({
             height={0}
             width={0}
             alt="footerInformationImage"
-            className="min-h-[400px] w-full sm:object-cover object-contain"
+            className="min-h-[212px] md:min-h-[392px] w-full object-contain sm:object-cover"
             src={image}
           />
         </div>

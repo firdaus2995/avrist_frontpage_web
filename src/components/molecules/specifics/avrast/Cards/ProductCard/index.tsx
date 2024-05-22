@@ -36,7 +36,7 @@ const CardProduct = ({
 }: CardProductProps) => {
   return (
     <div
-      className={`${cardClassname} flex flex-col gap-[24px] p-[24px] border border-gray_light border-b-8 rounded-[12px] rounded-b-[12px]`}
+      className={`${cardClassname} flex flex-col gap-[1.5rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 rounded-[12px] rounded-b-[12px]`}
     >
       <Image
         alt="blank-image"

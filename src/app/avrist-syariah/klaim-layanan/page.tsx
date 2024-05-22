@@ -1,3 +1,4 @@
+'use client';
 import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
