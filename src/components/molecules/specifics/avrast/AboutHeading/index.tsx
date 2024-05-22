@@ -1,6 +1,7 @@
 import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface AboutHeadingProps {
   categoriesName: string;
@@ -53,16 +54,20 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
       <div className="flex flex-row flex-nowrap my-[1.5rem] gap-[0.75rem]">
         {tags &&
           tags.map((item: string, index: number) => (
-            <div
+            <Link
               key={index}
               className={`${tagsClassname} px-[8px] py-[4px] rounded-[2px]`}
+              href={{
+                pathname: `/pencarian`,
+                query: { searchValue: item }
+              }}
             >
               <p
                 className={`${tagsTextClassname} text-[14px] font-semibold font-opensans`}
               >
                 {item}
               </p>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

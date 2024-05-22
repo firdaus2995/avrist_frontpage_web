@@ -1,7 +1,7 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import NotFound from '@/app/not-found';
+// import NotFound from '@/app/not-found';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
@@ -293,9 +293,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
   return (
     <Suspense>
-      {!dataDetail || dataDetail?.length === 0 ? (
-        <NotFound />
-      ) : (
+      {!dataDetail || dataDetail?.length === 0 ? null : (
         <div className="flex flex-col">
           <Hero
             title={dataDetail?.namaProduk}
