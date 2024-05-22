@@ -173,11 +173,11 @@ const TotalSolution = () => {
     link: string;
   }) => (
     <div
-      className={`w-84 mb-10 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
+      className={`w-84 mb-10 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl mx-1`}
       style={{ backgroundColor: val.inlineStyling }}
     >
       <div
-        className={`w-full bg-${val.color} text-sm font-semibold p-2 text-white rounded-t-xl`}
+        className={`w-full bg-${val.color} text-sm font-semibold py-[36px] px-[24px] text-white rounded-t-xl`}
       >
         {val.category}
       </div>

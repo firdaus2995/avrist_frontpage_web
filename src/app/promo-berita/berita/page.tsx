@@ -402,11 +402,14 @@ const Berita: React.FC<ParamsProps> = () => {
         // const deskripsi = content['external-link-berita-pers'].value;
         let newLink;
         const externalLink = content['list-external-link']?.contentData;
+        const arr: any = []
+        
         externalLink.map((el:any) => {
           newLink = constructData(el['details'][0]?.value, el['details'][1]?.value)
+          arr.push(newLink)
         })
         
-        return { judul, newLink };
+        return { judul, newLink, arr };
       });
 
       setContentData(transformedData);
@@ -1201,7 +1204,9 @@ const Berita: React.FC<ParamsProps> = () => {
                             }}
                           />
                         }
-                        {item.newLink}
+                        <div className='flex gap-[12px]'>
+                          {item.arr}
+                        </div>
                       </div>
                     ))}
                   </div>

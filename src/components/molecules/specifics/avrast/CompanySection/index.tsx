@@ -142,9 +142,9 @@ const CompanySection = () => {
         className={`md:mx-[4.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
-          className={`xs:h-[250px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
+          className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-2xl font-black text-left font-karla leading-normal md:leading-[0.8]">
+          <p className="md:text-[3.5rem] xs:text-[2.5rem] font-black text-left font-karla leading-normal md:leading-[0.8]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
@@ -161,24 +161,27 @@ const CompanySection = () => {
                   {val.title1}
                 </p>
               </div>
-
-              <Link
-                href={val.href1}
-                className="flex flex-row items-center gap-1"
-              >
-                <p
-                  className={`font-bold md:text-xl xs:text-xs ${textColor} font-karla`}
+              <div className="flex flex-row items-center gap-2">
+                <div className="xs:w-7 md:w-15"/>
+                <Link
+                  href={val.href1}
+                  className="flex flex-row items-center gap-1"
                 >
-                  {val.link1}
-                </p>
-                <Image
-                  src={val.linkIcon}
-                  alt={val.link1}
-                  className="w-4"
-                  width={10}
-                  height={10}
-                />
-              </Link>
+                  <p
+                    className={`font-bold md:text-xl xs:text-xs ${textColor} font-karla`}
+                  >
+                    {val.link1}
+                  </p>
+                  <Image
+                    src={val.linkIcon}
+                    alt={val.link1}
+                    className="w-4"
+                    width={10}
+                    height={10}
+                  />
+                </Link>
+              </div>
+
             </div>
             <div className="flex flex-row items-center gap-2 flex-wrap text-left">
               <div className="flex flex-row items-center gap-2">
@@ -194,24 +197,27 @@ const CompanySection = () => {
                 </p>
               </div>
 
-              <Link
-                href={val.href2}
-                role="button"
-                className="flex flex-row items-center gap-1"
-              >
-                <p
-                  className={`font-bold font-karla md:text-xl xs:text-xs ${textColor}`}
+              <div className="flex flex-row items-center gap-2">
+                <div className="xs:w-7 md:w-15"/>
+                <Link
+                  href={val.href2}
+                  role="button"
+                  className="flex flex-row items-center gap-1"
                 >
-                  {val.link2}
-                </p>
-                <Image
-                  src={val.linkIcon}
-                  alt={val.link2}
-                  className="w-4"
-                  width={10}
-                  height={10}
-                />
-              </Link>
+                  <p
+                    className={`font-bold font-karla md:text-xl xs:text-xs ${textColor}`}
+                  >
+                    {val.link2}
+                  </p>
+                  <Image
+                    src={val.linkIcon}
+                    alt={val.link2}
+                    className="w-4"
+                    width={10}
+                    height={10}
+                  />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -242,7 +248,7 @@ const CompanySection = () => {
           {data.map((val, idx) => (
             <div
               key={idx}
-              className="w-full flex items-center justify-center px-5"
+              className="w-full flex items-center justify-center px-[24px] py-[36px]"
             >
               {renderCard(val)}
             </div>

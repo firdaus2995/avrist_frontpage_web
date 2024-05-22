@@ -87,9 +87,7 @@ const SyaratPengunaan = () => {
         }
         image={footerImage}
       />
-      <div className="xs:-mb-2 md:mb-0">
-        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
-      </div>
+      <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       <FooterCards
         bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[

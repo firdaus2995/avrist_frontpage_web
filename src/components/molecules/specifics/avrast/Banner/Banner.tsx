@@ -82,10 +82,10 @@ const BannerAvrast = () => {
           position: 'absolute',
           left: 126,
           width: 150,
-          bottom: 32
+          bottom: 50,
         }}
       >
-        <ul style={{ margin: '0px' }}> {dots} </ul>
+        <ul style={{ margin: '0px', width: 12, height: 12, display: 'flex' }}> {dots} </ul>
       </div>
     )
   };
@@ -123,7 +123,7 @@ const BannerAvrast = () => {
                 ) => (
                   <div
                     key={index}
-                    className="flex w-full xs:min-h-[49rem] md:h-[40rem] relative"
+                    className="flex w-full xs:h-[49rem] md:h-[40rem] relative"
                   >
                     <div className="md:hidden">
                       <Image
@@ -149,7 +149,7 @@ const BannerAvrast = () => {
                         }
                         width={100}
                         height={100}
-                        className="w-screen h-auto object-cover"
+                        className="w-screen h-[40rem] object-cover"
                       />
                     </div>
                     <div className="flex flex-col 2xl:w-[50%] md:px-[9rem] md:py-10 absolute z-50 top-10 w-full xs:items-center md:items-start">
@@ -164,7 +164,7 @@ const BannerAvrast = () => {
                           __html: contentStringTransformer(data['hero-teks2'])
                         }}
                       />
-                      <div className="mt-3">
+                      <div className="mt-3 px-[40px] py-[12px]">
                         <Link
                           href={contentStringTransformer(
                             data['hero-linkbutton']
@@ -174,7 +174,7 @@ const BannerAvrast = () => {
                             title={contentStringTransformer(
                               data['hero-lblbutton']
                             )}
-                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none`}
+                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none text-[1.25rem]`}
                           />
                         </Link>
                       </div>
@@ -203,13 +203,13 @@ const BannerAvrast = () => {
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
-          <div className="flex p-10 items-center xs:justify-start md:justify-center text-white md:text-4xl xs:text-xl text-left md:w-1/3 xs:w-full bg-dark-purple">
+          <div className="flex py-10 px-[32px] items-center xs:justify-start md:justify-center text-white md:text-4xl xs:text-xl text-left md:w-1/3 xs:w-full bg-dark-purple">
             <p className="font-karla font-light">
               Temukan <span className="font-bold">kebutuhanmu </span> di sini
             </p>
           </div>
-          <div className="flex xs:p-10 md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
-            <p className="font-karla font-medium">
+          <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
+            <p className="font-karla font-bold">
               <span className="font-bold">Saya </span> membutuhkan
             </p>
             <button
@@ -250,24 +250,24 @@ const BannerAvrast = () => {
           </div>
           {dropdownVisible && (
             <div
-              className={`absolute flex flex-col xs:top-44 md:top-28 right-0 rounded-md bg-white w-[40vh] md:right-[8.5rem] duration-300 transform`}
+              className={`absolute flex flex-col xs:top-[200px] md:top-28 right-0 rounded-md bg-white w-[40vh] md:right-[8.5rem] duration-300 transform z-50`}
               ref={dropdownRef}
             >
               <Link
                 href="/produk/individu"
-                className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium px-4 py-2 md:text-[20px] xs:text-[11px]"
+                className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
               >
                 Perlindungan Jiwa dan Kesehatan
               </Link>
               <Link
                 href={`${EXTERNAL_URL.agiUrl}`}
-                className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
+                className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
               >
                 Perlindungan Harta Benda
               </Link>
               <Link
                 href={`${EXTERNAL_URL.avramUrl}`}
-                className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] px-4 py-2"
+                className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
               >
                 Manajemen Investasi
               </Link>

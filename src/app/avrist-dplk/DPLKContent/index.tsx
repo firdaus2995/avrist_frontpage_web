@@ -66,11 +66,15 @@ const DPLKContent = (props: Props) => {
     if (value === 'Klaim dan Layanan') {
       router.push(`${pathname}/klaim-layanan`);
     }
+
+    if (value === 'Produk') {
+      router.push(`${pathname}/produk`);
+    }
   }, [searchParams]);
 
   return (
     <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] gap-[4rem] my-[3.125rem]">
-      <div className="flex flex-nowrap w-full justify-between gap-2 overflow-x-auto">
+      <div className="flex flex-nowrap w-full justify-between gap-[0.75rem] overflow-x-auto">
         {tabs.map((val, idx) => (
           <div className="w-full" key={idx}>
             <div className="xs:w-[250px] sm:w-full sm:h-[4.375rem] md:h-full">
@@ -81,7 +85,7 @@ const DPLKContent = (props: Props) => {
                 offset={-200}
                 duration={500}
                 onClick={() => handleTabClick(val)}
-                className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[15px] py-[8px] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-black'} font-semibold`}
+                className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-black'} font-semibold`}
               >
                 <span className="font-semibold text-[16px]">{val}</span>
               </LinkScroll>

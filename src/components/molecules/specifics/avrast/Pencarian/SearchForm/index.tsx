@@ -37,6 +37,8 @@ const SearchForm = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
+  console.log(searchParams);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -194,8 +196,8 @@ const SearchForm = () => {
   };
 
   return (
-    <div className="bg-purple_dark w-full flex flex-col -mt-[-0.0625rem]">
-      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[5rem] flex flex-col gap-[3rem]">
+    <div className=" w-full flex flex-col -mt-[-0.0625rem]">
+      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col gap-[3rem]">
         <SearchBox
           onSearch={(value: string) => {
             setSearchKeywords(value);

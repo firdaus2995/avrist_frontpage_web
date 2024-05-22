@@ -2,7 +2,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IDataContent } from '../page';
-// import NotFound from '@/app/not-found';
 import GreenHeartChat from '@/assets/images/avrast/avrist-syariah/green-chat-heart.svg';
 import GreenShield from '@/assets/images/avrast/avrist-syariah/green-shield.svg';
 import GreenGiveHeart from '@/assets/images/avrast/avrist-syariah/klaim-layanan.svg';
@@ -300,7 +299,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
           />
-          <SimpleContainer>
+          <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] xs:gap-[1.5rem] md:py-[5rem] md:px-[8.5rem] md:gap-[4rem]">
             <AboutHeading
               categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
               categoriesName="Avrist Syariah"
@@ -370,7 +369,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               title="Informasi Jalur Pemasaran"
               description={dataDetail?.deskripsiJalurPemasaran}
             />
-          </SimpleContainer>
+          </div>
           <div className="xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:py-[5rem] bg-green_superlight">
             {dataForm && (
               <CustomForm
@@ -382,7 +381,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               />
             )}
             <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
-              <div className="accent-syariah_green flex xs:flex-col md:flex-row items-center gap-[12px] h-full">
+              <div className="accent-syariah_green flex flex-col items-center gap-[12px] h-full">
                 <div className="flex flex-row gap-4">
                   <input
                     type="checkbox"
@@ -407,15 +406,19 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                   </label>
                 </div>
 
-                <div className=" flex flex-col md:flex-row md:justify-end md:items-center">
-                  <button
-                    type="submit"
-                    disabled={formIsValid}
-                    onClick={() => handleSubmit()}
-                    className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full w-[132px] rounded-lg mt-[12px] md:mt-0`}
-                  >
-                    Kirim
-                  </button>
+                <div className="w-full flex flex-col md:flex-row justify-between items-center">
+                  {/* <Image alt="captcha" src={CaptchaPicture} /> */}
+                  <div />
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={formIsValid}
+                      onClick={() => handleSubmit()}
+                      className={`${formIsValid ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                    >
+                      Beli Sekarang
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

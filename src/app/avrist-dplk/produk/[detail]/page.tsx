@@ -1,7 +1,7 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import NotFound from '@/app/not-found';
+// import NotFound from '@/app/not-found';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
@@ -293,9 +293,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
   return (
     <Suspense>
-      {!dataDetail || dataDetail?.length === 0 ? (
-        <NotFound />
-      ) : (
+      {!dataDetail || dataDetail?.length === 0 ? null : (
         <div className="flex flex-col">
           <Hero
             title={dataDetail?.namaProduk}
@@ -383,8 +381,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 resultData={receiveData}
               />
             )}
-            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-20 border-x border-x-gray_light">
-              <div className="accent-dplk_yellow flex xs:flex-col md:flex-row items-center gap-[12px] h-full">
+            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-10 border-x border-x-gray_light">
+              <div className="accent-dplk_yellow flex flex-col items-center gap-[12px] h-full">
                 <div className="flex flex-row gap-4">
                   <input
                     type="checkbox"
@@ -409,15 +407,19 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                   </label>
                 </div>
 
-                <div className=" flex flex-col md:flex-row md:justify-end md:items-center">
-                  <button
-                    type="submit"
-                    disabled={formIsValid}
-                    onClick={() => onSubmitData()}
-                    className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full w-[132px] rounded-lg mt-[12px] md:mt-0`}
-                  >
-                    Kirim
-                  </button>
+                <div className="w-full flex flex-col md:flex-row justify-between items-center">
+                  {/* <Image alt="captcha" src={CaptchaPicture} /> */}
+                  <div />
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={formIsValid}
+                      onClick={() => onSubmitData()}
+                      className={`${formIsValid ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                    >
+                      Beli Sekarang
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

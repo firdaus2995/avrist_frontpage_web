@@ -65,7 +65,7 @@ const MainContentSyaratPenggunaan = () => {
   return (
     <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
-        <div className="px-[136px] py-[100px] flex flex-row">
+        <div className="px-[136px] py-[100px] sm:flex sm:flex-row">
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg relative">
             <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
@@ -129,7 +129,7 @@ const MainContentSyaratPenggunaan = () => {
             )}
           </div>{' '}
           {/* end tabs kiri */}
-          <div className="ml-[48px] flex flex-col gap-10">
+          <div className="sm:ml-[48px] flex flex-col gap-10 xs:mt-4">
             <div ref={disclaimerRef}>
               <Disclaimer />
             </div>
