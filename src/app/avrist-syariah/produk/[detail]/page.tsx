@@ -1,13 +1,10 @@
 'use client';
 import React, { Suspense, useEffect, useState } from 'react';
-// import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { IDataContent } from '../page';
-// import NotFound from '@/app/not-found';
 import GreenHeartChat from '@/assets/images/avrast/avrist-syariah/green-chat-heart.svg';
 import GreenShield from '@/assets/images/avrast/avrist-syariah/green-shield.svg';
 import GreenGiveHeart from '@/assets/images/avrast/avrist-syariah/klaim-layanan.svg';
-// import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
