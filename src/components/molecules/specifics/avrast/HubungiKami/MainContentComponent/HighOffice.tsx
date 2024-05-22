@@ -1,43 +1,43 @@
-import L from 'leaflet';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import GoogleMapReact from 'google-map-react';
+import Image from 'next/image';
 import { Card } from './Card';
 import { CardAddress } from './CardAddress';
-import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
-import 'leaflet/dist/leaflet.css';
+import maps from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
 
 export const HighOffice = () => {
   const renderMap = () => {
-    const defaultProps = {
-      center: {
-        lat: -6.214663280751351,
-        lng: 106.82071668189862
-      },
-      zoom: 11
+    const highOfficeCoordinate = {
+      lat: -6.214663280751351,
+      lng: 106.82071668189862
     };
-
-    const markerIcon = new L.Icon({
-      iconUrl: MapMarkerImage.src,
-      iconSize: [40, 40], // adjust size as needed
-      iconAnchor: [20, 40], // adjust anchor as needed
-      popupAnchor: [0, -40] // adjust popup anchor as needed
-    });
+    const defaultProps = {
+      center: highOfficeCoordinate,
+      zoom: 16
+    };
 
     return (
       <div className="w-full sm:h-[37.5rem] xs:h-[12rem]">
-        <MapContainer
-          center={defaultProps.center}
-          zoom={10}
-          className="w-full h-full relative z-20"
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: '' }}
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+          yesIWantToUseGoogleMapApiInternals
         >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker
-            position={[defaultProps.center.lat, defaultProps.center.lng]}
-            icon={markerIcon}
-          ></Marker>
-        </MapContainer>
+          <div
+            style={{
+              color: 'white',
+              padding: '15px 10px',
+              display: 'inline-flex',
+              transform: 'translate(-50%, -50%)'
+            }}
+          >
+            <Image
+              src={maps}
+              className="w-full h-full object-none"
+              alt="maps"
+            />
+          </div>
+        </GoogleMapReact>
       </div>
     );
   };
