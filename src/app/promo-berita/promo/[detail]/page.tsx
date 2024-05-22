@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+
 import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
@@ -33,7 +33,8 @@ import {
   contentDetailTransformer,
   handleTransformedContent,
   pageTransformer,
-  singleImageTransformer
+  singleImageTransformer,
+  contentStringTransformer
 } from '@/utils/responseTransformer';
 
 const monthDropdown = () => {
@@ -95,9 +96,8 @@ const monthDropdown = () => {
   return month;
 };
 
-const DetailPromoTerbaru = () => {
-  const param = useSearchParams();
-  const id = param.get('id');
+const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
+  const id = params.detail;
 
   const [contentData, setContentData] = useState<any>({
     tagline: '',
@@ -120,6 +120,7 @@ const DetailPromoTerbaru = () => {
     bannerImage: '',
     footerImage: ''
   });
+  const [formId, setFormId] = useState('');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
   const fetchData = () => {
@@ -127,6 +128,8 @@ const DetailPromoTerbaru = () => {
       handleGetContentPage(BASE_SLUG.PROMO_BERITA.PAGE.PENAWARAN_DETAIL).then(
         (res: any) => {
           const { content } = pageTransformer(res);
+
+          console.log({ res, content });
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
@@ -136,6 +139,7 @@ const DetailPromoTerbaru = () => {
           const footerImage = singleImageTransformer(
             content['cta1-image']
           ).imageUrl;
+          setFormId(contentStringTransformer(content['form-produk']));
           setData({ titleImage, bannerImage, footerImage });
         }
       );
@@ -249,7 +253,7 @@ const DetailPromoTerbaru = () => {
             </p>
             <div className="flex xs:flex-col md:flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-2">
-                <p>
+                <p className="text-base text-gray_body">
                   {`${contentData.bulan} ${contentData.tahun}`} |{' '}
                   {contentData.penulis}
                 </p>
@@ -396,7 +400,7 @@ const DetailPromoTerbaru = () => {
         </div>
       </div>
 
-      <InterestSection />
+      <InterestSection formId={formId} />
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">

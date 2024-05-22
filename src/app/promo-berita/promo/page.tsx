@@ -269,7 +269,7 @@ const Promo: React.FC<ParamsProps> = () => {
     return (
       <div className="flex flex-col gap-4 sm:flex-row justify-between">
         <div>
-          <p className="text-[20px]">
+          <p className="text-[1.25rem]">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
               {contentData?.length === 0 || contentData === undefined
@@ -284,7 +284,7 @@ const Promo: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <div className="flex flex-row gap-[8px] items-center">
+        <div className="flex flex-row gap-[0.5rem] items-center">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <div
               key={page}
@@ -300,7 +300,7 @@ const Promo: React.FC<ParamsProps> = () => {
             </div>
           ))}
           <span
-            className="mt-[3px]"
+            className="mt-[0.18rem]"
             role="button"
             onClick={() => handlePageChange(totalPages)}
           >
@@ -332,11 +332,12 @@ const Promo: React.FC<ParamsProps> = () => {
             <span className="font-semibold text-purple_dark">
               @avristsolution{' '}
             </span>
+            <br />
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
           </h2>
         </div>
 
-        <div className="w-full pt-[8rem] md:px-[4rem]">
+        <div className="w-full pb-16 mt-10">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;
@@ -361,10 +362,7 @@ const Promo: React.FC<ParamsProps> = () => {
                       />
                     </div>
                     <Link
-                      href={{
-                        pathname: `/promo-berita/promo/promo-terbaru`,
-                        query: { id: item.id }
-                      }}
+                      href={`/promo-berita/promo/${item.id}`}
                       className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark font-opensans text-sm cursor-pointer"
                     >
                       Selengkapnya
@@ -402,6 +400,7 @@ const Promo: React.FC<ParamsProps> = () => {
 
         <div className="w-full xs:pt-[2.25rem] md:pt-0">
           <CategoryWithThreeCards
+            searchPlaceholder="Cari Buletin"
             hidePagination
             defaultSelectedCategory={category}
             filterRowLayout={true}
@@ -478,7 +477,11 @@ const Promo: React.FC<ParamsProps> = () => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl"
+                  customTextClass="text-[1rem]"
+                />
               </div>
             </div>
           }

@@ -96,11 +96,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   <p>{attribute.name}</p>
                 ) : (
                   <div>
-                    <p className="font-bold">
+                    <p className="font-bold mb-2">
                       {attribute.name} <span className="text-reddist">*</span>
                     </p>
                     {attribute.fieldType === 'RADIO_BUTTON' ? (
-                      <div className="flex flex-row gap-1">
+                      <div className="flex flex-col gap-1">
                         {attribute.value
                           ?.split(';')
                           .map((option, optionIndex) => (
@@ -127,7 +127,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-full px-[1rem] py-[0.625rem] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
                       >
                         <option value={''}>Pilih</option>
-                        {attribute.value?.split(',').map((option, idx) => (
+                        {attribute.value?.split(';').map((option, idx) => (
                           <option
                             key={idx}
                             value={option}
@@ -239,7 +239,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
                       >
                         <option value={''}>Pilih</option>
-                        {attribute.value?.split(',').map((option, idx) => (
+                        {attribute.value?.split(/[,;]/).map((option, idx) => (
                           <option
                             key={idx}
                             value={option}
@@ -355,11 +355,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     {attribute.name} <span className="text-reddist">*</span>
                   </p>
                   {attribute.fieldType === 'RADIO_BUTTON' ? (
-                    attribute.value
-                      ?.split(';')
-                      .map((option, optionIndex) => (
+                    attribute.value?.split(';').map((option, optionIndex) => (
+                      <div className="flex flex-col gap-1" key={optionIndex}>
                         <Radio
-                          key={optionIndex}
                           id={`${attribute.fieldId}_${optionIndex}`}
                           name={attribute.name}
                           label={option}
@@ -368,7 +366,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             updateFormDataByName(attribute.name, e.target.value)
                           }
                         />
-                      ))
+                      </div>
+                    ))
                   ) : attribute.name.includes('Telepon') ? (
                     <div className="flex justify-between gap-[0.5rem]">
                       <input
