@@ -97,7 +97,7 @@ export const HomeBannerModal = () => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4 text-center py-[100px] px-[72px]">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

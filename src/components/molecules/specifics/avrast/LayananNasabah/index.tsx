@@ -74,13 +74,13 @@ const LayananNasabah = () => {
     href3: string;
   }) => (
     <div
-      className={`w-full h-[40vh] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark`}
+      className={`w-full h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark pt-[24px] px-[32px] pb-[36px]`}
     >
-      <div className="xs:block md:hidden flex items-start w-full pt-5 pl-5">
+      <div className="xs:block md:hidden flex items-start w-full pt-6 pl-5">
         <Image src={val.icon} alt={val.title} className="w-20" />
       </div>
       <div
-        className={`w-full md:pt-[24px] md:px-[32px] md:pb-[36px] xs:p-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-[24px] xs:gap-5`}
+        className={`w-full md:pt-[24px] md:px-[32px] md:pb-[36px] xs:px-4 xs:pb-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-[24px] xs:gap-5`}
       >
         <div className="flex flex-row items-center gap-4">
           <div className="xs:hidden md:block">
@@ -91,7 +91,7 @@ const LayananNasabah = () => {
             />
           </div>
           <div className="flex flex-col gap-4">
-            <p className="md:text-[32px] xs:text-xl font-bold text-left w-full mb-2">
+            <p className="md:text-[32px] xs:text-[2rem] font-bold text-left w-full mb-2">
               {val.title}
             </p>
             <div className="flex flex-row items-center gap-2 flex-wrap">
@@ -179,7 +179,7 @@ const LayananNasabah = () => {
           {...sliderSettings}
         >
           {data.map((val, idx) => (
-            <div key={idx}>{renderCard(val)}</div>
+            <div className='px-2' key={idx}>{renderCard(val)}</div>
           ))}
         </Slider>
         <div className="flex flex-row gap-4 ml-5">
