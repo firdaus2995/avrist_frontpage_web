@@ -198,7 +198,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         bottomImage={bannerImage.imageUrl}
       />
       <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[4.5rem] gap-[4rem]">
-        <div className="flex sm:flex-row xs:flex-col w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:block">
+        <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
           {tabs.map((val, idx) => (
             <LinkScroll
               key={idx}
@@ -238,8 +238,6 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
             subTitle={dewanPengawasSubJudul}
             desc={dewanPengawasDeskripsi}
             boards={manajemenData}
-            manfaatUtamaJudul={manfaatUtamaJudul}
-            manfaatUtamaDesc={manfaatUtamaDeskripsi}
           />
         )}
         {tab === 'Dewan Pengawas Syariah' && (
