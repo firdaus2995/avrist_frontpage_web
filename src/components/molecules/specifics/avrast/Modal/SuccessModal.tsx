@@ -3,14 +3,16 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import BLANK_IMAGE from '@/assets/images/blank-image.svg';
+import Icon from '@/components/atoms/Icon';
 import { CardRainbow } from '@/components/molecules/specifics/avrast/HubungiKami/MainContentComponent/Card';
 
 type Props = {
   show: boolean;
   onClose: () => void;
+  popUpImage?: string;
 };
 export const SuccessModal = (props: Props) => {
-  const { onClose, show } = props;
+  const { onClose, show, popUpImage } = props;
 
   return (
     <Transition appear show={show} as={Fragment}>
@@ -41,11 +43,22 @@ export const SuccessModal = (props: Props) => {
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
                   <div className="xs:w-full md:w-[48.75rem] flex flex-col">
+                    <div className="absolute right-0 p-[1.5rem]">
+                      <button onClick={onClose}>
+                        <Icon
+                          name="close"
+                          width={24}
+                          height={24}
+                          color="white"
+                        />
+                      </button>
+                    </div>
                     <Image
                       alt="success"
-                      src={BLANK_IMAGE}
+                      src={popUpImage ?? BLANK_IMAGE}
                       className="w-full h-[320px] object-cover"
-                      width={0}
+                      width={24}
+                      height={24}
                     />
                     <div className="w-full h-[320px] text-white flex flex-col items-center text-center justify-center ">
                       <h1 className="font-karla xs:text-[2.25rem] md:text-[3.5rem] font-extrabold">

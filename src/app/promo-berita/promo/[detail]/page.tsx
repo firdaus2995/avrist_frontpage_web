@@ -26,7 +26,10 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InterestSection from '@/components/molecules/specifics/avrast/InterestSection';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { getPenawaran } from '@/services/berita';
-import { handleGetContentPage } from '@/services/content-page.api';
+import {
+  handleGetContentPage,
+  handleGetContent
+} from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser, getYouTubeId } from '@/utils/helpers';
 import {
@@ -34,7 +37,8 @@ import {
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer,
-  contentStringTransformer
+  contentStringTransformer,
+  contentTransformer
 } from '@/utils/responseTransformer';
 
 const monthDropdown = () => {
@@ -118,7 +122,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
-    footerImage: ''
+    footerImage: '',
+    popUpImage: ''
   });
   const [formId, setFormId] = useState('');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
@@ -129,7 +134,6 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         (res: any) => {
           const { content } = pageTransformer(res);
 
-          console.log({ res, content });
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
@@ -143,6 +147,20 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           setData({ titleImage, bannerImage, footerImage });
         }
       );
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const fetchSlugModal = async () => {
+    try {
+      handleGetContent('pop-up-submit-form', {
+        includeAttributes: 'true'
+      }).then((res: any) => {
+        const { content } = contentTransformer(res);
+        const submitImage = singleImageTransformer(content['pop-up-image']);
+        setData({ ...data, popUpImage: submitImage.imageUrl });
+      });
     } catch (error) {
       console.error('Error:', error);
     }
@@ -223,9 +241,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchData();
     fetchDetailData();
     fetchOtherContent();
+    fetchSlugModal();
   }, []);
-
-  console.log(otherContent);
 
   return (
     <>
@@ -400,7 +417,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         </div>
       </div>
 
-      <InterestSection formId={formId} />
+      <InterestSection formId={formId} popUpImage={data.popUpImage} />
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
