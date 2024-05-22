@@ -60,13 +60,13 @@ const FooterInformation = ({
                 title={buttonTitle}
               /> */}
                 <button
-                  className={`px-[2.5rem] py-[0.75rem] rounded-xl ${
+                  className={`px-[2.5rem] py-[1.125rem] rounded-xl ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'bg-purple_dark text-white'
                       : buttonVariant === 'secondary'
                         ? 'bg-white'
                         : buttonVariant === 'syariah'
-                          ? 'text-syariah_green bg-white'
+                          ? 'text-syariah_green bg-white !py-[0.75rem]'
                           : buttonVariant === 'dplk'
                             ? 'text-dplk_yellow bg-white'
                             : ''
