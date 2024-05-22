@@ -54,7 +54,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   return (
-    <div className='bg-purple_superlight'>
+    <div className="bg-purple_superlight">
       <Suspense>
         <Hero
           title={titleContent}
@@ -67,7 +67,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             }
           ]}
         />
-        <div className="-mt-32 relative z-[10]">
+        <div className="xs:-mt-[9.4rem] md:-mt-[6.3rem] relative z-[10]">
           <ArtikelTanyaAvrista
             title={titleContent}
             content={mainContent as string}
@@ -76,7 +76,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         <RoundedFrameBottom />
         <FooterInformation
           title={
-            <p className="font-karla text-[2.5rem] md:text-[3.5rem] tracking-[-0.015em]">
+            <p className="font-karla text-[2.5rem] md:text-[3.5rem] md:tracking-[-0.3%] md:leading-[61.6px]">
               <span className="font-bold text-purple_dark">Komitmen</span> Kami,
               proses klaim yang{' '}
               <span className="font-bold text-purple_dark">efisien</span> dan{' '}

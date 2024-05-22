@@ -24,7 +24,6 @@ type Props = {
 
 const DewanPengawasDPLK = (props: Props) => {
   const {
-    dewanpengawasdplkJudul,
     dewanpengawasdplkSubjudul,
     dewanpengawasdplkDeskripsi,
     pengawas,
@@ -49,7 +48,9 @@ const DewanPengawasDPLK = (props: Props) => {
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-dplk_yellow"
-        headingText={dewanpengawasdplkJudul}
+        headingText={
+          'Sejarah Singkat Dana Pensiun Lembaga Keuangan (DPLK) Avrist'
+        }
         subHeadingText={dewanpengawasdplkSubjudul}
         description={dewanpengawasdplkDeskripsi}
         tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
