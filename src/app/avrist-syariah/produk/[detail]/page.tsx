@@ -302,7 +302,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
           />
-          <SimpleContainer>
+          <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] xs:gap-[1.5rem] md:py-[5rem] md:px-[8.5rem] md:gap-[4rem]">
             <AboutHeading
               categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
               categoriesName="Avrist Syariah"
@@ -372,7 +372,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               title="Informasi Jalur Pemasaran"
               description={dataDetail?.deskripsiJalurPemasaran}
             />
-          </SimpleContainer>
+          </div>
           <div className="xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:py-[5rem] bg-green_superlight">
             {dataForm && (
               <CustomForm
