@@ -123,7 +123,7 @@ const BannerAvrast = () => {
                 ) => (
                   <div
                     key={index}
-                    className="flex w-full xs:min-h-[49rem] md:h-[40rem] relative"
+                    className="flex w-full xs:h-[49rem] md:h-[40rem] relative"
                   >
                     <div className="md:hidden">
                       <Image
@@ -149,7 +149,7 @@ const BannerAvrast = () => {
                         }
                         width={100}
                         height={100}
-                        className="w-screen h-auto object-cover"
+                        className="w-screen h-[40rem] object-cover"
                       />
                     </div>
                     <div className="flex flex-col 2xl:w-[50%] md:px-[9rem] md:py-10 absolute z-50 top-10 w-full xs:items-center md:items-start">

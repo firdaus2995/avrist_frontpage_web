@@ -41,7 +41,11 @@ const Pencarian = async () => {
           breadcrumbsData={breadcrumbsData}
           imageUrl={bannerImage.imageUrl}
         />
-        <SearchForm />
+        <div className="xs:-mt-[9.4rem] md:-mt-[6.3rem] relative z-[10]">
+          {' '}
+          <SearchForm />
+        </div>
+
         <RoundedFrameBottom frameColor="bg-white" />
         <FooterInformation
           title={
@@ -58,7 +62,7 @@ const Pencarian = async () => {
         />
         <RoundedFrameTop />
         <FooterCards
-          bgColor='bg-purple_superlight'
+          bgColor="bg-purple_superlight"
           cards={[
             {
               title: 'Layanan Nasabah',
