@@ -1,112 +1,99 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import CustomForm from '../CustomForm/Index';
+import { SubmittedFormModal } from '../Modal/SubmittedFormModal';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Button from '@/components/atoms/Button/Button';
-import Radio from '@/components/atoms/Radio';
-
+import { handleSendEmail } from '@/services/form.api';
 // button variants: primary, secondary
 
-const InterestSection = () => {
+type Props = {
+  formId?: string;
+};
+
+const InterestSection = (props: Props) => {
+  const { formId: id } = props;
+  const [dataForm, setDataForm] = useState<any>();
+  const [formId, setFormId] = useState<any>();
+  const [formPic, setFormPic] = useState<any>();
+  const [loading, setLoading] = useState<any>();
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (id) {
+      const fetchDataForm = async () => {
+        try {
+          const contentResponse = await fetch(`/api/form?id=${id}`);
+          const dataFormJson = await contentResponse.json();
+          setFormId(dataFormJson.data.id);
+          setDataForm(dataFormJson.data.attributeList);
+          setFormPic(dataFormJson.data.pic);
+        } catch (error: any) {
+          throw new Error('Error fetching form data: ', error.message);
+        }
+      };
+
+      fetchDataForm().then();
+    }
+  }, [id]);
+
+  const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const receiveData = (
+    data: any,
+    isValid: boolean | ((prevState: boolean) => boolean)
+  ) => {
+    setFormIsValid(isValid);
+    setFormValue(data);
+  };
+
+  const onSubmitData = async () => {
+    const queryParams = {
+      id: formId,
+      pic: formPic,
+      placeholderValue: formValue
+    };
+    setLoading(true);
+
+    const data = await handleSendEmail(queryParams);
+    if (data.status === 'OK') {
+      setShowModal(true);
+      setLoading(false);
+    }
+
+    if (data.status !== 'OK') {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full flex  py-[5.125rem] bg-purple_superlight justify-center">
       <div className="flex container mx-auto flex-col self-stretch bg-white p-9 gap-9 border border-gray_light border-b-8 border-b-purple_dark rounded-xl">
         <p className="font-karla font-bold text-[3.5rem]">
           Saya tertarik dengan produk Avrist Life!
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Saya adalah <span className="text-reddist">*</span>
-            </p>
-            <Radio
-              id="calon_nasabah"
-              name="tipe_nasabah"
-              label="Calon Nasabah"
-            />
-            <Radio id="nasabah" name="tipe_nasabah" label="Nasabah" />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Bapak/Ibu <span className="text-reddist">*</span>
-            </p>
-            <Radio id="bapak" name="jenis_kelamin" label="Bapak" />
-            <Radio id="ibu" name="jenis_kelamin" label="Ibu" />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Alamat Email <span className="text-reddist">*</span>
-            </p>
-            <input
-              className="w-full px-[1rem] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
-              placeholder="Masukan alamat e-mail Anda"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Nama <span className="text-reddist">*</span>
-            </p>
-            <input
-              className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
-              placeholder="Masukan nama Anda"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Kota <span className="text-reddist">*</span>
-            </p>
-            <input
-              className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
-              placeholder="Kota terdekat dari domisili Anda"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              No Telepon <span className="text-reddist">*</span>
-            </p>
-            <div className="flex flex-row gap-2">
-              <select
-                id="selected-product"
-                className="p-2 border border-gray_light rounded-[14px]"
-              >
-                <option selected={true} value={'+62'} className="w-[80%]">
-                  +62
-                </option>
-              </select>
-              <input
-                className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
-                placeholder="Masukan nomor telepon"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Pilih produk <span className="text-reddist">*</span>
-            </p>
-            <select
-              id="selected-product"
-              className="p-2 border border-gray_light rounded-[14px]"
-            >
-              <option selected={true} value={'Pilih'} className="w-[80%]">
-                Pilih
-              </option>
-            </select>
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="font-bold">
-              Detail Kebutuhan <span className="text-reddist">*</span>
-            </p>
-            <input
-              className="w-full px-[16px] py-[10px] border border-gray_light rounded-[14px] text-[14px]"
-              placeholder="Tulis detail kebutuhan Anda"
-            />
-            <p className="text-right">0/500</p>
-          </div>
-        </div>
+        {dataForm && (
+          <CustomForm
+            dataForm={dataForm}
+            customFormClassname="border-none p-[0rem]"
+            title=" "
+            type="Hubungi Kami"
+            resultData={receiveData}
+          />
+        )}
+
         <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
           <input
             id="setuju"
             type="checkbox"
-            value=""
+            checked={isChecked}
             className="mt-[6px] text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
+            onChange={(e) => {
+              setIsChecked(e.target.checked);
+            }}
           />
           <label className="cursor-pointer" htmlFor="setuju">
             Saya setuju memberikan data pribadi Saya kepada Avrist Life
@@ -121,12 +108,26 @@ const InterestSection = () => {
         <div className="flex flex-col sm:flex-row justify-between sm:items-center items-baseline">
           <Image alt="captcha" src={CaptchaPicture} />
           <Button
+            isLoading={loading}
+            disabled={
+              formIsValid && loading === false
+                ? isChecked
+                  ? false
+                  : true
+                : true
+            }
             title="Kirim"
+            onClick={() => onSubmitData()}
             customButtonClass="rounded-lg bg-purple_dark px-[2.5rem] py-[1.125rem]"
             customTextClass="text-white"
           />
         </div>
       </div>
+
+      <SubmittedFormModal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

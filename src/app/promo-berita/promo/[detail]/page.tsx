@@ -28,7 +28,8 @@ import {
   contentDetailTransformer,
   handleTransformedContent,
   pageTransformer,
-  singleImageTransformer
+  singleImageTransformer,
+  contentStringTransformer
 } from '@/utils/responseTransformer';
 
 const monthDropdown = () => {
@@ -114,6 +115,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     bannerImage: '',
     footerImage: ''
   });
+  const [formId, setFormId] = useState('');
 
   const fetchData = () => {
     try {
@@ -131,6 +133,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           const footerImage = singleImageTransformer(
             content['cta1-image']
           ).imageUrl;
+          setFormId(contentStringTransformer(content['form-produk']));
           setData({ titleImage, bannerImage, footerImage });
         }
       );
@@ -371,7 +374,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         </div>
       </div>
 
-      <InterestSection />
+      <InterestSection formId={formId} />
 
       <div className="flex container mx-auto flex-col">
         <div className="flex flex-col items-center justify-center gap-10 py-[5.25rem]">
