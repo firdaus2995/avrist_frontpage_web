@@ -30,7 +30,7 @@ const FooterInformation = ({
     >
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`xs:px-[1.5rem] xs:pb-[2.25rem] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pl-[3rem] md:pr-[2.25rem] xs:text-center md:text-start ${bgColor}`}
+          className={`xs:px-[1.5rem] xs:pb-[2.25rem] xs:min-h-[212px] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pl-[3rem] md:pr-[2.25rem] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
@@ -85,7 +85,7 @@ const FooterInformation = ({
             height={0}
             width={0}
             alt="footerInformationImage"
-            className="min-h-[400px] w-full sm:object-cover object-contain"
+            className="min-h-[212px] md:min-h-[392px] w-full object-contain sm:object-cover"
             src={image}
           />
         </div>
