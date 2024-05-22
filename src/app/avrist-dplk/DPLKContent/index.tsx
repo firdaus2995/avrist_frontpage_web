@@ -66,6 +66,10 @@ const DPLKContent = (props: Props) => {
     if (value === 'Klaim dan Layanan') {
       router.push(`${pathname}/klaim-layanan`);
     }
+
+    if (value === 'Produk') {
+      router.push(`${pathname}/produk`);
+    }
   }, [searchParams]);
 
   return (
