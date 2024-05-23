@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { EmailSubscribeModal } from '../Modal';
 import NavCard from './components/NavCard';
 import NavDropdownMenus from './components/NavDropdownMenus';
-import TriangleMarker from './components/TriangleMarker';
 
 import DUMMY_DATA from './sample-data.json';
 
@@ -23,10 +22,12 @@ import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const Header = () => {
   const menuRef: any = useRef(null);
+  const listRef: any = useRef([]);
   const menus: NavbarMenuItem[] = DUMMY_DATA['menus']['navbar'];
   const [isDropdownHeaderVisible, setIsDropdownHeaderVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
+  const [xPositions, setXPositions] = useState<number[]>([]);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -39,6 +40,21 @@ const Header = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    const totalMiddlePositions: number[] = [];
+
+    listRef.current.forEach((ref: any) => {
+      const rect = ref.getBoundingClientRect();
+      const leftPosition = rect.x;
+      const itemWidth = rect.width / 2.5;
+      const middlePositions = leftPosition + itemWidth;
+
+      totalMiddlePositions.push(middlePositions);
+    });
+
+    setXPositions(totalMiddlePositions);
   }, []);
 
   return (
@@ -154,11 +170,9 @@ const Header = () => {
               <React.Fragment key={item.title}>
                 <li
                   className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
+                  ref={(el) => (listRef.current[idx] = el)}
                 >
-                  {item.title}
-                  <TriangleMarker
-                    customClass={`absolute left-1/2 -translate-x-1/2 z-50 top-[2.5rem] cursor-default ${styles['nav-transition']}`}
-                  />
+                  {item.title}{' '}
                 </li>
                 <NavCard
                   customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
@@ -166,6 +180,7 @@ const Header = () => {
                   title={item.title}
                   skipUrl={item.skipUrl}
                   indexData={idx}
+                  xPosition={xPositions[idx]}
                 />
               </React.Fragment>
             ))}

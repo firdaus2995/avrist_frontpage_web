@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { NavbarMenuItemContent } from '../../types';
+import TriangleMarker from '../TriangleMarker';
 import NAV6IMAGE5 from '@/assets/images/avrast/about/karir.svg';
 import NAV6IMAGE4 from '@/assets/images/avrast/about/laporan-penting.svg';
 import NAV6IMAGE2 from '@/assets/images/avrast/about/menagemen.svg';
@@ -48,6 +49,7 @@ type NavCardProps = {
   title: string;
   indexData: number;
   skipUrl?: boolean;
+  xPosition?: number;
 };
 
 const ICON_MAPPING = [
@@ -72,7 +74,8 @@ const NavCard: React.FC<NavCardProps> = ({
   customClass,
   indexData,
   title,
-  skipUrl
+  skipUrl,
+  xPosition
 }) => {
   // This component has become a client component even when there's not a "use client" withint this file.
   // This is because this component has been imported into a Header component that is a client component.
@@ -90,6 +93,12 @@ const NavCard: React.FC<NavCardProps> = ({
             key={idx}
             className={`w-full flex flex-col ${idx === 0 ? 'pr-[2.25rem]' : 'pl-[2.25rem]'}`}
           >
+            {xPosition && (
+              <div className="absolute top-[-16px]" style={{ left: xPosition }}>
+                <TriangleMarker />
+              </div>
+            )}
+
             <div className="flex flex-col gap-6">
               <h2 className="text-[2rem] font-bold text-gray_title font-karla">
                 {val.title}
