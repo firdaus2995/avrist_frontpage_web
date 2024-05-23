@@ -323,7 +323,7 @@ const Promo: React.FC<ParamsProps> = () => {
         bottomImage={data?.bannerImage ?? BlankImage}
       />
       <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative">
-        <div className="xs:-mt-[9.8rem] md:-mt-[6.7rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
+        <div className="xs:-mt-24 md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
           <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold mb-[0.75rem] text-purple_dark">
             Avrist Promo Terbaru
           </h2>
@@ -332,12 +332,11 @@ const Promo: React.FC<ParamsProps> = () => {
             <span className="font-semibold text-purple_dark">
               @avristsolution{' '}
             </span>
-            <br />
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
           </h2>
         </div>
 
-        <div className="w-full pb-16 mt-10">
+        <div className="w-full pt-[8rem] md:px-[4rem]">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;

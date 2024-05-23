@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import CustomForm from '../CustomForm/Index';
-import { SubmittedFormModal } from '../Modal/SubmittedFormModal';
+import { SuccessModal } from '../Modal';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Button from '@/components/atoms/Button/Button';
 import { handleSendEmail } from '@/services/form.api';
@@ -10,10 +10,11 @@ import { handleSendEmail } from '@/services/form.api';
 
 type Props = {
   formId?: string;
+  popUpImage?: string;
 };
 
 const InterestSection = (props: Props) => {
-  const { formId: id } = props;
+  const { formId: id, popUpImage } = props;
   const [dataForm, setDataForm] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -118,7 +119,8 @@ const InterestSection = (props: Props) => {
         </div>
       </div>
 
-      <SubmittedFormModal
+      <SuccessModal
+        popUpImage={popUpImage}
         show={showModal}
         onClose={() => setShowModal(false)}
       />

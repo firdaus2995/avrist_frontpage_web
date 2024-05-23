@@ -86,7 +86,7 @@ const CategoryWithThreeCards = ({
     return (
       <div className="relative sm:hidden block">
         <div
-          className="flex justify-between items-center border-l-4 border-purple_dark px-[1rem] py-[0.625rem] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[1.125mre]"
+          className="flex justify-between items-center border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer rounded-lg font-bold text-purple_dark bg-purple_light_bg text-[18px]"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span>{selected}</span>
@@ -104,7 +104,7 @@ const CategoryWithThreeCards = ({
               <div
                 key={index}
                 onClick={() => handleSelect(item)}
-                className={`border-l-4 px-[1rem] py-[0.625rem] cursor-pointer font-bold text-[1.125m] ${
+                className={`border-l-4 px-[15px] py-[12px] cursor-pointer font-bold text-[18px] ${
                   selected === item
                     ? 'border-purple_dark text-purple_dark'
                     : 'border-purple_mediumlight text-purple_mediumlight'
@@ -123,14 +123,14 @@ const CategoryWithThreeCards = ({
     categories,
     selectedCategory
   }) => (
-    <div className="flex flex-col shrink min-w-[13.125rem] bg-purple_light_bg rounded-r-[0.75rem] rounded-l-[4px] overflow-hidden">
+    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
       {categories.map((item: string, index: number) =>
         selectedCategory === item ? (
           <div
             key={index}
-            className="border-l-4 border-purple_dark px-[1rem] py-[0.625rem] cursor-pointer text-left"
+            className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
           >
-            <span className="font-bold text-purple_dark text-[1.125rem]">
+            <span className="font-bold text-purple_dark text-[18px]">
               {item}
             </span>
           </div>
@@ -139,9 +139,9 @@ const CategoryWithThreeCards = ({
             key={index}
             role="button"
             onClick={() => handleCategoryChange(item)}
-            className="border-l-4 border-purple_mediumlight px-[1rem] py-[0.625rem] cursor-pointer text-left"
+            className="border-l-4 border-purple_mediumlight px-[15px] py-[12px] cursor-pointer text-left"
           >
-            <span className="font-bold text-purple_mediumlight text-[1.125rem]">
+            <span className="font-bold text-purple_mediumlight text-[18px]">
               {item}
             </span>
           </div>
@@ -151,7 +151,7 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="flex flex-col mx-auto container py-12  gap-[2.25rem] sm:flex-row">
+    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
       {/* CATEGORIES */}
       {!hiddenCategory && (
         <span className="hidden">
@@ -170,11 +170,11 @@ const CategoryWithThreeCards = ({
       </div>
 
       {/* ITEMS LIST */}
-      <div className="flex flex-col gap-[1.5rem] grow">
+      <div className="flex flex-col gap-[24px] grow">
         {customRightContent ?? null}
         {!hideSearchBar && (
           <div
-            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-lg:flex-wrap  gap-[24px] justify-between`}
+            className={`flex ${filterRowLayout ? 'flex-row' : 'flex-col'} xs:max-lg:flex-wrap  gap-5 justify-between`}
           >
             <div className="flex flex-nowrap overflow-x-hidden sm:overflow-x-hidden py-1">
               <div className="flex flex-row gap-[12px] w-full">
@@ -235,7 +235,7 @@ const CategoryWithThreeCards = ({
           </div>
         )}
         {!customContent ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[1.5rem]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
             {[...Array(9)].map((_, index) =>
               categoryCard === 'B' ? (
                 <CardCategoryB
@@ -261,17 +261,17 @@ const CategoryWithThreeCards = ({
         {!hidePagination && (
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
-              <p className="text-[1.25rem]">
+              <p className="text-[20px]">
                 Menampilkan{' '}
                 <span className="font-bold text-purple_dark">1-9</span> dari{' '}
                 <span className="font-bold">20</span> hasil
               </p>
             </div>
-            <div className="flex flex-row gap-[0.5rem] items-center">
-              <p className="text-[1.25rem] text-purple_dark font-bold">1</p>
-              <p className="text-[1.25rem]">2</p>
-              <p className="text-[1.25rem]">3</p>
-              <p className="text-[1.25rem]">4</p>
+            <div className="flex flex-row gap-[8px] items-center">
+              <p className="text-[20px] text-purple_dark font-bold">1</p>
+              <p className="text-[20px]">2</p>
+              <p className="text-[20px]">3</p>
+              <p className="text-[20px]">4</p>
               <Icon name="chevronRight" color="purple_dark" />
             </div>
           </div>
