@@ -126,10 +126,11 @@ const InfoKlaimTab = () => {
               className="max-w-sm flex flex-col items-center justify-between pt-[24px] px-[24px] pb-[36px] bg-white border border-gray-200 rounded-[12px] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
             >
               <Image src={val.icon} alt={val.title} width={100} height={100} />
-              <div className="flex flex-col items-center justify-center gap-2">
+              <div className="flex flex-col items-center justify-between gap-2">
                 <h5 className="mb-2 md:text-[32px] xs:text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
                   {val.title}
                 </h5>
+              </div>
                 <p className="mb-3 font-normal md:text-[16px] xs:text-[12px] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
                   {val.desc}
                 </p>
@@ -140,7 +141,6 @@ const InfoKlaimTab = () => {
                 >
                   {val.btnText}
                 </div>
-              </div>
             </div>
           ))}
         </div>

@@ -168,7 +168,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex justify-between gap-[0.5rem]">
                         <input
-                          className="w-1/5 sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                           defaultValue={'+62'}
                           readOnly
                         />
@@ -280,7 +280,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex justify-between gap-[0.5rem]">
                         <input
-                          className="w-1/5 sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                           defaultValue={'+62'}
                           readOnly
                         />
@@ -371,7 +371,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   ) : attribute.name.includes('Telepon') ? (
                     <div className="flex justify-between gap-[0.5rem]">
                       <input
-                        className="w-1/5 sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         defaultValue={'+62'}
                         readOnly
                       />
