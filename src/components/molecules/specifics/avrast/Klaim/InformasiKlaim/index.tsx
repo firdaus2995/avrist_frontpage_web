@@ -64,19 +64,31 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
       {/* Tab Desktop */}
       <div className="w-full xs:hidden md:block">
         <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap mb-10">
-          {data.map((val, idx) => (
-            <div
-              key={idx}
-              role="button"
-              onClick={() => {
-                handleTabClick(val);
-                onChangeBannerImg(idx);
-              }}
-              className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
-            >
-              {val}
-            </div>
-          ))}
+          {data.map((val, idx) =>
+            val === 'Login Polis' ? (
+              <a
+                key={idx}
+                href='https://my.avrist.com/welcome'
+                target='_blank'
+                role="button"
+                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+              >
+                {val}
+              </a>
+            ) : (
+              <div
+                key={idx}
+                role="button"
+                onClick={() => {
+                  handleTabClick(val);
+                  onChangeBannerImg(idx);
+                }}
+                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+              >
+                {val}
+              </div>
+            )
+          )}
         </div>
       </div>
 

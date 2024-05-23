@@ -212,9 +212,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   useEffect(() => {
     setData(initialData);
     const value = searchParams.get('tab');
-    if (value === 'Login Polis') {
-      router.push('https://my.avrist.com/welcome');
-    } else if (value) {
+    if (value) {
       setTab(value);
     }
 

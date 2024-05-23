@@ -337,7 +337,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         category: val
                       });
                     }}
-                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
+                    className={`${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
                   >
                     {val}
                   </div>
@@ -376,6 +376,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
                   onChange={(e) => {
                     setSearch(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setParams({ ...params, searchFilter: search });
+                    }
                   }}
                 />
                 <Button
