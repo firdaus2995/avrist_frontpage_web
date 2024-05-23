@@ -8,6 +8,7 @@ interface IAccordion {
   bgColor?: string;
   title?: string;
   description?: string;
+  htmlDescription?: string;
   children?: React.ReactNode;
   isUrl?: boolean;
   url?: string;
@@ -20,7 +21,7 @@ interface IAccordionItem {
 
 const Accordion: React.FC<IAccordion> & {
   Item: React.FC<IAccordionItem>;
-} = ({ title, description, children, bgColor, isUrl, url }) => {
+} = ({ title, description, children, bgColor, isUrl, url, htmlDescription }) => {
   const [expand, setExpand] = useState<boolean>(false);
   return (
     <div
@@ -51,6 +52,7 @@ const Accordion: React.FC<IAccordion> & {
       {expand && (
         <>
           {description && <p className="text-md 2xl:text-xl">{description}</p>}
+          {htmlDescription && <p className="text-md 2xl:text-xl" dangerouslySetInnerHTML={{ __html: htmlDescription }} />}
           {children}
         </>
       )}

@@ -1,5 +1,7 @@
-import React from 'react';
+'use client';
+import React, { useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Slider from 'react-slick';
 import Button from '@/components/atoms/Button/Button';
 
 const buttonList = [
@@ -26,24 +28,57 @@ export const ButtonMenu = () => {
         router.push('/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan');
       },
       'Performa Investasi': () => {
-        router.push('/klaim-layanan/layanan?tab=Performa+Investasi')
+        router.push('/klaim-layanan/layanan?tab=Performa+Investasi');
       }
     };
-    
+
     actionMap[buttonText]();
   };
 
+  const sliderRef = useRef<Slider | null>(null);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
-    <div className="grid gap-[12px] grid-cols-1 sm:grid-cols-4">
-      {buttonList.map((buttonText) => (
-        <Button
-          key={buttonText}
-          title={buttonText}
-          onClick={() => handleOnClickButton(buttonText)}
-          customButtonClass={`flex-1 ${activeButton === buttonText ? 'bg-purple_dark' : ''}`}
-          customTextClass={`${activeButton === buttonText ? 'text-white' : ''}`}
-        />
-      ))}
-    </div>
+    <>
+      <div className="xs:hidden md:flex flex-row justify-between gap-4">
+        {buttonList.map((i) => (
+          <Button
+            key={i}
+            title={i}
+            onClick={() => handleOnClickButton(i)}
+            customButtonClass={`flex-1 ${activeButton === i ? 'bg-purple_dark' : ''}`}
+            customTextClass={`${activeButton === i ? 'text-white' : ''}`}
+          />
+        ))}
+      </div>
+
+      <div className="md:hidden">
+        <Slider
+          ref={(slider) => {
+            sliderRef.current = slider;
+          }}
+          {...sliderSettings}
+        >
+          {buttonList.map((i) => (
+            <Button
+              key={i}
+              title={i}
+              onClick={() => handleOnClickButton(i)}
+              customButtonClass={`w-[95%] ${activeButton === i ? 'bg-purple_dark' : ''}`}
+              customTextClass={`${activeButton === i ? 'text-white' : ''}`}
+            />
+          ))}
+        </Slider>
+      </div>
+    </>
   );
 };

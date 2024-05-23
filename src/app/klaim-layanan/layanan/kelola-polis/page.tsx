@@ -1,12 +1,16 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { notFound } from 'next/navigation';
+import FOOTER_NASABAH_1 from '@/assets/images/avrast/component/footer-klaim/footer-img-1.svg';
+import FOOTER_NASABAH_2 from '@/assets/images/avrast/component/footer-klaim/footer-img-2.svg';
+import FOOTER_NASABAH_3 from '@/assets/images/avrast/component/footer-klaim/footer-img-3.svg';
+import FOOTER_NASABAH_4 from '@/assets/images/avrast/component/footer-klaim/footer-img-4.svg';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { MainContent } from '@/components/molecules/specifics/avrast/KelolaPolis';
-import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKlaim';
 import { getPanduanPembayaran } from '@/services/layanan.api';
 import { ContentDatum } from '@/types/page.type';
 import {
@@ -91,7 +95,32 @@ const InformationPolicy = () => {
         image={footerImage.imageUrl}
       />
       <RoundedFrameTop bgColor='bg-white' />
-      <FooterKlaim />
+      <FooterCards cards={[
+  {
+    icon: FOOTER_NASABAH_1,
+    title: 'Kelola Polis',
+    subtitle: 'Login Akun',
+    href: 'https://my.avrist.com/welcome'
+  },
+  {
+    icon: FOOTER_NASABAH_2,
+    title: 'Download Formulir',
+    subtitle: 'Lihat Lainnya',
+    href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
+  },
+  {
+    icon: FOOTER_NASABAH_3,
+    title: 'Avrist Terkini',
+    subtitle: 'Lebih Lanjut',
+    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
+  },
+  {
+    icon: FOOTER_NASABAH_4,
+    title: 'Prosedur Pengaduan',
+    subtitle: 'Lihat Prosedur',
+    href: '/klaim-layanan/layanan/penanganan-pengaduan'
+  }
+]} />
     </div>
   );
 };

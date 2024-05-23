@@ -29,7 +29,7 @@ export const MainContent = (props: Props) => {
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem] xs:pt-[3.125rem]">
         <HighOffice />
       </div>
-      <div className="bg-purple_superlight sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem] xs:pt-[3.125rem]">
+      <div className="bg-purple_superlight sm:px-[8.5rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem]">
         <BranchOffice />
       </div>
       <RoundedFrameBottom frameColor="bg-purple_superlight" />

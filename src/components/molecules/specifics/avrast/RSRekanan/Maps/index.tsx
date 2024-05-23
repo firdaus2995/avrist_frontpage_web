@@ -26,8 +26,6 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
   useEffect(() => {
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(0);
-
-      console.log(hospitalData);
     }
   }, [hospitalData]);
 
