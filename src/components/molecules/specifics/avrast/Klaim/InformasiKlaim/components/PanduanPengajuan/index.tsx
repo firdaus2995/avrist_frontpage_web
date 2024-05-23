@@ -62,7 +62,6 @@ const PanduanPengajuanTab = () => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -104,7 +103,7 @@ const PanduanPengajuanTab = () => {
           </div>
         ))}
       </div>
-      <div className="w-full grid grid-cols-1 md:hidden gap-4">
+      <div className="w-full grid grid-cols-1 md:hidden">
         <Slider
           ref={(slider) => {
             sliderRef.current = slider;
@@ -144,7 +143,7 @@ const PanduanPengajuanTab = () => {
             </div>
           ))}
         </Slider>
-        <div className="flex flex-row justify-between mx-5">
+        <div className="flex flex-row justify-between">
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>

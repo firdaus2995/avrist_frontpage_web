@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import ButtonMenuVertical from '../../ButtonMenuVertical';
 import HeartIcon from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg';
 import Button from '@/components/atoms/Button/Button';
@@ -150,6 +151,18 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
       fetchData();
     }
   }, [params, categoryList]);
+
+  const btnVerticalData = categoryList?.map((item) => {
+    return {
+      title: item,
+      onClick: () => {
+        setParams({
+          ...params,
+          category: item
+        });
+      }
+    };
+  });
 
   const renderStep = (idx: number) => {
     return (
@@ -350,23 +363,30 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         </div>
         <div className="xs:w-full flex flex-col gap-[2.25rem]">
           {!isSelectedData ? (
-            <div className="flex flex-row gap-2">
-              <Input
-                type="text"
-                placeholder="Cari jenis klaim"
-                customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-              />
-              <Button
-                title="Cari"
-                customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
-                customTextClass="text-white text-[1.25rem] font-semibold"
-                onClick={() => {
-                  setParams({ ...params, searchFilter: search });
-                }}
-              />
+            <div className='flex flex-col gap-[2.25rem]'>
+              <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
+                {btnVerticalData && (
+                  <ButtonMenuVertical item={btnVerticalData} />
+                )}
+              </div>
+              <div className="flex flex-row gap-2">
+                <Input
+                  type="text"
+                  placeholder="Cari jenis klaim"
+                  customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                />
+                <Button
+                  title="Cari"
+                  customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
+                  customTextClass="text-white text-[1.25rem] font-semibold"
+                  onClick={() => {
+                    setParams({ ...params, searchFilter: search });
+                  }}
+                />
+              </div>
             </div>
           ) : (
             <div className="flex flex-col gap-[2.25rem]">
