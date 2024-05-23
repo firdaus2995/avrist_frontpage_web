@@ -94,33 +94,35 @@ const InformationPolicy = () => {
         }
         image={footerImage.imageUrl}
       />
-      <RoundedFrameTop bgColor='bg-white' />
-      <FooterCards cards={[
-  {
-    icon: FOOTER_NASABAH_1,
-    title: 'Kelola Polis',
-    subtitle: 'Login Akun',
-    href: 'https://my.avrist.com/welcome'
-  },
-  {
-    icon: FOOTER_NASABAH_2,
-    title: 'Download Formulir',
-    subtitle: 'Lihat Lainnya',
-    href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
-  },
-  {
-    icon: FOOTER_NASABAH_3,
-    title: 'Avrist Terkini',
-    subtitle: 'Lebih Lanjut',
-    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
-  },
-  {
-    icon: FOOTER_NASABAH_4,
-    title: 'Prosedur Pengaduan',
-    subtitle: 'Lihat Prosedur',
-    href: '/klaim-layanan/layanan/penanganan-pengaduan'
-  }
-]} />
+      <RoundedFrameTop bgColor="bg-white" />
+      <FooterCards
+        cards={[
+          {
+            icon: FOOTER_NASABAH_1,
+            title: 'Kelola Polis',
+            subtitle: 'Login Akun',
+            href: 'https://my.avrist.com/welcome'
+          },
+          {
+            icon: FOOTER_NASABAH_2,
+            title: 'Download Formulir',
+            subtitle: 'Lihat Lainnya',
+            href: '/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan'
+          },
+          {
+            icon: FOOTER_NASABAH_3,
+            title: 'Avrist Terkini',
+            subtitle: 'Lebih Lanjut',
+            href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
+          },
+          {
+            icon: FOOTER_NASABAH_4,
+            title: 'Prosedur Pengaduan',
+            subtitle: 'Lihat Prosedur',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan'
+          }
+        ]}
+      />
     </div>
   );
 };

@@ -72,11 +72,20 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const handleReady = (ev: YouTubeEvent) => {
     videoPlayerRef.current = ev.target;
     isReady.current = true;
+    setIsThumbnailVisible(false);
   };
 
   const handleThumbnailClick = () => {
     if (!isReady.current) return;
     setIsThumbnailVisible(false);
+  };
+
+  const videoOptions = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      autoplay: 1,
+    },
   };
 
   return (
@@ -118,6 +127,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         className="h-full"
         iframeClassName="-z-1 w-full h-full"
         onReady={handleReady}
+        opts={videoOptions}
       />
       {type && (
         <div

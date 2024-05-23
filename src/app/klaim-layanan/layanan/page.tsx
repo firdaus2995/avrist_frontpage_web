@@ -54,7 +54,7 @@ const dataInformasiNasabah = [
     icon: FOOTER_NASABAH_3,
     title: 'Avrist Terkini',
     subtitle: 'Lebih Lanjut',
-    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
+    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
   },
   {
     icon: FOOTER_NASABAH_4,
