@@ -82,7 +82,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
       <div
         className={`${customFormClassname} flex flex-col self-stretch bg-white gap-[36px] border border-gray_light border-b-8 rounded-xl`}
       >
-        <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem]">
+        <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] p-4">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
         </p>
         {type === 'Hubungi Kami' ? (
@@ -313,7 +313,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             ))}
           </div>
         ) : (
-          <div className="grid xs:grid-cols-1 sm:grid-cols-2 gap-[2rem]">
+          <div className="grid xs:grid-cols-1 sm:grid-cols-2 gap-[2rem] p-4">
             <div className="flex flex-col gap-[0.25rem]">
               {leftSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">

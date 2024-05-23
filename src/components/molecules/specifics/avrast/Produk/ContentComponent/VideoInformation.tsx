@@ -11,12 +11,12 @@ const VideoInformation = ({ url, type  }: { url: string, type:string }) => {
 
   return (
     <div className="w-full">
-      <div className="w-full m-auto flex flex-col gap-4 mt-[64px]">
+      <div className="w-full m-auto flex flex-col gap-4">
         <div
-          className={`transition-all hidden md:grid rounded-xl visible opacity-100 overflow-hidden`}
+          className={`transition-all grid rounded-xl visible opacity-100 overflow-hidden`}
         >
 					<div className="grid lg:grid-cols-2 rounded-lg border border-solid border-gray_bglightgray">
-            <div className="w-full min-h-[35rem] lg:col-span-2 rounded-lg border border-solid border-gray_bglightgray shadow-md">
+            <div className="w-full sm:min-h-[35rem] xs:h-[17.5rem] lg:col-span-2 rounded-lg border border-solid border-gray_bglightgray shadow-md">
             	<VideoPlayer url={item.videoUrl} thumbnail={item.videoThumbnail} type={item.type} color={item.color} />
             </div>
 						<div className={`p-4 w-full bg-${item.color} rounded-b-xl text-sm text-white font-semibold`}>
