@@ -12,6 +12,7 @@ import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/Cate
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { getListLaporanPerusahaan } from '@/services/laporan-perusahaan';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { handleDownload } from '@/utils/helpers';
 import {
   pageTransformer,
@@ -43,7 +44,9 @@ const LaporanPerusahaan = () => {
     : 0;
 
   useEffect(() => {
-    handleGetContentPage('halaman-laporan-perusahaan').then((res: any) => {
+    handleGetContentPage(
+      BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.LAPORAN_PERUSAHAAN
+    ).then((res: any) => {
       setContentPage(pageTransformer(res));
     });
 

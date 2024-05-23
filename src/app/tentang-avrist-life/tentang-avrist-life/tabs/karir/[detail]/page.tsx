@@ -21,6 +21,7 @@ import {
   SuccessModal
 } from '@/components/molecules/specifics/avrast/Modal';
 import { getDetailKarir } from '@/services/detail-karir.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   contentStringTransformer,
   pageTransformer,
@@ -46,37 +47,41 @@ const DetailKarir = () => {
 
   const fetchData = () => {
     try {
-      getDetailKarir('halaman-detail-karir-avras').then((res: any) => {
-        const { content } = pageTransformer(res);
-        const titleImage = singleImageTransformer(
-          content['title-image']
-        ).imageUrl;
-        const bannerImage = singleImageTransformer(
-          content['banner-image']
-        ).imageUrl;
-        const footerImage = singleImageTransformer(
-          content['cta1-image']
-        ).imageUrl;
-        const judul = contentStringTransformer(content['judul-section']);
-        const deskripsiJudul = contentStringTransformer(
-          content['deskripsi-judul']
-        );
-        const subjudul = contentStringTransformer(content['subjudul-section']);
-        const deskripsiSubjudul = contentStringTransformer(
-          content['deskripsi-subjudul']
-        );
-        const formId = contentStringTransformer(content['form-karir']);
-        setData({
-          titleImage,
-          bannerImage,
-          footerImage,
-          judul,
-          deskripsiJudul,
-          subjudul,
-          deskripsiSubjudul,
-          formId
-        });
-      });
+      getDetailKarir(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.DETAIL_KARIR).then(
+        (res: any) => {
+          const { content } = pageTransformer(res);
+          const titleImage = singleImageTransformer(
+            content['title-image']
+          ).imageUrl;
+          const bannerImage = singleImageTransformer(
+            content['banner-image']
+          ).imageUrl;
+          const footerImage = singleImageTransformer(
+            content['cta1-image']
+          ).imageUrl;
+          const judul = contentStringTransformer(content['judul-section']);
+          const deskripsiJudul = contentStringTransformer(
+            content['deskripsi-judul']
+          );
+          const subjudul = contentStringTransformer(
+            content['subjudul-section']
+          );
+          const deskripsiSubjudul = contentStringTransformer(
+            content['deskripsi-subjudul']
+          );
+          const formId = contentStringTransformer(content['form-karir']);
+          setData({
+            titleImage,
+            bannerImage,
+            footerImage,
+            judul,
+            deskripsiJudul,
+            subjudul,
+            deskripsiSubjudul,
+            formId
+          });
+        }
+      );
     } catch (error) {
       console.error('Error:', error);
     }

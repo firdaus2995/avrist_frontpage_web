@@ -7,7 +7,7 @@ export const BASE_SLUG = {
       KUMPULAN_BERITA_PERS: 'List-Kumpulan-Berita-Pers',
       KUMPULAN_BERITA_PERS_NEW: 'Berita-dan-Kegiatan-Detail',
       TESTIMONI: 'List-Testimoni',
-      PENAWARAN: 'List-Penawaran',
+      PENAWARAN: 'List-Penawaran'
     },
     PAGE: {
       AVRIST_TERKINI: 'halaman-avrist-terkini',
@@ -23,8 +23,19 @@ export const BASE_SLUG = {
   },
   TENTANG_AVRIST_LIFE: {
     CONTENT: {
+      SEKILAS_PERUSAHAAN: 'sejarah-sekilas-perusahaan',
       LIST_PENGHARGAAN: 'Artikel-penghargaan',
-      LAPORAN_PERUSAHAAN: 'lap-perusahaan'
+      LAPORAN_PERUSAHAAN: 'lap-perusahaan',
+      MANAJEMEN: 'Profil-Manajemen',
+      KARIR: 'List-loker'
+    },
+    PAGE: {
+      SEKILAS_PERUSAHAAN: 'halaman-sekilas-perusahaan',
+      MANAJEMEN: 'halaman-manajemen-avras',
+      PENGHARGAAN: 'halaman-penghargaan-avras',
+      LAPORAN_PERUSAHAAN: 'halaman-laporan-perusahaan',
+      KARIR: 'halaman-karir',
+      DETAIL_KARIR: 'halaman-detail-karir-avras'
     }
   }
 };

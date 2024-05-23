@@ -10,6 +10,7 @@ import {
   handleGetContent
 } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { handleDownload } from '@/utils/helpers';
 import {
   singleImageTransformer,
@@ -38,7 +39,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
   const [contentData, setContentData] = useState<any>();
 
   useEffect(() => {
-    handleGetContentPage('halaman-manajemen-avras').then(
+    handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.MANAJEMEN).then(
       (res: PageResponse) => {
         const { content } = pageTransformer(res);
 
@@ -49,7 +50,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
       }
     );
 
-    handleGetContent('Profil-Manajemen', {
+    handleGetContent(BASE_SLUG.TENTANG_AVRIST_LIFE.CONTENT.MANAJEMEN, {
       includeAttributes: 'true'
     }).then((res) => {
       const newDataContent = res.data.contentDataList.map((item: any) => {
