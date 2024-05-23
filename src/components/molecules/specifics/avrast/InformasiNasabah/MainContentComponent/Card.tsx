@@ -14,7 +14,8 @@ const mockData = [
     desc: 'Lihat detail panduan polis yang anda miliki di sini',
     icon: CONTACTS,
     btn: 'Lihat Di Sini',
-    link: 'layanan/kelola-polis'
+    link: 'layanan/kelola-polis',
+    isFile: false
   },
   {
     id: '2',
@@ -22,7 +23,8 @@ const mockData = [
     desc: 'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
     icon: DOCUMENT_SEARCH,
     btn: 'Selengkapnya',
-    link: 'layanan/penanganan-pengaduan'
+    link: '/pdf/prosedur-singkat-pelayanan-nasabah-avrist.pdf',
+    isFile: true
   },
   {
     id: '3',
@@ -30,7 +32,8 @@ const mockData = [
     desc: 'Temukan daftar tenaga pemasar aktif Avrist Assurance',
     icon: PERSON,
     btn: 'Temukan Di sini',
-    link: 'layanan/penanganan-pengaduan'
+    link: 'layanan/penanganan-pengaduan',
+    isFile: false
   }
 ];
 
@@ -55,6 +58,7 @@ export const ContentCard = () => {
             <Link
               href={i.link}
               className="bg-purple_dark max-w-[260px] w-full text-white rounded-md flex items-center justify-center py-[8px] px-[20px]"
+              target={i.isFile ? '_blank' : '_self'}
             >
               {i.btn}
             </Link>

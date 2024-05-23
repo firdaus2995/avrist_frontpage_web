@@ -54,7 +54,7 @@ const dataInformasiNasabah = [
     icon: FOOTER_NASABAH_3,
     title: 'Avrist Terkini',
     subtitle: 'Lebih Lanjut',
-    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita'
+    href: '/promo-berita/berita?tab=Avrist+Terkini&category=Berita+dan+Kegiatan'
   },
   {
     icon: FOOTER_NASABAH_4,
@@ -264,25 +264,25 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         />
       )}
       <div className="w-full">
-        <RoundedFrameBottom frameColor="bg-purple_light_bg" />
+        <RoundedFrameBottom frameColor="bg-white" />
       </div>
 
       <FooterInformation
         title={
           <div
-            className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
+            className={`flex flex-col gap-[2rem] xs:items-center md:items-start h-full`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
               <span className="font-bold text-purple_dark">
                 Asuransi Anti Ribet:
               </span>{' '}
-              Premi Seharga kopi...
+              Premi Seharga kopi ...
             </p>
             <Link
               href="https://www.youtube.com/@avristian"
               target="blank"
               role="button"
-              className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="py-[1.125rem] px-[2.5rem] bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
             >
               Cerita Lebih Detail di
               <Icon name="youtubeIcon" color="white" />
