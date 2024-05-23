@@ -31,8 +31,8 @@ const DescriptionCategoryA = ({
         <p className="font-bold text-[36px] sm:text-[56px]">{productTitle}</p>
       </div>
       <div className="flex flex-col gap-[12px]">
-        <p className="font-bold md:text-[36px] xs:text-[14px]" dangerouslySetInnerHTML={{ __html: tagLineProduk ?? '' }} />
-        <p className="md:text-[24px] xs:text-[14px]" dangerouslySetInnerHTML={{ __html: deskripsiLengkapProduk ?? '' }} />
+        <p className="font-bold md:text-[36px] xs:text-[24px]" dangerouslySetInnerHTML={{ __html: tagLineProduk ?? '' }} />
+        <p className="md:text-[24px] xs:text-[24px]" dangerouslySetInnerHTML={{ __html: deskripsiLengkapProduk ?? '' }} />
         <div className="flex flex-row flex-wrap gap-[8px] font-opensans">
           {tags.map((item: string, index: number) => (
             <MediumTag key={index} title={item} customClass='font-semibold text-[14px]' />

@@ -3,18 +3,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MIN from '@/assets/images/avrast/component/panduan-polis/min.svg';
 import PLUS from '@/assets/images/avrast/component/panduan-polis/plus.svg';
-import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/product-section/chevron-right-purple.svg';
+import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg';
 
 type CardMenuLinkProps = {
   desc: string;
   href?: string;
+  openNewTab?: boolean;
 };
 
 export const CardMenuLink = (props: CardMenuLinkProps) => {
-  const { desc, href } = props;
+  const { desc, href, openNewTab } = props;
   return (
     <Link
       href={href ?? '#'}
+      target={openNewTab ? '_blank' : '_self'}
       className="w-full p-4 bg-purple_light_bg border-2 rounded-lg flex flex-row justify-between font-black"
     >
       {desc}

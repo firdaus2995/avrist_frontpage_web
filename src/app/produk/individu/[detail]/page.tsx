@@ -322,7 +322,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                 tagLineProduk={dataDetail?.taglineProduk}
                 deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
               />
-              {dataDetail && (
+              {dataDetail.videoProduk && (
                 <VideoInformation
                   url={dataDetail.videoProduk}
                   type={dataDetail.captionVideoProduk}
@@ -383,8 +383,8 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             resultData={receiveData}
           />
         )}
-        <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
-          <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
+        <div className="flex flex-col bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
+          <div className="accent-purple_dark flex flex-row items-center gap-[12px]">
             <input
               type="checkbox"
               checked={isChecked}
@@ -446,7 +446,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
         title={
-          <p className="text-[56px]">
+          <p className="sm:text-[3.5rem] xs:text-[2.25rem]">
             <span className="font-bold text-purple_dark">Hello,</span> Ada yang
             bisa <span className="font-bold text-purple_dark">Avrista</span>{' '}
             bantu?

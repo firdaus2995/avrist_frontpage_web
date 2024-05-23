@@ -141,10 +141,6 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
         </div>
       ) : (
         <div>
-          <CardMenuLink
-            desc="Panduan Pembayaran Premi"
-            href="panduan-pembayaran-premi"
-          />
           <div className="mt-[1.5rem] flex flex-col gap-[1.5rem]">
             {policyGuideData?.map((item: any, index: any) => (
               <div
@@ -162,6 +158,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
             <CardMenuLink
               desc="Masuk untuk mengetahui informasi polis Anda"
               href="https://my.avrist.com/welcome"
+              openNewTab
             />
           </div>
         </div>

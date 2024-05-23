@@ -134,7 +134,7 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
 
   return (
     <div className="w-full">
-      <div className="w-full m-auto flex flex-col gap-4">
+      <div className="w-full m-auto flex flex-col gap-[20]">
         {videoData.length >= 1 && (
           <div
             className={`transition-all hidden md:grid rounded-xl ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
@@ -142,7 +142,7 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
             <MainCard item={videoData[0]} />
           </div>
         )}
-        <div className="hidden md:grid md:grid-cols-3 gap-8 mt-2">
+        <div className="hidden w-full md:grid md:grid-cols-3 gap-8 mt-10">
           {renderSub()}
         </div>
         <Slider
