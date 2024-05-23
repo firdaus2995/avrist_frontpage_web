@@ -24,6 +24,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   pageTransformer,
@@ -48,20 +49,32 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   const tabs = [
-    { name: 'Sekilas Perusahaan', url: 'halaman-sekilas-perusahaan' },
-    { name: 'Manajemen', url: 'halaman-manajemen-avras' },
-    { name: 'Penghargaan', url: 'halaman-penghargaan-dan-sertifikasi-avram' },
-    { name: 'Laporan Perusahaan', url: 'halaman-laporan-perusahaan' },
-    { name: 'Karir Bersama Avrist', url: 'halaman-karir' }
+    {
+      name: 'Sekilas Perusahaan',
+      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
+    },
+    { name: 'Manajemen', url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.MANAJEMEN },
+    {
+      name: 'Penghargaan',
+      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN
+    },
+    {
+      name: 'Laporan Perusahaan',
+      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.LAPORAN_PERUSAHAAN
+    },
+    {
+      name: 'Karir Bersama Avrist',
+      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.KARIR
+    }
   ];
 
   useEffect(() => {
     const url = tabs.find((item: any) => item.name === tab)?.url;
 
     if (!transformedData.titleImage) {
-      handleGetContentPage(url ?? 'halaman-sekilas-perusahaan').then((res) =>
-        setData(res)
-      );
+      handleGetContentPage(
+        url ?? BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
+      ).then((res) => setData(res));
 
       const { content } = pageTransformer(data);
 

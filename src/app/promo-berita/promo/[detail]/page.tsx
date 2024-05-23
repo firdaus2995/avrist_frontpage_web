@@ -381,7 +381,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             />
           }
 
-          <div className="w-full xs:h-[250px] md:h-[650px] mb-10">
+          <div className="w-full xs:h-[250px] md:h-[650px] mb-16">
             <VideoPlayer
               thumbnail=""
               url={getYouTubeId(contentData.artikelVideo) ?? ''}

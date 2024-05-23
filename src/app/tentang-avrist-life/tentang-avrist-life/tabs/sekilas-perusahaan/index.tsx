@@ -16,6 +16,7 @@ import {
   handleGetContent,
   handleGetContentPage
 } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { getYouTubeId } from '@/utils/helpers';
 import {
   handleTransformedContent,
@@ -91,11 +92,13 @@ const SekilasPerusahaan = () => {
   useEffect(() => {
     const groupedData: any = {};
 
-    handleGetContentPage('halaman-sekilas-perusahaan').then((res: any) => {
+    handleGetContentPage(
+      BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
+    ).then((res: any) => {
       setContentPage(pageTransformer(res));
     });
 
-    handleGetContent('sejarah-sekilas-perusahaan', {
+    handleGetContent(BASE_SLUG.TENTANG_AVRIST_LIFE.CONTENT.SEKILAS_PERUSAHAAN, {
       includeAttributes: 'true'
     }).then((res) => {
       const newDataContent = res.data.contentDataList.map((item: any) => {

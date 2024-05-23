@@ -19,6 +19,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   contentDetailTransformer,
   pageTransformer,
@@ -40,7 +41,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
   const fetchData = () => {
     try {
-      handleGetContentPage('halaman-penghargaan-dan-sertifikasi-avram').then(
+      handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN).then(
         (res: any) => {
           const { content } = pageTransformer(res);
           const titleImage = singleImageTransformer(
