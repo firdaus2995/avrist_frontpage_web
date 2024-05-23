@@ -6,7 +6,7 @@ const KeamananOnline = () => {
       <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem]">
         Keamanan Online
       </p>
-      <p className="font-karla font-bold sm:text-[2.25rem] xs:text-[1.75rem] text-purple_dark mt-[1.5rem]">
+      <p className="font-karla font-bold sm:text-[2.25rem] xs:text-[1.5rem] text-purple_dark mt-[1.5rem]">
         Kebijakan Keamanan Informasi
       </p>
       <p className="font-opensans font-normal text-[1.25rem] text-gray_body mt-[1.5rem]">

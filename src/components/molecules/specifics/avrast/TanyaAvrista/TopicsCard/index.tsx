@@ -79,7 +79,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                 key={index}
                 role="button"
                 onClick={() => onClickCards(item.title)}
-                  className={`w-[17.125rem] bg-white h-[16.25rem] pb-[2.25rem] px-[1.5rem] pt-[1.5rem] flex flex-col items-center justify-center gap-[0.5rem] border border-gray_light rounded-xl border-b-[0.5rem] ${!item.color ? 'border-b-purple_dark' : item.color}`}
+                  className={`w-[95%] bg-white h-[16.25rem] pb-[2.25rem] px-[1.5rem] pt-[1.5rem] flex flex-col items-center justify-center gap-[0.5rem] border border-gray_light rounded-xl border-b-[0.5rem] ${!item.color ? 'border-b-purple_dark' : item.color}`}
                 >
                   <Image
                     alt={item.title}

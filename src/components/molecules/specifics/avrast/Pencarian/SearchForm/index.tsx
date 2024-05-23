@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import Slider from 'react-slick';
 import CardCategoryD from '../../Cards/CategoryD';
 import SearchBox from '../../SearchBox';
 import NewsCard from './NewsCard';
@@ -195,6 +196,69 @@ const SearchForm = () => {
     setCurrentPage(page);
   };
 
+  const tabs = [
+    {
+      title: 'Asuransi Individu',
+      slug: 'Produk-Avras',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    },
+    {
+      title: 'Asuransi Korporasi',
+      slug: 'Produk-Avras',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    },
+    {
+      title: 'Berita & Kegiatan',
+      slug: 'Berita-dan-Kegiatan-Detail',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    },
+    {
+      title: 'Avristory',
+      slug: 'Bulletin-AvriStory',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    },
+    {
+      title: 'Avrist Life Guide',
+      slug: 'List-Avrist-Life-Guide',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    },
+    {
+      title: 'Avrist Syariah',
+      slug: 'Produk-Avrast-Syariah',
+      color: 'bg-olive_green',
+      borderColor: 'border-olive_green'
+    },
+    {
+      title: 'Avrist DPLK',
+      slug: 'Produk-Avrast-DPLK',
+      color: 'bg-yellow_alternate',
+      borderColor: 'border-yellow_alternate'
+    },
+    {
+      title: 'Penghargaan',
+      slug: 'Artikel-Penghargaan',
+      color: 'bg-purple_dark',
+      borderColor: 'border-purple_dark'
+    }
+  ];
+
+  const sliderRef = useRef<Slider | null>(null);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
   return (
     <div className=" w-full flex flex-col -mt-[-0.0625rem]">
       <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col gap-[3rem]">
@@ -205,79 +269,41 @@ const SearchForm = () => {
           value={searchKeyWords}
         />
 
-        <div className="px-[0.1875rem] grid sm:grid-cols-4 xs:grid-cols-1 gap-[0.75rem]">
-          <Button
-            title={'Asuransi Individu'}
-            onClick={() => {
-              setActiveTab('Asuransi Individu');
-              setCurrentSlug('Produk-Avras');
+        <div className="px-[0.1875rem] xs:hidden sm:grid sm:grid-cols-4 xs:grid-cols-1 gap-[0.75rem]">
+          {tabs.map((tab) => (
+            <Button
+              key={tab.title}
+              title={tab.title}
+              onClick={() => {
+                setActiveTab(tab.title);
+                setCurrentSlug(tab.slug);
+              }}
+              customButtonClass={`${activeTab === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
+              customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+            />
+          ))}
+        </div>
+
+        <div className="md:hidden">
+          <Slider
+            ref={(slider) => {
+              sliderRef.current = slider;
             }}
-            customButtonClass={`${activeTab === 'Asuransi Individu' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Asuransi Korporasi'}
-            onClick={() => {
-              setActiveTab('Asuransi Korporasi');
-              setCurrentSlug('Produk-Avras');
-            }}
-            customButtonClass={`${activeTab === 'Asuransi Korporasi' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Berita & Kegiatan'}
-            onClick={() => {
-              setActiveTab('Berita & Kegiatan');
-              setCurrentSlug('Berita-dan-Kegiatan-Detail');
-            }}
-            customButtonClass={`${activeTab === 'Berita & Kegiatan' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Avristory'}
-            onClick={() => {
-              setActiveTab('Avristory');
-              setCurrentSlug('Bulletin-AvriStory');
-            }}
-            customButtonClass={`${activeTab === 'Avristory' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Avrist Life Guide'}
-            onClick={() => {
-              setActiveTab('Avrist Life Guide');
-              setCurrentSlug('List-Avrist-Life-Guide');
-            }}
-            customButtonClass={`${activeTab === 'Avrist Life Guide' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Avrist Syariah'}
-            onClick={() => {
-              setActiveTab('Avrist Syariah');
-              setCurrentSlug('Produk-Avrast-Syariah');
-            }}
-            customButtonClass={`${activeTab === 'Avrist Syariah' && 'bg-olive_green text-white'} !border-olive_green hover:bg-olive_green px-[1.25rem] py-[0.5rem]`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Avrist DPLK'}
-            onClick={() => {
-              setActiveTab('Avrist DPLK');
-              setCurrentSlug('Produk-Avrast-DPLK');
-            }}
-            customButtonClass={`${activeTab === 'Avrist DPLK' && 'bg-yellow_alternate text-white'} !border-yellow_alternate hover:bg-yellow_alternate px-[1.25rem] py-[0.5rem]`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
-          <Button
-            title={'Penghargaan'}
-            onClick={() => {
-              setActiveTab('Penghargaan');
-              setCurrentSlug('Artikel-Penghargaan');
-            }}
-            customButtonClass={`${activeTab === 'Penghargaan' && 'bg-purple_dark text-white px-[1.25rem] py-[0.5rem]'}`}
-            customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-          />
+            {...sliderSettings}
+          >
+            {tabs.map((tab) => (
+              <Button
+                key={tab.title}
+                title={tab.title}
+                onClick={() => {
+                  setActiveTab(tab.title);
+                  setCurrentSlug(tab.slug);
+                }}
+                customButtonClass={`w-[95%] ${activeTab === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
+                customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+              />
+            ))}
+          </Slider>
         </div>
 
         <ServiceCard />
