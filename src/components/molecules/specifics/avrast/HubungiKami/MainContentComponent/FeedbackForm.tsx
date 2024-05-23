@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CustomForm from '../../CustomForm/Index';
+import { SuccessModal } from '../../Modal';
 import { DividerRainbow } from './Divider';
 import { RatingEmoji } from './form/Rating';
 import { handleSendEmail } from '@/services/form.api';
@@ -20,6 +21,7 @@ export const FeedbackForm = (props: Props) => {
   //temporary disabled rating
   const [, setRating] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (Id) {
@@ -59,7 +61,7 @@ export const FeedbackForm = (props: Props) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -112,6 +114,15 @@ export const FeedbackForm = (props: Props) => {
           </div>
         </div>
         <DividerRainbow />
+      </div>
+      <div className="absolute">
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            router.refresh();
+          }}
+        />
       </div>
     </div>
   );
