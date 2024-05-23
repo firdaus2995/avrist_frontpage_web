@@ -75,11 +75,9 @@ const InfoKlaimTab = () => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
-    centerPadding: '60px'
+    slidesToScroll: 1
   };
 
   const handleClickPelayananButton = (text: string) => {
@@ -109,38 +107,38 @@ const InfoKlaimTab = () => {
 
   return (
     <div>
-      <div className="flex flex-col self-stretch items-center justify-center gap-[64px]">
+      <div className="flex flex-col self-stretch items-center justify-center gap-[4rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[56px] xs:text-[36px] font-medium text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
             Komitmen Kami menangani klaim Anda
           </h2>
-          <h2 className="md:text-[36px] xs:text-[24px]">
+          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
             Kami memberikan pelayanan dengan{' '}
             <span className="font-bold">efisien.</span>
           </h2>
         </div>
-        <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
+        <div className="grid grid-cols-3 gap-[1.25rem] xs:hidden md:grid">
           {data.map((val, idx) => (
             <div
               key={idx}
-              className="max-w-sm flex flex-col items-center justify-between pt-[24px] px-[24px] pb-[36px] bg-white border border-gray-200 rounded-[12px] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+              className="max-w-sm flex flex-col items-center justify-between pt-[1.5rem] px-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-[0.75rem] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
             >
               <Image src={val.icon} alt={val.title} width={100} height={100} />
               <div className="flex flex-col items-center justify-between gap-2">
-                <h5 className="mb-2 md:text-[32px] xs:text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
+                <h5 className="mb-2 md:text-[2rem] xs:text-[1.25rem] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
                   {val.title}
                 </h5>
               </div>
-                <p className="mb-3 font-normal md:text-[16px] xs:text-[12px] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
-                  {val.desc}
-                </p>
-                <div
-                  role="button"
-                  onClick={() => handleClickPelayananButton(val.btnText)}
-                  className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
-                >
-                  {val.btnText}
-                </div>
+              <p className="mb-3 font-normal md:text-[1rem] xs:text-[0.75rem] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
+                {val.desc}
+              </p>
+              <div
+                role="button"
+                onClick={() => handleClickPelayananButton(val.btnText)}
+                className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
+              >
+                {val.btnText}
+              </div>
             </div>
           ))}
         </div>
@@ -154,25 +152,32 @@ const InfoKlaimTab = () => {
             {data.map((val, idx) => (
               <div
                 key={idx}
-                className="max-w-sm h-[400px] flex flex-col items-center justify-between p-2"
+                className="w-full h-[25rem] flex flex-col items-center justify-between"
               >
                 <div
                   key={idx}
-                  className="max-w-sm h-[380px] flex flex-col items-center justify-between p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+                  className="w-[95%] h-[21.375rem] flex flex-col items-center px-[1.5rem] pt-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
                 >
                   <div className="flex w-full items-center justify-center">
-                    <Image src={val.icon} alt={val.title} className="w-20" />
+                    <Image
+                      src={val.icon}
+                      alt={val.title}
+                      width={100}
+                      height={100}
+                    />
                   </div>
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <h5 className="mb-2 text-[20px] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
-                      {val.title}
-                    </h5>
-                    <p className="mb-3 font-normal text-[12px] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
-                      {val.desc}
-                    </p>
+                  <div className="flex flex-col items-center justify-between gap-2 grow">
+                    <div className="flex flex-col">
+                      <h5 className="mb-2 text-[1.25rem] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
+                        {val.title}
+                      </h5>
+                      <p className="mb-3 font-normal text-[0.75rem] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
+                        {val.desc}
+                      </p>
+                    </div>
                     <div
                       role="button"
-                      className="w-[80%] p-3 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl text-xs text-center"
+                      className="px-[1.25rem] py-[0.5rem] bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-center"
                       onClick={() => handleClickPelayananButton(val.btnText)}
                     >
                       {val.btnText}

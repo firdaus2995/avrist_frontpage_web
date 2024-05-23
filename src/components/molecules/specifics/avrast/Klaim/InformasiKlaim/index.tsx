@@ -89,7 +89,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
                 <div
                   role="button"
                   onClick={() => handleTabClick(val)}
-                  className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+                  className={`mx-[0.625rem] whitespace-nowrap p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
                 >
                   {val}
                 </div>

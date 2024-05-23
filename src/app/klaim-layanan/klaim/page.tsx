@@ -282,10 +282,10 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
               href="https://www.youtube.com/@avristian"
               target="blank"
               role="button"
-              className="py-[1.125rem] px-[2.5rem] bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-[1.25rem] font-semibold text-white flex flex-row gap-2 items-center"
             >
               Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" />
+              <Icon name="youtubeIcon" width={26.67} height={18.67} color="white" />
             </Link>
           </div>
         }
