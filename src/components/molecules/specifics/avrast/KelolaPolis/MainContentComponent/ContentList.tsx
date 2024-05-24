@@ -40,7 +40,7 @@ export const ContentList = ({
   };
 
   return (
-    <div className={`w-full flex flex-col justify-center relative pt-20`}>
+    <div className={`w-full flex flex-col justify-center relative`}>
       <div className="w-full flex md:flex-row xs:flex-col">
         <div className="xs:hidden md:block">
           <div

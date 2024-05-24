@@ -159,7 +159,7 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
     return videoData.map((item) => (
       <div
         key={item.id}
-        className="w-full h-[17.813rem] mb-10 flex items-center justify-center"
+        className="w-full h-[13rem] mb-10 flex items-center justify-center"
       >
         <YouTube
           videoId={getVideoId(item.videoUrl)}
