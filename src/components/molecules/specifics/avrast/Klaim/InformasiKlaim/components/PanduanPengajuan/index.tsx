@@ -7,9 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import Icon1 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
-import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-3.svg';
 import Icon4 from '@/assets/images/avrast/component/panduan-pengajuan/icon-4.svg';
-import Icon5 from '@/assets/images/avrast/component/panduan-pengajuan/icon-5.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
 
@@ -32,17 +30,6 @@ const data = [
     }
   },
   {
-    title: 'Asuransi Avrist Syariah',
-    icon: Icon3,
-    btnText: 'Baca Panduan',
-    onClick: () => {
-      window.open(
-        'https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf',
-        '_blank'
-      );
-    }
-  },
-  {
     title: 'Asuransi Korporasi',
     icon: Icon4,
     btnText: 'Baca Panduan',
@@ -52,12 +39,6 @@ const data = [
         '_blank'
       );
     }
-  },
-  {
-    title: 'Avrist DPLK',
-    icon: Icon5,
-    btnText: 'Baca Panduan',
-    onClick: () => {}
   }
 ];
 
@@ -83,8 +64,8 @@ const PanduanPengajuanTab = () => {
   };
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center">
-      <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
+    <div className="w-full flex-col self-stretch items-center justify-center">
+      <div className="grid grid-cols-2 gap-5 xs:hidden md:grid">
         {data.map((val, idx) => (
           <div
             key={idx}
@@ -108,7 +89,7 @@ const PanduanPengajuanTab = () => {
               ) : (
                 <div
                   role="button"
-                  className="w-[80%] py-[0.5rem] px-[1.25rem] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-xl text-[1rem] text-center ml-0 whitespace-nowrap"
+                  className="py-[0.5rem] px-[1.25rem] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-xl text-[1rem] text-center ml-0 whitespace-nowrap"
                   onClick={val.onClick}
                 >
                   {val.btnText}
