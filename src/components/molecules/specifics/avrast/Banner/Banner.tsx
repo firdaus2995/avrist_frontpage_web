@@ -27,7 +27,12 @@ const handleGetContent = async (slug: string) => {
   }
 };
 
-const BannerAvrast = () => {
+type BannerAvrastPopUp = {
+  onPopUpURL: (x: string) => void;
+};
+
+const BannerAvrast = (props: BannerAvrastPopUp) => {
+  const { onPopUpURL } = props;
   const sliderRef = useRef<Slider | null>(null);
   const dropdownRef = useRef<any>(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -38,6 +43,10 @@ const BannerAvrast = () => {
       try {
         const data = await handleGetContent('homepage-avras');
         const { content } = pageTransformer(data);
+        const popupUrl = content['popup-url'];
+        if (popupUrl?.value) {
+          onPopUpURL(popupUrl?.value);
+        }
 
         setBannerData(heroContentTransformer(content['hero-slider']));
       } catch (error) {
@@ -82,10 +91,13 @@ const BannerAvrast = () => {
           position: 'absolute',
           left: 126,
           width: 150,
-          bottom: 50,
+          bottom: 50
         }}
       >
-        <ul style={{ margin: '0px', width: 12, height: 12, display: 'flex' }}> {dots} </ul>
+        <ul style={{ margin: '0px', width: 12, height: 12, display: 'flex' }}>
+          {' '}
+          {dots}{' '}
+        </ul>
       </div>
     )
   };
