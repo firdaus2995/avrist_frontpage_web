@@ -71,8 +71,8 @@ export const StandarPelayananModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-y-auto">
                 <CardRainbow className="bg-white">
-                  <div className=" transition md:py-[64px] md:px-[72px] xs:p-10 overflow-y-auto">
-                    <div className="absolute right-0 p-[24px]">
+                  <div className=" transition sm:py-[64px] sm:px-[72px] xs:px-6 xs:pt-6 xs:pb-9 overflow-y-auto">
+                    <div className="absolute right-0 top-0 p-[24px]">
                       <button onClick={onClose}>
                         <Icon
                           name="close"
@@ -85,17 +85,17 @@ export const StandarPelayananModal = (props: Props) => {
                     <div className="flex flex-col h-[80vh] w-[60vw]">
                       <div className="flex flex-col">
                         <div className="my-[20px] flex flex-col gap-[24px]">
-                          <p className="font-karla font-bold text-purple_dark text-[48px]">
+                          <p className="font-karla font-bold text-purple_dark sm:text-[3rem] xs:text-[2.25rem]">
                           Komitmen Klaim
                           </p>
                           {data.map((val, idx) => (
                             <div key={idx}>
-                              <p className="text-[18px] font-bold w-full">
+                              <p className="text-[1.5rem] font-bold w-full">
                                 {val.text}
                               </p>
                               {val.child?.length > 0 && (
                                 <div>
-                                  <ul className="flex flex-col gap-[24px]">
+                                  <ul className="flex flex-col text-[1.25rem] gap-[24px]">
                                     {val.child.map((value, index) => (
                                       <li key={index}>
                                         <div className="flex flex-row gap-2 justify-start items-start">
@@ -129,7 +129,7 @@ export const StandarPelayananModal = (props: Props) => {
                               )}
                             </div>
                           ))}
-                          <p className='text-[18px] text-justify'>
+                          <p className='text-[1.25rem] text-justify'>
                             Tentunya, kami berkomitmen untuk memberikan estimasi waktu penyelesaian klaim yang transparan dan realistis kepada para nasabah kami.
                             Baik untuk metode pembayaran klaim cashless maupun reimbursement, kami berusaha untuk menyelesaikan klaim dalam waktu 14 hari kerja setelah menerima semua dokumen yang diperlukan.
                             Komitmen kami adalah untuk memastikan bahwa klaim nasabah diproses dengan cepat dan efisien, sehingga para penerima manfaat dapat segera mendapatkan manfaat asuransi yang mereka perlukan dalam waktu yang sesingkat mungkin.
