@@ -18,9 +18,8 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.5,
     slidesToScroll: 1
   };
 
@@ -33,7 +32,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
 
   return (
     <>
-      <div className="xs:hidden md:flex flex-row justify-between gap-4">
+      <div className="xs:hidden md:flex flex-row justify-between gap-[0.75rem]">
         {buttonList.map((i) => (
           <Link
             href={{
@@ -47,8 +46,8 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
             <Button
               key={i}
               title={i}
-              customButtonClass={`w-full flex-1 h-full py-[8px] px-[20px] ${params === i ? 'bg-purple_dark' : ''}`}
-              customTextClass={`${params === i ? 'text-white' : ''} font-semibold`}
+              customButtonClass={`w-full flex-1 h-full py-[0.5rem] px-[1.25rem] ${params === i ? 'bg-purple_dark' : ''}`}
+              customTextClass={`${params === i ? 'text-white' : ''} font-semibold text-[1rem]`}
             />
           </Link>
         ))}
