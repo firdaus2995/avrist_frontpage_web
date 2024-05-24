@@ -1206,7 +1206,9 @@ const Berita: React.FC<ParamsProps> = () => {
                             }}
                           />
                         }
-                        <div className="flex gap-[12px]">{item.arr}</div>
+                        <div className="flex gap-[12px] flex-wrap">
+                          {item.arr}
+                        </div>
                       </div>
                     ))}
                   </div>
