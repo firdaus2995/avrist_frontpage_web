@@ -270,9 +270,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                           {/* <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p> */}
                         </div>
                       </div>
-                      <div className="flex items-center md:justify-center">
+                      <div className="flex items-center justify-center">
                         <div
-                          className="py-[0.5rem] px-[2.594rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer font-opensans"
+                          className="py-[0.5rem] px-[1.25rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer font-opensans"
                           onClick={async () =>
                             await handleDownload(
                               singleImageTransformer(val.details[1]).imageUrl
@@ -395,7 +395,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             </div>
           ) : (
             <div className="flex flex-col gap-[2.25rem]">
-              <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-4 text-purple_dark font-semibold">
+              <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-3 text-purple_dark font-semibold">
                 <div className="flex flex-row items-center gap-2">
                   <Image src={HeartIcon} alt="heart-icon" className="w-7" />
                   <p className="text-[1.5rem] font-bold font-karla">
@@ -455,7 +455,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                           onChangeBannerImg(2);
                         }
                       }}
-                      className="p-2 bg-purple_light_bg whitespace-normal"
+                      className="px-5 py-2 bg-purple_light_bg whitespace-normal"
                     >
                       {detailData.map((val, idx) => (
                         <option
@@ -471,7 +471,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   )}
                 </div>
               </div>
-              <div className="md:text-[3.5rem] xs:text-[1.5rem] font-bold font-karla">
+              <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla">
                 {selectedData.title}
               </div>
             </div>
