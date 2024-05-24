@@ -50,18 +50,20 @@ export const ContentCard = () => {
             src={i.icon}
             className="w-[100px] h-[100px]"
           />
-          <p className="text-center font-bold text-[32px] font-karla">
-            {i.title}
-          </p>
-          <div className="flex flex-col justify-between grow items-center gap-[24px]">
-            <p className="font-opensans text-[16px] text-center">{i.desc}</p>
-            <Link
-              href={i.link}
-              className="bg-purple_dark max-w-[260px] w-full text-white rounded-md flex items-center justify-center py-[8px] px-[20px]"
-              target={i.isFile ? '_blank' : '_self'}
-            >
-              {i.btn}
-            </Link>
+          <div className='flex flex-col justify-between grow gap-[24px]'>
+            <p className="text-center font-bold text-[32px] font-karla">
+              {i.title}
+            </p>
+            <div className="flex flex-col justify-end grow items-center gap-[24px]">
+              <p className="font-opensans text-[16px] text-center">{i.desc}</p>
+              <Link
+                href={i.link}
+                className="bg-purple_dark max-w-[260px] w-full text-white rounded-md flex items-center justify-center py-[8px] px-[20px]"
+                target={i.isFile ? '_blank' : '_self'}
+              >
+                {i.btn}
+              </Link>
+            </div>
           </div>
         </div>
       ))}

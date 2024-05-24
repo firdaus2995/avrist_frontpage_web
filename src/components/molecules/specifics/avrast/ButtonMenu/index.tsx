@@ -33,7 +33,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
 
   return (
     <>
-      <div className="xs:hidden md:flex flex-row justify-between gap-4">
+      <div className="xs:hidden md:flex flex-row justify-between gap-[0.75rem]">
         {buttonList.map((i) => (
           <Link
             href={{
@@ -48,7 +48,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
               key={i}
               title={i}
               customButtonClass={`w-full flex-1 h-full py-[8px] px-[20px] ${params === i ? 'bg-purple_dark' : ''}`}
-              customTextClass={`${params === i ? 'text-white' : ''} font-semibold`}
+              customTextClass={`${params === i ? 'text-white' : ''} font-semibold text-[1rem]`}
             />
           </Link>
         ))}
