@@ -36,18 +36,16 @@ export const MainContent = ({
 
   return (
     <div className="w-full flex flex-col">
-      <div className="bg-white flex flex-col gap-6">
-        <div className="sm:pt-[6.25rem] xs:pt-[3.125rem] pb-[1.625rem] xs:px-[2rem] sm:px-[8.5rem] flex flex-col gap-[4rem]">
-          <ButtonMenu />
-          <Content />
-          {videoData && <VideoInformation pageVideoData={videoData} />}
-          {dataMainContent && policyGuideData && (
-            <DocumentPolicy
-              policyContentData={dataMainContent}
-              policyGuideData={policyGuideData}
-            />
-          )}
-        </div>
+      <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[26px] sm:px-[136px] sm:gap-[64px] xs:p-4 xs:gap-[36px]">
+        <ButtonMenu />
+        <Content />
+        {videoData && <VideoInformation pageVideoData={videoData} />}
+        {dataMainContent && policyGuideData && (
+          <DocumentPolicy
+            policyContentData={dataMainContent}
+            policyGuideData={policyGuideData}
+          />
+        )}
       </div>
       <RoundedFrameBottom />
     </div>

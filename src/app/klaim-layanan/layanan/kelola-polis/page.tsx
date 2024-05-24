@@ -85,10 +85,10 @@ const InformationPolicy = () => {
             </p>
             <div
               role="button"
-              className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="py-[0.75rem] flex flex-row items-center justify-center px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2"
             >
               Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" />
+              <Icon name="youtubeIcon" color="white" width={26.67} height={18.67} />
             </div>
           </div>
         }

@@ -14,7 +14,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import ArrowRight from '@/assets/images/common/arrow-carousel-right-white.svg';
 
 const PanduanKlaim = () => {
   const activePlayerRef = useRef<YouTubeEvent['target'] | null>(null);
@@ -123,11 +122,6 @@ const PanduanKlaim = () => {
               className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
             >
               {item.type}
-              <Image
-                alt={'arrow-btn'}
-                className="w-[2.25rem]"
-                src={ArrowRight}
-              />
             </div>
           </div>
         )}
