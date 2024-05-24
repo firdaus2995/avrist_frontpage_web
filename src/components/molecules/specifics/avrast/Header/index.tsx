@@ -166,7 +166,8 @@ const Header = () => {
                 <Icon name="homeIcon" color="white" width={20} isSquare />
               </Button.IconButton>
             </Link>
-            {menus.map((item, idx) => (
+            {menus.map((item, idx) => {
+              return (
               <React.Fragment key={item.title}>
                 <li
                   className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
@@ -183,7 +184,7 @@ const Header = () => {
                   xPosition={xPositions[idx]}
                 />
               </React.Fragment>
-            ))}
+            )})}
           </ul>
           <Button.IconButton
             customButtonClass="inline-block md:hidden"
