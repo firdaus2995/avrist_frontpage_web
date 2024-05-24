@@ -41,7 +41,7 @@ const Pencarian = async () => {
           breadcrumbsData={breadcrumbsData}
           imageUrl={bannerImage.imageUrl}
         />
-        <div className="xs:-mt-[9.4rem] md:-mt-[6.3rem] relative z-[10]">
+        <div className="xs:-mt-[3.4rem] md:-mt-[6.3rem] relative z-[10]">
           {' '}
           <SearchForm />
         </div>

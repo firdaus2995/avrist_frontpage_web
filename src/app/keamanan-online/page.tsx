@@ -60,7 +60,7 @@ const SyaratPengunaan = () => {
         ]}
         imageUrl={bannerImage}
       />
-      <div className="w-full xs:-mt-[9.4rem] md:-mt-[6.3rem]">
+      <div className="w-full xs:-mt-[3.4rem] md:-mt-[6.3rem]">
         <MainContentKeamananOnline />
       </div>
 

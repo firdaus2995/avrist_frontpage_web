@@ -176,6 +176,7 @@ const Penghargaan = () => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <CategoryWithThreeCards
+        outerClass="!py-4"
         filterRowLayout={true}
         hiddenCategory
         categoryCard="B"

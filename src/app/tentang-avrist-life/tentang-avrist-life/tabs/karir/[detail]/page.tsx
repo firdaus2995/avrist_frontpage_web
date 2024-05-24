@@ -111,7 +111,7 @@ const DetailKarir = () => {
         imageUrl={data?.titleImage}
       />
 
-      <div className="mb-1 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-24 md:-mt-28 z-[10]">
+      <div className="mb-1 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
         <div className="flex flex-col gap-[3rem]">
           <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-karla font-bold">
             {data.judul ?? ''}

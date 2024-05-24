@@ -255,11 +255,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/promo?tab=Promo+Terbaru'
           }
         ]}
-        imageUrl={data?.titleImage}
+        imageUrl={data?.titleImage ?? BlankImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
 
-      <div className="flex items-center justify-center w-full">
+      <div className="flex items-center justify-center w-full absolute z-20 xs:-mt-[3.2rem] md:-mt-[6.2rem]">
         <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[23.281rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
           <div className="flex flex-col gap-[0.5rem]">
             <p className="text-purple_dark font-bold font-karla text-2xl">

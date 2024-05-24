@@ -1,8 +1,9 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import Slider from 'react-slick';
 import Karir from './tabs/karir';
 import LaporanPerusahaan from './tabs/laporan-perusahaan';
 import Manajemen from './tabs/management';
@@ -18,7 +19,6 @@ import Icon7 from '@/assets/images/common/procedure.svg';
 import Icon8 from '@/assets/images/common/youtube.svg';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -32,7 +32,9 @@ import {
 } from '@/utils/responseTransformer';
 
 const TentangAvristLife: React.FC<ParamsProps> = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [tab, setTab] = useState('');
   const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
@@ -40,6 +42,16 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     ctaImage: ''
   });
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
+
+  const sliderTabSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    centerMode: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
 
   useEffect(() => {
     const value = searchParams.get('tab');
@@ -93,8 +105,25 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     setIsSelectedDetail(isSelected);
   };
 
+  const handleTabClick = (tab: string) => {
+    setTab(tab);
+    router.push(pathname + '?' + createQueryString('tab', tab), {
+      scroll: false
+    });
+  };
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
-    <div className="flex flex-col items-center justify-center bg-purple_dark">
+    <div className="flex flex-col items-center justify-center">
       <Hero
         title={tab}
         breadcrumbsData={[
@@ -103,26 +132,46 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={transformedData.titleImage}
       />
-      <div className="xs:-mb-1 md:mb-0 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[9.4rem] md:-mt-[6.2rem] z-[10]">
-        <CategoryPills
-          buttonTitle={tabs.map((item: any) => item.name)}
-          buttonActiveClassname="bg-purple_dark border-purple_dark"
-          buttonInactiveClassname="bg-transparent border-purple_dark text-purple_dark hover:bg-purple_dark hover:border-purple_dark hover:text-white"
-          buttonActiveTextClassname="text-white"
-          links={{
-            'Sekilas Perusahaan':
-              '/tentang-avrist-life/tentang-avrist-life?tab=Sekilas+Perusahaan',
-            Manajemen: '/tentang-avrist-life/tentang-avrist-life?tab=Manajemen',
-            Penghargaan:
-              '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan',
-            'Laporan Perusahaan':
-              '/tentang-avrist-life/tentang-avrist-life?tab=Laporan+Perusahaan',
-            'Karir Bersama Avrist':
-              '/tentang-avrist-life/tentang-avrist-life?tab=Karir+Bersama+Avrist'
-          }}
-        />
+      <div className="xs:pb-2 md:pb-0 xs:-mb-2 md:mb-0 w-full justify-between gap-2 items-stretch xs:px-[2rem] md:px-[8.5rem] xs:pt-[3.125rem] md:pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[3.2rem] md:-mt-[6.2rem] z-[10]">
+        {/* Tab Desktop */}
+        <div className="w-full xs:hidden md:block">
+          <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
+            {tabs.map((val, idx) => (
+              <div
+                key={idx}
+                role="button"
+                onClick={() => {
+                  handleTabClick(val.name);
+                }}
+                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${tab === val.name ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+              >
+                {val.name}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Mobile */}
+        <div className="w-[100%] md:hidden">
+          <div>
+            <Slider {...sliderTabSettings}>
+              {tabs.map((val, idx) => (
+                <div key={idx}>
+                  <div
+                    role="button"
+                    onClick={() => handleTabClick(val.name)}
+                    className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val.name ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+                  >
+                    {val.name}
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
       </div>
-      <div className="w-full z-10 xs:mt-1 md:mt-0">
+
+      <div className="w-full z-10 xs:py-[2.25rem] md:py-[3rem]">
         {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
         {tab === 'Manajemen' && (
           <Manajemen onSelectDetail={handleSelectedDetail} />
@@ -135,7 +184,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       {tab === 'Sekilas Perusahaan' ||
       tab === 'Manajemen' ||
       tab === 'Penghargaan' ? (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full xs:-mt-8 md:-mt-10">
           <FooterInformation
             title={
               <div className="flex flex-col gap-4">
