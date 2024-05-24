@@ -1,4 +1,5 @@
 import { QueryParams } from './httpService';
+import { ContentData } from '@/types/content.type';
 
 export const camelToKebabCase = (str: string) => {
   return str.toLowerCase().replace(/\s+/g, '-');
@@ -64,4 +65,14 @@ export const getYouTubeId = (url: string): string | null => {
     console.error('Invalid YouTube URL');
     return '';
   }
+};
+
+export const mergeAllData = (data: Record<string, ContentData[]>) => {
+  let mergedData: ContentData[] = [];
+
+  Object.keys(data)?.map((item: string) => {
+    mergedData = mergedData.concat(data[item]);
+  });
+
+  return mergedData;
 };
