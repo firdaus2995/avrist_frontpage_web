@@ -492,7 +492,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);
-            router.refresh();
+            window.location.reload();
           }}
         />
       </div>

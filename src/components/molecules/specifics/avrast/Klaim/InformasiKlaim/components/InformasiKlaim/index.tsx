@@ -92,7 +92,7 @@ const InfoKlaimTab = () => {
         router.push('https://my.avrist.com/welcome');
       },
       'Lebih Lengkap': () => {
-        downloadFile('https://avrist.com/Prosedur%20Singkat%20Klaim%20Individu.pdf');
+        downloadFile('/pdf/prosedur-singkat-pelayanan-nasabah-avrist_updated.pdf');
       },
       'Cari Rumah Sakit': () => {
         router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
