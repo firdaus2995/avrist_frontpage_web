@@ -31,6 +31,7 @@ interface ICategoryWithThreeCards {
   onSearchChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch?: () => void;
   hidePagination?: boolean;
+  outerClass?: string;
 }
 
 interface DropdownProps {
@@ -58,7 +59,8 @@ const CategoryWithThreeCards = ({
   hideSearchBar,
   onSearchChange,
   onSearch,
-  hidePagination
+  hidePagination,
+  outerClass
 }: ICategoryWithThreeCards) => {
   const [selectedCategory, setSelectedCategory] = useState(
     defaultSelectedCategory
@@ -151,7 +153,9 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div className="w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row">
+    <div
+      className={`${outerClass} w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row`}
+    >
       {/* CATEGORIES */}
       {!hiddenCategory && (
         <span className="hidden">

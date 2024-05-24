@@ -169,7 +169,7 @@ const SekilasPerusahaan = () => {
 
   return (
     <div className="w-full flex flex-col bg-white justify-center ">
-      <div className="flex flex-col gap-[1.25rem] px-[2rem] md:px-[8.5rem] xs:py-[1.5rem] md:py-[4rem] font-karla">
+      <div className="flex flex-col gap-[1.25rem] px-[2rem] md:px-[8.5rem] font-karla">
         <p className="xs:text-[2.25rem] md:text-[3rem]">
           <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>

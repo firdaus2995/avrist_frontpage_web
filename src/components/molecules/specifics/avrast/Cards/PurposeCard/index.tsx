@@ -21,9 +21,11 @@ const PurposeCard: React.FC<PurposeCardProps> = ({
     <Image src={icon} alt="img" className="w-20" />
     <p className="text-[1.438rem] font-bold font-karla">{title}</p>
     <p className="line-clamp-3 font-opensans">{desc}</p>
-    <Link href={href ?? ''}>
-      <p className="font-bold text-purple_dark">{link}</p>
-    </Link>
+    {href && (
+      <Link href={href ?? ''}>
+        <p className="font-bold text-purple_dark">{link}</p>
+      </Link>
+    )}
   </div>
 );
 
