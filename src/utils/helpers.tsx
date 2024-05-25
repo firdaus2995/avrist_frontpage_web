@@ -76,3 +76,16 @@ export const mergeAllData = (data: Record<string, ContentData[]>) => {
 
   return mergedData;
 };
+
+export const generateDaftarIsi = (data: any[], section: string) => {
+  const listSection: any = [];
+  data.map((item) => {
+    item?.details.map((detail: Record<string, string>, idx: number) => {
+      if (detail.fieldId === section) {
+        listSection.push({ key: idx, label: detail.value });
+      }
+    });
+  });
+
+  return listSection;
+};
