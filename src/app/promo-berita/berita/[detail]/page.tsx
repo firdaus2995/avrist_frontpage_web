@@ -3,19 +3,13 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { UncontrolledPopover, PopoverBody } from 'reactstrap';
+import ContentPopover from '../life-guide/[detail]/content-popover';
 import { month } from './month';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email_color.svg';
-import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
-import Linkedin from '@/assets/images/common/linkedin_color.svg';
-import Office from '@/assets/images/common/office.svg';
-import Phone from '@/assets/images/common/phone.svg';
-import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -94,6 +88,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData[0].details;
+    const dataArtikel = content['artikel-looping'].contentData;
     const paragrafSatu = artikel[0].value;
     const artikelImage = singleImageTransformer(artikel[1])?.imageUrl;
     const paragrafDua = artikel[2]?.value;
@@ -122,7 +117,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       artikelPICJabatan,
       date,
       monthInText,
-      externalLink
+      externalLink,
+      dataArtikel
     };
 
     setContentData(transformedData);
@@ -134,6 +130,97 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     fetchData();
     fetchDetailData();
   }, []);
+
+  const RenderArtikelLooping = () => {
+    return contentData?.dataArtikel?.map((item:any, index:number) => {
+      const paragrafSatu = item['details'][0]?.value ?? '-';
+      const artikelImage = singleImageTransformer(item['details'][1]);
+      const paragrafDua = item['details'][2]?.value ?? '-';
+      const artikelVideo = item['details'][3]?.value ?? '-';
+      const paragrafTiga = item['details'][4]?.value ?? '-';
+      
+      return (
+        <div key={index}>
+          { paragrafSatu !== '-' &&
+            <p
+              dangerouslySetInnerHTML={{
+                __html: paragrafSatu
+              }}
+              className="font-opensans text-xl"
+            />
+          }
+
+          <div className="bg-gray-200">
+            {
+              artikelImage &&
+              <Image
+                src={artikelImage?.imageUrl ?? BlankImage}
+                alt="img"
+                className="w-full"
+                width={238}
+                height={172}
+              />
+            }
+          </div>
+          
+
+          {
+            paragrafDua !== '-' || paragrafDua !== '<p>-</p>' &&
+            <span
+              dangerouslySetInnerHTML={{
+                __html: paragrafDua
+              }}
+              className="font-opensans text-xl"
+            />
+          }
+          {
+            artikelVideo !== '-' &&
+              <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
+                {
+                  <VideoPlayer
+                    thumbnail=""
+                    url={getYouTubeId(artikelVideo) ?? ''}
+                    color="purple_dark"
+                    type="Artikel Video"
+                  />
+                }
+              </div>
+          }
+
+          {
+            paragrafTiga !== '-' || paragrafTiga !== '<p>-</p>' &&
+            <span
+              className="text-xl"
+              dangerouslySetInnerHTML={{
+                __html: paragrafTiga
+              }}
+            />
+          }
+
+          <div className={`flex flex-row gap-4 ${artikelVideo === '-' ? 'mt-10' : 'mt-0'}`}>
+            <div className="flex flex-row gap-4">
+              <p className="text-sm font-medium lg:min-w-[180px]">
+                Artikel ini telah di liput di:
+              </p>
+              <div className='flex flex-wrap gap-3'>
+                {contentData?.externalLink?.map((el: any, index: number) => (
+                  <div
+                    key={index}
+                    className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
+                  >
+                    {el.details[0]?.value}
+                    {el.details[0]?.value !== '-' && (
+                      <Icon name="externalLink" color="purple_dark" width={10} />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    })
+  };
 
   return (
     <>
@@ -149,7 +236,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-
       <div className="w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-5">
@@ -194,155 +280,13 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
 
                 <div className="text-xs font-bold">Share</div>
-                <UncontrolledPopover
-                  placement="right"
-                  target="PopoverFocus"
-                  trigger="focus"
-                  isOpen={isOpenPopover}
-                  toggle={() => setIsOPenPopover(false)}
-                >
-                  <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
-                    <div
-                      className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap"
-                      role="none"
-                    >
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
-                          className="h-auto w-5"
-                          src={Whatsapp}
-                          alt="whatsapp"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Whatsapp
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
-                          className="h-auto w-5"
-                          src={Email}
-                          alt="email"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Email
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
-                          className="h-auto w-5"
-                          src={Linkedin}
-                          alt="linkedin"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          LinkedIn
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
-                          className="h-auto w-5"
-                          src={Facebook}
-                          alt="facebook"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Facebook
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <div
-                          role="button"
-                          className="items-center"
-                          // onClick={() => setIsVisible(!isVisible)}
-                        >
-                          <Icon
-                            width={18}
-                            height={18}
-                            name="copyUrl"
-                            color="purple_verylight"
-                          />
-                        </div>
-                        <div className="text-xs font-bold cursor-pointer">
-                          Copy URL
-                        </div>
-                      </div>
-                    </div>
-                  </PopoverBody>
-                </UncontrolledPopover>
+                <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
               </div>
             </div>
           </div>
-          {
-            <p
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafSatu
-              }}
-              className="font-opensans text-xl"
-            />
-          }
+          {RenderArtikelLooping()}
 
-          <div className="bg-gray-200">
-            <Image
-              src={contentData.artikelImage ?? BlankImage}
-              alt="img"
-              className="w-full"
-              width={238}
-              height={172}
-            />
-          </div>
-
-          {
-            <span
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafDua
-              }}
-              className="font-opensans text-xl"
-            />
-          }
-
-          <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
-            <VideoPlayer
-              thumbnail=""
-              url={getYouTubeId(contentData?.artikelVideo) ?? ''}
-              color="purple_dark"
-              type="Artikel Video"
-            />
-          </div>
-
-          {
-            <span
-              className="text-xl"
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafTiga
-              }}
-            />
-          }
-
-          <div className="flex flex-row gap-4">
-            <div className="flex flex-row gap-4">
-              <p className="text-sm font-medium">
-                Artikel ini telah di liput di:
-              </p>
-              {contentData?.externalLink?.map((item: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
-                >
-                  {item.details[0]?.value}
-                  {item.details[0]?.value !== '-' && (
-                    <Icon name="externalLink" color="purple_dark" width={10} />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
+          {/* <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
             <p className="font-bold text-2xl">
               Informasi lebih lanjut, hubungi:
             </p>
@@ -366,7 +310,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
