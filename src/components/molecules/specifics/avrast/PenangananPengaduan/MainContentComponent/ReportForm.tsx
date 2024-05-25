@@ -4,7 +4,6 @@ import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMen
 import CLOCK from '@/assets/images/avrast/hubungi-kami/clock.svg';
 import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import EMAIL from '@/assets/images/common/email.svg';
-import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Icon from '@/components/atoms/Icon';
 import { handleDownload } from '@/utils/helpers';
 
@@ -215,13 +214,7 @@ export const ReportForm = () => {
               </span>
             </div>
             {/* submit */}
-            <div className="mt-[2.25rem] flex sm:flex-row xs:flex-col justify-between items-center">
-              <Image
-                width={17.3125}
-                height={5.25}
-                alt="symbol"
-                src={CaptchaPicture}
-              />
+            <div className="mt-[2.25rem] flex sm:flex-row xs:flex-col justify-end items-center">
               <button className="bg-purple_dark text-white h-[4rem] w-[8.25rem] rounded-lg">
                 Kirim
               </button>
