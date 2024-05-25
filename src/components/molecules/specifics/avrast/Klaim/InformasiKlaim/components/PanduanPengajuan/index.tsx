@@ -65,17 +65,19 @@ const PanduanPengajuanTab = () => {
 
   return (
     <div className="w-full flex-col self-stretch items-center justify-center">
-      <div className="grid grid-cols-2 gap-5 xs:hidden md:grid">
+      <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
         {data.map((val, idx) => (
           <div
             key={idx}
-            className={`max-w-sm flex ${idx === 0 ? 'flex-col row-span-3 border-b-8 border-b-purple_dark items-start' : 'flex-row items-center'} gap-4 justify-start py-[2.25rem] px-[1.5rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+            className={`flex ${idx === 0 ? 'max-w-sm flex-col row-span-3 border-b-8 border-b-purple_dark items-start justify-start' : 'flex-row items-center col-span-2 justify-center'} gap-4 py-[2.25rem] px-[1.5rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
           >
-            <div className="flex w-1/3 items-center justify-start">
+            <div
+              className={`flex items-center ${idx === 0 ? 'justify-start' : 'justify-center'}`}
+            >
               <Image src={val.icon} alt={val.title} width={100} height={100} />
             </div>
             <div
-              className={`flex ${idx === 0 ? 'w-full' : 'w-2/3'} flex-col justify-end h-full items-start gap-2`}
+              className={`flex ${idx === 0 ? 'w-full' : ''} flex-col justify-end h-full items-start gap-2`}
             >
               <h5
                 className={`mb-2 ${idx === 0 ? 'text-[3rem] font-extrabold' : 'text-[1.5rem] font-bold'} tracking-tight text-gray-900 dark:text-white mt-5 text-left`}
@@ -83,7 +85,7 @@ const PanduanPengajuanTab = () => {
                 {val.title}
               </h5>
               {idx === 0 ? (
-                <div className="w-full flex items-center justify-start font-medium rounded-xl text-[1.5rem] text-left ml-0">
+                <div className="flex items-center justify-start font-medium rounded-xl text-[1.5rem] text-left ml-0">
                   {val.btnText}
                 </div>
               ) : (
