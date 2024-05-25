@@ -1,25 +1,65 @@
 'use client';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import YouTube from 'react-youtube';
 import MainCard from '../../Klaim/PanduanKlaim/components/VideoCards/MainCard';
 import { IVideoData } from '@/app/klaim-layanan/layanan/kelola-polis/page';
+import { contentStringTransformer } from '@/utils/responseTransformer';
 
 const MOCK_VIDEO = (video: any) => ({
   id: 'sample-vid-1',
-  videoUrl: '',
-  videoThumbnail: video?.value || 'https://s3-alpha-sig.figma.com/img/f04c/749c/ee026aac0f0cc04facaf2f5029f0daa0?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DKnBo7IrUYcp2ft6qP9SJwfgo9RkSAIFtwb35ups7ivue2NMnUikpSKS1IXCwJ6sRHBrV2veUk7AidcYsmmTycQH~ZcYvX139bULXNnk~XvAAb2r-5fZSkzBFg5pk18NuFOZ~UR6n5~30k27RsX3ITshpKDo~6Y07jae0j-Sj3Z9q06-vgs6E9UV7o5Piv67Yu4qCcLGumdbu5aogVGJaVuBXeYaV1VXCkket0JJuUdtRxh6QmQ66xppumqpHUp2b13XTZSIjTPd1X5nmnvKjtYbkZxMN-UDzHbR8rnhPJuB1WLMHcHt28DJ5ZIJaSsLdUSFWepKHMnTtv1yTFa34A__',  
+  videoUrl: contentStringTransformer(video['body-video']),
+  videoThumbnail: '',
   type: 'Penanganan Pengaduan',
   color: 'purple_dark'
 });
 
-export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData }) => {
+export const VideoInformation = ({
+  pageVideoData
+}: {
+  pageVideoData: IVideoData;
+}) => {
+  const getVideoId = (url: string) => {
+    if (!url) return '';
+    const splittedUrl = url.split('/');
+    const lastPiece = splittedUrl.at(-1);
+
+    if (lastPiece && lastPiece.includes('watch')) {
+      const anotherSplitted = lastPiece.split('?v=');
+      return anotherSplitted.at(-1) ?? '';
+    } else if (lastPiece && lastPiece.includes('?si=')) {
+      const anotherSplitted = lastPiece.split('?si=');
+      return anotherSplitted.at(0);
+    } else if (lastPiece && lastPiece.includes('?')) {
+      const videoIdParam = lastPiece.split('?')[0];
+      return videoIdParam ?? '';
+    }
+    return lastPiece ?? '';
+  };
+
   return (
     <div className="w-full">
-      <div className="w-full m-auto flex flex-col gap-4 mt-[64px]">
+      <div className="w-full m-auto flex flex-col gap-4">
         <div
-          className={`transition-all hidden md:grid rounded-xl visible opacity-100 overflow-hidden`}
+          className={`transition-all hidden sm:grid rounded-xl visible opacity-100 overflow-hidden`}
         >
           <MainCard item={MOCK_VIDEO(pageVideoData)} />
+        </div>
+      </div>
+      <div className="w-full sm:hidden h-[13rem] flex flex-col items-center justify-center">
+        <YouTube
+          videoId={getVideoId(
+            contentStringTransformer(pageVideoData['body-video'])
+          )}
+          className="w-[95%] flex items-center justify-center"
+          iframeClassName="-z-1 w-[95%] h-full rounded-t-xl"
+        />
+        <div className="flex w-[95%] items-center justify-center">
+          <div
+            className={`p-[0.75rem] w-[95%] bg-purple_dark rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+          >
+            Penanganan Pengaduan
+          </div>
         </div>
       </div>
     </div>

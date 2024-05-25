@@ -22,7 +22,7 @@ const HandleComplaint = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
-  const [videoData, setVideoData] = useState<IVideoData[] | undefined>();
+  const [videoData, setVideoData] = useState<IVideoData | undefined>();
 
   useEffect(() => {
     const fetchData = async () => {

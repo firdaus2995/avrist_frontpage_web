@@ -9,6 +9,7 @@ type MainCardProps = {
 };
 
 const MainCard: React.FC<MainCardProps> = ({ item }) => {
+  console.log(item)
   return (
     <div className="grid lg:grid-cols-2 rounded-lg border border-solid border-gray_bglightgray">
       <div className="w-full sm:min-h-[40.688rem] xs:h-[17.5rem] lg:col-span-2 rounded-lg border border-solid border-gray_bglightgray shadow-md">
