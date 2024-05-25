@@ -198,7 +198,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchData = () => {
+  const fetchData = () => {    
     try {
       handleGetContentPage(data.slug.toLowerCase()).then((res: any) => {
         const { content } = pageTransformer(res);
