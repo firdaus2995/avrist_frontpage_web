@@ -122,9 +122,10 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
-    footerImage: '',
-    popUpImage: ''
+    footerImage: ''
   });
+  const [thumbnail, setThumbnail] = useState<string>('');
+  const [popUpImage, setPopUpImage] = useState<string>('');
   const [formId, setFormId] = useState('');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
@@ -137,14 +138,14 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
-          const bannerImage = singleImageTransformer(
-            content['banner-image']
-          ).imageUrl;
           const footerImage = singleImageTransformer(
             content['cta1-image']
           ).imageUrl;
           setFormId(contentStringTransformer(content['form-produk']));
-          setData({ titleImage, bannerImage, footerImage });
+          setData({
+            titleImage,
+            footerImage
+          });
         }
       );
     } catch (error) {
@@ -159,7 +160,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       }).then((res: any) => {
         const { content } = contentTransformer(res);
         const submitImage = singleImageTransformer(content['pop-up-image']);
-        setData({ ...data, popUpImage: submitImage.imageUrl });
+        setPopUpImage(submitImage.imageUrl);
       });
     } catch (error) {
       console.error('Error:', error);
@@ -184,6 +185,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     const artikelVideo = artikel[3].value;
     const paragrafTiga = artikel[4].value;
     const tags = content['tags'].value;
+    const thumbnail = singleImageTransformer(
+      content['artikel-thumbnail']
+    ).imageUrl;
 
     const transformedData = {
       tagline,
@@ -196,11 +200,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       paragrafDua,
       artikelVideo,
       paragrafTiga,
-      tags
+      tags,
+      thumbnail
     };
 
     setContentData(transformedData);
-
+    setThumbnail(transformedData.thumbnail);
     return transformedData;
   };
 
@@ -244,6 +249,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchSlugModal();
   }, []);
 
+  console.log(data);
+
   return (
     <>
       <Hero
@@ -255,8 +262,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/promo?tab=Promo+Terbaru'
           }
         ]}
-        imageUrl={data?.titleImage !== '' ? data?.titleImage : BlankImage}
-        bottomImage={data?.bannerImage !== '' ? data?.bannerImage : BlankImage}
+        imageUrl={data?.titleImage}
+        bottomImage={thumbnail}
       />
 
       <div className="flex items-center justify-center w-full">
@@ -374,13 +381,15 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               </div>
             </div>
           </div>
-          {
-            <p
+
+          {contentData.paragrafSatu !== '<p>-</p>' && (
+            <span
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafSatu
               }}
             />
-          }
+          )}
+
           <div className="bg-gray-200">
             <Image
               src={contentData.artikelImage ?? BlankImage}
@@ -390,15 +399,16 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               height={172}
             />
           </div>
-          {
+
+          {contentData.paragrafDua !== '<p>-</p>' && (
             <span
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafDua
               }}
             />
-          }
+          )}
 
-          <div className="w-full xs:h-[250px] md:h-[650px] mb-16">
+          <div className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0">
             <VideoPlayer
               thumbnail=""
               url={getYouTubeId(contentData.artikelVideo) ?? ''}
@@ -407,17 +417,17 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             />
           </div>
 
-          {
+          {contentData.paragrafTiga !== '<p>-</p>' && (
             <span
               dangerouslySetInnerHTML={{
                 __html: contentData.paragrafTiga
               }}
             />
-          }
+          )}
         </div>
       </div>
 
-      <InterestSection formId={formId} popUpImage={data.popUpImage} />
+      <InterestSection formId={formId} popUpImage={popUpImage} />
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
