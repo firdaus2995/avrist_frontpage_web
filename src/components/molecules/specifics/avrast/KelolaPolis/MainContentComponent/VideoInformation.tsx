@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import YouTube, { YouTubeEvent } from 'react-youtube';
 import MainCard from '../../Klaim/PanduanKlaim/components/VideoCards/MainCard';
 import SubCard from '../../Klaim/PanduanKlaim/components/VideoCards/SubCard';
 import { VideoItem } from '../../Klaim/PanduanKlaim/types';
@@ -15,6 +16,7 @@ import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-le
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
 
 export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData[] }) => {
+  const activePlayerRef = useRef<YouTubeEvent['target'] | null>(null);
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
     if (sliderRef.current) {
@@ -30,7 +32,6 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -124,10 +125,57 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
       ));
   };
 
+  const handlePlay = (event: YouTubeEvent) => {
+    const player = event.target;
+    if (activePlayerRef.current && activePlayerRef.current !== player) {
+      activePlayerRef.current.pauseVideo();
+    }
+    activePlayerRef.current = player;
+  };
+
   const renderMobileVideo = () => {
+    const getVideoId = (url: string) => {
+      if (!url) return '';
+      // Accepts the following pattern of youtube link
+      // https://www.youtube.com/embed/y32pvtRTk1A
+      // https://www.youtube.com/watch?v=uF7eT3nhyZ0
+      // https://youtu.be/uF7eT3nhyZ0?si=Cbt5uoPXbYS9__v_
+      const splittedUrl = url.split('/');
+      const lastPiece = splittedUrl.at(-1);
+
+      if (lastPiece && lastPiece.includes('watch')) {
+        const anotherSplitted = lastPiece.split('?v=');
+        return anotherSplitted.at(-1) ?? '';
+      } else if (lastPiece && lastPiece.includes('?si=')) {
+        const anotherSplitted = lastPiece.split('?si=');
+        return anotherSplitted.at(0);
+      } else if (lastPiece && lastPiece.includes('?')) {
+        const videoIdParam = lastPiece.split('?')[0];
+        return videoIdParam ?? '';
+      }
+      return lastPiece ?? '';
+    };
+
     return videoData.map((item) => (
-      <div className='w-full' key={item.id}>
-        <SubCard onClick={handleSubcardClick} item={item} />
+      <div
+        key={item.id}
+        className="w-full h-[13rem] mb-10 flex items-center justify-center"
+      >
+        <YouTube
+          videoId={getVideoId(item.videoUrl)}
+          className="h-[90%] flex items-center justify-center"
+          iframeClassName="-z-1 w-[95%] h-full rounded-t-xl"
+          onPlay={handlePlay}
+        />
+        {item.type && (
+          <div className="flex items-center justify-center">
+            <div
+              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+            >
+              {item.type}
+            </div>
+          </div>
+        )}
       </div>
     ));
   };

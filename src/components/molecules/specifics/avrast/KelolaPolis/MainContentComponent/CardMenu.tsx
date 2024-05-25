@@ -17,10 +17,10 @@ export const CardMenuLink = (props: CardMenuLinkProps) => {
     <Link
       href={href ?? '#'}
       target={openNewTab ? '_blank' : '_self'}
-      className="w-full p-4 bg-purple_light_bg border-2 rounded-lg flex flex-row justify-between font-black"
+      className="w-full p-6 bg-purple_light_bg border-2 rounded-lg flex flex-row justify-between items-center font-black text-[24px]"
     >
       {desc}
-      <Image src={CHEVRONRIGHTPURPLE} alt="chevron-right" className="w-4" />
+      <Image src={CHEVRONRIGHTPURPLE} alt="chevron-right" className="w-6 h-6" />
     </Link>
   );
 };

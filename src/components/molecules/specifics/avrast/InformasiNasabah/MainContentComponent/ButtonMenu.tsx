@@ -41,9 +41,8 @@ export const ButtonMenu = () => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.5,
     slidesToScroll: 1
   };
 

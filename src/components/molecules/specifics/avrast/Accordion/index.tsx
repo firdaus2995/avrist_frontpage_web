@@ -52,7 +52,7 @@ const Accordion: React.FC<IAccordion> & {
       {expand && (
         <>
           {description && <p className="text-md 2xl:text-xl">{description}</p>}
-          {htmlDescription && <p className="text-md 2xl:text-xl" dangerouslySetInnerHTML={{ __html: htmlDescription }} />}
+          {htmlDescription && <p className="text-xl" dangerouslySetInnerHTML={{ __html: htmlDescription }} />}
           {children}
         </>
       )}

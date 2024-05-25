@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Accordion from '../../Accordion';
+import ButtonMenuVertical from '../../ButtonMenuVertical';
 import DownloadFileButton from '../../DownloadFileButton';
 import { Paginate } from '../../HubungiKami/MainContentComponent/Paginate';
 import Icon from '@/components/atoms/Icon';
@@ -39,8 +40,17 @@ export const ContentList = ({
     }));
   };
 
+  const btnVerticalData = categoriesInitial?.map((item) => {
+    return {
+      title: item,
+      onClick: () => {
+        onSelectedCategory(item)
+      }
+    };
+  });
+
   return (
-    <div className={`w-full flex flex-col justify-center relative pt-20`}>
+    <div className={`w-full flex flex-col justify-center relative`}>
       <div className="w-full flex md:flex-row xs:flex-col">
         <div className="xs:hidden md:block">
           <div
@@ -64,10 +74,15 @@ export const ContentList = ({
         </div>
 
         <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px]">
+          <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
+            {btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
+          </div>
           <div
             className="flex flex-row items-center justify-end gap-2 text-[1.25rem] text-purple_dark font-semibold"
             role="button"
-            onClick={() => {onBack(true)}}
+            onClick={() => {
+              onBack(true);
+            }}
           >
             <Icon name="chevronLeft" color="purple_dark" />
             Kembali
