@@ -179,11 +179,48 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData[0].details;
-    const paragrafSatu = artikel[0].value;
-    const artikelImage = singleImageTransformer(artikel[1]).imageUrl;
-    const paragrafDua = artikel[2].value;
-    const artikelVideo = artikel[3].value;
-    const paragrafTiga = artikel[4].value;
+    const loopArtikel = artikel.map((item: any) => {
+      const fieldType = item.fieldType;
+      const isNotEmpty = item.value !== '<p>-</p>' && item.value !== '["-"]';
+      if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
+        return (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: item.value
+            }}
+            key={item.id}
+          />
+        );
+      }
+      if (fieldType === 'IMAGE' && isNotEmpty) {
+        return (
+          <div className="bg-gray-200" key={item.id}>
+            <Image
+              src={singleImageTransformer(item).imageUrl ?? BlankImage}
+              alt="img"
+              className="w-full"
+              width={238}
+              height={172}
+            />
+          </div>
+        );
+      }
+      if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
+        return (
+          <div
+            className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0"
+            key={item.id}
+          >
+            <VideoPlayer
+              thumbnail=""
+              url={getYouTubeId(item.value) ?? ''}
+              color="purple_dark"
+              type="Artikel Video"
+            />
+          </div>
+        );
+      }
+    });
     const tags = content['tags'].value;
     const thumbnail = singleImageTransformer(
       content['artikel-thumbnail']
@@ -195,11 +232,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       penulis,
       bulan,
       tahun,
-      paragrafSatu,
-      artikelImage,
-      paragrafDua,
-      artikelVideo,
-      paragrafTiga,
+      loopArtikel,
       tags,
       thumbnail
     };
@@ -248,8 +281,6 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchOtherContent();
     fetchSlugModal();
   }, []);
-
-  console.log(data);
 
   return (
     <>
@@ -382,48 +413,13 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             </div>
           </div>
 
-          {contentData.paragrafSatu !== '<p>-</p>' && (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafSatu
-              }}
-            />
-          )}
+          {/* Loop Artikel */}
 
-          <div className="bg-gray-200">
-            <Image
-              src={contentData.artikelImage ?? BlankImage}
-              alt="img"
-              className="w-full"
-              width={238}
-              height={172}
-            />
-          </div>
-
-          {contentData.paragrafDua !== '<p>-</p>' && (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafDua
-              }}
-            />
-          )}
-
-          <div className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0">
-            <VideoPlayer
-              thumbnail=""
-              url={getYouTubeId(contentData.artikelVideo) ?? ''}
-              color="purple_dark"
-              type="Artikel Video"
-            />
-          </div>
-
-          {contentData.paragrafTiga !== '<p>-</p>' && (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: contentData.paragrafTiga
-              }}
-            />
-          )}
+          {contentData
+            ? contentData?.loopArtikel?.map((item: any, index: number) => (
+                <span key={index}>{item}</span>
+              ))
+            : null}
         </div>
       </div>
 
