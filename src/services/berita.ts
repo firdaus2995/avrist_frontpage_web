@@ -68,3 +68,13 @@ export const getPenawaran = async (query: QueryParams) => {
     }
   );
 };
+
+export const subscribeApi = async (query: QueryParams) => {
+  return await httpService('default', 'subscribe', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(query)
+  });
+};
