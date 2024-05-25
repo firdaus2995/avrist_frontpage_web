@@ -18,7 +18,7 @@ const titleSideTab = [
 const contentTab: any = {
   'Hak - Hak Nasabah': {
     title:
-      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan,',
+      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan',
     subTitle: 'Hak Konsumen meliputi :',
     content: [
       'Mendapatkan keamanan dalam menggunakan produk dan/atau memanfaatkan layanan sesuai yang ditetapkan dalam ketentuan peraturan perundang-undangan dan/atau Polis.',
@@ -34,7 +34,7 @@ const contentTab: any = {
   },
   'Kewajiban Nasabah': {
     title:
-      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan.',
+      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan',
     subTitle: 'Kewajiban konsumen meliputi :',
     content: [
       'Mendengarkan penjelasan informasi mengenai produk dan/ layanan yang disampaikan dengan metode pemasaran tertentu oleh Perusahaan sebelum membeli produk dan/atau layanan Perusahaan.',
@@ -152,14 +152,11 @@ const Content = () => {
           {!lastContentValue &&
           titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ? (
             <>
+              <p
+                className="flex xs:text-[2.25rem] md:text-[3.5rem] leading-[3rem] font-karla font-bold"
+              >{contentTab[titleSideTab[tab]].title}</p>
               <h2
-                className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
-                dangerouslySetInnerHTML={{
-                  __html: contentTab[titleSideTab[tab]].title
-                }}
-              />
-              <h2
-                className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
+                className="text-[1.25rem] font-bold"
                 dangerouslySetInnerHTML={{
                   __html: contentTab[titleSideTab[tab]].subTitle
                 }}

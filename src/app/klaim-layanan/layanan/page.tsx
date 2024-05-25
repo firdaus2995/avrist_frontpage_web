@@ -137,7 +137,7 @@ const dataRSRekanan = [
     icon: EMAIL,
     title: 'Tanya Lewat Email',
     subtitle: 'Kirim Email',
-    href: 'mailto:customer-service@avrist.com'
+    href: 'mailto:contact_us@avristsalesforce.com'
   },
   {
     icon: DOCUMENT_SEARCH,

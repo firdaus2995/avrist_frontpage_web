@@ -56,7 +56,7 @@ const Page = () => {
       <Hero
         title="Penanganan Pengaduan"
         breadcrumbsData={[
-          { title: 'Beranda', href: '/avrast' },
+          { title: 'Beranda', href: '/' },
           {
             title: 'Informasi Nasabah',
             href: '/klaim-layanan/layanan?tab=Informasi+Nasabah'
@@ -120,13 +120,13 @@ const Page = () => {
             title: 'Tanya Lewat Email',
             icon: EMAIL,
             subtitle: 'Kirim Email',
-            href: 'mailto:customer-service@avrist.com'
+            href: 'mailto:contact_us@avristsalesforce.com'
           },
           {
             title: 'Prosedur Pengaduan',
             icon: DOCUMENT_SEARCH,
             subtitle: 'Lihat Prosedur',
-            href: '/avrist-dplk?tab=Produk'
+            href: '/klaim-layanan/layanan/penanganan-pengaduan'
           }
         ]}
       />

@@ -18,7 +18,7 @@ const page = () => {
       <Hero
         title="Penanganan Pengaduan"
         breadcrumbsData={[
-          { title: 'Beranda', href: '/avrast' },
+          { title: 'Beranda', href: '/' },
           {
             title: 'Informasi Nasabah',
             href: '/klaim-layanan/layanan?tab=Informasi+Nasabah'
