@@ -27,7 +27,7 @@ interface IButton {
 }
 
 const BASE_BUTTON_CLASS =
-  'inline-block text-sm font-semibold border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
+  'inline-block font-semibold border-1 rounded active:bg-indigo-500 focus:outline-none focus:ring cursor-pointer select-none ease-in-out duration-150';
 const BASE_DISABLE_BUTTON_CLASS =
   'bg-gray_light text-gray_black rounded cursor-not-allowed';
 
