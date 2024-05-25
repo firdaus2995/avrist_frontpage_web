@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { CardMenuLink } from '../../KelolaPolis/MainContentComponent/CardMenu';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
@@ -56,7 +57,7 @@ const Content = () => {
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <div className="bg-white flex flex-col gap-[4rem] sm:pt-[6.25rem] sm:px-[8.5rem] sm:pb-[1.625rem] xs:p-4">
+      <div className="bg-white flex flex-col sm:gap-[4rem] xs:gap-[2.25rem] sm:pt-[6.25rem] sm:px-[8.5rem] sm:pb-[1.625rem] xs:p-4">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -67,23 +68,21 @@ const Content = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla xs:text-[3rem] sm:text-[3.5rem] text-purple_dark font-medium">
+          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium">
             Kinerja Investasi
           </h1>
-          <h2 className="font-karla xs:text-[1.75rem] sm:text-[2.25rem]">
+          <h2 className="font-karla xs:text-[1.5rem] sm:text-[2.25rem]">
             Laporan kinerja Investasi{' '}
             <span className="font-bold">Avrist Assurance</span>
           </h2>
         </section>
 
         <section className="flex flex-col gap-3">
-          <Accordion
-            bgColor="bg-purple_light_bg"
-            title="Informasi Nilai Unit"
-            description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
-            isUrl
-            url="https://polis.avrist.com/pages/DailyUnitPrice/pgeUnitPrice.aspx"
-          ></Accordion>
+          <CardMenuLink
+            desc="Informasi Nilai Unit"
+            href="https://polis.avrist.com/pages/DailyUnitPrice/pgeUnitPrice.aspx"
+            openNewTab
+          />
 
           <Accordion
             bgColor="bg-purple_light_bg"
@@ -108,16 +107,14 @@ const Content = () => {
             </Accordion.Item>
           </Accordion>
 
-          <Accordion
-            bgColor="bg-purple_light_bg"
-            title="Tabel Suku Bunga"
-            isUrl
-            description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
-            url="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
-          ></Accordion>
+          <CardMenuLink
+            desc="Tabel Suku Bunga"
+            href="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
+            openNewTab
+          />
         </section>
 
-        <section className="mt-10">
+        <section className="">
           <Disclaimer />
         </section>
       </div>

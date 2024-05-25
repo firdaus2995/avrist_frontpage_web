@@ -96,13 +96,13 @@ const dataPerformaInvestasi = [
     icon: HEART_CHECK,
     title: 'Asuransi Jiwa',
     subtitle: 'Lihat Produk',
-    href: '/produk/individu'
+    href: '/produk/individu?tab=Asuransi+Jiwa'
   },
   {
     icon: HOME_ADD,
     title: 'Asuransi Korporasi',
     subtitle: 'Lihat Produk',
-    href: '/produk/korporasi'
+    href: '/produk/korporasi?tab=Employee+Benefit'
   },
   {
     icon: UMBRELLA_GREEN,
@@ -116,7 +116,7 @@ const dataPerformaInvestasi = [
     title: 'Avrist DPLK',
     subtitle: 'Lihat Produk',
     textColor: 'text-orange_border',
-    href: '/avrist-dplk?tab=Produk'
+    href: '/avrist-dplk/produk'
   }
 ];
 
@@ -236,7 +236,7 @@ const InformationCustomer = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="sm:text-[4rem] xs:text-[2.25rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}

@@ -63,7 +63,7 @@ const Content = () => {
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <div className="bg-white flex flex-col pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-2 gap-[4rem]">
+      <div className="bg-white flex flex-col sm:pt-[6.25rem] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] sm:gap-[4rem] xs:gap-[2.25rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -74,10 +74,10 @@ const Content = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla text-[3rem] 2xl:text-[3.5rem] text-purple_dark font-medium">
+          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium">
             Jaringan Rekanan Rumah Sakit Avrist Assurance
           </h1>
-          <h2 className="font-karla text-[1.75rem] 2xl:text-[2.25rem]">
+          <h2 className="font-karla xs:text-[1.5rem] sm:text-[2.25rem]">
             Komitmen kami untuk memberikan rasa aman dan nyaman bersama lebih
             dari 1000 rumah sakit rekanan di seluruh Indonesia
           </h2>
