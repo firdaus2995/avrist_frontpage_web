@@ -236,7 +236,7 @@ const InformationCustomer = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="sm:text-[4rem] xs:text-[2.25rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}

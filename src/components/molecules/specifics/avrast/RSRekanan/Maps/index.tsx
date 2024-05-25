@@ -62,7 +62,8 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
           initialSlide: 0,
           slidesToShow: totalData > 3 ? 3.2 : 3,
           lazyLoad: 'progressive' as LazyLoadTypes,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          rows: 1
         }
       },
       {
@@ -71,7 +72,8 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
           initialSlide: 0,
           slidesToShow: totalData > 2 ? 2 : 1,
           lazyLoad: 'progressive' as LazyLoadTypes,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          rows: 1
         }
       },
       {
@@ -80,7 +82,19 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
           initialSlide: 0,
           slidesToShow: 1,
           lazyLoad: 'progressive' as LazyLoadTypes,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          rows: 1
+        }
+      }
+      ,
+      {
+        breakpoint: 480,
+        settings: {
+          initialSlide: 0,
+          slidesToShow: 1,
+          lazyLoad: 'progressive' as LazyLoadTypes,
+          slidesToScroll: 1,
+          rows: 3
         }
       }
     ]
@@ -118,8 +132,8 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
       <div className="px-[5%]">
         <SearchBox onSearch={(e) => onClickSearch(e)} />
       </div>
-      <div className="flex flex-row px-3">
-        <div className="flex items-center justify-center">
+      <div className="flex sm:flex-row xs:flex-col px-3">
+        <div className="sm:flex xs:hidden items-center justify-center">
           <div
             className="p-2 rounded-full border border-purple_dark cursor-pointer"
             onClick={previous}
@@ -132,11 +146,11 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
             sliderRef.current = slider;
           }}
           {...sliderSettings(hospitalData.length)}
-          className="sm:w-[90%] w-[75%] flex flex-row px-2"
+          className="sm:w-[90%] w-full flex flex-row"
         >
           {hospitalData?.length !== 0 &&
             hospitalData!.map((item, index) => (
-              <div key={index} className="w-full">
+              <div key={index} className="w-full  sm:h-full xs:h-[95%] mt-[0.75rem]">
                 <MarkerCard
                   name={item.name}
                   address={item.address}
@@ -145,7 +159,21 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
               </div>
             ))}
         </Slider>
-        <div className="flex items-center justify-center">
+        <div className="sm:hidden flex flex-row items-center justify-between">
+          <div
+            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            onClick={previous}
+          >
+            <Icon name="chevronLeft" color="purple_dark" />
+          </div>
+          <div
+            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            onClick={next}
+          >
+            <Icon name="chevronRight" color="purple_dark" />
+          </div>
+        </div>
+        <div className="sm:flex xs:hidden items-center justify-center">
           <div
             className="p-2 rounded-full border border-purple_dark cursor-pointer"
             onClick={next}
