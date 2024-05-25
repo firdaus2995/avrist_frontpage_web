@@ -26,13 +26,15 @@ import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/Cate
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
 import {
   getAvristLifeGuide,
   getAvriStory,
   getAvristTerkini,
   getBeritaPers,
-  getTestimoni
+  getTestimoni,
+  subscribeApi
 } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
@@ -89,6 +91,8 @@ const Berita: React.FC<ParamsProps> = () => {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>();
+  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
   const [search, setSearch] = useState('');
   const [lifeGuideCategory, setLifeGuideCategory] = useState({
     list: [],
@@ -557,6 +561,20 @@ const Berita: React.FC<ParamsProps> = () => {
     });
   };
 
+  const handleSubscribeButton = async() => {
+      try {
+        const response:any = await subscribeApi({
+          email: email,
+          entity: 'avrist'
+        });
+        if (response?.code === 200) {
+          setVisibleSubscribeModal(true)
+        } 
+      } catch(e) {
+        console.log(e);
+      }
+  };
+
   const onCategoryChange = (value: string) => {
     setParams({ ...params, category: value });
     router.push(pathname + '?' + createQueryStringCategory('category', value), {
@@ -640,6 +658,12 @@ const Berita: React.FC<ParamsProps> = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
+      <div className="absolute">
+        <SubmittedFormModal
+          show={visibleSubscribeModal}
+          onClose={() => setVisibleSubscribeModal(false)}
+        />
+      </div>
       <Hero
         title={tab}
         breadcrumbsData={[
@@ -938,11 +962,12 @@ const Berita: React.FC<ParamsProps> = () => {
                       <p className="text-2xl font-light font-['Source Sans Pro']">
                         Informasi terkini mengenai Avrist Life Insurance
                       </p>
-                      <Input placeholder="Masukkan email Anda" />
+                      <Input placeholder="Masukkan email Anda" value={email} onChange={(e) => setEmail(e.target.value)} />
                       <Button
                         title="Subscribe"
                         customButtonClass="bg-purple_dark rounded-xl"
                         customTextClass="text-white font-semibold text-base"
+                        onClick={handleSubscribeButton}
                       />
                     </div>
                     <div className="border rounded-xl p-4 flex flex-col gap-[24px] text-left">

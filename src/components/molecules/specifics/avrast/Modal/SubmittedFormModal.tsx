@@ -52,10 +52,10 @@ export const SubmittedFormModal = (props: Props) => {
                     </div>
                     <div className="flex flex-1 flex-col items-center justify-center h-full text-center px-[4.5rem]">
                       <p className="font-karla font-semibold sm:text-[3rem] xs:text-[2rem]  text-white">
-                        Thank you
+                        Terima kasih atas langganan Anda! 
                       </p>
                       <p className="font-opensans font-normal text-[1.25rem] text-white">
-                        The form was submitted succesfully
+                        Anda telah berhasil berlangganan untuk mendapatkan informasi terkini, wawasan eksklusif, tips investasi, dan berita terbaru.
                       </p>
                     </div>
                   </div>
