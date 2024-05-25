@@ -33,14 +33,14 @@ const purposeData = [
   },
   {
     title: 'Work Life Balance',
-    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulan kerja.',
+    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulang kerja.',
     link: 'Manajemen',
     icon: Icon2,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Manajemen'
   },
   {
     title: 'Pengembangan Diri',
-    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulan kerja.',
+    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulang kerja.',
     link: 'Penghargaan',
     icon: Icon3,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
@@ -126,7 +126,7 @@ const Karir = () => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4 xs:px-[2rem] md:px-[8.5rem]">
-        <div className="w-full flex flex-col items-center justify-center pt-[4rem] text-center font-karla">
+        <div className="w-full flex flex-col items-center justify-center text-center font-karla">
           <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-medium text-purple_dark xs:mb-6 md:mb-0">
             Tingkatkan karier bersama Avrist Assurance
           </h2>
@@ -163,7 +163,6 @@ const Karir = () => {
                 desc={val.desc}
                 link={val.link}
                 icon={val.icon}
-                href={val.href}
               />
             ))}
           </div>

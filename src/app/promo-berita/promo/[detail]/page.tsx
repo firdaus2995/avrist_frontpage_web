@@ -255,8 +255,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             href: '/promo-berita/promo?tab=Promo+Terbaru'
           }
         ]}
-        imageUrl={data?.titleImage}
-        bottomImage={data?.bannerImage ?? BlankImage}
+        imageUrl={data?.titleImage !== '' ? data?.titleImage : BlankImage}
+        bottomImage={data?.bannerImage !== '' ? data?.bannerImage : BlankImage}
       />
 
       <div className="flex items-center justify-center w-full">

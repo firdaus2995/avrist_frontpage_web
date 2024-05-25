@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import CustomForm from '../../CustomForm/Index';
+import { SuccessModal } from '../../Modal';
 import { handleSendEmail } from '@/services/form.api';
 
 type Props = {
@@ -17,6 +18,7 @@ export const RequirementForm = (props: Props) => {
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (Id) {
@@ -54,7 +56,7 @@ export const RequirementForm = (props: Props) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -116,6 +118,15 @@ export const RequirementForm = (props: Props) => {
           </div>
         </div>
         <div className="h-[0.5rem] bg-purple_dark" />
+      </div>
+      <div className="absolute">
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            router.refresh();
+          }}
+        />
       </div>
     </div>
   );

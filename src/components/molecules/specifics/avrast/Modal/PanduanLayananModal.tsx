@@ -45,8 +45,8 @@ export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModa
                 >
                     <Dialog.Panel className="transform transition-all overflow-y-auto">
                         <CardRainbow className="bg-white">
-                            <div className=" transition p-10 overflow-y-auto">
-                                <div className="absolute right-0 p-[24px]">
+                            <div className=" transition sm:p-10 xs:px-6 xs:pt-6 xs:pb-9 overflow-y-auto">
+                                <div className="absolute right-0 top-0 p-[24px]">
                                     <button onClick={handleCloseModal}>
                                         <Icon name="close" width={24} height={24} />
                                     </button>
@@ -54,14 +54,14 @@ export const PanduanLayananModal = ({ handleCloseModal, isShowPanduanLayananModa
                                 <div className="flex flex-col h-[80vh] w-[60vw]">
                                     <div className="flex items-left flex-col">
                                         <div className="my-[20px] flex flex-col gap-5">
-                                            <p className="font-karla font-semibold text-purple_dark text-[48px]">
+                                            <p className="font-karla font-semibold text-purple_dark sm:text-[3rem] xs:text-[2.25rem]">
                                             Mekanisme Klaim Asuransi
                                             </p>                                
                                             {
                                                 assuranceTips.map((item, index) => (
-                                                    <div key={index} className="flex items-start gap-2 pt-2">
-                                                        <Image src={CASE} alt="case" className="w-4 mt-1" />
-                                                        <p className="text-[18px] text-left">{item}</p>
+                                                    <div key={index} className="flex flex-row items-start gap-2 pt-2">
+                                                        <Image src={CASE} alt="case" className="w-4 mt-2" />
+                                                        <p className="text-[1.25rem] font-semibold text-left">{item}</p>
                                                     </div>
                                                 ))
                                             }

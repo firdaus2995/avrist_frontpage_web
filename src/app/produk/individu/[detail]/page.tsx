@@ -26,6 +26,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal';
 import VideoInformation from '@/components/molecules/specifics/avrast/Produk/ContentComponent/VideoInformation';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
@@ -53,6 +54,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -284,7 +286,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -485,6 +487,15 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           }
         ]}
       />
+      <div className="absolute">
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            window.location.reload();
+          }}
+        />
+      </div>
     </div>
   );
 };

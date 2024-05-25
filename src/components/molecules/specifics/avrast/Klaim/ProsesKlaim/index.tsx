@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import ButtonMenuVertical from '../../ButtonMenuVertical';
 import HeartIcon from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg';
 import Button from '@/components/atoms/Button/Button';
@@ -151,6 +152,18 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     }
   }, [params, categoryList]);
 
+  const btnVerticalData = categoryList?.map((item) => {
+    return {
+      title: item,
+      onClick: () => {
+        setParams({
+          ...params,
+          category: item
+        });
+      }
+    };
+  });
+
   const renderStep = (idx: number) => {
     return (
       <div className="w-full flex flex-col items-center justify-start p-[2.25rem] text-left border rounded-[0.75rem] border-t-8 border-t-purple_dark">
@@ -184,7 +197,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     val.details[1].value && (
                       <div
                         key={idx}
-                        className="flex flex-row gap-[0.75rem] font-semibold items-center text-xl"
+                        className="flex flex-row gap-[0.75rem] font-semibold items-start text-xl"
                       >
                         <Image
                           src={singleImageTransformer(val.details[0]).imageUrl}
@@ -257,9 +270,9 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                           {/* <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p> */}
                         </div>
                       </div>
-                      <div className="flex items-center md:justify-center">
+                      <div className="flex items-center justify-center">
                         <div
-                          className="py-[0.5rem] px-[2.594rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer font-opensans"
+                          className="py-[0.5rem] px-[1.25rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer font-opensans"
                           onClick={async () =>
                             await handleDownload(
                               singleImageTransformer(val.details[1]).imageUrl
@@ -324,7 +337,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         category: val
                       });
                     }}
-                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
+                    className={`${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
                   >
                     {val}
                   </div>
@@ -350,27 +363,39 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         </div>
         <div className="xs:w-full flex flex-col gap-[2.25rem]">
           {!isSelectedData ? (
-            <div className="flex flex-row gap-2">
-              <Input
-                type="text"
-                placeholder="Cari jenis klaim"
-                customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-              />
-              <Button
-                title="Cari"
-                customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
-                customTextClass="text-white text-[1.25rem] font-semibold"
-                onClick={() => {
-                  setParams({ ...params, searchFilter: search });
-                }}
-              />
+            <div className='flex flex-col gap-[2.25rem]'>
+              <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
+                {btnVerticalData && (
+                  <ButtonMenuVertical item={btnVerticalData} />
+                )}
+              </div>
+              <div className="flex flex-row gap-2">
+                <Input
+                  type="text"
+                  placeholder="Cari jenis klaim"
+                  customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setParams({ ...params, searchFilter: search });
+                    }
+                  }}
+                />
+                <Button
+                  title="Cari"
+                  customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
+                  customTextClass="text-white text-[1.25rem] font-semibold"
+                  onClick={() => {
+                    setParams({ ...params, searchFilter: search });
+                  }}
+                />
+              </div>
             </div>
           ) : (
             <div className="flex flex-col gap-[2.25rem]">
-              <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-4 text-purple_dark font-semibold">
+              <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-3 text-purple_dark font-semibold">
                 <div className="flex flex-row items-center gap-2">
                   <Image src={HeartIcon} alt="heart-icon" className="w-7" />
                   <p className="text-[1.5rem] font-bold font-karla">
@@ -430,7 +455,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                           onChangeBannerImg(2);
                         }
                       }}
-                      className="p-2 bg-purple_light_bg whitespace-normal"
+                      className="px-5 py-2 bg-purple_light_bg whitespace-normal"
                     >
                       {detailData.map((val, idx) => (
                         <option
@@ -446,7 +471,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   )}
                 </div>
               </div>
-              <div className="md:text-[3.5rem] xs:text-[1.5rem] font-bold font-karla">
+              <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla">
                 {selectedData.title}
               </div>
             </div>

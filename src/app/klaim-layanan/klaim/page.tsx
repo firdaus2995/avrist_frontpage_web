@@ -212,9 +212,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   useEffect(() => {
     setData(initialData);
     const value = searchParams.get('tab');
-    if (value === 'Login Polis') {
-      router.push('https://my.avrist.com/welcome');
-    } else if (value) {
+    if (value) {
       setTab(value);
     }
 
@@ -264,7 +262,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         />
       )}
       <div className="w-full">
-        <RoundedFrameBottom frameColor="bg-white" />
+        <RoundedFrameBottom frameColor="bg-purple_light_bg" />
       </div>
 
       <FooterInformation
@@ -282,21 +280,26 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
               href="https://www.youtube.com/@avristian"
               target="blank"
               role="button"
-              className="py-[1.125rem] px-[2.5rem] bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg md:text-xl font-semibold text-white flex flex-row gap-[0.667rem] items-center font-opensans"
             >
               Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" />
+              <Icon
+                name="youtubeIcon"
+                color="white"
+                width={26.67}
+                height={18.67}
+              />
             </Link>
           </div>
         }
         image={data.footerInfoImageUrl}
       />
       <div className="w-full">
-        <RoundedFrameTop bgColor="bg-white" />
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       </div>
       <div className="w-full">
         <FooterCards
-          bgColor="bg-white"
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={
             params.includes('Informasi Nasabah')
               ? dataInformasiNasabah

@@ -67,7 +67,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             }
           ]}
         />
-        <div className="xs:-mt-[9.4rem] md:-mt-[6.3rem] relative z-[10]">
+        <div className="xs:-mt-[3.4rem] md:-mt-[6.3rem] relative z-[10]">
           <ArtikelTanyaAvrista
             title={titleContent}
             content={mainContent as string}

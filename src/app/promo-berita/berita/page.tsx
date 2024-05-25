@@ -37,7 +37,7 @@ import {
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
-import { handleDownload, htmlParser } from '@/utils/helpers';
+import { handleDownload, htmlParser, mergeAllData } from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer,
@@ -256,7 +256,6 @@ const Berita: React.FC<ParamsProps> = () => {
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
-        category: params.category,
         searchFilter: params.searchFilter,
         yearFilter: params.yearFilter,
         monthFilter: params.monthFilter
@@ -264,42 +263,43 @@ const Berita: React.FC<ParamsProps> = () => {
 
       const categoryList = fetchContentCategory.data.categoryList;
 
-      const transformedData = categoryList[params.category]?.map(
-        (item: any) => {
-          const { content } = handleTransformedContent(
-            item.contentData,
-            item.title
-          );
+      // merge  all category data
+      const mergedData = mergeAllData(categoryList);
 
-          const judul = content['judul-artikel'].value;
-          const waktu = `${
-            monthDropdown().find(
-              (item) =>
-                item.value === content['bulan'].value ||
-                item.label === content['bulan'].value
-            )?.label
-          } ${content['tahun'].value}`;
-          const deskripsi = content['artikel-looping'].contentData[0].details;
-          const image = singleImageTransformer(
-            content['artikel-thumbnail']
-          ).imageUrl;
-          const id = item.id;
-          const tags = content['tags'].value;
-          const date = new Date(item.createdAt).getDate();
-          const artikelTopic = content['topik-artikel'].value;
+      const transformedData = mergedData?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
 
-          return {
-            judul,
-            waktu,
-            deskripsi,
-            image,
-            id,
-            tags,
-            date,
-            artikelTopic
-          };
-        }
-      );
+        const judul = content['judul-artikel'].value;
+        const waktu = `${
+          monthDropdown().find(
+            (item) =>
+              item.value === content['bulan'].value ||
+              item.label === content['bulan'].value
+          )?.label
+        } ${content['tahun'].value}`;
+        const deskripsi = content['artikel-looping'].contentData[0].details;
+        const image = singleImageTransformer(
+          content['artikel-thumbnail']
+        ).imageUrl;
+        const id = item.id;
+        const tags = content['tags'].value;
+        const date = new Date(item.createdAt).getDate();
+        const artikelTopic = content['topik-artikel'].value;
+
+        return {
+          judul,
+          waktu,
+          deskripsi,
+          image,
+          id,
+          tags,
+          date,
+          artikelTopic
+        };
+      });
 
       setContentData(transformedData);
     } catch (err) {
@@ -388,34 +388,34 @@ const Berita: React.FC<ParamsProps> = () => {
       });
 
       const data = fetchData.data.categoryList;
-      
 
       const transformedData = data['Berita Pers']?.map((item: any) => {
-        
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-        
 
         const judul = content['judul-artikel']?.value;
         // const deskripsi = content['external-link-berita-pers'].value;
         let newLink;
         const externalLink = content['list-external-link']?.contentData;
-        const arr: any = []
-        
-        externalLink.map((el:any) => {
-          newLink = constructData(el['details'][0]?.value, el['details'][1]?.value)
-          arr.push(newLink)
-        })
-        
+        const arr: any = [];
+
+        externalLink.map((el: any) => {
+          newLink = constructData(
+            el['details'][0]?.value,
+            el['details'][1]?.value
+          );
+          arr.push(newLink);
+        });
+
         return { judul, newLink, arr };
       });
 
       setContentData(transformedData);
     } catch (err) {
       console.log(err);
-      
+
       console.error(err);
     }
   };
@@ -708,7 +708,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </p>
             )}
             {params.category === 'Avrist Life Guide' && (
-              <p className='text-[36px] font-normal'>
+              <p className="text-[36px] font-normal">
                 Kumpulan artikel mengenai{' '}
                 <span className="font-bold text-purple_dark">asuransi</span> dan{' '}
                 <span className="font-bold text-purple_dark">gaya hidup.</span>
@@ -837,6 +837,8 @@ const Berita: React.FC<ParamsProps> = () => {
                             summary={item.judul}
                             description={`${item.date} ${item.waktu}`}
                             imageUrl={item.image}
+                            imageStyle="min-h-[170px]"
+                            lineClamp={3}
                           />
                         </Link>
                       ))}
@@ -916,7 +918,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               <p className="text-purple_dark font-bold text-sm cursor-pointer text-left text-[20px]">
                                 {item}
                               </p>
-                              <div className='mt-1'>
+                              <div className="mt-1">
                                 <Icon
                                   width={16}
                                   height={16}
@@ -1204,7 +1206,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             }}
                           />
                         }
-                        <div className='flex gap-[12px]'>
+                        <div className="flex gap-[12px] flex-wrap">
                           {item.arr}
                         </div>
                       </div>
@@ -1224,7 +1226,9 @@ const Berita: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px] md:text-4xl">Subscribe Informasi Terkini!</p>
+              <p className="text-[56px] md:text-4xl">
+                Subscribe Informasi Terkini!
+              </p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"
@@ -1236,7 +1240,10 @@ const Berita: React.FC<ParamsProps> = () => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl xs:max-md:w-full md:w-full" />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
+                />
               </div>
             </div>
           }

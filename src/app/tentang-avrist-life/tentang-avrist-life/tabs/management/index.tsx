@@ -104,7 +104,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       {showDetail ? (
         <div
-          className="px-[32px] py-[50px] sm:px-[136px] sm:py-[72px]"
+          className="xs:px-[2rem] md:px-[8.5rem]"
           onClick={() => {
             setShowDetail(false);
           }}
@@ -131,7 +131,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-[3rem] xs:py-[1.5rem] md:py-[4rem]">
+        <div className="flex flex-col gap-[3rem] xs:px-[2rem] md:px-[8.5rem]">
           {contentData &&
             contentData?.map((item: any, index: number) => {
               const transformData = (data: any) => {
@@ -180,7 +180,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
                 </>
               );
             })}
-          <div className="flex flex-col gap-4 items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem]">
+          <div className="flex flex-col gap-4 items-center justify-center w-full">
             <div className="flex justify-center items-center">
               <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark xs:text-center md:text-start">
                 Struktur Organisasi

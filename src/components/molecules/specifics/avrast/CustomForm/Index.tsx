@@ -368,6 +368,29 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         />
                       </div>
                     ))
+                  ) : attribute.fieldType === 'DROPDOWN' ? (
+                    <select
+                      onChange={(e) =>
+                        updateFormDataByName(attribute.name, e.target.value)
+                      }
+                      className="w-full px-[1rem] py-[0.625rem] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                    >
+                      <option value={''}>Pilih</option>
+                      {attribute.value?.split(';').map((option, idx) => (
+                        <option
+                          key={idx}
+                          value={option}
+                          selected={
+                            option ===
+                            formData?.find(
+                              (item) => item.name === attribute.name
+                            )?.value
+                          }
+                        >
+                          {option}
+                        </option>
+                      ))}
+                    </select>
                   ) : attribute.name.includes('Telepon') ? (
                     <div className="flex justify-between gap-[0.5rem]">
                       <input

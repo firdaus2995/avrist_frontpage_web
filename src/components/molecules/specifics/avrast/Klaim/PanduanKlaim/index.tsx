@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import Slider from 'react-slick';
+import YouTube, { YouTubeEvent } from 'react-youtube';
 import MainCard from './components/VideoCards/MainCard';
 import SubCard from './components/VideoCards/SubCard';
 import COMMUNITY_DATA from './sample-data.json';
@@ -13,8 +14,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import ArrowRight from '@/assets/images/common/arrow-carousel-right-white.svg';
 
 const PanduanKlaim = () => {
+  const activePlayerRef = useRef<YouTubeEvent['target'] | null>(null);
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
     if (sliderRef.current) {
@@ -30,7 +33,6 @@ const PanduanKlaim = () => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -61,6 +63,7 @@ const PanduanKlaim = () => {
         return copiedState;
       });
       setIsMainVisible(true);
+      sliderRef.current?.slickGoTo(0);
     }, 150);
   };
 
@@ -72,22 +75,74 @@ const PanduanKlaim = () => {
       ));
   };
 
+  const handlePlay = (event: YouTubeEvent) => {
+    const player = event.target;
+    if (activePlayerRef.current && activePlayerRef.current !== player) {
+      activePlayerRef.current.pauseVideo();
+    }
+    activePlayerRef.current = player;
+  };
+
   const renderMobileVideo = () => {
+    const getVideoId = (url: string) => {
+      if (!url) return '';
+      // Accepts the following pattern of youtube link
+      // https://www.youtube.com/embed/y32pvtRTk1A
+      // https://www.youtube.com/watch?v=uF7eT3nhyZ0
+      // https://youtu.be/uF7eT3nhyZ0?si=Cbt5uoPXbYS9__v_
+      const splittedUrl = url.split('/');
+      const lastPiece = splittedUrl.at(-1);
+
+      if (lastPiece && lastPiece.includes('watch')) {
+        const anotherSplitted = lastPiece.split('?v=');
+        return anotherSplitted.at(-1) ?? '';
+      } else if (lastPiece && lastPiece.includes('?si=')) {
+        const anotherSplitted = lastPiece.split('?si=');
+        return anotherSplitted.at(0);
+      } else if (lastPiece && lastPiece.includes('?')) {
+        const videoIdParam = lastPiece.split('?')[0];
+        return videoIdParam ?? '';
+      }
+      return lastPiece ?? '';
+    };
+
     return videoData.map((item) => (
-      <div className='p-2' key={item.id}>
-        <SubCard onClick={handleSubcardClick} item={item} />
+      <div
+        key={item.id}
+        className="w-full h-[17.813rem] mb-10 flex items-center justify-center"
+      >
+        <YouTube
+          videoId={getVideoId(item.videoUrl)}
+          className="h-[90%] flex items-center justify-center"
+          iframeClassName="-z-1 w-[95%] h-full rounded-t-xl"
+          onPlay={handlePlay}
+        />
+        {item.type && (
+          <div className="flex items-center justify-center">
+            <div
+              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+            >
+              {item.type}
+              <Image
+                alt={'arrow-btn'}
+                className="w-[2.25rem]"
+                src={ArrowRight}
+              />
+            </div>
+          </div>
+        )}
       </div>
     ));
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:pt-[80px] md:md:px-[136px] md:pb-[100px] p-4 gap-4 relative pb-28 bg-purple_light_bg">
-      <div className="w-full max-w-[78rem] m-auto flex flex-col gap-[64px]">
+    <div className="w-full flex flex-col justify-center md:pt-[5rem] md:px-[8.5rem] md:pb-[1.625rem] p-4 gap-4 relative pb-[1.625rem] bg-purple_light_bg">
+      <div className="w-full max-w-[78rem] m-auto flex flex-col sm:gap-[4rem] xs:gap-[2.25rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[56px] xs:text-[36px] font-medium text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
             Video Panduan Klaim
           </h2>
-          <h2 className="md:text-[36px] xs:text-[24px]">
+          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
             Kami memberikan <span className="font-bold">solusi</span> dan{' '}
             <span className="font-bold">efisiensi waktu</span> untuk Anda
           </h2>

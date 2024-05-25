@@ -191,7 +191,7 @@ const LaporanPerusahaan = () => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
-        <div className="w-full flex flex-col items-center justify-center text-center mt-[3rem] gap-[0.75rem] px-[2rem]">
+        <div className="w-full flex flex-col items-center justify-center text-center gap-[0.75rem] px-[2rem]">
           <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-medium font-karla text-purple_dark">
             Laporan Keuangan Perusahaan
           </h2>

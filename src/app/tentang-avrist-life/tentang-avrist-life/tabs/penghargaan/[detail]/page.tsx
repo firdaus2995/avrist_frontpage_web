@@ -123,7 +123,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <div className="flex items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem] py-[1.25rem]">
+        <div className="flex items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem] xs:pt-[1.25rem] md:pt-[5rem]">
           <div className="flex flex-col gap-10 font-opensans">
             <div className="flex flex-col gap-5">
               <span className="text-purple_dark font-semibold">
@@ -159,13 +159,15 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 </div>
               </div>
             </div>
-            {
+            {/* Paragraf Satu */}
+            {contentData && contentData.paragrafSatu !== '<p>-</p>' && (
               <p
                 dangerouslySetInnerHTML={{
                   __html: contentData.paragrafSatu
                 }}
               />
-            }
+            )}
+            {/* Image */}
             <div className="bg-gray-200">
               <Image
                 src={contentData.artikelImage ?? BlankImage}
@@ -175,13 +177,15 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 height={172}
               />
             </div>
-            {
-              <span
+            {/* Paragraf Dua */}
+            {contentData && contentData.paragrafDua !== '<p>-</p>' && (
+              <p
                 dangerouslySetInnerHTML={{
                   __html: contentData.paragrafDua
                 }}
               />
-            }
+            )}
+            {/* Video */}
             <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
               <VideoPlayer
                 thumbnail=""
@@ -190,56 +194,14 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 type="Artikel Video"
               />
             </div>
-
-            {
-              <span
+            {/* Paragraf Tiga */}
+            {contentData && contentData.paragrafTiga !== '<p>-</p>' && (
+              <p
                 dangerouslySetInnerHTML={{
                   __html: contentData.paragrafTiga
                 }}
               />
-            }
-            <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
-              {/* <p className="font-semibold text-xl">
-                Berita ini telah terbit di:
-              </p>
-              <div className="flex flex-row gap-4">
-                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                  Kompas
-                  <Icon name="externalLink" color="purple_dark" width={10} />
-                </div>
-                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                  Media Indonesia
-                  <Icon name="externalLink" color="purple_dark" width={10} />
-                </div>
-                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                  Tribun
-                  <Icon name="externalLink" color="purple_dark" width={10} />
-                </div>
-                <div className="flex flex-row gap-2 items-center text-xs font-medium text-purple_dark">
-                  Detik
-                  <Icon name="externalLink" color="purple_dark" width={10} />
-                </div>
-              </div>
-              <div className="flex flex-row items-center justify-between">
-                <div className="flex flex-row gap-2 items-center">
-                  <Image alt={'email'} className="w-6" src={Email} />
-                  <p className="font-bold">corcom@avrist.com</p>
-                </div>
-                <div className="flex flex-row gap-2 items-center">
-                  <Image alt={'phone'} className="w-6" src={Phone} />
-                  <p className="font-bold">+62 21 5789 8188</p>
-                </div>
-                <div className="flex flex-row gap-2 items-center">
-                  <Image alt={'office'} className="w-6" src={Office} />
-                  <p className="font-bold">Sekilas Avrist Life Insurance</p>
-                </div>
-              </div> */}
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: contentData.externalLink
-                }}
-              />
-            </div>
+            )}
           </div>
         </div>
       )}

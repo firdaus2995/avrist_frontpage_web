@@ -59,7 +59,7 @@ const Promo: React.FC<ParamsProps> = () => {
   };
 
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState('');
+  const [, setTab] = useState('');
   const [category, setCategory] = useState('');
   const [data, setData] = useState<any>({
     titleImage: '',
@@ -314,16 +314,16 @@ const Promo: React.FC<ParamsProps> = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
       <Hero
-        title={tab}
+        title={'Promo Terbaru'}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: tab === 'Avrist Terkini' ? category : tab, href: '#' }
+          { title: 'Promo Terbaru', href: '#' }
         ]}
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
       <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative">
-        <div className="xs:-mt-24 md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
+        <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
           <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold mb-[0.75rem] text-purple_dark">
             Avrist Promo Terbaru
           </h2>
@@ -336,7 +336,7 @@ const Promo: React.FC<ParamsProps> = () => {
           </h2>
         </div>
 
-        <div className="w-full pt-[8rem] md:px-[4rem]">
+        <div className="w-full xs:pt-[11rem] md:pt-[8rem] md:px-[4rem]">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;

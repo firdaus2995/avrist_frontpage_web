@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import YouTube, { YouTubeEvent } from 'react-youtube';
-import ArrowRight from '@/assets/images/common/arrow-carousel-right-white.svg';
 import PlayButtonGreen from '@/assets/images/play-button-green.svg';
 import PlayButton from '@/assets/images/play-button.svg';
 
@@ -124,17 +123,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       /> */}
       <YouTube
         videoId={videoId}
-        className="h-full"
-        iframeClassName="-z-1 w-full h-full"
+        className="sm:h-[35.438rem] xs:h-[13.375rem]"
+        iframeClassName="-z-1 w-full sm:h-[35.438rem] xs:h-[13.375rem] rounded-t-xl"
         onReady={handleReady}
         opts={videoOptions}
       />
       {type && (
         <div
-          className={`p-[0.75rem] w-full bg-${color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+          className={`p-[1.5rem] w-full bg-${color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
         >
           {type}
-          <Image alt={'arrow-btn'} className="w-[2.25rem]" src={ArrowRight} />
         </div>
       )}
     </div>
