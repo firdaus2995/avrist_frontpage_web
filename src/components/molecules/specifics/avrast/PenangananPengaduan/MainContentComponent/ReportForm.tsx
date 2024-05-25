@@ -6,6 +6,7 @@ import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import EMAIL from '@/assets/images/common/email.svg';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Icon from '@/components/atoms/Icon';
+import { handleDownload } from '@/utils/helpers';
 
 type TextInputProps = {
   title: string;
@@ -90,6 +91,10 @@ const UploadBox = (props: UploadBoxProps) => {
     </div>
   );
 };
+
+const handleClickDownload = async (fileUrl: string) => {
+  await handleDownload(fileUrl);
+}
 
 export const ReportForm = () => {
   return (
@@ -226,7 +231,7 @@ export const ReportForm = () => {
         <div className="h-[0.5rem] bg-purple_dark" />
       </div>
       <div className="sm:px-[8.5rem] mt-[1.5rem] mb-[1.625rem]">
-        <CardMenuDownload desc="Formulir Pengaduan" />
+        <CardMenuDownload desc="Formulir Pengaduan" href='/pdf/formulir-pengaduan.pdf' onDownload={handleClickDownload}  />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
@@ -14,7 +15,10 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { getPanduanPembayaran } from '@/services/layanan.api';
-import { pageTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  pageTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 const handleGetContent = async (slug: string) => {
   try {
@@ -78,13 +82,20 @@ const Page = () => {
               </span>{' '}
               Solusi Perlindungan Masa Depan
             </p>
-            <div
+            <Link
+              href="https://www.youtube.com/@avristian"
+              target="blank"
               role="button"
-              className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
+              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg md:text-xl font-semibold text-white flex flex-row gap-[0.667rem] items-center font-opensans"
             >
               Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" />
-            </div>
+              <Icon
+                name="youtubeIcon"
+                color="white"
+                width={26.67}
+                height={18.67}
+              />
+            </Link>
           </div>
         }
         image={footerImage.imageUrl}
