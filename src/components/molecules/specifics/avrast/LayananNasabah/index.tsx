@@ -74,7 +74,7 @@ const LayananNasabah = () => {
     href3: string;
   }) => (
     <div
-      className={`w-full h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark pt-[24px] px-[32px] pb-[36px]`}
+      className={`w-full max-h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark pt-[24px] px-[32px] pb-[36px]`}
     >
       <div className="xs:block md:hidden flex items-start w-full pt-6 pl-5">
         <Image src={val.icon} alt={val.title} className="w-20" />
@@ -163,7 +163,7 @@ const LayananNasabah = () => {
           Layanan Nasabah
         </p>
         <p className="md:text-4xl xs:text-2xl text-gray_bold_dark text-center px-10">
-          Diskusikan kebutuhan Anda disini
+          Kami Melayani Dengan Senang Hati!
         </p>
       </div>
       <div className="w-full flex flex-row items-center justify-center gap-10 xs:hidden md:flex">
@@ -182,7 +182,7 @@ const LayananNasabah = () => {
             <div className='px-2' key={idx}>{renderCard(val)}</div>
           ))}
         </Slider>
-        <div className="flex flex-row gap-4 ml-5">
+        <div className="flex flex-row gap-4 justify-between w-[85%] m-auto">
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>

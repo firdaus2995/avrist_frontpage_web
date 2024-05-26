@@ -157,7 +157,7 @@ const CompanySection = () => {
                   width={10}
                   height={10}
                 />
-                <p className="md:text-xl xs:text-xs font-bold font-karla">
+                <p className="md:text-xl xs:text-xs font-bold font-karla text-left">
                   {val.title1}
                 </p>
               </div>
@@ -183,7 +183,7 @@ const CompanySection = () => {
               </div>
 
             </div>
-            <div className="flex flex-row items-center gap-2 flex-wrap text-left">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
               <div className="flex flex-row items-center gap-2">
                 <Image
                   src={val.icon2}
@@ -192,7 +192,7 @@ const CompanySection = () => {
                   width={10}
                   height={10}
                 />
-                <p className="md:text-xl xs:text-xs font-bold font-karla">
+                <p className="md:text-xl xs:text-xs font-bold font-karla text-left">
                   {val.title2}
                 </p>
               </div>
@@ -240,7 +240,10 @@ const CompanySection = () => {
     <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">
       <div>
         <p className="md:text-[4rem] xs:text-3xl text-center font-extrabold text-purple_dark px-10 font-karla">
-          Mengapa Memilih Avrist?
+          Mengapa Avrist Assurance?
+        </p>
+        <p className="md:text-[4rem] xs:text-3xl text-center font-light px-10 font-karla">
+          Satu Polis untuk setiap rumah tangga di Indonesia!
         </p>
       </div>
       <div className="w-full grid grid-cols-1 gap-4">
