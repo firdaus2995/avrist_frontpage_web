@@ -5,6 +5,7 @@ import CLOCK from '@/assets/images/avrast/hubungi-kami/clock.svg';
 import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import EMAIL from '@/assets/images/common/email.svg';
 import Icon from '@/components/atoms/Icon';
+import { BASE_URL } from '@/utils/baseUrl';
 import { handleDownload } from '@/utils/helpers';
 
 type TextInputProps = {
@@ -224,7 +225,7 @@ export const ReportForm = () => {
         <div className="h-[0.5rem] bg-purple_dark" />
       </div>
       <div className="sm:px-[8.5rem] mt-[1.5rem] mb-[1.625rem]">
-        <CardMenuDownload desc="Formulir Pengaduan" href='/pdf/formulir-pengaduan.pdf' onDownload={handleClickDownload}  />
+        <CardMenuDownload desc="Formulir Pengaduan" href={`${BASE_URL.image}/4bc466fc-9bad-4fd8-b44b-d603810a200a-formulir-pengaduan.pdf`} onDownload={handleClickDownload}  />
       </div>
     </div>
   );
