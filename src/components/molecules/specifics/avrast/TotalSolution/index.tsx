@@ -183,7 +183,7 @@ const TotalSolution = () => {
       <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
-        <p>{val.content}</p>
+        <p className='min-h-[55px]'>{val.content}</p>
         <Link href={val.link}>
           <Button
             title={val.btnText}
@@ -216,7 +216,7 @@ const TotalSolution = () => {
             <div key={idx}>{renderMobileCard(val)}</div>
           ))}
         </Slider>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 justify-between">
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>
