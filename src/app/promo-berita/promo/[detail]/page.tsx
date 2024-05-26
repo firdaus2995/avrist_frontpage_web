@@ -178,48 +178,58 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
-    const artikel = content['artikel-looping'].contentData[0].details;
-    const loopArtikel = artikel.map((item: any) => {
-      const fieldType = item.fieldType;
-      const isNotEmpty = item.value !== '<p>-</p>' && item.value !== '["-"]';
-      if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
-        return (
-          <span
-            dangerouslySetInnerHTML={{
-              __html: item.value
-            }}
-            key={item.id}
-          />
-        );
-      }
-      if (fieldType === 'IMAGE' && isNotEmpty) {
-        return (
-          <div className="bg-gray-200" key={item.id}>
-            <Image
-              src={singleImageTransformer(item).imageUrl ?? BlankImage}
-              alt="img"
-              className="w-full"
-              width={238}
-              height={172}
-            />
-          </div>
-        );
-      }
-      if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
-        return (
-          <div
-            className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0"
-            key={item.id}
-          >
-            <VideoPlayer
-              thumbnail=""
-              url={getYouTubeId(item.value) ?? ''}
-              color="purple_dark"
-              type="Artikel Video"
-            />
-          </div>
-        );
-      }
+    const artikel = content['artikel-looping'].contentData;
+    const loopArtikel = artikel.map((item: any, itemIndex: number) => {
+      return (
+        <React.Fragment key={itemIndex}>
+          {item.details.map((detailItem: any, detailIndex: number) => {
+            const fieldType = detailItem.fieldType;
+            const isNotEmpty =
+              detailItem.value !== '<p>-</p>' && detailItem.value !== '["-"]';
+            if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
+              return (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: detailItem.value
+                  }}
+                  key={detailIndex}
+                />
+              );
+            }
+            if (fieldType === 'IMAGE' && isNotEmpty) {
+              return (
+                <div className="bg-gray-200" key={detailIndex}>
+                  <Image
+                    src={
+                      singleImageTransformer(detailItem).imageUrl ?? BlankImage
+                    }
+                    alt="img"
+                    className="w-full"
+                    width={238}
+                    height={172}
+                  />
+                </div>
+              );
+            }
+            if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
+              return (
+                <div
+                  className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0"
+                  key={detailIndex}
+                >
+                  <VideoPlayer
+                    thumbnail=""
+                    url={getYouTubeId(detailItem.value) ?? ''}
+                    color="purple_dark"
+                    type="Artikel Video"
+                  />
+                </div>
+              );
+            }
+            return null;
+          })}
+        </React.Fragment>
+      );
     });
     const tags = content['tags'].value;
     const thumbnail = singleImageTransformer(
@@ -416,9 +426,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           {/* Loop Artikel */}
 
           {contentData
-            ? contentData?.loopArtikel?.map((item: any, index: number) => (
-                <span key={index}>{item}</span>
-              ))
+            ? contentData?.loopArtikel?.map((item: any) => item)
             : null}
         </div>
       </div>
