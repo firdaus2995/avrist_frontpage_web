@@ -87,7 +87,7 @@ const LayananNasabah = () => {
             <Image
               src={val.icon}
               alt={val.title}
-              className="xs:w-10 md:w-28 mix-blend-multiply"
+              className="xs:hidden md:w-28 mix-blend-multiply"
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -179,7 +179,9 @@ const LayananNasabah = () => {
           {...sliderSettings}
         >
           {data.map((val, idx) => (
-            <div className='px-2' key={idx}>{renderCard(val)}</div>
+            <div className="px-2" key={idx}>
+              {renderCard(val)}
+            </div>
           ))}
         </Slider>
         <div className="flex flex-row gap-4 justify-between w-[85%] m-auto">
