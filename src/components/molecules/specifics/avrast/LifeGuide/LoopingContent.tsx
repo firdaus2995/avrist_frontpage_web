@@ -49,7 +49,6 @@ export const LoopingContent: React.FC<ParamProps> = ({ data }: ParamProps) => {
                             thumbnail=""
                             url={value}
                             color="purple_dark"
-                            type="Artikel Video"
                           />
                         </div>
                       );
