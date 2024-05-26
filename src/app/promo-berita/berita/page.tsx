@@ -321,7 +321,7 @@ const Berita: React.FC<ParamsProps> = () => {
         yearFilter: params.yearFilter,
         monthFilter: params.monthFilter
       });
-
+      
       const data = fetchData.data.categoryList;
 
       const categoryList: any = Object.keys(data);

@@ -17,8 +17,8 @@ interface ContentPopoverProps {
 const ContentPopover: React.FC<ContentPopoverProps> = ({isOpenPopover, setIsOPenPopover, message}) => {
     
     const shareWa = () => {
-        const messageFormat = message?.split('<p>')?.join('')?.split('</p>')?.join(' ')
-        const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(messageFormat)}%20${encodeURIComponent(window?.location.href)}`;
+        console.log(message); // Do not delete this console
+        const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(window?.location.href)}`;
         window?.open(shareUrl, '_blank')
     };
 
@@ -41,7 +41,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({isOpenPopover, setIsOPen
                     />
                     <div className="text-xs font-bold cursor-pointer">Whatsapp</div>
                 </div>
-                <EmailShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={(window?.location.href)}>
+                <EmailShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={encodeURIComponent(window?.location.href)}>
                     <Image
                         role="button"
                         // onClick={() => setIsVisible(!isVisible)}
@@ -51,7 +51,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({isOpenPopover, setIsOPen
                     />
                     <div className="text-xs font-bold cursor-pointer">Email</div>
                 </EmailShareButton>
-                <LinkedinShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={(window?.location.href)}>
+                <LinkedinShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={encodeURIComponent(window?.location.href)}>
                     <Image
                         role="button"
                         // onClick={() => setIsVisible(!isVisible)}
@@ -61,7 +61,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({isOpenPopover, setIsOPen
                     />
                     <div className="text-xs font-bold cursor-pointer">LinkedIn</div>
                 </LinkedinShareButton>
-                <FacebookShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={(window?.location.href)}>
+                <FacebookShareButton className="flex flex-col gap-1 items-center xs:max-md:m-auto" url={encodeURIComponent(window?.location.href)}>
                     <Image
                         role="button"
                         // onClick={() => setIsVisible(!isVisible)}
