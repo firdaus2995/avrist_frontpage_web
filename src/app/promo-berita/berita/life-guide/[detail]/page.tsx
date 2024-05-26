@@ -1,8 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState, useEffect, Key } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { formatTimeDifference } from '../../format-time';
 import ContentPopover from './content-popover';
@@ -16,13 +13,14 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import MediumTag from '@/components/atoms/Tag/MediumTag';
+import TagPill from '@/components/molecules/specifics/avram/MutualFundList/components/TagPill';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { LoopingContent } from '@/components/molecules/specifics/avrast/LifeGuide/LoopingContent';
 import { getAvristLifeGuide } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { generateDaftarIsi } from '@/utils/helpers';
 import {
   // contentDetailTransformer
   pageTransformer,
@@ -50,7 +48,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     tags: '',
     artikelPIC: '',
     artikelPICJabatan: '',
-    waktuBaca: ''
+    waktuBaca: '',
+    category: ''
   });
   const [data, setData] = useState<any>({
     titleImage: '',
@@ -58,7 +57,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     footerImage: ''
   });
   const [currentCategory, setCurrentCategory] = useState('');
-  const [listArticle, setListArticle] = useState<any>();
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   const fetchCategory = async () => {
     try {
@@ -68,14 +67,15 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       });
 
       const data = fetchData.data.categoryList;
-      
-      const transformedData = data[currentCategory]?.map((item: any) => {
+
+      data[currentCategory]?.map((item: any) => {
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
         );
-        
+
         const id = item.id;
+        const category = item.categoryName;
         const tagline = content['tags'].value;
         const judul = content['judul-artikel'].value;
         const penulis = content['penulis-artikel'].value;
@@ -84,20 +84,17 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         const thumbnail = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;
-        const artikel = content['artikel-looping'].contentData[0]?.details;
-        const paragrafSatu = artikel[0]?.value;
-        const paragrafDua = artikel[1]?.value;
-        const artikelImage = artikel[2]?.value ? singleImageTransformer(artikel[2])?.imageUrl : null;
-        const artikelText = artikel[3]?.value;
-        const artikelVideo = artikel[4]?.value;
-        const paragrafTiga = artikel[5]?.value;
-        const tags = content['tags']?.value;
-        const artikelPIC = content['artikel-pic']?.value;
-        const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+        const artikel = content['artikel-looping'].contentData;
+        const tags =
+          !!content['tags']?.value || content['tags']?.value !== '-'
+            ? content['tags']?.value.split(',')
+            : content['tags']?.value;
         const waktuBaca = content['waktu-baca-artikel']?.value;
-        const daftarIsi = content['artikel-looping']?.contentData;
-        const differenceTime = formatTimeDifference(new Date(item?.createdAt), new Date())
-
+        const daftarIsi = generateDaftarIsi(artikel, 'subjudul');
+        const differenceTime = formatTimeDifference(
+          new Date(item?.createdAt),
+          new Date()
+        );
         const transformedData = {
           tagline,
           judul,
@@ -105,19 +102,13 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           bulan,
           tahun,
           thumbnail,
-          paragrafSatu,
-          artikelImage,
-          paragrafDua,
-          artikelVideo,
-          paragrafTiga,
+          artikel,
           tags,
-          artikelPIC,
-          artikelPICJabatan,
           waktuBaca,
           daftarIsi,
           differenceTime,
           id,
-          artikelText
+          category
         };
 
         setContentData(transformedData);
@@ -125,7 +116,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         return transformedData;
       });
 
-      setListArticle(transformedData);
+      // setListArticle(transformedData);
     } catch (err) {
       console.error(err);
     }
@@ -156,7 +147,6 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   const fetchDetailData = async () => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
-    
 
     // const { content } = contentDetailTransformer(jsonData);
 
@@ -219,6 +209,17 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     }
   }, [currentCategory]);
 
+  const scrollToview = (idx: number) => {
+    if (selectedIndex !== idx) {
+      setSelectedIndex(idx);
+      document
+        .getElementsByTagName('h1')
+        [
+          idx
+        ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <Hero
@@ -233,12 +234,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="flex xl:flex-row xs:max-lg:flex-wrap xl:px-[136px] xs:px-[50px] pt-[80px] pb-[100px] gap-[48px]">
+      <div className="flex xl:flex-row xs:max-lg:flex-wrap px-[2rem] md:px-[8.5rem] pt-[80px] pb-[100px] gap-[48px]">
         <div className="flex flex-col gap-[24px] py-10">
           <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
-            {listArticle?.slice(0, 5).map((item: any, index: number) =>
-              item?.judul === contentData?.judul ? (
+            {contentData?.daftarIsi?.map((item: any, index: number) =>
+              item?.label === contentData?.judul ? (
                 <div
                   key={index}
                   className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
@@ -251,22 +252,19 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   />
                 </div>
               ) : (
-                <Link
-                  href={{
-                    pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                    query: { id: item.id }
-                  }}
+                <button
                   key={index}
                   role="button"
-                  className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
+                  className={`border-l-4 ${index === selectedIndex ? 'border-purple_dark' : 'border-purple_mediumlight'} px-[15px] py-[10px] cursor-pointer text-left`}
+                  onClick={() => scrollToview(index)}
                 >
                   <div
-                    className="font-bold text-purple_mediumlight text-lg font-['Source Sans Pro']"
+                    className={`font-bold  ${index === selectedIndex ? 'text-purple_dark' : 'text-purple_mediumlight'} text-lg font-['Source Sans Pro']`}
                     dangerouslySetInnerHTML={{
-                      __html: item.judul
+                      __html: item.label
                     }}
                   />
-                </Link>
+                </button>
               )
             )}
           </div>
@@ -276,27 +274,35 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           <div className="flex items-center justify-start w-full">
             <div className="flex flex-col gap-10 w-2/3 xs:max-lg:w-full py-10">
               <div className="flex flex-col gap-5">
-                <p className="text-purple_dark font-semibold">
-                  {contentData?.tags}
+                <p className="text-purple_dark font-semibold text-[1.5rem]">
+                  {contentData?.category}
                 </p>
                 <p
-                  className="font-semibold text-[48px] xs:max-lg:text-4xl"
+                  className="font-semibold text-[3.5rem] xs:max-lg:text-4xl"
                   dangerouslySetInnerHTML={{
                     __html: contentData?.judul
                   }}
                 />
                 <div className="flex flex-row justify-between items-center">
                   <div className="flex flex-col gap-2">
-                    <p className='text-base'>
+                    <p className="text-base">
                       {`${contentData?.differenceTime} yang lalu`} |{' '}
                       {contentData.penulis}
                     </p>
-                    <div className="flex flex-row gap-2">
-                      <MediumTag title={contentData?.tags} />
+                    <div className="flex flex-row gap-2 flex-wrap">
+                      {!!contentData?.tags &&
+                        contentData.tags?.map((tag: string, idx: Key) => (
+                          <TagPill key={idx}>{tag}</TagPill>
+                        ))}
                     </div>
                   </div>
                   <div className="flex flex-col gap-1 items-center">
-                    <div className="flex items-center" id="PopoverFocus" role="button" onClick={() => setIsOPenPopover(!isOpenPopover)}>
+                    <div
+                      className="flex items-center"
+                      id="PopoverFocus"
+                      role="button"
+                      onClick={() => setIsOPenPopover(!isOpenPopover)}
+                    >
                       <Icon
                         width={16}
                         height={16}
@@ -306,58 +312,15 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     </div>
 
                     <div className="text-xs font-bold">Share</div>
-                    <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
+                    <ContentPopover
+                      isOpenPopover={isOpenPopover}
+                      setIsOPenPopover={() => setIsOPenPopover(false)}
+                      message={contentData?.judul}
+                    />
                   </div>
                 </div>
               </div>
-              {
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: contentData.paragrafSatu
-                  }}
-                />
-              }
-              {
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: contentData.paragrafDua
-                  }}
-                />
-              }
-
-              <div className="bg-gray-200">
-                <Image
-                  src={contentData.artikelImage ?? BlankImage}
-                  alt="img"
-                  className="w-full"
-                  width={238}
-                  height={172}
-                />
-              </div>
-
-              {
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: contentData.artikelText
-                  }}
-                />
-              }
-
-              <div className="w-full h-[650px] mb-10">
-                <VideoPlayer
-                  thumbnail=""
-                  url={contentData.artikelVideo}
-                  color="purple_dark"
-                  type="Artikel Video"
-                />
-              </div>
-              {/* {
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: contentData.paragrafTiga
-                  }}
-                />
-              } */}
+              <LoopingContent data={contentData?.artikel} />
             </div>
           </div>
         </div>
