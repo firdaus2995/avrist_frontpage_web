@@ -1,31 +1,31 @@
 {
   "community-videos": [
     {
-      "id": "sample-vid-1",
-      "videoUrl": "https://www.youtube.com/watch?v=uF7eT3nhyZ0",
+      "id": "panduanklaim-video1",
+      "videoUrl": "https://www.youtube.com/watch?v=7lHMUraLgdA",
       "videoThumbnail": "https://images.freeimages.com/vhq/images/previews/d50/butterfly-papilio-philenor-side-clip-art-545705.jpg",
-      "type": "Asuransi Jiwa Individu",
+      "type": "Avrist Solution",
       "color": "purple_dark"
     },
     {
-      "id": "sample-vid-2",
-      "videoUrl": "https://www.youtube.com/embed/WtH6UIIOY2w",
+      "id": "panduanklaim-video2",
+      "videoUrl": "https://www.youtube.com/watch?v=8Z5ppK8eiGE",
       "videoThumbnail": "https://images.freeimages.com/image/previews/477/sweet-flat-candy-png-5690113.png",
-      "type": "Avrist Jiwa Korporasi",
+      "type": "Warisan 108 - Warisan Kebaikan",
       "color": "grey_video_footer"
     },
     {
-      "id": "sample-vid-3",
-      "videoUrl": "https://youtu.be/Av3xaZkVpJs?si=35uVM3hbbIucFWWG",
+      "id": "panduanklaim-video3",
+      "videoUrl": "https://www.youtube.com/watch?v=JBRkIJHJrAg",
       "videoThumbnail": "https://images.freeimages.com/vhq/images/previews/3c7/desktop-vector-elements-561434.jpg",
-      "type": "Avrist Syariah",
+      "type": "Avrist Company Profile",
       "color": "green_border"
     },
     {
-      "id": "sample-vid-4",
-      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "id": "panduanklaim-video4",
+      "videoUrl": "https://www.youtube.com/watch?v=DzWI302ffI0",
       "videoThumbnail": "https://images.freeimages.com/image/previews/fa2/animal-shadows-earth-air-water-5691290.jpg",
-      "type": "Avrist DPLK",
+      "type": "Avrist - Media Gathering 2024",
       "color": "orange_border"
     }
   ]
