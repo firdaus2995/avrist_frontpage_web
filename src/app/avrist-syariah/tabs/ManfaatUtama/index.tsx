@@ -18,7 +18,7 @@ type Props = {
 };
 
 const ManfaatUtama = (props: Props) => {
-  const { boards, desc, subTitle, title, manfaatUtamaDesc, manfaatUtamaJudul } =
+  const { boards, desc, subTitle, title } =
     props;
   return (
     <div>
@@ -61,14 +61,33 @@ const ManfaatUtama = (props: Props) => {
         ]}
         cardClassname="border-b-syariah_green"
       />
-      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-gray_bglightgray">
+      <div className="flex mx-[-2rem] mb-[-3.125rem] sm:mx-[-8.5rem] sm:mb-[-4.5rem] px-[2rem] sm:px-[8.5rem] bg-gray_bglightgray">
         <InformationCard
           heading="Mengapa Avrist Syariah?"
           cards={[
             {
               cardIcon: GreenBinocular,
-              cardTitle: manfaatUtamaJudul,
-              cardBody: manfaatUtamaDesc
+              cardTitle: 'Dapat dibeli dengan mudah',
+              cardBody:
+                'Avrist Unit Syariah memiliki Jalur Distribusi lengkap mencakup Employee Benefit, Bancassurance dan Agency'
+            },
+            {
+              cardIcon: GreenHead,
+              cardTitle: 'Pilihan Produk yang lengkap',
+              cardBody:
+                'Memiliki beragam Produk Avrist Unit Syariah, sesuai dengan kebutuhan keluarga Indonesia'
+            },
+            {
+              cardIcon: GreenPeople,
+              cardTitle: 'Menggunakan Prinsip Murni Syariah',
+              cardBody:
+                "Dengan menggunakan Akad Wakalah Bil Ujrah, Akad Tabarru’, dan Akad Hibah Mu'allaqah bi al-Syarth"
+            },
+            {
+              cardIcon: GreenPeople,
+              cardTitle: 'Semakin dekat dengan Anda',
+              cardBody:
+                'Avrist Unit Syariah berada di 20 kota dengan 21 Kantor Cabang dan 13 Kantor Pemasaran Mandiri'
             }
           ]}
           cardClassname="border-b-syariah_green"
