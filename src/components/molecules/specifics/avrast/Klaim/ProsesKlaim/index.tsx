@@ -228,7 +228,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 val.details[1].value && (
                   <div
                     key={idx}
-                    className="flex flex-row gap-[0.75rem] text-[1.25rem] font-semibold items-center font-opensans"
+                    className="flex flex-row items-start gap-[0.75rem] text-[1.25rem] font-semibold font-opensans"
                   >
                     <Image
                       src={singleImageTransformer(val.details[0]).imageUrl}

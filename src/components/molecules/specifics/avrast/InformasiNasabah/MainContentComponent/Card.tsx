@@ -81,7 +81,7 @@ export const ContentCard = () => {
             <p className="text-center font-bold text-[2rem] font-karla">
               {i.title}
             </p>
-            <div className="flex flex-col justify-end grow items-center gap-[1.5rem]">
+            <div className="flex flex-col justify-between grow items-center gap-[1.5rem]">
               <p className="font-opensans text-[1rem] text-center">{i.desc}</p>
               <Link
                 href={i.link}
