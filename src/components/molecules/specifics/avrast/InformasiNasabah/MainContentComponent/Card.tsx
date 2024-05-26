@@ -12,6 +12,7 @@ import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import PERSON from '@/assets/images/common/person.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { BASE_URL } from '@/utils/baseUrl';
 
 const mockData = [
   {
@@ -29,7 +30,7 @@ const mockData = [
     desc: 'Kami menghargai dan mendengarkan saran dan keluhan dari nasabah Kami.',
     icon: DOCUMENT_SEARCH,
     btn: 'Selengkapnya',
-    link: '/pdf/prosedur-singkat-pelayanan-nasabah-avrist.pdf',
+    link: `${BASE_URL.image}/a08044b5-1d2f-4b3a-ae2d-9ae69b6c8cd0-prosedur-singkat-pelayanan-nasabah-avrist.pdf`,
     isFile: true
   },
   {

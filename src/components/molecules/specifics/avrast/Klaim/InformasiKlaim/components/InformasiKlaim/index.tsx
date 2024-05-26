@@ -15,6 +15,7 @@ import PengajuanKlaimIcon from '@/assets/images/avrast/component/informasi-klaim
 import RsRekananIcon from '@/assets/images/avrast/component/informasi-klaim/rs-rekanan.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import { BASE_URL } from '@/utils/baseUrl';
 
 const data = [
   {
@@ -92,7 +93,7 @@ const InfoKlaimTab = () => {
         router.push('https://my.avrist.com/welcome');
       },
       'Lebih Lengkap': () => {
-        downloadFile('/pdf/prosedur-singkat-pelayanan-nasabah-avrist_updated.pdf');
+        downloadFile(`${BASE_URL.image}/5512b163-ae52-4cd0-9aa2-c2e41f4822f8-prosedur-singkat-pelayanan-nasabah-avrist_updated.pdf`);
       },
       'Cari Rumah Sakit': () => {
         router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
