@@ -84,7 +84,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   src={item.icon}
                   className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                 />
-                <span>
+                <span className='flex flex-col grow justify-between'>
                   <p className="font-bold text-[1.5rem]">{item.title}</p>
                   {item.subtitle && (
                     <div className="flex items-end justify-center">

@@ -116,19 +116,19 @@ export const HomeBannerModal = (props: Props) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="h-[80%] w-[60%] transform overflow-hidden transition-all cursor-pointer">
+                <div className="absolute right-0 p-[24px]">
+                  <button onClick={closeModal}>
+                    <Icon
+                      name="close"
+                      width={24}
+                      height={24}
+                      color="white"
+                    />
+                  </button>
+                </div>
                 <Link href={popupUrl ?? '#'}>
                   <CardRainbow>
-                    <div className="h-full">
-                      <div className="absolute right-0 p-[24px]">
-                        <button onClick={closeModal}>
-                          <Icon
-                            name="close"
-                            width={24}
-                            height={24}
-                            color="white"
-                          />
-                        </button>
-                      </div>
+                    <div className="h-full min-h-[200px]">
                       <img
                         src={bannerModalPath}
                         alt="modal-home-banner"
