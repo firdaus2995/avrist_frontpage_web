@@ -221,7 +221,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         handleDataFetch('halaman-panduan-dan-pengajuan', setData).then();
         break;
       case 'Informasi Klaim':
-        handleDataFetch('informasi-klaim', setData).then();
+        handleDataFetch('hlm-informasi-klaim', setData).then();
         break;
       default:
         console.log('default');
