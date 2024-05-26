@@ -22,6 +22,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
 import { getYouTubeId } from '@/utils/helpers';
@@ -48,6 +49,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   const [formValue, setFormValue] = useState({});
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -274,7 +276,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -504,6 +506,16 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           />
         </div>
       )}
+
+      <div className="absolute">
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            window.location.reload();
+          }}
+        />
+      </div>
     </Suspense>
   );
 };
