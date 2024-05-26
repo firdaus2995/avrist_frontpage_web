@@ -6,7 +6,7 @@ import Input from '@/components/atoms/Input';
 
 const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
   return (
-    <div className="z-[1] w-full bg-purple_dark -mt-1">
+    <div className="z-[1] w-full bg-purple_dark -mt-[3.125rem]">
       <div className="w-full h-[640px] flex items-center absolute">
         <div className="w-full h-full grid sm:grid-cols-2 xs:grid-cols-1">
           <span />

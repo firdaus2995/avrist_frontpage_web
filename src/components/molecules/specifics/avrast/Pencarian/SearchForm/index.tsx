@@ -261,7 +261,7 @@ const SearchForm = () => {
 
   return (
     <div className=" w-full flex flex-col -mt-[-0.0625rem]">
-      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col gap-[3rem]">
+      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col sm:gap-[3rem] xs:gap-[2.25rem]">
         <SearchBox
           onSearch={(value: string) => {
             setSearchKeywords(value);
@@ -279,7 +279,7 @@ const SearchForm = () => {
                 setCurrentSlug(tab.slug);
               }}
               customButtonClass={`${activeTab === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
-              customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
+              customTextClass="text-[1rem] font-semibold leading-[1.48rem] whitespace-nowrap"
             />
           ))}
         </div>
