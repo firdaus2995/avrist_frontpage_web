@@ -201,7 +201,7 @@ const TotalSolution = () => {
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark">
           Kami ada untuk Anda
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center">
+        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
           Avrist Total Solution
         </p>
       </div>

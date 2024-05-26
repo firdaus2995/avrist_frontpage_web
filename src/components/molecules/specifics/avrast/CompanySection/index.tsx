@@ -242,7 +242,7 @@ const CompanySection = () => {
         <p className="md:text-[4rem] xs:text-3xl text-center font-extrabold text-purple_dark px-10 font-karla">
           Mengapa Avrist Assurance?
         </p>
-        <p className="md:text-[4rem] xs:text-3xl text-center font-light px-10 font-karla">
+        <p className="md:text-[2.25rem] xs:text-3xl text-center font-light px-10 font-karla lg:mt-10">
           Satu Polis untuk setiap rumah tangga di Indonesia!
         </p>
       </div>
