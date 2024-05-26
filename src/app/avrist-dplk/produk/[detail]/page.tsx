@@ -21,6 +21,7 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal/SuccessModal';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
 import {
@@ -60,6 +61,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -282,7 +284,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -499,6 +501,15 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
           />
         </div>
       )}
+      <div className="absolute">
+        <SuccessModal
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            window.location.reload();
+          }}
+        />
+      </div>
     </Suspense>
   );
 };
