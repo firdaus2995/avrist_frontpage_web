@@ -93,6 +93,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const [contentData, setContentData] = useState<any>();
   const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
   const [email, setEmail] = useState('');
+  const [emailContent, setEmailContent] = useState('');
   const [search, setSearch] = useState('');
   const [lifeGuideCategory, setLifeGuideCategory] = useState({
     list: [],
@@ -569,6 +570,22 @@ const Berita: React.FC<ParamsProps> = () => {
         });
         if (response?.code === 200) {
           setVisibleSubscribeModal(true)
+          setEmail('');
+        } 
+      } catch(e) {
+        console.log(e);
+      }
+  };
+
+  const handleSubscribeContentButton = async() => {
+      try {
+        const response:any = await subscribeApi({
+          email: emailContent,
+          entity: 'avrist'
+        });
+        if (response?.code === 200) {
+          setVisibleSubscribeModal(true)
+          setEmailContent('');
         } 
       } catch(e) {
         console.log(e);
@@ -1264,10 +1281,13 @@ const Berita: React.FC<ParamsProps> = () => {
                   type="text"
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  value={emailContent}
+                  onChange={(e) => setEmailContent(e.target.value)}
                 />
                 <Button
                   title="Subscribe"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
+                  onClick={handleSubscribeContentButton}
                 />
               </div>
             </div>
