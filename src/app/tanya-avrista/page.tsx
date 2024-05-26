@@ -100,23 +100,24 @@ const TanyaAvrista = () => {
         }));
 
         setCards(listCards);
-        setSelectedCards(listCards[0].title)
+        setSelectedCards(listCards[0].title);
 
-        const tempData = listFaq?.data?.categoryList[""];
-        const transformedData = tempData.map(item => {
-          const title = item.title;
+        const tempData = listFaq?.data?.categoryList[''];
+        const transformedData = tempData.map((item) => {
+          const title = item.shortDesc;
           const href = `/tanya-avrista/${item.id}/`;
-          const tagsData = item.contentData.find(content => content.fieldId === 'tags');
+          const tagsData = item.contentData.find(
+            (content) => content.fieldId === 'tags'
+          );
           const tags = tagsData ? tagsData.value : '';
-        
+
           return {
             title,
             href,
             tags
           };
         });
-        setListData(transformedData)
-
+        setListData(transformedData);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -130,12 +131,12 @@ const TanyaAvrista = () => {
   };
 
   useEffect(() => {
-    const filteredData = listData.filter(item => item.tags === selectedCards);
+    const filteredData = listData.filter((item) => item.tags === selectedCards);
     setListFilteredData(filteredData);
-  },[selectedCards])
+  }, [selectedCards]);
 
   return (
-    <div className='bg-purple_superlight'>
+    <div className="bg-purple_superlight">
       <Hero
         title="Tanya Avrista"
         breadcrumbsData={breadcrumbsData}
