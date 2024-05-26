@@ -40,7 +40,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
         ))}
       </div>
 
-      <div className="md:hidden w-full h-full bg-purple_light_bg rounded-xl">
+      <div className="md:hidden w-full h-full bg-white rounded-xl relative">
         <span
           className="flex flex-row justify-between items-center cursor-pointer pr-4"
           onClick={() => {
@@ -65,7 +65,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
             (i, index) =>
               index !== selected && (
                 <span
-                  className="flex flex-row justify-between items-center cursor-pointer pr-4"
+                  className="flex flex-row justify-between items-center cursor-pointer pr-4 absolute bg-white w-full"
                   key={index}
                   onClick={() => {
                     i.onClick ? i.onClick() : null;
