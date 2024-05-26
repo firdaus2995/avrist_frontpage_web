@@ -27,6 +27,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         bg-[white]
         text-white text-sm p-4
         transition-all duration-300 ease-in-out
+        max-h-[50vh] overflow-y-auto
         ${isVisible ? styles['show-menu'] : styles['hide-menu']}
       `}
     >
@@ -69,13 +70,18 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                       {val.title}
                     </span>
                     {val.subMenus.map((el, index) => (
-                      <div key={index} className='mt-4'>
+                      <div key={index} className='mt-4'> 
                         <Link 
-                          href={{
+                          href={index !== 2 || el.icon !== 2 ? {
                                 pathname: `/${convertToKebabCase(item.title)}/${camelToKebabCase(val.title)}`,
                                 query: { tab: el.title }
-                          }}
+                          } : 'https://my.avrist.com/welcome'}
                           onClick={() => setVisibility(false)}
+                          target={
+                            index === 2 || el.icon === 2
+                              ? '_blank'
+                              : '_self'
+                          }
                           className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
                         >
                           {el.title}
