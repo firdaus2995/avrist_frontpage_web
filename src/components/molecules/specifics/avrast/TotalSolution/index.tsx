@@ -130,7 +130,7 @@ const TotalSolution = () => {
     idx: number
   ) => (
     <div
-      className={`w-96 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
+      className={`w-96 h-full grow flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
       style={{ backgroundColor: val.inlineStyling }}
     >
       {idx <= 2 && (
@@ -140,17 +140,25 @@ const TotalSolution = () => {
           {val.category}
         </div>
       )}
-      <div className="p-5 h-80 flex flex-col items-center justify-center gap-4 pb-10">
-        <Image alt="loop-image" src={val.icon} className="mix-blend-multiply" />
-        <p className="font-bold text-2xl">{val.title}</p>
-        <p>{val.content}</p>
-        <Link href={val.link}>
-          <Button
-            title={val.btnText}
-            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-            customTextClass="text-white"
+      <div className="p-5 flex flex-col grow items-center justify-between gap-4 pb-10">
+        <div className="flex flex-col grow justify-center items-center gap-4">
+          <Image
+            alt="loop-image"
+            src={val.icon}
+            className="mix-blend-multiply"
           />
-        </Link>
+          <p className="font-bold text-2xl">{val.title}</p>
+        </div>
+        <div className="flex flex-col grow justify-between items-center gap-4">
+          <p>{val.content}</p>
+          <Link href={val.link}>
+            <Button
+              title={val.btnText}
+              customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+              customTextClass="text-white"
+            />
+          </Link>
+        </div>
       </div>
       {idx > 2 && (
         <div
