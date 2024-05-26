@@ -176,7 +176,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                           __html: contentStringTransformer(data['hero-teks2'])
                         }}
                       />
-                      <div className="mt-3 px-[40px] py-[12px]">
+                      <div className="mt-3 py-[12px]">
                         <Link
                           href={contentStringTransformer(
                             data['hero-linkbutton']
@@ -215,9 +215,9 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
-          <div className="flex py-10 px-[32px] items-center xs:justify-start md:justify-center text-white md:text-4xl xs:text-xl text-left md:w-1/3 xs:w-full bg-dark-purple">
-            <p className="font-karla font-light">
-              Apa <span className="font-bold">perlindungan </span> yang <span className="font-bold">anda </span> butuhkan?
+          <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
+            <p className="font-karla font-light xs:w-full md:w-[200px]">
+              Temukan <span className="font-bold">kebutuhanmu </span> di sini
             </p>
           </div>
           <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">

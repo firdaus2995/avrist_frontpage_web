@@ -130,7 +130,7 @@ const TotalSolution = () => {
     idx: number
   ) => (
     <div
-      className={`w-96 h-full grow flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl`}
+      className={`flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl h-full`}
       style={{ backgroundColor: val.inlineStyling }}
     >
       {idx <= 2 && (
@@ -140,25 +140,27 @@ const TotalSolution = () => {
           {val.category}
         </div>
       )}
-      <div className="p-5 flex flex-col grow items-center justify-between gap-4 pb-10">
-        <div className="flex flex-col grow justify-center items-center gap-4">
+      <div
+        className={`p-5 flex flex-col items-center justify-between h-full ${idx <= 2 ? 'pb-10' : ''}`}
+      >
+        <div className="flex flex-col items-center">
           <Image
             alt="loop-image"
             src={val.icon}
             className="mix-blend-multiply"
           />
-          <p className="font-bold text-2xl">{val.title}</p>
+          <div className="py-[1.5rem]">
+            <p className="font-bold text-2xl">{val.title}</p>
+            <p>{val.content}</p>
+          </div>
         </div>
-        <div className="flex flex-col grow justify-between items-center gap-4">
-          <p>{val.content}</p>
-          <Link href={val.link}>
-            <Button
-              title={val.btnText}
-              customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-              customTextClass="text-white"
-            />
-          </Link>
-        </div>
+        <Link href={val.link} className="justify-self-end">
+          <Button
+            title={val.btnText}
+            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+            customTextClass="text-white"
+          />
+        </Link>
       </div>
       {idx > 2 && (
         <div
@@ -191,7 +193,7 @@ const TotalSolution = () => {
       <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
-        <p className='min-h-[55px]'>{val.content}</p>
+        <p className="min-h-[55px]">{val.content}</p>
         <Link href={val.link}>
           <Button
             title={val.btnText}
@@ -204,7 +206,7 @@ const TotalSolution = () => {
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-20 gap-16 bg-white rounded-b-[65px] relative">
+    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[2rem] md:px-[8.5rem] gap-16 bg-white rounded-b-[65px] relative">
       <div>
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark">
           Kami ada untuk Anda

@@ -162,7 +162,7 @@ const CompanySection = () => {
                 </p>
               </div>
               <div className="flex flex-row items-center gap-2">
-                <div className="xs:w-7 md:w-15"/>
+                <div className="xs:w-7 md:w-15" />
                 <Link
                   href={val.href1}
                   className="flex flex-row items-center gap-1"
@@ -181,7 +181,6 @@ const CompanySection = () => {
                   />
                 </Link>
               </div>
-
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
               <div className="flex flex-row items-center gap-2">
@@ -198,7 +197,7 @@ const CompanySection = () => {
               </div>
 
               <div className="flex flex-row items-center gap-2">
-                <div className="xs:w-7 md:w-15"/>
+                <div className="xs:w-7 md:w-15" />
                 <Link
                   href={val.href2}
                   role="button"
@@ -222,14 +221,13 @@ const CompanySection = () => {
           </div>
         </div>
         <div
-          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden`}
+          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative`}
         >
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}
             className="w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
-            width={10}
-            height={10}
+            fill
           />
         </div>
       </div>
