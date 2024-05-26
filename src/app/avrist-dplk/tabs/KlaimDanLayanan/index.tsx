@@ -80,7 +80,7 @@ const KlaimDanLayanan = () => {
             cardTitle: 'Bantuan',
             cardBody: 'Kami di sini siap membantu Anda.',
             cardButtonText: 'Hubungi Kami',
-            href: 'tel:+622157898188'
+            href: '/hubungi-kami'
           }
         ]}
         cardClassname="border-b-dplk_yellow"
