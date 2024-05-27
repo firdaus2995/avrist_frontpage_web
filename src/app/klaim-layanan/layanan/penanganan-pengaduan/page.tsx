@@ -14,6 +14,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { MainContent } from '@/components/molecules/specifics/avrast/PenangananPengaduan';
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
+  contentStringTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -23,6 +24,7 @@ const HandleComplaint = () => {
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [videoData, setVideoData] = useState<IVideoData | undefined>();
+  const [formId, setFormId] = useState<any>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +42,7 @@ const HandleComplaint = () => {
         setBannerImage(singleImageTransformer(content['banner-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
         setVideoData(dataWithVideo);
+        setFormId(contentStringTransformer(content['form-pengaduan']));
       } catch (error) {
         console.error('Error:', error);
       }
@@ -62,7 +65,7 @@ const HandleComplaint = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent videoData={videoData} />
+      <MainContent videoData={videoData} formId={formId} />
       <FooterInformation
         title={
           <div

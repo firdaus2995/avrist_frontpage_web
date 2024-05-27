@@ -7,6 +7,7 @@ import { Attribute } from '@/types/form.type';
 
 interface CustomFormProps {
   title?: string;
+  longTextArea?: boolean;
   type?: string;
   customFormClassname?: string;
   customFormButtonClassname?: string;
@@ -25,7 +26,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
   customFormClassname = 'border-b-purple_dark',
   customFormButtonClassname = 'border-purple_dark text-purple_dark',
   dataForm,
-  resultData
+  resultData,
+  longTextArea
 }) => {
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
 
@@ -90,7 +92,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             {attributeList?.map((attribute: Attribute, idx) => (
               <div
                 key={attribute.id}
-                className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''}`}
+                className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '' : ''}`}
               >
                 {attribute.fieldType === 'LABEL' ? (
                   <p>{attribute.name}</p>
