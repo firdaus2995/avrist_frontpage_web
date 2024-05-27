@@ -20,6 +20,8 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
+import { subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { getYouTubeId } from '@/utils/helpers';
 import {
@@ -27,6 +29,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+
 
 const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   console.log(params);
@@ -53,6 +56,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     bannerImage: '',
     footerImage: ''
   });
+  const [email, setEmail] = useState<any>('')
+  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
 
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
@@ -124,6 +129,21 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     setContentData(transformedData);
 
     return transformedData;
+  };
+
+  const handleSubscribeButton = async() => {
+    try {
+      const response:any = await subscribeApi({
+        email: email,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true)
+        setEmail('');
+      } 
+    } catch(e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -224,6 +244,12 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
   return (
     <>
+      <div className="absolute">
+        <SubmittedFormModal
+          show={visibleSubscribeModal}
+          onClose={() => setVisibleSubscribeModal(false)}
+        />
+      </div>
       <Hero
         title="Avrist Terkini"
         breadcrumbsData={[
@@ -330,8 +356,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   type="text"
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl" onClick={handleSubscribeButton} />
               </div>
             </div>
           }

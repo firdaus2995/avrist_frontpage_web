@@ -18,7 +18,8 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { LoopingContent } from '@/components/molecules/specifics/avrast/LifeGuide/LoopingContent';
-import { getAvristLifeGuide } from '@/services/berita';
+import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
+import { getAvristLifeGuide, subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { generateDaftarIsi } from '@/utils/helpers';
 import {
@@ -58,6 +59,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   });
   const [currentCategory, setCurrentCategory] = useState('');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [email, setEmail] = useState<any>('')
+  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
 
   const fetchCategory = async () => {
     try {
@@ -198,6 +201,21 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     // return transformedData;
   };
 
+  const handleSubscribeButton = async() => {
+    try {
+      const response:any = await subscribeApi({
+        email: email,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true)
+        setEmail('');
+      } 
+    } catch(e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     fetchData();
     fetchDetailData();
@@ -222,6 +240,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
   return (
     <div className="flex flex-col">
+      <div className="absolute">
+        <SubmittedFormModal
+          show={visibleSubscribeModal}
+          onClose={() => setVisibleSubscribeModal(false)}
+        />
+      </div>
       <Hero
         title="Avrist Terkini"
         breadcrumbsData={[
@@ -341,8 +365,10 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   type="text"
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" customButtonClass="rounded-xl" onClick={handleSubscribeButton} />
               </div>
             </div>
           }
