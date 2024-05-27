@@ -40,7 +40,7 @@ export const MainContent = ({
         <ButtonMenu />
         <Content />
         {videoData && <VideoInformation pageVideoData={videoData} />}
-        {dataMainContent && policyGuideData && (
+        {dataMainContent  && (
           <DocumentPolicy
             policyContentData={dataMainContent}
             policyGuideData={policyGuideData}
