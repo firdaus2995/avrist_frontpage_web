@@ -24,6 +24,7 @@ import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlay
 import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal/SuccessModal';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
+import { BASE_URL } from '@/utils/baseUrl';
 import {
   pageTransformer,
   singleImageTransformer,
@@ -80,10 +81,13 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
     };
 
     async function fetchDetailData() {
-      const response = await fetch(`/api/produk-dplk/produk/${params.detail}`);
+      const response = await fetch(
+        `${BASE_URL.contentDetail}/${params.detail}`
+      );
       const jsonData: ContentDetailResponse = await response.json();
 
       const { content } = contentDetailTransformer(jsonData);
+
       const namaProduk = contentStringTransformer(content['nama-produk']);
       const tags = contentStringTransformer(content['tags']);
       const deskripsiSingkatProduk = contentStringTransformer(
@@ -415,9 +419,9 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                   <div>
                     <button
                       type="submit"
-                      disabled={formIsValid}
+                      disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => onSubmitData()}
-                      className={`${formIsValid ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
                     >
                       Beli Sekarang
                     </button>
