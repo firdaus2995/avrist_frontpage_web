@@ -62,14 +62,6 @@ const DPLKContent = (props: Props) => {
     if (value !== null) {
       setTab(value);
     }
-
-    if (value === 'Klaim dan Layanan') {
-      router.push(`${pathname}/klaim-layanan`);
-    }
-
-    if (value === 'Produk') {
-      router.push(`${pathname}/produk`);
-    }
   }, [searchParams]);
 
   return (

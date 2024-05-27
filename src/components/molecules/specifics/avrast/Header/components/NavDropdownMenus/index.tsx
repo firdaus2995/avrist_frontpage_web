@@ -34,7 +34,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
       {menus.map((item, index) => (
         <Disclosure key={index}>
           <div>
-            <div className='flex w-full'>
+            <div className="flex w-full">
               <Disclosure.Button className="top- text-[black] font-medium w-full text-base text-start p-2 transition-all rounded hover:bg-white/20 outline-none focus:bg-white/20">
                 {item.title}
               </Disclosure.Button>
@@ -47,7 +47,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                   leaveFrom="rotate-0 opacity-100"
                   leaveTo="rotate-270 opacity-0"
                 >
-                  <div className='px-2'>
+                  <div className="px-2">
                     <Icon name="chevronRight" color="purple_dark" />
                   </div>
                 </Transition>
@@ -63,24 +63,24 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
             >
               <Disclosure.Panel className="p-2 text-[black] items-stretch gap-4 pl-2">
                 {item.content.map((val, idx) => (
-                  <div key={idx} className='pt-4'>
-                    <span
-                      className="text-md cursor-pointer rounded font-bold outline-none p-2"
-                    >
+                  <div key={idx} className="pt-4">
+                    <span className="text-md cursor-pointer rounded font-bold outline-none p-2">
                       {val.title}
                     </span>
                     {val.subMenus.map((el, index) => (
-                      <div key={index} className='mt-4'> 
-                        <Link 
-                          href={index !== 2 || el.icon !== 2 ? {
-                                pathname: `/${convertToKebabCase(item.title)}/${camelToKebabCase(val.title)}`,
-                                query: { tab: el.title }
-                          } : 'https://my.avrist.com/welcome'}
+                      <div key={index} className="mt-4">
+                        <Link
+                          href={
+                            index !== 2 || el.icon !== 2
+                              ? {
+                                  pathname: `/${convertToKebabCase(item.title)}/${val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : camelToKebabCase(val.title)}`,
+                                  query: { tab: el.title }
+                                }
+                              : 'https://my.avrist.com/welcome'
+                          }
                           onClick={() => setVisibility(false)}
                           target={
-                            index === 2 || el.icon === 2
-                              ? '_blank'
-                              : '_self'
+                            index === 2 || el.icon === 2 ? '_blank' : '_self'
                           }
                           className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
                         >
