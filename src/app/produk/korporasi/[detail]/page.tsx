@@ -322,7 +322,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
                 tagLineProduk={dataDetail?.taglineProduk}
                 deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
               />
-              {dataDetail && (
+              {dataDetail.videoProduk !== '' && (
                 <VideoInformation
                   url={dataDetail.videoProduk}
                   type={dataDetail.captionVideoProduk}
