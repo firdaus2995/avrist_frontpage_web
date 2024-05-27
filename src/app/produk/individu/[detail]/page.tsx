@@ -324,7 +324,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                 tagLineProduk={dataDetail?.taglineProduk}
                 deskripsiLengkapProduk={dataDetail?.deskripsiLengkapProduk}
               />
-              {dataDetail.videoProduk && (
+              {dataDetail.videoProduk !== '' && (
                 <VideoInformation
                   url={dataDetail.videoProduk}
                   type={dataDetail.captionVideoProduk}

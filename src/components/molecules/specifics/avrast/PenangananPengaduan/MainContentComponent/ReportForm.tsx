@@ -224,7 +224,7 @@ export const ReportForm = () => {
         </div>
         <div className="h-[0.5rem] bg-purple_dark" />
       </div>
-      <div className="sm:px-[8.5rem] mt-[1.5rem] mb-[1.625rem]">
+      <div className="">
         <CardMenuDownload desc="Formulir Pengaduan" href={`${BASE_URL.image}/4bc466fc-9bad-4fd8-b44b-d603810a200a-formulir-pengaduan.pdf`} onDownload={handleClickDownload}  />
       </div>
     </div>
