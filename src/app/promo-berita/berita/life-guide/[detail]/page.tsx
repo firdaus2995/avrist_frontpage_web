@@ -26,13 +26,16 @@ import {
   // contentDetailTransformer
   pageTransformer,
   singleImageTransformer,
-  handleTransformedContent
+  handleTransformedContent,
+  contentDetailTransformer
 } from '@/utils/responseTransformer';
 
 const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   console.log(params);
   const param = useSearchParams();
   const id = param.get('id');
+  console.log(id);
+  
 
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
   const [contentData, setContentData] = useState<any>({
@@ -113,13 +116,9 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           id,
           category
         };
-
-        setContentData(transformedData);
-
         return transformedData;
       });
 
-      // setListArticle(transformedData);
     } catch (err) {
       console.error(err);
     }
@@ -151,54 +150,57 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
     const jsonData = await response.json();
 
-    // const { content } = contentDetailTransformer(jsonData);
+    const { content } = contentDetailTransformer(jsonData);
 
     setCurrentCategory(jsonData.data.categoryName);
 
-    // const tagline = content['tags'].value;
-    // const judul = content['judul-artikel'].value;
-    // const penulis = content['penulis-artikel'].value;
-    // const bulan = content['bulan'].value;
-    // const tahun = content['tahun'].value;
-    // const thumbnail = singleImageTransformer(
-    //   content['artikel-thumbnail']
-    // ).imageUrl;
-    // const artikel = content['artikel-looping'].contentData[0]?.details;
+    const tagline = content['tags'].value;
+    const judul = content['judul-artikel'].value;
+    const penulis = content['penulis-artikel'].value;
+    const bulan = content['bulan'].value;
+    const tahun = content['tahun'].value;
+    const thumbnail = singleImageTransformer(
+      content['artikel-thumbnail']
+    ).imageUrl;
+    const artikel = content['artikel-looping'].contentData;
     // const paragrafSatu = artikel[0]?.value;
     // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
     // const paragrafDua = artikel[2]?.value;
     // const artikelVideo = artikel[3]?.value;
     // const paragrafTiga = artikel[4]?.value;
-    // const tags = content['tags']?.value;
-    // const artikelPIC = content['artikel-pic']?.value;
-    // const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
-    // const waktuBaca = content['waktu-baca-artikel']?.value;
-    // const daftarIsi = content['artikel-looping']?.contentData;
-    // const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
+    const tags = !!content['tags']?.value || content['tags']?.value !== '-'
+    ? content['tags']?.value.split(',')
+    : content['tags']?.value;
+    const artikelPIC = content['artikel-pic']?.value;
+    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+    const waktuBaca = content['waktu-baca-artikel']?.value;
+    const daftarIsi = generateDaftarIsi(artikel, 'subjudul');;
+    const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
 
-    // const transformedData = {
-    //   tagline,
-    //   judul,
-    //   penulis,
-    //   bulan,
-    //   tahun,
-    //   thumbnail,
-    //   paragrafSatu,
-    //   artikelImage,
-    //   paragrafDua,
-    //   artikelVideo,
-    //   paragrafTiga,
-    //   tags,
-    //   artikelPIC,
-    //   artikelPICJabatan,
-    //   waktuBaca,
-    //   daftarIsi,
-    //   differenceTime
-    // };
+    const transformedData = {
+      tagline,
+      judul,
+      penulis,
+      bulan,
+      tahun,
+      thumbnail,
+      // paragrafSatu,
+      // artikelImage,
+      // paragrafDua,
+      // artikelVideo,
+      // paragrafTiga,
+      tags,
+      artikelPIC,
+      artikelPICJabatan,
+      waktuBaca,
+      daftarIsi,
+      differenceTime,
+      artikel
+    };
 
-    // setContentData(transformedData);
+    setContentData(transformedData);
 
-    // return transformedData;
+    return transformedData;
   };
 
   const handleSubscribeButton = async() => {

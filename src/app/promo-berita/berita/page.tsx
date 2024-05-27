@@ -323,60 +323,128 @@ const Berita: React.FC<ParamsProps> = () => {
       });
       
       const data = fetchData.data.categoryList;
-
+      
       const categoryList: any = Object.keys(data);
 
-      setLifeGuideCategory({
-        ...lifeGuideCategory,
-        list: categoryList,
-        selectedCategory: categoryList[0] ?? lifeGuideCategory.selectedCategory
-      });
+      if (lifeGuideCategory?.selectedCategory === '') {
+        setLifeGuideCategory({
+          ...lifeGuideCategory,
+          list: categoryList,
+          selectedCategory: categoryList[0] ?? lifeGuideCategory.selectedCategory
+        });
+        const temp:any = []
+        categoryList.map((el:any) => {
+          data[el]?.map(
+            (item: any) => {
+              const { content } = handleTransformedContent(
+                item.contentData,
+                item.title
+              );
+    
+              const date = new Date(item.createdAt).getDate();
+              const judul = content['judul-artikel'].value;
+              const waktu = `${
+                monthDropdown().find(
+                  (item) =>
+                    item.value === content['bulan'].value ||
+                    item.label === content['bulan'].value
+                )?.label
+              } ${content['tahun'].value}`;
+              const deskripsi =
+                content['artikel-looping'].contentData[0].details[0].value;
+              const image = singleImageTransformer(
+                content['artikel-thumbnail']
+              ).imageUrl;
+              const id = item.id;
+              const tags = !!content['tags']?.value || content['tags']?.value !== '-'
+              ? content['tags']?.value.split(',')
+              : content['tags']?.value;
+              const waktuBaca = content['waktu-baca-artikel'].value;
+    
+              const differenceTime = formatTimeDifference(
+                new Date(item.createdAt),
+                new Date()
+              );
 
-      const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
-        (item: any) => {
-          const { content } = handleTransformedContent(
-            item.contentData,
-            item.title
+              temp.push({
+                judul,
+                waktu,
+                deskripsi,
+                image,
+                id,
+                tags,
+                waktuBaca,
+                date,
+                differenceTime,
+                category: el
+              })  
+    
+              return {
+                judul,
+                waktu,
+                deskripsi,
+                image,
+                id,
+                tags,
+                waktuBaca,
+                date,
+                differenceTime
+              };
+            }
+          );          
+        })
+        return setContentData(temp);
+      } else {
+          const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
+            (item: any) => {
+              const { content } = handleTransformedContent(
+                item.contentData,
+                item.title
+              );
+    
+              const date = new Date(item.createdAt).getDate();
+              const judul = content['judul-artikel'].value;
+              const waktu = `${
+                monthDropdown().find(
+                  (item) =>
+                    item.value === content['bulan'].value ||
+                    item.label === content['bulan'].value
+                )?.label
+              } ${content['tahun'].value}`;
+              const deskripsi =
+                content['artikel-looping'].contentData[0].details[0].value;
+              const image = singleImageTransformer(
+                content['artikel-thumbnail']
+              ).imageUrl;
+              const id = item.id;
+              const tags = !!content['tags']?.value || content['tags']?.value !== '-'
+              ? content['tags']?.value.split(',')
+              : content['tags']?.value;;
+              const waktuBaca = content['waktu-baca-artikel'].value;
+    
+              const differenceTime = formatTimeDifference(
+                new Date(item.createdAt),
+                new Date()
+              );
+    
+              return {
+                judul,
+                waktu,
+                deskripsi,
+                image,
+                id,
+                tags,
+                waktuBaca,
+                date,
+                differenceTime,
+                category: lifeGuideCategory.selectedCategory
+              };
+            }
           );
+          setContentData(transformedData);
+      }
 
-          const date = new Date(item.createdAt).getDate();
-          const judul = content['judul-artikel'].value;
-          const waktu = `${
-            monthDropdown().find(
-              (item) =>
-                item.value === content['bulan'].value ||
-                item.label === content['bulan'].value
-            )?.label
-          } ${content['tahun'].value}`;
-          const deskripsi =
-            content['artikel-looping'].contentData[0].details[0].value;
-          const image = singleImageTransformer(
-            content['artikel-thumbnail']
-          ).imageUrl;
-          const id = item.id;
-          const tags = content['tags'].value;
-          const waktuBaca = content['waktu-baca-artikel'].value;
 
-          const differenceTime = formatTimeDifference(
-            new Date(item.createdAt),
-            new Date()
-          );
-
-          return {
-            judul,
-            waktu,
-            deskripsi,
-            image,
-            id,
-            tags,
-            waktuBaca,
-            date,
-            differenceTime
-          };
-        }
-      );
-
-      setContentData(transformedData);
     } catch (err) {
       console.error(err);
     }
@@ -922,9 +990,9 @@ const Berita: React.FC<ParamsProps> = () => {
                             type="row"
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
-                            category={item.tags}
+                            category={item.category}
                             time={` | ${item.date} ${item.waktu}`}
-                            tags={[item.tags]}
+                            tags={item.tags}
                             image={item.image}
                             readTime={item.waktuBaca}
                           />
@@ -1051,9 +1119,9 @@ const Berita: React.FC<ParamsProps> = () => {
                               key={index}
                               title={htmlParser(item.judul)}
                               summary={htmlParser(item.deskripsi)}
-                              category={item.tags}
+                              category={item.category}
                               time={` | ${item?.differenceTime} yang lalu`}
-                              tags={[item.tags]}
+                              tags={item.tags}
                               image={item.image}
                               readTime={item.waktuBaca}
                             />
