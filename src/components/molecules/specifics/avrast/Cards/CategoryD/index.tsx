@@ -44,10 +44,10 @@ const CardCategoryD = ({
       <div
         className={`flex flex-col gap-4 py-[36px] px-[24px] ${type === 'row' ? 'lg:w-2/3 xs:max-lg:w-full' : ''}`}
       >
-        <p className="text-[14px] text-left">
+        <p className="text-[14px] text-left lg:min-h-[40px] xs:min-h-auto">
           <span className="font-bold text-purple_dark">{category}</span> {time}
         </p>
-        <p className="text-[24px] font-bold text-left">{title}</p>
+        <p className="text-[24px] font-bold text-left lg:min-h-[100px] xs:min-h-auto">{title}</p>
         <p className="text-[16px] text-left line-clamp-2">{summary}</p>
         <div className="flex flex-row gap-2 items-center">
           <Image alt="book-image" width={0} height={20} src={Book} />
@@ -55,7 +55,7 @@ const CardCategoryD = ({
             {readTime && `${readTime}`}
           </p>
         </div>
-        <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-row gap-2 items-center flex-wrap">
           {tags.map((val, idx) => (
             <MediumTag key={idx} title={val} />
           ))}
