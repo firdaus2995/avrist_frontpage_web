@@ -414,9 +414,9 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                   <div>
                     <button
                       type="submit"
-                      disabled={formIsValid}
+                      disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => handleSubmit()}
-                      className={`${formIsValid ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
                     >
                       Beli Sekarang
                     </button>
