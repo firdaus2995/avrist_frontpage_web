@@ -93,11 +93,11 @@ const NavCard: React.FC<NavCardProps> = ({
             key={idx}
             className={`w-full flex flex-col ${idx === 0 ? 'pr-[2.25rem]' : 'pl-[2.25rem]'}`}
           >
-            {xPosition && (
+            {xPosition ? (
               <div className="absolute top-[-16px]" style={{ left: xPosition }}>
                 <TriangleMarker />
               </div>
-            )}
+            ) : null}
 
             <div className="flex flex-col gap-6">
               <h2 className="text-[2rem] font-bold text-gray_title font-karla">
@@ -168,8 +168,10 @@ const NavCard: React.FC<NavCardProps> = ({
                         href={
                           indexData !== 1 || item.icon !== 2
                             ? {
-                                pathname: `${!skipUrl ? `/${convertToKebabCase(title)}` : ''}/${camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
-                                query: { tab: item.title }
+                                pathname: `${item.customUrl ? item.customUrl : !skipUrl ? `/${convertToKebabCase(title)}` : ''}/${item.customUrl ? '' : camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
+                                query: item.customUrl
+                                  ? null
+                                  : { tab: item.title }
                               }
                             : 'https://my.avrist.com/welcome'
                         }

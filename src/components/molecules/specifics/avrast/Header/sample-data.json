@@ -100,8 +100,16 @@
           {
             "title": "",
             "subMenus": [
-              { "title": "Produk", "icon": 3 },
-              { "title": "Klaim dan Layanan", "icon": 4 }
+              {
+                "title": "Produk",
+                "icon": 3,
+                "customUrl": "/avrist-dplk/produk"
+              },
+              {
+                "title": "Klaim dan Layanan",
+                "icon": 4,
+                "customUrl": "/avrist-dplk/klaim-layanan"
+              }
             ]
           }
         ]
