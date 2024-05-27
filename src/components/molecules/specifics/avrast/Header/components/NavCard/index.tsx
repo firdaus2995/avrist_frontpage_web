@@ -169,7 +169,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           indexData !== 1 || item.icon !== 2
                             ? {
                                 pathname: `${item.customUrl ? item.customUrl : !skipUrl ? `/${convertToKebabCase(title)}` : ''}/${item.customUrl ? '' : camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
-                                query: item.customUrl
+                                query: item.skipParams
                                   ? null
                                   : { tab: item.title }
                               }

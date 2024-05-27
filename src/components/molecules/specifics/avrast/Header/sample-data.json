@@ -92,9 +92,21 @@
           {
             "title": "Avrist DPLK",
             "subMenus": [
-              { "title": "Tentang Avrist DPLK", "icon": 0 },
-              { "title": "Manfaat Utama", "icon": 1 },
-              { "title": "Dewan Pengawas DPLK", "icon": 2 }
+              {
+                "title": "Tentang Avrist DPLK",
+                "icon": 0,
+                "customUrl": "/avrist-dplk"
+              },
+              {
+                "title": "Manfaat Utama",
+                "icon": 1,
+                "customUrl": "/avrist-dplk"
+              },
+              {
+                "title": "Dewan Pengawas DPLK",
+                "icon": 2,
+                "customUrl": "/avrist-dplk"
+              }
             ]
           },
           {
@@ -103,12 +115,14 @@
               {
                 "title": "Produk",
                 "icon": 3,
-                "customUrl": "/avrist-dplk/produk"
+                "customUrl": "/avrist-dplk/produk",
+                "skipParams": true
               },
               {
                 "title": "Klaim dan Layanan",
                 "icon": 4,
-                "customUrl": "/avrist-dplk/klaim-layanan"
+                "customUrl": "/avrist-dplk/klaim-layanan",
+                "skipParams": true
               }
             ]
           }
