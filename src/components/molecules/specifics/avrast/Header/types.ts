@@ -14,4 +14,5 @@ export interface NavbarSubMenus {
   icon: number;
   listMenu?: string[];
   customUrl?: string;
+  skipParams?: boolean;
 }
