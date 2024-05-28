@@ -3,9 +3,9 @@ import React from 'react';
 const SyaratPengunaan = () => {
   return (
     <div>
-      <p className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px]">
+      <h1 className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px]">
         Syarat Penggunaan
-      </p>
+      </h1>
       <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
         Dengan menggunakan atau mengadopsi segala informasi yang terdapat pada
         situs web ini, Anda dianggap telah memberikan persetujuan atas
