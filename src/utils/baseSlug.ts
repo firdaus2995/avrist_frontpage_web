@@ -1,4 +1,5 @@
 export const BASE_SLUG = {
+  // Modul 5
   PROMO_BERITA: {
     CONTENT: {
       AVRIST_TERKINI: 'Berita-dan-Kegiatan-Detail',
@@ -21,6 +22,13 @@ export const BASE_SLUG = {
       PENAWARAN_DETAIL: 'halaman-penawaran-detail'
     }
   },
+  // Modul 6
+  AVRIST_SYARIAH: {
+    PAGE: {
+      KLAIM_LAYANAN: 'halaman-klaim-dan-layanan-syariah'
+    }
+  },
+  // Modul 8
   TENTANG_AVRIST_LIFE: {
     CONTENT: {
       SEKILAS_PERUSAHAAN: 'sejarah-sekilas-perusahaan',
