@@ -416,7 +416,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
               onClick={() => onSubmitData()}
               className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
             >
-              Kirim
+              Beli Sekarang
             </button>
           </div>
         </div>
