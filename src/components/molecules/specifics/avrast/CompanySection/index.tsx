@@ -221,7 +221,7 @@ const CompanySection = () => {
           </div>
         </div>
         <div
-          className={`md:w-1/2 xs:w-full h-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative`}
+          className={`md:w-1/2 xs:w-full h-full xs:max-md:h-[212px] md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative`}
         >
           <Image
             src={val.img ? val.img : BlankImage}
