@@ -13,7 +13,7 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import TagPill from '@/components/molecules/specifics/avram/MutualFundList/components/TagPill';
+import MediumTag from '@/components/atoms/Tag/MediumTag';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -236,7 +236,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         .getElementsByTagName('h1')
         [
           idx
-        ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        ].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
     }
   };
 
@@ -318,7 +318,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                     <div className="flex flex-row gap-2 flex-wrap">
                       {!!contentData?.tags &&
                         contentData.tags?.map((tag: string, idx: Key) => (
-                          <TagPill key={idx}>{tag}</TagPill>
+                          <MediumTag key={idx} title={tag} />
                         ))}
                     </div>
                   </div>
