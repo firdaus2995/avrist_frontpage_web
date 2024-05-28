@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 
 import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
-import ProdukClaim from '@/assets/images/produk-claim.svg';
-import ProdukPolis from '@/assets/images/produk-polis.svg';
-import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
-import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
+import CONTACTS from '@/assets/images/common/contacts.svg';
+import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
+import HOSPITAL from '@/assets/images/common/hospital.svg';
+import MESSAGE from '@/assets/images/common/message.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
@@ -60,32 +60,36 @@ const KlaimLayanan = async () => {
         image={cta1Image.imageUrl}
         href={'/tanya-avrista'}
       />
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+      <RoundedFrameTop
+        bgColor="xs:bg-white md:bg-purple_superlight"
+        frameColor="bg-white"
+      />
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
-            title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit,
-            subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
-          },
-          {
-            title: 'Klaim & Layanan',
-            icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut',
-            href: '/avrist-syariah/klaim-layanan'
-          },
-          {
             title: 'Kelola Polis',
-            icon: ProdukPolis,
-            subtitle: 'Login Akun',
-            href: 'https://my.avrist.com/welcome'
+            subtitle: 'Pengkinian Data',
+            href: 'https://my.avrist.com/welcome',
+            icon: CONTACTS
           },
           {
-            title: 'Testimonial',
-            icon: ProdukTestimoni,
+            title: 'Rumah Sakit Rekanan',
             subtitle: 'Lebih Lanjut',
-            href: '/promo-berita/berita?tab=Testimonial'
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+            icon: HOSPITAL
+          },
+          {
+            title: 'Tanya Avrista',
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista',
+            icon: MESSAGE
+          },
+          {
+            title: 'Prosedur Pengaduan',
+            subtitle: 'Lihat Prosedur',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan',
+            icon: DOCUMENT_SEARCH
           }
         ]}
       />

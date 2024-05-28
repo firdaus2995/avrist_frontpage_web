@@ -1,9 +1,10 @@
 'use client';
+import { useEffect, useState } from 'react';
 import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
-import ProdukClaim from '@/assets/images/produk-claim.svg';
-import ProdukPolis from '@/assets/images/produk-polis.svg';
-import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
-import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
+import CONTACTS from '@/assets/images/common/contacts.svg';
+import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
+import HOSPITAL from '@/assets/images/common/hospital.svg';
+import MESSAGE from '@/assets/images/common/message.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
@@ -13,19 +14,44 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const ProdukSyariah = async () => {
-  const apiPage = await handleGetContentPage(
-    'halaman-klaim-dan-layanan-syariah'
-  );
-  const { content } = pageTransformer(apiPage);
-  const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
-  const cta1Image = singleImageTransformer(content['cta1-image']);
+const initialData = {
+  titleImage: '',
+  bannerImage: '',
+  cta1Image: ''
+};
+
+const ProdukSyariah = () => {
+  const [transformedData, setTransformedData] =
+    useState<typeof initialData>(initialData);
+
+  useEffect(() => {
+    if (transformedData === initialData) {
+      handleGetContentPage(BASE_SLUG.AVRIST_SYARIAH.PAGE.KLAIM_LAYANAN).then(
+        (res: PageResponse) => {
+          const { content } = pageTransformer(res);
+
+          const titleImage = singleImageTransformer(content['title-image']);
+          const bannerImage = singleImageTransformer(content['banner-image']);
+          const cta1Image = singleImageTransformer(content['cta1-image']);
+
+          setTransformedData({
+            ...transformedData,
+            titleImage: titleImage.imageUrl,
+            bannerImage: bannerImage.imageUrl,
+            cta1Image: cta1Image.imageUrl
+          });
+        }
+      );
+    }
+  }, [transformedData]);
+
   return (
     <div>
       <Hero
@@ -34,9 +60,10 @@ const ProdukSyariah = async () => {
           { title: 'Beranda', href: '/' },
           { title: 'Klaim dan Layanan', href: '#' }
         ]}
-        imageUrl={titleImage.imageUrl}
-        bottomImage={bannerImage.imageUrl}
+        imageUrl={transformedData.titleImage}
+        bottomImage={transformedData.bannerImage}
       />
+
       <SimpleContainer>
         <CategoryPills
           buttonTitle={[
@@ -63,7 +90,6 @@ const ProdukSyariah = async () => {
         {/* isi klaim & layanan */}
         <KlaimDanLayanan />
       </SimpleContainer>
-
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
       <FooterInformation
         bgColor="bg-syariah_green_informing"
@@ -76,35 +102,39 @@ const ProdukSyariah = async () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={cta1Image.imageUrl}
+        image={transformedData.cta1Image}
         href={'/tanya-avrista'}
       />
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+      <RoundedFrameTop
+        bgColor="xs:bg-white md:bg-purple_superlight"
+        frameColor="bg-white"
+      />
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
-            title: 'Rumah Sakit Rekanan',
-            icon: ProdukRumahSakit,
-            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
-          },
-          {
-            title: 'Klaim & Layanan',
-            icon: ProdukClaim,
-            subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
-          },
-          {
             title: 'Kelola Polis',
-            icon: ProdukPolis,
-            subtitle: 'Login Akun',
+            subtitle: 'Pengkinian Data',
             href: 'https://my.avrist.com/welcome',
-            openInNewTab: true
+            icon: CONTACTS
           },
           {
-            title: 'Testimonial',
-            icon: ProdukTestimoni,
+            title: 'Rumah Sakit Rekanan',
             subtitle: 'Lebih Lanjut',
-            href: '/promo-berita/berita?tab=Testimonial'
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
+            icon: HOSPITAL
+          },
+          {
+            title: 'Tanya Avrista',
+            subtitle: 'Lebih Lanjut',
+            href: '/tanya-avrista',
+            icon: MESSAGE
+          },
+          {
+            title: 'Prosedur Pengaduan',
+            subtitle: 'Lihat Prosedur',
+            href: '/klaim-layanan/layanan/penanganan-pengaduan',
+            icon: DOCUMENT_SEARCH
           }
         ]}
       />
