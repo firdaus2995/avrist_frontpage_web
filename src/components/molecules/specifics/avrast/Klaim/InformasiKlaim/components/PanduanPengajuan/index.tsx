@@ -65,11 +65,11 @@ const PanduanPengajuanTab = () => {
 
   return (
     <div className="w-full flex-col self-stretch items-center justify-center">
-      <div className="grid grid-cols-3 gap-5 xs:hidden md:grid">
+      <div className="grid grid-cols-3 gap-[24px] xs:hidden md:grid">
         {data.map((val, idx) => (
           <div
             key={idx}
-            className={`flex ${idx === 0 ? 'max-w-sm flex-col row-span-3 border-b-8 border-b-purple_dark items-start justify-start' : 'flex-row items-center col-span-2 justify-center'} gap-4 py-[2.25rem] px-[1.5rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+            className={`flex ${idx === 0 ? 'max-w-lg flex-col h-[392px] row-span-3 border-b-8 border-b-purple_dark items-start justify-start p-[2.25rem]' : 'flex-row h-[184px] items-center col-span-2 justify-center gap-[1.5rem] py-[2.25rem] px-[1.5rem]'} bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
           >
             <div
               className={`flex items-center ${idx === 0 ? 'justify-start' : 'justify-center'}`}
