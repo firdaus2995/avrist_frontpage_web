@@ -125,7 +125,8 @@ const dataRSRekanan = [
     icon: CUSTOMER_SERVICE,
     title: 'Layanan Nasabah',
     subtitle: '021 5789 8188',
-    href: 'tel:021-5789-8188'
+    href: '021-5789-8188',
+    hrefType: 'phone'
   },
   {
     icon: MESSAGE,
@@ -137,7 +138,8 @@ const dataRSRekanan = [
     icon: EMAIL,
     title: 'Tanya Lewat Email',
     subtitle: 'Kirim Email',
-    href: 'mailto:contact_us@avristsalesforce.com'
+    href: 'contact_us@avristsalesforce.com',
+    hrefType: 'email'
   },
   {
     icon: DOCUMENT_SEARCH,
