@@ -24,8 +24,9 @@ import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/Cate
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
-import { getPenawaran } from '@/services/berita';
+import { getPenawaran, subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -68,6 +69,8 @@ const Promo: React.FC<ParamsProps> = () => {
   });
   const [contentData, setContentData] = useState<any>();
   const [search, setSearch] = useState('');
+  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
   const [params, setParams] = useState({
     yearFilter: '',
     monthFilter: '',
@@ -261,6 +264,21 @@ const Promo: React.FC<ParamsProps> = () => {
     return month;
   };
 
+  const handleSubscribeButton = async() => {
+    try {
+      const response:any = await subscribeApi({
+        email: email,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true)
+        setEmail('');
+      } 
+    } catch(e) {
+      console.log(e);
+    }
+  };
+
   const handlePageChange = (page: number) => {
     setPagination({ ...pagination, currentPage: page });
   };
@@ -313,6 +331,12 @@ const Promo: React.FC<ParamsProps> = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-white relative">
+      <div className="absolute">
+        <SubmittedFormModal
+          show={visibleSubscribeModal}
+          onClose={() => setVisibleSubscribeModal(false)}
+        />
+      </div>
       <Hero
         title={'Promo Terbaru'}
         breadcrumbsData={[
@@ -475,11 +499,14 @@ const Promo: React.FC<ParamsProps> = () => {
                   type="text"
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <Button
                   title="Subscribe"
                   customButtonClass="rounded-xl"
                   customTextClass="text-[1rem]"
+                  onClick={handleSubscribeButton}
                 />
               </div>
             </div>
