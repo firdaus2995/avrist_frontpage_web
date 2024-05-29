@@ -166,7 +166,7 @@ const LayananNasabah = () => {
           Kami Melayani Dengan Senang Hati!
         </p>
       </div>
-      <div className="w-full flex flex-row items-center justify-center gap-10 xs:hidden md:flex">
+      <div className="w-full sm:flex sm:flex-row items-center justify-center gap-10 xs:hidden md:flex xs:grid xs:grid-cols-1">
         {data.map((val, idx) => (
           <div key={idx}>{renderCard(val)}</div>
         ))}

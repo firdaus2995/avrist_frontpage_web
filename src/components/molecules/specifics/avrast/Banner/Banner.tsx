@@ -117,7 +117,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
     }
   };
   return (
-    <div className="flex w-full overflow-x-hidden bg-white">
+    <div className="flex w-full overflow-x-hidden bg-white h-auto">
       <div className="w-full">
         <div className="w-full relative flex items-center justify-center">
           <Slider
@@ -186,7 +186,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                             title={contentStringTransformer(
                               data['hero-lblbutton']
                             )}
-                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none text-[1.25rem]`}
+                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none text-[1.25rem] xs:py-[12px] xs:px-[40px]`}
                           />
                         </Link>
                       </div>
@@ -216,16 +216,16 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
           <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
-            <p className="font-karla font-light xs:w-full md:w-[200px]">
-              Temukan <span className="font-bold">kebutuhanmu </span> di sini
+            <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
+              Apa <span className="font-bold">perlindungan </span> yang <span className="font-bold">Anda </span> butuhkan
             </p>
           </div>
           <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
-            <p className="font-karla font-light">
+            <p className="font-karla font-bold text-[2.25rem]">
               <span className="font-bold">Saya Ingin</span> pilihan rencana
             </p>
             <button
-              className="text-white font-medium rounded-full text-sm p-2 text-center border-2 xs:w-[2rem] xs:h-[2rem] md:w-[2.5rem] md:h-[2.5rem]"
+              className="text-white font-medium rounded-full text-sm p-2 text-center border-2 xs:w-[2rem] xs:h-[2rem] md:w-[2.5rem] md:h-[2.5rem] xs:max-md:mr-4"
               type="button"
               onClick={toggleDropdown}
             >
@@ -260,31 +260,33 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
               )}
             </button>
           </div>
-          {dropdownVisible && (
-            <div
-              className={`absolute flex flex-col xs:top-[200px] md:top-[160px] right-0 rounded-md bg-white w-[90%] xs:right-[1.25rem] xs:left-[1.25rem] duration-300 transform z-50`}
-              ref={dropdownRef}
-            >
-              <Link
-                href="/produk/individu"
-                className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
+          <div className={`${dropdownVisible && 'mb-[80px]'}`}>
+            {dropdownVisible && (
+              <div
+                className={`absolute flex flex-col xs:top-[200px] md:top-[160px] right-0 rounded-md bg-white w-[90%] xs:right-[1.25rem] xs:left-[1.25rem] duration-300 transform z-100`}
+                ref={dropdownRef}
               >
-                Perlindungan Jiwa dan Kesehatan
-              </Link>
-              <Link
-                href={`${EXTERNAL_URL.agiUrl}`}
-                className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
-              >
-                Perlindungan Harta Benda
-              </Link>
-              <Link
-                href={`${EXTERNAL_URL.avramUrl}`}
-                className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
-              >
-                Manajemen Investasi
-              </Link>
-            </div>
-          )}
+                <Link
+                  href="/produk/individu"
+                  className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
+                >
+                  Perlindungan Jiwa dan Kesehatan
+                </Link>
+                <Link
+                  href={`${EXTERNAL_URL.agiUrl}`}
+                  className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                >
+                  Perlindungan Harta Benda
+                </Link>
+                <Link
+                  href={`${EXTERNAL_URL.avramUrl}`}
+                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                >
+                  Manajemen Investasi
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
