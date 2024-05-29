@@ -292,6 +292,36 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchSlugModal();
   }, []);
 
+  const shareToWhatsapp = () => {
+    setIsOPenPopover(false);
+    const url = `https://wa.me/?text=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToEmail = () => {
+    setIsOPenPopover(false);
+    const url = `mailto:?subject=Check this out&body=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToLinkedin = () => {
+    setIsOPenPopover(false);
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToFacebook = () => {
+    setIsOPenPopover(false);
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const copyToClipboard = () => {
+    setIsOPenPopover(false);
+    navigator.clipboard.writeText(window.location.href);
+    alert('URL copied to clipboard');
+  };
+
   return (
     <>
       <Hero
@@ -319,8 +349,10 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             <div className="flex xs:flex-col md:flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray_body">
-                  {`${contentData.bulan} ${contentData.tahun}`} |{' '}
-                  {contentData.penulis}
+                  {`${contentData.bulan} ${contentData.tahun}`}
+                  {contentData.penulis !== '-'
+                    ? `| ${contentData.penulis}`
+                    : ''}
                 </p>
               </div>
               <div className="flex flex-col gap-1 md:items-center">
@@ -354,7 +386,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToWhatsapp}
                           className="h-auto w-5"
                           src={Whatsapp}
                           alt="whatsapp"
@@ -366,7 +398,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToEmail}
                           className="h-auto w-5"
                           src={Email}
                           alt="email"
@@ -378,7 +410,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToLinkedin}
                           className="h-auto w-5"
                           src={Linkedin}
                           alt="linkedin"
@@ -390,7 +422,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToFacebook}
                           className="h-auto w-5"
                           src={Facebook}
                           alt="facebook"
@@ -403,7 +435,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                         <div
                           role="button"
                           className="items-center"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={copyToClipboard}
                         >
                           <Icon
                             width={18}
