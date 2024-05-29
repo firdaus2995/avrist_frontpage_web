@@ -36,7 +36,7 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
     <div
       role="button"
       onClick={() => {}}
-      className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex flex-row justify-between font-bold mt-3 text-[1.5rem] gap-[0.75rem]"
+      className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex flex-row justify-between font-bold my-3 text-[1.5rem] gap-[0.75rem]"
     >
       <span>
         {desc}{' '}

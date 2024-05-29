@@ -64,7 +64,7 @@ const renderDownloadListFileButton = (listData: any) => {
 
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-1">
-      <div className="bg-white flex flex-col pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] gap-[4rem]">
+      <div className="bg-white flex flex-col pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] sm:gap-[4rem] xs:gap-[2.25rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',

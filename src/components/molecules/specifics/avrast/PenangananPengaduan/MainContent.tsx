@@ -199,7 +199,7 @@ export const MainContent = ({
           )}
         </div>
         <div className="mt-[5rem] bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem]">
-          <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden">
+          <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden border-b-8 border-b-purple_dark">
             <div className="p-[2.25rem]">
               <p className="font-karla font-bold text-[3.5rem]">
                 Form Pengaduan

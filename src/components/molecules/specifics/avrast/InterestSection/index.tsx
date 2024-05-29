@@ -1,9 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import CustomForm from '../CustomForm/Index';
 import { SuccessModal } from '../Modal';
-import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Button from '@/components/atoms/Button/Button';
 import { handleSendEmail } from '@/services/form.api';
 // button variants: primary, secondary
@@ -106,8 +104,7 @@ const InterestSection = (props: Props) => {
             Insurance.
           </label>
         </div>
-        <div className="flex xs:flex-col md:flex-row justify-between items-center xs:gap-[2rem] md:gap-0">
-          <Image alt="captcha" src={CaptchaPicture} />
+        <div className="flex xs:flex-col md:flex-row justify-end items-center xs:gap-[2rem] md:gap-0">
           <Button
             isLoading={loading}
             disabled={formIsValid ? (isChecked ? false : true) : true}
@@ -122,7 +119,10 @@ const InterestSection = (props: Props) => {
       <SuccessModal
         popUpImage={popUpImage}
         show={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          window.location.reload();
+        }}
       />
     </div>
   );
