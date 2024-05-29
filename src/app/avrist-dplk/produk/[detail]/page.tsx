@@ -22,10 +22,13 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal/SuccessModal';
+import { handleGetContent } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { BASE_URL } from '@/utils/baseUrl';
 import {
+  contentTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer,
@@ -63,6 +66,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [popUpImage, setPopUpImage] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -233,6 +237,21 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       }
     };
 
+    const fetchModalImage = async () => {
+      try {
+        handleGetContent(BASE_SLUG.POP_UP_SUBMIT_FORM, {
+          includeAttributes: 'true'
+        }).then((res: any) => {
+          const { content } = contentTransformer(res);
+          const submitImage = singleImageTransformer(content['pop-up-image']);
+          setPopUpImage(submitImage.imageUrl);
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchModalImage().then();
     fetchData().then();
     fetchDetailData()
       .then()
@@ -507,6 +526,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       )}
       <div className="absolute">
         <SuccessModal
+          popUpImage={popUpImage}
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);

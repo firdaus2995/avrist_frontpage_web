@@ -1,4 +1,15 @@
 export const BASE_SLUG = {
+  // Modal
+  POP_UP_SUBMIT_FORM: 'pop-up-submit-form',
+
+  // Modul 1
+
+  // Modul 2
+
+  // Modul 3
+
+  // Modul 4
+
   // Modul 5
   PROMO_BERITA: {
     CONTENT: {
@@ -28,6 +39,9 @@ export const BASE_SLUG = {
       KLAIM_LAYANAN: 'halaman-klaim-dan-layanan-syariah'
     }
   },
+
+  //Modul 7
+
   // Modul 8
   TENTANG_AVRIST_LIFE: {
     CONTENT: {
