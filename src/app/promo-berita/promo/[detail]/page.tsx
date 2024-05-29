@@ -25,11 +25,13 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InterestSection from '@/components/molecules/specifics/avrast/InterestSection';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal';
 import { getPenawaran } from '@/services/berita';
 import {
   handleGetContentPage,
   handleGetContent
 } from '@/services/content-page.api';
+import { handleSubscribe } from '@/services/subscribe-service.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser, getYouTubeId } from '@/utils/helpers';
 import {
@@ -128,6 +130,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const [popUpImage, setPopUpImage] = useState<string>('');
   const [formId, setFormId] = useState('');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const fetchData = () => {
     try {
@@ -292,6 +297,63 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchSlugModal();
   }, []);
 
+  const shareToWhatsapp = () => {
+    setIsOPenPopover(false);
+    const url = `https://wa.me/?text=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToEmail = () => {
+    setIsOPenPopover(false);
+    const url = `mailto:?subject=Check this out&body=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToLinkedin = () => {
+    setIsOPenPopover(false);
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const shareToFacebook = () => {
+    setIsOPenPopover(false);
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+    window.open(url, '_blank');
+  };
+
+  const copyToClipboard = () => {
+    setIsOPenPopover(false);
+    navigator.clipboard.writeText(window.location.href);
+    alert('URL copied to clipboard');
+  };
+
+  const handleSubmit = async () => {
+    if (!validateEmail(email)) {
+      setEmailError('Masukkan alamat email yang valid');
+      return;
+    }
+
+    setEmailError('');
+
+    const queryParams = {
+      email: email,
+      entity: 'Avras'
+    };
+    const data = await handleSubscribe(queryParams);
+    if (data.status === 'OK') {
+      setShowModal(true);
+    }
+
+    if (data.status !== 'OK') {
+      console.error('Error:', data.errors.message);
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   return (
     <>
       <Hero
@@ -319,8 +381,10 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             <div className="flex xs:flex-col md:flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-2">
                 <p className="text-base text-gray_body">
-                  {`${contentData.bulan} ${contentData.tahun}`} |{' '}
-                  {contentData.penulis}
+                  {`${contentData.bulan} ${contentData.tahun}`}
+                  {contentData.penulis !== '-'
+                    ? `| ${contentData.penulis}`
+                    : ''}
                 </p>
               </div>
               <div className="flex flex-col gap-1 md:items-center">
@@ -354,7 +418,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToWhatsapp}
                           className="h-auto w-5"
                           src={Whatsapp}
                           alt="whatsapp"
@@ -366,7 +430,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToEmail}
                           className="h-auto w-5"
                           src={Email}
                           alt="email"
@@ -378,7 +442,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToLinkedin}
                           className="h-auto w-5"
                           src={Linkedin}
                           alt="linkedin"
@@ -390,7 +454,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
                         <Image
                           role="button"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={shareToFacebook}
                           className="h-auto w-5"
                           src={Facebook}
                           alt="facebook"
@@ -403,7 +467,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                         <div
                           role="button"
                           className="items-center"
-                          // onClick={() => setIsVisible(!isVisible)}
+                          onClick={copyToClipboard}
                         >
                           <Icon
                             width={18}
@@ -476,11 +540,15 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               <div className="flex flex-row gap-2">
                 <Input
                   type="text"
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                <Button title="Subscribe" onClick={() => handleSubmit()} customButtonClass="rounded-xl" />
               </div>
+              {emailError && (
+                <p className="text-red-500 ml-2">{emailError}</p>
+              )}
             </div>
           }
           image={data?.footerImage ?? BlankImage}
@@ -515,6 +583,14 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             href: '/produk/individu?tab=Asuransi+Jiwa'
           }
         ]}
+      />
+      <SuccessModal
+        popUpImage={popUpImage}
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+          window.location.reload();
+        }}
       />
     </>
   );
