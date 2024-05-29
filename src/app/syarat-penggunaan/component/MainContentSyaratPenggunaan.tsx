@@ -17,9 +17,15 @@ const MainContentSyaratPenggunaan = () => {
   const kontenRef = useRef(null);
   const kepemilikanRef = useRef(null);
 
-  const handleTabClick = (tabs: string) => {
+  const handleTabClick = (tabs: string, index:number) => {
     setTab(tabs);
-    handleScrollToRef(getRefByTab(tabs));
+    // handleScrollToRef(getRefByTab(tabs));
+    setIsOpen(false)
+    document
+        .getElementsByTagName('h1')
+        [
+          index
+        ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'end' });
   };
 
   const getRefByTab = (tab: string) => {
@@ -65,7 +71,7 @@ const MainContentSyaratPenggunaan = () => {
   return (
     <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
-        <div className="px-[136px] py-[100px] sm:flex sm:flex-row">
+        <div className="md:px-[136px] xs:max-md:px-[50px] py-[100px] sm:flex sm:flex-row">
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg relative">
             <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
@@ -84,7 +90,7 @@ const MainContentSyaratPenggunaan = () => {
                   <div
                     key={idx}
                     role="button"
-                    onClick={() => handleTabClick(val)}
+                    onClick={() => handleTabClick(val, idx)}
                     className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
                   >
                     <span className="font-bold text-purple_mediumlight text-[18px]">
@@ -115,7 +121,7 @@ const MainContentSyaratPenggunaan = () => {
                   <div
                     key={idx}
                     role="button"
-                    onClick={() => handleTabClick(val)}
+                    onClick={() => handleTabClick(val, idx)}
                     className={`border-l-4 px-[15px] py-[10px] cursor-pointer font-bold text-[18px] ${
                       tab === val
                         ? 'border-purple_dark text-purple_dark'
