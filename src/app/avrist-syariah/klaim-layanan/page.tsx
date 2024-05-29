@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
-import CONTACTS from '@/assets/images/common/contacts.svg';
+import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
-import HOSPITAL from '@/assets/images/common/hospital.svg';
+import EMAIL from '@/assets/images/common/email.svg';
 import MESSAGE from '@/assets/images/common/message.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
@@ -113,28 +113,28 @@ const ProdukSyariah = () => {
         bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
-            title: 'Kelola Polis',
-            subtitle: 'Pengkinian Data',
-            href: 'https://my.avrist.com/welcome',
-            icon: CONTACTS
+            icon: CUSTOMER_SERVICE,
+            title: 'Layanan Nasabah',
+            subtitle: '021 5789 8188',
+            href: 'tel:021-5789-8188'
           },
           {
-            title: 'Rumah Sakit Rekanan',
-            subtitle: 'Lebih Lanjut',
-            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan',
-            icon: HOSPITAL
-          },
-          {
+            icon: MESSAGE,
             title: 'Tanya Avrista',
             subtitle: 'Lebih Lanjut',
-            href: '/tanya-avrista',
-            icon: MESSAGE
+            href: '/tanya-avrista'
           },
           {
+            icon: EMAIL,
+            title: 'Tanya Lewat Email',
+            subtitle: 'Kirim Email',
+            href: 'mailto:customer-service@avrist.com'
+          },
+          {
+            icon: DOCUMENT_SEARCH,
             title: 'Prosedur Pengaduan',
             subtitle: 'Lihat Prosedur',
-            href: '/klaim-layanan/layanan/penanganan-pengaduan',
-            icon: DOCUMENT_SEARCH
+            href: '/klaim-layanan/layanan/penanganan-pengaduan'
           }
         ]}
       />
