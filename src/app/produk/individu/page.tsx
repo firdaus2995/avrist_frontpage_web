@@ -60,7 +60,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     'Asuransi Kesehatan'
   ];
   const [searchValue, setSearchValue] = useState('');
-  const [activeTab, setActiveTab] = useState(searchParams.get('tab'));
+  const [activeTab, setActiveTab] = useState(searchParams.get('tab') ?? tabs[0]);
   const [isOpen, setIsOpen] = useState(false);
   const [isCategoryChange, setIsCategoryChange] = useState(true);
 
