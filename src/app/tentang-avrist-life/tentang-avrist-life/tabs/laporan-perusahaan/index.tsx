@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Phone from '@/assets/images/common/phone.svg';
 import Button from '@/components/atoms/Button/Button';
@@ -19,7 +20,7 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const LaporanPerusahaan = () => {
+const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   const [contentData, setContentData] = useState<any>();
   const [contentPage, setContentPage] = useState<any>();
   const [search, setSearch] = useState('');
@@ -47,9 +48,12 @@ const LaporanPerusahaan = () => {
     handleGetContentPage(
       BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.LAPORAN_PERUSAHAAN
     ).then((res: any) => {
+      setData(res);
       setContentPage(pageTransformer(res));
     });
+  }, []);
 
+  useEffect(() => {
     fetchContent();
   }, [params]);
 

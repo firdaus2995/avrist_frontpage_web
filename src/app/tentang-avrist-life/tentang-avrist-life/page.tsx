@@ -22,7 +22,6 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import { handleGetContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -30,6 +29,10 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+
+export interface ISetData {
+  setData: React.Dispatch<React.SetStateAction<PageResponse | undefined>>;
+}
 
 const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
@@ -81,13 +84,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   ];
 
   useEffect(() => {
-    const url = tabs.find((item: any) => item.name === tab)?.url;
-
-    if (!transformedData.titleImage) {
-      handleGetContentPage(
-        url ?? BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
-      ).then((res) => setData(res));
-
+    if (data) {
       const { content } = pageTransformer(data);
 
       const titleImage = singleImageTransformer(content['title-image']);
@@ -99,7 +96,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ctaImage: ctaImage.imageUrl
       });
     }
-  }, [tab, transformedData]);
+  }, [data]);
 
   const handleSelectedDetail = (isSelected: boolean) => {
     setIsSelectedDetail(isSelected);
@@ -172,13 +169,20 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       </div>
 
       <div className="w-full z-10 xs:py-[2.25rem] md:py-[3rem]">
-        {tab === 'Sekilas Perusahaan' && <SekilasPerusahaan />}
-        {tab === 'Manajemen' && (
-          <Manajemen onSelectDetail={handleSelectedDetail} />
+        {tab === 'Sekilas Perusahaan' && (
+          <SekilasPerusahaan setData={setData} />
         )}
-        {tab === 'Penghargaan' && <Penghargaan />}
-        {tab === 'Laporan Perusahaan' && <LaporanPerusahaan />}
-        {tab === 'Karir Bersama Avrist' && <Karir />}
+        {tab === 'Manajemen' && (
+          <Manajemen
+            onSelectDetail={handleSelectedDetail}
+            setPageData={setData}
+          />
+        )}
+        {tab === 'Penghargaan' && <Penghargaan setData={setData} />}
+        {tab === 'Laporan Perusahaan' && (
+          <LaporanPerusahaan setData={setData} />
+        )}
+        {tab === 'Karir Bersama Avrist' && <Karir setData={setData} />}
       </div>
 
       {tab === 'Sekilas Perusahaan' ||

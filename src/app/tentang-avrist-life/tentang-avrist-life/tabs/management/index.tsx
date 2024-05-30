@@ -19,9 +19,13 @@ import {
 } from '@/utils/responseTransformer';
 interface ManagementComponentProps {
   onSelectDetail: (isSelected: boolean) => void;
+  setPageData: React.Dispatch<React.SetStateAction<PageResponse | undefined>>;
 }
 
-const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
+const Manajemen: React.FC<ManagementComponentProps> = ({
+  onSelectDetail,
+  setPageData
+}) => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailData, setDetailData] = useState({
     image: BlankImage,
@@ -41,6 +45,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({ onSelectDetail }) => {
   useEffect(() => {
     handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.MANAJEMEN).then(
       (res: PageResponse) => {
+        setPageData(res);
         const { content } = pageTransformer(res);
 
         const filePdf = singleImageTransformer(

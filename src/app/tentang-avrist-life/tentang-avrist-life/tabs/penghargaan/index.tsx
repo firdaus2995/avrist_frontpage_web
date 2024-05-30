@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
+import { handleGetContentPage } from '@/services/content-page.api';
 import { getListPenghargaan } from '@/services/penghargaan';
+import { PageResponse } from '@/types/page.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   handleTransformedContent,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const Penghargaan = () => {
+const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   const [contentData, setContentData] = useState<any>([]);
   const [search, setSearch] = useState('');
   const [params, setParams] = useState({
@@ -172,6 +176,14 @@ const Penghargaan = () => {
   useEffect(() => {
     fetchContent();
   }, [params]);
+
+  useEffect(() => {
+    handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN).then(
+      (res: PageResponse) => {
+        setData(res);
+      }
+    );
+  }, []);
 
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
