@@ -56,9 +56,12 @@ const CardCategoryD = ({
           </p>
         </div>
         <div className="flex flex-row gap-2 items-center flex-wrap">
-          {tags?.map((val, idx) => (
+          {Array.isArray(tags) ? tags?.map((val, idx) => (
             <MediumTag key={idx} title={val} />
-          ))}
+          ))
+          :
+          <MediumTag title={tags} />
+          }
         </div>
       </div>
     </div>
