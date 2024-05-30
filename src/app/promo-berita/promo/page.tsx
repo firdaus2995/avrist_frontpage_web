@@ -465,7 +465,7 @@ const Promo: React.FC<ParamsProps> = () => {
                       className="w-full h-auto flex justify-center"
                     >
                       <Image
-                        src={BlankImage}
+                        src={item?.image ?? BlankImage}
                         className="w-full h-auto"
                         alt="blank"
                         width={0}
