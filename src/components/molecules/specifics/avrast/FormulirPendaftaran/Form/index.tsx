@@ -32,7 +32,6 @@ const Form = () => {
     };
     fetchContentDataWithCategory(params).then((data: any) => {
       if (selectedCategory) {
-        console.log(data.transformedData);
         setTransFormedData(data.transformedData);
         if (categories && categories.length !== 0) {
           setSelectedCategory(selectedCategory);
@@ -202,7 +201,6 @@ function transformsData(responseData: any, selectedCategory?: string) {
       }
       categoryObject['subCategoryDetail'][subkategori].push(formulirObject);
     });
-    console.log(categoryObject);
     if (selectedCategory) {
       for (const subkategori of Object.keys(categoryObject.subCategoryDetail)) {
         const foundedDetail = categoryObject.subCategoryDetail[
