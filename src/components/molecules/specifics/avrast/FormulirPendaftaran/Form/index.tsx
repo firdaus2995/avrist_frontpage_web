@@ -18,32 +18,43 @@ const Form = () => {
   const [searchKeyWords, setSearchKeywords] = useState('');
 
   useEffect(() => {
-    fetchContentDataWithCategory({}).then((data: any) => {
-      setCategories(data.kategoriFormulirList);
-      setSelectedCategory(data.kategoriFormulirList[0]);
-      setTransFormedData(data.transformedData);
-    });
-  }, []);
-
-  useEffect(() => {
-    const params = {
-      selectedCategory,
-      searchKeyWords
-    };
-    fetchContentDataWithCategory(params).then((data: any) => {
-      if (selectedCategory) {
+    if (!searchKeyWords) {
+      fetchContentDataWithCategory({}).then((data: any) => {
+        setCategories(data.kategoriFormulirList);
+        setSelectedCategory(data.kategoriFormulirList[0]);
         setTransFormedData(data.transformedData);
-        if (categories && categories.length !== 0) {
-          setSelectedCategory(selectedCategory);
+      });
+    } else {
+      fetchContentDataWithCategory({ selectedCategory, searchKeyWords }).then(
+        (data: any) => {
+          if (selectedCategory) {
+            setTransFormedData(data.transformedData);
+            if (categories && categories.length !== 0) {
+              setSelectedCategory(selectedCategory);
+            }
+          }
         }
-      }
-    });
-  }, [selectedCategory, searchKeyWords]);
+      );
+    }
+  }, [searchKeyWords]);
 
   const btnVerticalData = categories?.map((item) => {
     return {
       title: item,
-      onClick: () => setSelectedCategory(item)
+      onClick: () => {
+        setSelectedCategory(item);
+        fetchContentDataWithCategory({
+          selectedCategory: item,
+          searchKeyWords
+        }).then((data: any) => {
+          if (selectedCategory) {
+            setTransFormedData(data.transformedData);
+            if (categories && categories.length !== 0) {
+              setSelectedCategory(selectedCategory);
+            }
+          }
+        });
+      }
     };
   });
 

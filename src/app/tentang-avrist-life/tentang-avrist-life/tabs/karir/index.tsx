@@ -1,8 +1,9 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon2 from '@/assets/images/avrast/about/menagemen.svg';
 import Icon3 from '@/assets/images/avrast/about/penghargaan.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
@@ -17,6 +18,7 @@ import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/Cate
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { getYouTubeId } from '@/utils/helpers';
 import {
   pageTransformer,
@@ -47,7 +49,7 @@ const purposeData = [
   }
 ];
 
-const Karir = () => {
+const Karir: React.FC<ISetData> = ({ setData }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -108,17 +110,18 @@ const Karir = () => {
   };
 
   useEffect(() => {
-    handleGetContentPage('halaman-karir').then((res: any) => {
-      setContentPage(pageTransformer(res));
-    });
+    handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.KARIR).then(
+      (res: any) => {
+        setData(res);
+        setContentPage(pageTransformer(res));
+      }
+    );
 
     void fetchContentCategory();
   }, []);
 
   useEffect(() => {
-    if (category === 'Karyawan') {
-      fetchContentCategory();
-    } else {
+    if (category !== 'Karyawan') {
       router.push(`${pathname}/tabs/karir/detail`);
     }
   }, [category]);
@@ -173,7 +176,12 @@ const Karir = () => {
         <CategoryWithThreeCards
           hideSearchBar
           defaultSelectedCategory={category}
-          onCategoryChange={(tab) => setCategory(tab)}
+          onCategoryChange={(tab) => {
+            setCategory(tab);
+            if (category === 'Karyawan') {
+              fetchContentCategory();
+            }
+          }}
           filterRowLayout={true}
           hidePagination
           categories={['Karyawan', 'Tenaga Pemasar']}

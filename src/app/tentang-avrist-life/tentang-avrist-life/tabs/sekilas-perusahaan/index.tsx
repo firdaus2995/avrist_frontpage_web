@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon1 from '@/assets/images/common/heart-check.svg';
 import Icon2 from '@/assets/images/common/home-add.svg';
 import MisiIcon from '@/assets/images/common/misi.svg';
@@ -85,7 +86,7 @@ const purposeData = [
   }
 ];
 
-const SekilasPerusahaan = () => {
+const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
   const [contentData, setContentData] = useState<any>();
   const [contentPage, setContentPage] = useState<any>();
 
@@ -95,6 +96,7 @@ const SekilasPerusahaan = () => {
     handleGetContentPage(
       BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
     ).then((res: any) => {
+      setData(res);
       setContentPage(pageTransformer(res));
     });
 
