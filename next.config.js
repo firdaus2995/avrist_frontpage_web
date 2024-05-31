@@ -13,7 +13,10 @@ const nextConfig = {
       }
     ]
   },
-  output: 'standalone'
+  output: 'standalone',
+  experimental: {
+    instrumentationHook: true
+  }
 };
 
 module.exports = nextConfig;
