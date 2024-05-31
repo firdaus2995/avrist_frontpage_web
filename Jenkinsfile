@@ -8,14 +8,7 @@ try{
             credentialsId: 'avrist-sit-fe-fp',
             branch: 'sit'
      }
-    stage('Build Static HTML'){
-        echo "Build Static HTML in Build Number : ${env.BUILD_NUMBER}"
-        sh "cp .env .env.production"
-        sh "yarn"
-        sh "yarn run build"
-        echo "Build Successfully"
-    }
-    stage("Deploy Static HTML to Docker"){
+    stage("Build & Deploy to Docker"){
         echo "Deploy Static HTML in Build Number : ${env.BUILD_NUMBER}"
         sh "sudo docker-compose down"
         sh "sudo docker-compose up -d --build"
