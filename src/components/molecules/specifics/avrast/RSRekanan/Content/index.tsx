@@ -9,6 +9,8 @@ import { Content as ProviderContent } from '@/types/provider.type';
 const Content = () => {
   const [data, setData] = useState<IDAta[] | []>([]);
   const [searchParam, setSearchParam] = useState('');
+  const [currentPage, setCurrentPage] = useState<number | any>(1);
+
   const btnVerticalData = [
     {
       title: 'Asuransi Jiwa Individu',
@@ -28,8 +30,7 @@ const Content = () => {
   useEffect(() => {
     const fetchProviderData = async () => {
       const queryParams = {
-        page: '1',
-        city_contain: 'jakarta',
+        page: currentPage,
         name_contain: searchParam
       };
       const data = await handleGetProvider(queryParams);
@@ -49,16 +50,23 @@ const Content = () => {
           lng: item.longitude
         };
       });
-      setData(fetchedData);
+
+      setData((prevData) => {
+        const existingIds = new Set(prevData.map((item) => item.id));
+        const newData = fetchedData.filter((item) => !existingIds.has(item.id));
+        return [...prevData, ...newData];
+      });
     };
 
     fetchProviderData()
       .then()
       .catch(() => []);
-  }, [searchParam]);
+  }, [searchParam, currentPage]);
 
   const handleChangeSearchParams = (value: string) => {
     setSearchParam(value);
+    setCurrentPage(1); // Reset page to 1 when search parameter changes
+    setData([]); // Clear previous data to avoid duplications
   };
 
   return (
@@ -88,7 +96,12 @@ const Content = () => {
             <ButtonMenuVertical item={btnVerticalData} />
           </div>
 
-          <Maps hospitalData={data} onClickSearch={handleChangeSearchParams} />
+          <Maps
+            hospitalData={data}
+            onClickSearch={handleChangeSearchParams}
+            onSetPage={(data) => setCurrentPage(data)}
+            currentPage={currentPage}
+          />
         </section>
       </div>
       <RoundedFrameBottom />
