@@ -9,7 +9,12 @@ import MarkerCard from '@/components/molecules/specifics/avrast/RSRekanan/Maps/M
 import SearchBox from '@/components/molecules/specifics/avrast/SearchBox';
 import 'leaflet/dist/leaflet.css';
 
-const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
+const Maps = ({
+  hospitalData,
+  onClickSearch,
+  onSetPage,
+  currentPage
+}: IProviderProps) => {
   const sliderRef = useRef<Slider | null>(null);
 
   const next = () => {
@@ -31,8 +36,8 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
 
   const defaultProps = {
     center: {
-      lat: -6.195125,
-      lng: 106.823456
+      lat: -0.601784,
+      lng: 115.394436
     },
     zoom: 11
   };
@@ -60,10 +65,15 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
         breakpoint: 1536,
         settings: {
           initialSlide: 0,
-          slidesToShow: totalData > 3 ? 3.2 : 3,
+          slidesToShow: 3,
           lazyLoad: 'progressive' as LazyLoadTypes,
           slidesToScroll: 1,
-          rows: 1
+          rows: 1,
+          afterChange: (current: number) => {
+            if (current === hospitalData.length - 3) {
+              onSetPage(currentPage + 1);
+            }
+          }
         }
       },
       {
@@ -85,8 +95,7 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
           slidesToScroll: 1,
           rows: 1
         }
-      }
-      ,
+      },
       {
         breakpoint: 480,
         settings: {
@@ -94,7 +103,12 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
           slidesToShow: 1,
           lazyLoad: 'progressive' as LazyLoadTypes,
           slidesToScroll: 1,
-          rows: 3
+          rows: 3,
+          afterChange: (current: number) => {
+            if (current === Math.floor(hospitalData.length / 3)) {
+              onSetPage(currentPage + 1);
+            }
+          }
         }
       }
     ]
@@ -105,7 +119,7 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
       <div className="w-full h-[43.75rem] rounded-t-[0.75rem]">
         <MapContainer
           center={defaultProps.center}
-          zoom={10}
+          zoom={4.5}
           className="w-full h-full"
         >
           <TileLayer
@@ -132,7 +146,7 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
       <div className="px-[5%]">
         <SearchBox onSearch={(e) => onClickSearch(e)} />
       </div>
-      <div className="flex sm:flex-row xs:flex-col px-3">
+      <div className="flex sm:flex-row justify-between xs:flex-col px-3">
         <div className="sm:flex xs:hidden items-center justify-center">
           <div
             className="p-2 rounded-full border border-purple_dark cursor-pointer"
@@ -146,11 +160,14 @@ const Maps = ({ hospitalData, onClickSearch }: IProviderProps) => {
             sliderRef.current = slider;
           }}
           {...sliderSettings(hospitalData.length)}
-          className="sm:w-[90%] w-full flex flex-row"
+          className="sm:w-[90%] w-full flex flex-row px-4"
         >
           {hospitalData?.length !== 0 &&
             hospitalData!.map((item, index) => (
-              <div key={index} className="w-full  sm:h-full xs:h-[95%] mt-[0.75rem]">
+              <div
+                key={index}
+                className="w-full  sm:h-full xs:h-[95%] mt-[0.75rem]"
+              >
                 <MarkerCard
                   name={item.name}
                   address={item.address}
@@ -191,4 +208,6 @@ export default Maps;
 export interface IProviderProps {
   hospitalData: IDAta[] | [];
   onClickSearch: (value: string) => void;
+  onSetPage: (value: number) => void;
+  currentPage: number;
 }
