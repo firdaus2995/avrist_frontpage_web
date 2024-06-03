@@ -153,7 +153,8 @@ const initialData = {
   titleAltText: '',
   bannerAltText: '',
   footerInfoAltText: '',
-  footerInfoImageUrl: ''
+  footerInfoImageUrl: '',
+  file: ''
 };
 
 const handleDataFetch = async (
@@ -163,11 +164,13 @@ const handleDataFetch = async (
   const dataFetchParams = {
     dataKeyTitle: 'title-image',
     dataKeyBanner: 'banner-image',
-    dataKeyFooter: 'cta1-image'
+    dataKeyFooter: 'cta1-image',
+    dataKeyFile: 'file-1'
   };
 
   try {
-    const { dataKeyTitle, dataKeyBanner, dataKeyFooter } = dataFetchParams;
+    const { dataKeyTitle, dataKeyBanner, dataKeyFooter, dataKeyFile } =
+      dataFetchParams;
     const data = await getContentPage(slug as string);
     const { content } = pageTransformer(data as PageResponse);
     const title =
@@ -182,6 +185,10 @@ const handleDataFetch = async (
       singleImageTransformer(content[dataKeyFooter]).imageUrl !== ''
         ? singleImageTransformer(content[dataKeyFooter])
         : singleImageTransformer(content['imge-cta1']);
+    const file =
+      singleImageTransformer(content[dataKeyFile]).imageUrl !== ''
+        ? singleImageTransformer(content[dataKeyFile])
+        : singleImageTransformer(content['file-1']);
 
     setData({
       titleImageUrl: title.imageUrl,
@@ -189,7 +196,8 @@ const handleDataFetch = async (
       titleAltText: title.altText,
       bannerAltText: banner.altText,
       footerInfoAltText: footerInformationImage.altText,
-      footerInfoImageUrl: footerInformationImage.imageUrl
+      footerInfoImageUrl: footerInformationImage.imageUrl,
+      file: file.imageUrl
     });
   } catch (error) {
     setData(initialData);
@@ -253,6 +261,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         isSelectedDetail={isSelectedDetail}
         onChangeBannerImg={handleChangeBannerImg}
         tab={tab}
+        file={data.file}
       />
       {tab === 'Informasi Klaim' && <PanduanKlaim />}
       {tab === 'Panduan & Pengajuan' && (

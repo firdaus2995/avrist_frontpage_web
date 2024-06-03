@@ -15,7 +15,7 @@ import PengajuanKlaimIcon from '@/assets/images/avrast/component/informasi-klaim
 import RsRekananIcon from '@/assets/images/avrast/component/informasi-klaim/rs-rekanan.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import { BASE_URL } from '@/utils/baseUrl';
+import { handleDownload } from '@/utils/helpers';
 
 const data = [
   {
@@ -56,7 +56,11 @@ const data = [
   }
 ];
 
-const InfoKlaimTab = () => {
+interface IInfoKlaimTab {
+  file: string;
+}
+
+const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({ file }) => {
   const router = useRouter();
   const [isShowModalPelayanan, setShowModalPelayanan] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
@@ -93,7 +97,7 @@ const InfoKlaimTab = () => {
         router.push('https://my.avrist.com/welcome');
       },
       'Lebih Lengkap': () => {
-        downloadFile(`${BASE_URL.image}/5512b163-ae52-4cd0-9aa2-c2e41f4822f8-prosedur-singkat-pelayanan-nasabah-avrist_updated.pdf`);
+        handleDownload(file);
       },
       'Cari Rumah Sakit': () => {
         router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
@@ -106,9 +110,9 @@ const InfoKlaimTab = () => {
     actionMap[text]();
   };
 
-  const downloadFile = (url: string) => {
-    window.open(url, '_blank');
-  };
+  // const downloadFile = (url: string) => {
+  //   window.open(url, '_blank');
+  // };
 
   return (
     <div>
