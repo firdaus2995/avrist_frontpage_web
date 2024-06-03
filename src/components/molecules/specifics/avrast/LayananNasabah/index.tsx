@@ -56,7 +56,7 @@ const LayananNasabah = () => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
+    centerMode: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1
@@ -172,18 +172,20 @@ const LayananNasabah = () => {
         ))}
       </div>
       <div className="w-full grid grid-cols-1 md:hidden gap-4">
-        <Slider
-          ref={(slider) => {
-            sliderRef.current = slider;
-          }}
-          {...sliderSettings}
-        >
-          {data.map((val, idx) => (
-            <div className="px-2" key={idx}>
-              {renderCard(val)}
-            </div>
-          ))}
-        </Slider>
+        <div className='w-[85%] m-auto'>
+          <Slider
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+            {...sliderSettings}
+          >
+            {data.map((val, idx) => (
+              <div className="" key={idx}>
+                {renderCard(val)}
+              </div>
+            ))}
+          </Slider>
+        </div>
         <div className="flex flex-row gap-4 justify-between w-[85%] m-auto">
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />

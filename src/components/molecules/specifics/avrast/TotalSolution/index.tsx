@@ -193,7 +193,7 @@ const TotalSolution = () => {
       <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
-        <p className="min-h-[55px]">{val.content}</p>
+        <p className="md:min-h-[55px] xs:min-h-[110px]">{val.content}</p>
         <Link href={val.link}>
           <Button
             title={val.btnText}
@@ -215,7 +215,7 @@ const TotalSolution = () => {
           Avrist Total Solution
         </p>
       </div>
-      <div className="lg:hidden" style={{ width: '90vw' }}>
+      <div className="lg:hidden" style={{ width: '90%' }}>
         <Slider
           ref={(slider) => {
             sliderRef.current = slider;
