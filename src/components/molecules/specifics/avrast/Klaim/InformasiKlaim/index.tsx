@@ -12,13 +12,19 @@ interface InformasiKlaimComponentProps {
   isSelectedDetail: boolean;
   onChangeBannerImg: (val: number) => void;
   tab: string;
+  file: string;
+  popUpImage1: string;
+  popUpImage2: string;
 }
 
 const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   onTabChange,
   isSelectedDetail,
   onChangeBannerImg,
-  tab
+  tab,
+  file,
+  popUpImage1,
+  popUpImage2
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -68,8 +74,8 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
             val === 'Login Polis' ? (
               <a
                 key={idx}
-                href='https://my.avrist.com/welcome'
-                target='_blank'
+                href="https://my.avrist.com/welcome"
+                target="_blank"
                 role="button"
                 className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
               >
@@ -110,7 +116,13 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
           </Slider>
         </div>
       </div>
-      {selected === 'Informasi Klaim' && <InfoKlaimTab />}
+      {selected === 'Informasi Klaim' && (
+        <InfoKlaimTab
+          file={file}
+          popUpImage1={popUpImage1}
+          popUpImage2={popUpImage2}
+        />
+      )}
       {selected === 'Panduan & Pengajuan' && !isSelectedDetail && (
         <PanduanPengajuanTab />
       )}
