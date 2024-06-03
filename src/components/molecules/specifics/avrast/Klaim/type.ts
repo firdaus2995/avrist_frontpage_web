@@ -6,4 +6,6 @@ export interface dataKlaim {
   footerInfoImageUrl: string;
   footerInfoAltText: string;
   file: string;
+  popUpImage1: string;
+  popUpImage2: string;
 }

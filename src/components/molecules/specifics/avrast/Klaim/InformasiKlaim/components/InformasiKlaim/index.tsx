@@ -58,9 +58,15 @@ const data = [
 
 interface IInfoKlaimTab {
   file: string;
+  popUpImage1: string;
+  popUpImage2: string;
 }
 
-const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({ file }) => {
+const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
+  file,
+  popUpImage1,
+  popUpImage2
+}) => {
   const router = useRouter();
   const [isShowModalPelayanan, setShowModalPelayanan] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
@@ -209,11 +215,13 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({ file }) => {
         <StandarPelayananModal
           show={isShowModalPelayanan}
           onClose={() => setShowModalPelayanan(false)}
+          popUpImage={popUpImage2}
         />
       </div>
       <PanduanLayananModal
         isShowPanduanLayananModal={isShowPanduanLayananModal}
         handleCloseModal={() => setIsShowPanduanLayananModal(false)}
+        popUpImage={popUpImage1}
       />
     </div>
   );

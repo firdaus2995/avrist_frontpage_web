@@ -154,7 +154,9 @@ const initialData = {
   bannerAltText: '',
   footerInfoAltText: '',
   footerInfoImageUrl: '',
-  file: ''
+  file: '',
+  popUpImage1: '',
+  popUpImage2: ''
 };
 
 const handleDataFetch = async (
@@ -165,12 +167,20 @@ const handleDataFetch = async (
     dataKeyTitle: 'title-image',
     dataKeyBanner: 'banner-image',
     dataKeyFooter: 'cta1-image',
-    dataKeyFile: 'file-1'
+    dataKeyFile: 'file-1',
+    dataKeyPopUpImage1: 'pop-up-image-1',
+    dataKeyPopUpImage2: 'pop-up-image-2'
   };
 
   try {
-    const { dataKeyTitle, dataKeyBanner, dataKeyFooter, dataKeyFile } =
-      dataFetchParams;
+    const {
+      dataKeyTitle,
+      dataKeyBanner,
+      dataKeyFooter,
+      dataKeyFile,
+      dataKeyPopUpImage1,
+      dataKeyPopUpImage2
+    } = dataFetchParams;
     const data = await getContentPage(slug as string);
     const { content } = pageTransformer(data as PageResponse);
     const title =
@@ -189,6 +199,14 @@ const handleDataFetch = async (
       singleImageTransformer(content[dataKeyFile]).imageUrl !== ''
         ? singleImageTransformer(content[dataKeyFile])
         : singleImageTransformer(content['file-1']);
+    const popUpImage1 =
+      singleImageTransformer(content[dataKeyPopUpImage1]).imageUrl !== ''
+        ? singleImageTransformer(content[dataKeyPopUpImage1])
+        : singleImageTransformer(content['pop-up-image-1']);
+    const popUpImage2 =
+      singleImageTransformer(content[dataKeyPopUpImage2]).imageUrl !== ''
+        ? singleImageTransformer(content[dataKeyPopUpImage2])
+        : singleImageTransformer(content['pop-up-image-2']);
 
     setData({
       titleImageUrl: title.imageUrl,
@@ -197,7 +215,9 @@ const handleDataFetch = async (
       bannerAltText: banner.altText,
       footerInfoAltText: footerInformationImage.altText,
       footerInfoImageUrl: footerInformationImage.imageUrl,
-      file: file.imageUrl
+      file: file.imageUrl,
+      popUpImage1: popUpImage1.imageUrl,
+      popUpImage2: popUpImage2.imageUrl
     });
   } catch (error) {
     setData(initialData);
@@ -262,6 +282,8 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         onChangeBannerImg={handleChangeBannerImg}
         tab={tab}
         file={data.file}
+        popUpImage1={data.popUpImage1}
+        popUpImage2={data.popUpImage2}
       />
       {tab === 'Informasi Klaim' && <PanduanKlaim />}
       {tab === 'Panduan & Pengajuan' && (

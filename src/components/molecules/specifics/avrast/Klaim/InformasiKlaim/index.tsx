@@ -13,6 +13,8 @@ interface InformasiKlaimComponentProps {
   onChangeBannerImg: (val: number) => void;
   tab: string;
   file: string;
+  popUpImage1: string;
+  popUpImage2: string;
 }
 
 const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
@@ -20,7 +22,9 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   isSelectedDetail,
   onChangeBannerImg,
   tab,
-  file
+  file,
+  popUpImage1,
+  popUpImage2
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -112,7 +116,13 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
           </Slider>
         </div>
       </div>
-      {selected === 'Informasi Klaim' && <InfoKlaimTab file={file} />}
+      {selected === 'Informasi Klaim' && (
+        <InfoKlaimTab
+          file={file}
+          popUpImage1={popUpImage1}
+          popUpImage2={popUpImage2}
+        />
+      )}
       {selected === 'Panduan & Pengajuan' && !isSelectedDetail && (
         <PanduanPengajuanTab />
       )}
