@@ -1,6 +1,14 @@
 import { BASE_URL } from './baseUrl';
 
-type Environment = 'page' | 'content' | 'default'| 'content/category' | 'content-detail' | 'form' | '';
+type Environment =
+  | 'page'
+  | 'content'
+  | 'default'
+  | 'content/category'
+  | 'content-detail'
+  | 'form'
+  | 'cms'
+  | '';
 
 export interface QueryParams {
   [key: string]: string;
@@ -10,9 +18,9 @@ interface FetchOptions extends RequestInit {
   responseType?: 'json';
   queryParams?: QueryParams;
   headers?: {
-    Authorization?: string,
-    'Content-Type': string
-  }
+    Authorization?: string;
+    'Content-Type': string;
+  };
 }
 
 export async function httpService<T>(
@@ -21,8 +29,8 @@ export async function httpService<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   const baseUrl = getBaseUrl(env);
-  const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);  
-  
+  const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);
+
   try {
     const response = await fetch(urlWithParams, options);
     if (!response.ok) {
@@ -46,11 +54,13 @@ function getBaseUrl(env: Environment): string {
     case 'content/category':
       return BASE_URL.contentCategoryPage;
     case 'default':
-        return BASE_URL.default;
+      return BASE_URL.default;
     case 'content-detail':
-        return BASE_URL.contentDetail;
+      return BASE_URL.contentDetail;
     case 'form':
-        return BASE_URL.formUrl;
+      return BASE_URL.formUrl;
+    case 'cms':
+      return BASE_URL.cms;
     default:
       throw new Error(`Unknown environment: ${env}`);
   }
