@@ -5,6 +5,9 @@ export interface dataKlaim {
   bannerAltText: string;
   footerInfoImageUrl: string;
   footerInfoAltText: string;
+}
+
+export interface IDataKlaim extends dataKlaim {
   file: string;
   popUpImage1: string;
   popUpImage2: string;

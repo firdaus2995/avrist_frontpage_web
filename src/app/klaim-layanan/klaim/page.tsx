@@ -28,7 +28,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InformasiKlaimComponent from '@/components/molecules/specifics/avrast/Klaim/InformasiKlaim';
 import PanduanKlaim from '@/components/molecules/specifics/avrast/Klaim/PanduanKlaim';
 import ProsesKlaim from '@/components/molecules/specifics/avrast/Klaim/ProsesKlaim';
-import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
+import { IDataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import { getContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -161,7 +161,7 @@ const initialData = {
 
 const handleDataFetch = async (
   slug: string,
-  setData: (dataKlaim: dataKlaim) => void
+  setData: (dataKlaim: IDataKlaim) => void
 ) => {
   const dataFetchParams = {
     dataKeyTitle: 'title-image',
@@ -231,7 +231,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   const [tab, setTab] = useState('');
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
   const [, setBannerImg] = useState(0);
-  const [data, setData] = useState<dataKlaim>(initialData);
+  const [data, setData] = useState<IDataKlaim>(initialData);
 
   const handleTabChange = async (tab: string) => {
     setTab(tab);
