@@ -63,6 +63,7 @@ export const MainContent = ({
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [attachmentFile, setAttachmentFile] = useState('');
 
   useEffect(() => {
     const params = {
@@ -157,11 +158,22 @@ export const MainContent = ({
   };
 
   const onSubmitData = async () => {
-    const queryParams = {
-      id: dataFormId,
-      pic: formPic,
-      placeholderValue: formValue
-    };
+    let queryParams = {};
+    if (attachmentFile === '') {
+      queryParams = {
+        id: dataFormId,
+        pic: formPic,
+        placeholderValue: formValue
+      };
+    } else {
+      queryParams = {
+        id: dataFormId,
+        pic: formPic,
+        placeholderValue: formValue,
+        attachment: true,
+        attachment_path: attachmentFile
+      };
+    }
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
@@ -171,6 +183,12 @@ export const MainContent = ({
     if (data.status !== 'OK') {
       console.error('Error:', data.errors.message);
       router.refresh();
+    }
+  };
+
+  const handleChangeAttachment = (value: string) => {
+    if (value) {
+      setAttachmentFile(value);
     }
   };
 
@@ -215,7 +233,7 @@ export const MainContent = ({
                   longTextArea
                 />
               )}
-              <ReportForm />
+              <ReportForm onChangeData={handleChangeAttachment} />
               <div className="flex flex-row mt-[2.25rem]">
                 <div>
                   <input

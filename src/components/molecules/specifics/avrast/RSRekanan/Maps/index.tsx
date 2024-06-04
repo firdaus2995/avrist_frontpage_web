@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
 import Slider, { LazyLoadTypes } from 'react-slick';
 import { IDAta } from '../Content';
 import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
@@ -16,6 +16,10 @@ const Maps = ({
   currentPage
 }: IProviderProps) => {
   const sliderRef = useRef<Slider | null>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([
+    -0.601784, 115.394436
+  ]);
+  const [mapZoom, setMapZoom] = useState(4.5);
 
   const next = () => {
     if (sliderRef.current) {
@@ -114,6 +118,19 @@ const Maps = ({
     ]
   });
 
+  const ChangeView = ({ center, zoom }: any) => {
+    const map = useMap();
+    map.setView(center, zoom);
+    return null;
+  };
+
+  const onClickMarker = (lat: number, lng: number) => {
+    if (lat !== 0 || lng !== 0) {
+      setMapCenter([lat, lng]);
+      setMapZoom(17);
+    }
+  };
+
   return (
     <div className="sm:w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[0.75rem] pb-6">
       <div className="w-full h-[43.75rem] rounded-t-[0.75rem]">
@@ -122,6 +139,7 @@ const Maps = ({
           zoom={4.5}
           className="w-full h-full"
         >
+          <ChangeView center={mapCenter} zoom={mapZoom} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -172,6 +190,9 @@ const Maps = ({
                   name={item.name}
                   address={item.address}
                   phone={item.phone}
+                  lat={item.lat}
+                  lng={item.lng}
+                  onClickMarker={() => onClickMarker(item.lat, item.lng)}
                 />
               </div>
             ))}

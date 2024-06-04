@@ -51,7 +51,7 @@ const KlaimDanLayanan = () => {
             cardBody:
               'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
             cardButtonText: 'Login Employer',
-            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=acb'
+            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=inf'
           },
           {
             cardIcon: YellowContact,
@@ -59,7 +59,7 @@ const KlaimDanLayanan = () => {
             cardBody:
               'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus.',
             cardButtonText: 'Login Employee',
-            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=acb'
+            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=inf'
           },
           {
             cardIcon: YellowForm,
