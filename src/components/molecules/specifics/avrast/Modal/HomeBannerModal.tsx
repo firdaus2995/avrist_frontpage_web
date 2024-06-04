@@ -128,7 +128,7 @@ export const HomeBannerModal = (props: Props) => {
                 </div>
                 <Link href={popupUrl ?? '#'}>
                   <CardRainbow>
-                    <div className="h-full min-h-[200px]">
+                    <div className="h-full lg:min-h-[200px] xs:min-h-full">
                       <img
                         src={bannerModalPath}
                         alt="modal-home-banner"
