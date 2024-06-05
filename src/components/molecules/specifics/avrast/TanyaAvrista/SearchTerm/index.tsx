@@ -1,10 +1,9 @@
 'use client';
-
 import React from 'react';
 import Image from 'next/image';
-import Input from '@/components/atoms/Input';
 
-const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
+const SearchTerm = ({ bannerImage, onSearch, loading }: { bannerImage: string, onSearch: any, loading: boolean }) => {
+  const [keyword, setKeyword] = React.useState('')
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-[3.125rem]">
       <div className="w-full h-[640px] flex items-center absolute">
@@ -20,9 +19,17 @@ const SearchTerm = ({ bannerImage }: { bannerImage: string }) => {
               </p>
             </div>
             <div className="w-full sm:mt-2 mt-6">
-              <Input
-                customInputClass="xs:w-full sm:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
+              <input
+                className="xs:w-full sm:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
                 placeholder="Ketik kata kunci (misal: promosi berlangsung)"
+                onChange={(e:any) => setKeyword(e.target.value)}
+                value={ loading ? 'Loading data...' : keyword}
+                onKeyDown={(e:any) => {
+                  if (e.key === 'Enter' || e.keyCode === 13) {
+                    onSearch('List-Pertanyaan-dan-Jawaban-Tanya-Avrista', keyword)
+                  }
+                }}
+                disabled={loading}
               />
             </div>
           </div>
