@@ -79,6 +79,7 @@ const TanyaAvrista = () => {
   const [listData, setListData] = useState<IListFaq[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
+  const [loadingSearch, setLoadingSearch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,6 +131,36 @@ const TanyaAvrista = () => {
     setSelectedCards(title);
   };
 
+  const handleGetListFaqFilter = async (slug: string, keyword: string) => {
+    try {
+      setLoadingSearch(true)
+      const queryParams: QueryParams = {
+        includeAttributes: 'true',
+        searchFilter: keyword
+      };
+      const listFaq:any = await getListFaq(slug, queryParams);
+      const tempData = listFaq?.data?.categoryList[''];
+      const transformedData = tempData === 'undefined' ? [] : tempData?.map((item:any) => {
+        const title = item.shortDesc;
+        const href = `/tanya-avrista/${item.id}/`;
+        const tagsData = item.contentData.find(
+          (content:any) => content.fieldId === 'tags'
+        );
+        const tags = tagsData ? tagsData.value : '';
+        return {
+          title,
+          href,
+          tags
+        };
+      });
+      setListFilteredData(transformedData);
+      setLoadingSearch(false);
+      return tempData;
+    } catch (error) {
+      return notFound();
+    }
+  };
+
   useEffect(() => {
     const filteredData = listData.filter((item) => item.tags === selectedCards);
     setListFilteredData(filteredData);
@@ -142,7 +173,7 @@ const TanyaAvrista = () => {
         breadcrumbsData={breadcrumbsData}
         imageUrl={titleImage.imageUrl}
       />
-      <SearchTerm bannerImage={bannerImage.imageUrl} />
+      <SearchTerm bannerImage={bannerImage.imageUrl} onSearch={handleGetListFaqFilter} loading={loadingSearch} />
       <TopicsCard cards={cards} onClickCards={handleCardsClick} />
       <FAQList selected={selectedCards} data={listFilteredData} />
       <RoundedFrameBottom />
