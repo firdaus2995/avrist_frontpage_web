@@ -105,7 +105,7 @@ export const HomeBannerModal = (props: Props) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center py-[100px] px-[72px]">
+          <div className="flex min-h-full items-center justify-center p-4 text-center py-[100px] lg:px-[72px]">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -115,7 +115,7 @@ export const HomeBannerModal = (props: Props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="h-[80%] w-[60%] transform overflow-hidden transition-all cursor-pointer">
+              <Dialog.Panel className="h-[100%] lg:w-[60%] xs:w-[100%] transform overflow-hidden transition-all cursor-pointer">
                 <div className="absolute right-0 p-[24px]">
                   <button onClick={closeModal}>
                     <Icon
