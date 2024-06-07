@@ -76,7 +76,7 @@ const TanyaAvrista = () => {
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [cards, setCards] = useState<IListCards[]>([]);
-  const [listData, setListData] = useState<IListFaq[]>([]);
+  const [, setListData] = useState<IListFaq[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -136,7 +136,38 @@ const TanyaAvrista = () => {
       setLoadingSearch(true)
       const queryParams: QueryParams = {
         includeAttributes: 'true',
-        searchFilter: keyword
+        searchFilter: keyword,
+        tagsFilter: selectedCards
+      };
+      const listFaq:any = await getListFaq(slug, queryParams);
+      const tempData = listFaq?.data?.categoryList[''];
+      const transformedData = tempData === 'undefined' ? [] : tempData?.map((item:any) => {
+        const title = item.shortDesc;
+        const href = `/tanya-avrista/${item.id}/`;
+        const tagsData = item.contentData.find(
+          (content:any) => content.fieldId === 'tags'
+        );
+        const tags = tagsData ? tagsData.value : '';
+        return {
+          title,
+          href,
+          tags
+        };
+      });
+      setListFilteredData(transformedData);
+      setLoadingSearch(false);
+      return tempData;
+    } catch (error) {
+      return notFound();
+    }
+  };
+
+  const handleGetListFaqFilterByTag = async (slug: string) => {
+    try {
+      setLoadingSearch(true)
+      const queryParams: QueryParams = {
+        includeAttributes: 'true',
+        tagsFilter: selectedCards
       };
       const listFaq:any = await getListFaq(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
@@ -162,8 +193,7 @@ const TanyaAvrista = () => {
   };
 
   useEffect(() => {
-    const filteredData = listData.filter((item) => item.tags === selectedCards);
-    setListFilteredData(filteredData);
+    handleGetListFaqFilterByTag('List-Pertanyaan-dan-Jawaban-Tanya-Avrista')
   }, [selectedCards]);
 
   return (
