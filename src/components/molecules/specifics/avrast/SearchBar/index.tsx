@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SearchBarProps {
   placeholder: string;
   value?: string;
+  activeTab?: string;
   placeholderClassname?: string;
   searchButtonTitle?: string;
   searchButtonClassname?: string;
@@ -12,20 +13,29 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({
   placeholder,
   value,
+  activeTab,
   placeholderClassname,
   searchButtonTitle,
   searchButtonClassname,
   onSearch
 }) => {
   const [keyword, setKeyword] = useState('');
+  useEffect(() => {
+    setKeyword('');
+  }, [activeTab])
   return (
     <div className="flex flex-row items-center gap-[12px]">
       <input
         type="text"
         placeholder={placeholder}
-        value={value}
+        value={value ?? keyword}
         onChange={(ev) => setKeyword(ev.target.value)}
         className={`${placeholderClassname} focus:outline-none px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06] grow`}
+        onKeyDown={(e:any) => {
+          if (e.key === 'Enter' || e.keyCode === 13) {
+            onSearch ? onSearch(keyword) : {}
+          }
+        }}
       />
       <button
         className={`${searchButtonClassname} px-[20px] py-[8px] rounded-[6px]`}

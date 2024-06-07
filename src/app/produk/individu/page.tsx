@@ -285,6 +285,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               searchButtonTitle="Cari"
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}
+              activeTab={activeTab}
             />
             <ButtonSelection
               buttonHelper={buttonHelper}
