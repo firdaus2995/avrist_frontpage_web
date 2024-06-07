@@ -76,7 +76,6 @@ const TanyaAvrista = () => {
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [cards, setCards] = useState<IListCards[]>([]);
-  const [listData, setListData] = useState<IListFaq[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -118,7 +117,7 @@ const TanyaAvrista = () => {
             tags
           };
         });
-        setListData(transformedData);
+        setListFilteredData(transformedData);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -129,6 +128,7 @@ const TanyaAvrista = () => {
 
   const handleCardsClick = (title: string) => {
     setSelectedCards(title);
+    handleGetListFaqFilterByTag('List-Pertanyaan-dan-Jawaban-Tanya-Avrista', title)
   };
 
   const handleGetListFaqFilter = async (slug: string, keyword: string) => {
@@ -136,7 +136,8 @@ const TanyaAvrista = () => {
       setLoadingSearch(true)
       const queryParams: QueryParams = {
         includeAttributes: 'true',
-        searchFilter: keyword
+        searchFilter: keyword,
+        tagsFilter: selectedCards
       };
       const listFaq:any = await getListFaq(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
@@ -161,10 +162,35 @@ const TanyaAvrista = () => {
     }
   };
 
-  useEffect(() => {
-    const filteredData = listData.filter((item) => item.tags === selectedCards);
-    setListFilteredData(filteredData);
-  }, [selectedCards]);
+  const handleGetListFaqFilterByTag = async (slug: string, title: string) => {
+    try {
+      setLoadingSearch(true)
+      const queryParams: QueryParams = {
+        includeAttributes: 'true',
+        tagsFilter: title
+      };
+      const listFaq:any = await getListFaq(slug, queryParams);
+      const tempData = listFaq?.data?.categoryList[''];
+      const transformedData = tempData === 'undefined' ? [] : tempData?.map((item:any) => {
+        const title = item.shortDesc;
+        const href = `/tanya-avrista/${item.id}/`;
+        const tagsData = item.contentData.find(
+          (content:any) => content.fieldId === 'tags'
+        );
+        const tags = tagsData ? tagsData.value : '';
+        return {
+          title,
+          href,
+          tags
+        };
+      });
+      setListFilteredData(transformedData);
+      setLoadingSearch(false);
+      return tempData;
+    } catch (error) {
+      return notFound();
+    }
+  };
 
   return (
     <div className="bg-purple_superlight">
