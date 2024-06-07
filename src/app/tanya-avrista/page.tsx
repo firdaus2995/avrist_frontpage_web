@@ -76,7 +76,6 @@ const TanyaAvrista = () => {
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [cards, setCards] = useState<IListCards[]>([]);
-  const [, setListData] = useState<IListFaq[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -118,7 +117,7 @@ const TanyaAvrista = () => {
             tags
           };
         });
-        setListData(transformedData);
+        setListFilteredData(transformedData);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -129,6 +128,7 @@ const TanyaAvrista = () => {
 
   const handleCardsClick = (title: string) => {
     setSelectedCards(title);
+    handleGetListFaqFilterByTag('List-Pertanyaan-dan-Jawaban-Tanya-Avrista', title)
   };
 
   const handleGetListFaqFilter = async (slug: string, keyword: string) => {
@@ -162,12 +162,12 @@ const TanyaAvrista = () => {
     }
   };
 
-  const handleGetListFaqFilterByTag = async (slug: string) => {
+  const handleGetListFaqFilterByTag = async (slug: string, title: string) => {
     try {
       setLoadingSearch(true)
       const queryParams: QueryParams = {
         includeAttributes: 'true',
-        tagsFilter: selectedCards
+        tagsFilter: title
       };
       const listFaq:any = await getListFaq(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
@@ -191,10 +191,6 @@ const TanyaAvrista = () => {
       return notFound();
     }
   };
-
-  useEffect(() => {
-    handleGetListFaqFilterByTag('List-Pertanyaan-dan-Jawaban-Tanya-Avrista')
-  }, [selectedCards]);
 
   return (
     <div className="bg-purple_superlight">
