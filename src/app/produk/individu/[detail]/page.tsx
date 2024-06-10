@@ -432,18 +432,20 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
       >
         {dataRekomendasi &&
           dataRekomendasi.length !== 0 &&
-          dataRekomendasi.map((item, index) => (
-            <CardCategoryA
-              key={index}
-              symbol={item.kategoriProdukIcon.imageUrl}
-              title={item.categoryName || ''}
-              summary={item.namaProduk}
-              description={item.deskripsiSingkatProduk}
-              tags={item.tags.split(',')}
-              href={`/produk/individu/${item.id}`}
-              imageProduk={item.produkImage.imageUrl}
-            />
-          ))}
+          dataRekomendasi
+            .slice(0, 3)
+            .map((item, index) => (
+              <CardCategoryA
+                key={index}
+                symbol={item.kategoriProdukIcon.imageUrl}
+                title={item.categoryName || ''}
+                summary={item.namaProduk}
+                description={item.deskripsiSingkatProduk}
+                tags={item.tags.split(',')}
+                href={`/produk/individu/${item.id}`}
+                imageProduk={item.produkImage.imageUrl}
+              />
+            ))}
       </GridContainer>
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
