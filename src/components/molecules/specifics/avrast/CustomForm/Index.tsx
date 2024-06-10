@@ -56,6 +56,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
   useEffect(() => {
     if (resultData) {
       const isValid = formData?.every((item) => {
+        if (item.name === "Alamat Email") {
+          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const validEmail = regex.test(String(item.value).toLowerCase());
+          return validEmail
+        }
         if (isRequired(item.name)) {
           return item.value.trim() !== '';
         }
@@ -396,14 +401,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   ) : attribute.name.includes('Telepon') ? (
                     <div className="flex justify-between gap-[0.5rem]">
                       <input
-                        className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                        defaultValue={'+62'}
-                        readOnly
-                      />
-                      <input
-                        className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder="Masukan nomor telepon"
                         name={attribute.name}
+                        type='number'
                         onChange={(e) =>
                           updateFormDataByName(attribute.name, e.target.value)
                         }
