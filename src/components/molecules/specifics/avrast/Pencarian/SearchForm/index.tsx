@@ -38,8 +38,6 @@ const SearchForm = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  console.log(searchParams);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,10 +73,10 @@ const SearchForm = () => {
           );
           listData = newDataContentWithCategory;
         } else if (activeTab === 'Avrist Life Guide') {
-          const newDataContentWithCategory = contentCategoryTransformer(
-            data,
-            'Tips and Tricks'
-          );
+          const data1 = contentCategoryTransformer(data, 'Financial');
+          const data2 = contentCategoryTransformer(data, 'Lifestyle');
+          const data3 = contentCategoryTransformer(data, 'Tips and Tricks');
+          const newDataContentWithCategory = data1.concat(data2, data3);
           listData = newDataContentWithCategory;
         } else if (activeTab === 'Penghargaan') {
           const newDataContentWithCategory = contentCategoryTransformer(
@@ -113,9 +111,8 @@ const SearchForm = () => {
               const image = singleImageTransformer(
                 content['artikel-thumbnail']
               ).imageUrl;
-              const tags = content['tags'].value;
+              const tags = contentStringTransformer(content['tags']);
               const waktuBaca = content['waktu-baca-artikel'].value;
-
               const differenceTime = formatTimeDifference(
                 new Date(createdAt),
                 new Date()
@@ -176,7 +173,6 @@ const SearchForm = () => {
 
         setCurrentPage(1);
         setDataContent(dataContentValues);
-        console.log(dataContentValues);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -343,7 +339,7 @@ const SearchForm = () => {
                   summary={htmlParser(item.deskripsi)}
                   category={item.tags}
                   time={` | ${item.date}`}
-                  tags={[item.tags]}
+                  tags={item.tags.split(',')}
                   image={item.image}
                   readTime={item.waktuBaca}
                 />
