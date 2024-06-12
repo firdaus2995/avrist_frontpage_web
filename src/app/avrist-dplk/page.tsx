@@ -17,6 +17,7 @@ import {
   handleGetContent,
   handleGetContentPage
 } from '@/services/content-page.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   pageTransformer,
   singleImageTransformer,
@@ -25,7 +26,7 @@ import {
 
 const AvristSyariah = async () => {
   const pageBase = await handleGetContentPage(
-    'halaman-tentang-avrist-dplk-new'
+    BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
   );
 
   const { content } = pageTransformer(pageBase);
@@ -42,9 +43,12 @@ const AvristSyariah = async () => {
   );
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
-  const pageContent = await handleGetContent('Dewan-DPLK-Avras', {
-    includeAttributes: 'true'
-  });
+  const pageContent = await handleGetContent(
+    BASE_SLUG.AVRIST_DPLK.CONTENT.AVRIST_DPLK,
+    {
+      includeAttributes: 'true'
+    }
+  );
 
   const pengawas = pageContent.data.contentDataList.filter((i) =>
     i.categoryName.toLocaleLowerCase().includes('pengawas')

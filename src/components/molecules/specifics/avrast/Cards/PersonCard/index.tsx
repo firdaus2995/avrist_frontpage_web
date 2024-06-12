@@ -38,17 +38,17 @@ const PersonCard: React.FC<PersonCardProps> = ({
           key={index}
           role="button"
           onClick={() => item.onClick && item.onClick(item)}
-          className="max-w-[23.25rem] border-1 rounded-[12px] shadow-md"
+          className="max-w-[18.75rem] border-1 rounded-[12px] shadow-md"
         >
           <Image
             alt="blank-image"
             width={0}
             height={372}
             src={item.image}
-            className="rounded-t-[12px] h-[23.25rem] w-full object-cover"
+            className="rounded-t-[12px] h-[18.75rem] w-full object-cover"
           />
           <div className="text-center md:m-[2rem] font-bold font-karla h-[150px] flex flex-col items-center justify-center">
-            <p className="xs:text-[1.5rem] md:text-[2.25rem]">{item.name}</p>
+            <p className="xs:text-[1.5rem] md:text-[2rem]">{item.name}</p>
             <p
               className={`${roleClassname} xs:text-[1.25rem] md:text-[1.5rem]`}
             >
