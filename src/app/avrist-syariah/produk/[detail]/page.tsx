@@ -397,8 +397,9 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 dataForm={dataForm}
-                customFormClassname="border-b-syariah_green"
+                customFormClassname="border-syariah_green text-syariah_green"
                 resultData={receiveData}
+                selectedProduct={dataDetail?.namaProduk}
               />
             )}
             <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
