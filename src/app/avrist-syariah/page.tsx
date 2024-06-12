@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll } from 'react-scroll';
 
@@ -52,6 +52,7 @@ const tabs = [
 const AvristSyariah: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const sliderRef = useRef<Slider | null>(null);
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
   // content
@@ -186,6 +187,13 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     );
   }, []);
 
+  useEffect(() => {
+    const activeIndex = tabs.findIndex((button) => button === tab);
+    if (sliderRef.current && activeIndex !== -1) {
+      sliderRef.current.slickGoTo(activeIndex);
+    }
+  }, [tab, tabs]);
+
   return (
     <div>
       <Hero
@@ -216,17 +224,26 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         </div>
         {/* Tab Mobile */}
         <div className="w-[95%] z-20 top-8 md:hidden">
-          <div className="">
-            <Slider {...sliderTabSettings}>
+          <div>
+            <Slider
+              {...sliderTabSettings}
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+            >
               {tabs.map((val, idx) => (
-                <div key={idx} className="w-full">
-                  <div
-                    role="button"
+                <div className="px-[3.5px]" key={idx}>
+                  <LinkScroll
+                    to={'#' + val.replace(/\s+/g, '')}
+                    spy={true}
+                    smooth={true}
+                    offset={-12.5}
+                    duration={500}
                     onClick={() => handleTabClick(val)}
-                    className={`mx-[0.625rem] flex justify-center items-center w-[95%] min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
+                    className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
                   >
-                    {val}
-                  </div>
+                    <span className="font-semibold text-[1rem]">{val}</span>
+                  </LinkScroll>
                 </div>
               ))}
             </Slider>
