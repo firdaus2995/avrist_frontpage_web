@@ -73,7 +73,8 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                           href={
                             index !== 2 || el.icon !== 2
                               ? {
-                                  pathname: `${el.customUrl ? el.customUrl : `/${convertToKebabCase(item.title)}`}/${el.customUrl ? '' : val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : camelToKebabCase(val.title)}`,
+                                  pathname: `
+                                  ${el.customUrl ? el.customUrl : `/${convertToKebabCase(item.title)}`}/${el.customUrl ? '' : val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : val.title === 'Avrist Syariah' ? '' : camelToKebabCase(val.title)}`,
                                   query: el.skipParams
                                     ? null
                                     : { tab: el.title }
