@@ -91,7 +91,8 @@ const Berita: React.FC<ParamsProps> = () => {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>();
-  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailContent, setEmailContent] = useState('');
   const [search, setSearch] = useState('');
@@ -203,7 +204,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const fetchData = () => {    
+  const fetchData = () => {
     try {
       handleGetContentPage(data.slug.toLowerCase()).then((res: any) => {
         const { content } = pageTransformer(res);
@@ -321,130 +322,129 @@ const Berita: React.FC<ParamsProps> = () => {
         yearFilter: params.yearFilter,
         monthFilter: params.monthFilter
       });
-      
+
       const data = fetchData.data.categoryList;
-      
+
       const categoryList: any = Object.keys(data);
 
       if (lifeGuideCategory?.selectedCategory === '') {
         setLifeGuideCategory({
           ...lifeGuideCategory,
           list: categoryList,
-          selectedCategory: categoryList[0] ?? lifeGuideCategory.selectedCategory
+          selectedCategory:
+            categoryList[0] ?? lifeGuideCategory.selectedCategory
         });
-        const temp:any = []
-        categoryList.map((el:any) => {
-          data[el]?.map(
-            (item: any) => {
-              const { content } = handleTransformedContent(
-                item.contentData,
-                item.title
-              );
-    
-              const date = new Date(item.createdAt).getDate();
-              const judul = content['judul-artikel'].value;
-              const waktu = `${
-                monthDropdown().find(
-                  (item) =>
-                    item.value === content['bulan'].value ||
-                    item.label === content['bulan'].value
-                )?.label
-              } ${content['tahun'].value}`;
-              const deskripsi =
-                content['artikel-looping'].contentData[0].details[0].value;
-              const image = singleImageTransformer(
-                content['artikel-thumbnail']
-              ).imageUrl;
-              const id = item.id;
-              const tags = !!content['tags']?.value || content['tags']?.value !== '-'
-              ? content['tags']?.value.split(',')
-              : content['tags']?.value;
-              const waktuBaca = content['waktu-baca-artikel'].value;
-    
-              const differenceTime = formatTimeDifference(
-                new Date(item.createdAt),
-                new Date()
-              );
+        const temp: any = [];
+        categoryList.map((el: any) => {
+          data[el]?.map((item: any) => {
+            const { content } = handleTransformedContent(
+              item.contentData,
+              item.title
+            );
 
-              temp.push({
-                judul,
-                waktu,
-                deskripsi,
-                image,
-                id,
-                tags,
-                waktuBaca,
-                date,
-                differenceTime,
-                category: el
-              })  
-    
-              return {
-                judul,
-                waktu,
-                deskripsi,
-                image,
-                id,
-                tags,
-                waktuBaca,
-                date,
-                differenceTime
-              };
-            }
-          );          
-        })
+            const date = new Date(item.createdAt).getDate();
+            const judul = content['judul-artikel'].value;
+            const waktu = `${
+              monthDropdown().find(
+                (item) =>
+                  item.value === content['bulan'].value ||
+                  item.label === content['bulan'].value
+              )?.label
+            } ${content['tahun'].value}`;
+            const deskripsi =
+              content['artikel-looping'].contentData[0].details[0].value;
+            const image = singleImageTransformer(
+              content['artikel-thumbnail']
+            ).imageUrl;
+            const id = item.id;
+            const tags =
+              !!content['tags']?.value || content['tags']?.value !== '-'
+                ? content['tags']?.value.split(',')
+                : content['tags']?.value;
+            const waktuBaca = content['waktu-baca-artikel'].value;
+
+            const differenceTime = formatTimeDifference(
+              new Date(item.createdAt),
+              new Date()
+            );
+
+            temp.push({
+              judul,
+              waktu,
+              deskripsi,
+              image,
+              id,
+              tags,
+              waktuBaca,
+              date,
+              differenceTime,
+              category: el
+            });
+
+            return {
+              judul,
+              waktu,
+              deskripsi,
+              image,
+              id,
+              tags,
+              waktuBaca,
+              date,
+              differenceTime
+            };
+          });
+        });
         return setContentData(temp);
       } else {
-          const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
-            (item: any) => {
-              const { content } = handleTransformedContent(
-                item.contentData,
-                item.title
-              );
-    
-              const date = new Date(item.createdAt).getDate();
-              const judul = content['judul-artikel'].value;
-              const waktu = `${
-                monthDropdown().find(
-                  (item) =>
-                    item.value === content['bulan'].value ||
-                    item.label === content['bulan'].value
-                )?.label
-              } ${content['tahun'].value}`;
-              const deskripsi =
-                content['artikel-looping'].contentData[0].details[0].value;
-              const image = singleImageTransformer(
-                content['artikel-thumbnail']
-              ).imageUrl;
-              const id = item.id;
-              const tags = !!content['tags']?.value || content['tags']?.value !== '-'
-              ? content['tags']?.value.split(',')
-              : content['tags']?.value;;
-              const waktuBaca = content['waktu-baca-artikel'].value;
-    
-              const differenceTime = formatTimeDifference(
-                new Date(item.createdAt),
-                new Date()
-              );
-    
-              return {
-                judul,
-                waktu,
-                deskripsi,
-                image,
-                id,
-                tags,
-                waktuBaca,
-                date,
-                differenceTime,
-                category: lifeGuideCategory.selectedCategory
-              };
-            }
-          );
-          setContentData(transformedData);
+        const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
+          (item: any) => {
+            const { content } = handleTransformedContent(
+              item.contentData,
+              item.title
+            );
+
+            const date = new Date(item.createdAt).getDate();
+            const judul = content['judul-artikel'].value;
+            const waktu = `${
+              monthDropdown().find(
+                (item) =>
+                  item.value === content['bulan'].value ||
+                  item.label === content['bulan'].value
+              )?.label
+            } ${content['tahun'].value}`;
+            const deskripsi =
+              content['artikel-looping'].contentData[0].details[0].value;
+            const image = singleImageTransformer(
+              content['artikel-thumbnail']
+            ).imageUrl;
+            const id = item.id;
+            const tags =
+              !!content['tags']?.value || content['tags']?.value !== '-'
+                ? content['tags']?.value.split(',')
+                : content['tags']?.value;
+            const waktuBaca = content['waktu-baca-artikel'].value;
+
+            const differenceTime = formatTimeDifference(
+              new Date(item.createdAt),
+              new Date()
+            );
+
+            return {
+              judul,
+              waktu,
+              deskripsi,
+              image,
+              id,
+              tags,
+              waktuBaca,
+              date,
+              differenceTime,
+              category: lifeGuideCategory.selectedCategory
+            };
+          }
+        );
+        setContentData(transformedData);
       }
-
-
     } catch (err) {
       console.error(err);
     }
@@ -630,34 +630,34 @@ const Berita: React.FC<ParamsProps> = () => {
     });
   };
 
-  const handleSubscribeButton = async() => {
-      try {
-        const response:any = await subscribeApi({
-          email: email,
-          entity: 'avrist'
-        });
-        if (response?.code === 200) {
-          setVisibleSubscribeModal(true)
-          setEmail('');
-        } 
-      } catch(e) {
-        console.log(e);
+  const handleSubscribeButton = async () => {
+    try {
+      const response: any = await subscribeApi({
+        email: email,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true);
+        setEmail('');
       }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleSubscribeContentButton = async() => {
-      try {
-        const response:any = await subscribeApi({
-          email: emailContent,
-          entity: 'avrist'
-        });
-        if (response?.code === 200) {
-          setVisibleSubscribeModal(true)
-          setEmailContent('');
-        } 
-      } catch(e) {
-        console.log(e);
+  const handleSubscribeContentButton = async () => {
+    try {
+      const response: any = await subscribeApi({
+        email: emailContent,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true);
+        setEmailContent('');
       }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onCategoryChange = (value: string) => {
@@ -992,7 +992,11 @@ const Berita: React.FC<ParamsProps> = () => {
                             summary={htmlParser(item.deskripsi)}
                             category={item.category}
                             time={` | ${item.date} ${item.waktu}`}
-                            tags={item.tags}
+                            tags={
+                              typeof item.tags === 'string'
+                                ? item.tags.split(',')
+                                : item.tags
+                            }
                             image={item.image}
                             readTime={item.waktuBaca}
                           />
@@ -1047,7 +1051,11 @@ const Berita: React.FC<ParamsProps> = () => {
                       <p className="text-2xl font-light font-['Source Sans Pro']">
                         Informasi terkini mengenai Avrist Life Insurance
                       </p>
-                      <Input placeholder="Masukkan email Anda" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <Input
+                        placeholder="Masukkan email Anda"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                       <Button
                         title="Subscribe"
                         customButtonClass="bg-purple_dark rounded-xl"
@@ -1121,7 +1129,11 @@ const Berita: React.FC<ParamsProps> = () => {
                               summary={htmlParser(item.deskripsi)}
                               category={item.category}
                               time={` | ${item?.differenceTime} yang lalu`}
-                              tags={item.tags}
+                              tags={
+                                typeof item.tags === 'string'
+                                  ? item.tags.split(',')
+                                  : item.tags
+                              }
                               image={item.image}
                               readTime={item.waktuBaca}
                             />
