@@ -49,9 +49,10 @@ const AvristSyariah = async () => {
   const pengawas = pageContent.data.contentDataList.filter((i) =>
     i.categoryName.toLocaleLowerCase().includes('pengawas')
   );
-  const pengurus = pageContent.data.contentDataList.filter((i) =>
-    i.categoryName.toLocaleLowerCase().includes('pengurus')
-  );
+  const pengurus = pageContent.data.contentDataList
+    .filter((i) => i.categoryName.toLocaleLowerCase().includes('pengurus'))
+    .sort((a, b) => a.id - b.id);
+
   return (
     <Suspense fallback={null}>
       <Hero
