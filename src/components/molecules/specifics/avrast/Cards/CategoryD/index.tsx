@@ -3,7 +3,6 @@ import Image from 'next/image';
 
 import BlankImage from '@/assets/images/blank-image.svg';
 import Book from '@/assets/images/common/book.svg';
-import MediumTag from '@/components/atoms/Tag/MediumTag';
 
 interface ICardCategoryD {
   summary: string;
@@ -45,23 +44,26 @@ const CardCategoryD = ({
         className={`flex flex-col gap-4 py-[36px] px-[24px] ${type === 'row' ? 'lg:w-2/3 xs:max-lg:w-full' : ''}`}
       >
         <p className="text-[14px] text-left lg:min-h-[40px] xs:min-h-auto">
-          <span className="font-bold text-purple_dark">{category}</span> {time}
+          <span className="font-bold text-purple_dark">{category === '-' ? '' : category}</span> {time === '-' ? '' : time}
         </p>
-        <p className="text-[24px] font-bold text-left lg:min-h-[100px] xs:min-h-auto">{title}</p>
-        <p className="text-[16px] text-left line-clamp-2">{summary}</p>
+        <p className="text-[24px] font-bold text-left lg:min-h-[100px] xs:min-h-auto">{title === '-' ? '' : title}</p>
+        <p className="text-[16px] text-left line-clamp-2">{summary === '-' ? '' : summary}</p>
         <div className="flex flex-row gap-2 items-center">
           <Image alt="book-image" width={0} height={20} src={Book} />
           <p className="font-bold text-[14px]">
-            {readTime && `${readTime}`}
+            {readTime !== '-' && `${readTime}`}
           </p>
         </div>
         <div className="flex flex-row gap-2 items-center flex-wrap">
-          {Array.isArray(tags) ? tags?.map((val, idx) => (
-            <MediumTag key={idx} title={val} />
-          ))
-          :
-          <MediumTag title={tags} />
-          }
+        {tags?.length > 0 &&
+          tags.map((item, index) => (
+            <p
+              key={index}
+              className="text-purple_dark font-semibold bg-gray_bglightgray px-2 py-1 text-sm"
+            >
+              {item}
+            </p>
+          ))}
         </div>
       </div>
     </div>
