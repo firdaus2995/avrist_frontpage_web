@@ -15,7 +15,7 @@ type Props = {
   pengurus: ContentData[];
 };
 const tabs = [
-  'Tentang Avrist DPLK',
+  'Tentang DPLK Avrist',
   'Dewan Pengawas DPLK',
   'Manfaat Utama',
   'Produk',
@@ -33,7 +33,7 @@ const DPLKContent = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState('Tentang Avrist DPLK');
+  const [tab, setTab] = useState('Tentang DPLK Avrist');
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
@@ -85,7 +85,7 @@ const DPLKContent = (props: Props) => {
           </div>
         ))}
       </div>
-      {tab === 'Tentang Avrist DPLK' && (
+      {tab === 'Tentang DPLK Avrist' && (
         <TentangAvristDPLK
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}

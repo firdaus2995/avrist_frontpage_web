@@ -112,7 +112,7 @@ const DPLKProductList = () => {
     <div className="flex flex-col xs:gap-[2.25rem] md:gap-[4rem] mt-[3.125rem] sm:pb-[6px] xs:px-[2rem] md:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
-          'Tentang Avrist DPLK',
+          'Tentang DPLK Avrist',
           'Dewan Pengawas DPLK',
           'Manfaat Utama',
           'Produk',
@@ -123,7 +123,7 @@ const DPLKProductList = () => {
         buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
         buttonActiveTextClassname="text-white"
         links={{
-          'Tentang Avrist DPLK': '/avrist-dplk/#TentangAvristDPLK',
+          'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
           'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
           'Manfaat Utama': '/avrist-dplk/#ManfaatUtama',
           Produk: '/avrist-dplk/produk',
