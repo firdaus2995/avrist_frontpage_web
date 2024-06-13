@@ -1,15 +1,14 @@
-'use client';
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Slider from 'react-slick';
-import Button from '@/components/atoms/Button/Button';
 
 interface IButtonMenu {
   buttonList: string[];
+  path?: string;
 }
 
-const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
+const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
   const searchParams = useSearchParams();
   const params = searchParams.get('tab') ?? '';
   const sliderRef = useRef<Slider | null>(null);
@@ -18,8 +17,9 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
     dots: false,
     infinite: false,
     arrows: false,
+    centerMode: true,
     speed: 500,
-    slidesToShow: 1.5,
+    slidesToShow: 1,
     slidesToScroll: 1
   };
 
@@ -31,56 +31,53 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList }) => {
   }, [params, buttonList]);
 
   return (
-    <>
-      <div className="xs:hidden md:flex flex-row justify-between gap-[0.75rem]">
-        {buttonList.map((i) => (
-          <Link
-            href={{
-              pathname: '/klaim-layanan/layanan',
-              query: { tab: i }
-            }}
-            scroll={false}
-            key={i}
-            className="w-full"
-          >
-            <Button
-              key={i}
-              title={i}
-              customButtonClass={`w-full flex-1 h-full py-[0.5rem] px-[1.25rem] ${params === i ? 'bg-purple_dark' : ''}`}
-              customTextClass={`${params === i ? 'text-white' : ''} font-semibold text-[1rem]`}
-            />
-          </Link>
-        ))}
-      </div>
-
-      <div className="md:hidden">
-        <Slider
-          ref={(slider) => {
-            sliderRef.current = slider;
-          }}
-          {...sliderSettings}
-        >
+    <div className="xs:px-[2rem] md:px-[8.5rem]">
+      <div className="w-full xs:hidden md:block">
+        <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
           {buttonList.map((i) => (
             <Link
               href={{
-                pathname: '/klaim-layanan/layanan',
+                pathname: path,
                 query: { tab: i }
               }}
               scroll={false}
               key={i}
-              className="w-full"
+              className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${params === i ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
             >
-              <Button
-                key={i}
-                title={i}
-                customButtonClass={`w-[95%] h-full ${params === i ? 'bg-purple_dark' : ''}`}
-                customTextClass={`${params === i ? 'text-white' : ''} line-clamp-1`}
-              />
+              {i}
             </Link>
           ))}
-        </Slider>
+        </div>
       </div>
-    </>
+
+      <div className="w-[100%] md:hidden">
+        <div>
+          <Slider
+            {...sliderSettings}
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+          >
+            {buttonList.map((i, idx) => (
+              <Link
+                key={idx}
+                href={{
+                  pathname: path,
+                  query: { tab: i }
+                }}
+              >
+                <div
+                  role="button"
+                  className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${params === i ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold line-clamp-1`}
+                >
+                  {i}
+                </div>
+              </Link>
+            ))}
+          </Slider>
+        </div>
+      </div>
+    </div>
   );
 };
 

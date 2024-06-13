@@ -1,7 +1,8 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll } from 'react-scroll';
+import Slider from 'react-slick';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatUtama from '../tabs/ManfaatUtama';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
@@ -22,6 +23,16 @@ const tabs = [
   'Klaim dan Layanan'
 ];
 
+const sliderTabSettings = {
+  dots: false,
+  infinite: false,
+  arrows: false,
+  centerMode: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
+
 const DPLKContent = (props: Props) => {
   const {
     dewanpengawasdplkDeskripsi,
@@ -33,6 +44,7 @@ const DPLKContent = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const sliderRef = useRef<Slider | null>(null);
   const [tab, setTab] = useState('Tentang Avrist DPLK');
 
   const handleTabClick = (tabs: string) => {
@@ -64,26 +76,57 @@ const DPLKContent = (props: Props) => {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    const activeIndex = tabs.findIndex((button) => button === tab);
+    if (sliderRef.current && activeIndex !== -1) {
+      sliderRef.current.slickGoTo(activeIndex);
+    }
+  }, [tab, tabs]);
+
   return (
     <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] gap-[4rem] my-[3.125rem]">
-      <div className="flex flex-nowrap w-full justify-between gap-[0.75rem] overflow-x-auto">
+      <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
         {tabs.map((val, idx) => (
-          <div className="w-full" key={idx}>
-            <div className="xs:w-[250px] sm:w-full sm:h-[4.375rem] md:h-full">
-              <LinkScroll
-                to={'#' + val.replace(/\s+/g, '')}
-                spy={true}
-                smooth={true}
-                offset={-200}
-                duration={500}
-                onClick={() => handleTabClick(val)}
-                className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[20px] py-[8px] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-black'} font-semibold`}
-              >
-                <span className="font-semibold text-[16px]">{val}</span>
-              </LinkScroll>
-            </div>
-          </div>
+          <LinkScroll
+            key={idx}
+            to={'#' + val.replace(/\s+/g, '')}
+            spy={true}
+            smooth={true}
+            offset={-12.5}
+            duration={500}
+            onClick={() => handleTabClick(val)}
+            className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
+          >
+            <span className="font-semibold text-[1rem]">{val}</span>
+          </LinkScroll>
         ))}
+      </div>
+      {/* Tab Mobile */}
+      <div className="w-[95%] z-20 top-8 md:hidden">
+        <div>
+          <Slider
+            {...sliderTabSettings}
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+          >
+            {tabs.map((val, idx) => (
+              <div className="px-[3.5px]" key={idx}>
+                <LinkScroll
+                  to={'#' + val.replace(/\s+/g, '')}
+                  spy={true}
+                  smooth={true}
+                  offset={-12.5}
+                  duration={500}
+                  onClick={() => handleTabClick(val)}
+                  className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
+                >
+                  <span className="font-semibold text-[1rem]">{val}</span>
+                </LinkScroll>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
       {tab === 'Tentang Avrist DPLK' && (
         <TentangAvristDPLK

@@ -58,17 +58,21 @@ const ManfaatUtama = (props: Props) => {
         tagsTextClassname="text-dplk_yellow"
         idTags="#TentangAvristDPLK"
       />
-      <PersonCard
-        heading="DEWAN PENGAWAS DPLK PT AVRIST ASSURANCE"
-        cards={personsCardGenerator(pengawas)}
-        roleClassname="text-dplk_yellow"
-        idTags="#DewanPengawasDPLK"
-      />
-      <PersonCard
-        heading="PENGURUS DPLK PT AVRIST ASSURANCE"
-        cards={personsCardGenerator(pengurus)}
-        roleClassname="text-dplk_yellow"
-      />
+      <div className="flex flex-col gap-[4rem] w-full xs:mb-[3.125rem] sm:mb-[6.25rem]">
+        <PersonCard
+          heading="Dewan Pengawas DPLK PT Avrist Assurance"
+          cards={personsCardGenerator(pengawas)}
+          roleClassname="text-dplk_yellow"
+          idTags="#DewanPengawasDPLK"
+          headingClassname="text-black"
+        />
+        <PersonCard
+          heading="Pengurus DPLK PT Avrist Assurance"
+          cards={personsCardGenerator(pengurus)}
+          roleClassname="text-dplk_yellow"
+          headingClassname="text-black"
+        />
+      </div>
       <InformationCard
         heading="Tugas dan Peran"
         subHeading="Tugas dan Peran Dewan Pengurus DPLK PT Avrist Assurance sebagai berikut:"
@@ -91,7 +95,7 @@ const ManfaatUtama = (props: Props) => {
         ]}
         cardClassname="border-b-dplk_yellow"
       />
-      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] 136px] bg-gray_bglightgray">
+      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] md:px-[136px] bg-yellow_light">
         <InformationCard
           heading="Keuntungan memilih DPLK Avrist"
           cards={[

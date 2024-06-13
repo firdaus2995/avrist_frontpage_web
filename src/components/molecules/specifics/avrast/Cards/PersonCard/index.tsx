@@ -47,8 +47,10 @@ const PersonCard: React.FC<PersonCardProps> = ({
             src={item.image}
             className="rounded-t-[12px] h-[23.25rem] w-full object-cover"
           />
-          <div className="text-center md:m-[2rem] font-bold font-karla h-[150px] flex flex-col items-center justify-center">
-            <p className="xs:text-[1.5rem] md:text-[2.25rem]">{item.name}</p>
+          <div className="text-center md:m-[2rem] font-bold font-karla h-[150px] flex flex-col items-center justify-center sm:justify-between">
+            <p className="xs:text-[1.5rem] md:text-[2.25rem] line-clamp-2">
+              {item.name}
+            </p>
             <p
               className={`${roleClassname} xs:text-[1.25rem] md:text-[1.5rem]`}
             >
