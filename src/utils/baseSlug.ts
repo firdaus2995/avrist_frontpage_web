@@ -41,6 +41,14 @@ export const BASE_SLUG = {
   },
 
   //Modul 7
+  AVRIST_DPLK: {
+    CONTENT: {
+      AVRIST_DPLK: 'Dewan-DPLK-Avras'
+    },
+    PAGE: {
+      AVRIST_DPLK: 'halaman-tentang-avrist-dplk-new'
+    }
+  },
 
   // Modul 8
   TENTANG_AVRIST_LIFE: {

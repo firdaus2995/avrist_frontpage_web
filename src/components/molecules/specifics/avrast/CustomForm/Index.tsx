@@ -4,6 +4,7 @@ import Image from 'next/image';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
 import { Attribute } from '@/types/form.type';
+import { isNumber, validateEmail } from '@/utils/validation';
 
 interface CustomFormProps {
   title?: string;
@@ -18,6 +19,7 @@ interface CustomFormProps {
     data: { name: string; value: string }[],
     isValid: boolean
   ) => void;
+  selectedProduct?: string;
 }
 
 const CustomForm: React.FC<CustomFormProps> = ({
@@ -27,7 +29,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
   customFormButtonClassname = 'border-purple_dark text-purple_dark',
   dataForm,
   resultData,
-  longTextArea
+  longTextArea,
+  selectedProduct
 }) => {
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
 
@@ -56,17 +59,19 @@ const CustomForm: React.FC<CustomFormProps> = ({
   useEffect(() => {
     if (resultData) {
       const isValid = formData?.every((item) => {
-        if (item.name === "Alamat Email") {
-          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          const validEmail = regex.test(String(item.value).toLowerCase());
-          return validEmail
-        }
         if (isRequired(item.name)) {
           return item.value.trim() !== '';
         }
         return true;
       });
-      resultData(formData, isValid);
+      resultData(
+        formData,
+        isValid &&
+          validateEmail(
+            formData.find((i) => i.name.toLowerCase().includes('email'))
+              ?.value ?? ''
+          )
+      );
     }
   }, [formData, resultData]);
 
@@ -97,7 +102,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             {attributeList?.map((attribute: Attribute, idx) => (
               <div
                 key={attribute.id}
-                className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '' : ''}`}
+                className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
               >
                 {attribute.fieldType === 'LABEL' ? (
                   <p>{attribute.name}</p>
@@ -342,6 +347,27 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           }
                         />
                       ))
+                  ) : attribute.name.includes('Email') ? (
+                    <div className="flex flex-col justify-between">
+                      <input
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        placeholder={JSON.parse(attribute.config).placeholder}
+                        name={attribute.name}
+                        onChange={(e) =>
+                          updateFormDataByName(attribute.name, e.target.value)
+                        }
+                      />
+                      {formData.find((i) => i.name === attribute.name)
+                        ?.value !== '' &&
+                        !validateEmail(
+                          formData.find((i) => i.name === attribute.name)
+                            ?.value ?? ''
+                        ) && (
+                          <p className="text-xs text-error">
+                            Masukkan alamat email yang benar!
+                          </p>
+                        )}
+                    </div>
                   ) : (
                     <input
                       className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -380,7 +406,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       onChange={(e) =>
                         updateFormDataByName(attribute.name, e.target.value)
                       }
-                      className="w-full px-[1rem] py-[0.625rem] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                      className={`w-full px-[1rem] py-[0.625rem] border ${customFormClassname ?? 'border-purple_dark text-purple_dark'} rounded-xl focus:outline-none focus:border-blue-500`}
                     >
                       <option value={''}>Pilih</option>
                       {attribute.value?.split(';').map((option, idx) => (
@@ -389,9 +415,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           value={option}
                           selected={
                             option ===
-                            formData?.find(
-                              (item) => item.name === attribute.name
-                            )?.value
+                              formData?.find(
+                                (item) => item.name === attribute.name
+                              )?.value || option === selectedProduct
                           }
                         >
                           {option}
@@ -404,9 +430,19 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder="Masukan nomor telepon"
                         name={attribute.name}
-                        type='number'
-                        onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
+                        onChange={(e) => {
+                          if (
+                            isNumber(e.target.value) ||
+                            e.target.value === ''
+                          ) {
+                            updateFormDataByName(
+                              attribute.name,
+                              e.target.value
+                            );
+                          }
+                        }}
+                        value={
+                          formData.find((i) => i.name === attribute.name)?.value
                         }
                       />
                     </div>

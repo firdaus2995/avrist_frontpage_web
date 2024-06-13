@@ -700,7 +700,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const renderPage = () => {
     return (
-      <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      <div className="flex flex-col gap-4 md:flex-row justify-between">
         <div>
           <p className="text-[20px]">
             Menampilkan{' '}
@@ -936,7 +936,7 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1">
+                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
                       {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
@@ -995,7 +995,11 @@ const Berita: React.FC<ParamsProps> = () => {
                             summary={htmlParser(item.deskripsi)}
                             category={item.category}
                             time={` | ${item.date} ${item.waktu}`}
-                            tags={item.tags}
+                            tags={
+                              typeof item.tags === 'string'
+                                ? item.tags.split(',')
+                                : item.tags
+                            }
                             image={item.image}
                             readTime={item.waktuBaca}
                           />
@@ -1128,7 +1132,11 @@ const Berita: React.FC<ParamsProps> = () => {
                               summary={htmlParser(item.deskripsi)}
                               category={item.category}
                               time={` | ${item?.differenceTime} yang lalu`}
-                              tags={item.tags}
+                              tags={
+                                typeof item.tags === 'string'
+                                  ? item.tags.split(',')
+                                  : item.tags
+                              }
                               image={item.image}
                               readTime={item.waktuBaca}
                             />
