@@ -992,7 +992,11 @@ const Berita: React.FC<ParamsProps> = () => {
                             summary={htmlParser(item.deskripsi)}
                             category={item.category}
                             time={` | ${item.date} ${item.waktu}`}
-                            tags={item.tags}
+                            tags={
+                              typeof item.tags === 'string'
+                                ? item.tags.split(',')
+                                : item.tags
+                            }
                             image={item.image}
                             readTime={item.waktuBaca}
                           />
@@ -1125,7 +1129,11 @@ const Berita: React.FC<ParamsProps> = () => {
                               summary={htmlParser(item.deskripsi)}
                               category={item.category}
                               time={` | ${item?.differenceTime} yang lalu`}
-                              tags={item.tags}
+                              tags={
+                                typeof item.tags === 'string'
+                                  ? item.tags.split(',')
+                                  : item.tags
+                              }
                               image={item.image}
                               readTime={item.waktuBaca}
                             />

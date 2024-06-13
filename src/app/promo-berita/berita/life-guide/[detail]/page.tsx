@@ -34,9 +34,6 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   console.log(params);
   const param = useSearchParams();
   const id = param.get('id');
-  console.log(id);
-  
-
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
   const [contentData, setContentData] = useState<any>({
     tagline: '',
@@ -62,8 +59,9 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   });
   const [currentCategory, setCurrentCategory] = useState('');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [email, setEmail] = useState<any>('')
-  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [email, setEmail] = useState<any>('');
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
 
   const fetchCategory = async () => {
     try {
@@ -118,7 +116,6 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         };
         return transformedData;
       });
-
     } catch (err) {
       console.error(err);
     }
@@ -168,14 +165,18 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     // const paragrafDua = artikel[2]?.value;
     // const artikelVideo = artikel[3]?.value;
     // const paragrafTiga = artikel[4]?.value;
-    const tags = !!content['tags']?.value || content['tags']?.value !== '-'
-    ? content['tags']?.value.split(',')
-    : content['tags']?.value;
+    const tags =
+      !!content['tags']?.value || content['tags']?.value !== '-'
+        ? content['tags']?.value.split(',')
+        : content['tags']?.value;
     const artikelPIC = content['artikel-pic']?.value;
     const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
     const waktuBaca = content['waktu-baca-artikel']?.value;
-    const daftarIsi = generateDaftarIsi(artikel, 'subjudul');;
-    const differenceTime = formatTimeDifference(new Date(jsonData?.data?.createdAt), new Date())
+    const daftarIsi = generateDaftarIsi(artikel, 'subjudul');
+    const differenceTime = formatTimeDifference(
+      new Date(jsonData?.data?.createdAt),
+      new Date()
+    );
 
     const transformedData = {
       tagline,
@@ -203,17 +204,17 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     return transformedData;
   };
 
-  const handleSubscribeButton = async() => {
+  const handleSubscribeButton = async () => {
     try {
-      const response:any = await subscribeApi({
+      const response: any = await subscribeApi({
         email: email,
         entity: 'avrist'
       });
       if (response?.code === 200) {
-        setVisibleSubscribeModal(true)
+        setVisibleSubscribeModal(true);
         setEmail('');
-      } 
-    } catch(e) {
+      }
+    } catch (e) {
       console.log(e);
     }
   };
@@ -230,13 +231,14 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   }, [currentCategory]);
 
   const scrollToview = (idx: number) => {
+    const lastIndex = idx === contentData?.daftarIsi.length - 1;
     if (selectedIndex !== idx) {
       setSelectedIndex(idx);
       document
         .getElementsByTagName('h1')
         [
-          idx
-        ].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+          lastIndex ? idx - 1 : idx
+        ].scrollIntoView({ behavior: 'smooth', block: !lastIndex ? 'nearest' : 'start', inline: 'end' });
     }
   };
 
@@ -258,14 +260,15 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           }
         ]}
         imageUrl={data?.titleImage}
-        bottomImage={data?.bannerImage ?? BlankImage}
+        bottomImage={contentData?.thumbnail ?? BlankImage}
       />
       <div className="flex xl:flex-row xs:max-lg:flex-wrap px-[2rem] md:px-[8.5rem] pt-[80px] pb-[100px] gap-[48px]">
         <div className="flex flex-col gap-[24px] py-10">
           <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
             {contentData?.daftarIsi?.map((item: any, index: number) =>
-              item?.label === contentData?.judul ? (
+              item?.label === '-' ? null : item?.label ===
+                contentData?.judul ? (
                 <div
                   key={index}
                   className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
@@ -370,7 +373,11 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" onClick={handleSubscribeButton} />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl"
+                  onClick={handleSubscribeButton}
+                />
               </div>
             </div>
           }
