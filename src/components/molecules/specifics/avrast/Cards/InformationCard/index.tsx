@@ -1,5 +1,7 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { handleDownload } from '@/utils/helpers';
 
 interface Card {
   cardIcon: string;
@@ -7,6 +9,7 @@ interface Card {
   cardBody: string;
   cardButtonText?: string;
   href?: string;
+  isFile?: boolean;
 }
 
 interface InformationCardProps {
@@ -67,9 +70,12 @@ const InformationCard: React.FC<InformationCardProps> = ({
           <div className="text-center">
             {item.cardButtonText && (
               <div className="h-full mt-[1.5rem] mb-[1.75rem] px-[3.542rem]">
-                <Link href={item.href ?? '#'}>
+                {item.isFile ? (
                   <button
                     className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
+                    onClick={async () => {
+                      item.href && (await handleDownload(item.href));
+                    }}
                   >
                     <p
                       className={`${cardButtonTextClassname} font-semibold text-[16px]`}
@@ -77,7 +83,19 @@ const InformationCard: React.FC<InformationCardProps> = ({
                       {item.cardButtonText}
                     </p>
                   </button>
-                </Link>
+                ) : (
+                  <Link href={item.href ?? '#'}>
+                    <button
+                      className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
+                    >
+                      <p
+                        className={`${cardButtonTextClassname} font-semibold text-[16px]`}
+                      >
+                        {item.cardButtonText}
+                      </p>
+                    </button>
+                  </Link>
+                )}
               </div>
             )}
           </div>
