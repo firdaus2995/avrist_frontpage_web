@@ -271,8 +271,11 @@ const Berita: React.FC<ParamsProps> = () => {
 
       // merge  all category data
       const mergedData = mergeAllData(categoryList);
-
-      const transformedData = mergedData?.map((item: any) => {
+      const sorted = mergedData.sort(
+        //@ts-ignore
+        (a: any, b: any) => new Date(b?.createdAt) - new Date(a?.createdAt)
+      );
+      const transformedData = sorted?.map((item: any) => {
         const { content } = handleTransformedContent(
           item.contentData,
           item.title
@@ -697,7 +700,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const renderPage = () => {
     return (
-      <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      <div className="flex flex-col gap-4 md:flex-row justify-between">
         <div>
           <p className="text-[20px]">
             Menampilkan{' '}
@@ -881,7 +884,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   />
                 ))}
               </Slider>
-              <div className="flex flex-row justify-between w-full px-20">
+              <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[10px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -933,7 +936,7 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1">
+                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
                       {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
