@@ -78,11 +78,22 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                                     ? null
                                     : { tab: el.title }
                                 }
-                              : 'https://my.avrist.com/welcome'
+                              : el.title === 'Dewan Pengawas Syariah'
+                                ? {
+                                    pathname: `${el.customUrl ? '' : val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : camelToKebabCase(val.title)}`,
+                                    query: el.skipParams
+                                      ? null
+                                      : { tab: el.title }
+                                  }
+                                : 'https://my.avrist.com/welcome'
                           }
                           onClick={() => setVisibility(false)}
                           target={
-                            index === 2 || el.icon === 2 ? '_blank' : '_self'
+                            el.title === 'Dewan Pengawas Syariah'
+                              ? '_self'
+                              : index === 2 || el.icon === 2
+                                ? '_blank'
+                                : '_self'
                           }
                           className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
                         >
