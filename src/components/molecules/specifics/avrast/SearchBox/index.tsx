@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Button from '@/components/atoms/Button/Button';
 import Input from '@/components/atoms/Input';
+const _enterKey = 'Enter';
 
 type SearchBoxProps = {
   buttonText?: string;
@@ -19,6 +20,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 }) => {
   const [keyword, setKeyword] = useState(value || '');
 
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      console.log('handle key down event trigger');
+      if (event.key === _enterKey) onSearch(keyword);
+    },
+    [keyword, onSearch]
+  );
+
   return (
     <div className="w-auto flex md:flex-row flex-col items-stretch gap-2 py-3">
       <Input
@@ -26,6 +35,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         placeholder={placeHolder}
         value={keyword}
         onChange={(ev) => setKeyword(ev.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <Button
         title={buttonText}
