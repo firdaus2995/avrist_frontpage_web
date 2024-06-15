@@ -175,7 +175,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
         <p className="xs:text-[2.25rem] md:text-[3rem]">
           <span className="font-bold text-purple_dark">Sekilas Avrist</span>
         </p>
-        <p className="xs:text-xl md:text-[1.5rem] font-light">
+        <p className="xs:text-xl md:text-[1.5rem] font-light text-justify">
           PT Avrist Assurance (Avrist) adalah perusahaan asuransi jiwa patungan
           pertama di Indonesia yang telah berdiri sejak tahun 1975, Avrist
           Assurance terus berkembang menjadi salah satu perusahaan asuransi jiwa
@@ -199,7 +199,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
             }
           />
         </div>
-        <p className="font-karla xs:text-xl md:text-[1.5rem] font-light">
+        <p className="font-karla xs:text-xl md:text-[1.5rem] font-light text-justify">
           Sejalan dengan perkembangannya tersebut, Avrist telah memiliki Dana
           Pensiun Lembaga Keuangan (DPLK) Avrist dan 2 (dua) anak
           perusahaan/subsidiary yaitu, PT Avrist General Insurance, dan PT

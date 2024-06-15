@@ -132,7 +132,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                 </p>
               </div>
             </div>
-            <p className="font-opensans text-xl">{detailData.desc}</p>
+            <p className="font-opensans text-xl text-justify">
+              {detailData.desc}
+            </p>
           </div>
         </div>
       ) : (
