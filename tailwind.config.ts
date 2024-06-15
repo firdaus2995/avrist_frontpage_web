@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -95,10 +96,27 @@ const config: Config = {
         syariah_green: '#3D5910',
         syariah_green_informing: '#417C40',
         dplk_yellow: '#F2A625'
+      },
+      textShadow: {
+        DEFAULT: '0 0 3px #FFF, 0 0 5px #FFF',
+        md: '0 2px 2px #000',
+        h2: '0 0 3px #FF0000, 0 0 5px #0000FF',
+        h1: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)'
       }
     }
   },
-  plugins: []
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value
+          })
+        },
+        { values: theme('textShadow') }
+      );
+    })
+  ]
 };
 
 export default config;
