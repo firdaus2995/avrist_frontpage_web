@@ -135,7 +135,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                 ) => (
                   <div
                     key={index}
-                    className="flex w-full xs:h-[49rem] md:h-[40rem] relative"
+                    className="flex w-full h-[30rem] md:h-[40rem] relative"
                   >
                     <div className="md:hidden">
                       <Image
@@ -164,14 +164,14 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                         className="w-screen h-[40rem] object-cover"
                       />
                     </div>
-                    <div className="flex flex-col 2xl:w-[50%] md:px-[9rem] md:py-10 absolute z-50 top-10 w-full xs:items-center md:items-start">
+                    <div className="flex flex-col 2xl:w-[50%] md:px-[9rem] md:py-10 absolute z-50 top-10 w-full xs:items-center md:items-start gap-8">
                       <p
-                        className={`xs:text-[1.5rem] md:text-[28px] text-purple_dark whitespace-nowrap font-karla font-medium`}
+                        className={`xs:text-[1.5rem] md:text-[28px] text-purple_dark whitespace-nowrap font-karla font-medium text-shadow`}
                       >
                         {contentStringTransformer(data['hero-teks1'])}
                       </p>
                       <div
-                        className="xs:px-[2rem] md:px-0 xs:text-[2.813rem] md:text-[1.5rem] xl:text-[2.25rem] xs:text-center md:text-left font-karla md:font-normal leading-[3rem]"
+                        className="xs:px-[2rem] md:px-0 text-2xl md:text-[1.5rem] xl:text-[2.25rem] xs:text-center md:text-left font-karla md:font-normal md:leading-[3rem] text-shadow"
                         dangerouslySetInnerHTML={{
                           __html: contentStringTransformer(data['hero-teks2'])
                         }}
@@ -217,7 +217,8 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
           <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
             <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
-              Apa <span className="font-bold">perlindungan </span> yang <span className="font-bold">Anda </span> butuhkan
+              Apa <span className="font-bold">perlindungan </span> yang{' '}
+              <span className="font-bold">Anda </span> butuhkan
             </p>
           </div>
           <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import Slider from 'react-slick';
 import CardCategoryD from '../../Cards/CategoryD';
 import SearchBox from '../../SearchBox';
+import SliderComponent from '../../Slider';
 import NewsCard from './NewsCard';
 import ServiceCard from './ServiceCard';
 import { formatTimeDifference } from '@/app/promo-berita/berita/format-time';
@@ -243,19 +243,6 @@ const SearchForm = () => {
     }
   ];
 
-  const sliderRef = useRef<Slider | null>(null);
-
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    centerMode: true,
-    speed: 500,
-    slidesToShow: 1.25,
-    slidesToScroll: 1,
-    centerPadding: '0px'
-  };
-
   return (
     <div className=" w-full flex flex-col -mt-[-0.0625rem]">
       <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col sm:gap-[3rem] xs:gap-[2.25rem]">
@@ -282,25 +269,15 @@ const SearchForm = () => {
         </div>
 
         <div className="md:hidden">
-          <Slider
-            ref={(slider) => {
-              sliderRef.current = slider;
+          <SliderComponent
+            selected={activeTab}
+            slideItems={tabs}
+            onClickItem={(item) => {
+              console.log(item);
+              setActiveTab(item.title);
+              setCurrentSlug(item.slug);
             }}
-            {...sliderSettings}
-          >
-            {tabs.map((tab) => (
-              <Button
-                key={tab.title}
-                title={tab.title}
-                onClick={() => {
-                  setActiveTab(tab.title);
-                  setCurrentSlug(tab.slug);
-                }}
-                customButtonClass={`w-[95%] ${activeTab === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
-                customTextClass="text-[1rem] font-semibold leading-[1.48rem]"
-              />
-            ))}
-          </Slider>
+          />
         </div>
 
         <ServiceCard />

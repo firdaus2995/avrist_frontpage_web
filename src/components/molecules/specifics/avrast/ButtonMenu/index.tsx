@@ -20,8 +20,9 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
     arrows: false,
     centerMode: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1.25,
+    slidesToScroll: 1,
+    centerPadding: '0px'
   };
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
   }, [params, buttonList]);
 
   return (
-    <div className="xs:px-[2rem] md:px-[8.5rem]">
+    <div className="md:px-[2rem] lg:px-[8.5rem]">
       <div className="w-full xs:hidden md:block">
         <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
           {buttonList.map((i) => (
@@ -69,7 +70,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
               >
                 <div
                   role="button"
-                  className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${params === i ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold line-clamp-1`}
+                  className={`w-[95%] mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${params === i ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold line-clamp-1`}
                 >
                   {i}
                 </div>
