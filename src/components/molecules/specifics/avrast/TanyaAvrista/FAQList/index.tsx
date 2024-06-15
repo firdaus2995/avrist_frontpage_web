@@ -49,7 +49,7 @@ const FAQList = ({ selected, data }: ICardsProps) => {
               </Link>
             ))}
           </div>
-          <div className="w-full flex flex-row justify-between mt-[1rem] mb-[1.25rem]">
+          <div className="w-full flex flex-row flex-wrap justify-between mt-[1rem] mb-[1.25rem]">
             <div className="flex items-center text-[0.625rem]">
               Menampilkan{'\u00A0'}
               <span className="font-bold text-purple_dark">

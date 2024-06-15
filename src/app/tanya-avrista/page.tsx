@@ -128,32 +128,38 @@ const TanyaAvrista = () => {
 
   const handleCardsClick = (title: string) => {
     setSelectedCards(title);
-    handleGetListFaqFilterByTag('List-Pertanyaan-dan-Jawaban-Tanya-Avrista', title)
+    handleGetListFaqFilterByTag(
+      'List-Pertanyaan-dan-Jawaban-Tanya-Avrista',
+      title
+    );
   };
 
   const handleGetListFaqFilter = async (slug: string, keyword: string) => {
     try {
-      setLoadingSearch(true)
+      setLoadingSearch(true);
       const queryParams: QueryParams = {
         includeAttributes: 'true',
         searchFilter: keyword,
         tagsFilter: selectedCards
       };
-      const listFaq:any = await getListFaq(slug, queryParams);
+      const listFaq: any = await getListFaq(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
-      const transformedData = tempData === 'undefined' ? [] : tempData?.map((item:any) => {
-        const title = item.shortDesc;
-        const href = `/tanya-avrista/${item.id}/`;
-        const tagsData = item.contentData.find(
-          (content:any) => content.fieldId === 'tags'
-        );
-        const tags = tagsData ? tagsData.value : '';
-        return {
-          title,
-          href,
-          tags
-        };
-      });
+      const transformedData =
+        tempData === 'undefined'
+          ? []
+          : tempData?.map((item: any) => {
+              const title = item.shortDesc;
+              const href = `/tanya-avrista/${item.id}/`;
+              const tagsData = item.contentData.find(
+                (content: any) => content.fieldId === 'tags'
+              );
+              const tags = tagsData ? tagsData.value : '';
+              return {
+                title,
+                href,
+                tags
+              };
+            });
       setListFilteredData(transformedData);
       setLoadingSearch(false);
       return tempData;
@@ -164,26 +170,29 @@ const TanyaAvrista = () => {
 
   const handleGetListFaqFilterByTag = async (slug: string, title: string) => {
     try {
-      setLoadingSearch(true)
+      setLoadingSearch(true);
       const queryParams: QueryParams = {
         includeAttributes: 'true',
         tagsFilter: title
       };
-      const listFaq:any = await getListFaq(slug, queryParams);
+      const listFaq: any = await getListFaq(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
-      const transformedData = tempData === 'undefined' ? [] : tempData?.map((item:any) => {
-        const title = item.shortDesc;
-        const href = `/tanya-avrista/${item.id}/`;
-        const tagsData = item.contentData.find(
-          (content:any) => content.fieldId === 'tags'
-        );
-        const tags = tagsData ? tagsData.value : '';
-        return {
-          title,
-          href,
-          tags
-        };
-      });
+      const transformedData =
+        tempData === 'undefined'
+          ? []
+          : tempData?.map((item: any) => {
+              const title = item.shortDesc;
+              const href = `/tanya-avrista/${item.id}/`;
+              const tagsData = item.contentData.find(
+                (content: any) => content.fieldId === 'tags'
+              );
+              const tags = tagsData ? tagsData.value : '';
+              return {
+                title,
+                href,
+                tags
+              };
+            });
       setListFilteredData(transformedData);
       setLoadingSearch(false);
       return tempData;
@@ -198,8 +207,15 @@ const TanyaAvrista = () => {
         title="Tanya Avrista"
         breadcrumbsData={breadcrumbsData}
         imageUrl={titleImage.imageUrl}
+        bottomImage={bannerImage.imageUrl}
+        customComponent={
+          <SearchTerm
+            onSearch={handleGetListFaqFilter}
+            loading={loadingSearch}
+          />
+        }
       />
-      <SearchTerm bannerImage={bannerImage.imageUrl} onSearch={handleGetListFaqFilter} loading={loadingSearch} />
+
       <TopicsCard cards={cards} onClickCards={handleCardsClick} />
       <FAQList selected={selectedCards} data={listFilteredData} />
       <RoundedFrameBottom />

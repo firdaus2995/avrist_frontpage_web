@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ interface IHero {
   bottomImage?: StaticImport | string;
   imageUrl?: string;
   customClassName?: string;
+  customComponent?: ReactNode;
 }
 
 const Hero: React.FC<IHero> = ({
@@ -23,7 +24,8 @@ const Hero: React.FC<IHero> = ({
   breadcrumbsData,
   bottomImage,
   imageUrl,
-  customClassName
+  customClassName,
+  customComponent
 }) => {
   return (
     <div
@@ -66,13 +68,16 @@ const Hero: React.FC<IHero> = ({
       {bottomImage && (
         <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
-            className="rounded-t-[3.75rem] w-full h-[20rem] md:h-[40rem] object-fill"
+            className="rounded-t-3xl md:rounded-t-[3.75rem] w-full h-[20rem] md:h-[40rem] object-fill"
             alt="gambar-produk-individu"
             width={100}
             height={100}
             src={bottomImage}
           />
         </div>
+      )}
+      {customComponent && (
+        <div className="w-full top-[12.5rem] absolute">{customComponent}</div>
       )}
     </div>
   );
