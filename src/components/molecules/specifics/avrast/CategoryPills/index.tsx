@@ -1,4 +1,5 @@
 'use client';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Link as ScrollLink } from 'react-scroll';
 import Slider from 'react-slick';
@@ -22,6 +23,8 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
   buttonInactiveTextClassname,
   links
 }) => {
+  const sliderRef = useRef<Slider | null>(null);
+
   const sliderSettings = {
     dots: false,
     infinite: false,
@@ -31,6 +34,15 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
+  useEffect(() => {
+    const activeIndex = buttonTitle.findIndex(
+      (button) => button === selectedCategory
+    );
+    if (sliderRef.current && activeIndex !== -1) {
+      sliderRef.current.slickGoTo(activeIndex);
+    }
+  }, [selectedCategory, buttonTitle]);
 
   return (
     <>
@@ -82,7 +94,13 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
 
       {/* Mobile */}
       <div className="md:hidden w-full">
-        <Slider {...sliderSettings} className="slick-slider-gap">
+        <Slider
+          {...sliderSettings}
+          className="slick-slider-gap"
+          ref={(slider) => {
+            sliderRef.current = slider;
+          }}
+        >
           {buttonTitle.map((item, index) => {
             const link = links?.[item] || '';
             return link.startsWith('/') ? (
@@ -93,7 +111,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
                     className={`${selectedCategory === item ? buttonActiveClassname : buttonInactiveClassname} w-full min-h-full border-1 rounded-lg py-[8px] cursor-pointer`}
                   >
                     <span
-                      className={`${selectedCategory === item ? buttonActiveTextClassname : buttonInactiveTextClassname} font-semibold text-[16px] font-opensans`}
+                      className={`${selectedCategory === item ? buttonActiveTextClassname : buttonInactiveTextClassname} font-semibold text-[16px]`}
                     >
                       {item}
                     </span>

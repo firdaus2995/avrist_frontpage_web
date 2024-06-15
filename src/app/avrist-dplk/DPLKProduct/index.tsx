@@ -121,6 +121,7 @@ const DPLKProductList = () => {
         selectedCategory="Produk"
         buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
         buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
+        buttonInactiveTextClassname="text-dplk_yellow"
         buttonActiveTextClassname="text-white"
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
