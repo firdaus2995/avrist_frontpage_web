@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from 'react';
+const _enterKey = 'Enter';
 
 interface SearchBarProps {
   placeholder: string;
@@ -22,7 +23,17 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [keyword, setKeyword] = useState('');
   useEffect(() => {
     setKeyword('');
-  }, [activeTab])
+  }, [activeTab]);
+
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === _enterKey) {
+        onSearch ? onSearch(keyword) : {};
+      }
+    },
+    [keyword, onSearch]
+  );
+
   return (
     <div className="flex flex-row items-center gap-[12px]">
       <input
@@ -31,15 +42,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
         value={value ?? keyword}
         onChange={(ev) => setKeyword(ev.target.value)}
         className={`${placeholderClassname} focus:outline-none px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06] grow`}
-        onKeyDown={(e:any) => {
-          if (e.key === 'Enter' || e.keyCode === 13) {
-            onSearch ? onSearch(keyword) : {}
-          }
-        }}
+        onKeyDown={handleKeyPress}
       />
       <button
         className={`${searchButtonClassname} px-[20px] py-[8px] rounded-[6px]`}
-        onClick={() => onSearch ? onSearch(keyword) : {}}
+        onClick={() => (onSearch ? onSearch(keyword) : {})}
       >
         {searchButtonTitle}
       </button>

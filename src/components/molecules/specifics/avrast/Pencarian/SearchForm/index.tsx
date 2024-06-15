@@ -179,7 +179,7 @@ const SearchForm = () => {
     };
 
     fetchData();
-  }, [activeTab, searchKeyWords]);
+  }, [activeTab, searchKeyWords, currentSlug]);
 
   const paginatedData = dataContent
     ? dataContent.slice(startIndex, endIndex)
@@ -251,8 +251,9 @@ const SearchForm = () => {
     arrows: false,
     centerMode: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1.25,
+    slidesToScroll: 1,
+    centerPadding: '0px'
   };
 
   return (
@@ -265,7 +266,7 @@ const SearchForm = () => {
           value={searchKeyWords}
         />
 
-        <div className="px-[0.1875rem] xs:hidden sm:grid sm:grid-cols-4 xs:grid-cols-1 gap-[0.75rem]">
+        <div className="px-[0.1875rem] hidden md:grid md:grid-cols-4 grid-cols-1 gap-[0.75rem]">
           {tabs.map((tab) => (
             <Button
               key={tab.title}
