@@ -1,7 +1,7 @@
 'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import Slider from 'react-slick';
+import SliderComponent from '../../Slider';
 import InfoKlaimTab from './components/InformasiKlaim';
 import PanduanPengajuanTab from './components/PanduanPengajuan';
 
@@ -30,16 +30,6 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [selected, setSelected] = useState('');
-
-  const sliderTabSettings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    centerMode: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
 
   useEffect(() => {
     if (tab !== '') {
@@ -100,21 +90,11 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
 
       {/* Tab Mobile */}
       <div className="w-[100%] z-20 top-32 md:hidden">
-        <div>
-          <Slider {...sliderTabSettings}>
-            {data.map((val, idx) => (
-              <div key={idx}>
-                <div
-                  role="button"
-                  onClick={() => handleTabClick(val)}
-                  className={`mx-[0.625rem] whitespace-nowrap p-2 border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
-                >
-                  {val}
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div>
+        <SliderComponent
+          selected={tab}
+          slideItems={data}
+          onClickItem={(val) => handleTabClick(val)}
+        />
       </div>
       {selected === 'Informasi Klaim' && (
         <InfoKlaimTab
