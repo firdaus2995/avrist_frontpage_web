@@ -400,6 +400,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
           <SimpleContainer bgColor="yellow_light">
             {dataForm && (
               <CustomForm
+                title="Saya tertarik program DPLK"
                 customFormClassname="border p-[1.5rem] rounded-[12px]"
                 onChange={handleChange}
                 dataForm={dataForm}

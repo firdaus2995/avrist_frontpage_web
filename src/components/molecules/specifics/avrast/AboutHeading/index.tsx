@@ -47,7 +47,7 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
           dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
         ></p>
         <p
-          className="text-[1.5rem] font-light"
+          className="text-[1.5rem] font-light text-justify"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </div>

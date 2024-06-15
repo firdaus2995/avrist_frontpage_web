@@ -64,15 +64,17 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
             >
               <Disclosure.Panel className="p-2 text-[black] items-stretch gap-4 pl-2">
                 {item.content.map((val, idx) => (
-                  <div key={idx} className="pt-4">
-                    <span className="text-md cursor-pointer rounded font-bold outline-none p-2">
-                      {val.title}
-                    </span>
+                  <div key={idx} className={`${val.title ? 'pt-4' : 'pt-0'}`}>
+                    {val.title ? (
+                      <span className="text-md cursor-pointer rounded font-bold outline-none p-2">
+                        {val.title}
+                      </span>
+                    ) : null}
                     {val.subMenus.map((el, menuIdx) =>
                       el?.listMenu ? (
                         <React.Fragment key={menuIdx}>
                           <div
-                            className="mt-4 flex flex-row justify-between "
+                            className={`${val.title ? 'mt-4' : 'mt-0'} flex flex-row justify-between`}
                             onClick={() => {
                               if (expandedMenu === el.title)
                                 setExpandedMenu('');

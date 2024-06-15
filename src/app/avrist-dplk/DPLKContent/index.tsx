@@ -102,7 +102,7 @@ const DPLKContent = (props: Props) => {
         ))}
       </div>
       {/* Tab Mobile */}
-      <div className="w-[95%] z-20 top-8 md:hidden">
+      <div className="w-full z-20 top-8 md:hidden">
         <div>
           <Slider
             {...sliderTabSettings}
