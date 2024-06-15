@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import Link from 'next/link';
 
@@ -19,6 +19,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
   menus,
   setVisibility
 }) => {
+  const [expandedMenu, setExpandedMenu] = useState('');
   return (
     <div
       className={`
@@ -67,41 +68,77 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                     <span className="text-md cursor-pointer rounded font-bold outline-none p-2">
                       {val.title}
                     </span>
-                    {val.subMenus.map((el, index) => (
-                      <div key={index} className="mt-4">
-                        <Link
-                          href={
-                            index !== 2 || el.icon !== 2
-                              ? {
-                                  pathname: `
-                                  ${el.customUrl ? el.customUrl : `/${convertToKebabCase(item.title)}`}/${el.customUrl ? '' : val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : val.title === 'Avrist Syariah' ? '' : camelToKebabCase(val.title)}`,
-                                  query: el.skipParams
-                                    ? null
-                                    : { tab: el.title }
-                                }
-                              : el.title === 'Dewan Pengawas Syariah'
+                    {val.subMenus.map((el, menuIdx) =>
+                      el?.listMenu ? (
+                        <React.Fragment key={menuIdx}>
+                          <div
+                            className="mt-4 flex flex-row justify-between "
+                            onClick={() => {
+                              if (expandedMenu === el.title)
+                                setExpandedMenu('');
+                              else setExpandedMenu(el.title);
+                            }}
+                          >
+                            <div className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2">
+                              {el.title}
+                            </div>
+                            <span
+                              className={`mt-[3px] mr-1 ${expandedMenu === el.title && 'rotate-180 '}`}
+                            >
+                              <Icon
+                                name="chevronDown"
+                                color="purple_dark"
+                                width={12}
+                              />
+                            </span>
+                          </div>
+                          <div
+                            className={`${expandedMenu === el.title ? 'grid gap-4 p-2' : 'hidden'}`}
+                          >
+                            {expandedMenu === el.title &&
+                              el.listMenu.map((subMenu, subIndex) => (
+                                <Link
+                                  href={{
+                                    pathname: `${!item.skipUrl ? `/${convertToKebabCase(item.title)}` : ''}/${camelToKebabCase(val.title !== '' ? val.title : item.title)}`,
+                                    query: { tab: el.title, category: subMenu }
+                                  }}
+                                  key={subIndex}
+                                  onClick={() => {
+                                    setExpandedMenu('');
+                                    setVisibility(false);
+                                  }}
+                                  className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
+                                >
+                                  {subMenu}
+                                </Link>
+                              ))}
+                          </div>
+                        </React.Fragment>
+                      ) : (
+                        <div key={menuIdx} className="mt-4">
+                          <Link
+                            href={
+                              index !== 1 || el.icon !== 2
                                 ? {
-                                    pathname: `${el.customUrl ? '' : val.title === 'Tentang Avrist Life' ? convertToKebabCase(item.title) : camelToKebabCase(val.title)}`,
+                                    pathname: `
+                                  ${el.customUrl ? el.customUrl : !item.skipUrl ? `/${convertToKebabCase(item.title)}` : ''}/${el.customUrl ? '' : camelToKebabCase(val.title !== '' ? val.title : item.title)}`,
                                     query: el.skipParams
                                       ? null
                                       : { tab: el.title }
                                   }
                                 : 'https://my.avrist.com/welcome'
-                          }
-                          onClick={() => setVisibility(false)}
-                          target={
-                            el.title === 'Dewan Pengawas Syariah'
-                              ? '_self'
-                              : index === 2 || el.icon === 2
-                                ? '_blank'
-                                : '_self'
-                          }
-                          className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
-                        >
-                          {el.title}
-                        </Link>
-                      </div>
-                    ))}
+                            }
+                            onClick={() => setVisibility(false)}
+                            target={
+                              index === 1 && el.icon === 2 ? '_blank' : '_self'
+                            }
+                            className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
+                          >
+                            {el.title}
+                          </Link>
+                        </div>
+                      )
+                    )}
                   </div>
                 ))}
               </Disclosure.Panel>

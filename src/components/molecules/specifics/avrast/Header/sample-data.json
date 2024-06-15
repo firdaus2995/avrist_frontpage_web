@@ -71,16 +71,38 @@
           {
             "title": "Avrist Syariah",
             "subMenus": [
-              { "title": "Tentang Avrist Syariah", "icon": 0 },
-              { "title": "Manfaat Utama", "icon": 1 },
-              { "title": "Dewan Pengawas Syariah", "icon": 2 }
+              {
+                "title": "Tentang Avrist Syariah",
+                "icon": 0,
+                "customUrl": "/avrist-syariah"
+              },
+              {
+                "title": "Manfaat Utama",
+                "icon": 1,
+                "customUrl": "/avrist-syariah"
+              },
+              {
+                "title": "Dewan Pengawas Syariah",
+                "icon": 2,
+                "customUrl": "/avrist-syariah"
+              }
             ]
           },
           {
             "title": "",
             "subMenus": [
-              { "title": "Produk", "icon": 3 },
-              { "title": "Klaim dan Layanan", "icon": 4 }
+              {
+                "title": "Produk",
+                "icon": 3,
+                "customUrl": "/avrist-syariah/produk",
+                "skipParams": true
+              },
+              {
+                "title": "Klaim dan Layanan",
+                "icon": 4,
+                "customUrl": "/avrist-syariah/klaim-layanan",
+                "skipParams": true
+              }
             ]
           }
         ]
