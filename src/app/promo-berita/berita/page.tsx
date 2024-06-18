@@ -48,6 +48,7 @@ import {
 
 const Berita: React.FC<ParamsProps> = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const sliderTabRef = useRef<Slider | null>(null);
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -125,6 +126,8 @@ const Berita: React.FC<ParamsProps> = () => {
     footerImage: ''
   });
 
+  const tabs = ['Avrist Terkini', 'Testimonial', 'Kumpulan Berita Pers'];
+
   useEffect(() => {
     if (searchParams) {
       const value = searchParams.get('tab');
@@ -132,6 +135,14 @@ const Berita: React.FC<ParamsProps> = () => {
 
       if (value !== null) {
         setTab(value);
+        const index = tabs.findIndex((a, b) => {
+          if (a === tab) {
+            return b;
+          }
+        });
+        if (sliderTabRef.current) {
+          sliderTabRef.current.slickGoTo(index ?? 0);
+        }
       }
 
       if (categories !== null) {
@@ -696,8 +707,6 @@ const Berita: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
-  const tabs = ['Avrist Terkini', 'Testimonial', 'Kumpulan Berita Pers'];
-
   const renderPage = () => {
     return (
       <div className="flex flex-col gap-4 md:flex-row justify-between">
@@ -779,9 +788,23 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {/* Tab Mobile */}
-      <div className="w-[95%] z-20 top-32 md:hidden">
+      <div className="w-[90%] z-20 top-32 md:hidden">
         <div className="pt-[3rem]">
-          <Slider {...sliderTabSettings}>
+          <Slider
+            ref={(slider) => {
+              sliderTabRef.current = slider;
+              sliderTabRef.current?.slickGoTo(
+                tabs.findIndex((a, b) => {
+                  if (a === tab) {
+                    return b;
+                  } else {
+                    return 0;
+                  }
+                })
+              );
+            }}
+            {...sliderTabSettings}
+          >
             {tabs.map((val, idx) => (
               <div key={idx}>
                 <div
@@ -1155,7 +1178,7 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center py-[100px] px-[136px] text-center mt-10">
+        <div className="w-full flex flex-col items-center justify-center py-[100px] px-[136px] text-center mt-10 xs:px-[20px]">
           <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
             Dari Anda untuk Kami
           </h2>
@@ -1203,7 +1226,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 );
               })}
             </Slider>
-            <div className="flex flex-row justify-between w-full px-20">
+            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-0">
               <div
                 className="p-2 border-2 rounded-full border-purple_dark"
                 role="button"
