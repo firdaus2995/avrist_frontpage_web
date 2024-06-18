@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
 import Slider from 'react-slick';
 import { constructData } from './construct-data';
 import { formatTimeDifference } from './format-time';
@@ -91,7 +92,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
-  const [contentData, setContentData] = useState<any>();
+  const [contentData, setContentData] = useState<any>([]);
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
     useState<boolean>(false);
   const [email, setEmail] = useState('');
@@ -107,18 +108,31 @@ const Berita: React.FC<ParamsProps> = () => {
     monthFilter: '',
     searchFilter: ''
   });
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    itemsPerPage: 6
-  });
-  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
-  const endIndex = startIndex + pagination.itemsPerPage;
-  const paginatedData = contentData
-    ? contentData?.slice(startIndex, endIndex)
-    : [];
-  const totalPages = contentData
-    ? Math.ceil(contentData?.length / pagination.itemsPerPage)
-    : 0;
+  const [itemsPerPage] = useState(6);
+
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!contentData.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(contentData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(contentData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, contentData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % contentData.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
   const [data, setData] = useState<any>({
     slug: '',
     titleImage: '',
@@ -539,9 +553,9 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  const handlePageChange = (page: number) => {
-    setPagination({ ...pagination, currentPage: page });
-  };
+  // const handlePageChange = (page: number) => {
+  //   setPagination({ ...pagination, currentPage: page });
+  // };
 
   const yearDropdown = (startYear: number) => {
     const currentYear = new Date().getFullYear();
@@ -716,8 +730,12 @@ const Berita: React.FC<ParamsProps> = () => {
             <span className="font-bold text-purple_dark">
               {contentData?.length === 0 || contentData === undefined
                 ? 0
-                : startIndex + 1}
-              -{Math.min(endIndex, contentData ? contentData.length : 0)}
+                : itemOffset + 1}
+              -
+              {Math.min(
+                (itemOffset + 1) * itemsPerPage,
+                contentData ? contentData.length : 0
+              )}
             </span>{' '}
             dari{' '}
             <span className="font-bold">
@@ -726,29 +744,17 @@ const Berita: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <div className="flex flex-row gap-[8px] items-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <div
-              key={page}
-              role="button"
-              onClick={() => handlePageChange(page)}
-              className={`w-6 h-6 flex items-center justify-center cursor-pointer text-xl ${
-                pagination.currentPage === page
-                  ? 'text-purple_dark font-bold'
-                  : ''
-              }`}
-            >
-              {page}
-            </div>
-          ))}
-          <span
-            className="mt-[3px]"
-            role="button"
-            onClick={() => handlePageChange(totalPages)}
-          >
-            <Icon name="chevronRight" color="purple_dark" />
-          </span>
-        </div>
+        <ReactPaginate
+          pageCount={pageCount}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+          previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+          containerClassName="flex flex-row gap-[8px] items-center"
+          activeClassName="text-purple_dark font-bold"
+          renderOnZeroPageCount={null}
+          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+        />
       </div>
     );
   };
