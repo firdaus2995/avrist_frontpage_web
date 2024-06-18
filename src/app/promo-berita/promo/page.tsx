@@ -69,7 +69,8 @@ const Promo: React.FC<ParamsProps> = () => {
   });
   const [contentData, setContentData] = useState<any>();
   const [search, setSearch] = useState('');
-  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [params, setParams] = useState({
     yearFilter: '',
@@ -264,17 +265,17 @@ const Promo: React.FC<ParamsProps> = () => {
     return month;
   };
 
-  const handleSubscribeButton = async() => {
+  const handleSubscribeButton = async () => {
     try {
-      const response:any = await subscribeApi({
+      const response: any = await subscribeApi({
         email: email,
         entity: 'avrist'
       });
       if (response?.code === 200) {
-        setVisibleSubscribeModal(true)
+        setVisibleSubscribeModal(true);
         setEmail('');
-      } 
-    } catch(e) {
+      }
+    } catch (e) {
       console.log(e);
     }
   };
@@ -370,6 +371,7 @@ const Promo: React.FC<ParamsProps> = () => {
             {contentData?.slice(0.5).map((item: any, index: number) => (
               <SliderInformation
                 key={index}
+                imageClassName="object-fill"
                 title={
                   <div className="flex flex-col gap-4 text-left">
                     <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold font-karla">
