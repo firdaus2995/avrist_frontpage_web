@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactPaginate from 'react-paginate';
 import CHEVRON_RIGHT_PURPLE from '@/assets/images/common/chevron-right-purple.svg';
 import Search from '@/assets/images/common/search.svg';
 import Icon from '@/components/atoms/Icon';
@@ -15,19 +16,31 @@ export interface IListFaq {
 interface ICardsProps {
   selected: string;
   data: IListFaq[];
+  itemsPerPage?: number;
 }
 
-const FAQList = ({ selected, data }: ICardsProps) => {
-  const itemsPerPage = 5; // Jumlah item yang ditampilkan per halaman
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedData = data ? data.slice(startIndex, endIndex) : [];
+const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
-  const totalPages = data ? Math.ceil(data.length / itemsPerPage) : 0;
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!data.length) return; // check if contentaData already present
 
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(data.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(data.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, data]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % data.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
   };
 
   return (
@@ -37,51 +50,47 @@ const FAQList = ({ selected, data }: ICardsProps) => {
       </h1>
       {paginatedData?.length > 0 ? (
         <div className="w-full">
-          <div className="w-full flex flex-col gap-[3rem]">
+          <div className="w-full flex flex-col gap-[1.25rem]">
             {paginatedData.map((item, index) => (
               <Link
                 href={item.href}
                 key={index}
-                className="w-full border border-gray_light rounded-xl px-[0.25rem] py-[0.375rem] sm:px-[0.5rem] sm:py-[0.75rem] flex flex-row justify-between items-center"
+                className="w-full border border-gray_light rounded-xl px-[0.5rem] py-[0.75rem] flex flex-row justify-between items-center"
               >
                 <p className="text-xl font-bold">{item.title}</p>
                 <Image alt="chevron" src={CHEVRON_RIGHT_PURPLE} />
               </Link>
             ))}
           </div>
-          <div className="w-full flex flex-row flex-wrap justify-between mt-[1rem] mb-[1.25rem]">
-            <div className="flex items-center text-[0.625rem]">
-              Menampilkan{'\u00A0'}
-              <span className="font-bold text-purple_dark">
-                {startIndex + 1}-{Math.min(endIndex, data ? data?.length : 0)}
-              </span>
-              {'\u00A0'}dari{'\u00A0'}
-              <span className="font-bold"> {data.length}</span>
-              {'\u00A0'}hasil
+          <div className="w-full flex flex-col md:flex-row items-center justify-between py-8 gap-4">
+            <div>
+              <p className="text-[20px]">
+                Menampilkan{' '}
+                <span className="font-bold text-purple_dark">
+                  {data?.length === 0 || data === undefined
+                    ? 0
+                    : itemOffset + 1}
+                  -
+                  {Math.min(
+                    (itemOffset + 1) * itemsPerPage,
+                    data ? data.length : 0
+                  )}
+                </span>{' '}
+                dari <span className="font-bold">{data && data.length}</span>{' '}
+                hasil
+              </p>
             </div>
-            <div className="flex items-center space-x-[0.125rem]">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <div
-                    key={page}
-                    role="button"
-                    onClick={() => handlePageChange(page)}
-                    className={`w-[0.375rem] h-[0.375rem] flex items-center justify-center cursor-pointer ${
-                      currentPage === page ? 'text-purple_dark font-bold' : ''
-                    }`}
-                  >
-                    {page}
-                  </div>
-                )
-              )}
-              <span
-                className="mt-[0.1875rem]"
-                role="button"
-                onClick={() => handlePageChange(totalPages)}
-              >
-                <Icon name="chevronRight" color="purple_dark" />
-              </span>
-            </div>
+            <ReactPaginate
+              pageCount={pageCount}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+              previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+              containerClassName="flex flex-row gap-[8px] items-center"
+              activeClassName="text-purple_dark font-bold"
+              renderOnZeroPageCount={null}
+              pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+            />
           </div>
         </div>
       ) : (
