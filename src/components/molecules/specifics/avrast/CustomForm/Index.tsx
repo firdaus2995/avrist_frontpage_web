@@ -32,6 +32,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
   longTextArea,
   selectedProduct
 }) => {
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
 
   const updateFormDataByName = (name: string, value: string) => {
@@ -99,118 +100,143 @@ const CustomForm: React.FC<CustomFormProps> = ({
         </p>
         {type === 'Hubungi Kami' ? (
           <div className="sm:grid sm:grid-cols-2 xs:flex xs:flex-col gap-[2rem]">
-            {attributeList?.map((attribute: Attribute, idx) => (
-              <div
-                key={attribute.id}
-                className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
-              >
-                {attribute.fieldType === 'LABEL' ? (
-                  <p>{attribute.name}</p>
-                ) : (
-                  <div>
-                    <p className="font-bold mb-2">
-                      {attribute.name} <span className="text-reddist">*</span>
-                    </p>
-                    {attribute.fieldType === 'RADIO_BUTTON' ? (
-                      <div className="flex flex-col gap-1">
-                        {attribute.value
-                          ?.split(';')
-                          .map((option, optionIndex) => (
-                            <Radio
-                              key={optionIndex}
-                              id={`${attribute.fieldId}_${optionIndex}`}
-                              name={attribute.name}
-                              label={option}
-                              value={option}
-                              onChange={(e) =>
-                                updateFormDataByName(
-                                  attribute.name,
-                                  e.target.value
-                                )
-                              }
-                            />
-                          ))}
-                      </div>
-                    ) : attribute.fieldType === 'DROPDOWN' ? (
-                      <select
-                        onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
-                        }
-                        className="w-full px-[1rem] py-[0.625rem] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
-                      >
-                        <option value={''}>Pilih</option>
-                        {attribute.value?.split(';').map((option, idx) => (
-                          <option
-                            key={idx}
-                            value={option}
-                            selected={
-                              option ===
-                              formData?.find(
-                                (item) => item.name === attribute.name
-                              )?.value
-                            }
-                          >
-                            {option}
-                          </option>
-                        ))}
-                      </select>
-                    ) : attribute.fieldType === 'TEXT_AREA' ? (
-                      <div className="flex flex-col justify-end items-end">
-                        <textarea
-                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          placeholder={JSON.parse(attribute.config).placeholder}
-                          name={attribute.name}
-                          rows={4}
-                          maxLength={
-                            JSON.parse(attribute.config).max_length === '0'
-                              ? 500
-                              : JSON.parse(attribute.config).max_length
-                          }
+            {attributeList?.map((attribute: Attribute, idx) => {
+              return (
+                <div
+                  key={attribute.id}
+                  className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
+                >
+                  {attribute.fieldType === 'LABEL' ? (
+                    <p>{attribute.name}</p>
+                  ) : (
+                    <div>
+                      <p className="font-bold mb-2">
+                        {attribute.name} <span className="text-reddist">*</span>
+                      </p>
+                      {attribute.fieldType === 'RADIO_BUTTON' ? (
+                        <div className="flex flex-col gap-1">
+                          {attribute.value
+                            ?.split(';')
+                            .map((option, optionIndex) => (
+                              <Radio
+                                key={optionIndex}
+                                id={`${attribute.fieldId}_${optionIndex}`}
+                                name={attribute.name}
+                                label={option}
+                                value={option}
+                                onChange={(e) =>
+                                  updateFormDataByName(
+                                    attribute.name,
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            ))}
+                        </div>
+                      ) : attribute.fieldType === 'DROPDOWN' ? (
+                        <select
                           onChange={(e) =>
                             updateFormDataByName(attribute.name, e.target.value)
                           }
-                        />
-                        {formData?.find((item) => item.name === attribute.name)
-                          ?.value.length +
-                          '/' +
-                          (JSON.parse(attribute.config).max_length === '0'
-                            ? 500
-                            : JSON.parse(attribute.config).max_length)}
-                      </div>
-                    ) : attribute.name.includes('Telepon') ? (
-                      <div className="flex justify-between gap-[0.5rem]">
+                          className="w-full px-[1rem] py-[0.625rem] border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                        >
+                          <option value={''}>Pilih</option>
+                          {attribute.value?.split(';').map((option, idx) => (
+                            <option
+                              key={idx}
+                              value={option}
+                              selected={
+                                option ===
+                                formData?.find(
+                                  (item) => item.name === attribute.name
+                                )?.value
+                              }
+                            >
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ) : attribute.fieldType === 'TEXT_AREA' ? (
+                        <div className="flex flex-col justify-end items-end">
+                          <textarea
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            rows={4}
+                            maxLength={
+                              JSON.parse(attribute.config).max_length === '0'
+                                ? 500
+                                : JSON.parse(attribute.config).max_length
+                            }
+                            onChange={(e) =>
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              )
+                            }
+                          />
+                          {formData?.find(
+                            (item) => item.name === attribute.name
+                          )?.value.length +
+                            '/' +
+                            (JSON.parse(attribute.config).max_length === '0'
+                              ? 500
+                              : JSON.parse(attribute.config).max_length)}
+                        </div>
+                      ) : attribute.name.includes('Telepon') ? (
+                        <div className="flex justify-between gap-[0.5rem]">
+                          <input
+                            className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            defaultValue={'+62'}
+                            readOnly
+                          />
+                          <input
+                            className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder="Masukan nomor telepon"
+                            name={attribute.name}
+                            type="number"
+                            onChange={(e) =>
+                              updateFormDataByName(
+                                attribute.name,
+                                '+62' + e.target.value
+                              )
+                            }
+                          />
+                        </div>
+                      ) : (
                         <input
-                          className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          defaultValue={'+62'}
-                          readOnly
-                        />
-                        <input
-                          className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          placeholder="Masukan nomor telepon"
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
                           name={attribute.name}
-                          type="number"
-                          onChange={(e) =>
+                          type="text"
+                          value={attribute.value ?? ''}
+                          onChange={(e) => {
+                            const regex = /[^a-zA-Z]/g;
+                            if (
+                              attribute.name === 'Nama' ||
+                              attribute.name === 'Domisili'
+                            ) {
+                              if (!e.target.value.match(regex)) {
+                                attribute.value = e.target.value;
+                              }
+                            } else {
+                              attribute.value = e.target.value;
+                            }
                             updateFormDataByName(
                               attribute.name,
-                              '+62' + e.target.value
-                            )
-                          }
+                              e.target.value
+                            );
+                            forceUpdate();
+                          }}
                         />
-                      </div>
-                    ) : (
-                      <input
-                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                        placeholder={JSON.parse(attribute.config).placeholder}
-                        name={attribute.name}
-                        onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
-                        }
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         ) : type === 'Form Saran' ? (
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 gap-[2rem]">
