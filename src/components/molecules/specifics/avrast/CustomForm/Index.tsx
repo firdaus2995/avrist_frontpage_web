@@ -340,9 +340,19 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder={JSON.parse(attribute.config).placeholder}
                         name={attribute.name}
-                        onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
-                        }
+                        value={attribute.value ?? ''}
+                        onChange={(e) => {
+                          const regex = /[^a-zA-Z]/g;
+                          if (attribute.name === 'Nama Anda') {
+                            if (!e.target.value.match(regex)) {
+                              attribute.value = e.target.value;
+                            }
+                          } else {
+                            attribute.value = e.target.value;
+                          }
+                          updateFormDataByName(attribute.name, e.target.value);
+                          forceUpdate();
+                        }}
                       />
                     )}
                   </div>
