@@ -37,9 +37,6 @@ const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
 
@@ -88,7 +85,6 @@ const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
               previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
               containerClassName="flex flex-row gap-[8px] items-center"
               activeClassName="text-purple_dark font-bold"
-              renderOnZeroPageCount={null}
               pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
             />
           </div>

@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
@@ -127,9 +126,6 @@ const Berita: React.FC<ParamsProps> = () => {
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
     setItemOffset(newOffset);
   };
 
@@ -553,10 +549,6 @@ const Berita: React.FC<ParamsProps> = () => {
     }
   };
 
-  // const handlePageChange = (page: number) => {
-  //   setPagination({ ...pagination, currentPage: page });
-  // };
-
   const yearDropdown = (startYear: number) => {
     const currentYear = new Date().getFullYear();
 
@@ -752,7 +744,6 @@ const Berita: React.FC<ParamsProps> = () => {
           previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
           containerClassName="flex flex-row gap-[8px] items-center"
           activeClassName="text-purple_dark font-bold"
-          renderOnZeroPageCount={null}
           pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
         />
       </div>
