@@ -67,6 +67,7 @@ const Berita: React.FC<ParamsProps> = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    initialSlide: 0,
     responsive: [
       {
         breakpoint: 640,
@@ -1189,6 +1190,7 @@ const Berita: React.FC<ParamsProps> = () => {
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
+                sliderRef.current?.slickGoTo(0);
               }}
               {...sliderSettings}
             >
