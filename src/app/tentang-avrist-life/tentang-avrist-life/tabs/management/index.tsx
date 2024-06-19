@@ -1,6 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Button from '@/components/atoms/Button/Button';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
@@ -26,6 +27,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
   onSelectDetail,
   setPageData
 }) => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [showDetail, setShowDetail] = useState(false);
   const [detailData, setDetailData] = useState({
     image: BlankImage,
@@ -83,6 +87,23 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     });
   }, []);
 
+  useEffect(() => {
+    const value = searchParams.get('tab');
+    if (value === 'Manajemen') {
+      setShowDetail(false);
+    }
+  }, [searchParams]);
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const handleCardClick = (cardData: {
     image: string;
     name: string;
@@ -103,6 +124,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
       )
     };
     setDetailData(data);
+    router.push(pathname + '?' + createQueryString('tab', 'Manajemen Detail'), {
+      scroll: false
+    });
   };
 
   return (
@@ -112,6 +136,12 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
           className="xs:px-[2rem] md:px-[8.5rem]"
           onClick={() => {
             setShowDetail(false);
+            router.push(
+              pathname + '?' + createQueryString('tab', 'Manajemen'),
+              {
+                scroll: false
+              }
+            );
           }}
         >
           <div className="flex flex-col gap-7 border rounded-xl p-4 shadow-lg">
