@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -38,6 +38,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const sliderRef = useRef<Slider | null>(null);
   const [tab, setTab] = useState('Sekilas Perusahaan');
   const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
@@ -119,6 +120,17 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
+  useEffect(() => {
+    const activeIndex = tabs.findIndex(
+      (button) =>
+        button.name === tab ||
+        (button.name.includes('Manajemen') && tab.includes('Manajemen'))
+    );
+    if (sliderRef.current && activeIndex !== -1) {
+      sliderRef.current.slickGoTo(activeIndex);
+    }
+  }, [tab, tabs]);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Hero
@@ -151,7 +163,12 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         {/* Tab Mobile */}
         <div className="w-[100%] md:hidden">
           <div>
-            <Slider {...sliderTabSettings}>
+            <Slider
+              {...sliderTabSettings}
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+            >
               {tabs.map((val, idx) => (
                 <div key={idx}>
                   <div
