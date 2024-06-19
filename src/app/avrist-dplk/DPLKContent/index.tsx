@@ -44,7 +44,9 @@ const DPLKContent = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState('Tentang DPLK Avrist');
+  const [tab, setTab] = useState(
+    searchParams.get('tab') ?? 'Tentang DPLK Avrist'
+  );
   const sliderRef = useRef<Slider | null>(null);
 
   const handleTabClick = (tabs: string) => {

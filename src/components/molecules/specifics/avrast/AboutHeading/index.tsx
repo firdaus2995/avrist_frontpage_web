@@ -2,6 +2,7 @@ import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
+import { htmlParser } from '@/utils/helpers';
 
 interface AboutHeadingProps {
   categoriesName: string;
@@ -46,10 +47,9 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
           className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0"
           dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
         ></p>
-        <p
-          className="text-[1.5rem] font-light text-justify"
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
+        <p className="text-[1.5rem] font-light text-justify">
+          {htmlParser(description)}
+        </p>
       </div>
       <div className="flex flex-row flex-nowrap my-[1.5rem] gap-[0.75rem]">
         {tags &&
