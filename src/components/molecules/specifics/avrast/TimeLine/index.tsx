@@ -37,6 +37,8 @@ const Timeline = ({ data }: IFooterInformation) => {
     speed: 500
   };
 
+  console.log(data);
+
   return (
     <ol className="items-center flex flex-col">
       <div className="flex justify-center items-center p-10">
@@ -117,17 +119,19 @@ const Timeline = ({ data }: IFooterInformation) => {
       <div className="w-full px-[2rem] md:px-[8.5rem] mt-10">
         <div className="mt-3 w-full flex flex-col gap-8 rounded-xl p-5 shadow-xl">
           {data
-            .filter((val) => val.year === selectedItem)[0]
-            .data.map((val, idx) => (
-              <div className="flex flex-col gap-4 " key={idx}>
-                <h3 className="text-lg font-semibold text-gray-900 text-left">
-                  {val.title}
-                </h3>
-                <p className="text-base font-normal text-gray-500 dark:text-gray-400 font-opensans">
-                  {val.desc}
-                </p>
-              </div>
-            ))}
+            .filter((val) => val.year === selectedItem)
+            .map((filteredVal) =>
+              filteredVal.data.map((val, idx) => (
+                <div className="flex flex-col gap-4" key={idx}>
+                  <h3 className="text-lg font-semibold text-gray-900 text-left">
+                    {val.title}
+                  </h3>
+                  <p className="text-base font-normal text-gray-500 dark:text-gray-400 font-opensans">
+                    {val.desc}
+                  </p>
+                </div>
+              ))
+            )}
         </div>
       </div>
     </ol>
