@@ -542,8 +542,10 @@ const Berita: React.FC<ParamsProps> = () => {
 
         return { judul, deskripsi, penulis, titlePenulis, videoUrl };
       });
-
-      setContentData(transformedData);
+      if (!transformedData) {
+        setPaginatedData([]);
+      }
+      setContentData(transformedData ?? []);
     } catch (err) {
       console.error(err);
     }
