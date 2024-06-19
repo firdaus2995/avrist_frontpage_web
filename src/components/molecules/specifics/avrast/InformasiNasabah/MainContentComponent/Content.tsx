@@ -1,6 +1,6 @@
 export const Content = () => {
   return (
-    <div className="mt-[4rem]">
+    <div className="md:mt-[4rem]">
       <div className="flex flex-col justify-center items-center text-center">
         <span className="text-purple_dark font-karla font-medium sm:text-[3.5rem] xs:text-[2.25rem]">
           Kami Melayani Dengan Senang Hati!

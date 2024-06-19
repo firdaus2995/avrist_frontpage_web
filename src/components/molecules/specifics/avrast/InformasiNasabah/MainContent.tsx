@@ -4,9 +4,9 @@ import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 
 export const MainContent = () => {
   return (
-    <div className=" w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col gap-6">
-        <div className="sm:pt-[100px] sm:pb-[26px] sm:px-[136px] sm:gap-[64px] xs:p-4 xs:gap-[12px]">
+        <div className="bg-white flex flex-col sm:pt-[6.25rem] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] sm:gap-[4rem] xs:gap-[2.25rem]">
           <ButtonMenu
             buttonList={[
               'Informasi Nasabah',
