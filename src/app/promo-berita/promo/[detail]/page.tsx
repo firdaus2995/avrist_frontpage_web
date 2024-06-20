@@ -544,11 +544,13 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" onClick={() => handleSubmit()} customButtonClass="rounded-xl" />
+                <Button
+                  title="Subscribe"
+                  onClick={() => handleSubmit()}
+                  customButtonClass="rounded-xl"
+                />
               </div>
-              {emailError && (
-                <p className="text-red-500 ml-2">{emailError}</p>
-              )}
+              {emailError && <p className="text-red-500 ml-2">{emailError}</p>}
             </div>
           }
           image={data?.footerImage ?? BlankImage}
