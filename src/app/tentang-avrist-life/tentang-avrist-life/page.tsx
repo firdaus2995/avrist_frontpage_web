@@ -145,7 +145,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
           <SliderComponent
             selected={tab}
             slideItems={tabs}
-            onClickItem={handleTabClick}
+            onClickItem={(val) => handleTabClick(val.name)}
             customLabel="name"
           />
         </div>
