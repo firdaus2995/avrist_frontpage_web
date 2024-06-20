@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Link from 'next/link';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
@@ -38,7 +38,8 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [tab, setTab] = useState('');
+  const sliderRef = useRef<Slider | null>(null);
+  const [tab, setTab] = useState('Sekilas Perusahaan');
   const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
     titleImage: '',
@@ -119,13 +120,24 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
+  useEffect(() => {
+    const activeIndex = tabs.findIndex(
+      (button) =>
+        button.name === tab ||
+        (button.name.includes('Manajemen') && tab.includes('Manajemen'))
+    );
+    if (sliderRef.current && activeIndex !== -1) {
+      sliderRef.current.slickGoTo(activeIndex);
+    }
+  }, [tab, tabs]);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Hero
-        title={tab}
+        title={tab === 'Manajemen Detail' ? 'Manajemen' : tab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: tab, href: '#' }
+          { title: tab === 'Manajemen Detail' ? 'Manajemen' : tab, href: '#' }
         ]}
         imageUrl={transformedData.titleImage}
       />
@@ -140,7 +152,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 onClick={() => {
                   handleTabClick(val.name);
                 }}
-                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${tab === val.name ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${tab === val.name || (tab.includes('Manajemen') && val.name.includes('Manajemen')) ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
               >
                 {val.name}
               </div>
@@ -151,13 +163,18 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         {/* Tab Mobile */}
         <div className="w-[100%] md:hidden">
           <div>
-            <Slider {...sliderTabSettings}>
+            <Slider
+              {...sliderTabSettings}
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+            >
               {tabs.map((val, idx) => (
                 <div key={idx}>
                   <div
                     role="button"
                     onClick={() => handleTabClick(val.name)}
-                    className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val.name ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
+                    className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val.name || (tab.includes('Manajemen') && val.name.includes('Manajemen')) ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
                   >
                     {val.name}
                   </div>
@@ -172,7 +189,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         {tab === 'Sekilas Perusahaan' && (
           <SekilasPerusahaan setData={setData} />
         )}
-        {tab === 'Manajemen' && (
+        {(tab === 'Manajemen' || tab === 'Manajemen Detail') && (
           <Manajemen
             onSelectDetail={handleSelectedDetail}
             setPageData={setData}
@@ -187,6 +204,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
 
       {tab === 'Sekilas Perusahaan' ||
       tab === 'Manajemen' ||
+      tab === 'Manajemen Detail' ||
       tab === 'Penghargaan' ? (
         <div className="flex flex-col w-full xs:-mt-8 md:-mt-10">
           <FooterInformation
@@ -278,7 +296,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               title:
                 tab === 'Sekilas Perusahaan'
                   ? 'Facebook'
-                  : tab === 'Manajemen'
+                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
                     ? isSelectedDetail
                       ? 'Youtube'
                       : 'LinkedIn'
@@ -290,7 +308,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               icon:
                 tab === 'Sekilas Perusahaan'
                   ? Icon4
-                  : tab === 'Manajemen'
+                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
                     ? isSelectedDetail
                       ? Icon8
                       : Icon5
@@ -302,7 +320,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               subtitle:
                 tab === 'Sekilas Perusahaan'
                   ? 'Ikuti Kami'
-                  : tab === 'Manajemen'
+                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
                     ? isSelectedDetail
                       ? 'Subscribe'
                       : 'Ikuti Kami'

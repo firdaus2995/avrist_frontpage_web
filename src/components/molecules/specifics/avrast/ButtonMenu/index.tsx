@@ -33,7 +33,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
   }, [params, buttonList]);
 
   return (
-    <div className="md:px-[2rem] lg:px-[8.5rem]">
+    <div>
       <div className="w-full xs:hidden md:block">
         <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
           {buttonList.map((i) => (

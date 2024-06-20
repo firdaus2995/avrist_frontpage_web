@@ -57,7 +57,7 @@ const TentangAvristDPLK = (props: Props) => {
         tagsTextClassname="text-dplk_yellow"
         idTags="#TentangAvristDPLK"
       />
-      <div className="flex flex-col gap-[4rem] w-full">
+      <div className="flex flex-col gap-[4rem] w-full xs:mb-[3.125rem] sm:mb-[6.25rem]">
         <PersonCard
           heading="Dewan Pengawas DPLK PT Avrist Assurance"
           cards={personsCardGenerator(pengawas)}
@@ -73,28 +73,6 @@ const TentangAvristDPLK = (props: Props) => {
         />
       </div>
 
-      <InformationCard
-        heading="Tugas dan Peran"
-        subHeading="Tugas dan Peran Dewan Pengurus DPLK PT Avrist Assurance sebagai berikut:"
-        cards={[
-          {
-            cardIcon: YellowBinocular,
-            cardBody:
-              'Bertanggung jawab penuh atas pengelolaan Dana Pensiun Lembaga Keuangan Avrist;'
-          },
-          {
-            cardIcon: YellowHead,
-            cardBody:
-              'Mewakili Dana Pensiun Lembaga Keuangan Avrist di dalam dan di luar pengadilan;'
-          },
-          {
-            cardIcon: YellowPeople,
-            cardBody:
-              'Bertanggung jawab atas pelaksanaan Peraturan Dana Pensiun (PDP) dan pengelolaan Dana Pensiun Lembaga Keuangan Avrist sesuai dengan ketentuan peraturan perundang-undangan di bidang dana pensiun yang berlaku.'
-          }
-        ]}
-        cardClassname="border-b-dplk_yellow"
-      />
       <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-yellow_light">
         <InformationCard
           heading="Keuntungan memilih DPLK Avrist"

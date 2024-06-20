@@ -27,22 +27,22 @@ import {
 
 const purposeData = [
   {
-    title: 'Benefit Menarik',
-    desc: 'Dapatkan beragam benefit menarik untuk perlindungan kamu dan keluarga dan juga untuk persiapan dana pensiun di masa depan.',
+    title: '<span class="italic">Benefit</span> Menarik',
+    desc: 'Dapatkan beragam <span class="italic">benefit</span> menarik untuk perlindungan kamu dan keluarga dan juga untuk persiapan dana pensiun di masa depan.',
     link: 'Tentang Avrist',
     icon: Icon1,
     href: '/tentang-avrist-life?tab=Sekilas+Perusahaan'
   },
   {
-    title: 'Work Life Balance',
-    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulang kerja.',
+    title: '<span class="italic">Work Life Balance</span>',
+    desc: 'Beragam kegiatan <span class="italic">sport club</span> dan <span class="italic">employee activities</span> seru yang dapat dinikmati setelah pulang kerja.',
     link: 'Manajemen',
     icon: Icon2,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Manajemen'
   },
   {
     title: 'Pengembangan Diri',
-    desc: 'Beragam kegiatan sport club dan employee activities seru yang dapat dinikmati setelah pulang kerja.',
+    desc: 'Beragam kegiatan <span class="italic">sport club</span> dan <span class="italic">employee activities</span> seru yang dapat dinikmati setelah pulang kerja.',
     link: 'Penghargaan',
     icon: Icon3,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
