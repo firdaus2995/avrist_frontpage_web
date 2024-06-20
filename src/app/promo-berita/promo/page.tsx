@@ -164,7 +164,6 @@ const Promo: React.FC<ParamsProps> = () => {
           !!content['tags']?.value || content['tags']?.value !== '-'
             ? content['tags']?.value.split(',')
             : content['tags']?.value;
-        console.log(tags, '<<<<<');
 
         return { judul, waktu, deskripsi, image, id, tags };
       });
