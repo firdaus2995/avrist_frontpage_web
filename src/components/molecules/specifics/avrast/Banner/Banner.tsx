@@ -264,7 +264,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           <div className={`${dropdownVisible && 'mb-[80px]'}`}>
             {dropdownVisible && (
               <div
-                className={`absolute flex flex-col xs:top-[200px] md:top-[160px] right-0 rounded-md bg-white w-[90%] xs:right-[1.25rem] xs:left-[1.25rem] duration-300 transform z-100`}
+                className={`absolute flex flex-col xs:top-[300px] sm:top-[120px] sm:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 sm:left-[40rem] md:left-[45rem] sm:w-[31.25rem]`}
                 ref={dropdownRef}
               >
                 <Link
