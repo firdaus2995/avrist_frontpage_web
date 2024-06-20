@@ -953,7 +953,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]}
               hidePagination
-              searchPlaceholder="Cari Kegiatan"
+              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari Kegiatan' : 'Cari E-Buletin'}`}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
               }}
