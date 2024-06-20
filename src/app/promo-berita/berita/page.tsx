@@ -67,6 +67,7 @@ const Berita: React.FC<ParamsProps> = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    initialSlide: 0,
     responsive: [
       {
         breakpoint: 640,
@@ -542,8 +543,10 @@ const Berita: React.FC<ParamsProps> = () => {
 
         return { judul, deskripsi, penulis, titlePenulis, videoUrl };
       });
-
-      setContentData(transformedData);
+      if (!transformedData) {
+        setPaginatedData([]);
+      }
+      setContentData(transformedData ?? []);
     } catch (err) {
       console.error(err);
     }
@@ -869,7 +872,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           | {`${item.date} ${item.waktu}`}
                         </p>
                         <p
-                          className="text-[36px] font-bold"
+                          className="text-[36px] xs:max-sm:text-[24px] font-bold"
                           dangerouslySetInnerHTML={{
                             __html: item.judul
                           }}
@@ -1187,6 +1190,7 @@ const Berita: React.FC<ParamsProps> = () => {
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
+                sliderRef.current?.slickGoTo(0);
               }}
               {...sliderSettings}
             >

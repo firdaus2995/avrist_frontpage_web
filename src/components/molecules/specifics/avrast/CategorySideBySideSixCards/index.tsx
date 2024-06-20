@@ -128,29 +128,39 @@ const CategorySideBySideSixCards = ({
                 urlDownload?: string;
               },
               index: number
-            ) => (
-              <div
-                key={index}
-                className={`${customRightSideClassname} flex flex-col gap-[24px] px-[24px] py-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
-              >
-                <p
-                  className={`${rightTitleClassname} font-bold text-4xl font-karla`}
+            ) => {
+              if (
+                item.description === '' ||
+                item.urlDownload === '' ||
+                item.description === null ||
+                item.urlDownload === null
+              ) {
+                return null;
+              }
+              return (
+                <div
+                  key={index}
+                  className={`${customRightSideClassname} flex flex-col gap-[24px] px-[24px] py-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
                 >
-                  {item.title}
-                </p>
-                {item.description &&
-                  renderedDescription(item.description, true)}
-                {item.hasDownloadButton && (
-                  <button
-                    type="button"
-                    onClick={() => window.open(item.urlDownload, '_blank')}
-                    className={`${buttonClassname} border-1 px-10 py-3 rounded-[8px] text-xl font-semibold font-opensans`}
+                  <p
+                    className={`${rightTitleClassname} font-bold text-4xl font-karla`}
                   >
-                    <p>Unduh</p>
-                  </button>
-                )}
-              </div>
-            )
+                    {item.title}
+                  </p>
+                  {item.description &&
+                    renderedDescription(item.description, true)}
+                  {item.hasDownloadButton && (
+                    <button
+                      type="button"
+                      onClick={() => window.open(item.urlDownload, '_blank')}
+                      className={`${buttonClassname} border-1 px-10 py-3 rounded-[8px] text-xl font-semibold font-opensans`}
+                    >
+                      <p>Unduh</p>
+                    </button>
+                  )}
+                </div>
+              );
+            }
           )}
         </div>
       </div>

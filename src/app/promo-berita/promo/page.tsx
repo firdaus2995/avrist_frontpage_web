@@ -160,7 +160,11 @@ const Promo: React.FC<ParamsProps> = () => {
           content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
-        const tags = content['tags'].value;
+        const tags =
+          !!content['tags']?.value || content['tags']?.value !== '-'
+            ? content['tags']?.value.split(',')
+            : content['tags']?.value;
+        console.log(tags, '<<<<<');
 
         return { judul, waktu, deskripsi, image, id, tags };
       });
@@ -381,10 +385,14 @@ const Promo: React.FC<ParamsProps> = () => {
                       {htmlParser(item.deskripsi)}
                     </p>
                     <div className="flex flex-row flex-wrap gap-[12px]">
-                      <MediumTag
-                        title={item.tags}
-                        customClass="font-opensans"
-                      />
+                      {item.tags?.length > 0 &&
+                        item.tags?.map((el: any, idx: number) => (
+                          <MediumTag
+                            title={el}
+                            customClass="font-opensans"
+                            key={idx}
+                          />
+                        ))}
                     </div>
                     <Link
                       href={`/promo-berita/promo/${item.id}`}
