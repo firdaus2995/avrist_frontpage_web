@@ -87,7 +87,7 @@ export const ContentList = ({
             <Icon name="chevronLeft" color="purple_dark" />
             Kembali
           </div>
-          <div>
+          <div className='flex flex-col gap-[1.5rem]'>
             {/* list */}
             {listData?.map(
               (
