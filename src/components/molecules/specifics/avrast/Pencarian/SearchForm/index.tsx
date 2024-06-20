@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
 import CardCategoryD from '../../Cards/CategoryD';
 import SearchBox from '../../SearchBox';
 import SliderComponent from '../../Slider';
@@ -26,17 +27,19 @@ import {
 
 const SearchForm = () => {
   const searchParams = useSearchParams();
-  const [activeTab, setActiveTab] = useState('Asuransi Individu');
-  const [currentSlug, setCurrentSlug] = useState('Produk-Avras');
+  const [selectedTab, setSelectedTab] = useState({
+    title: 'Asuransi Individu',
+    slug: 'Produk-Avras'
+  });
   const [searchKeyWords, setSearchKeywords] = useState(
     searchParams.get('searchValue') ?? ''
   );
-  const [dataContent, setDataContent] = useState<any>();
+  const [dataContent, setDataContent] = useState<any>([]);
 
   const itemsPerPage = 5;
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const [paginatedData, setPaginatedData] = useState<any>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,41 +47,44 @@ const SearchForm = () => {
         let listData = [];
         const queryParams: QueryParams = {
           includeAttributes: 'true',
-          searchFilter: searchKeyWords
+          searchFilter: searchKeyWords ?? ''
         };
-        const data = await handleGetContentCategory(currentSlug, queryParams);
+        const data = await handleGetContentCategory(
+          selectedTab.slug,
+          queryParams
+        );
 
-        if (activeTab === 'Asuransi Individu') {
+        if (selectedTab.title === 'Asuransi Individu') {
           const data1 = contentCategoryTransformer(data, 'Asuransi Jiwa');
           const data2 = contentCategoryTransformer(data, 'Asuransi Kesehatan');
           const newDataContentWithCategory = data1.concat(data2);
           listData = newDataContentWithCategory;
-        } else if (activeTab === 'Asuransi Korporasi') {
+        } else if (selectedTab.title === 'Asuransi Korporasi') {
           const newDataContentWithCategory = contentCategoryTransformer(
             data,
             'Employee Benefit'
           );
           listData = newDataContentWithCategory;
-        } else if (activeTab === 'Berita & Kegiatan') {
+        } else if (selectedTab.title === 'Berita & Kegiatan') {
           const data1 = contentCategoryTransformer(data, '');
           const data2 = contentCategoryTransformer(data, '-');
           const data3 = contentCategoryTransformer(data, 'Berita Pers');
           const data4 = contentCategoryTransformer(data, 'Berita dan Kegiatan');
           const newDataContentWithCategory = data1.concat(data2, data3, data4);
           listData = newDataContentWithCategory;
-        } else if (activeTab === 'Avristory') {
+        } else if (selectedTab.title === 'Avristory') {
           const newDataContentWithCategory = contentCategoryTransformer(
             data,
             'AvriStory'
           );
           listData = newDataContentWithCategory;
-        } else if (activeTab === 'Avrist Life Guide') {
+        } else if (selectedTab.title === 'Avrist Life Guide') {
           const data1 = contentCategoryTransformer(data, 'Financial');
           const data2 = contentCategoryTransformer(data, 'Lifestyle');
           const data3 = contentCategoryTransformer(data, 'Tips and Tricks');
           const newDataContentWithCategory = data1.concat(data2, data3);
           listData = newDataContentWithCategory;
-        } else if (activeTab === 'Penghargaan') {
+        } else if (selectedTab.title === 'Penghargaan') {
           const newDataContentWithCategory = contentCategoryTransformer(
             data,
             ''
@@ -94,7 +100,7 @@ const SearchForm = () => {
 
         const dataContentValues = listData?.map(
           ({ content, id, createdAt }) => {
-            if (activeTab === 'Avristory') {
+            if (selectedTab.title === 'Avristory') {
               const namaFile = contentStringTransformer(
                 content['nama-file-bulletin']
               );
@@ -103,7 +109,7 @@ const SearchForm = () => {
               ).imageUrl;
 
               return { namaFile, file };
-            } else if (activeTab === 'Avrist Life Guide') {
+            } else if (selectedTab.title === 'Avrist Life Guide') {
               const date = format(new Date(createdAt), 'dd MMMM yyyy');
               const judul = content['judul-artikel'].value;
               const deskripsi =
@@ -128,7 +134,7 @@ const SearchForm = () => {
                 date,
                 differenceTime
               };
-            } else if (activeTab === 'Penghargaan') {
+            } else if (selectedTab.title === 'Penghargaan') {
               const judul = content['judul-artikel'].value;
               const nama = content['nama-penghargaan'].value;
               const waktu = format(new Date(createdAt), 'dd MMMM yyyy');
@@ -136,7 +142,7 @@ const SearchForm = () => {
                 content['artikel-looping'].contentData[0].details[0].value;
 
               return { judul, nama, waktu, deskripsi, id };
-            } else if (activeTab === 'Berita & Kegiatan') {
+            } else if (selectedTab.title === 'Berita & Kegiatan') {
               const label = '';
               const title = contentStringTransformer(content['judul-artikel']);
               const date = format(new Date(createdAt), 'dd MMMM yyyy');
@@ -171,25 +177,33 @@ const SearchForm = () => {
           }
         );
 
-        setCurrentPage(1);
         setDataContent(dataContentValues);
+
+        const endOffset = itemOffset + itemsPerPage;
+        setPaginatedData(dataContentValues.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(dataContentValues.length / itemsPerPage));
       } catch (error) {
         console.error('Error:', error);
       }
     };
 
+    setItemOffset(0);
+    setPageCount(0);
     fetchData();
-  }, [activeTab, searchKeyWords, currentSlug]);
+  }, [selectedTab.title, searchKeyWords, selectedTab.slug]);
 
-  const paginatedData = dataContent
-    ? dataContent.slice(startIndex, endIndex)
-    : [];
-  const totalPages = dataContent
-    ? Math.ceil(dataContent.length / itemsPerPage)
-    : 0;
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!dataContent.length) return; // check if contentaData already present
 
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(dataContent.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(dataContent.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, dataContent]);
+
+  const handlePageChange = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+    setItemOffset(newOffset);
   };
 
   const tabs = useMemo(
@@ -262,10 +276,13 @@ const SearchForm = () => {
               key={tab.title}
               title={tab.title}
               onClick={() => {
-                setActiveTab(tab.title);
-                setCurrentSlug(tab.slug);
+                const { title, slug } = tab;
+                setSelectedTab({
+                  title,
+                  slug
+                });
               }}
-              customButtonClass={`${activeTab === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
+              customButtonClass={`${selectedTab.title === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
               customTextClass="text-[1rem] font-semibold leading-[1.48rem] whitespace-nowrap"
             />
           ))}
@@ -273,19 +290,21 @@ const SearchForm = () => {
 
         <div className="md:hidden">
           <SliderComponent
-            selected={activeTab}
+            selected={selectedTab.title}
             slideItems={tabs}
             onClickItem={(item) => {
-              console.log(item);
-              setActiveTab(item.title);
-              setCurrentSlug(item.slug);
+              const { title, slug } = item;
+              setSelectedTab({
+                title,
+                slug
+              });
             }}
             customLabel="title"
           />
         </div>
 
         <ServiceCard />
-        {activeTab === 'Avristory' ? (
+        {selectedTab.title === 'Avristory' ? (
           <div className="grid lg:grid-cols-1 gap-[24px] w-full">
             {paginatedData?.map((item: any, index: number) => (
               <div
@@ -305,7 +324,7 @@ const SearchForm = () => {
               </div>
             ))}
           </div>
-        ) : activeTab === 'Avrist Life Guide' ? (
+        ) : selectedTab.title === 'Avrist Life Guide' ? (
           <div className="grid grid-cols-1 gap-[24px]">
             {paginatedData?.map((item: any, index: number) => (
               <Link
@@ -321,14 +340,14 @@ const SearchForm = () => {
                   summary={htmlParser(item.deskripsi)}
                   category={item.tags}
                   time={` | ${item.date}`}
-                  tags={item.tags.split(',')}
+                  tags={item?.tags?.split(',')}
                   image={item.image}
                   readTime={item.waktuBaca}
                 />
               </Link>
             ))}
           </div>
-        ) : activeTab === 'Penghargaan' ? (
+        ) : selectedTab.title === 'Penghargaan' ? (
           <div className="grid grid-cols-1 gap-[24px]">
             {paginatedData?.map((item: any, index: number) => (
               <Link
@@ -370,7 +389,7 @@ const SearchForm = () => {
               </Link>
             ))}
           </div>
-        ) : activeTab === 'Berita & Kegiatan' ? (
+        ) : selectedTab.title === 'Berita & Kegiatan' ? (
           <div className="grid grid-cols-1 gap-[24px]">
             {paginatedData?.map((item: any, index: number) => (
               <Link
@@ -419,7 +438,7 @@ const SearchForm = () => {
                   index: React.Key | null | undefined
                 ) => (
                   <Link
-                    href={`${activeTab === 'Asuransi Individu' ? '/produk/individu/' : activeTab === 'Asuransi Korporasi' ? '/produk/korporasi/' : activeTab === 'Avrist DPLK' ? '/avrist-dplk/produk/' : '/avrist-syariah/produk/'}${item.id}`}
+                    href={`${selectedTab.title === 'Asuransi Individu' ? '/produk/individu/' : selectedTab.title === 'Asuransi Korporasi' ? '/produk/korporasi/' : selectedTab.title === 'Avrist DPLK' ? '/avrist-dplk/produk/' : '/avrist-syariah/produk/'}${item.id}`}
                     key={index}
                   >
                     <NewsCard
@@ -440,32 +459,27 @@ const SearchForm = () => {
             <p className="text-[1.25rem]">
               Menampilkan{' '}
               <span className="font-bold text-purple_dark">
-                {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+                {dataContent?.length === 0 ? 0 : itemOffset + 1}-
+                {Math.min(
+                  (itemOffset + 1) * itemsPerPage,
+                  dataContent ? dataContent.length : 0
+                )}
               </span>{' '}
               dari <span className="font-bold">{dataContent?.length}</span>{' '}
               hasil
             </p>
           </div>
-          <div className="flex flex-row gap-[0.5rem] items-center">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <div
-                key={page}
-                role="button"
-                onClick={() => handlePageChange(page)}
-                className={`w-[1.5rem] h-[1.5rem] flex items-center justify-center cursor-pointer ${currentPage === page ? 'text-purple_dark font-bold' : ''}`}
-              >
-                {page}
-              </div>
-            ))}
-            <span
-              className="mt-[0.1875rem]"
-              role="button"
-              onClick={() => handlePageChange(totalPages)}
-            >
-              <Icon name="chevronRight" color="purple_dark" />
-            </span>
-          </div>
+
+          <ReactPaginate
+            pageCount={pageCount}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+            previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+            containerClassName="flex flex-row gap-[8px] items-center"
+            activeClassName="text-purple_dark font-bold"
+            pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          />
         </div>
       </div>
     </div>
