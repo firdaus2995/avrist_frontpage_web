@@ -133,14 +133,14 @@ const Header = () => {
             <Icon name="shoppingCart" color="gray_black" />
             <p className="font-bold text-sm">Beli Online</p>
           </Link>
-          <Link
+          <a
             href={'https://my.avrist.com/welcome'}
-            target="blank"
+            target="_blank"
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="lightBulb" color="gray_black" />
             <p className="font-bold text-sm">Avrist Solution</p>
-          </Link>
+          </a>
           <div
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
             onClick={() => setIsShowEmailSubs(true)}
@@ -168,23 +168,24 @@ const Header = () => {
             </Link>
             {menus.map((item, idx) => {
               return (
-              <React.Fragment key={item.title}>
-                <li
-                  className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
-                  ref={(el) => (listRef.current[idx] = el)}
-                >
-                  {item.title}{' '}
-                </li>
-                <NavCard
-                  customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
-                  content={item.content}
-                  title={item.title}
-                  skipUrl={item.skipUrl}
-                  indexData={idx}
-                  xPosition={xPositions[idx]}
-                />
-              </React.Fragment>
-            )})}
+                <React.Fragment key={item.title}>
+                  <li
+                    className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
+                    ref={(el) => (listRef.current[idx] = el)}
+                  >
+                    {item.title}{' '}
+                  </li>
+                  <NavCard
+                    customClass={`${styles['nav-card-animation']} absolute cursor-default left-0 duration-300`}
+                    content={item.content}
+                    title={item.title}
+                    skipUrl={item.skipUrl}
+                    indexData={idx}
+                    xPosition={xPositions[idx]}
+                  />
+                </React.Fragment>
+              );
+            })}
           </ul>
           <Button.IconButton
             customButtonClass="inline-block md:hidden"
