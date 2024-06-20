@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { handleDownload } from '@/utils/helpers';
 
 interface Card {
   cardIcon: string;
@@ -73,8 +72,8 @@ const InformationCard: React.FC<InformationCardProps> = ({
                 {item.isFile ? (
                   <button
                     className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
-                    onClick={async () => {
-                      item.href && (await handleDownload(item.href));
+                    onClick={() => {
+                      window.open(item.href, '_blank');
                     }}
                   >
                     <p
