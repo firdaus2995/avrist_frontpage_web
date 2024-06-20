@@ -80,7 +80,9 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
           {item.details.map((detailItem: any, detailIndex: number) => {
             const fieldType = detailItem.fieldType;
             const isNotEmpty =
-              detailItem.value !== '<p>-</p>' && detailItem.value !== '["-"]';
+              detailItem.value !== '<p>-</p>' &&
+              detailItem.value !== '["-"]' &&
+              detailItem.value !== '-';
             if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
               return (
                 <span

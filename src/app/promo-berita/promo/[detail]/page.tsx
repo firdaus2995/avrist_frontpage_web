@@ -190,7 +190,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
           {item.details.map((detailItem: any, detailIndex: number) => {
             const fieldType = detailItem.fieldType;
             const isNotEmpty =
-              detailItem.value !== '<p>-</p>' && detailItem.value !== '["-"]';
+              detailItem.value !== '<p>-</p>' &&
+              detailItem.value !== '["-"]' &&
+              detailItem.value !== '-';
             if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
               return (
                 <span
@@ -544,11 +546,13 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%]"
                 />
-                <Button title="Subscribe" onClick={() => handleSubmit()} customButtonClass="rounded-xl" />
+                <Button
+                  title="Subscribe"
+                  onClick={() => handleSubmit()}
+                  customButtonClass="rounded-xl"
+                />
               </div>
-              {emailError && (
-                <p className="text-red-500 ml-2">{emailError}</p>
-              )}
+              {emailError && <p className="text-red-500 ml-2">{emailError}</p>}
             </div>
           }
           image={data?.footerImage ?? BlankImage}
