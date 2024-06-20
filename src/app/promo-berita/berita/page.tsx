@@ -379,8 +379,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   item.label === content['bulan'].value
               )?.label
             } ${content['tahun'].value}`;
-            const deskripsi =
-              content['artikel-looping'].contentData[0].details[0].value;
+            const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
             ).imageUrl;
@@ -440,8 +439,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   item.label === content['bulan'].value
               )?.label
             } ${content['tahun'].value}`;
-            const deskripsi =
-              content['artikel-looping'].contentData[0].details[0].value;
+            const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
             ).imageUrl;
