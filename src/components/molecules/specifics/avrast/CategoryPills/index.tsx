@@ -31,8 +31,9 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
     arrows: false,
     centerMode: true,
     speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToShow: 1.25,
+    slidesToScroll: 1,
+    centerPadding: '0px'
   };
 
   useEffect(() => {
