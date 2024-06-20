@@ -199,7 +199,7 @@ const DetailKarir = () => {
         />
         <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
       </div>
-      <div className="w-full h-full bg-purple_superlight xs:-mt-2 md:mt-0">
+      <div className="w-full h-full xs:bg-white sm:bg-purple_superlight xs:-mt-1 md:mt-0">
         <FooterCards
           cards={[
             {
