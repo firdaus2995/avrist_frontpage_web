@@ -45,6 +45,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const Berita: React.FC<ParamsProps> = () => {
   const sliderRef = useRef<Slider | null>(null);
@@ -94,6 +95,8 @@ const Berita: React.FC<ParamsProps> = () => {
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>([]);
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
+  const [isValidEmailContent, setIsValidEmailContent] =
     useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailContent, setEmailContent] = useState('');
@@ -669,6 +672,8 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const handleSubscribeContentButton = async () => {
+    const isEmail = validateEmail(emailContent);
+    if (!isEmail) return setIsValidEmailContent(true);
     try {
       const response: any = await subscribeApi({
         email: emailContent,
@@ -1390,8 +1395,16 @@ const Berita: React.FC<ParamsProps> = () => {
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
-                  onChange={(e) => setEmailContent(e.target.value)}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmailContent(e.target.value);
+                  }}
                 />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
                 <Button
                   title="Subscribe"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
