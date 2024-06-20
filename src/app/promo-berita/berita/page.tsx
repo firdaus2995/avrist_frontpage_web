@@ -1322,6 +1322,7 @@ const Berita: React.FC<ParamsProps> = () => {
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
+              searchPlaceholder="Cari Berita/Kegiatan"
               hiddenCategory
               categoryCard="B"
               categories={[
