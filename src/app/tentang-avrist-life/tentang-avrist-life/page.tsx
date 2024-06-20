@@ -1,9 +1,7 @@
 'use client';
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import Link from 'next/link';
-// import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import Slider from 'react-slick';
 import Karir from './tabs/karir';
 import LaporanPerusahaan from './tabs/laporan-perusahaan';
 import Manajemen from './tabs/management';
@@ -22,6 +20,7 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import SliderComponent from '@/components/molecules/specifics/avrast/Slider';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -38,7 +37,6 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const sliderRef = useRef<Slider | null>(null);
   const [tab, setTab] = useState('Sekilas Perusahaan');
   const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
@@ -47,17 +45,6 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   });
   const [isSelectedDetail, setIsSelectedDetail] = useState(false);
 
-  const sliderTabSettings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    centerMode: true,
-    speed: 500,
-    slidesToShow: 1.25,
-    slidesToScroll: 1,
-    centerPadding: '0px'
-  };
-
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value !== null) {
@@ -65,25 +52,28 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     }
   }, [searchParams]);
 
-  const tabs = [
-    {
-      name: 'Sekilas Perusahaan',
-      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
-    },
-    { name: 'Manajemen', url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.MANAJEMEN },
-    {
-      name: 'Penghargaan',
-      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN
-    },
-    {
-      name: 'Laporan Perusahaan',
-      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.LAPORAN_PERUSAHAAN
-    },
-    {
-      name: 'Karir Bersama Avrist',
-      url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.KARIR
-    }
-  ];
+  const tabs = useMemo(
+    () => [
+      {
+        name: 'Sekilas Perusahaan',
+        url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.SEKILAS_PERUSAHAAN
+      },
+      { name: 'Manajemen', url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.MANAJEMEN },
+      {
+        name: 'Penghargaan',
+        url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN
+      },
+      {
+        name: 'Laporan Perusahaan',
+        url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.LAPORAN_PERUSAHAAN
+      },
+      {
+        name: 'Karir Bersama Avrist',
+        url: BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.KARIR
+      }
+    ],
+    []
+  );
 
   useEffect(() => {
     if (data) {
@@ -121,17 +111,6 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
-  useEffect(() => {
-    const activeIndex = tabs.findIndex(
-      (button) =>
-        button.name === tab ||
-        (button.name.includes('Manajemen') && tab.includes('Manajemen'))
-    );
-    if (sliderRef.current && activeIndex !== -1) {
-      sliderRef.current.slickGoTo(activeIndex);
-    }
-  }, [tab, tabs]);
-
   return (
     <div className="flex flex-col items-center justify-center">
       <Hero
@@ -163,26 +142,12 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
 
         {/* Tab Mobile */}
         <div className="w-[100%] md:hidden">
-          <div>
-            <Slider
-              {...sliderTabSettings}
-              ref={(slider) => {
-                sliderRef.current = slider;
-              }}
-            >
-              {tabs.map((val, idx) => (
-                <div key={idx}>
-                  <div
-                    role="button"
-                    onClick={() => handleTabClick(val.name)}
-                    className={`mx-[10px] p-2 border border-purple_dark rounded-lg text-center ${tab === val.name || (tab.includes('Manajemen') && val.name.includes('Manajemen')) ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold`}
-                  >
-                    {val.name}
-                  </div>
-                </div>
-              ))}
-            </Slider>
-          </div>
+          <SliderComponent
+            selected={tab}
+            slideItems={tabs}
+            onClickItem={handleTabClick}
+            customLabel="name"
+          />
         </div>
       </div>
 

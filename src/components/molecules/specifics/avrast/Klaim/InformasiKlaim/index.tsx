@@ -93,6 +93,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
         <SliderComponent
           selected={tab}
           slideItems={data}
+          customLabel="name"
           onClickItem={(val) => handleTabClick(val)}
         />
       </div>
