@@ -397,12 +397,13 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 dataForm={dataForm}
-                customFormClassname="border-syariah_green text-syariah_green"
+                customFormClassname="border-gray_light p-[1.5rem]"
                 resultData={receiveData}
                 selectedProduct={dataDetail?.namaProduk}
+                title="Saya tertarik dengan produk ini"
               />
             )}
-            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
+            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
               <div className="accent-syariah_green flex flex-col items-center gap-[12px] h-full">
                 <div className="flex flex-row gap-4">
                   <input

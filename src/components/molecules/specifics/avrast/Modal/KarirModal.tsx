@@ -75,6 +75,8 @@ export const KarirModal = (props: Props) => {
     }
   };
 
+  console.log(dataForm);
+
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-[99]" onClose={onClose}>
@@ -103,21 +105,25 @@ export const KarirModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
-                  <CustomForm
-                    customFormClassname="border-none p-[0px] bg-white"
-                    onChange={handleChange}
-                    dataForm={dataForm}
-                    resultData={receiveData}
-                  />
-                  <div className="bg-white px-[2rem] pb-[2rem]">
-                    <button
-                      type="submit"
-                      disabled={formIsValid}
-                      onClick={() => onSubmitData()}
-                      className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
-                    >
-                      Kirim
-                    </button>
+                  <div className="bg-white px-[2rem]">
+                    <CustomForm
+                      customFormClassname="bg-white"
+                      onChange={handleChange}
+                      dataForm={dataForm}
+                      resultData={receiveData}
+                      type="Karir"
+                      title="Job Application Form"
+                    />
+                    <div className="bg-white py-[2rem] px-[1rem] -mt-[12px]">
+                      <button
+                        type="submit"
+                        disabled={!formIsValid}
+                        onClick={() => onSubmitData()}
+                        className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+                      >
+                        Kirim
+                      </button>
+                    </div>
                   </div>
                 </CardRainbow>
               </Dialog.Panel>

@@ -407,7 +407,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 resultData={receiveData}
               />
             )}
-            <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-10 border-x border-x-gray_light">
+            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-24 border-x border-x-gray_light">
               <div className="accent-dplk_yellow flex flex-col items-center gap-[12px] h-full">
                 <div className="flex flex-row gap-4">
                   <input

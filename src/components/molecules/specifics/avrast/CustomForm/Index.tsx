@@ -93,7 +93,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
     return (
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white gap-[36px] border border-gray_light border-b-8 rounded-xl`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[36px] border border-gray_light '} border-b-8 rounded-xl`}
       >
         <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] p-4">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
@@ -361,12 +361,21 @@ const CustomForm: React.FC<CustomFormProps> = ({
             ))}
           </div>
         ) : (
-          <div className="grid xs:grid-cols-1 sm:grid-cols-2 gap-[2rem] p-4">
-            <div className="flex flex-col gap-[0.25rem]">
+          <div
+            className={`grid xs:grid-cols-1 ${type === 'Karir' ? 'gap-[0.25rem] sm:gap-[1rem]' : 'sm:grid-cols-2 gap-[2rem]'} p-4`}
+          >
+            <div
+              className={`flex flex-col gap-[0.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+            >
               {leftSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">
                   <p className="font-bold">
-                    {attribute.name} <span className="text-reddist">*</span>
+                    {attribute.name}{' '}
+                    <span
+                      className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                    >
+                      *
+                    </span>
                   </p>
                   {attribute.fieldType === 'RADIO_BUTTON' ? (
                     attribute.value
@@ -417,11 +426,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
                 </div>
               ))}
             </div>
-            <div className="flex flex-col gap-[0.25rem]">
+            <div
+              className={`flex flex-col gap-[0.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+            >
               {rightSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">
                   <p className="font-bold">
-                    {attribute.name} <span className="text-reddist">*</span>
+                    {attribute.name}{' '}
+                    <span
+                      className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                    >
+                      *
+                    </span>
                   </p>
                   {attribute.fieldType === 'RADIO_BUTTON' ? (
                     attribute.value?.split(';').map((option, optionIndex) => (
