@@ -858,6 +858,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   sliderRef.current = slider;
                 }}
                 {...sliderSettings}
+                infinite={true}
               >
                 {contentData?.slice(0, 5)?.map((item: any, index: number) => (
                   <SliderInformation
