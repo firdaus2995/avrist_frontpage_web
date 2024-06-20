@@ -1379,11 +1379,11 @@ const Berita: React.FC<ParamsProps> = () => {
               <p className="text-[56px] md:text-4xl">
                 Subscribe Informasi Terkini!
               </p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold md:w-full"
-              />
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
               <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
