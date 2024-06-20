@@ -103,7 +103,6 @@ const CompanySection = () => {
     dots: true,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
