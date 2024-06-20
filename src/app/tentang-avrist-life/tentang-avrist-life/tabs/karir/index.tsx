@@ -322,7 +322,9 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
               : BlankImage
           }
         />
-        <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
+        <div className="sm:-mb-12">
+          <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
+        </div>
       </div>
     </div>
   );

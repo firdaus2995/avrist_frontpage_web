@@ -146,16 +146,16 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
         >
           <div className="flex flex-col gap-7 border rounded-xl p-4 shadow-lg">
             <div className="flex xs:flex-col md:flex-row gap-5 items-center border rounded-xl">
-              <div className="w-[213px] h-[213px] rounded-xl">
+              <div className="xs:w-full xs:h-full sm:w-[213px] sm:h-[213px] rounded-xl">
                 <Image
                   alt="blank-image"
                   src={detailData.image}
                   width={213}
                   height={213}
-                  className="rounded-xl w-[213px] h-[213px]"
+                  className="xs:rounded-t-xl xs:w-full xs:h-full sm:w-[213px] sm:h-[213px]"
                 />
               </div>
-              <div className="flex flex-col gap-2 xs:text-center md:text-start">
+              <div className="flex flex-col gap-2 xs:text-center md:text-start xs:mb-7 sm:mb-0">
                 <p className="text-[36px] font-bold">{detailData.name}</p>
                 <p className="text-[24px] font-semibold text-purple_dark">
                   {detailData.role}
