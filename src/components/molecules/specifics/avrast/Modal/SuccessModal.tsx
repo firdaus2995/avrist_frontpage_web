@@ -62,10 +62,10 @@ export const SuccessModal = (props: Props) => {
                     />
                     <div className="w-full h-[320px] text-white flex flex-col items-center text-center justify-center ">
                       <h1 className="font-karla xs:text-[2.25rem] md:text-[3.5rem] font-extrabold">
-                        Thank you
+                        Terima Kasih
                       </h1>
                       <p className="xs:text-lg md:text-xl font-opensans">
-                        The form was submitted successfully
+                        Form telah berhasil dikirim
                       </p>
                     </div>
                   </div>

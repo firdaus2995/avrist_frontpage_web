@@ -45,6 +45,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const Berita: React.FC<ParamsProps> = () => {
   const sliderRef = useRef<Slider | null>(null);
@@ -94,6 +95,8 @@ const Berita: React.FC<ParamsProps> = () => {
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>([]);
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
+  const [isValidEmailContent, setIsValidEmailContent] =
     useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailContent, setEmailContent] = useState('');
@@ -376,8 +379,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   item.label === content['bulan'].value
               )?.label
             } ${content['tahun'].value}`;
-            const deskripsi =
-              content['artikel-looping'].contentData[0].details[0].value;
+            const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
             ).imageUrl;
@@ -437,8 +439,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   item.label === content['bulan'].value
               )?.label
             } ${content['tahun'].value}`;
-            const deskripsi =
-              content['artikel-looping'].contentData[0].details[0].value;
+            const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
             ).imageUrl;
@@ -669,6 +670,8 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const handleSubscribeContentButton = async () => {
+    const isEmail = validateEmail(emailContent);
+    if (!isEmail) return setIsValidEmailContent(true);
     try {
       const response: any = await subscribeApi({
         email: emailContent,
@@ -858,6 +861,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   sliderRef.current = slider;
                 }}
                 {...sliderSettings}
+                infinite={true}
               >
                 {contentData?.slice(0, 5)?.map((item: any, index: number) => (
                   <SliderInformation
@@ -949,7 +953,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]}
               hidePagination
-              searchPlaceholder="Cari Kegiatan"
+              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari Kegiatan' : 'Cari E-Buletin'}`}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -1316,6 +1320,7 @@ const Berita: React.FC<ParamsProps> = () => {
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
+              searchPlaceholder="Cari Berita/Kegiatan"
               hiddenCategory
               categoryCard="B"
               categories={[
@@ -1378,19 +1383,27 @@ const Berita: React.FC<ParamsProps> = () => {
               <p className="text-[56px] md:text-4xl">
                 Subscribe Informasi Terkini!
               </p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold md:w-full"
-              />
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
               <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
                   customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
-                  onChange={(e) => setEmailContent(e.target.value)}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmailContent(e.target.value);
+                  }}
                 />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
                 <Button
                   title="Subscribe"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"

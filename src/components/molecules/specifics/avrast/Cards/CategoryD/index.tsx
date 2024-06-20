@@ -49,7 +49,7 @@ const CardCategoryD = ({
           </span>{' '}
           {time === '-' ? '' : time}
         </p>
-        <p className="text-[24px] font-bold text-left lg:min-h-[100px] xs:min-h-auto">
+        <p className="text-[24px] font-bold text-left lg:min-h-[110px] xs:min-h-auto">
           {title === '-' ? '' : title}
         </p>
         <p className="text-[16px] text-left line-clamp-2">

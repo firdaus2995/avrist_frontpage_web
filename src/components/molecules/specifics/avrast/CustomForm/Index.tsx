@@ -216,7 +216,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             const regex = /[^a-zA-Z]/g;
                             if (
                               attribute.name === 'Nama' ||
-                              attribute.name === 'Domisili'
+                              attribute.name === 'Domisili' ||
+                              attribute.name === 'Kota'
                             ) {
                               if (!e.target.value.match(regex)) {
                                 attribute.value = e.target.value;

@@ -432,7 +432,7 @@ const Promo: React.FC<ParamsProps> = () => {
 
         <div className="w-full xs:pt-[2.25rem] md:pt-0">
           <CategoryWithThreeCards
-            searchPlaceholder="Cari Buletin"
+            searchPlaceholder="Cari Promo"
             hidePagination
             defaultSelectedCategory={category}
             filterRowLayout={true}
