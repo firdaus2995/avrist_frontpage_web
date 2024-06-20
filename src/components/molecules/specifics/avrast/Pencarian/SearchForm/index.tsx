@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -192,56 +192,59 @@ const SearchForm = () => {
     setCurrentPage(page);
   };
 
-  const tabs = [
-    {
-      title: 'Asuransi Individu',
-      slug: 'Produk-Avras',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    },
-    {
-      title: 'Asuransi Korporasi',
-      slug: 'Produk-Avras',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    },
-    {
-      title: 'Berita & Kegiatan',
-      slug: 'Berita-dan-Kegiatan-Detail',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    },
-    {
-      title: 'Avristory',
-      slug: 'Bulletin-AvriStory',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    },
-    {
-      title: 'Avrist Life Guide',
-      slug: 'List-Avrist-Life-Guide',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    },
-    {
-      title: 'Avrist Syariah',
-      slug: 'Produk-Avrast-Syariah',
-      color: 'bg-olive_green',
-      borderColor: 'border-olive_green'
-    },
-    {
-      title: 'Avrist DPLK',
-      slug: 'Produk-Avrast-DPLK',
-      color: 'bg-yellow_alternate',
-      borderColor: 'border-yellow_alternate'
-    },
-    {
-      title: 'Penghargaan',
-      slug: 'Artikel-Penghargaan',
-      color: 'bg-purple_dark',
-      borderColor: 'border-purple_dark'
-    }
-  ];
+  const tabs = useMemo(
+    () => [
+      {
+        title: 'Asuransi Individu',
+        slug: 'Produk-Avras',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      },
+      {
+        title: 'Asuransi Korporasi',
+        slug: 'Produk-Avras',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      },
+      {
+        title: 'Berita & Kegiatan',
+        slug: 'Berita-dan-Kegiatan-Detail',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      },
+      {
+        title: 'Avristory',
+        slug: 'Bulletin-AvriStory',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      },
+      {
+        title: 'Avrist Life Guide',
+        slug: 'List-Avrist-Life-Guide',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      },
+      {
+        title: 'Avrist Syariah',
+        slug: 'Produk-Avrast-Syariah',
+        color: 'bg-olive_green',
+        borderColor: 'border-olive_green'
+      },
+      {
+        title: 'Avrist DPLK',
+        slug: 'Produk-Avrast-DPLK',
+        color: 'bg-yellow_alternate',
+        borderColor: 'border-yellow_alternate'
+      },
+      {
+        title: 'Penghargaan',
+        slug: 'Artikel-Penghargaan',
+        color: 'bg-purple_dark',
+        borderColor: 'border-purple_dark'
+      }
+    ],
+    []
+  );
 
   return (
     <div className=" w-full flex flex-col -mt-[-0.0625rem]">
@@ -277,6 +280,7 @@ const SearchForm = () => {
               setActiveTab(item.title);
               setCurrentSlug(item.slug);
             }}
+            customLabel="title"
           />
         </div>
 
