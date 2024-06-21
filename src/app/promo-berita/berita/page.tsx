@@ -69,6 +69,8 @@ const Berita: React.FC<ParamsProps> = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 640,
@@ -319,7 +321,10 @@ const Berita: React.FC<ParamsProps> = () => {
           content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
-        const tags = content['tags'].value;
+        const tags =
+          !!content['tags']?.value || content['tags']?.value !== '-'
+            ? content['tags']?.value.split(',')
+            : content['tags']?.value;
         const date = new Date(item.createdAt).getDate();
         const artikelTopic = content['topik-artikel'].value;
 
@@ -856,61 +861,67 @@ const Berita: React.FC<ParamsProps> = () => {
 
           {params.category === 'Berita dan Kegiatan' && (
             <div className="w-full p-10">
-              <Slider
-                ref={(slider) => {
-                  sliderRef.current = slider;
-                }}
-                {...sliderSettings}
-                infinite={true}
-              >
-                {contentData?.slice(0, 5)?.map((item: any, index: number) => (
-                  <SliderInformation
-                    key={index}
-                    bgColor="purple_superlight"
-                    title={
-                      <div className="flex flex-col gap-4 text-left">
-                        <p className="text-[14px]">
-                          <span className="font-bold text-purple_dark text-sm">
-                            {htmlParser(item.artikelTopic)}
-                          </span>{' '}
-                          | {`${item.date} ${item.waktu}`}
-                        </p>
-                        <p
-                          className="text-[36px] xs:max-sm:text-[24px] font-bold"
-                          dangerouslySetInnerHTML={{
-                            __html: item.judul
-                          }}
-                        />
-                        <p
-                          className="text-[16px] line-clamp-2"
-                          dangerouslySetInnerHTML={{
-                            __html: item.deskripsi
-                              ? item.deskripsi[0]?.value?.substring(0, 250) +
-                                '...'
-                              : '-'
-                          }}
-                        />
+              <div className="w-full sm:px-10 xs:px-[10px]">
+                <Slider
+                  ref={(slider) => {
+                    sliderRef.current = slider;
+                  }}
+                  {...sliderSettings}
+                  infinite={true}
+                  centerMode={false}
+                >
+                  {contentData?.slice(0, 5)?.map((item: any, index: number) => (
+                    <SliderInformation
+                      key={index}
+                      bgColor="purple_superlight"
+                      title={
+                        <div className="flex flex-col gap-4 text-left">
+                          <p className="text-[14px]">
+                            <span className="font-bold text-purple_dark text-sm">
+                              {htmlParser(item.artikelTopic)}
+                            </span>{' '}
+                            | {`${item.date} ${item.waktu}`}
+                          </p>
+                          <p
+                            className="text-[36px] xs:max-sm:text-[24px] font-bold"
+                            dangerouslySetInnerHTML={{
+                              __html: item.judul
+                            }}
+                          />
+                          <p
+                            className="text-[16px] line-clamp-2"
+                            dangerouslySetInnerHTML={{
+                              __html: item.deskripsi
+                                ? item.deskripsi[0]?.value?.substring(0, 250) +
+                                  '...'
+                                : '-'
+                            }}
+                          />
 
-                        <div className="flex flex-row flex-wrap gap-[12px]">
-                          <MediumTag title={item.tags} />
+                          <div className="flex flex-row flex-wrap gap-[12px]">
+                            {item?.tags.length > 0 &&
+                              item.tags.map((tag: any, idx: number) => (
+                                <MediumTag key={idx} title={tag} />
+                              ))}
+                          </div>
+                          <Link
+                            href={{
+                              pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                              query: { id: item.id }
+                            }}
+                            className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark"
+                          >
+                            Selengkapnya
+                            <Icon name="chevronRight" color="purple_dark" />
+                          </Link>
                         </div>
-                        <Link
-                          href={{
-                            pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
-                            query: { id: item.id }
-                          }}
-                          className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark"
-                        >
-                          Selengkapnya
-                          <Icon name="chevronRight" color="purple_dark" />
-                        </Link>
-                      </div>
-                    }
-                    image={item.image}
-                    imageClassName="rounded-r-2xl"
-                  />
-                ))}
-              </Slider>
+                      }
+                      image={item.image}
+                      imageClassName="rounded-r-2xl"
+                    />
+                  ))}
+                </Slider>
+              </div>
               <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[10px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"

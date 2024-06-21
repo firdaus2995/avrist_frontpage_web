@@ -18,7 +18,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
     dots: false,
     infinite: false,
     arrows: false,
-    centerMode: true,
+    centerMode: false,
     speed: 500,
     slidesToShow: 1.25,
     slidesToScroll: 1,

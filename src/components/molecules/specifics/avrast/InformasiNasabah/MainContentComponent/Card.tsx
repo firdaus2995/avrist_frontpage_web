@@ -38,7 +38,7 @@ const mockData = [
     desc: 'Temukan daftar tenaga pemasar aktif Avrist Assurance',
     icon: PERSON,
     btn: 'Temukan Di sini',
-    link: 'layanan/penanganan-pengaduan',
+    link: '/hubungi-kami',
     isFile: false
   }
 ];
