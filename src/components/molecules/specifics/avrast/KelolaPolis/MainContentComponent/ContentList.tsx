@@ -44,7 +44,7 @@ export const ContentList = ({
     return {
       title: item,
       onClick: () => {
-        onSelectedCategory(item)
+        onSelectedCategory(item);
       }
     };
   });
@@ -56,20 +56,24 @@ export const ContentList = ({
           <div
             className={`flex flex-col bg-purple_light_bg rounded-[12px] w-[200px]`}
           >
-            {[...categoriesInitial].map((category, index) => (
-              <div
-                key={index}
-                role="button"
-                className={`${index === 0 && 'rounded-tl-[12px]'} ${
-                  index + 1 === categoriesInitial.length && 'rounded-bl-[12px]'
-                } ${
-                  selectedCategory !== category && 'opacity-50'
-                } border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-[18px]`}
-                onClick={() => onSelectedCategory(category)}
-              >
-                {category}
-              </div>
-            ))}
+            {[...categoriesInitial].map((category, index) => {
+              if (category === '-') return null;
+              return (
+                <div
+                  key={index}
+                  role="button"
+                  className={`${index === 0 && 'rounded-tl-[12px]'} ${
+                    index + 1 === categoriesInitial.length &&
+                    'rounded-bl-[12px]'
+                  } ${
+                    selectedCategory !== category && 'opacity-50'
+                  } border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-[18px]`}
+                  onClick={() => onSelectedCategory(category)}
+                >
+                  {category}
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -87,7 +91,7 @@ export const ContentList = ({
             <Icon name="chevronLeft" color="purple_dark" />
             Kembali
           </div>
-          <div className='flex flex-col gap-[1.5rem]'>
+          <div className="flex flex-col gap-[1.5rem]">
             {/* list */}
             {listData?.map(
               (
@@ -110,21 +114,27 @@ export const ContentList = ({
                   htmlDescription={item.desc}
                 >
                   <Accordion.Item>
-                    <DownloadFileButton
-                      title={item.file1Name}
-                      fileType="PDF"
-                      filePath={item?.file1?.imageUrl ?? ''}
-                    />
-                    <DownloadFileButton
-                      title={item.file2Name}
-                      fileType="PDF"
-                      filePath={item?.file2?.imageUrl ?? ''}
-                    />
-                    <DownloadFileButton
-                      title={item.file3Name}
-                      fileType="PDF"
-                      filePath={item?.file3?.imageUrl ?? ''}
-                    />
+                    {item?.file1?.imageUrl && (
+                      <DownloadFileButton
+                        title={item.file1Name}
+                        fileType="PDF"
+                        filePath={item?.file1?.imageUrl ?? ''}
+                      />
+                    )}
+                    {item?.file2?.imageUrl && (
+                      <DownloadFileButton
+                        title={item.file2Name}
+                        fileType="PDF"
+                        filePath={item?.file2?.imageUrl ?? ''}
+                      />
+                    )}
+                    {item?.file3?.imageUrl && (
+                      <DownloadFileButton
+                        title={item.file3Name}
+                        fileType="PDF"
+                        filePath={item?.file3?.imageUrl ?? ''}
+                      />
+                    )}
                   </Accordion.Item>
                 </Accordion>
               )
