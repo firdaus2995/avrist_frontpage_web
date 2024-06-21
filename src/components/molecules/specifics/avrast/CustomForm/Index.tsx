@@ -197,6 +197,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             placeholder="Masukan nomor telepon"
                             name={attribute.name}
                             type="number"
+                            onKeyDown={(event) => {
+                              if (/^e|E/.test(event.key)) {
+                                event.preventDefault();
+                              }
+                            }}
                             onChange={(e) =>
                               updateFormDataByName(
                                 attribute.name,
