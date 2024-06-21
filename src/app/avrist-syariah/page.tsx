@@ -43,8 +43,8 @@ import {
 
 const tabs = [
   'Tentang Avrist Syariah',
-  'Dewan Pengawas Syariah',
   'Manfaat Utama',
+  'Dewan Pengawas Syariah',
   'Produk',
   'Klaim dan Layanan'
 ];
