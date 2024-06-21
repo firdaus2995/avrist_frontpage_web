@@ -69,6 +69,8 @@ const Berita: React.FC<ParamsProps> = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 640,
