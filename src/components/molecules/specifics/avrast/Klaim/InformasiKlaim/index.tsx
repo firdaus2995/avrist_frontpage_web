@@ -38,11 +38,15 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   }, [tab]);
 
   const handleTabClick = (tab: string) => {
-    setSelected(tab);
-    onTabChange(tab);
-    router.push(pathname + '?' + createQueryString('tab', tab), {
-      scroll: false
-    });
+    if (tab === 'Login Polis') {
+      window.open('https://my.avrist.com/welcome', '_blank');
+    } else {
+      setSelected(tab);
+      onTabChange(tab);
+      router.push(pathname + '?' + createQueryString('tab', tab), {
+        scroll: false
+      });
+    }
   };
 
   const createQueryString = useCallback(
