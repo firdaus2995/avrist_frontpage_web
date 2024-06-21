@@ -17,8 +17,8 @@ type Props = {
 };
 const tabs = [
   'Tentang DPLK Avrist',
-  'Dewan Pengawas DPLK',
   'Manfaat Utama',
+  'Dewan Pengawas DPLK',
   'Produk',
   'Klaim dan Layanan'
 ];
