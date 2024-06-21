@@ -1,8 +1,9 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
+import { handleUploadDocument } from '@/services/upload-document-service.api';
 import { Attribute } from '@/types/form.type';
 import { validateEmail } from '@/utils/validation';
 
@@ -32,8 +33,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
   longTextArea,
   selectedProduct
 }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
+  const [filename, setFilename] = useState('');
 
   const updateFormDataByName = (name: string, value: string) => {
     setFormData((prevData) => {
@@ -45,6 +49,56 @@ const CustomForm: React.FC<CustomFormProps> = ({
       });
       return newData;
     });
+  };
+
+  const getFilename = () => {
+    if (filename && filename.length > 60) {
+      return filename.slice(0, 60) + '...';
+    }
+    return filename;
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files);
+
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+      }
+      formData.append('fileType', 'DOCUMENT');
+      formData.append('fileName', files[0].name);
+
+      try {
+        const response = await handleUploadDocument(formData);
+        setFilename(files[0].name);
+        return response.data;
+      } catch (error) {
+        console.error('Error uploading document:', error);
+        return null;
+      }
+    }
+    return null;
+  };
+
+  const handleUploadChange = async (
+    attributeName: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const data = await handleFileChange(event);
+    if (data) {
+      updateFormDataByName(attributeName, data);
+    } else {
+      console.error('Upload failed or no file selected');
+    }
   };
 
   useEffect(() => {
@@ -220,10 +274,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         <div className="flex flex-col justify-between">
                           <input
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            placeholder={JSON.parse(attribute.config).placeholder}
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
                             name={attribute.name}
                             onChange={(e) =>
-                              updateFormDataByName(attribute.name, e.target.value)
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              )
                             }
                           />
                           {formData.find((i) => i.name === attribute.name)
@@ -469,6 +528,32 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           </p>
                         )}
                     </div>
+                  ) : attribute.fieldType === 'DOCUMENT' ? (
+                    <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
+                      <p
+                        className={`px-[1rem] line-clamp-1 truncate ${
+                          filename !== '' ? '' : 'text-dark-grey'
+                        }`}
+                      >
+                        {filename !== ''
+                          ? getFilename()
+                          : JSON.parse(attribute.config).placeholder ??
+                            `Klik Browse untuk mencari`}
+                      </p>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        accept=".pdf"
+                        onChange={(e) => handleUploadChange(attribute.name, e)}
+                        className="hidden"
+                      />
+                      <button
+                        className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
+                        onClick={() => handleUploadClick()}
+                      >
+                        Browse
+                      </button>
+                    </div>
                   ) : (
                     <input
                       className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -548,6 +633,32 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         onInput={handleInput}
                         pattern="[0-9]*"
                       />
+                    </div>
+                  ) : attribute.fieldType === 'DOCUMENT' ? (
+                    <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
+                      <p
+                        className={`px-[1rem] line-clamp-1 truncate ${
+                          filename !== '' ? '' : 'text-dark-grey'
+                        }`}
+                      >
+                        {filename !== ''
+                          ? getFilename()
+                          : JSON.parse(attribute.config).placeholder ??
+                            `Klik Browse untuk mencari`}
+                      </p>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        accept=".pdf"
+                        onChange={(e) => handleUploadChange(attribute.name, e)}
+                        className="hidden"
+                      />
+                      <button
+                        className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
+                        onClick={() => handleUploadClick()}
+                      >
+                        Browse
+                      </button>
                     </div>
                   ) : (
                     <input
