@@ -92,23 +92,21 @@ const Footer = () => {
 
           {/* Investation content */}
           <div className="flex flex-col gap-4">
-            <p className="font-bold text-space_purpink text-xl">Quick Links</p>
+            <p className="font-bold text-space_purpink text-xl">Produk</p>
             <div className="flex flex-col gap-4 h-full">
               <Link
-                href="/produk/individu?tab=Asuransi+Jiwa"
+                href="/klaim-layanan/klaim?tab=Informasi+Klaim"
                 className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
               >
-                <p className="text-lg font-bold">Asuransi Jiwa</p>
+                <p className="text-lg font-bold text-space_purpink">Klaim</p>
               </Link>
-              <Link href="/under-construction">
-                <p className="text-lg font-bold">Investasi</p>
+              <Link href="/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan">
+                <p className="text-lg font-bold text-space_purpink">
+                  Rumah Sakit Rekanan
+                </p>
               </Link>
-              <Link href="/under-construction">
-                <p className="text-lg font-bold">Bengkel Rekanan</p>
-              </Link>
-              <Link href={'https://my.avrist.com/welcome'} target="blank">
-                <p className="text-lg font-bold">Avrist Total Solution</p>
-              </Link>
+              <span className="h-[18px]" />
+              <p className="text-lg font-bold">Avrist Total Solution</p>
               <div className="flex flex-row gap-2">
                 <Link
                   href={
@@ -144,22 +142,22 @@ const Footer = () => {
 
           {/* Quick links content */}
           <div className="flex flex-col gap-4">
-            <p className="font-bold text-space_purpink text-xl">Avrist Group</p>
+            <p className="font-bold text-space_purpink text-xl">Quick Links</p>
             <div className="flex flex-col gap-4 h-full">
-              <Link href="/produk/individu" className="text-lg font-semibold">
-                Avrist Life Insurance
-              </Link>
               <Link
-                href="/under-construction"
+                href="/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan"
                 className="text-lg font-semibold"
               >
-                Avrist Asset Management
+                Formulir dan Buku Panduan
               </Link>
               <Link
-                href="/under-construction"
+                href="/klaim-layanan/layanan?tab=Performa+Investasi"
                 className="text-lg font-semibold"
               >
-                Avrist General Insurance
+                Performa Investasi
+              </Link>
+              <Link href="/hubungi-kami" className="text-lg font-semibold">
+                Agen Aktif
               </Link>
               <div className="w-full mt-2">
                 <Image
