@@ -35,7 +35,7 @@ const data = [
     btnText: 'Baca Panduan',
     onClick: () => {
       window.open(
-        'https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf',
+        '/pdf/Prosedur-Singkat-Pelayanan-Nasabah-Group_updated.pdf',
         '_blank'
       );
     }

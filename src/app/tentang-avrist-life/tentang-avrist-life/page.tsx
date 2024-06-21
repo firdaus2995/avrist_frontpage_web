@@ -37,7 +37,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [tab, setTab] = useState('Sekilas Perusahaan');
+  const [tab, setTab] = useState(
+    searchParams.get('tab') ?? 'Sekilas Perusahaan'
+  );
   const [data, setData] = useState<PageResponse>();
   const [transformedData, setTransformedData] = useState({
     titleImage: '',
@@ -114,10 +116,10 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   return (
     <div className="flex flex-col items-center justify-center">
       <Hero
-        title={tab === 'Manajemen Detail' ? 'Manajemen' : tab}
+        title={tab.includes('Manajemen') ? 'Manajemen' : tab}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: tab === 'Manajemen Detail' ? 'Manajemen' : tab, href: '#' }
+          { title: tab.includes('Manajemen') ? 'Manajemen' : tab, href: '#' }
         ]}
         imageUrl={transformedData.titleImage}
       />
@@ -155,7 +157,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         {tab === 'Sekilas Perusahaan' && (
           <SekilasPerusahaan setData={setData} />
         )}
-        {(tab === 'Manajemen' || tab === 'Manajemen Detail') && (
+        {(tab === 'Manajemen' || tab.includes('Manajemen')) && (
           <Manajemen
             onSelectDetail={handleSelectedDetail}
             setPageData={setData}
@@ -170,7 +172,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
 
       {tab === 'Sekilas Perusahaan' ||
       tab === 'Manajemen' ||
-      tab === 'Manajemen Detail' ||
+      tab.includes('Manajemen') ||
       tab === 'Penghargaan' ? (
         <div className="flex flex-col w-full xs:-mt-8 md:-mt-10">
           <FooterInformation
@@ -262,7 +264,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               title:
                 tab === 'Sekilas Perusahaan'
                   ? 'Facebook'
-                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
+                  : tab === 'Manajemen' || tab.includes('Manajemen')
                     ? isSelectedDetail
                       ? 'Youtube'
                       : 'LinkedIn'
@@ -274,7 +276,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               icon:
                 tab === 'Sekilas Perusahaan'
                   ? Icon4
-                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
+                  : tab === 'Manajemen' || tab.includes('Manajemen')
                     ? isSelectedDetail
                       ? Icon8
                       : Icon5
@@ -286,7 +288,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               subtitle:
                 tab === 'Sekilas Perusahaan'
                   ? 'Ikuti Kami'
-                  : tab === 'Manajemen' || tab === 'Manajemen Detail'
+                  : tab === 'Manajemen' || tab.includes('Manajemen')
                     ? isSelectedDetail
                       ? 'Subscribe'
                       : 'Ikuti Kami'
