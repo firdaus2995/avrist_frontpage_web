@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ContentPopover from '../life-guide/[detail]/content-popover';
 import { month } from './month';
@@ -30,7 +30,6 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-
 const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   console.log(params);
   const param = useSearchParams();
@@ -56,8 +55,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     bannerImage: '',
     footerImage: ''
   });
-  const [email, setEmail] = useState<any>('')
-  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [email, setEmail] = useState<any>('');
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
 
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
@@ -131,17 +131,17 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     return transformedData;
   };
 
-  const handleSubscribeButton = async() => {
+  const handleSubscribeButton = async () => {
     try {
-      const response:any = await subscribeApi({
+      const response: any = await subscribeApi({
         email: email,
         entity: 'avrist'
       });
       if (response?.code === 200) {
-        setVisibleSubscribeModal(true)
+        setVisibleSubscribeModal(true);
         setEmail('');
-      } 
-    } catch(e) {
+      }
+    } catch (e) {
       console.log(e);
     }
   };
@@ -152,94 +152,99 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   const RenderArtikelLooping = () => {
-    return contentData?.dataArtikel?.map((item:any, index:number) => {
+    return contentData?.dataArtikel?.map((item: any, index: number) => {
       const paragrafSatu = item['details'][0]?.value ?? '-';
       const artikelImage = singleImageTransformer(item['details'][1]);
       const paragrafDua = item['details'][2]?.value ?? '-';
       const artikelVideo = item['details'][3]?.value ?? '-';
       const paragrafTiga = item['details'][4]?.value ?? '-';
-      
+
       return (
         <div key={index}>
-          { paragrafSatu !== '-' &&
+          {paragrafSatu !== '-' && (
             <p
               dangerouslySetInnerHTML={{
                 __html: paragrafSatu
               }}
               className="font-opensans text-xl"
             />
-          }
+          )}
 
           <div className="bg-gray-200">
-            {
-              artikelImage &&
+            {artikelImage && (
               <Image
                 src={artikelImage?.imageUrl ?? BlankImage}
                 alt="img"
                 className="w-full"
-                width={238}
-                height={172}
+                width={0}
+                height={0}
               />
-            }
+            )}
           </div>
-          
 
-          {
-            paragrafDua !== '-' || paragrafDua !== '<p>-</p>' &&
-            <span
-              dangerouslySetInnerHTML={{
-                __html: paragrafDua
-              }}
-              className="font-opensans text-xl"
-            />
-          }
-          {
-            artikelVideo !== '-' &&
-              <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
-                {
-                  <VideoPlayer
-                    thumbnail=""
-                    url={getYouTubeId(artikelVideo) ?? ''}
-                    color="purple_dark"
-                    type="Artikel Video"
-                  />
-                }
-              </div>
-          }
+          {paragrafDua !== '-' ||
+            (paragrafDua !== '<p>-</p>' && (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: paragrafDua
+                }}
+                className="font-opensans text-xl"
+              />
+            ))}
+          {artikelVideo !== '-' && (
+            <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
+              {
+                <VideoPlayer
+                  thumbnail=""
+                  url={getYouTubeId(artikelVideo) ?? ''}
+                  color="purple_dark"
+                  type="Artikel Video"
+                />
+              }
+            </div>
+          )}
 
-          {
-            paragrafTiga !== '-' || paragrafTiga !== '<p>-</p>' &&
-            <span
-              className="text-xl"
-              dangerouslySetInnerHTML={{
-                __html: paragrafTiga
-              }}
-            />
-          }
+          {paragrafTiga !== '-' ||
+            (paragrafTiga !== '<p>-</p>' && (
+              <span
+                className="text-xl"
+                dangerouslySetInnerHTML={{
+                  __html: paragrafTiga
+                }}
+              />
+            ))}
 
-          <div className={`flex flex-row gap-4 ${artikelVideo === '-' ? 'mt-10' : 'mt-0'}`}>
+          <div
+            className={`flex flex-row gap-4 ${artikelVideo === '-' ? 'mt-10' : 'mt-0'}`}
+          >
             <div className="flex flex-row gap-4">
               <p className="text-sm font-medium lg:min-w-[180px]">
                 Artikel ini telah di liput di:
               </p>
-              <div className='flex flex-wrap gap-3'>
+              <div className="flex flex-wrap gap-3">
                 {contentData?.externalLink?.map((el: any, index: number) => (
-                  <div
+                  <Link
                     key={index}
+                    href={el.details[1]?.value}
+                    target="_blank"
                     className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
                   >
                     {el.details[0]?.value}
                     {el.details[0]?.value !== '-' && (
-                      <Icon name="externalLink" color="purple_dark" width={10} />
+                      <Icon
+                        name="externalLink"
+                        color="purple_dark"
+                        width={10}
+                      />
                     )}
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      )
-    })
+      );
+    });
   };
 
   return (
@@ -306,7 +311,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
 
                 <div className="text-xs font-bold">Share</div>
-                <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
+                <ContentPopover
+                  isOpenPopover={isOpenPopover}
+                  setIsOPenPopover={() => setIsOPenPopover(false)}
+                  message={contentData?.judul}
+                />
               </div>
             </div>
           </div>
@@ -359,7 +368,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" onClick={handleSubscribeButton} />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl"
+                  onClick={handleSubscribeButton}
+                />
               </div>
             </div>
           }
