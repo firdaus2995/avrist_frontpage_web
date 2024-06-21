@@ -30,7 +30,6 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-
 const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   console.log(params);
   const param = useSearchParams();
@@ -56,8 +55,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     bannerImage: '',
     footerImage: ''
   });
-  const [email, setEmail] = useState<any>('')
-  const [visibleSubscribeModal, setVisibleSubscribeModal] = useState<boolean>(false);
+  const [email, setEmail] = useState<any>('');
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
 
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
 
@@ -99,7 +99,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const paragrafDua = artikel[2]?.value;
     const artikelVideo = artikel[3]?.value;
     const paragrafTiga = artikel[4]?.value;
-    const tags = content['tags']?.value;
+    const tags = content['tags']?.value?.split(',');
     const artikelPIC = content['artikel-pic']?.value;
     const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
     const date = new Date(jsonData?.data?.createdAt).getDate();
@@ -131,17 +131,17 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     return transformedData;
   };
 
-  const handleSubscribeButton = async() => {
+  const handleSubscribeButton = async () => {
     try {
-      const response:any = await subscribeApi({
+      const response: any = await subscribeApi({
         email: email,
         entity: 'avrist'
       });
       if (response?.code === 200) {
-        setVisibleSubscribeModal(true)
+        setVisibleSubscribeModal(true);
         setEmail('');
-      } 
-    } catch(e) {
+      }
+    } catch (e) {
       console.log(e);
     }
   };
@@ -152,27 +152,26 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   const RenderArtikelLooping = () => {
-    return contentData?.dataArtikel?.map((item:any, index:number) => {
+    return contentData?.dataArtikel?.map((item: any, index: number) => {
       const paragrafSatu = item['details'][0]?.value ?? '-';
       const artikelImage = singleImageTransformer(item['details'][1]);
       const paragrafDua = item['details'][2]?.value ?? '-';
       const artikelVideo = item['details'][3]?.value ?? '-';
       const paragrafTiga = item['details'][4]?.value ?? '-';
-      
+
       return (
         <div key={index}>
-          { paragrafSatu !== '-' &&
+          {paragrafSatu !== '-' && (
             <p
               dangerouslySetInnerHTML={{
                 __html: paragrafSatu
               }}
               className="font-opensans text-xl"
             />
-          }
+          )}
 
           <div className="bg-gray-200">
-            {
-              artikelImage &&
+            {artikelImage && (
               <Image
                 src={artikelImage?.imageUrl ?? BlankImage}
                 alt="img"
@@ -180,49 +179,49 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 width={238}
                 height={172}
               />
-            }
+            )}
           </div>
-          
 
-          {
-            paragrafDua !== '-' || paragrafDua !== '<p>-</p>' &&
-            <span
-              dangerouslySetInnerHTML={{
-                __html: paragrafDua
-              }}
-              className="font-opensans text-xl"
-            />
-          }
-          {
-            artikelVideo !== '-' &&
-              <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
-                {
-                  <VideoPlayer
-                    thumbnail=""
-                    url={getYouTubeId(artikelVideo) ?? ''}
-                    color="purple_dark"
-                    type="Artikel Video"
-                  />
-                }
-              </div>
-          }
+          {paragrafDua !== '-' ||
+            (paragrafDua !== '<p>-</p>' && (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: paragrafDua
+                }}
+                className="font-opensans text-xl"
+              />
+            ))}
+          {artikelVideo !== '-' && (
+            <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
+              {
+                <VideoPlayer
+                  thumbnail=""
+                  url={getYouTubeId(artikelVideo) ?? ''}
+                  color="purple_dark"
+                  type="Artikel Video"
+                />
+              }
+            </div>
+          )}
 
-          {
-            paragrafTiga !== '-' || paragrafTiga !== '<p>-</p>' &&
-            <span
-              className="text-xl"
-              dangerouslySetInnerHTML={{
-                __html: paragrafTiga
-              }}
-            />
-          }
+          {paragrafTiga !== '-' ||
+            (paragrafTiga !== '<p>-</p>' && (
+              <span
+                className="text-xl"
+                dangerouslySetInnerHTML={{
+                  __html: paragrafTiga
+                }}
+              />
+            ))}
 
-          <div className={`flex flex-row gap-4 ${artikelVideo === '-' ? 'mt-10' : 'mt-0'}`}>
+          <div
+            className={`flex flex-row gap-4 ${artikelVideo === '-' ? 'mt-10' : 'mt-0'}`}
+          >
             <div className="flex flex-row gap-4">
               <p className="text-sm font-medium lg:min-w-[180px]">
                 Artikel ini telah di liput di:
               </p>
-              <div className='flex flex-wrap gap-3'>
+              <div className="flex flex-wrap gap-3">
                 {contentData?.externalLink?.map((el: any, index: number) => (
                   <div
                     key={index}
@@ -230,7 +229,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   >
                     {el.details[0]?.value}
                     {el.details[0]?.value !== '-' && (
-                      <Icon name="externalLink" color="purple_dark" width={10} />
+                      <Icon
+                        name="externalLink"
+                        color="purple_dark"
+                        width={10}
+                      />
                     )}
                   </div>
                 ))}
@@ -238,8 +241,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             </div>
           </div>
         </div>
-      )
-    })
+      );
+    });
   };
 
   return (
@@ -287,7 +290,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </p>
 
                 <div className="flex flex-row gap-2">
-                  <MediumTag title={contentData.tags} />
+                  {contentData?.tags.length > 0 &&
+                    contentData.tags.map((tag: any, idx: number) => (
+                      <MediumTag title={tag} key={idx} />
+                    ))}
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
@@ -306,7 +312,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 </div>
 
                 <div className="text-xs font-bold">Share</div>
-                <ContentPopover isOpenPopover={isOpenPopover} setIsOPenPopover={() => setIsOPenPopover(false)} message={contentData?.judul} />
+                <ContentPopover
+                  isOpenPopover={isOpenPopover}
+                  setIsOPenPopover={() => setIsOPenPopover(false)}
+                  message={contentData?.judul}
+                />
               </div>
             </div>
           </div>
@@ -359,7 +369,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" onClick={handleSubscribeButton} />
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl"
+                  onClick={handleSubscribeButton}
+                />
               </div>
             </div>
           }
