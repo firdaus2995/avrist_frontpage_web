@@ -6,6 +6,7 @@ import BlankImage from '@/assets/images/blank-image.svg';
 import Phone from '@/assets/images/common/phone.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
@@ -229,70 +230,77 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           }}
           hidePagination
           customContent={
-            <>
-              {contentData &&
-                getContentFile(paginatedData)?.map(
-                  (item: any, index: number) => (
-                    <div
-                      key={index}
-                      className="w-full flex flex-row justify-between items-center p-4 border rounded-xl gap-2"
-                    >
-                      <div className="flex flex-row gap-2 items-center">
-                        <p className="font-bold">{item.name}</p>
-                        <MediumTag title="PDF" />
-                      </div>
-                      <Button
-                        title="Unduh"
-                        customButtonClass="rounded-xl bg-purple_dark"
-                        customTextClass="text-white"
-                        onClick={async () => await handleDownload(item.file)}
-                      />
-                    </div>
-                  )
-                )}
-
-              <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                <div>
-                  <p className="text-[1.25rem]">
-                    Menampilkan{' '}
-                    <span className="font-bold text-purple_dark">
-                      {contentData ? startIndex + 1 : 0}-
-                      {Math.min(endIndex, contentData ? contentData.length : 0)}
-                    </span>{' '}
-                    dari{' '}
-                    <span className="font-bold">
-                      {contentData ? contentData.length : 0}
-                    </span>{' '}
-                    hasil
-                  </p>
-                </div>
-                <div className="flex flex-row gap-[8px] items-center">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
+            paginatedData.length > 0 ? (
+              <>
+                {contentData &&
+                  getContentFile(paginatedData)?.map(
+                    (item: any, index: number) => (
                       <div
-                        key={page}
-                        role="button"
-                        onClick={() => handlePageChange(page)}
-                        className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                          pagination.currentPage === page
-                            ? 'text-purple_dark font-bold'
-                            : ''
-                        }`}
+                        key={index}
+                        className="w-full flex flex-row justify-between items-center p-4 border rounded-xl gap-2"
                       >
-                        {page}
+                        <div className="flex flex-row gap-2 items-center">
+                          <p className="font-bold">{item.name}</p>
+                          <MediumTag title="PDF" />
+                        </div>
+                        <Button
+                          title="Unduh"
+                          customButtonClass="rounded-xl bg-purple_dark"
+                          customTextClass="text-white"
+                          onClick={async () => await handleDownload(item.file)}
+                        />
                       </div>
                     )
                   )}
-                  <span
-                    className="mt-[3px]"
-                    role="button"
-                    onClick={() => handlePageChange(totalPages)}
-                  >
-                    <Icon name="chevronRight" color="purple_dark" />
-                  </span>
+
+                <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                  <div>
+                    <p className="text-[1.25rem]">
+                      Menampilkan{' '}
+                      <span className="font-bold text-purple_dark">
+                        {contentData ? startIndex + 1 : 0}-
+                        {Math.min(
+                          endIndex,
+                          contentData ? contentData.length : 0
+                        )}
+                      </span>{' '}
+                      dari{' '}
+                      <span className="font-bold">
+                        {contentData ? contentData.length : 0}
+                      </span>{' '}
+                      hasil
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-[8px] items-center">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (page) => (
+                        <div
+                          key={page}
+                          role="button"
+                          onClick={() => handlePageChange(page)}
+                          className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                            pagination.currentPage === page
+                              ? 'text-purple_dark font-bold'
+                              : ''
+                          }`}
+                        >
+                          {page}
+                        </div>
+                      )
+                    )}
+                    <span
+                      className="mt-[3px]"
+                      role="button"
+                      onClick={() => handlePageChange(totalPages)}
+                    >
+                      <Icon name="chevronRight" color="purple_dark" />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </>
+              </>
+            ) : (
+              <NotFound />
+            )
           }
         />
       </div>

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon from '@/components/atoms/Icon';
+import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import { handleGetContentPage } from '@/services/content-page.api';
@@ -13,7 +14,6 @@ import {
   handleTransformedContent,
   singleImageTransformer
 } from '@/utils/responseTransformer';
-
 const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   const [contentData, setContentData] = useState<any>([]);
   const [search, setSearch] = useState('');
@@ -214,100 +214,105 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
           setParams({ ...params, searchFilter: search });
         }}
         customContent={
-          <>
-            <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-4">
-              {contentData &&
-                paginatedData?.map((item: any, index: number) => (
-                  <Link
-                    key={index}
-                    href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
-                  >
-                    <div
+          paginatedData.length > 0 ? (
+            <>
+              <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-4">
+                {contentData &&
+                  paginatedData?.map((item: any, index: number) => (
+                    <Link
                       key={index}
-                      className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                      href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
                     >
-                      <Image
-                        alt="blank-image"
-                        width={0}
-                        height={170}
-                        src={item.image}
-                        className="w-auto rounded-t-[12px] xs:h-[250px] md:h-[400px] xs:object-cover"
-                      />
-                      <div className="flex flex-col gap-2 p-5 h-full">
-                        <p className="text-xs">{item.waktu}</p>
-                        <p
-                          className="text-[20px] font-bold"
-                          dangerouslySetInnerHTML={{
-                            __html: item.judul
-                          }}
+                      <div
+                        key={index}
+                        className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                      >
+                        <Image
+                          alt="blank-image"
+                          width={0}
+                          height={170}
+                          src={item.image}
+                          className="w-auto rounded-t-[12px] xs:h-[250px] md:h-[400px] xs:object-cover"
                         />
-                        <p className="text-[20px]">{item.nama}</p>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html:
-                              item.deskripsi[0].value.substring(0, 150) + '...'
-                          }}
-                          className="text-xs"
-                        />
-                        <div className="flex flex-row items-end gap-1 text-left h-full">
-                          <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                            Baca Berita Pers
-                          </p>
-                          <Icon
-                            width={16}
-                            height={16}
-                            name="chevronRight"
-                            color="purple_dark"
+                        <div className="flex flex-col gap-2 p-5 h-full">
+                          <p className="text-xs">{item.waktu}</p>
+                          <p
+                            className="text-[20px] font-bold"
+                            dangerouslySetInnerHTML={{
+                              __html: item.judul
+                            }}
                           />
+                          <p className="text-[20px]">{item.nama}</p>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html:
+                                item.deskripsi[0].value.substring(0, 150) +
+                                '...'
+                            }}
+                            className="text-xs"
+                          />
+                          <div className="flex flex-row items-end gap-1 text-left h-full">
+                            <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
+                              Baca Berita Pers
+                            </p>
+                            <Icon
+                              width={16}
+                              height={16}
+                              name="chevronRight"
+                              color="purple_dark"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
+                    </Link>
+                  ))}
+              </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row justify-between">
-              <div>
-                <p className="text-[1.25rem]">
-                  Menampilkan{' '}
-                  <span className="font-bold text-purple_dark">
-                    {contentData ? startIndex + 1 : 0}-
-                    {Math.min(endIndex, contentData ? contentData.length : 0)}
-                  </span>{' '}
-                  dari{' '}
-                  <span className="font-bold">
-                    {contentData ? contentData.length : 0}
-                  </span>{' '}
-                  hasil
-                </p>
+              <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                <div>
+                  <p className="text-[1.25rem]">
+                    Menampilkan{' '}
+                    <span className="font-bold text-purple_dark">
+                      {contentData ? startIndex + 1 : 0}-
+                      {Math.min(endIndex, contentData ? contentData.length : 0)}
+                    </span>{' '}
+                    dari{' '}
+                    <span className="font-bold">
+                      {contentData ? contentData.length : 0}
+                    </span>{' '}
+                    hasil
+                  </p>
+                </div>
+                <div className="flex flex-row gap-[8px] items-center">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <div
+                        key={page}
+                        role="button"
+                        onClick={() => handlePageChange(page)}
+                        className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                          pagination.currentPage === page
+                            ? 'text-purple_dark font-bold'
+                            : ''
+                        }`}
+                      >
+                        {page}
+                      </div>
+                    )
+                  )}
+                  <span
+                    className="mt-[3px]"
+                    role="button"
+                    onClick={() => handlePageChange(totalPages)}
+                  >
+                    <Icon name="chevronRight" color="purple_dark" />
+                  </span>
+                </div>
               </div>
-              <div className="flex flex-row gap-[8px] items-center">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <div
-                      key={page}
-                      role="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                        pagination.currentPage === page
-                          ? 'text-purple_dark font-bold'
-                          : ''
-                      }`}
-                    >
-                      {page}
-                    </div>
-                  )
-                )}
-                <span
-                  className="mt-[3px]"
-                  role="button"
-                  onClick={() => handlePageChange(totalPages)}
-                >
-                  <Icon name="chevronRight" color="purple_dark" />
-                </span>
-              </div>
-            </div>
-          </>
+            </>
+          ) : (
+            <NotFound />
+          )
         }
       />
       <RoundedFrameBottom />
