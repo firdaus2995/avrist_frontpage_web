@@ -15,6 +15,7 @@ interface ICardCategoryA {
   tags: string[];
   href?: string;
   imageProduk?: string;
+  setStateTags?: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const CardCategoryA = ({
@@ -24,7 +25,8 @@ const CardCategoryA = ({
   description,
   tags,
   href,
-  imageProduk
+  imageProduk,
+  setStateTags
 }: ICardCategoryA) => {
   return (
     <div className="flex flex-col gap-[24px] px-[24px] pt-[24px] pb-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[18px] rounded-b-[12px]">
@@ -36,20 +38,36 @@ const CardCategoryA = ({
         className="w-full h-[172px] rounded-[10px]"
       />
       <div className="flex flex-row items-center gap-[4px]">
-        <Image alt="symbol" src={symbol} width={24} height={24}/>
+        <Image alt="symbol" src={symbol} width={24} height={24} />
         <p className="text-purple_dark font-bold text-sm">{title}</p>
       </div>
       <p className="text-[32px] font-bold">{summary}</p>
-      <p className='line-clamp-3' dangerouslySetInnerHTML={{ __html: description ?? '' }} />
-      <div className='flex flex-col justify-between grow gap-4'>
+      <p
+        className="line-clamp-3"
+        dangerouslySetInnerHTML={{ __html: description ?? '' }}
+      />
+      <div className="flex flex-col justify-between grow gap-4">
         <div className="flex flex-row flex-wrap gap-[12px]">
-          {tags.map((item: string, index: number) => (
-            <MediumTag key={index} title={item} />
-          ))}
+          {tags.map((item: string, index: number) =>
+            !setStateTags ? (
+              <MediumTag key={index} title={item} />
+            ) : (
+              <MediumTag
+                key={index}
+                title={item}
+                isLink={false}
+                onClick={() => setStateTags(item)}
+                customClass="cursor-pointer"
+              />
+            )
+          )}
         </div>
         {href ? (
           <Link href={href} className="w-full">
-            <ButtonSmall title="Pelajari Produk" customClassName="w-full text-[18px]" />
+            <ButtonSmall
+              title="Pelajari Produk"
+              customClassName="w-full text-[18px]"
+            />
           </Link>
         ) : (
           <ButtonSmall title="Pelajari Produk" />
