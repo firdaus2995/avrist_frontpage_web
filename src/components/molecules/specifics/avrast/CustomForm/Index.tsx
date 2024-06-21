@@ -4,7 +4,7 @@ import Image from 'next/image';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
 import { Attribute } from '@/types/form.type';
-import { isNumber, validateEmail } from '@/utils/validation';
+import { validateEmail } from '@/utils/validation';
 
 interface CustomFormProps {
   title?: string;
@@ -81,6 +81,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
     return attribute?.config
       ? JSON.parse(attribute.config).required === 'true'
       : false;
+  };
+
+  const handleInput = (e: any) => {
+    e.target.value = e.target.value.replace(/\D/g, '');
   };
 
   const RenderFetchedForm = () => {
@@ -208,7 +212,30 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 '+62' + e.target.value
                               )
                             }
+                            onInput={handleInput}
+                            pattern="[0-9]*"
                           />
+                        </div>
+                      ) : attribute.name.includes('Email') ? (
+                        <div className="flex flex-col justify-between">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={JSON.parse(attribute.config).placeholder}
+                            name={attribute.name}
+                            onChange={(e) =>
+                              updateFormDataByName(attribute.name, e.target.value)
+                            }
+                          />
+                          {formData.find((i) => i.name === attribute.name)
+                            ?.value !== '' &&
+                            !validateEmail(
+                              formData.find((i) => i.name === attribute.name)
+                                ?.value ?? ''
+                            ) && (
+                              <p className="text-xs text-error">
+                                Masukkan alamat email yang benar!
+                              </p>
+                            )}
                         </div>
                       ) : (
                         <input
@@ -332,14 +359,37 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                           placeholder="Masukan nomor telepon"
                           name={attribute.name}
-                          type="number"
+                          type="text"
                           onChange={(e) =>
                             updateFormDataByName(
                               attribute.name,
                               '+62' + e.target.value
                             )
                           }
+                          onInput={handleInput}
+                          pattern="[0-9]*"
                         />
+                      </div>
+                    ) : attribute.name.includes('Email') ? (
+                      <div className="flex flex-col justify-between">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
+                        />
+                        {formData.find((i) => i.name === attribute.name)
+                          ?.value !== '' &&
+                          !validateEmail(
+                            formData.find((i) => i.name === attribute.name)
+                              ?.value ?? ''
+                          ) && (
+                            <p className="text-xs text-error">
+                              Masukkan alamat email yang benar!
+                            </p>
+                          )}
                       </div>
                     ) : (
                       <input
@@ -485,23 +535,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   ) : attribute.name.includes('Telepon') ? (
                     <div className="flex justify-between gap-[0.5rem]">
                       <input
-                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder="Masukan nomor telepon"
                         name={attribute.name}
-                        onChange={(e) => {
-                          if (
-                            isNumber(e.target.value) ||
-                            e.target.value === ''
-                          ) {
-                            updateFormDataByName(
-                              attribute.name,
-                              e.target.value
-                            );
-                          }
-                        }}
-                        value={
-                          formData.find((i) => i.name === attribute.name)?.value
+                        type="text"
+                        onChange={(e) =>
+                          updateFormDataByName(
+                            attribute.name,
+                            '+62' + e.target.value
+                          )
                         }
+                        onInput={handleInput}
+                        pattern="[0-9]*"
                       />
                     </div>
                   ) : (

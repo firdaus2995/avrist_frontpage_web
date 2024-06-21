@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import DownloadFileButton from '../../DownloadFileButton';
 import { CardMenuLink } from '../../KelolaPolis/MainContentComponent/CardMenu';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
-import DownloadFileButton from '@/components/molecules/specifics/avrast/DownloadFileButton';
 import Disclaimer from '@/components/molecules/specifics/avrast/PerformaInvestasi/Disclaimer';
 import { handleGetContentCategory } from '@/services/content-page.api';
 import { QueryParams } from '@/utils/httpService';
@@ -32,23 +32,78 @@ const Content = () => {
         queryParams.category
       );
 
-      const dataContentValues = transformedData?.map(({ content, id }) => {
-        const title = contentStringTransformer(
-          content['performainvestasi-namafile']
-        );
-        const path = singleImageTransformer(content['performainvestasi-file']);
+      const categoryValues = transformedData.map(
+        ({ content, categoryDescription }) => {
+          return {
+            title: contentStringTransformer(content['kategori-laporan']),
+            desc: categoryDescription,
+            listTahun: getUniqueYears(
+              transformedData,
+              contentStringTransformer(content['kategori-laporan'])
+            )
+          };
+        }
+      );
+      const removeDuplicates = (data: any[]) => {
+        const unique = data.reduce((acc: any[], current: { title: any }) => {
+          const x = acc.find(
+            (item: { title: any }) => item.title === current.title
+          );
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
+        return unique;
+      };
+      const listData = removeDuplicates(categoryValues);
 
-        return {
-          title,
-          path,
-          id
-        };
-      });
-
-      setDataContent(dataContentValues);
+      setDataContent(listData);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const getUniqueYears = (data: any[], category: any) => {
+    const tahunValues = data
+      .filter(
+        ({ content }) =>
+          contentStringTransformer(content['kategori-laporan']) === category
+      )
+      .map(({ content }) => {
+        return contentStringTransformer(content['tahun-periode-laporan']);
+      });
+    const uniqueYears = new Set(
+      tahunValues?.filter((tahun: string) => tahun !== '')
+    );
+    return Array.from(uniqueYears)?.map((item) => {
+      return {
+        tahun: item,
+        list: data
+          ?.filter(
+            ({ content }) =>
+              contentStringTransformer(content['kategori-laporan']) ===
+                category &&
+              contentStringTransformer(content['tahun-periode-laporan']) ===
+                item
+          )
+          .map(({ content, id }) => {
+            const title = contentStringTransformer(
+              content['performainvestasi-namafile']
+            );
+            const path = singleImageTransformer(
+              content['performainvestasi-file']
+            );
+
+            return {
+              title,
+              path,
+              id
+            };
+          })
+      };
+    });
   };
 
   useEffect(() => {
@@ -83,13 +138,17 @@ const Content = () => {
             href="https://polis.avrist.com/pages/DailyUnitPrice/pgeUnitPrice.aspx"
             openNewTab
           />
-
+          <CardMenuLink
+            desc="Tabel Suku Bunga"
+            href="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
+            openNewTab
+          />
           <Accordion
             bgColor="bg-purple_light_bg"
             title="Kinerja Investasi"
             description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
           >
-            <Accordion.Item>
+            {/* <Accordion.Item>
               {dataContent &&
                 dataContent.map(
                   (
@@ -104,14 +163,64 @@ const Content = () => {
                     />
                   )
                 )}
+            </Accordion.Item> */}
+            <Accordion.Item>
+              {dataContent &&
+                dataContent.map(
+                  (
+                    item: {
+                      listTahun: any;
+                      title: string | undefined;
+                      desc: string | undefined;
+                    },
+                    index: React.Key | null | undefined
+                  ) => (
+                    <Accordion
+                      key={index}
+                      bgColor="bg-purple_light_bg"
+                      title={item.title}
+                      description={item.desc}
+                    >
+                      <Accordion.Item>
+                        {item.listTahun &&
+                          item.listTahun.map(
+                            (
+                              value: {
+                                tahun: string | undefined;
+                                list: any | undefined;
+                              },
+                              index: React.Key | null | undefined
+                            ) => (
+                              <Accordion
+                                key={index}
+                                bgColor="bg-purple_light_bg"
+                                title={value.tahun}
+                              >
+                                {value?.list &&
+                                  value?.list?.map(
+                                    (
+                                      listItem: { title: string; path: any },
+                                      index: React.Key | null | undefined
+                                    ) => (
+                                      <DownloadFileButton
+                                        title={listItem.title}
+                                        fileType="PDF"
+                                        key={index}
+                                        filePath={
+                                          listItem?.path?.imageUrl ?? ''
+                                        }
+                                      />
+                                    )
+                                  )}
+                              </Accordion>
+                            )
+                          )}
+                      </Accordion.Item>
+                    </Accordion>
+                  )
+                )}
             </Accordion.Item>
           </Accordion>
-
-          <CardMenuLink
-            desc="Tabel Suku Bunga"
-            href="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
-            openNewTab
-          />
         </section>
 
         <section className="">

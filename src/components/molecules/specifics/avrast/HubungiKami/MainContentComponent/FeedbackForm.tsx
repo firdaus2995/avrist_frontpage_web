@@ -40,7 +40,6 @@ export const FeedbackForm = (props: Props) => {
 
       fetchDataForm().then();
     }
-    console.log(Id);
   }, [Id]);
 
   const receiveData = (
@@ -120,7 +119,7 @@ export const FeedbackForm = (props: Props) => {
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);
-            router.refresh();
+            window.location.reload();
           }}
         />
       </div>

@@ -24,11 +24,12 @@ export const contentCategoryTransformer = (data: ContentCategoryResponse, catego
       throw new Error("Category data is empty or not found.");
     }
 
-    return categoryData.map(({ title, contentData, id, createdAt }: ContentData) => {
+    return categoryData.map(({ title, contentData, id, createdAt, categoryDescription }: ContentData) => {
       return {
         ...handleTransformedContent(contentData, title),
         id,
-        createdAt
+        createdAt,
+        categoryDescription
       };
     });
   }

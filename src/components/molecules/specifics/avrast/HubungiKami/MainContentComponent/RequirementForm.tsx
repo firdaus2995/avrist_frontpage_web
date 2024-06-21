@@ -124,7 +124,7 @@ export const RequirementForm = (props: Props) => {
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);
-            router.refresh();
+            window.location.reload();
           }}
         />
       </div>
