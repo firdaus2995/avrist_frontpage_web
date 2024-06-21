@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Open_Sans, Karla } from 'next/font/google';
+import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/molecules/specifics/avrast/Footer';
 import Header from '@/components/molecules/specifics/avrast/Header';
 
-const openSans = Open_Sans({
+const openSans = Source_Sans_3({
   subsets: ['latin'],
-  variable: '--font-open-sans'
+  variable: '--font-source-sans'
 });
 const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
 
