@@ -175,7 +175,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <Image
                 src={artikelImage?.imageUrl ?? BlankImage}
                 alt="img"
-                className="w-full"
+                className="w-full max-h-[900px]"
                 width={0}
                 height={0}
               />

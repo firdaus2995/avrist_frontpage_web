@@ -62,16 +62,16 @@ const Hero: React.FC<IHero> = ({
         className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[9.375rem] sm:h-[17.5rem]' : 'lg:h-[15.625rem] xs:h-[150px]'}`}
         alt="Avrist"
         src={imageUrl ?? HERO_IMAGE}
-        width={100}
-        height={100}
+        width={0}
+        height={0}
       />
       {bottomImage && (
         <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
             className="rounded-t-3xl md:rounded-t-[3.75rem] w-full h-[20rem] md:h-[40rem] object-fill"
             alt="gambar-produk-individu"
-            width={100}
-            height={100}
+            width={0}
+            height={0}
             src={bottomImage}
           />
         </div>
