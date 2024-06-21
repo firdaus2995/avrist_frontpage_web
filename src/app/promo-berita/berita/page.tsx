@@ -321,7 +321,10 @@ const Berita: React.FC<ParamsProps> = () => {
           content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
-        const tags = content['tags'].value;
+        const tags =
+          !!content['tags']?.value || content['tags']?.value !== '-'
+            ? content['tags']?.value.split(',')
+            : content['tags']?.value;
         const date = new Date(item.createdAt).getDate();
         const artikelTopic = content['topik-artikel'].value;
 
@@ -894,7 +897,10 @@ const Berita: React.FC<ParamsProps> = () => {
                         />
 
                         <div className="flex flex-row flex-wrap gap-[12px]">
-                          <MediumTag title={item.tags} />
+                          {item?.tags.length > 0 &&
+                            item.tags.map((tag: any, idx: number) => (
+                              <MediumTag key={idx} title={tag} />
+                            ))}
                         </div>
                         <Link
                           href={{
