@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ContentPopover from '../life-guide/[detail]/content-popover';
 import { month } from './month';
@@ -175,9 +175,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <Image
                 src={artikelImage?.imageUrl ?? BlankImage}
                 alt="img"
-                className="w-full"
-                width={238}
-                height={172}
+                className="w-full max-h-[900px]"
+                width={0}
+                height={0}
               />
             )}
           </div>
@@ -223,8 +223,10 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </p>
               <div className="flex flex-wrap gap-3">
                 {contentData?.externalLink?.map((el: any, index: number) => (
-                  <div
+                  <Link
                     key={index}
+                    href={el.details[1]?.value}
+                    target="_blank"
                     className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
                   >
                     {el.details[0]?.value}
@@ -235,7 +237,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                         width={10}
                       />
                     )}
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
