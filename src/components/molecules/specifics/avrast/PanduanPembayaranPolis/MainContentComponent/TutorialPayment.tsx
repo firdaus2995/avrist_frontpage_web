@@ -1,90 +1,89 @@
-import React from 'react';
-import { CardMenuChildren } from '../../KelolaPolis/MainContentComponent/CardMenu';
-
-const data = [
-  {
-    category: 'Asuransi Jiwa Individu',
-    data: [
-      {
-        id: '1',
-        name: 'Pembayaran Melalui Link Pembayaran',
-        list: [
-          'Untuk pembayaran premi lanjutan (pembayaran ke-2 dan seterusnya) khusus polis Agency dengan metode pembayaran transfer.',
-          'Pilihan pembayaran yang tersedia hanya melalui Kartu Kredit.',
-          'Pastikan untuk memperbarui data email Anda. Klik di sini untuk memperbarui data email Anda.'
-        ]
-      },
-      {
-        id: '2',
-        name: 'Auto Debit Dengan Kartu Kredit atau Rekening Tabungan',
-        list: []
-      },
-      { id: '3', name: 'Pembayaran Dari Rekening Bank BCA', list: [] },
-      { id: '4', name: 'Pembayaran Dari Rekening Bank Lainnya', list: [] },
-      { id: '5', name: 'Pembayaran Melalui Teler', list: [] },
-      { id: '6', name: 'Pembayaran melalui Alfamart dan Indomaret', list: [] }
-    ]
-  },
-  {
-    category: 'Asuransi Jiwa Korporasi',
-    data: []
-  },
-  {
-    category: 'Avrist Syariah',
-    data: []
-  },
-  {
-    category: 'Avrist DPLK',
-    data: []
-  }
-];
+'use client';
+import React, { useEffect, useState } from 'react';
+import Accordion from '../../Accordion';
+import ButtonMenuVertical from '../../ButtonMenuVertical';
+import { handleGetContentCategory } from '@/services/content-page.api';
+import { QueryParams } from '@/utils/httpService';
+import {
+  contentCategoryTransformer,
+  contentStringTransformer
+} from '@/utils/responseTransformer';
 
 export const TutorialPayment = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState(
-    data[0].category
-  );
+  const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = React.useState('');
+  const [dataContent, setDataContent] = useState<any[]>([]);
 
-  const selectedData = React.useMemo(
-    () => data.find((i) => i.category === selectedCategory),
-    [selectedCategory]
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const queryParams: QueryParams = {
+          includeAttributes: 'true'
+        };
+        const data = await handleGetContentCategory(
+          'Cara-Pembayaran-Premi',
+          queryParams
+        );
+
+        setCategoryList(Object.keys(data.data.categoryList));
+        setSelectedCategory(Object.keys(data.data.categoryList)[0]);
+        const transformedDataContent = contentCategoryTransformer(
+          data,
+          selectedCategory
+        );
+
+        const dataContentValues = transformedDataContent?.map(
+          ({ content, id }) => {
+            const nama = contentStringTransformer(
+              content['panduanpembayaranpremi-namapanduanpembayaran']
+            );
+            const desc = contentStringTransformer(
+              content['panduanpembayaranpremi-listdeskripsi']
+            );
+
+            return {
+              nama,
+              desc,
+              id
+            };
+          }
+        );
+
+        setDataContent(dataContentValues);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, [selectedCategory]);
+
+  const btnVerticalData = categoryList?.map((item) => {
+    return {
+      title: item,
+      onClick: () => {
+        setSelectedCategory(item);
+      }
+    };
+  });
 
   return (
-    <div
-      className={`w-full flex flex-col justify-center relative`}
-    >
+    <div className={`w-full flex flex-col justify-center relative`}>
       <div className="w-full flex md:flex-row xs:flex-col">
         <div className="xs:hidden md:block">
-          <div
-            className={`flex flex-col bg-purple_light_bg rounded-lg w-[12.5rem]`}
-          >
-            {data.map((val, idx) => (
-              <div
-                key={idx}
-                role="button"
-                onClick={() => {
-                  setSelectedCategory(val.category);
-                }}
-                className={`${idx === 0 && 'rounded-tl-lg'} ${idx + 1 === data.length && 'rounded-bl-lg'} ${selectedCategory !== val.category && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-semibold text-purple_dark`}
-              >
-                {val.category}
-              </div>
-            ))}
-          </div>
+          {btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
         </div>
 
         <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[3rem] xs:ml-0">
-          {selectedData?.data.map((i) => (
-            <CardMenuChildren desc={i.name} key={i.id}>
-              <div className="font-opensans font-normal text-[1.25rem] text-gray_body ml-[1.25rem]">
-                <ul className="list-disc">
-                  {i.list.map((l) => (
-                    <li key={l}>{l}</li>
-                  ))}
-                </ul>
-              </div>
-            </CardMenuChildren>
-          ))}
+          {dataContent &&
+            dataContent.map((value, idx) => (
+              <Accordion
+                key={idx}
+                bgColor="bg-purple_light_bg"
+                title={value.nama}
+                htmlDescription={value.desc}
+              ></Accordion>
+            ))}
         </div>
       </div>
     </div>
