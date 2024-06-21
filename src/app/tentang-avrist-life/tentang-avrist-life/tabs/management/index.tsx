@@ -18,6 +18,7 @@ import {
   handleTransformedContent,
   pageTransformer
 } from '@/utils/responseTransformer';
+
 interface ManagementComponentProps {
   onSelectDetail: (isSelected: boolean) => void;
   setPageData: React.Dispatch<React.SetStateAction<PageResponse | undefined>>;
@@ -91,8 +92,41 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     const value = searchParams.get('tab');
     if (value === 'Manajemen') {
       setShowDetail(false);
+    } else {
+      setShowDetail(true);
     }
   }, [searchParams]);
+
+  // show Detail Data
+  useEffect(() => {
+    const value = searchParams.get('tab')?.split('-').pop();
+    if (value !== 'Manajemen' && contentData && contentData.length > 0) {
+      const data = contentData.map((item: any) => {
+        return item.contentData.filter(
+          (subItem: any) => subItem.details[1].value === value
+        );
+      });
+
+      const filteredData = data.filter((item: any) => item.length > 0)[0][0]
+        .details;
+
+      setDetailData({
+        image: singleImageTransformer(filteredData[0]).imageUrl,
+        name: filteredData[1].value,
+        role: filteredData[2].value,
+        desc: (
+          <div className="flex flex-col gap-7">
+            <div dangerouslySetInnerHTML={{ __html: filteredData[3].value }} />
+          </div>
+        )
+      });
+      window.scrollTo(0, 200);
+      onSelectDetail(true);
+      setShowDetail(true);
+    } else {
+      setShowDetail(false);
+    }
+  }, [contentData, searchParams]);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -110,23 +144,15 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     role: string;
     desc: string;
   }) => {
-    window.scrollTo(0, 200);
-    setShowDetail(true);
-    onSelectDetail(true);
     const data = {
-      image: cardData.image,
-      name: cardData.name,
-      role: cardData.role,
-      desc: (
-        <div className="flex flex-col gap-7">
-          <div dangerouslySetInnerHTML={{ __html: cardData.desc }} />
-        </div>
-      )
+      name: cardData.name
     };
-    setDetailData(data);
-    router.push(pathname + '?' + createQueryString('tab', 'Manajemen Detail'), {
-      scroll: false
-    });
+    router.push(
+      pathname + '?' + createQueryString('tab', `Manajemen-${data.name}`),
+      {
+        scroll: false
+      }
+    );
   };
 
   return (
