@@ -27,7 +27,8 @@ export interface ContentResponse {
     lastEdited?: string;
     createdAt: string;
     contentData: ContentDatum[];
-    formId?: number
+    formId?: number;
+    categoryDescription?: string;
   }
 
   export interface ContentCategoryResponse {
