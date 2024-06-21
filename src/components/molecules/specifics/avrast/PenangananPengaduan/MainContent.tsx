@@ -249,8 +249,11 @@ export const MainContent = ({
                   saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
                   menggunakan dan mengungkapkan data pribadi saya/kami sesuai
                   dengan{' '}
-                  <span className="font-bold text-purple_dark">
-                    Deklarasi Privasi *
+                  <span
+                    onClick={() => router.push('/keamanan-online')}
+                    className="font-bold text-purple_dark cursor-pointer"
+                  >
+                    Kebijkan Kemanan *
                   </span>
                 </span>
               </div>
