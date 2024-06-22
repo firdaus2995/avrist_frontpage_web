@@ -167,11 +167,11 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
             {data.map((val, idx) => (
               <div
                 key={idx}
-                className="w-full h-[25rem] flex flex-col items-center justify-between"
+                className="w-full h-[25rem] flex flex-col items-center justify-between px-2"
               >
                 <div
                   key={idx}
-                  className="w-[95%] h-[21.375rem] flex flex-col items-center px-[1.5rem] pt-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+                  className="w-full h-[21.375rem] flex flex-col items-center px-[1.5rem] pt-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
                 >
                   <div className="flex w-full items-center justify-center">
                     <Image

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import Link from 'next/link';
 
+import { EmailSubscribeModal } from '../../../Modal';
 import { NavbarMenuItem } from '../../types';
 import styles from './styles.module.css';
 import Icon from '@/components/atoms/Icon';
@@ -20,6 +21,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
   setVisibility
 }) => {
   const [expandedMenu, setExpandedMenu] = useState('');
+  const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
   return (
     <div
       className={`
@@ -28,7 +30,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         bg-[white]
         text-white text-sm p-4
         transition-all duration-300 ease-in-out
-        max-h-[50vh] overflow-y-auto
+        max-h-[60vh] overflow-y-auto
         ${isVisible ? styles['show-menu'] : styles['hide-menu']}
       `}
     >
@@ -148,6 +150,47 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           </div>
         </Disclosure>
       ))}
+      <div className="grid grid-cols-2 gap-4 mt-2 border-t-2 pt-4">
+        <Link
+          href={`/tanya-avrista`}
+          className="flex flex-row gap-2 cursor-pointer"
+        >
+          <Icon name="helpcircle" color="gray_black" />
+          <p className="font-bold text-sm text-gray_black">Tanya Avrista</p>
+        </Link>
+        <Link
+          href={'https://shop.avrist.com/'}
+          target="blank"
+          className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
+        >
+          <Icon name="shoppingCart" color="gray_black" />
+          <p className="font-bold text-sm text-gray_black">Beli Online</p>
+        </Link>
+        <a
+          href={'https://my.avrist.com/welcome'}
+          target="_blank"
+          className="flex flex-row gap-2 cursor-pointer"
+        >
+          <Icon name="lightBulb" color="gray_black" />
+          <p className="font-bold text-sm text-gray_black">Avrist Solution</p>
+        </a>
+        <div
+          className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
+          onClick={() => setIsShowEmailSubs(true)}
+        >
+          <Icon name="mail" color="gray_black" />
+          <p className="font-bold text-sm text-gray_black">Subscribe</p>
+        </div>
+        <div className="flex flex-row gap-2 cursor-pointer">
+          <Link href={`/pencarian`}>
+            <Icon name="search" />
+          </Link>
+        </div>
+      </div>
+      <EmailSubscribeModal
+        show={isShowEmailSubs}
+        onClose={() => setIsShowEmailSubs(false)}
+      />
     </div>
   );
 };

@@ -62,8 +62,13 @@ const Accordion: React.FC<IAccordion> & {
           {description && <p className="text-md 2xl:text-xl">{description}</p>}
           {htmlDescription && (
             <p
-              className="text-xl"
-              dangerouslySetInnerHTML={{ __html: htmlDescription }}
+              className="text-xl list-disc"
+              dangerouslySetInnerHTML={{
+                __html: htmlDescription.replace(
+                  '<ul>',
+                  "<ul class='list-disc list-inside font-opensans'>"
+                )
+              }}
             />
           )}
           {children}
