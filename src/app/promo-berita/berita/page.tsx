@@ -1214,6 +1214,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   <SliderInformation
                     key={index}
                     isVideo
+                    imageClassName="max-h-[400px] object-fill"
                     bgColor="purple_superlight"
                     title={
                       <div className="flex flex-col gap-4 text-left">
