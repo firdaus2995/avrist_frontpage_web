@@ -122,7 +122,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   // PAGINATION LOGIC HOOK
   useEffect(() => {
-    if (!contentData.length) return; // check if contentaData already present
+    if (!contentData?.length) return; // check if contentaData already present
 
     const endOffset = itemOffset + itemsPerPage;
     setPaginatedData(contentData.slice(itemOffset, endOffset));
@@ -199,7 +199,7 @@ const Berita: React.FC<ParamsProps> = () => {
       monthFilter: '',
       searchFilter: ''
     });
-  }, [tab]);
+  }, [tab, searchParams]);
 
   const pageSlug = () => {
     if (tab === 'Avrist Terkini') {
@@ -829,8 +829,8 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34 sm:max-md:w-[90%]">
-          <h2 className="xs:max-md:tracking-wide text-[56px] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-6 text-purple_dark xs:max-md:text-4xl md:text-4xl">
+        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%]">
+          <h2 className="xs:max-md:tracking-wide xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] sm:-mt-4">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
@@ -841,7 +841,7 @@ const Berita: React.FC<ParamsProps> = () => {
             )}
             {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
           </h2>
-          <h2 className="xs:max-md:tracking-wide text-[36px] mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
+          <h2 className="xs:max-md:tracking-wide text-[36px] sm:mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
             {params.category === 'Berita dan Kegiatan' &&
               'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
             {params.category === 'AvriStory' && (
@@ -899,7 +899,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           />
 
                           <div className="flex flex-row flex-wrap gap-[12px]">
-                            {item?.tags.length > 0 &&
+                            {item?.tags?.length > 0 &&
                               item.tags.map((tag: any, idx: number) => (
                                 <MediumTag key={idx} title={tag} />
                               ))}
@@ -1193,8 +1193,8 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center py-[100px] px-[136px] text-center mt-10 xs:px-[20px]">
-          <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark">
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-[20px] mt-2">
+          <h2 className="md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
             Dari Anda untuk Kami
           </h2>
           <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
@@ -1314,8 +1314,8 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center xs:py-10 md:py-2">
-          <div className="w-full xs:px-[2rem] md:px-[8.5rem]  xs:text-center md:text-start">
+        <div className="w-full flex flex-col items-center justify-center mt-2">
+          <div className="w-full xs:px-[2rem] md:px-[8.5rem] xs:text-center md:text-start xs:mt-[2.25rem] sm:mt-0">
             <h2 className="lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
               Kumpulan Berita Pers
             </h2>
