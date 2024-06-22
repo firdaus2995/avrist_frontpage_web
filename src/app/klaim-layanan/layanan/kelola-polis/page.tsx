@@ -72,7 +72,7 @@ const InformationPolicy = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent videoData={videoData} />
+      <MainContent videoData={videoData} mute={true} />
       <FooterInformation
         title={
           <div
