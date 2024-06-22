@@ -15,7 +15,13 @@ import { IVideoData } from '@/app/klaim-layanan/layanan/kelola-polis/page';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
 
-export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData[] }) => {
+export const VideoInformation = ({
+  pageVideoData,
+  mute = false
+}: {
+  pageVideoData: IVideoData[];
+  mute?: boolean;
+}) => {
   const activePlayerRef = useRef<YouTubeEvent['target'] | null>(null);
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
@@ -39,11 +45,10 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
   const [videoData, setVideoData] = useState<VideoItem[]>([]);
   const [isMainVisible, setIsMainVisible] = useState(true);
 
-
   useEffect(() => {
     const setDataVideo = () => {
       try {
-        const communityVideos = convertData(pageVideoData)["community-videos"];
+        const communityVideos = convertData(pageVideoData)['community-videos'];
         setVideoData(communityVideos);
       } catch (error) {
         console.error('Error:', error);
@@ -53,7 +58,7 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
     setDataVideo();
   }, []);
 
-  const convertData = (data: { [x: string]: any; }) => {
+  const convertData = (data: { [x: string]: any }) => {
     const communityVideos = [];
     for (let i = 1; i <= 4; i++) {
       const videoId = `body-video${i}`;
@@ -61,24 +66,24 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
       const videoData = data[videoId];
       const captionData = data[captionId];
       if (videoData && captionData) {
-        let videoType = "";
-        let color = "";
+        let videoType = '';
+        let color = '';
         switch (i) {
           case 1:
-            videoType = "Asuransi Jiwa Individu";
-            color = "purple_dark";
+            videoType = 'Asuransi Jiwa Individu';
+            color = 'purple_dark';
             break;
           case 2:
-            videoType = "Avrist Jiwa Korporasi";
-            color = "grey_video_footer";
+            videoType = 'Avrist Jiwa Korporasi';
+            color = 'grey_video_footer';
             break;
           case 3:
-            videoType = "Avrist Syariah";
-            color = "green_border";
+            videoType = 'Avrist Syariah';
+            color = 'green_border';
             break;
           case 4:
-            videoType = "Avrist DPLK";
-            color = "orange_border";
+            videoType = 'Avrist DPLK';
+            color = 'orange_border';
             break;
           default:
             break;
@@ -86,13 +91,13 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
         communityVideos.push({
           id: videoId,
           videoUrl: videoData.value,
-          videoThumbnail: "",
+          videoThumbnail: '',
           type: videoType,
-          color: color,
+          color: color
         });
       }
     }
-    return { "community-videos": communityVideos };
+    return { 'community-videos': communityVideos };
   };
 
   const handleSubcardClick = (cardId: string) => {
@@ -187,7 +192,7 @@ export const VideoInformation = ({ pageVideoData } : { pageVideoData: IVideoData
           <div
             className={`transition-all hidden md:grid rounded-xl ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
           >
-            <MainCard item={videoData[0]} />
+            <MainCard item={videoData[0]} mute={mute} />
           </div>
         )}
         <div className="hidden w-full md:grid md:grid-cols-3 gap-8 mt-10">

@@ -350,6 +350,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 color="dplk_yellow"
                 type={dataDetail?.captionVideoProduk}
                 url={dataDetail?.videoProduk}
+                mute={true}
               />
             </div>
             <div>

@@ -1,12 +1,21 @@
-import VideoPlayer from "../../Klaim/VideoPlayer";
+import VideoPlayer from '../../Klaim/VideoPlayer';
 
-const VideoInformation = ({ url, type  }: { url: string, type:string }) => {
+const VideoInformation = ({
+  url,
+  type,
+  mute = false
+}: {
+  url: string;
+  type: string;
+  mute?: boolean;
+}) => {
   const item: VideoItem = {
     id: 'sample-vid-1', //https://youtu.be/uF7eT3nhyZ0?si=Cbt5uoPXbYS9__v_
     videoUrl: url,
     videoThumbnail: '',
     type: type,
-    color: 'purple_dark'
+    color: 'purple_dark',
+    mute
   };
 
   return (
@@ -15,12 +24,18 @@ const VideoInformation = ({ url, type  }: { url: string, type:string }) => {
         <div
           className={`transition-all grid rounded-xl visible opacity-100 overflow-hidden`}
         >
-					<div className="grid lg:grid-cols-2 rounded-lg border border-solid border-gray_bglightgray">
+          <div className="grid lg:grid-cols-2 rounded-lg border border-solid border-gray_bglightgray">
             <div className="w-full sm:min-h-[40.688rem] xs:h-[17.5rem] lg:col-span-2 rounded-lg border border-solid border-gray_bglightgray shadow-md">
-            	<VideoPlayer url={item.videoUrl} thumbnail={item.videoThumbnail} type={item.type} color={item.color} />
+              <VideoPlayer
+                url={item.videoUrl}
+                thumbnail={item.videoThumbnail}
+                type={item.type}
+                color={item.color}
+                mute={mute}
+              />
             </div>
-					</div>
-				</div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -29,10 +44,10 @@ const VideoInformation = ({ url, type  }: { url: string, type:string }) => {
 export default VideoInformation;
 
 interface VideoItem {
-	id: string;
-	videoUrl: string;
-	videoThumbnail: string;
-	type: string;
-	color: string;
+  id: string;
+  videoUrl: string;
+  videoThumbnail: string;
+  type: string;
+  color: string;
+  mute: boolean;
 }
-  

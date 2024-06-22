@@ -339,6 +339,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 color="syariah_green"
                 type={dataDetail?.captionVideoProduk}
                 url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
+                mute={true}
               />
             </div>
             <div className="mt-[3.75rem]">

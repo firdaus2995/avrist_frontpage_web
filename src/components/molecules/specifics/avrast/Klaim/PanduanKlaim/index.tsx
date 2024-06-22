@@ -145,7 +145,7 @@ const PanduanKlaim = () => {
           <div
             className={`transition-all hidden md:grid ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
           >
-            <MainCard item={videoData[0]} />
+            <MainCard item={videoData[0]} mute={true} />
           </div>
         )}
         <div className="hidden md:grid md:grid-cols-3 gap-8 mt-2 justify-center p-2">

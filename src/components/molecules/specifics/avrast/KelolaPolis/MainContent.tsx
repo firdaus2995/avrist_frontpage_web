@@ -20,9 +20,11 @@ import {
 } from '@/utils/responseTransformer';
 
 export const MainContent = ({
-  videoData
+  videoData,
+  mute = false
 }: {
   videoData: IVideoData[] | undefined;
+  mute?: boolean;
 }) => {
   const [dataMainContent, setDataMainContent] = useState<{
     [key: string]: any;
@@ -39,7 +41,9 @@ export const MainContent = ({
       <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[26px] sm:px-[136px] sm:gap-[64px] xs:p-4 xs:gap-[36px]">
         <ButtonMenu />
         <Content />
-        {videoData && <VideoInformation pageVideoData={videoData} />}
+        {videoData && (
+          <VideoInformation pageVideoData={videoData} mute={mute} />
+        )}
         {dataMainContent && policyGuideData && (
           <DocumentPolicy
             policyContentData={dataMainContent}
