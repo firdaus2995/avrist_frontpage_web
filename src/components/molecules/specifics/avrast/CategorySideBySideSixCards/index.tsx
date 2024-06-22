@@ -2,6 +2,7 @@
 import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import { BASE_URL } from '@/utils/baseUrl';
 
 interface ICategorySideBySideSixCards {
   leftSide: {
@@ -132,6 +133,8 @@ const CategorySideBySideSixCards = ({
               if (
                 item.description === '' ||
                 item.urlDownload === '' ||
+                item.description === `${BASE_URL.image}/` ||
+                item.urlDownload === `${BASE_URL.image}/` ||
                 item.description === null ||
                 item.urlDownload === null
               ) {
