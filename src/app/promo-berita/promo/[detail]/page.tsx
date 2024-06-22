@@ -192,7 +192,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             const isNotEmpty =
               detailItem.value !== '<p>-</p>' &&
               detailItem.value !== '["-"]' &&
-              detailItem.value !== '-';
+              detailItem.value !== '-' &&
+              !detailItem.value.includes('>-<');
             if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
               return (
                 <span
