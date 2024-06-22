@@ -11,13 +11,15 @@ export type VideoPlayerProps = {
   thumbnail?: string;
   type?: string;
   color: string;
+  mute?: boolean;
 };
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({
   url,
   thumbnail,
   type,
-  color
+  color,
+  mute = false
 }) => {
   const [isThumbnailVisible, setIsThumbnailVisible] = useState(true);
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -56,6 +58,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [isThumbnailVisible]);
 
   useEffect(() => {
+    if (videoPlayerRef.current && mute)
+      try {
+        videoPlayerRef.current?.mute();
+      } catch (err) {
+        console.error('Error mute video', videoPlayerRef.current);
+      }
+  }, [mute]);
+
+  useEffect(() => {
     setIsThumbnailVisible(true);
     isReady.current = false;
     if (
@@ -83,8 +94,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     height: '390',
     width: '640',
     playerVars: {
-      autoplay: 1,
-    },
+      autoplay: 1
+    }
   };
 
   return (
