@@ -248,9 +248,8 @@ const Footer = () => {
                   Avrist Asset Management
                 </Link>
                 <Link
-                  href="https://front-sit-agi.avristcms.barito.tech/"
+                  href="/under-construction"
                   className="text-lg font-semibold"
-                  target="_blank"
                 >
                   Avrist General Insurance
                 </Link>
