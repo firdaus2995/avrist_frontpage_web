@@ -830,7 +830,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%]">
-          <h2 className="xs:max-md:tracking-wide xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] sm:-mt-4">
+          <h2 className="xs:max-md:tracking-wide xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
             {params.category === 'Berita dan Kegiatan' &&
               'Berita dan Kegiatan Avrist Life Insurance'}
             {params.category === 'AvriStory' && (
