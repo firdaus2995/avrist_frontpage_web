@@ -203,7 +203,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                 />
               );
             }
-            if (fieldType === 'IMAGE' && isNotEmpty) {
+            if (
+              fieldType === 'IMAGE' &&
+              isNotEmpty &&
+              !singleImageTransformer(detailItem).imageUrl.includes('no-image')
+            ) {
               return (
                 <div className="bg-gray-200" key={detailIndex}>
                   <Image
