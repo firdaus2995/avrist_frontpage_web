@@ -24,6 +24,8 @@ const additionalInfo = [
 
 const Footer = () => {
   const pathname = usePathname();
+  const isHomepage = pathname === '/';
+
   if (pathname.includes('/under-construction')) return null;
   return (
     <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative">
@@ -91,85 +93,179 @@ const Footer = () => {
           </div>
 
           {/* Investation content */}
-          <div className="flex flex-col gap-4">
-            <p className="font-bold text-space_purpink text-xl">Produk</p>
-            <div className="flex flex-col gap-4 h-full">
-              <Link
-                href="/klaim-layanan/klaim?tab=Informasi+Klaim"
-                className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
-              >
-                <p className="text-lg font-bold text-space_purpink">Klaim</p>
+          {!isHomepage ? (
+            <div className="flex flex-col gap-4">
+              <Link href="/produk/individu?tab=Asuransi+Jiwa">
+                <p className="font-bold text-space_purpink text-xl">Produk</p>
               </Link>
-              <Link href="/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan">
-                <p className="text-lg font-bold text-space_purpink">
-                  Rumah Sakit Rekanan
-                </p>
-              </Link>
-              <span className="h-[18px]" />
-              <p className="text-lg font-bold">Avrist Total Solution</p>
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-col gap-4 h-full">
                 <Link
-                  href={
-                    'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
-                  }
-                  target="blank"
+                  href="/klaim-layanan/klaim?tab=Informasi+Klaim"
+                  className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
                 >
-                  <Image
-                    alt="Google Play"
-                    width={0}
-                    height={0}
-                    className="h-auto w-[7.143rem]"
-                    src={GOOGLEPLAY}
-                  />
+                  <p className="text-lg font-bold text-space_purpink">Klaim</p>
                 </Link>
-                <Link
-                  href={
-                    'https://apps.apple.com/id/app/avrist-solution/id6467423188'
-                  }
-                  target="blank"
-                >
-                  <Image
-                    alt="App Store"
-                    width={0}
-                    height={0}
-                    className="h-auto w-[7.143rem]"
-                    src={APPSTORE}
-                  />
+                <Link href="/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan">
+                  <p className="text-lg font-bold text-space_purpink">
+                    Rumah Sakit Rekanan
+                  </p>
                 </Link>
+                <span className="h-[18px]" />
+                <p className="text-lg font-bold">Avrist Total Solution</p>
+                <div className="flex flex-row gap-2">
+                  <Link
+                    href={
+                      'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
+                    }
+                    target="blank"
+                  >
+                    <Image
+                      alt="Google Play"
+                      width={0}
+                      height={0}
+                      className="h-auto w-[7.143rem]"
+                      src={GOOGLEPLAY}
+                    />
+                  </Link>
+                  <Link
+                    href={
+                      'https://apps.apple.com/id/app/avrist-solution/id6467423188'
+                    }
+                    target="blank"
+                  >
+                    <Image
+                      alt="App Store"
+                      width={0}
+                      height={0}
+                      className="h-auto w-[7.143rem]"
+                      src={APPSTORE}
+                    />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <p className="font-bold text-space_purpink text-xl">
+                Quick Links
+              </p>
+              <div className="flex flex-col gap-4 h-full">
+                <Link
+                  href="/produk/individu?tab=Asuransi+Jiwa"
+                  className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
+                >
+                  <p className="text-lg font-bold">Asuransi Jiwa</p>
+                </Link>
+                <Link href="/under-construction">
+                  <p className="text-lg font-bold">Investasi</p>
+                </Link>
+                <Link href="/under-construction">
+                  <p className="text-lg font-bold">Bengkel Rekanan</p>
+                </Link>
+                <Link href={'https://my.avrist.com/welcome'} target="blank">
+                  <p className="text-lg font-bold">Avrist Total Solution</p>
+                </Link>
+                <div className="flex flex-row gap-2">
+                  <Link
+                    href={
+                      'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
+                    }
+                    target="blank"
+                  >
+                    <Image
+                      alt="Google Play"
+                      width={0}
+                      height={0}
+                      className="h-auto w-[7.143rem]"
+                      src={GOOGLEPLAY}
+                    />
+                  </Link>
+                  <Link
+                    href={
+                      'https://apps.apple.com/id/app/avrist-solution/id6467423188'
+                    }
+                    target="blank"
+                  >
+                    <Image
+                      alt="App Store"
+                      width={0}
+                      height={0}
+                      className="h-auto w-[7.143rem]"
+                      src={APPSTORE}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Quick links content */}
-          <div className="flex flex-col gap-4">
-            <p className="font-bold text-space_purpink text-xl">Quick Links</p>
-            <div className="flex flex-col gap-4 h-full">
-              <Link
-                href="/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan"
-                className="text-lg font-semibold"
-              >
-                Formulir dan Buku Panduan
-              </Link>
-              <Link
-                href="/klaim-layanan/layanan?tab=Performa+Investasi"
-                className="text-lg font-semibold"
-              >
-                Performa Investasi
-              </Link>
-              <Link href="/hubungi-kami" className="text-lg font-semibold">
-                Agen Aktif
-              </Link>
-              <div className="w-full mt-2">
-                <Image
-                  alt="Reksadana"
-                  width={0}
-                  height={0}
-                  className="h-auto w-[9.912rem]"
-                  src={REKSADANA_IMAGE}
-                />
+          {!isHomepage ? (
+            <div className="flex flex-col gap-4">
+              <p className="font-bold text-space_purpink text-xl">
+                Quick Links
+              </p>
+              <div className="flex flex-col gap-4 h-full">
+                <Link
+                  href="/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan"
+                  className="text-lg font-semibold"
+                >
+                  Formulir dan Buku Panduan
+                </Link>
+                <Link
+                  href="/klaim-layanan/layanan?tab=Performa+Investasi"
+                  className="text-lg font-semibold"
+                >
+                  Performa Investasi
+                </Link>
+                <Link href="/hubungi-kami" className="text-lg font-semibold">
+                  Agen Aktif
+                </Link>
+                <div className="w-full mt-2">
+                  <Image
+                    alt="Reksadana"
+                    width={0}
+                    height={0}
+                    className="h-auto w-[9.912rem]"
+                    src={REKSADANA_IMAGE}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              <p className="font-bold text-space_purpink text-xl">
+                Avrist Group
+              </p>
+              <div className="flex flex-col gap-4 h-full">
+                <Link href="/produk/individu" className="text-lg font-semibold">
+                  Avrist Life Insurance
+                </Link>
+                <Link
+                  href="/under-construction"
+                  className="text-lg font-semibold"
+                >
+                  Avrist Asset Management
+                </Link>
+                <Link
+                  href="https://front-sit-agi.avristcms.barito.tech/"
+                  className="text-lg font-semibold"
+                  target="_blank"
+                >
+                  Avrist General Insurance
+                </Link>
+                <div className="w-full mt-2">
+                  <Image
+                    alt="Reksadana"
+                    width={0}
+                    height={0}
+                    className="h-auto w-[9.912rem]"
+                    src={REKSADANA_IMAGE}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         {/* Separator */}
         <div className="border-solid border-purple_separator border-b my-9"></div>
