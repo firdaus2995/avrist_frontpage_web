@@ -326,6 +326,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
                 <VideoInformation
                   url={dataDetail.videoProduk}
                   type={dataDetail.captionVideoProduk}
+                  mute={true}
                 />
               )}
               <CategorySideBySideSixCards

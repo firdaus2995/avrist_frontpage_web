@@ -49,38 +49,22 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [url]);
 
   useEffect(() => {
-    if (isThumbnailVisible || !videoPlayerRef.current) return;
-    try {
-      videoPlayerRef.current?.playVideo();
-    } catch (err) {
-      console.error('Error auto playing media', err);
-    }
-  }, [isThumbnailVisible]);
-
-  useEffect(() => {
-    if (videoPlayerRef.current && mute)
-      try {
-        videoPlayerRef.current?.mute();
-      } catch (err) {
-        console.error('Error mute video', videoPlayerRef.current);
-      }
-  }, [mute]);
-
-  useEffect(() => {
     setIsThumbnailVisible(true);
     isReady.current = false;
     if (
-      !videoPlayerRef.current ||
-      !videoPlayerRef.current?.cueVideoById ||
+      !videoPlayerRef?.current ||
+      !videoPlayerRef?.current?.cueVideoById ||
       !videoId ||
-      videoPlayerRef.current.g === null
+      videoPlayerRef?.current?.g === null
     )
       return;
-    videoPlayerRef.current?.cueVideoById(videoId);
+    videoPlayerRef?.current?.cueVideoById(videoId);
   }, [videoId]);
 
   const handleReady = (ev: YouTubeEvent) => {
     videoPlayerRef.current = ev.target;
+    videoPlayerRef?.current?.playVideo();
+    mute && videoPlayerRef?.current?.mute();
     isReady.current = true;
     setIsThumbnailVisible(false);
   };
@@ -133,6 +117,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         ref={videoPlayerRef}
       /> */}
       <YouTube
+        // ref={videoPlayerRef}
         videoId={videoId}
         className="sm:h-[35.438rem] xs:h-[13.375rem]"
         iframeClassName="-z-1 w-full sm:h-[35.438rem] xs:h-[13.375rem] rounded-t-xl"
