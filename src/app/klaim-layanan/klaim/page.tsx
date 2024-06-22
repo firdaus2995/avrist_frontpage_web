@@ -293,7 +293,9 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         />
       )}
       <div className="w-full">
-        <RoundedFrameBottom frameColor="bg-purple_light_bg" />
+        <RoundedFrameBottom
+          frameColor={`${isSelectedDetail ? 'bg-white' : 'bg-purple_light_bg'}`}
+        />
       </div>
 
       <FooterInformation
