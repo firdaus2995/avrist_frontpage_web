@@ -189,6 +189,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         <Link
           href={`/tanya-avrista`}
           className="flex flex-row gap-2 cursor-pointer"
+          onClick={() => setVisibility(false)}
         >
           <Icon name="helpcircle" color="gray_black" />
           <p className="font-bold text-sm text-gray_black">Tanya Avrista</p>
@@ -197,6 +198,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           href={'https://shop.avrist.com/'}
           target="blank"
           className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
+          onClick={() => setVisibility(false)}
         >
           <Icon name="shoppingCart" color="gray_black" />
           <p className="font-bold text-sm text-gray_black">Beli Online</p>
@@ -205,22 +207,29 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           href={'https://my.avrist.com/welcome'}
           target="_blank"
           className="flex flex-row gap-2 cursor-pointer"
+          onClick={() => setVisibility(false)}
         >
           <Icon name="lightBulb" color="gray_black" />
           <p className="font-bold text-sm text-gray_black">Avrist Solution</p>
         </a>
         <div
           className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
-          onClick={() => setIsShowEmailSubs(true)}
+          onClick={() => {
+            setIsShowEmailSubs(true);
+            setVisibility(false);
+          }}
         >
           <Icon name="mail" color="gray_black" />
           <p className="font-bold text-sm text-gray_black">Subscribe</p>
         </div>
-        <div className="flex flex-row gap-2 cursor-pointer">
-          <Link href={`/pencarian`}>
-            <Icon name="search" />
-          </Link>
-        </div>
+        <Link
+          href={`/pencarian`}
+          className="flex flex-row gap-2 cursor-pointer"
+          onClick={() => setVisibility(false)}
+        >
+          <Icon name="search" color="gray_black" />
+          <p className="font-bold text-sm text-gray_black">Pencarian</p>
+        </Link>
       </div>
       <EmailSubscribeModal
         show={isShowEmailSubs}
