@@ -106,7 +106,7 @@ export const ReportList = ({
               </div>
               <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark">
                 <select value={selectedYear} onChange={handleYearChange}>
-                  <option value="" disabled selected>
+                  <option value="" selected>
                     Pilih Tahun
                   </option>
                   {tahunList.map((item, index) => {
