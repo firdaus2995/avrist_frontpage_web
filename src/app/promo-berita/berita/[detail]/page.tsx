@@ -86,7 +86,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const jsonData = await response.json();
 
     const { content } = contentDetailTransformer(jsonData);
-
     const tagline = content['topik-artikel'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
@@ -105,6 +104,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const date = new Date(jsonData?.data?.createdAt).getDate();
     const monthInText = month.find((item) => item.value === bulan)?.label;
     const externalLink = content['list-external-link'].contentData;
+    const bottomImage = singleImageTransformer(
+      content['artikel-thumbnail']
+    )?.imageUrl;
 
     const transformedData = {
       tagline,
@@ -123,7 +125,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       date,
       monthInText,
       externalLink,
-      dataArtikel
+      dataArtikel,
+      bottomImage
     };
 
     setContentData(transformedData);
@@ -265,7 +268,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           }
         ]}
         imageUrl={data?.titleImage}
-        bottomImage={data?.bannerImage ?? BlankImage}
+        bottomImage={contentData?.bottomImage ?? BlankImage}
       />
       <div className="w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
         <div className="flex flex-col gap-10">
