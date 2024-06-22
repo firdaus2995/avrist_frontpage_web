@@ -197,6 +197,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
               getYouTubeId(contentPage?.content['sekilasavrist-video'].value) ??
               ''
             }
+            mute={true}
           />
         </div>
         <p className="font-karla xs:text-xl md:text-[1.5rem] font-light text-justify">
