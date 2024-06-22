@@ -184,12 +184,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
               }}
+              className={`${selectedData.content['tab-1-paragraf-1'].value === '<p>-</p>' && 'hidden'}`}
             />
             <div className="flex flex-col gap-[1.25rem]">
               <p
                 dangerouslySetInnerHTML={{
                   __html: selectedData.content['tab-1-paragraf-2'].value
                 }}
+                className={`${selectedData.content['tab-1-paragraf-2'].value === '<p>-</p>' && 'hidden'}`}
               />
               <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-[2rem]">
                 {selectedData.content['tab-1-list'].contentData.map(
@@ -202,11 +204,15 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         <Image
                           src={singleImageTransformer(val.details[0]).imageUrl}
                           alt={val.details[1].value}
-                          className="w-[2.25rem]"
+                          className={`w-[2.25rem] ${singleImageTransformer(val.details[0]).imageUrl.includes('no-image') && 'hidden'}`}
                           width={2.25}
                           height={2.25}
                         />
-                        <p>{val.details[1].value}</p>
+                        <p
+                          className={`${val.details[1].value === '-' && 'hidden'}`}
+                        >
+                          {val.details[1].value}
+                        </p>
                       </div>
                     )
                 )}
@@ -217,6 +223,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-3'].value
               }}
+              className={`${selectedData.content['tab-1-paragraf-3'].value === '<p>-</p>' && 'hidden'}`}
             />
           </div>
         );
@@ -293,7 +300,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         return (
           <div className="w-full flex flex-col gap-4">
             <p
-              className="text-[1.25rem] font-opensans"
+              className={`text-[1.25rem] font-opensans ${selectedData.content['tab-4-paragraf'].value === '<p>-</p>' && 'hidden'}`}
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-4-paragraf'].value
               }}
@@ -363,7 +370,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         </div>
         <div className="xs:w-full flex flex-col gap-[2.25rem]">
           {!isSelectedData ? (
-            <div className='flex flex-col gap-[2.25rem]'>
+            <div className="flex flex-col gap-[2.25rem]">
               <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
                 {btnVerticalData && (
                   <ButtonMenuVertical item={btnVerticalData} />
@@ -373,7 +380,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 <Input
                   type="text"
                   placeholder="Cari jenis klaim"
-                  customInputClass="w-[90%] rounded-[0.75rem] px-[1rem] py-[0.75rem]"
+                  customInputClass="w-full rounded-[0.75rem] px-[1rem] py-[0.75rem]"
                   onChange={(e) => {
                     setSearch(e.target.value);
                   }}
@@ -403,13 +410,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   </p>
                 </div>
                 <div
-                  className="flex flex-row items-center gap-2 text-[1.25rem] font-semibold"
+                  className="flex flex-row items-center gap-2 text-[1.25rem] font-semibold xs:pt-2 sm:pt-0"
                   role="button"
                   onClick={() => {
                     setSelectedData('');
                     setIsSelectedData(false);
                     onSelectDetail(false);
                     onChangeBannerImg(1);
+                    window.scrollTo(0, 0);
                   }}
                 >
                   <Icon name="chevronLeft" color="purple_dark" />
@@ -487,6 +495,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     setIsSelectedData(true);
                     onSelectDetail(true);
                     onChangeBannerImg(2);
+                    window.scrollTo(0, 0);
                   }}
                   className="w-full p-4 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold"
                 >
