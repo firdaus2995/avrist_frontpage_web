@@ -34,7 +34,14 @@ import {
 } from '@/utils/responseTransformer';
 
 const ProdukKorporasi: React.FC<ParamsProps> = () => {
-  const initialData = { titleImageUrl: '', bannerImageUrl: '', titleAltText: '', bannerAltText: '', footerInfoAltText: '', footerInfoImageUrl: '' }
+  const initialData = {
+    titleImageUrl: '',
+    bannerImageUrl: '',
+    titleAltText: '',
+    bannerAltText: '',
+    footerInfoAltText: '',
+    footerInfoImageUrl: ''
+  };
   const [data, setData] = useState<dataKlaim>(initialData);
   const [dataContent, setDataContent] = useState<any>();
   const itemsPerPage = 9;
@@ -96,13 +103,13 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         const bannerImage = singleImageTransformer(content['banner-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
         setData({
-					titleImageUrl: titleImage.imageUrl,  
-					bannerImageUrl: bannerImage.imageUrl, 
-					titleAltText: titleImage.altText,
-					bannerAltText: bannerImage.altText,
-					footerInfoAltText: footerImage.altText,
-					footerInfoImageUrl: footerImage.imageUrl
-				});
+          titleImageUrl: titleImage.imageUrl,
+          bannerImageUrl: bannerImage.imageUrl,
+          titleAltText: titleImage.altText,
+          bannerAltText: bannerImage.altText,
+          footerInfoAltText: footerImage.altText,
+          footerInfoImageUrl: footerImage.imageUrl
+        });
       } catch (error) {
         console.error('Error:', error);
       }
@@ -110,60 +117,94 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 
     const fetchDataContentWithCategory = async () => {
       try {
-        const contentCategoryResponse = await fetch(`/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`);
+        const contentCategoryResponse = await fetch(
+          `/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`
+        );
         const data = await contentCategoryResponse.json();
-        const transformedDataContent = contentCategoryTransformer(data, activeTab);
-        const dataContentValues = transformedDataContent.map(({ content, id }) => {
-          const namaProduk = contentStringTransformer(content['nama-produk']);
-          const tags = contentStringTransformer(content['tags']);
-          const deskripsiSingkatProduk = contentStringTransformer(content['deskripsi-singkat-produk']);
-          const taglineProduk = contentStringTransformer(content['tagline-produk']);
-          const deskripsiLengkapProduk = contentStringTransformer(content['deskripsi-lengkap-produk']);
-          const videoProduk = contentStringTransformer(content['video-produk']);
-          const captionVideoProduk = contentStringTransformer(content['caption-video-produk']);
-          const deskripsiKeunggulanProduk = contentStringTransformer(content['deskripsi-keunggulan-produk']);
-          const deskripsiManfaatProduk = contentStringTransformer(content['deskripsi-manfaat-produk']);
-          const deskripsiFiturProduk = contentStringTransformer(content['deskripsi-fitur-produk']);
-          const deskripsiInformasiPenting = contentStringTransformer(content['deskripsi-informasi-penting']);
-          const deskripsiRiplay = contentStringTransformer(content['deskripsi-riplay']);
-          const deskripsiBrosur = contentStringTransformer(content['deskripsi-brosur']);
-          const deskripsiJalurPemasaran = contentStringTransformer(content['deskripsi-jalur-pemasaran']);
-          const jenisProduk = contentStringTransformer(content['jenis-produk']);
-          const channel = contentStringTransformer(content['channel']);
-          const produkImage = singleImageTransformer(content['produk-image']);
-          const kategoriProdukIcon = singleImageTransformer(content['kategori-produk-icon']);
-          const fileRiplay = singleImageTransformer(content['file-riplay']);
-          const fileBrosur = singleImageTransformer(content['file-brosur']);
+        const transformedDataContent = contentCategoryTransformer(
+          data,
+          activeTab
+        );
+        const dataContentValues = transformedDataContent.map(
+          ({ content, id }) => {
+            const namaProduk = contentStringTransformer(content['nama-produk']);
+            const tags = contentStringTransformer(content['tags']);
+            const deskripsiSingkatProduk = contentStringTransformer(
+              content['deskripsi-singkat-produk']
+            );
+            const taglineProduk = contentStringTransformer(
+              content['tagline-produk']
+            );
+            const deskripsiLengkapProduk = contentStringTransformer(
+              content['deskripsi-lengkap-produk']
+            );
+            const videoProduk = contentStringTransformer(
+              content['video-produk']
+            );
+            const captionVideoProduk = contentStringTransformer(
+              content['caption-video-produk']
+            );
+            const deskripsiKeunggulanProduk = contentStringTransformer(
+              content['deskripsi-keunggulan-produk']
+            );
+            const deskripsiManfaatProduk = contentStringTransformer(
+              content['deskripsi-manfaat-produk']
+            );
+            const deskripsiFiturProduk = contentStringTransformer(
+              content['deskripsi-fitur-produk']
+            );
+            const deskripsiInformasiPenting = contentStringTransformer(
+              content['deskripsi-informasi-penting']
+            );
+            const deskripsiRiplay = contentStringTransformer(
+              content['deskripsi-riplay']
+            );
+            const deskripsiBrosur = contentStringTransformer(
+              content['deskripsi-brosur']
+            );
+            const deskripsiJalurPemasaran = contentStringTransformer(
+              content['deskripsi-jalur-pemasaran']
+            );
+            const jenisProduk = contentStringTransformer(
+              content['jenis-produk']
+            );
+            const channel = contentStringTransformer(content['channel']);
+            const produkImage = singleImageTransformer(content['produk-image']);
+            const kategoriProdukIcon = singleImageTransformer(
+              content['kategori-produk-icon']
+            );
+            const fileRiplay = singleImageTransformer(content['file-riplay']);
+            const fileBrosur = singleImageTransformer(content['file-brosur']);
 
-          return {
-            namaProduk,
-            tags,
-            deskripsiSingkatProduk,
-            taglineProduk,
-            deskripsiLengkapProduk,
-            videoProduk,
-            captionVideoProduk,
-            deskripsiKeunggulanProduk,
-            deskripsiManfaatProduk,
-            deskripsiFiturProduk,
-            deskripsiInformasiPenting,
-            deskripsiRiplay,
-            deskripsiBrosur,
-            deskripsiJalurPemasaran,
-            jenisProduk,
-            channel,
-            produkImage,
-            kategoriProdukIcon,
-            fileRiplay,
-            fileBrosur,
-            id
-          };
-        });        
+            return {
+              namaProduk,
+              tags,
+              deskripsiSingkatProduk,
+              taglineProduk,
+              deskripsiLengkapProduk,
+              videoProduk,
+              captionVideoProduk,
+              deskripsiKeunggulanProduk,
+              deskripsiManfaatProduk,
+              deskripsiFiturProduk,
+              deskripsiInformasiPenting,
+              deskripsiRiplay,
+              deskripsiBrosur,
+              deskripsiJalurPemasaran,
+              jenisProduk,
+              channel,
+              produkImage,
+              kategoriProdukIcon,
+              fileRiplay,
+              fileBrosur,
+              id
+            };
+          }
+        );
         setDataContent(dataContentValues);
 
-        return dataContentValues;      
-      }
-      catch(error) {        
+        return dataContentValues;
+      } catch (error) {
         console.error('Error: ', error);
       }
     };
@@ -173,19 +214,19 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   }, [searchValue]);
 
   const paginatedData = dataContent
-  ? dataContent.slice(startIndex, endIndex)
-  : [];
+    ? dataContent.slice(startIndex, endIndex)
+    : [];
   const totalPages = dataContent
-  ? Math.ceil(dataContent.length / itemsPerPage)
-  : 0;  
-  
+    ? Math.ceil(dataContent.length / itemsPerPage)
+    : 0;
+
   const handlePageChange = (page: React.SetStateAction<number>) => {
     setCurrentPage(page);
   };
 
   const handleChangeSearchParams = (value: string) => {
     setSearchValue(value);
-  }
+  };
 
   return (
     <div className="flex flex-col">
@@ -213,63 +254,64 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
               searchButtonTitle="Cari"
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}
+              value={searchValue}
             />
             <ButtonSelection buttonHelper={buttonHelper} />
           </div>
 
-          {activeTab === 'Employee Benefit' && <EmployeeBenefit data={paginatedData}/>}
+          {activeTab === 'Employee Benefit' && (
+            <EmployeeBenefit data={paginatedData} setState={setSearchValue} />
+          )}
           {dataContent?.length === 0 && (
-          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
-            <Image src={Search} alt="search" />
-            <div className="flex flex-col gap-4">
-              <div className="w-[324px] text-center">
-                <p className="font-karla font-bold text-[24px]">
-                  Page Not Found
-                </p>
-                <p className="font-opensans text-[16px] mt-[12px]">
-                  Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
-                  cari.
-                </p>
+            <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+              <Image src={Search} alt="search" />
+              <div className="flex flex-col gap-4">
+                <div className="w-[324px] text-center">
+                  <p className="font-karla font-bold text-[24px]">
+                    Page Not Found
+                  </p>
+                  <p className="font-opensans text-[16px] mt-[12px]">
+                    Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                    cari.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">
                 Menampilkan{' '}
                 <span className="font-bold text-purple_dark">
                   {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                  {Math.min(
-                    endIndex,
-                    dataContent ? dataContent.length : 0
-                  )}
-                </span>{' '}dari{' '}
-                <span className="font-bold">{dataContent?.length}</span> hasil
+                  {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+                </span>{' '}
+                dari <span className="font-bold">{dataContent?.length}</span>{' '}
+                hasil
               </p>
             </div>
             <div className="flex flex-row gap-[12px] items-center">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <div
-                      key={page}
-                      role="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                        currentPage === page ? 'text-purple_dark font-bold' : ''
-                      }`}
-                    >
-                      {page}
-                    </div>
-                  )
-                )}
-                <span
-                  className="mt-[3px]"
-                  role="button"
-                  onClick={() => handlePageChange(totalPages)}
-                >
-                  <Icon name="chevronRight" color="purple_dark" />
-                </span>
+                (page) => (
+                  <div
+                    key={page}
+                    role="button"
+                    onClick={() => handlePageChange(page)}
+                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                      currentPage === page ? 'text-purple_dark font-bold' : ''
+                    }`}
+                  >
+                    {page}
+                  </div>
+                )
+              )}
+              <span
+                className="mt-[3px]"
+                role="button"
+                onClick={() => handlePageChange(totalPages)}
+              >
+                <Icon name="chevronRight" color="purple_dark" />
+              </span>
             </div>
           </div>
         </div>
