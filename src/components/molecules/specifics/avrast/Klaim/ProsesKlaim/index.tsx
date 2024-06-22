@@ -175,6 +175,15 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     );
   };
 
+  const isEmpty = (data: string) => {
+    return (
+      data === '<p>-</p>' ||
+      data.includes('>-<') ||
+      data === '-' ||
+      data === '["-"]'
+    );
+  };
+
   const renderDetailStep = (idx: number) => {
     switch (idx) {
       case 0:
@@ -184,14 +193,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
               }}
-              className={`${selectedData.content['tab-1-paragraf-1'].value === '<p>-</p>' && 'hidden'}`}
+              className={`${isEmpty(selectedData.content['tab-1-paragraf-1'].value) && 'hidden'}`}
             />
             <div className="flex flex-col gap-[1.25rem]">
               <p
                 dangerouslySetInnerHTML={{
                   __html: selectedData.content['tab-1-paragraf-2'].value
                 }}
-                className={`${selectedData.content['tab-1-paragraf-2'].value === '<p>-</p>' && 'hidden'}`}
+                className={`${isEmpty(selectedData.content['tab-1-paragraf-2'].value) && 'hidden'}`}
               />
               <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-[2rem]">
                 {selectedData.content['tab-1-list'].contentData.map(
@@ -223,7 +232,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-3'].value
               }}
-              className={`${selectedData.content['tab-1-paragraf-3'].value === '<p>-</p>' && 'hidden'}`}
+              className={`${isEmpty(selectedData.content['tab-1-paragraf-3'].value) && 'hidden'}`}
             />
           </div>
         );
@@ -274,7 +283,6 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                           <p className="bg-purple_dark/[0.06] text-sm py-[0.25rem] px-[0.5rem]">
                             {format.toUpperCase()}
                           </p>
-                          {/* <p className="p-2 bg-purple_dark/[0.06]">605.59 KB</p> */}
                         </div>
                       </div>
                       <div className="flex items-center justify-center">
@@ -300,7 +308,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         return (
           <div className="w-full flex flex-col gap-4">
             <p
-              className={`text-[1.25rem] font-opensans ${selectedData.content['tab-4-paragraf'].value === '<p>-</p>' && 'hidden'}`}
+              className={`text-[1.25rem] font-opensans ${isEmpty(selectedData.content['tab-4-paragraf'].value) && 'hidden'}`}
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-4-paragraf'].value
               }}
