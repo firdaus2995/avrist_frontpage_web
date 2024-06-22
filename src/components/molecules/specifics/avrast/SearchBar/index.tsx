@@ -25,6 +25,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setKeyword('');
   }, [activeTab]);
 
+  useEffect(() => {
+    setKeyword(value ?? ''); // Update keyword state based on prop value
+  }, [value]);
+
   const handleKeyPress = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === _enterKey) {
@@ -39,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <input
         type="text"
         placeholder={placeholder}
-        value={value ?? keyword}
+        value={keyword}
         onChange={(ev) => setKeyword(ev.target.value)}
         className={`${placeholderClassname} focus:outline-none px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06] grow`}
         onKeyDown={handleKeyPress}

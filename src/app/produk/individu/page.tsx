@@ -55,12 +55,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const tabs = [
-    'Asuransi Jiwa',
-    'Asuransi Kesehatan'
-  ];
+  const tabs = ['Asuransi Jiwa', 'Asuransi Kesehatan'];
   const [searchValue, setSearchValue] = useState('');
-  const [activeTab, setActiveTab] = useState(searchParams.get('tab') ?? tabs[0]);
+  const [activeTab, setActiveTab] = useState(
+    searchParams.get('tab') ?? tabs[0]
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isCategoryChange, setIsCategoryChange] = useState(true);
 
@@ -211,9 +210,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
-    if (selectedChannels === value){
+    if (selectedChannels === value) {
       setSelectedChannels('');
-    }else{
+    } else {
       setSelectedChannels(value);
     }
   };
@@ -240,6 +239,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
                 summary={item.namaProduk}
                 description={item.deskripsiSingkatProduk}
                 tags={item.tags.split(',')}
+                setStateTags={setSearchValue}
                 href={`/produk/individu/${item.id}`}
               />
             ))}
@@ -248,8 +248,12 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       );
     }
     const renderActiveTab = {
-      'Asuransi Jiwa': () => <AsuransiJiwa data={paginatedData} />,
-      'Asuransi Kesehatan': () => <AsuransiKesehatan data={paginatedData} />,
+      'Asuransi Jiwa': () => (
+        <AsuransiJiwa data={paginatedData} setState={setSearchValue} />
+      ),
+      'Asuransi Kesehatan': () => (
+        <AsuransiKesehatan data={paginatedData} setState={setSearchValue} />
+      )
     };
 
     return (
@@ -286,6 +290,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}
               activeTab={activeTab}
+              value={searchValue}
             />
             <ButtonSelection
               buttonHelper={buttonHelper}

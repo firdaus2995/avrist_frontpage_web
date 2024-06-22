@@ -91,11 +91,13 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value === 'Manajemen') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setShowDetail(false);
     } else {
+      window.scrollTo({ top: 200 });
       setShowDetail(true);
     }
-  }, [searchParams]);
+  }, [searchParams, showDetail]);
 
   // show Detail Data
   useEffect(() => {
@@ -120,7 +122,6 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
           </div>
         )
       });
-      window.scrollTo(0, 200);
       onSelectDetail(true);
       setShowDetail(true);
     } else {
@@ -147,6 +148,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     const data = {
       name: cardData.name
     };
+    window.scrollTo({ top: 200, behavior: 'smooth' });
     router.push(
       pathname + '?' + createQueryString('tab', `Manajemen-${data.name}`),
       {
@@ -178,7 +180,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                   src={detailData.image}
                   width={213}
                   height={213}
-                  className="xs:rounded-t-xl xs:w-full xs:h-full sm:w-[213px] sm:h-[213px]"
+                  className="xs:rounded-t-xl md:rounded-xl xs:w-full xs:h-full sm:w-[213px] sm:h-[213px]"
                 />
               </div>
               <div className="flex flex-col gap-2 xs:text-center md:text-start xs:mb-7 sm:mb-0">
