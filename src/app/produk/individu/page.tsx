@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import AsuransiJiwa from './tabs/AsuransiJiwa';
 import AsuransiKesehatan from './tabs/AsuransiKesehatan';
 
+import AsuransiTambahan from './tabs/AsuransiTambahan';
 import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
@@ -55,7 +56,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const tabs = ['Asuransi Jiwa', 'Asuransi Kesehatan'];
+  const tabs = ['Asuransi Jiwa', 'Asuransi Kesehatan', 'Asuransi Tambahan'];
   const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState(
     searchParams.get('tab') ?? tabs[0]
@@ -247,12 +248,16 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         )
       );
     }
+
     const renderActiveTab = {
       'Asuransi Jiwa': () => (
         <AsuransiJiwa data={paginatedData} setState={setSearchValue} />
       ),
       'Asuransi Kesehatan': () => (
         <AsuransiKesehatan data={paginatedData} setState={setSearchValue} />
+      ),
+      'Asuransi Tambahan': () => (
+        <AsuransiTambahan data={paginatedData} setState={setSearchValue} />
       )
     };
 

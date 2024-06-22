@@ -42,7 +42,7 @@ const purposeData = [
   },
   {
     title: 'Pengembangan Diri',
-    desc: 'Beragam kegiatan <span class="italic">sport club</span> dan <span class="italic">employee activities</span> seru yang dapat dinikmati setelah pulang kerja.',
+    desc: 'Program learning & development yang dapat memfasilitasi karyawan untuk mengembangkan diri dan tumbuh bersama Avrist.',
     link: 'Penghargaan',
     icon: Icon3,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
@@ -148,6 +148,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
               ) ?? ''
             }
             thumbnail={''}
+            mute={true}
           />
         </div>
       </div>

@@ -37,13 +37,11 @@ const Timeline = ({ data }: IFooterInformation) => {
     speed: 500
   };
 
-  console.log(data);
-
   return (
     <ol className="items-center flex flex-col">
       <div className="flex justify-center items-center p-10">
         <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark">
-          Sejarah
+          Sejarah Perusahaan
         </p>
       </div>
       <div className="flex flex-row w-full h-full items-center justify-center pb-1">

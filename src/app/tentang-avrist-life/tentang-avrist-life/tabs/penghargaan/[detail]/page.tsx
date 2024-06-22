@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import ContentPopover from '@/app/promo-berita/berita/life-guide/[detail]/content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -39,6 +40,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     footerImage: ''
   });
 
+  const [isOpenPopover, setIsOpenPopover] = useState<boolean>(false);
   const fetchData = () => {
     try {
       handleGetContentPage(BASE_SLUG.TENTANG_AVRIST_LIFE.PAGE.PENGHARGAAN).then(
@@ -124,6 +126,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                     url={detailItem.value ?? ''}
                     color="purple_dark"
                     type="Artikel Video"
+                    mute={true}
                   />
                 </div>
               );
@@ -201,7 +204,12 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-1 items-center">
-                  <div className="flex items-center" role="button">
+                  <div
+                    className="flex items-center"
+                    role="button"
+                    id="PopoverFocus"
+                    onClick={() => setIsOpenPopover(!isOpenPopover)}
+                  >
                     <Icon
                       width={16}
                       height={16}
@@ -211,6 +219,11 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   </div>
 
                   <div className="text-xs font-bold">Share</div>
+                  <ContentPopover
+                    isOpenPopover={isOpenPopover}
+                    setIsOPenPopover={() => setIsOpenPopover(false)}
+                    message={contentData?.judul}
+                  />
                 </div>
               </div>
             </div>
