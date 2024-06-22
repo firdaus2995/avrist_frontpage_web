@@ -40,9 +40,9 @@ const CardCategoryC = ({
           <Image
             alt="blank-image"
             width={0}
-            height={170}
+            height={0}
             src={imageUrl ?? BlankImage}
-            className="w-full object-cover rounded-t-xl"
+            className="w-full object-fill rounded-t-xl max-h-[12rem] object-center"
           />
           {isVideo && (
             <div className="w-full h-full absolute flex items-center justify-center">
