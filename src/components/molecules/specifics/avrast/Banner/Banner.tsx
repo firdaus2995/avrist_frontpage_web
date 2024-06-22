@@ -71,6 +71,8 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
   }, [dropdownVisible]);
 
   const sliderSettings = {
+    autoplay: true,
+    autoplaySpeed: 3000,
     dots: true,
     infinite: bannerData.length > 1 ? true : false,
     slidesToShow: 1,
