@@ -64,7 +64,7 @@ const Accordion: React.FC<IAccordion> & {
             <p
               className="text-xl list-disc"
               dangerouslySetInnerHTML={{
-                __html: htmlDescription.replace(
+                __html: htmlDescription.replaceAll(
                   '<ul>',
                   "<ul class='list-disc list-inside font-opensans'>"
                 )

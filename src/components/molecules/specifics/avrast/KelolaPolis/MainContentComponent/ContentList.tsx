@@ -5,6 +5,7 @@ import DownloadFileButton from '../../DownloadFileButton';
 import { Paginate } from '../../HubungiKami/MainContentComponent/Paginate';
 import Icon from '@/components/atoms/Icon';
 import { PageInfo } from '@/types/provider.type';
+import { BASE_URL } from '@/utils/baseUrl';
 
 interface Props {
   categories: string[];
@@ -106,38 +107,40 @@ export const ContentList = ({
                   file3: { imageUrl: any };
                 },
                 index: React.Key | null | undefined
-              ) => (
-                <Accordion
-                  key={index}
-                  bgColor="bg-purple_light_bg"
-                  title={item.title}
-                  htmlDescription={item.desc}
-                >
-                  <Accordion.Item>
-                    {item?.file1?.imageUrl && (
-                      <DownloadFileButton
-                        title={item.file1Name}
-                        fileType="PDF"
-                        filePath={item?.file1?.imageUrl ?? ''}
-                      />
-                    )}
-                    {item?.file2?.imageUrl && (
-                      <DownloadFileButton
-                        title={item.file2Name}
-                        fileType="PDF"
-                        filePath={item?.file2?.imageUrl ?? ''}
-                      />
-                    )}
-                    {item?.file3?.imageUrl && (
-                      <DownloadFileButton
-                        title={item.file3Name}
-                        fileType="PDF"
-                        filePath={item?.file3?.imageUrl ?? ''}
-                      />
-                    )}
-                  </Accordion.Item>
-                </Accordion>
-              )
+              ) => {
+                return (
+                  <Accordion
+                    key={index}
+                    bgColor="bg-purple_light_bg"
+                    title={item.title}
+                    htmlDescription={item?.desc}
+                  >
+                    <Accordion.Item>
+                      {item?.file1?.imageUrl !== `${BASE_URL.image}/` && (
+                        <DownloadFileButton
+                          title={item.file1Name}
+                          fileType="PDF"
+                          filePath={item?.file1?.imageUrl ?? ''}
+                        />
+                      )}
+                      {item?.file2?.imageUrl !== `${BASE_URL.image}/` && (
+                        <DownloadFileButton
+                          title={item.file2Name}
+                          fileType="PDF"
+                          filePath={item?.file2?.imageUrl ?? ''}
+                        />
+                      )}
+                      {item?.file3?.imageUrl !== `${BASE_URL.image}/` && (
+                        <DownloadFileButton
+                          title={item.file3Name}
+                          fileType="PDF"
+                          filePath={item?.file3?.imageUrl ?? ''}
+                        />
+                      )}
+                    </Accordion.Item>
+                  </Accordion>
+                );
+              }
             )}
             {/* paginate */}
             {pageInfo && (
