@@ -256,7 +256,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             name={attribute.name}
                             type="number"
                             onKeyDown={(event) => {
-                              if (/^e|E/.test(event.key)) {
+                              if (/[eE+\-/]/.test(event.key)) {
                                 event.preventDefault();
                               }
                             }}
