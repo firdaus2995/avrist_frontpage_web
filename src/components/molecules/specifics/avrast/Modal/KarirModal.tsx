@@ -110,7 +110,7 @@ export const KarirModal = (props: Props) => {
                       dataForm={dataForm}
                       resultData={receiveData}
                       type="Karir"
-                      title="Job Application Form"
+                      title="Aplikasi Lamaran Tenaga Pemasar"
                     />
                     <div className="bg-white py-[2rem] px-[1rem] -mt-[12px]">
                       <button
