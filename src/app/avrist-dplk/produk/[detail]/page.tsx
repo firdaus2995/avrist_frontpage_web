@@ -425,7 +425,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       className="text-dplk_yellow font-bold"
                       onClick={() => window.open('/keamanan-online', '_blank')}
                     >
-                      Keamanan Online
+                      Kebijakan Keamanan
                     </span>{' '}
                     Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
                     dihubungi oleh Avrist Life Insurance melalui media
