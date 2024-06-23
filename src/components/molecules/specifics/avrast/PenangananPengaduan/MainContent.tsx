@@ -253,7 +253,7 @@ export const MainContent = ({
                     onClick={() => router.push('/keamanan-online')}
                     className="font-bold text-purple_dark cursor-pointer"
                   >
-                    Keamanan Online *
+                    Kebijkan Kemanan *
                   </span>
                 </span>
               </div>
