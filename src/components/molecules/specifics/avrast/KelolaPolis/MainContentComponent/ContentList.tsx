@@ -116,27 +116,30 @@ export const ContentList = ({
                     htmlDescription={item?.desc}
                   >
                     <Accordion.Item>
-                      {item?.file1?.imageUrl !== `${BASE_URL.image}/` && (
-                        <DownloadFileButton
-                          title={item.file1Name}
-                          fileType="PDF"
-                          filePath={item?.file1?.imageUrl ?? ''}
-                        />
-                      )}
-                      {item?.file2?.imageUrl !== `${BASE_URL.image}/` && (
-                        <DownloadFileButton
-                          title={item.file2Name}
-                          fileType="PDF"
-                          filePath={item?.file2?.imageUrl ?? ''}
-                        />
-                      )}
-                      {item?.file3?.imageUrl !== `${BASE_URL.image}/` && (
-                        <DownloadFileButton
-                          title={item.file3Name}
-                          fileType="PDF"
-                          filePath={item?.file3?.imageUrl ?? ''}
-                        />
-                      )}
+                      {item.file1Name !== '-' &&
+                        item?.file1?.imageUrl !== `${BASE_URL.image}/` && (
+                          <DownloadFileButton
+                            title={item.file1Name}
+                            fileType="PDF"
+                            filePath={item?.file1?.imageUrl ?? ''}
+                          />
+                        )}
+                      {item.file2Name !== '-' &&
+                        item?.file2?.imageUrl !== `${BASE_URL.image}/` && (
+                          <DownloadFileButton
+                            title={item.file2Name}
+                            fileType="PDF"
+                            filePath={item?.file2?.imageUrl ?? ''}
+                          />
+                        )}
+                      {item.file3Name !== '-' &&
+                        item?.file3?.imageUrl !== `${BASE_URL.image}/` && (
+                          <DownloadFileButton
+                            title={item.file3Name}
+                            fileType="PDF"
+                            filePath={item?.file3?.imageUrl ?? ''}
+                          />
+                        )}
                     </Accordion.Item>
                   </Accordion>
                 );

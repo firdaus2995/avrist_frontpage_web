@@ -146,7 +146,7 @@ const Content = () => {
           <Accordion
             bgColor="bg-purple_light_bg"
             title="Kinerja Investasi"
-            description="Untuk kemudahan transaksi, silakan unduh formulir berdasarkan jenis transaksi yang diperlukan."
+            description="Silahkan dapatkan laporan yang Anda butuhkan di sini"
           >
             {/* <Accordion.Item>
               {dataContent &&

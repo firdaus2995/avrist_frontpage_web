@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { month } from '@/app/promo-berita/berita/[detail]/month';
 import ContentPopover from '@/app/promo-berita/berita/life-guide/[detail]/content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
@@ -73,7 +74,9 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     const judul = content['judul-artikel'].value;
     const nama = content['nama-penghargaan'].value;
     const penulis = content['penulis-artikel'].value;
-    const bulan = content['bulan'].value;
+    const bulan = month.find(
+      (item) => item.value === content['bulan'].value
+    )?.label;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData;
     const loopArtikel = artikel.map((item: any, itemIndex: number) => {
@@ -196,8 +199,10 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col gap-2">
                   <p>
-                    {`${contentData.bulan} ${contentData.tahun}`} |{' '}
-                    {contentData.penulis}
+                    {`${contentData.bulan} ${contentData.tahun}`}
+                    {contentData.penulis !== '-'
+                      ? ` | ${contentData.penulis}`
+                      : ''}
                   </p>
                   <div className="flex flex-row gap-2">
                     <MediumTag title={contentData.tags} />
