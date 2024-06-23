@@ -152,6 +152,12 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     }
   }, [params, categoryList]);
 
+  useEffect(() => {
+    if (!isSelectedData) {
+      setSelectedDetailCategory(0);
+    }
+  }, [isSelectedData]);
+
   const btnVerticalData = categoryList?.map((item) => {
     return {
       title: item,
