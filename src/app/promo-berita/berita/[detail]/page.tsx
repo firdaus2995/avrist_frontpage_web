@@ -175,15 +175,16 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           )}
 
           <div className="bg-gray-200">
-            {artikelImage && (
-              <Image
-                src={artikelImage?.imageUrl ?? BlankImage}
-                alt="img"
-                className="w-full max-h-[900px]"
-                width={0}
-                height={0}
-              />
-            )}
+            {artikelImage.imageUrl.includes('no-image') ||
+              (artikelImage.imageUrl === '' && (
+                <Image
+                  src={artikelImage?.imageUrl ?? BlankImage}
+                  alt="img"
+                  className="w-full max-h-[900px]"
+                  width={0}
+                  height={0}
+                />
+              ))}
           </div>
 
           {paragrafDua !== '-' ||
