@@ -127,7 +127,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
               sliderRef.current = slider;
             }}
             {...sliderSettings}
-            className="w-screen"
+            className="w-screen max-w-screen-2xl 3xl:max-w-screen-3xl"
           >
             {bannerData.length > 0 &&
               bannerData.map(

@@ -141,7 +141,7 @@ const CompanySection = () => {
 
     return (
       <div
-        className={`md:mx-[4.5rem] md:h-[50vh] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
+        className={`md:mx-[4.5rem] md:h-[50vh] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
           className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
@@ -155,7 +155,7 @@ const CompanySection = () => {
                 <Image
                   src={val.icon1}
                   alt={val.title1}
-                  className="xs:w-7 md:w-15"
+                  className="xs:w-7 md:w-15 max-h-[540px]"
                   width={10}
                   height={10}
                 />
