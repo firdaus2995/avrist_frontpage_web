@@ -42,7 +42,8 @@ const dataInformasiNasabah = [
     icon: FOOTER_NASABAH_1,
     title: 'Kelola Polis',
     subtitle: 'Login Akun',
-    href: 'https://my.avrist.com/welcome'
+    href: 'https://my.avrist.com/welcome',
+    openInNewTab: true
   },
   {
     icon: FOOTER_NASABAH_2,
