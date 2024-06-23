@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Disclosure, Transition } from '@headlessui/react';
 import Link from 'next/link';
 
@@ -7,12 +7,29 @@ import { NavbarMenuItem } from '../../types';
 import styles from './styles.module.css';
 import Icon from '@/components/atoms/Icon';
 
+import { getContent } from '@/services/content-page.api';
 import { camelToKebabCase, convertToKebabCase } from '@/utils/helpers';
+import {
+  contentTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type NavDropdownMenusProps = {
   isVisible: boolean;
   menus: NavbarMenuItem[];
   setVisibility: (newValue: boolean) => void;
+};
+
+const handleGetContent = async (
+  slug: string,
+  params: Record<string, string>
+) => {
+  try {
+    const data = await getContent(slug, params);
+    return data;
+  } catch (error) {
+    console.log('Error', error);
+  }
 };
 
 const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
@@ -22,6 +39,24 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
 }) => {
   const [expandedMenu, setExpandedMenu] = useState('');
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
+  const [imageModal, setImageModal] = useState({ imageUrl: '', altText: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('Pop-Up-Subscription', {
+          includeAttributes: 'true'
+        });
+        const { content } = contentTransformer(data as any);
+
+        setImageModal(singleImageTransformer(content['image']));
+      } catch (e) {
+        console.log('Error', e);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div
       className={`
@@ -190,6 +225,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
       <EmailSubscribeModal
         show={isShowEmailSubs}
         onClose={() => setIsShowEmailSubs(false)}
+        data={imageModal}
       />
     </div>
   );

@@ -18,7 +18,24 @@ import VectorLogo from '@/assets/images/avrast/vector-logo.svg';
 import BlackOverlay from '@/components/atoms/BlackOverlay';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import { getContent } from '@/services/content-page.api';
 import { EXTERNAL_URL } from '@/utils/baseUrl';
+import {
+  contentTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
+
+const handleGetContent = async (
+  slug: string,
+  params: Record<string, string>
+) => {
+  try {
+    const data = await getContent(slug, params);
+    return data;
+  } catch (error) {
+    console.log('Error', error);
+  }
+};
 
 const Header = () => {
   const menuRef: any = useRef(null);
@@ -28,6 +45,23 @@ const Header = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
   const [xPositions, setXPositions] = useState<number[]>([]);
+  const [imageModal, setImageModal] = useState({ imageUrl: '', altText: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContent('Pop-Up-Subscription', {
+          includeAttributes: 'true'
+        });
+        const { content } = contentTransformer(data as any);
+
+        setImageModal(singleImageTransformer(content['image']));
+      } catch (e) {
+        console.log('Error', e);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -211,6 +245,7 @@ const Header = () => {
       <EmailSubscribeModal
         show={isShowEmailSubs}
         onClose={() => setIsShowEmailSubs(false)}
+        data={imageModal}
       />
     </nav>
   );

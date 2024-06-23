@@ -8,9 +8,14 @@ import { handleSubscribe } from '@/services/subscribe-service.api';
 type Props = {
   show: boolean;
   onClose: () => void;
+  data: {
+    imageUrl?: string;
+    altText?: string;
+  };
 };
+
 export const EmailSubscribeModal = (props: Props) => {
-  const { onClose, show } = props;
+  const { onClose, show, data } = props;
   const [isSuccessSubs, setIsSuccessSubs] = useState(false);
   const [selected, setSelected] = useState('');
   const [email, setEmail] = useState('');
@@ -124,8 +129,8 @@ export const EmailSubscribeModal = (props: Props) => {
                       <div className="flex flex-col sm:h-[40.938rem] sm:w-[48.75rem] xs:w-full xs:h-full">
                         <div className="bg-white xs:h-[9.375rem] sm:h-[20rem]">
                           <img
-                            src="https://bertuahpos.com/wp-content/uploads/2023/05/Modus-penipuan-via-email.jpg"
-                            alt="modal-home-banner"
+                            src={data?.imageUrl}
+                            alt={data?.altText}
                             className="object-cover xs:h-[9.375rem] sm:h-[20rem] w-full"
                           />
                         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -57,47 +57,50 @@ const CompanySection = () => {
     fetchData();
   }, []);
 
-  const data = [
-    {
-      category: 'Avrist Life Insurance',
-      icon1: ICON1PRODUCT1,
-      icon2: ICON2PRODUCT1,
-      title1: 'Perlindungan Komprehensif.',
-      title2: 'Proses Klaim mudah & cepat',
-      link1: 'Produk Avrist',
-      link2: 'Halaman Klaim',
-      href1: '/produk/individu?tab=Asuransi+Jiwa',
-      href2: '/klaim-layanan/klaim?tab=Informasi+Klaim',
-      linkIcon: CHEVRONRIGHTPURPLE,
-      img: img1.imageUrl
-    },
-    {
-      category: 'Avrist Asset Management',
-      icon1: ICON1PRODUCT2,
-      icon2: ICON2PRODUCT2,
-      title1: 'Inovasi Solusi.',
-      title2: 'Investasi dengan Tim Profesional',
-      link1: 'Penghargaan',
-      link2: 'Tentang Kami',
-      href1: '/under-construction',
-      href2: '/under-construction',
-      linkIcon: CHEVRONRIGHTGREEN,
-      img: img2.imageUrl
-    },
-    {
-      category: 'Avrist General Insurance',
-      icon1: ICON1PRODUCT3,
-      icon2: ICON2PRODUCT3,
-      title1: 'Dinamis progresif.',
-      title2: 'Efektif, terpercaya dan transparan ',
-      link1: 'Penghargaan',
-      link2: 'Tentang Kami',
-      href1: '/under-construction',
-      href2: '/under-construction',
-      linkIcon: CHEVRONRIGHTGRAY,
-      img: img3.imageUrl
-    }
-  ];
+  const data = useMemo(
+    () => [
+      {
+        category: 'Avrist Life Insurance',
+        icon1: ICON1PRODUCT1,
+        icon2: ICON2PRODUCT1,
+        title1: 'Perlindungan Komprehensif.',
+        title2: 'Proses Klaim mudah & cepat',
+        link1: 'Produk Avrist',
+        link2: 'Halaman Klaim',
+        href1: '/produk/individu?tab=Asuransi+Jiwa',
+        href2: '/klaim-layanan/klaim?tab=Informasi+Klaim',
+        linkIcon: CHEVRONRIGHTPURPLE,
+        img: img1.imageUrl
+      },
+      {
+        category: 'Avrist Asset Management',
+        icon1: ICON1PRODUCT2,
+        icon2: ICON2PRODUCT2,
+        title1: 'Inovasi Solusi.',
+        title2: 'Investasi dengan Tim Profesional',
+        link1: 'Penghargaan',
+        link2: 'Tentang Kami',
+        href1: '/under-construction',
+        href2: '/under-construction',
+        linkIcon: CHEVRONRIGHTGREEN,
+        img: img2.imageUrl
+      },
+      {
+        category: 'Avrist General Insurance',
+        icon1: ICON1PRODUCT3,
+        icon2: ICON2PRODUCT3,
+        title1: 'Dinamis progresif.',
+        title2: 'Efektif, terpercaya dan transparan ',
+        link1: 'Penghargaan',
+        link2: 'Tentang Kami',
+        href1: '/under-construction',
+        href2: '/under-construction',
+        linkIcon: CHEVRONRIGHTGRAY,
+        img: img3.imageUrl
+      }
+    ],
+    []
+  );
 
   const sliderSettings = {
     dots: true,
