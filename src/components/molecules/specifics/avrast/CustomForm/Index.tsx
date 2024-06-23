@@ -244,9 +244,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               : JSON.parse(attribute.config).max_length)}
                         </div>
                       ) : attribute.name.includes('Telepon') ? (
-                        <div className="flex justify-between gap-[0.5rem]">
+                        <div className="flex grow shrink-0">
                           <input
-                            className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                             placeholder="Masukan nomor telepon"
                             name={attribute.name}
                             type="number"
@@ -403,9 +403,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             : JSON.parse(attribute.config).max_length)}
                       </div>
                     ) : attribute.name.includes('Telepon') ? (
-                      <div className="flex justify-between gap-[0.5rem]">
+                      <div className="flex grow shrink-0">
                         <input
-                          className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                           placeholder="Masukan nomor telepon"
                           name={attribute.name}
                           type="text"
@@ -605,9 +605,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       ))}
                     </select>
                   ) : attribute.name.includes('Telepon') ? (
-                    <div className="flex justify-between gap-[0.5rem]">
+                    <div className="flex grow shrink-0">
                       <input
-                        className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder="Masukan nomor telepon"
                         name={attribute.name}
                         type="text"
@@ -721,9 +721,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
             <p className="font-bold">
               No Telepon <span className="text-reddist">*</span>
             </p>
-            <div className="flex justify-between gap-[0.5rem]">
+            <div className="flex grow shrink-0">
               <input
-                className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                 placeholder="Masukan nomor telepon"
               />
             </div>
