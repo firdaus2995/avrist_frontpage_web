@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { UncontrolledPopover, PopoverBody } from 'reactstrap';
+import { month } from '../../berita/[detail]/month';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
@@ -181,7 +182,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     const tagline = content['tags'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
-    const bulan = content['bulan'].value;
+    const bulan = month.find(
+      (item) => item.value === content['bulan'].value
+    )?.label;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData;
     const loopArtikel = artikel.map((item: any, itemIndex: number) => {
@@ -243,7 +246,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         </React.Fragment>
       );
     });
-    const tags = content['tags'].value;
+    const tags = content['tags'].value.split(',');
     const thumbnail = singleImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
@@ -379,9 +382,17 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[23.281rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
           <div className="flex flex-col gap-[0.5rem]">
-            <p className="text-purple_dark font-bold font-karla text-2xl">
-              {contentData?.tags}
-            </p>
+            <div className="flex flex-row gap-2">
+              {contentData?.tags.length > 0 &&
+                contentData.tags.map((tag: any, idx: number) => (
+                  <span
+                    className="text-purple_dark font-bold font-karla text-2xl"
+                    key={idx}
+                  >
+                    {tag}
+                  </span>
+                ))}
+            </div>
             <p className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]">
               {contentData && htmlParser(contentData.judul)}
             </p>
@@ -390,7 +401,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                 <p className="text-base text-gray_body">
                   {`${contentData.bulan} ${contentData.tahun}`}
                   {contentData.penulis !== '-'
-                    ? `| ${contentData.penulis}`
+                    ? ` | ${contentData.penulis}`
                     : ''}
                 </p>
               </div>

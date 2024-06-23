@@ -421,7 +421,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                       className="text-syariah_green font-bold"
                       onClick={() => window.open('/keamanan-online', '_blank')}
                     >
-                      Keamanan Online
+                      Kebijkan Kemanan
                     </span>{' '}
                     Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
                     dihubungi oleh Avrist Life Insurance melalui media

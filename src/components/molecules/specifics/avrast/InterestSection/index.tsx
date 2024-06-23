@@ -97,7 +97,9 @@ const InterestSection = (props: Props) => {
           <label className="cursor-pointer" htmlFor="setuju">
             Saya setuju memberikan data pribadi Saya kepada Avrist Life
             Insurance dan telah membaca{' '}
-            <span className="text-purple_dark font-bold">Keamanan Online</span>{' '}
+            <span className="text-purple_dark font-bold">
+              Kebijakan Keamanan
+            </span>{' '}
             Avrist Life Insurance. Selanjutnya, Saya bersedia untuk dihubungi
             oleh Avrist Life Insurance melalui media komunikasi pribadi Saya
             sesuai hari dan jam operasional yang berlaku di Avrist Life
