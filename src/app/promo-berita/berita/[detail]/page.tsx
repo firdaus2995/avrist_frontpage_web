@@ -16,6 +16,7 @@ import Input from '@/components/atoms/Input';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
+import ArticleContainer from '@/components/molecules/specifics/avrast/ArticleContainer';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -251,7 +252,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   };
 
   return (
-    <>
+    <ArticleContainer>
       <div className="absolute">
         <SubmittedFormModal
           show={visibleSubscribeModal}
@@ -414,7 +415,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           }
         ]}
       />
-    </>
+    </ArticleContainer>
   );
 };
 
