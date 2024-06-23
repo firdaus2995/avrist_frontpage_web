@@ -92,28 +92,31 @@ const CategorySideBySideSixCards = ({
                   description: string;
                 },
                 index: number
-              ) => (
-                <React.Fragment key={index}>
-                  <div className="flex flex-col gap-[18px]">
-                    <div className="flex flex-row items-center gap-[12px]">
-                      <Image
-                        width={36}
-                        height={36}
-                        alt="symbol"
-                        src={item.symbol}
-                      />
-                      <p className="font-semibold text-[1.25rem] font-opensans">
-                        {item.title}
-                      </p>
+              ) => {
+                if (item.description === '<p>-</p>') return null;
+                return (
+                  <React.Fragment key={index}>
+                    <div className="flex flex-col gap-[18px]">
+                      <div className="flex flex-row items-center gap-[12px]">
+                        <Image
+                          width={36}
+                          height={36}
+                          alt="symbol"
+                          src={item.symbol}
+                        />
+                        <p className="font-semibold text-[1.25rem] font-opensans">
+                          {item.title}
+                        </p>
+                      </div>
+                      {item.description &&
+                        renderedDescription(item.description, false)}
                     </div>
-                    {item.description &&
-                      renderedDescription(item.description, false)}
-                  </div>
-                  {index !== leftSide.length - 1 && (
-                    <div className="border-b border-b-gray_light" />
-                  )}
-                </React.Fragment>
-              )
+                    {index !== leftSide.length - 1 && (
+                      <div className="border-b border-b-gray_light" />
+                    )}
+                  </React.Fragment>
+                );
+              }
             )}
           </div>
         </div>
