@@ -128,6 +128,7 @@ const PanduanPengajuanTab = () => {
                     <div
                       role="button"
                       className="w-full p-3 bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-xs text-center ml-0 whitespace-nowrap"
+                      onClick={val.onClick}
                     >
                       {val.btnText}
                     </div>
