@@ -245,7 +245,7 @@ export const MainContent = ({
                   />
                 </div>
                 <span className="ml-[0.75rem]">
-                  Saya /kami telah membaca, memahami dan memberikan persetujuan
+                  Saya/kami telah membaca, memahami dan memberikan persetujuan
                   saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
                   menggunakan dan mengungkapkan data pribadi saya/kami sesuai
                   dengan{' '}
@@ -253,7 +253,7 @@ export const MainContent = ({
                     onClick={() => router.push('/keamanan-online')}
                     className="font-bold text-purple_dark cursor-pointer"
                   >
-                    Kebijkan Kemanan *
+                    Keamanan Online *
                   </span>
                 </span>
               </div>

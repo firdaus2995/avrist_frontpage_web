@@ -246,11 +246,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       ) : attribute.name.includes('Telepon') ? (
                         <div className="flex justify-between gap-[0.5rem]">
                           <input
-                            className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            defaultValue={'+62'}
-                            readOnly
-                          />
-                          <input
                             className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                             placeholder="Masukan nomor telepon"
                             name={attribute.name}
@@ -263,7 +258,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             onChange={(e) =>
                               updateFormDataByName(
                                 attribute.name,
-                                '+62' + e.target.value
+                                e.target.value
                               )
                             }
                             onInput={handleInput}
@@ -410,20 +405,12 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex justify-between gap-[0.5rem]">
                         <input
-                          className="w-[3rem] sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          defaultValue={'+62'}
-                          readOnly
-                        />
-                        <input
                           className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                           placeholder="Masukan nomor telepon"
                           name={attribute.name}
                           type="text"
                           onChange={(e) =>
-                            updateFormDataByName(
-                              attribute.name,
-                              '+62' + e.target.value
-                            )
+                            updateFormDataByName(attribute.name, e.target.value)
                           }
                           onInput={handleInput}
                           pattern="[0-9]*"
@@ -625,10 +612,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         name={attribute.name}
                         type="text"
                         onChange={(e) =>
-                          updateFormDataByName(
-                            attribute.name,
-                            '+62' + e.target.value
-                          )
+                          updateFormDataByName(attribute.name, e.target.value)
                         }
                         onInput={handleInput}
                         pattern="[0-9]*"
@@ -738,11 +722,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
               No Telepon <span className="text-reddist">*</span>
             </p>
             <div className="flex justify-between gap-[0.5rem]">
-              <input
-                className="w-1/5 sm:w-1/5 px-[0.625rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                defaultValue="+62"
-                readOnly
-              />
               <input
                 className="w-4/5 sm:w-4/5 px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                 placeholder="Masukan nomor telepon"
