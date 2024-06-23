@@ -20,6 +20,7 @@ import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import MediumTag from '@/components/atoms/Tag/MediumTag';
 import CardCategoryB from '@/components/molecules/specifics/avrast/Cards/CategoriB';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
@@ -382,17 +383,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       <div className="flex items-center justify-center w-full">
         <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[23.281rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
           <div className="flex flex-col gap-[0.5rem]">
-            <div className="flex flex-row gap-2">
-              {contentData?.tags.length > 0 &&
-                contentData.tags.map((tag: any, idx: number) => (
-                  <span
-                    className="text-purple_dark font-bold font-karla text-2xl"
-                    key={idx}
-                  >
-                    {tag}
-                  </span>
-                ))}
-            </div>
+            <p className="text-purple_dark font-bold font-karla text-2xl">
+              Promo
+            </p>
             <p className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]">
               {contentData && htmlParser(contentData.judul)}
             </p>
@@ -503,6 +496,14 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                 </UncontrolledPopover>
               </div>
             </div>
+
+            {Array.isArray(contentData?.tags) && (
+              <div className="flex flex-row gap-2">
+                {contentData.tags.map((tag: any, idx: number) => (
+                  <MediumTag title={tag} key={idx} />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Loop Artikel */}
