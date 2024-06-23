@@ -469,10 +469,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   {paginatedData?.map((item: any, index: number) => (
                     <Link
                       key={index}
-                      href={{
-                        pathname: `/promo-berita/promo/promo-terbaru`,
-                        query: { id: item.id }
-                      }}
+                      href={`/promo-berita/promo/${item.id}`}
                       className="w-full h-auto flex justify-center"
                     >
                       <Image
