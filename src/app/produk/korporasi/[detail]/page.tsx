@@ -147,7 +147,6 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       setBannerImg(singleImageTransformer(content['produk-image']));
       setDataDetail(detailData);
     }
-
     const fetchDataList = async () => {
       try {
         const contentResponse = await fetch(
@@ -431,18 +430,20 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       >
         {dataRekomendasi &&
           dataRekomendasi.length !== 0 &&
-          dataRekomendasi.map((item, index) => (
-            <CardCategoryA
-              key={index}
-              symbol={item.kategoriProdukIcon.imageUrl}
-              title={item.categoryName || ''}
-              summary={item.namaProduk}
-              description={item.deskripsiSingkatProduk}
-              tags={item.tags.split(',')}
-              href={`/produk/individu/${item.id}`}
-              imageProduk={item.produkImage.imageUrl}
-            />
-          ))}
+          dataRekomendasi
+            .slice(0, 3)
+            .map((item, index) => (
+              <CardCategoryA
+                key={index}
+                symbol={item.kategoriProdukIcon.imageUrl}
+                title={item.categoryName || ''}
+                summary={item.namaProduk}
+                description={item.deskripsiSingkatProduk}
+                tags={item.tags.split(',')}
+                href={`/produk/individu/${item.id}`}
+                imageProduk={item.produkImage.imageUrl}
+              />
+            ))}
       </GridContainer>
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
