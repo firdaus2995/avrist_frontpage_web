@@ -21,6 +21,7 @@ interface CustomFormProps {
     isValid: boolean
   ) => void;
   selectedProduct?: string;
+  dataRekomendasi?: any;
 }
 
 const CustomForm: React.FC<CustomFormProps> = ({
@@ -31,7 +32,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
   dataForm,
   resultData,
   longTextArea,
-  selectedProduct
+  selectedProduct,
+  dataRekomendasi
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -557,105 +559,127 @@ const CustomForm: React.FC<CustomFormProps> = ({
             <div
               className={`flex flex-col gap-[0.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
-              {rightSide?.map((attribute: Attribute) => (
-                <div key={attribute.id} className="pt-1">
-                  <p className="font-bold">
-                    {attribute.name}{' '}
-                    <span
-                      className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
-                    >
-                      *
-                    </span>
-                  </p>
-                  {attribute.fieldType === 'RADIO_BUTTON' ? (
-                    attribute.value?.split(';').map((option, optionIndex) => (
-                      <div className="flex flex-col gap-1" key={optionIndex}>
-                        <Radio
-                          id={`${attribute.fieldId}_${optionIndex}`}
-                          name={attribute.name}
-                          label={option}
-                          value={option}
-                          onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
-                          }
-                        />
-                      </div>
-                    ))
-                  ) : attribute.fieldType === 'DROPDOWN' ? (
-                    <select
-                      onChange={(e) =>
-                        updateFormDataByName(attribute.name, e.target.value)
-                      }
-                      className={`w-full px-[1rem] py-[0.625rem] border ${customFormClassname ?? 'border-purple_dark text-purple_dark'} rounded-xl focus:outline-none focus:border-blue-500`}
-                    >
-                      <option value={''}>Pilih</option>
-                      {attribute.value?.split(';').map((option, idx) => (
-                        <option
-                          key={idx}
-                          value={option}
-                          selected={
-                            option ===
-                              formData?.find(
-                                (item) => item.name === attribute.name
-                              )?.value || option === selectedProduct
-                          }
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  ) : attribute.name.includes('Telepon') ? (
-                    <div className="flex grow shrink-0">
-                      <input
-                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                        placeholder="Masukan nomor telepon"
-                        name={attribute.name}
-                        type="text"
+              {rightSide?.map((attribute: Attribute) => {
+                return (
+                  <div key={attribute.id} className="pt-1">
+                    <p className="font-bold">
+                      {attribute.name}{' '}
+                      <span
+                        className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                      >
+                        *
+                      </span>
+                    </p>
+                    {attribute.fieldType === 'RADIO_BUTTON' ? (
+                      attribute.value?.split(';').map((option, optionIndex) => (
+                        <div className="flex flex-col gap-1" key={optionIndex}>
+                          <Radio
+                            id={`${attribute.fieldId}_${optionIndex}`}
+                            name={attribute.name}
+                            label={option}
+                            value={option}
+                            onChange={(e) =>
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              )
+                            }
+                          />
+                        </div>
+                      ))
+                    ) : attribute.fieldType === 'DROPDOWN' ? (
+                      <select
                         onChange={(e) =>
                           updateFormDataByName(attribute.name, e.target.value)
                         }
-                        onInput={handleInput}
-                        pattern="[0-9]*"
-                      />
-                    </div>
-                  ) : attribute.fieldType === 'DOCUMENT' ? (
-                    <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
-                      <p
-                        className={`px-[1rem] line-clamp-1 truncate ${
-                          filename !== '' ? '' : 'text-dark-grey'
-                        }`}
+                        className={`w-full px-[1rem] py-[0.625rem] border ${customFormClassname ?? 'border-purple_dark text-purple_dark'} rounded-xl focus:outline-none focus:border-blue-500`}
                       >
-                        {filename !== ''
-                          ? getFilename()
-                          : JSON.parse(attribute.config).placeholder ??
-                            `Klik Browse untuk mencari`}
-                      </p>
+                        <option value={''}>Pilih</option>
+                        {attribute.value?.split(';').map((option, idx) => (
+                          <option
+                            key={idx}
+                            value={option}
+                            selected={
+                              option ===
+                                formData?.find(
+                                  (item) => item.name === attribute.name
+                                )?.value || option === selectedProduct
+                            }
+                          >
+                            {option}
+                          </option>
+                        ))}
+                        {dataRekomendasi?.map((product: any, index: any) => (
+                          <option
+                            selected={
+                              product.namaProduk ===
+                                dataRekomendasi?.find(
+                                  (item: any) => item.name === attribute.name
+                                )?.value ||
+                              product.namaProduk === selectedProduct
+                            }
+                            key={index}
+                            value={product.namaProduk}
+                          >
+                            {product.namaProduk}
+                          </option>
+                        ))}
+                      </select>
+                    ) : attribute.name.includes('Telepon') ? (
+                      <div className="flex grow shrink-0">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder="Masukan nomor telepon"
+                          name={attribute.name}
+                          type="text"
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
+                          onInput={handleInput}
+                          pattern="[0-9]*"
+                        />
+                      </div>
+                    ) : attribute.fieldType === 'DOCUMENT' ? (
+                      <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
+                        <p
+                          className={`px-[1rem] line-clamp-1 truncate ${
+                            filename !== '' ? '' : 'text-dark-grey'
+                          }`}
+                        >
+                          {filename !== ''
+                            ? getFilename()
+                            : JSON.parse(attribute.config).placeholder ??
+                              `Klik Browse untuk mencari`}
+                        </p>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          accept=".pdf"
+                          onChange={(e) =>
+                            handleUploadChange(attribute.name, e)
+                          }
+                          className="hidden"
+                        />
+                        <button
+                          className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
+                          onClick={() => handleUploadClick()}
+                        >
+                          Browse
+                        </button>
+                      </div>
+                    ) : (
                       <input
-                        type="file"
-                        ref={fileInputRef}
-                        accept=".pdf"
-                        onChange={(e) => handleUploadChange(attribute.name, e)}
-                        className="hidden"
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        placeholder={JSON.parse(attribute.config).placeholder}
+                        name={attribute.name}
+                        onChange={(e) =>
+                          updateFormDataByName(attribute.name, e.target.value)
+                        }
                       />
-                      <button
-                        className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
-                        onClick={() => handleUploadClick()}
-                      >
-                        Browse
-                      </button>
-                    </div>
-                  ) : (
-                    <input
-                      className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                      placeholder={JSON.parse(attribute.config).placeholder}
-                      name={attribute.name}
-                      onChange={(e) =>
-                        updateFormDataByName(attribute.name, e.target.value)
-                      }
-                    />
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

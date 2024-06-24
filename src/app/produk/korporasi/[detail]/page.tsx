@@ -381,6 +381,8 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
             onChange={handleChange}
             dataForm={dataForm}
             resultData={receiveData}
+            selectedProduct={dataDetail?.namaProduk}
+            dataRekomendasi={dataRekomendasi}
           />
         )}
         <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
