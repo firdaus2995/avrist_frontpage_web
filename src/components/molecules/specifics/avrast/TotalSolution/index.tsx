@@ -231,7 +231,7 @@ const TotalSolution = () => {
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>
       </div>
-      <div className="xs:max-lg:hidden grid grid-cols-3 gap-4">
+      <div className="xs:hidden lg:grid grid-cols-3 gap-4">
         {data.map((val, idx) => (
           <div key={idx}>{renderCard(val, idx)}</div>
         ))}
