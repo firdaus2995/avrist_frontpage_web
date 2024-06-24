@@ -64,6 +64,7 @@ export const MainContent = ({
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [attachmentFile, setAttachmentFile] = useState('');
+  const [attachmentFileSize, setAttachmentFileSize] = useState(0);
 
   useEffect(() => {
     const params = {
@@ -130,6 +131,9 @@ export const MainContent = ({
   ) => {
     setFormIsValid(isValid);
     setFormValue(data);
+    if (attachmentFileSize > attachmentFileSize * 10000) {
+      setFormIsValid(false);
+    }
   };
 
   const getListTahun = useCallback(() => {
@@ -186,11 +190,30 @@ export const MainContent = ({
     }
   };
 
-  const handleChangeAttachment = (value: string) => {
-    if (value) {
-      setAttachmentFile(value);
+  const handleChangeAttachment = (value: string, files: any, type: string) => {
+    if (type === 'delete') {
+      const newData = attachmentFile.replace(value, '');
+      setAttachmentFile(newData);
+      if (files) {
+        const filesInKb = Math.round(files.size / 1024);
+        setAttachmentFileSize(attachmentFileSize - filesInKb);
+      }
+    } else {
+      if (value) {
+        setAttachmentFile(value);
+      }
+      if (files) {
+        const filesInKb = Math.round(files.size / 1024);
+        setAttachmentFileSize(filesInKb + attachmentFileSize);
+      }
     }
   };
+
+  useEffect(() => {
+    if (attachmentFileSize < attachmentFileSize * 10000) {
+      setFormIsValid(false);
+    }
+  }, [attachmentFileSize]);
 
   return (
     <div className="w-full flex flex-col">
