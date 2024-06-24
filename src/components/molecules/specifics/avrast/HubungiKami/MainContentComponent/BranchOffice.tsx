@@ -7,7 +7,13 @@ import { Paginate } from './Paginate';
 import { handleGetProvider } from '@/services/provider-service.api';
 import { PageInfo, Content as ProviderContent } from '@/types/provider.type';
 
-export const BranchOffice = () => {
+type Props = {
+  onChangeCenter: (lng: number, lat: number) => void;
+};
+
+export const BranchOffice = (props: Props) => {
+  const { onChangeCenter } = props;
+
   const initialPageInfo: PageInfo = {
     pageSize: 6,
     totalPage: 0,
@@ -82,6 +88,9 @@ export const BranchOffice = () => {
                 title={item.name}
                 address={item.address}
                 contact={item.phone}
+                lat={item.lat}
+                lng={item.lng}
+                onChangeCenter={onChangeCenter}
               />
             ))}
           </div>
@@ -93,6 +102,9 @@ export const BranchOffice = () => {
                 title="......"
                 address="......"
                 contact="......"
+                lat={0}
+                lng={0}
+                onChangeCenter={onChangeCenter}
               />
             ))}
           </div>

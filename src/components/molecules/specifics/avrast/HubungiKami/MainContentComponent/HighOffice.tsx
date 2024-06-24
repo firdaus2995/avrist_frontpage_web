@@ -1,10 +1,17 @@
-import GoogleMapReact from 'google-map-react';
-import Image from 'next/image';
+import L from 'leaflet';
+import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
 import { Card } from './Card';
 import { CardAddress } from './CardAddress';
-import maps from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
+import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
+import 'leaflet/dist/leaflet.css';
 
-export const HighOffice = () => {
+type Props = {
+  mapCenter?: any[];
+};
+
+export const HighOffice = (props: Props) => {
+  const { mapCenter } = props;
+
   const renderMap = () => {
     const highOfficeCoordinate = {
       lat: -6.214663280751351,
@@ -15,29 +22,49 @@ export const HighOffice = () => {
       zoom: 16
     };
 
+    const markerIcon = new L.Icon({
+      iconUrl: MapMarkerImage.src,
+      iconSize: [40, 40], // adjust size as needed
+      iconAnchor: [20, 40], // adjust anchor as needed
+      popupAnchor: [0, -40] // adjust popup anchor as needed
+    });
+
+    const ChangeView = ({ center, zoom }: any) => {
+      const map = useMap();
+      map.setView(center, zoom);
+      return null;
+    };
+
     return (
       <div className="w-full sm:h-[37.5rem] xs:h-[12rem]">
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: '' }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-          yesIWantToUseGoogleMapApiInternals
+        <MapContainer
+          center={defaultProps.center}
+          zoom={16}
+          className="w-full h-full"
         >
-          <div
-            style={{
-              color: 'white',
-              padding: '15px 10px',
-              display: 'inline-flex',
-              transform: 'translate(-50%, -50%)'
-            }}
+          <ChangeView center={mapCenter} zoom={defaultProps.zoom} />
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker
+            position={[highOfficeCoordinate.lat, highOfficeCoordinate.lng]}
+            icon={markerIcon}
           >
-            <Image
-              src={maps}
-              className="w-full h-full object-none"
-              alt="maps"
-            />
-          </div>
-        </GoogleMapReact>
+            <Popup>
+              <div className="flex flex-col gap-2">
+                <div>Kantor Pusat Jakarta</div>
+                <div>
+                  World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Jl.
+                  Setiabudi Raya Kav 29-31, RT.8/RW.3World Trade Center II Lt. 7
+                  & 8, Jl. Jenderal Sudirman Jl. Setiabudi Raya Kav 29-31,
+                  RT.8/RW.3
+                </div>
+                <div>(021) 5789 8188</div>
+              </div>
+            </Popup>
+          </Marker>
+        </MapContainer>
       </div>
     );
   };
@@ -54,6 +81,11 @@ export const HighOffice = () => {
             address="World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Jl. Setiabudi Raya Kav 29-31, RT.8/RW.3"
             workHour="Senin-Jumat 10.00 - 14.00 WIB"
             contact="(021) 5789 8188"
+            lat={-6.214663280751351}
+            lng={106.82071668189862}
+            onChangeCenter={function (): void {
+              throw new Error('Function not implemented.');
+            }}
           />
         </div>
         <div className="sm:w-2/3 xs:w-full">
