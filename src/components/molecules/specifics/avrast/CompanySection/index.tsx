@@ -141,7 +141,7 @@ const CompanySection = () => {
 
     return (
       <div
-        className={`md:mx-[4.5rem] md:h-[50vh] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
+        className={`mx-[0.5rem] md:mx-[7rem] md:h-[50vh] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
           className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
@@ -228,8 +228,16 @@ const CompanySection = () => {
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}
-            className="w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
+            className="xs:hidden w-full md:arounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
             fill
+          />
+
+          <Image
+            src={val.img ? val.img : BlankImage}
+            alt={val.category}
+            className="sm:hidden w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
+            width={0}
+            height={0}
           />
         </div>
       </div>
