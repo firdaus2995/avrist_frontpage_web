@@ -99,7 +99,7 @@ const CompanySection = () => {
         img: img3.imageUrl
       }
     ],
-    []
+    [img1, img2, img3]
   );
 
   const sliderSettings = {
