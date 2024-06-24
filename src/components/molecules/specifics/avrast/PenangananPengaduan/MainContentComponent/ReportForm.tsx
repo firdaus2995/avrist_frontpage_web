@@ -10,11 +10,13 @@ import { handleUploadDocument } from '@/services/upload-document-service.api';
 type UploadBoxProps = {
   title: string;
   fileType: string;
-  onChangeData: (value: string) => void
+  onChangeData: (value: string, uploadedFile: any, title: string) => void;
+  value?: any;
+  onDeleteData: () => void;
 };
 
 const UploadBox = (props: UploadBoxProps) => {
-  const { title, fileType, onChangeData } = props;
+  const { title, fileType, onChangeData, value, onDeleteData } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadClick = () => {
@@ -38,7 +40,9 @@ const UploadBox = (props: UploadBoxProps) => {
 
       try {
         const response = await handleUploadDocument(formData);
-        onChangeData(response.data);
+        const uploadedFile: any = event.target?.files[0];
+
+        onChangeData(response.data, uploadedFile, title);
       } catch (error) {
         console.error('Error uploading files:', error);
       }
@@ -46,46 +50,86 @@ const UploadBox = (props: UploadBoxProps) => {
   };
 
   return (
-    <div
-      className="border border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] cursor-pointer py-[10px] px-[1rem] gap-[8px]"
-      onClick={handleUploadClick}
-    >
-      <Icon name="UploadIcon" height={24} width={24} color="purple_dark" />
-      <p className="font-opensans font-normal text-[14px] text-center">
-        {title}
-      </p>
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-        multiple
-      />
+    <div>
+      {!value ? (
+        <div
+          className="border border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px] cursor-pointer"
+          onClick={handleUploadClick}
+        >
+          <Icon name="UploadIcon" height={24} width={24} color="purple_dark" />
+          <p className="font-opensans font-normal text-[14px] text-center">
+            {title}
+          </p>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            multiple
+          />
+        </div>
+      ) : (
+        <div
+          className="border border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px]"
+          onClick={() => onDeleteData()}
+        >
+          <Icon name="close" height={24} width={24} color="purple_dark" />
+          <p className="font-opensans font-normal text-[14px] text-center">
+            {value?.name}
+          </p>
+          <p className="font-opensans font-normal text-[14px] text-center">
+            {Math.round(value?.size / 1024)} Kb
+          </p>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            multiple
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 type ReportFormProps = {
-  onChangeData: (value: string) => void
+  onChangeData: (value: string, uploadedFile: any, type: string) => void;
 };
 
 export const ReportForm = (props: ReportFormProps) => {
   const { onChangeData } = props;
   const [attachmentFile, setAttachmentFile] = useState('');
+  const [selectedFile, setSelectedFile] = useState({});
+  const [fileKtp, setFileKtp] = useState<any>('');
+  const [fileFormulir, setFileFormulir] = useState<any>('');
+  const [fileDocument, setFileDocument] = useState<any>('');
 
-  const handleChangeData = (value: string) => {
+  const handleChangeData = (
+    value: string,
+    uploadedFile: any,
+    title: string
+  ) => {
+    setSelectedFile(uploadedFile);
+    if (title === 'Upload KTP') {
+      setFileKtp({ file: uploadedFile, value });
+    } else if (title === 'Upload Formulir') {
+      setFileFormulir({ file: uploadedFile, value });
+    } else {
+      setFileDocument({ file: uploadedFile, value });
+    }
     if (attachmentFile === '') {
       setAttachmentFile(value);
-    }else{
-      setAttachmentFile(attachmentFile + '|' + value)
+    } else {
+      setAttachmentFile(attachmentFile + '|' + value);
     }
-  }
+  };
 
   useEffect(() => {
-    if(attachmentFile){
-      onChangeData(attachmentFile);
+    if (attachmentFile) {
+      onChangeData(attachmentFile, selectedFile, 'add');
     }
-  }, [attachmentFile])
+  }, [attachmentFile]);
 
   return (
     <div>
@@ -97,9 +141,44 @@ export const ReportForm = (props: ReportFormProps) => {
               Upload Dokumen
             </p>
             <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[0.5rem]">
-              <UploadBox title="Upload KTP" fileType="DOCUMENT" onChangeData={handleChangeData} />
-              <UploadBox title="Upload Formulir" fileType="DOCUMENT" onChangeData={handleChangeData} />
-              <UploadBox title="Dokumen Pendukung" fileType="DOCUMENT" onChangeData={handleChangeData} />
+              <UploadBox
+                title="Upload KTP"
+                fileType="DOCUMENT"
+                onChangeData={handleChangeData}
+                value={fileKtp?.file}
+                onDeleteData={() => {
+                  onChangeData(fileKtp?.value, fileKtp?.file, 'delete');
+                  setFileKtp('');
+                }}
+              />
+              <UploadBox
+                title="Upload Formulir"
+                fileType="DOCUMENT"
+                onChangeData={handleChangeData}
+                value={fileFormulir?.file}
+                onDeleteData={() => {
+                  onChangeData(
+                    fileFormulir?.value,
+                    fileFormulir?.file,
+                    'delete'
+                  );
+                  setFileFormulir('');
+                }}
+              />
+              <UploadBox
+                title="Dokumen Pendukung"
+                fileType="DOCUMENT"
+                onChangeData={handleChangeData}
+                value={fileDocument?.file}
+                onDeleteData={() => {
+                  onChangeData(
+                    fileDocument?.value,
+                    fileDocument?.file,
+                    'delete'
+                  );
+                  setFileDocument('');
+                }}
+              />
             </div>
           </div>
           {/* contact support */}
