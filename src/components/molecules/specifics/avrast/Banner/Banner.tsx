@@ -216,7 +216,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
             </div>
           </div>
         </div>
-        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-24">
+        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-[5rem]">
           <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
             <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
               Apa <span className="font-bold">perlindungan </span> yang{' '}
