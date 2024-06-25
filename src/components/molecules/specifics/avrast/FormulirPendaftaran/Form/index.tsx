@@ -74,7 +74,7 @@ const Form = () => {
 
   return (
     <div className="w-full bg-purple_dark">
-      <div className="bg-white flex flex-col pt-[3.125rem] md:pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[1.625rem] sm:gap-[4rem] xs:gap-[2.25rem]">
+      <div className="bg-white flex flex-col pt-[5rem] md:pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[3rem] sm:gap-[4rem] xs:gap-[2.25rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
