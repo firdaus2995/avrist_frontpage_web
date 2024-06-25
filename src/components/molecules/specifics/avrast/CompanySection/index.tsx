@@ -246,16 +246,8 @@ const CompanySection = () => {
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center sm:py-32 xs:pt-[5rem] xs:pb-[3rem] gap-16 bg-purple_light_bg">
-      {/* <div>
-        <p className="md:text-[4rem] xs:text-3xl text-center font-extrabold text-purple_dark px-10 font-karla">
-          Mengapa Avrist Assurance?
-        </p>
-        <p className="md:text-[2.25rem] xs:text-3xl text-center font-light px-10 font-karla lg:mt-10">
-          Satu Polis untuk setiap rumah tangga di Indonesia!
-        </p>
-      </div> */}
       <div className='px-[2rem]'>
-        <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla">
+        <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Mengapa Avrist Assurance?
         </p>
         <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
