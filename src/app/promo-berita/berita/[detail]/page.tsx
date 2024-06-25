@@ -162,7 +162,6 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       const paragrafDua = item['details'][2]?.value ?? '-';
       const artikelVideo = item['details'][3]?.value ?? '-';
       const paragrafTiga = item['details'][4]?.value ?? '-';
-
       return (
         <div key={index}>
           {paragrafSatu !== '-' && (
@@ -187,15 +186,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               ))}
           </div>
 
-          {paragrafDua !== '-' ||
-            (paragrafDua !== '<p>-</p>' && (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: paragrafDua
-                }}
-                className="font-opensans text-xl"
-              />
-            ))}
+          {paragrafDua !== '-' || paragrafDua !== '<p>-</p>' ? (
+            <span
+              dangerouslySetInnerHTML={{
+                __html: paragrafDua
+              }}
+              className="font-opensans text-xl"
+            />
+          ) : null}
           {artikelVideo !== '-' && (
             <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
               {
@@ -209,8 +207,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             </div>
           )}
 
-          {paragrafTiga !== '-' ||
-            (paragrafTiga !== '<p>-</p>' && (
+          {paragrafTiga !== '<p>-</p>' ||
+            (paragrafTiga !== '-' && (
               <span
                 className="text-xl"
                 dangerouslySetInnerHTML={{
@@ -264,14 +262,17 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <div className="flex flex-col gap-2">
                 <p>
                   {`${contentData?.date} ${contentData.monthInText} ${contentData.tahun}`}{' '}
-                  | {contentData.penulis}
+                  {contentData?.penulis === '-'
+                    ? ''
+                    : `| ${contentData.penulis}`}
                 </p>
 
                 <div className="flex flex-row gap-2">
                   {contentData?.tags.length > 0 &&
-                    contentData.tags.map((tag: any, idx: number) => (
-                      <MediumTag title={tag} key={idx} />
-                    ))}
+                    contentData.tags.map((tag: any, idx: number) => {
+                      if (tag === '-') return null;
+                      return <MediumTag title={tag} key={idx} />;
+                    })}
                 </div>
               </div>
               <div className="flex flex-col gap-1 items-center">
@@ -306,23 +307,30 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 Artikel ini telah di liput di:
               </p>
               <div className="flex flex-wrap gap-3">
-                {contentData?.externalLink?.map((el: any, index: number) => (
-                  <Link
-                    key={index}
-                    href={el.details[1]?.value}
-                    target="_blank"
-                    className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
-                  >
-                    {el.details[0]?.value}
-                    {el.details[0]?.value !== '-' && (
-                      <Icon
-                        name="externalLink"
-                        color="purple_dark"
-                        width={10}
-                      />
-                    )}
-                  </Link>
-                ))}
+                {contentData?.externalLink?.map((el: any, index: number) => {
+                  if (
+                    el.details[0]?.value === '-' ||
+                    el.details[1]?.value === '-'
+                  )
+                    return null;
+                  return (
+                    <Link
+                      key={index}
+                      href={el.details[1]?.value}
+                      target="_blank"
+                      className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
+                    >
+                      {el.details[0]?.value}
+                      {el.details[0]?.value !== '-' && (
+                        <Icon
+                          name="externalLink"
+                          color="purple_dark"
+                          width={10}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
