@@ -85,7 +85,7 @@ const Form = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-medium">
+          <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-medium xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             List formulir dan buku panduan yang mungkin Anda butuhkan
           </h1>
           <h2 className="font-karla sm:text-4xl xs:text-[1.5rem]">
