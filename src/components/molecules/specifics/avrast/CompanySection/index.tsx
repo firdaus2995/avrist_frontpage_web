@@ -141,12 +141,12 @@ const CompanySection = () => {
 
     return (
       <div
-        className={`mx-[0.5rem] md:mx-[7rem] md:h-[50vh] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
+        className={`mx-[0.5rem] md:mx-[7rem] md:h-[383px] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
           className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-[2rem] font-black text-left font-karla leading-normal md:leading-[0.8]">
+          <p className="md:text-[3.5rem] xs:text-[2rem] font-extrabold text-left font-karla leading-normal md:leading-[3.7rem]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
@@ -245,12 +245,20 @@ const CompanySection = () => {
   };
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-purple_light_bg">
-      <div>
+    <div className="flex flex-col self-stretch items-center justify-center sm:py-32 xs:pt-[5rem] xs:pb-[3rem] gap-16 bg-purple_light_bg">
+      {/* <div>
         <p className="md:text-[4rem] xs:text-3xl text-center font-extrabold text-purple_dark px-10 font-karla">
           Mengapa Avrist Assurance?
         </p>
         <p className="md:text-[2.25rem] xs:text-3xl text-center font-light px-10 font-karla lg:mt-10">
+          Satu Polis untuk setiap rumah tangga di Indonesia!
+        </p>
+      </div> */}
+      <div className='px-[2rem]'>
+        <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla">
+          Mengapa Avrist Assurance?
+        </p>
+        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
           Satu Polis untuk setiap rumah tangga di Indonesia!
         </p>
       </div>
