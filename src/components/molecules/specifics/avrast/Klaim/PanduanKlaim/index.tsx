@@ -130,10 +130,10 @@ const PanduanKlaim = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:pt-[5rem] md:px-[8.5rem] md:pb-[1.625rem] p-4 gap-4 relative pb-[1.625rem] bg-purple_light_bg">
+    <div className="w-full flex flex-col justify-center md:pt-[5rem] md:px-[8.5rem] md:pb-[3rem] p-4 gap-4 relative pb-[1.625rem] bg-purple_light_bg">
       <div className="w-full max-w-[78rem] m-auto flex flex-col sm:gap-[4rem] xs:gap-[2.25rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             Video Panduan Klaim
           </h2>
           <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
