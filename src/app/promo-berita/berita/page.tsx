@@ -1318,13 +1318,10 @@ const Berita: React.FC<ParamsProps> = () => {
         <div className="w-full flex flex-col items-center justify-center mt-2">
           <div className="w-full xs:px-[2rem] md:px-[8.5rem] xs:text-center md:text-start xs:mt-[2.25rem] sm:mt-0">
             <h2 className="lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
-              Temukan siaran pers Avrist di sini!
+              Kumpulan Berita Pers
             </h2>
             <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
-              Berbagai <span className="font-bold">Informasi</span> mengenai{' '}
-              <span className="font-bold">kegiatan, produk</span> dan{' '}
-              <span className="font-bold">layanan</span> dari Avrist Life
-              Insurance. Melangkah bersama Kami!
+              Temukan siaran pers Avrist di sini!
             </h2>
           </div>
 
