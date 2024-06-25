@@ -82,7 +82,7 @@ const Content = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium">
+          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             Jaringan Rekanan Rumah Sakit Avrist Assurance
           </h1>
           <h2 className="font-karla xs:text-[1.5rem] sm:text-[2.25rem]">
