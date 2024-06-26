@@ -146,7 +146,7 @@ const CompanySection = () => {
         <div
           className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-[2rem] font-extrabold text-left font-karla leading-normal md:leading-[3.7rem]">
+          <p className="md:text-[3.5rem] xs:text-[2rem] font-extrabold text-left font-karla leading-normal md:leading-[2.7rem]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
