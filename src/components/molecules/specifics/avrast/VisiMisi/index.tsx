@@ -31,7 +31,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 className="xs:w-[2.25rem] md:w-[5rem]"
                 alt="logo"
               />
-              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold">
+              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
                 {val.title}
               </p>
             </div>
