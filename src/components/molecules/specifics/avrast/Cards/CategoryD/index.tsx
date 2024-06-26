@@ -61,16 +61,18 @@ const CardCategoryD = ({
             {readTime !== '-' && `${readTime}`}
           </p>
         </div>
-        <div className="flex flex-row gap-2 items-center flex-wrap">
-          {tags?.length > 0 &&
-            tags?.map((item, index) => (
-              <p
-                key={index}
-                className="text-purple_dark font-semibold bg-gray_bglightgray px-2 py-1 text-sm"
-              >
-                {item}
-              </p>
-            ))}
+        <div className="min-h-[70px]">
+          <div className="flex flex-row gap-2 items-center flex-wrap">
+            {tags?.length > 0 &&
+              tags?.map((item, index) => (
+                <p
+                  key={index}
+                  className="text-purple_dark font-semibold bg-gray_bglightgray px-2 py-1 text-sm"
+                >
+                  {item}
+                </p>
+              ))}
+          </div>
         </div>
       </div>
     </div>
