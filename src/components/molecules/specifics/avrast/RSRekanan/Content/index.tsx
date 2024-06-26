@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
@@ -10,58 +10,78 @@ const Content = () => {
   const [data, setData] = useState<IDAta[] | []>([]);
   const [searchParam, setSearchParam] = useState('');
   const [currentPage, setCurrentPage] = useState<number | any>(1);
+  const [thirdParty, setThirdParty] = useState('Avrist');
 
-  const btnVerticalData = [
-    {
-      title: 'Asuransi Jiwa Individu',
-      onClick: () => {}
-    },
-    {
-      title: 'Asuransi Jiwa Koperasi',
-      onClick: () => {}
-    },
-    {
-      title: 'Avrist Syariah',
-      onClick: () => {},
-      color: 'text-olive_green'
-    }
-  ];
+  const btnVerticalData = useMemo(
+    () => [
+      {
+        title: 'Avrist',
+        onClick: () => {
+          setThirdParty('Avrist');
+        }
+      },
+      {
+        title: 'Admedika',
+        onClick: () => {
+          setThirdParty('Admedika');
+        }
+      },
+      {
+        title: 'AAI',
+        onClick: () => {
+          setThirdParty('AAI');
+        }
+      }
+    ],
+    [thirdParty]
+  );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const fetchProviderData = async () => {
       const queryParams = {
         page: currentPage,
-        name_contain: searchParam
+        name_contain: searchParam,
+        third_party_administration_name_contain: thirdParty
       };
       const data = await handleGetProvider(queryParams);
       if (data.responseMessage !== 'SUCCESS') {
         return [];
       }
       const { content } = data;
-      const fetchedData = content.map((item: ProviderContent) => {
-        const phoneSplit = item.phone.split('-');
-        const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;
-        return {
-          id: item.id,
-          name: item.name,
-          address: item.address,
-          phone: formattedPhoneNumber,
-          lat: item.latitude,
-          lng: item.longitude
-        };
-      });
+      if (content.length > 0) {
+        const fetchedData = content.map((item: ProviderContent) => {
+          const phoneSplit = item.phone.split('-');
+          const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;
+          return {
+            id: item.id,
+            name: item.name,
+            address: item.address,
+            phone: formattedPhoneNumber,
+            lat: item.latitude,
+            lng: item.longitude
+          };
+        });
 
-      setData((prevData) => {
-        const existingIds = new Set(prevData.map((item) => item.id));
-        const newData = fetchedData.filter((item) => !existingIds.has(item.id));
-        return [...prevData, ...newData];
-      });
+        setData((prevData) => {
+          const existingIds = new Set(prevData.map((item) => item.id));
+          const newData = fetchedData.filter(
+            (item) => !existingIds.has(item.id)
+          );
+          return [...prevData, ...newData];
+        });
+      } else {
+        setData([]);
+      }
     };
 
     fetchProviderData()
       .then()
       .catch(() => []);
-  }, [searchParam, currentPage]);
+  }, [searchParam, currentPage, thirdParty]);
 
   const handleChangeSearchParams = (value: string) => {
     setSearchParam(value);
@@ -92,7 +112,7 @@ const Content = () => {
         </section>
 
         <section className="flex xs:flex-col md:flex-row gap-10">
-          <div className="xs:w-[100%] md:w-[20%]">
+          <div className="xs:w-full md:w-[250px]">
             <ButtonMenuVertical item={btnVerticalData} />
           </div>
 
