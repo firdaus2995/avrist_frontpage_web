@@ -186,7 +186,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col gap-4 bg-white justify-center">
+    <div className="w-full flex flex-col gap-4 bg-white justify-center xs:mt-[3.125rem] sm:mt-[5rem]">
       <CategoryWithThreeCards
         outerClass="!py-4"
         filterRowLayout={true}
