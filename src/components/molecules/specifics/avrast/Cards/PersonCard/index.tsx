@@ -54,7 +54,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
             className="rounded-t-[12px] h-[8.875rem] w-full object-cover block sm:hidden"
           />
           <div className="text-center md:m-[2rem] font-bold font-karla sm:h-[150px] xs:h-[45px] flex flex-col items-center justify-center sm:justify-between grow">
-            <p className="xs:text-[0.813rem] md:text-[2.25rem] sm:line-clamp-2 xs:line-clamp-1 leading-4">
+            <p className="xs:text-[0.813rem] md:text-[2.25rem] sm:line-clamp-2 xs:line-clamp-1 xs:leading-4 sm:leading-tight">
               {item.name}
             </p>
             <p
