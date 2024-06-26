@@ -73,7 +73,7 @@ export const ButtonMenu = () => {
               title={i}
               onClick={() => handleOnClickButton(i)}
               customButtonClass={`w-[95%] ${activeButton === i ? 'bg-purple_dark' : ''}`}
-              customTextClass={`${activeButton === i ? 'text-white' : ''}`}
+              customTextClass={`${activeButton === i ? 'text-white' : ''} line-clamp-1`}
             />
           ))}
         </Slider>
