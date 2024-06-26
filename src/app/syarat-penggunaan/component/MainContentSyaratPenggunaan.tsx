@@ -7,6 +7,7 @@ import KontenSitus from '../tabs/KontenSitus';
 import SyaratPenggunaan from '../tabs/SyaratPenggunaan';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
+import WrapperContent from '@/components/molecules/specifics/avrast/WrapperContent';
 
 const MainContentSyaratPenggunaan = () => {
   const searchParams = useSearchParams();
@@ -17,15 +18,15 @@ const MainContentSyaratPenggunaan = () => {
   const kontenRef = useRef(null);
   const kepemilikanRef = useRef(null);
 
-  const handleTabClick = (tabs: string, index:number) => {
+  const handleTabClick = (tabs: string, index: number) => {
     setTab(tabs);
     // handleScrollToRef(getRefByTab(tabs));
-    setIsOpen(false)
+    setIsOpen(false);
     document
-        .getElementsByTagName('h1')
-        [
-          index
-        ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'end' });
+      .getElementsByTagName('h1')
+      [
+        index
+      ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'end' });
   };
 
   const getRefByTab = (tab: string) => {
@@ -71,7 +72,7 @@ const MainContentSyaratPenggunaan = () => {
   return (
     <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
-        <div className="md:px-[136px] xs:max-md:px-[50px] py-[100px] sm:flex sm:flex-row">
+        <WrapperContent>
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg relative">
             <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
@@ -149,7 +150,7 @@ const MainContentSyaratPenggunaan = () => {
               <KepemilikanInformasi />
             </div>
           </div>
-        </div>
+        </WrapperContent>
       </div>
       <RoundedFrameBottom />
     </div>
