@@ -15,6 +15,8 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import PurposeCard from '@/components/molecules/specifics/avrast/Cards/PurposeCard';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
+import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { handleGetContentPage } from '@/services/content-page.api';
@@ -42,7 +44,7 @@ const purposeData = [
   },
   {
     title: 'Pengembangan Diri',
-    desc: 'Program learning & development yang dapat memfasilitasi karyawan untuk mengembangkan diri dan tumbuh bersama Avrist.',
+    desc: 'Program <span class="italic">learning & development</span> yang dapat memfasilitasi karyawan untuk mengembangkan diri dan tumbuh bersama Avrist.',
     link: 'Penghargaan',
     icon: Icon3,
     href: '/tentang-avrist-life/tentang-avrist-life?tab=Penghargaan'
@@ -128,17 +130,17 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
 
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
-      <div className="flex flex-col gap-4 xs:px-[2rem] md:px-[8.5rem]">
-        <div className="w-full flex flex-col items-center justify-center text-center font-karla">
-          <h2 className="xs:text-[2.25rem] md:text-[3.5rem] font-medium text-purple_dark xs:mb-6 md:mb-0">
+      <CustomContainer className="flex flex-col gap-[5rem]">
+        <div className="w-full flex flex-col items-center justify-center text-center font-karla gap-[0.75rem]">
+          <TitleContainer className="font-medium text-purple_dark !mb-0">
             Tingkatkan karier bersama Avrist Assurance
-          </h2>
+          </TitleContainer>
           <h2 className="xs:text-[1.5rem] md:text-[2.25rem] mb-6">
             Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
             nomor 1 di Indonesia.
           </h2>
         </div>
-        <div className="flex justify-center xs:h-[200px] md:h-[651px] mb-[6.25rem]">
+        <div className="flex justify-center xs:h-[200px] md:h-[651px] mb-[5rem]">
           <VideoPlayer
             color="purple_dark"
             type={contentPage?.content['mengapabergabung-captionvideo'].value}
@@ -151,13 +153,13 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
             mute={true}
           />
         </div>
-      </div>
+      </CustomContainer>
       <div className="flex flex-col w-full">
-        <div className="w-full bg-purple_superlight flex flex-col gap-10 items-center justify-center py-[5rem] xs:px-[2rem] md:px-[8.5rem]">
+        <CustomContainer className="w-full bg-purple_superlight flex flex-col items-center justify-center pb-[5rem]">
           <div className="flex flex-col">
-            <h2 className="xs:text-[2.25rem] md:text-[3.5rem] text-center font-semibold text-purple_dark">
+            <TitleContainer className="text-center font-semibold text-purple_dark">
               Mengapa berkarier bersama Avrist Assurance
-            </h2>
+            </TitleContainer>
           </div>
           <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
             {purposeData.map((val, idx) => (
@@ -170,10 +172,10 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
               />
             ))}
           </div>
-        </div>
-        <h2 className="xs:text-[2.25rem] md:text-[3.5rem] text-center font-medium text-purple_dark xs:mt-[1.25rem] md:mt-[5rem] font-karla">
+        </CustomContainer>
+        <TitleContainer className="px-[2rem] text-center font-medium text-purple_dark sm:!mb-0 xs:my-[1.25rem]">
           Lihat Lowongan di Avrist Life Insurance
-        </h2>
+        </TitleContainer>
         <CategoryWithThreeCards
           hideSearchBar
           defaultSelectedCategory={category}
