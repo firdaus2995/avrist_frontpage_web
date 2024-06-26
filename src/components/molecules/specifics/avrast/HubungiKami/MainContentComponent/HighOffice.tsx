@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
+import { useMap, MapContainer, TileLayer, Popup, Marker } from 'react-leaflet';
 import { Card } from './Card';
 import { CardAddress } from './CardAddress';
 import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
@@ -9,7 +9,7 @@ type Props = {
   mapCenter?: any[];
 };
 
-export const HighOffice = (props: Props) => {
+const HighOffice = (props: Props) => {
   const { mapCenter } = props;
 
   const renderMap = () => {
@@ -56,9 +56,7 @@ export const HighOffice = (props: Props) => {
                 <div>Kantor Pusat Jakarta</div>
                 <div>
                   World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Jl.
-                  Setiabudi Raya Kav 29-31, RT.8/RW.3World Trade Center II Lt. 7
-                  & 8, Jl. Jenderal Sudirman Jl. Setiabudi Raya Kav 29-31,
-                  RT.8/RW.3
+                  Setiabudi Raya Kav 29-31, RT.8/RW.3
                 </div>
                 <div>(021) 5789 8188</div>
               </div>
@@ -95,3 +93,5 @@ export const HighOffice = (props: Props) => {
     </div>
   );
 };
+
+export default HighOffice;

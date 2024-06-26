@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import love from '@/assets/images/common/heart-check.svg';
@@ -10,7 +11,6 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-import { MainContent } from '@/components/molecules/specifics/avrast/HubungiKami';
 import { getHubungiKami } from '@/services/hubungi-kami.api';
 import {
   contentStringTransformer,
@@ -33,6 +33,14 @@ const CallMe = () => {
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [formId, setFormId] = useState('');
   const [formSaranId, setFormSaranId] = useState('');
+
+  const MainContent = useMemo(() => dynamic(
+    () => import('@/components/molecules/specifics/avrast/HubungiKami').then(mod => mod.MainContent),
+    {
+      loading: () => <p>loading</p>,
+      ssr: false
+    }
+  ), []);
 
   useEffect(() => {
     const fetchData = async () => {
