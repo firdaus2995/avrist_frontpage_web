@@ -31,11 +31,13 @@ const InformationCard: React.FC<InformationCardProps> = ({
   idTags
 }) => (
   <div
-    className="flex flex-col font-karla xs:py-[2.25rem] md:py-[4rem] mx-auto xs:gap-[1.5rem] md:gap-[4rem]"
+    className="flex flex-col font-karla xs:py-[2.25rem] md:py-[5rem] mx-auto xs:gap-[1.5rem] md:gap-[5rem]"
     id={idTags}
   >
     <div className="sm:text-center text-center">
-      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem]">{heading}</p>
+      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+        {heading}
+      </p>
       {subHeading && (
         <p className="xs:text-[1.5rem] md:text-[2.25rem]">{subHeading}</p>
       )}

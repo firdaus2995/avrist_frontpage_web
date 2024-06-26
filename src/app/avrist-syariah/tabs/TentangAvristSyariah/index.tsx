@@ -41,6 +41,7 @@ const TentangAvristSyariah = (props: Props) => {
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
+        headingClassname="text-black"
       />
       <InformationCard
         heading="Tugas dan Peran"

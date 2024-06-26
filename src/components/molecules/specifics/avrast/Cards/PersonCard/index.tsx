@@ -25,7 +25,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
   headingClassname
 }) => (
   <div className="font-karla" id={idTags}>
-    <div className="text-center mb-[1.5rem]">
+    <div className="text-center xs:my-[2.25rem] sm:my-[5rem]">
       <p
         className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla ${headingClassname ?? 'text-purple_dark'}`}
       >

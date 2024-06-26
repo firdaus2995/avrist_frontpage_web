@@ -18,8 +18,7 @@ type Props = {
 };
 
 const ManfaatUtama = (props: Props) => {
-  const { boards, desc, subTitle, title } =
-    props;
+  const { boards, desc, subTitle, title } = props;
   return (
     <div>
       <AboutHeading
@@ -38,6 +37,7 @@ const ManfaatUtama = (props: Props) => {
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
+        headingClassname="text-black"
       />
       <InformationCard
         heading="Tugas dan Peran"
