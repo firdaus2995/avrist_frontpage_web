@@ -25,34 +25,41 @@ const PersonCard: React.FC<PersonCardProps> = ({
   headingClassname
 }) => (
   <div className="font-karla" id={idTags}>
-    <div className="text-center xs:my-[2.25rem] sm:my-[5rem]">
+    <div className="text-center">
       <p
-        className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla ${headingClassname ?? 'text-purple_dark'}`}
+        className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] ${headingClassname ?? 'text-purple_dark'}`}
       >
         {heading}
       </p>
     </div>
-    <div className="flex xs:flex-col md:flex-row justify-center items-center gap-[1.5rem]">
+    <div className="flex flex-row justify-center items-center gap-[1.5rem] mt-[1rem]">
       {cards.map((item, index) => (
         <div
           key={index}
           role="button"
           onClick={() => item.onClick && item.onClick(item)}
-          className="max-w-[23.25rem] border-1 rounded-[12px] shadow-md"
+          className="sm:w-[23.25rem] xs:w-[8.438rem] xs:h-[11.688rem] sm:h-auto border-1 rounded-[12px] shadow-md"
         >
           <Image
             alt="blank-image"
             width={0}
             height={372}
             src={item.image}
-            className="rounded-t-[12px] h-[23.25rem] w-full object-cover"
+            className="rounded-t-[12px] h-[23.25rem] w-full object-cover sm:block xs:hidden"
           />
-          <div className="text-center md:m-[2rem] font-bold font-karla h-[150px] flex flex-col items-center justify-center sm:justify-between">
-            <p className="xs:text-[1.5rem] md:text-[2.25rem] line-clamp-2">
+          <Image
+            alt="blank-image"
+            width={0}
+            height={142}
+            src={item.image}
+            className="rounded-t-[12px] h-[8.875rem] w-full object-cover block sm:hidden"
+          />
+          <div className="text-center md:m-[2rem] font-bold font-karla sm:h-[150px] xs:h-[45px] flex flex-col items-center justify-center sm:justify-between grow">
+            <p className="xs:text-[0.813rem] md:text-[2.25rem] sm:line-clamp-2 xs:line-clamp-1 leading-4">
               {item.name}
             </p>
             <p
-              className={`${roleClassname} xs:text-[1.25rem] md:text-[1.5rem]`}
+              className={`${roleClassname} xs:text-[0.625rem] md:text-[1.5rem]`}
             >
               {item.role}
             </p>
