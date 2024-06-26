@@ -8,6 +8,7 @@ import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import ButtonSmall from '@/components/atoms/ButtonSmall';
 import ButtonSmallWithCheck from '@/components/atoms/ButtonSmallWithCheck';
 import Icon from '@/components/atoms/Icon';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 
 interface IOption {
   label: string;
@@ -153,8 +154,8 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <div
-      className={`${outerClass} w-full flex flex-col px-[32px] sm:px-[136px] py-[12px] sm:py-[3rem] gap-[36px] sm:gap-[48px] md:flex-row`}
+    <CustomContainer
+      className={`${outerClass} w-full flex flex-col sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row`}
     >
       {/* CATEGORIES */}
       {!hiddenCategory && (
@@ -281,7 +282,7 @@ const CategoryWithThreeCards = ({
           </div>
         )}
       </div>
-    </div>
+    </CustomContainer>
   );
 };
 
