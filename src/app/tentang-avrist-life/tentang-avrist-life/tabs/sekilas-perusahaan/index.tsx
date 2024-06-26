@@ -10,6 +10,8 @@ import VisiIcon from '@/assets/images/common/visi.svg';
 import Icon4 from '@/assets/images/common/wallet.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import PurposeCard from '@/components/molecules/specifics/avrast/Cards/PurposeCard';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
+import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import Timeline from '@/components/molecules/specifics/avrast/TimeLine';
 import VisiMisi from '@/components/molecules/specifics/avrast/VisiMisi';
@@ -170,10 +172,12 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col bg-white justify-center ">
-      <div className="flex flex-col gap-[1.25rem] px-[2rem] md:px-[8.5rem] font-karla">
-        <p className="xs:text-[2.25rem] md:text-[3rem]">
-          <span className="font-bold text-purple_dark">Sekilas Avrist</span>
+    <div className="w-full flex flex-col bg-white justify-center">
+      <CustomContainer className="flex flex-col gap-[1.25rem] font-karla">
+        <p className="xs:text-[2.25rem] md:text-[3rem] xs:mt-[3.125rem] md:mt-[5rem]">
+          <span className="font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+            Sekilas Avrist
+          </span>
         </p>
         <p className="xs:text-xl md:text-[1.5rem] font-light text-justify">
           PT Avrist Assurance (Avrist) adalah perusahaan asuransi jiwa patungan
@@ -190,7 +194,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
           memiliki sertifikasi dan lebih dari 300 karyawan yang tersebar di 21
           kantor pemasaran Avrist.
         </p>
-        <div className="flex justify-center w-full md:h-[650px] my-[1.25rem]">
+        <div className="flex justify-center w-full md:h-[570px] my-[1.25rem]">
           <VideoPlayer
             color="purple_dark"
             url={
@@ -210,21 +214,19 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
           dan pemegang polis. PT Avrist Assurance berizin dan diawasi oleh
           Otoritas Jasa Keuangan.
         </p>
-      </div>
+      </CustomContainer>
 
       <div className="w-full">
         {contentData && <Timeline data={contentData} />}
       </div>
-      <div className="md:my-[6.25rem] md:px-[8.5rem] xs:px-[2rem] xs:my-[1.25rem]">
+      <CustomContainer className="xs:my-[3.125rem] sm:my-[5rem]">
         <VisiMisi data={visiMisi} />
-      </div>
+      </CustomContainer>
 
-      <div className="flex flex-col items-center justify-center bg-purple_superlight w-full md:px-[8.5rem] xs:px-[2rem]">
-        <div className="flex justify-center items-center p-10">
-          <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark font-karla xs:text-center md:text-left">
-            Mengapa Avrist Life Insurance?
-          </p>
-        </div>
+      <CustomContainer className="flex flex-col items-center justify-center bg-purple_superlight">
+        <TitleContainer className="text-purple_dark xs:text-center sm:text-left">
+          Mengapa Avrist Life Insurance?
+        </TitleContainer>
         <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
           {purposeData.map((val, idx) => (
             <PurposeCard
@@ -246,7 +248,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
             10 Maret 1986
           </p>
         </div>
-      </div>
+      </CustomContainer>
       <RoundedFrameBottom frameColor="bg-purple_superlight" />
     </div>
   );
