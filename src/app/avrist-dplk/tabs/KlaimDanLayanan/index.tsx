@@ -11,7 +11,7 @@ import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills
 
 const KlaimDanLayanan = () => {
   return (
-    <div className="flex flex-col mt-[3.125rem] sm:pb-[6px] xs:px-[2rem] sm:px-[8.5rem]">
+    <div className="flex flex-col xs:mt-[3.125rem] md:mt-[5rem] md:mb-[-5rem] xs:px-[2rem] sm:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang DPLK Avrist',
@@ -23,6 +23,7 @@ const KlaimDanLayanan = () => {
         selectedCategory="Klaim & Layanan"
         buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
         buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
+        buttonInactiveTextClassname="text-dplk_yellow"
         buttonActiveTextClassname="text-white"
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',

@@ -58,7 +58,7 @@ const ManfaatUtama = (props: Props) => {
         tagsTextClassname="text-dplk_yellow"
         idTags="#TentangAvristDPLK"
       />
-      <div className="flex flex-col gap-[4rem] w-full xs:mb-[3.125rem] sm:mb-[6.25rem]">
+      <div className="flex flex-col w-full mb-[3.125rem] sm:mb-[5rem]">
         <PersonCard
           heading="Dewan Pengawas DPLK PT Avrist Assurance"
           cards={personsCardGenerator(pengawas)}
