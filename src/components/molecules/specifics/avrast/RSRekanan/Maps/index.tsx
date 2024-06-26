@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
 import Slider, { LazyLoadTypes } from 'react-slick';
 import { IDAta } from '../Content';
 import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
 import Icon from '@/components/atoms/Icon';
+import NotFound from '@/components/atoms/NotFound';
 import MarkerCard from '@/components/molecules/specifics/avrast/RSRekanan/Maps/MarkerCard';
 import SearchBox from '@/components/molecules/specifics/avrast/SearchBox';
 import 'leaflet/dist/leaflet.css';
@@ -31,12 +32,6 @@ const Maps = ({
       sliderRef.current.slickPrev();
     }
   };
-
-  useEffect(() => {
-    if (sliderRef.current) {
-      sliderRef.current.slickGoTo(0);
-    }
-  }, [hospitalData]);
 
   const defaultProps = {
     center: {
@@ -133,7 +128,7 @@ const Maps = ({
 
   return (
     <div className="sm:w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[0.75rem] pb-6">
-      <div className="w-full h-[43.75rem] rounded-t-[0.75rem]">
+      <div className="w-full h-[43.75rem] rounded-t-[0.75rem] z-0">
         <MapContainer
           center={defaultProps.center}
           zoom={4.5}
@@ -162,7 +157,10 @@ const Maps = ({
         </MapContainer>
       </div>
       <div className="px-[5%]">
-        <SearchBox onSearch={(e) => onClickSearch(e)} />
+        <SearchBox
+          placeHolder="Cari Rumah Sakit"
+          onSearch={(e) => onClickSearch(e)}
+        />
       </div>
       <div className="flex sm:flex-row justify-between xs:flex-col px-3">
         <div className="sm:flex xs:hidden items-center justify-center">
@@ -173,30 +171,37 @@ const Maps = ({
             <Icon name="chevronLeft" color="purple_dark" />
           </div>
         </div>
-        <Slider
-          ref={(slider) => {
-            sliderRef.current = slider;
-          }}
-          {...sliderSettings(hospitalData.length)}
-          className="sm:w-[90%] w-full flex flex-row px-4"
-        >
-          {hospitalData?.length !== 0 &&
-            hospitalData!.map((item, index) => (
-              <div
-                key={index}
-                className="w-full  sm:h-full xs:h-[95%] mt-[0.75rem]"
-              >
-                <MarkerCard
-                  name={item.name}
-                  address={item.address}
-                  phone={item.phone}
-                  lat={item.lat}
-                  lng={item.lng}
-                  onClickMarker={() => onClickMarker(item.lat, item.lng)}
-                />
-              </div>
-            ))}
-        </Slider>
+        {hospitalData?.length !== 0 ? (
+          <Slider
+            ref={(slider) => {
+              sliderRef.current = slider;
+            }}
+            {...sliderSettings(hospitalData.length)}
+            className="sm:w-[90%] w-full flex flex-row px-4"
+          >
+            {hospitalData?.length !== 0 &&
+              hospitalData!.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full sm:h-full xs:h-[95%] mt-[0.75rem]"
+                >
+                  <MarkerCard
+                    name={item.name}
+                    address={item.address}
+                    phone={item.phone}
+                    lat={item.lat}
+                    lng={item.lng}
+                    onClickMarker={() => onClickMarker(item.lat, item.lng)}
+                  />
+                </div>
+              ))}
+          </Slider>
+        ) : (
+          <div className="-mt-14">
+            <NotFound title="Rumah Sakit Tidak Ditemukan" />
+          </div>
+        )}
+
         <div className="sm:hidden flex flex-row items-center justify-between">
           <div
             className="p-2 rounded-full border border-purple_dark cursor-pointer"

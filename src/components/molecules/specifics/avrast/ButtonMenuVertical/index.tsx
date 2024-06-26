@@ -60,32 +60,35 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
             <Icon name="chevronDown" color="black" width={12} height={12} />
           </span>
         </span>
-        {isOpen &&
-          item.map(
-            (i, index) =>
-              index !== selected && (
-                <span
-                  className="flex flex-row justify-between items-center cursor-pointer pr-4 absolute bg-white w-full"
-                  key={index}
-                  onClick={() => {
-                    i.onClick ? i.onClick() : null;
-                    setSelected(index);
-                    setIsOpen(false);
-                  }}
-                >
-                  <div className="flex flex-row gap-4 items-center">
-                    <div
-                      className={`w-[6px] h-[49px] ${index === selected ? 'bg-purple_dark' : 'bg-purple_mediumlight'} ${index === item.length ? 'rounded-bl-xl' : ''}`}
-                    />
-                    <p
-                      className={`text-md sm:text-[18px] font-bold ${i.color ? i.color : index === selected ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
-                    >
-                      {index !== selected && i.title}
-                    </p>
-                  </div>
-                </span>
-              )
-          )}
+        {isOpen && (
+          <div className="absolute w-full bg-white z-[10]">
+            {item.map(
+              (i, index) =>
+                index !== selected && (
+                  <span
+                    className="flex flex-row justify-between items-center cursor-pointer pr-4"
+                    key={index}
+                    onClick={() => {
+                      i.onClick ? i.onClick() : null;
+                      setSelected(index);
+                      setIsOpen(false);
+                    }}
+                  >
+                    <div className="flex flex-row gap-4 items-center">
+                      <div
+                        className={`w-[6px] h-[49px] ${index === selected ? 'bg-purple_dark' : 'bg-purple_mediumlight'} ${index === item.length ? 'rounded-bl-xl' : ''}`}
+                      />
+                      <p
+                        className={`text-md sm:text-[18px] font-bold ${i.color ? i.color : index === selected ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
+                      >
+                        {index !== selected && i.title}
+                      </p>
+                    </div>
+                  </span>
+                )
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
