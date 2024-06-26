@@ -781,7 +781,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[100px] bg-white">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[5rem] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
