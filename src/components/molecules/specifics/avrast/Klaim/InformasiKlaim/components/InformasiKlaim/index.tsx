@@ -124,7 +124,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
     <div>
       <div className="flex flex-col self-stretch items-center justify-center gap-[4rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             Komitmen Kami menangani klaim Anda
           </h2>
           <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">

@@ -158,11 +158,11 @@ const LayananNasabah = () => {
         <div className="w-1/5 h-full bg-agi_grey"></div>
         <div className="w-1/5 h-full bg-avram_green rounded-tr-[65px]"></div>
       </div>
-      <div>
-        <p className="md:text-5xl xs:text-3xl text-center font-bold text-purple_dark px-10">
+      <div className="px-[2rem]">
+        <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Layanan Nasabah
         </p>
-        <p className="md:text-4xl xs:text-2xl text-gray_bold_dark text-center px-10">
+        <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
           Kami Melayani Dengan Senang Hati!
         </p>
       </div>
@@ -172,7 +172,7 @@ const LayananNasabah = () => {
         ))}
       </div>
       <div className="w-full grid grid-cols-1 md:hidden gap-4">
-        <div className='w-[85%] m-auto'>
+        <div className="w-[85%] m-auto">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;

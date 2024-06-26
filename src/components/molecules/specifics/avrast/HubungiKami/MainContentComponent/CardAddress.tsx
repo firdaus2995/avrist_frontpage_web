@@ -6,20 +6,25 @@ type Props = {
   address?: string;
   workHour?: string;
   contact?: string;
+  lat: number;
+  lng: number;
+  onChangeCenter: (lat: number, lng: number) => void;
 };
 export const CardAddress = (props: Props) => {
-  const { title, address, contact, workHour } = props;
+  const { title, address, contact, workHour, onChangeCenter, lat, lng } = props;
   return (
     <CardPurple>
       <div className="p-[24px]">
         <div className="flex flex-row justify-between items-center">
           <span className="font-bold text-[24px]">{title}</span>
-          <Icon
-            name="navigation"
-            height={24}
-            width={24}
-            color="purple_verylight"
-          />
+          <div role='button' onClick={() => onChangeCenter(lat, lng)}>
+            <Icon
+              name="navigation"
+              height={24}
+              width={24}
+              color="purple_verylight"
+            />
+          </div>
         </div>
         {address && (
           <div className="flex flex-row items mt-[24px]">

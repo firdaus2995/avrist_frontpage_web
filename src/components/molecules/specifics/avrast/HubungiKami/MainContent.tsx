@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   RequirementForm,
   ContactSupport,
@@ -14,6 +15,17 @@ type Props = {
 
 export const MainContent = (props: Props) => {
   const { formId, formSaranId } = props;
+  const [mapCenter, setMapCenter] = useState<[number, number]>([
+    -6.214663280751351, 106.82071668189862
+  ]);
+
+  const onClickMarker = (lat: number, lng: number) => {
+    console.log(lat, lng)
+    if (lat !== 0 || lng !== 0) {
+      setMapCenter([lat, lng]);
+    }
+  };
+
   return (
     <div className="w-full flex flex-col">
       <div className="bg-purple_superlight flex flex-col sm:gap-[4rem] xs:gap-[2.25rem] xs:py-[3.125rem] xs:px-[2rem] sm:p-0 sm:px-[8.5rem] sm:py-[6.25rem] xs:px-[1.3125rem]">
@@ -27,10 +39,10 @@ export const MainContent = (props: Props) => {
       </div>
       <FeedbackForm Id={formSaranId} />
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem] xs:pt-[3.125rem]">
-        <HighOffice />
+        <HighOffice mapCenter={mapCenter} />
       </div>
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem]">
-        <BranchOffice />
+        <BranchOffice onChangeCenter={onClickMarker} />
       </div>
       <RoundedFrameBottom frameColor="bg-purple_superlight" />
     </div>

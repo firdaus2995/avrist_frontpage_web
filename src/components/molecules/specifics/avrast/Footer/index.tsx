@@ -66,7 +66,7 @@ const Footer = () => {
             </p>
             <div className="text-sm flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <p className="font-bold text-lg">Layanan Nasabah</p>
+                <p className="text-lg">Layanan Nasabah</p>
                 <a
                   href="tel:+622157898188"
                   className="font-bold text-2xl font-karla"
@@ -75,18 +75,18 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="font-bold text-lg">Waktu Operasional</p>
-                <p className="text-sm font-opensans whitespace-normal">
+                <p className="text-lg">Waktu Operasional</p>
+                <p className="text-sm font-opensans whitespace-normal font-bold ">
                   Senin - Jumat, 08.00 - 17.00 WIB
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="font-bold text-lg">Email</p>
+                <p className="text-lg">Email</p>
                 <a
-                  href="mailto:service@avrist.com"
-                  className="text-sm font-opensans"
+                  href="mailto:customer-service@avrist.com"
+                  className="text-sm font-opensans font-bold"
                 >
-                  service@avrist.com
+                  customer-service@avrist.com
                 </a>
               </div>
             </div>
@@ -111,36 +111,38 @@ const Footer = () => {
                   </p>
                 </Link>
                 <span className="h-[18px]" />
-                <p className="text-lg font-bold">Avrist Total Solution</p>
-                <div className="flex flex-row gap-2">
-                  <Link
-                    href={
-                      'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
-                    }
-                    target="blank"
-                  >
-                    <Image
-                      alt="Google Play"
-                      width={0}
-                      height={0}
-                      className="h-auto w-[7.143rem]"
-                      src={GOOGLEPLAY}
-                    />
-                  </Link>
-                  <Link
-                    href={
-                      'https://apps.apple.com/id/app/avrist-solution/id6467423188'
-                    }
-                    target="blank"
-                  >
-                    <Image
-                      alt="App Store"
-                      width={0}
-                      height={0}
-                      className="h-auto w-[7.143rem]"
-                      src={APPSTORE}
-                    />
-                  </Link>
+                <div className='flex flex-col gap-2 mt-5'>
+                  <p className="text-lg font-bold">Avrist Total Solution</p>
+                  <div className="flex flex-row gap-2">
+                    <Link
+                      href={
+                        'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
+                      }
+                      target="blank"
+                    >
+                      <Image
+                        alt="Google Play"
+                        width={0}
+                        height={0}
+                        className="h-auto w-[7.143rem]"
+                        src={GOOGLEPLAY}
+                      />
+                    </Link>
+                    <Link
+                      href={
+                        'https://apps.apple.com/id/app/avrist-solution/id6467423188'
+                      }
+                      target="blank"
+                    >
+                      <Image
+                        alt="App Store"
+                        width={0}
+                        height={0}
+                        className="h-auto w-[7.143rem]"
+                        src={APPSTORE}
+                      />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -162,38 +164,40 @@ const Footer = () => {
                 <Link href="/under-construction">
                   <p className="text-lg font-bold">Bengkel Rekanan</p>
                 </Link>
-                <Link href={'https://my.avrist.com/welcome'} target="blank">
-                  <p className="text-lg font-bold">Avrist Total Solution</p>
-                </Link>
-                <div className="flex flex-row gap-2">
-                  <Link
-                    href={
-                      'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
-                    }
-                    target="blank"
-                  >
-                    <Image
-                      alt="Google Play"
-                      width={0}
-                      height={0}
-                      className="h-auto w-[7.143rem]"
-                      src={GOOGLEPLAY}
-                    />
+                <div className='flex flex-col gap-2 mt-5'>
+                  <Link href={'https://my.avrist.com/welcome'} target="blank">
+                    <p className="text-lg font-bold">Avrist Total Solution</p>
                   </Link>
-                  <Link
-                    href={
-                      'https://apps.apple.com/id/app/avrist-solution/id6467423188'
-                    }
-                    target="blank"
-                  >
-                    <Image
-                      alt="App Store"
-                      width={0}
-                      height={0}
-                      className="h-auto w-[7.143rem]"
-                      src={APPSTORE}
-                    />
-                  </Link>
+                  <div className="flex flex-row gap-2">
+                    <Link
+                      href={
+                        'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
+                      }
+                      target="blank"
+                    >
+                      <Image
+                        alt="Google Play"
+                        width={0}
+                        height={0}
+                        className="h-auto w-[7.143rem]"
+                        src={GOOGLEPLAY}
+                      />
+                    </Link>
+                    <Link
+                      href={
+                        'https://apps.apple.com/id/app/avrist-solution/id6467423188'
+                      }
+                      target="blank"
+                    >
+                      <Image
+                        alt="App Store"
+                        width={0}
+                        height={0}
+                        className="h-auto w-[7.143rem]"
+                        src={APPSTORE}
+                      />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -221,7 +225,7 @@ const Footer = () => {
                 <Link href="/hubungi-kami" className="text-lg font-semibold">
                   Agen Aktif
                 </Link>
-                <div className="w-full mt-2">
+                <div className="w-full mt-5">
                   <Image
                     alt="Reksadana"
                     width={0}
@@ -253,7 +257,7 @@ const Footer = () => {
                 >
                   Avrist General Insurance
                 </Link>
-                <div className="w-full mt-2">
+                <div className="w-full mt-6 flex items-center justify-start">
                   <Image
                     alt="Reksadana"
                     width={0}

@@ -205,6 +205,11 @@ export const SearchInput = (props: SearchInputProps) => {
         placeholder={placeholder}
         className="w-full rounded-xl p-[16px] bg-purple_dark/5 mr-[12px]"
         onChange={(event) => setKeyword(event.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onClickSearch(keyword);
+          }
+        }}
       />
       <button
         onClick={() => onClickSearch(keyword)}

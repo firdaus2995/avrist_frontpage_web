@@ -204,7 +204,7 @@ const Header = () => {
               return (
                 <React.Fragment key={item.title}>
                   <li
-                    className={`font-opensans cursor-pointer relative ${styles['nav-list-item']}`}
+                    className={`font-opensans cursor-pointer relative font-semibold leading-6 ${styles['nav-list-item']}`}
                     ref={(el) => (listRef.current[idx] = el)}
                   >
                     {item.title}{' '}
