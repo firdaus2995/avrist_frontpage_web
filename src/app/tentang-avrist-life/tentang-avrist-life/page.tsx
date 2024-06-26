@@ -17,6 +17,7 @@ import Icon7 from '@/assets/images/common/procedure.svg';
 import Icon8 from '@/assets/images/common/youtube.svg';
 import Icon from '@/components/atoms/Icon';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -123,7 +124,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={transformedData.titleImage}
       />
-      <div className="xs:pb-2 md:pb-0 xs:-mb-2 md:mb-0 w-full justify-between gap-2 items-stretch xs:px-[2rem] md:px-[8.5rem] xs:pt-[3.125rem] md:pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[3.2rem] md:-mt-[6.2rem] z-[10]">
+      <CustomContainer className="xs:pb-2 md:pb-0 xs:-mb-2 md:mb-0 justify-between gap-2 items-stretch xs:pt-[3.125rem] md:pt-[5rem] rounded-t-[60px] bg-white xs:-mt-[3.2rem] md:-mt-[6.2rem] z-[10]">
         {/* Tab Desktop */}
         <div className="w-full xs:hidden md:block">
           <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
@@ -151,9 +152,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
             customLabel="name"
           />
         </div>
-      </div>
+      </CustomContainer>
 
-      <div className="w-full z-10 xs:py-[2.25rem] md:py-[3rem]">
+      <div className="w-full z-10">
         {tab === 'Sekilas Perusahaan' && (
           <SekilasPerusahaan setData={setData} />
         )}
@@ -174,7 +175,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
       tab === 'Manajemen' ||
       tab.includes('Manajemen') ||
       tab === 'Penghargaan' ? (
-        <div className="flex flex-col w-full xs:-mt-8 md:-mt-10">
+        <div className="flex flex-col w-full">
           <FooterInformation
             title={
               <div className="flex flex-col gap-4">
