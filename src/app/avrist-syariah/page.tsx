@@ -206,7 +206,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[4.5rem] gap-[4rem]">
+      <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[4.5rem] gap-[5rem]">
         <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
           {tabs.map((val, idx) => (
             <LinkScroll
@@ -285,7 +285,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
       <HelpCard
         title={
-          <p className="text-[3.5rem] text-white">
+          <p className="text-[2.25rem] sm:text-[3.5rem] text-white">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>
@@ -297,9 +297,13 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         image={footerImage.imageUrl}
         href="/tanya-avrista"
       />
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+      <RoundedFrameTop
+        bgColor="xs:bg-white md:bg-purple_superlight"
+        frameColor="bg-white"
+      />
       {tab.includes('Klaim dan Layanan') ? (
         <FooterCards
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Layanan Nasabah',
@@ -325,6 +329,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         />
       ) : (
         <FooterCards
+          bgColor="xs:bg-white md:bg-purple_superlight"
           cards={[
             {
               title: 'Rumah Sakit Rekanan',

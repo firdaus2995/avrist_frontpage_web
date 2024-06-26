@@ -40,18 +40,18 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
         </p>
       </div>
       <div className="font-karla my-[0.75rem]">
-        <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold">
+        <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           {headingText}
         </h1>
         <p
-          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0"
+          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0 "
           dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
         ></p>
         <p className="text-[1.5rem] font-light text-justify">
           {htmlParser(description)}
         </p>
       </div>
-      <div className="flex flex-row flex-nowrap my-[1.5rem] gap-[0.75rem]">
+      <div className="flex flex-row flex-nowrap gap-[0.75rem]">
         {tags &&
           tags.map((item: string, index: number) => (
             <Link
