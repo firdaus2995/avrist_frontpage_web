@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CustomForm from '../CustomForm/Index';
 import { ButtonMenu } from '../InformasiNasabah/MainContentComponent';
@@ -272,12 +273,13 @@ export const MainContent = ({
                   saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
                   menggunakan dan mengungkapkan data pribadi saya/kami sesuai
                   dengan{' '}
-                  <span
-                    onClick={() => router.push('/keamanan-online')}
+                  <Link
+                    href="/keamanan-online"
+                    target="_blank"
                     className="font-bold text-purple_dark cursor-pointer"
                   >
                     Kebijakan Keamanan *
-                  </span>
+                  </Link>
                 </span>
               </div>
               {/* submit */}
