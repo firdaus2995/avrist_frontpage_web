@@ -279,7 +279,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[80px] sm:pb-[100px] gap-[36px] sm:gap-[48px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[5rem] sm:pb-[3rem] gap-[36px] sm:gap-[48px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab || ''}
@@ -290,7 +290,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         <div className="flex flex-col gap-[24px] grow">
           <div className="flex flex-col gap-5 justify-between">
             <SearchBar
-              placeholder="Cari"
+              placeholder="Caris"
               searchButtonTitle="Cari"
               searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}

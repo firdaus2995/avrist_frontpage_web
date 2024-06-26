@@ -28,7 +28,7 @@ const DescriptionCategoryA = ({
             {categoryTitle}
           </p>
         </div>
-        <p className="font-bold text-[36px] sm:text-[56px]">{productTitle}</p>
+        <p className="font-bold text-[36px] sm:text-[56px] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">{productTitle}</p>
       </div>
       <div className="flex flex-col gap-[12px]">
         <p className="font-bold md:text-[36px] xs:text-[24px]" dangerouslySetInnerHTML={{ __html: tagLineProduk ?? '' }} />

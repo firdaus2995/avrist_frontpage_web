@@ -430,7 +430,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         px="32px"
         pxSm="136px"
         py="36px"
-        pySm="72px"
+        pySm="48px"
         textTitle="Rekomendasi Produk Lainnya"
       >
         {dataRekomendasi &&
