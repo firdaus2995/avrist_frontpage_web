@@ -157,11 +157,20 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
 
   const RenderArtikelLooping = () => {
     return contentData?.dataArtikel?.map((item: any, index: number) => {
-      const paragrafSatu = item['details'][0]?.value ?? '-';
+      let paragrafSatu = item['details'][0]?.value ?? '-';
       const artikelImage = singleImageTransformer(item['details'][1]);
-      const paragrafDua = item['details'][2]?.value ?? '-';
+      let paragrafDua = item['details'][2]?.value ?? '-';
       const artikelVideo = item['details'][3]?.value ?? '-';
-      const paragrafTiga = item['details'][4]?.value ?? '-';
+      let paragrafTiga = item['details'][4]?.value ?? '-';
+      if (paragrafSatu === '<p>-</p>') {
+        paragrafSatu = '-';
+      }
+      if (paragrafDua === '<p>-</p>') {
+        paragrafDua = '-';
+      }
+      if (paragrafTiga === '<p>-</p>') {
+        paragrafTiga = '-';
+      }
       return (
         <div key={index}>
           {paragrafSatu !== '-' && (
@@ -186,14 +195,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               ))}
           </div>
 
-          {paragrafDua !== '-' || paragrafDua !== '<p>-</p>' ? (
+          {paragrafDua !== '-' && (
             <span
               dangerouslySetInnerHTML={{
                 __html: paragrafDua
               }}
               className="font-opensans text-xl"
             />
-          ) : null}
+          )}
           {artikelVideo !== '-' && (
             <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
               {
@@ -207,15 +216,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             </div>
           )}
 
-          {paragrafTiga !== '<p>-</p>' ||
-            (paragrafTiga !== '-' && (
-              <span
-                className="text-xl"
-                dangerouslySetInnerHTML={{
-                  __html: paragrafTiga
-                }}
-              />
-            ))}
+          {paragrafTiga !== '-' && (
+            <span
+              className="text-xl"
+              dangerouslySetInnerHTML={{
+                __html: paragrafTiga
+              }}
+            />
+          )}
         </div>
       );
     });
