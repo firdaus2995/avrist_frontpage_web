@@ -835,7 +835,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
               {params.category === 'AvriStory' && (
-                <p>
+                <p className='px-[2rem]'>
                   <span className="font-black">AvriStory:</span> E-Bulletin
                   hadir setiap 3 bulan sekali
                 </p>
@@ -846,7 +846,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'Berita dan Kegiatan' &&
                 'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
               {params.category === 'AvriStory' && (
-                <p>
+                <p className='pb-[5rem] px-[2rem]'>
                   Informasi terbaru mengenai{' '}
                   <span className="font-black">Avrist Life Insurance</span>
                 </p>
@@ -945,7 +945,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
+          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34 px-[2rem]">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               onCategoryChange={(tab) => onCategoryChange(tab)}
@@ -1005,15 +1005,15 @@ const Berita: React.FC<ParamsProps> = () => {
                           key={index}
                           className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
                         >
-                          <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-2xl">
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="font-bold text-xl sm:text-2xl break-words">
                               {item.namaFile}
                             </p>
                             <MediumTag title="PDF" />
                           </div>
                           <Button
                             title="Unduh"
-                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
+                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 mt-3"
                             customTextClass="text-white text-xl"
                             onClick={async () =>
                               await handleDownload(item.file)
