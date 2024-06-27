@@ -197,54 +197,56 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
         </div>
       ) : (
         <div className="flex flex-col gap-[3rem] xs:px-[2rem] md:px-[8.5rem] gap-[5rem]">
-          {contentData &&
-            contentData?.map((item: any, index: number) => {
-              const transformData = (data: any) => {
-                return data.map((i: any) => {
-                  // Extract details
-                  const details = i.details;
+          <div className="mt-[5rem] flex flex-col gap-[3rem]">
+            {contentData &&
+              contentData?.map((item: any, index: number) => {
+                const transformData = (data: any) => {
+                  return data.map((i: any) => {
+                    // Extract details
+                    const details = i.details;
 
-                  // Find relevant data
-                  const nameDetail = details.find(
-                    (d: any) =>
-                      d.fieldId === item.contentData[0].details[1].fieldId
-                  );
-                  const roleDetail = details.find(
-                    (d: any) =>
-                      d.fieldId === item.contentData[0].details[2].fieldId
-                  );
-                  const imageDetail = details.find(
-                    (d: any) =>
-                      d.fieldId === item.contentData[0].details[0].fieldId
-                  );
-                  const bioDetail = details.find(
-                    (d: any) =>
-                      d.fieldId === item.contentData[0].details[3].fieldId
-                  );
+                    // Find relevant data
+                    const nameDetail = details.find(
+                      (d: any) =>
+                        d.fieldId === item.contentData[0].details[1].fieldId
+                    );
+                    const roleDetail = details.find(
+                      (d: any) =>
+                        d.fieldId === item.contentData[0].details[2].fieldId
+                    );
+                    const imageDetail = details.find(
+                      (d: any) =>
+                        d.fieldId === item.contentData[0].details[0].fieldId
+                    );
+                    const bioDetail = details.find(
+                      (d: any) =>
+                        d.fieldId === item.contentData[0].details[3].fieldId
+                    );
 
-                  return {
-                    name: nameDetail?.value || '', // Default to empty string if not found
-                    role: roleDetail?.value || '',
-                    image: imageDetail
-                      ? singleImageTransformer(imageDetail).imageUrl
-                      : '',
-                    desc: bioDetail?.value || '',
-                    onClick: handleCardClick // Assuming this is a string to represent a function
-                  };
-                });
-              };
+                    return {
+                      name: nameDetail?.value || '', // Default to empty string if not found
+                      role: roleDetail?.value || '',
+                      image: imageDetail
+                        ? singleImageTransformer(imageDetail).imageUrl
+                        : '',
+                      desc: bioDetail?.value || '',
+                      onClick: handleCardClick // Assuming this is a string to represent a function
+                    };
+                  });
+                };
 
-              return (
-                <>
-                  <PersonCard
-                    key={index}
-                    heading={item.contentData[0].details[2].value}
-                    cards={transformData(item.contentData)}
-                    roleClassname="text-purple_dark"
-                  />
-                </>
-              );
-            })}
+                return (
+                  <>
+                    <PersonCard
+                      key={index}
+                      heading={item.contentData[0].details[2].value}
+                      cards={transformData(item.contentData)}
+                      roleClassname="text-purple_dark"
+                    />
+                  </>
+                );
+              })}
+          </div>
           <div className="flex flex-col gap-[5rem] items-center justify-center w-full">
             <div className="flex justify-center items-center">
               <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark xs:text-center md:text-start">
