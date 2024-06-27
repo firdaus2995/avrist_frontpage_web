@@ -64,6 +64,7 @@ export const MainContent = ({
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [maxSizeValidation, setMaxSizeValidation] = useState<boolean>(false);
   const [attachmentFile, setAttachmentFile] = useState('');
   const [attachmentFileSize, setAttachmentFileSize] = useState(0);
 
@@ -132,9 +133,6 @@ export const MainContent = ({
   ) => {
     setFormIsValid(isValid);
     setFormValue(data);
-    if (attachmentFileSize > attachmentFileSize * 10000) {
-      setFormIsValid(false);
-    }
   };
 
   const getListTahun = useCallback(() => {
@@ -179,19 +177,24 @@ export const MainContent = ({
         attachment_path: attachmentFile
       };
     }
+    const size10Mb = 10 * 1024;
+    if (attachmentFileSize > size10Mb) {
+      setMaxSizeValidation(true);
+    } else {
+      const data = await handleSendEmail(queryParams);
+      if (data.status === 'OK') {
+        setShowSuccess(true);
+      }
 
-    const data = await handleSendEmail(queryParams);
-    if (data.status === 'OK') {
-      setShowSuccess(true);
-    }
-
-    if (data.status !== 'OK') {
-      console.error('Error:', data.errors.message);
-      router.refresh();
+      if (data.status !== 'OK') {
+        console.error('Error:', data.errors.message);
+        router.refresh();
+      }
     }
   };
 
   const handleChangeAttachment = (value: string, files: any, type: string) => {
+    setMaxSizeValidation(false);
     if (type === 'delete') {
       const newData = attachmentFile.replace(value, '');
       setAttachmentFile(newData);
@@ -257,7 +260,11 @@ export const MainContent = ({
                   longTextArea
                 />
               )}
-              <ReportForm onChangeData={handleChangeAttachment} />
+              <ReportForm
+                onChangeData={handleChangeAttachment}
+                maxSizeValidation={maxSizeValidation}
+                setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
+              />
               <div className="flex flex-row mt-[2.25rem]">
                 <div>
                   <input

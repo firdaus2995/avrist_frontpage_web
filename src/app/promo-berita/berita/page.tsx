@@ -28,6 +28,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
+import SectionPromo from '@/components/molecules/specifics/avrast/WrapperContent/sectionPromo';
 import {
   getAvristLifeGuide,
   getAvriStory,
@@ -781,7 +782,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid grid-cols-3 gap-[12px] px-[136px] py-[5rem] bg-white">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] pt-[5rem] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
@@ -830,37 +831,42 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto xs:px-[32px] md:px-0">
-          <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
-            {params.category === 'Berita dan Kegiatan' &&
-              'Berita dan Kegiatan Avrist Life Insurance'}
-            {params.category === 'AvriStory' && (
-              <p>
-                <span className="font-black">AvriStory:</span> E-Bulletin hadir
-                setiap 3 bulan sekali
-              </p>
-            )}
-            {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
-          </h2>
-          <h2 className="xs:max-md:tracking-wide text-[36px] sm:mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
-            {params.category === 'Berita dan Kegiatan' &&
-              'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
-            {params.category === 'AvriStory' && (
-              <p>
-                Informasi terbaru mengenai{' '}
-                <span className="font-black">Avrist Life Insurance</span>
-              </p>
-            )}
-            {params.category === 'Avrist Life Guide' && (
-              <p className="text-[36px] font-normal">
-                Kumpulan artikel mengenai{' '}
-                <span className="font-bold text-purple_dark">asuransi</span> dan{' '}
-                <span className="font-bold text-purple_dark">gaya hidup.</span>
-              </p>
-            )}
-          </h2>
+          <SectionPromo>
+            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
+              {params.category === 'Berita dan Kegiatan' &&
+                'Berita dan Kegiatan Avrist Life Insurance'}
+              {params.category === 'AvriStory' && (
+                <p>
+                  <span className="font-black">AvriStory:</span> E-Bulletin
+                  hadir setiap 3 bulan sekali
+                </p>
+              )}
+              {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
+            </h2>
+            <h2 className="xs:max-md:tracking-wide text-[36px] sm:mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
+              {params.category === 'Berita dan Kegiatan' &&
+                'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
+              {params.category === 'AvriStory' && (
+                <p>
+                  Informasi terbaru mengenai{' '}
+                  <span className="font-black">Avrist Life Insurance</span>
+                </p>
+              )}
+              {params.category === 'Avrist Life Guide' && (
+                <p className="text-[36px] font-normal">
+                  Kumpulan artikel mengenai{' '}
+                  <span className="font-bold text-purple_dark">asuransi</span>{' '}
+                  dan{' '}
+                  <span className="font-bold text-purple_dark">
+                    gaya hidup.
+                  </span>
+                </p>
+              )}
+            </h2>
+          </SectionPromo>
 
           {params.category === 'Berita dan Kegiatan' && (
-            <div className="w-full p-10">
+            <div className="w-full px-10 pb-[80px]">
               <div className="w-full sm:px-10 xs:px-[10px]">
                 <Slider
                   ref={(slider) => {
@@ -918,6 +924,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       }
                       image={item.image}
                       imageClassName="rounded-r-2xl"
+                      customClass="py-[0px]"
                     />
                   ))}
                 </Slider>
@@ -940,7 +947,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
+          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               onCategoryChange={(tab) => onCategoryChange(tab)}
@@ -1187,6 +1194,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </div>
                 ) : null
               }
+              outerClass="sm:!py-[0px]"
             />
           </div>
         </div>
@@ -1194,14 +1202,16 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-[32px] mt-2">
-          <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
-            Dari Anda untuk Kami
-          </h2>
-          <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
-            Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
-          </h2>
+          <SectionPromo>
+            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
+              Dari Anda untuk Kami
+            </h2>
+            <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
+              Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
+            </h2>
+          </SectionPromo>
 
-          <div className="w-full p-10">
+          <div className="w-full px-10 pb-10">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
@@ -1239,6 +1249,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       </div>
                     }
                     image={item.videoUrl}
+                    customClass="py-[0px]"
                   />
                 );
               })}
@@ -1317,15 +1328,17 @@ const Berita: React.FC<ParamsProps> = () => {
       {tab === 'Kumpulan Berita Pers' && (
         <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0">
           <div className="w-full xs:px-[2rem] md:px-[8.5rem] xs:text-center md:text-start xs:mt-[2.25rem] sm:mt-0">
-            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
-              Kumpulan Berita Pers
-            </h2>
-            <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
-              Temukan siaran pers Avrist di sini!
-            </h2>
+            <SectionPromo>
+              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
+                Kumpulan Berita Pers
+              </h2>
+              <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
+                Temukan siaran pers Avrist di sini!
+              </h2>
+            </SectionPromo>
           </div>
 
-          <div className="w-full flex flex-col items-center justify-center py-2 text-center mt-34">
+          <div className="w-full flex flex-col items-center justify-center pb-2 text-center">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               filterRowLayout={true}
@@ -1379,6 +1392,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {renderPage()}
                 </>
               }
+              outerClass="sm:!py-[0px]"
             />
           </div>
         </div>

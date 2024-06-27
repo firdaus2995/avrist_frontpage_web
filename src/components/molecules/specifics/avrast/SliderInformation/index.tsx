@@ -12,6 +12,7 @@ interface ISliderInformation {
   isVideo?: boolean;
   bgColor?: string;
   imageClassName?: string;
+  customClass?: string;
 }
 
 const SliderInformation = ({
@@ -20,7 +21,8 @@ const SliderInformation = ({
   image,
   isVideo,
   bgColor,
-  imageClassName
+  imageClassName,
+  customClass
 }: ISliderInformation) => {
   const imageUrl = isVideo
     ? `https://img.youtube.com/vi/${getYouTubeId(image)}/hqdefault.jpg`
@@ -31,7 +33,9 @@ const SliderInformation = ({
   return (
     <div className="xs:mx-[5px] md:mx-[5px]">
       {/* Desktop */}
-      <div className="flex lg:px-[40px] py-[72px] bg-white w-full sm:px-0 xs:hidden md:block">
+      <div
+        className={`flex lg:px-[40px] bg-white w-full sm:px-0 xs:hidden md:block ${customClass}`}
+      >
         <div
           className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-md:flex-wrap xs:max-md:flex xs:max-md:grid-cols-1`}
         >
