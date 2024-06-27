@@ -22,14 +22,16 @@ const MarkerCard: React.FC<IMarkerCard> = ({
     <div className="rounded-xl border border-gray_light p-6 sm:w-[95%] xs:w-full xs:h-auto sm:h-[36vh] flex flex-col gap-4 overflow-auto">
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-2xl text-sm w-[80%]">{name}</h1>
-        <div role="button" onClick={() => onClickMarker(lat, lng)}>
-          <Icon
-            name="navigation"
-            color="purple_verylight"
-            width={24}
-            height={24}
-          />
-        </div>
+        {lat !== 0 && lng !== 0 ? (
+          <div role="button" onClick={() => onClickMarker(lat, lng)}>
+            <Icon
+              name="navigation"
+              color="purple_verylight"
+              width={24}
+              height={24}
+            />
+          </div>
+        ) : null}
       </span>
       <span className="flex flex-row gap-2">
         <Icon name="maps" width={24} height={24} color="purple_verylight" />
