@@ -1194,7 +1194,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </div>
                 ) : null
               }
-              outerClass="sm:py-[0px]"
+              outerClass="sm:!py-[0px]"
             />
           </div>
         </div>
@@ -1392,7 +1392,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {renderPage()}
                 </>
               }
-              outerClass="sm:py-[0px]"
+              outerClass="sm:!py-[0px]"
             />
           </div>
         </div>
