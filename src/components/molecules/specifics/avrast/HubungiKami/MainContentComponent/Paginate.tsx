@@ -73,6 +73,13 @@ export const Paginate = (props: Props) => {
     }
   };
 
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      onChangePage(currentPage - 1);
+    }
+  };
+
   return (
     <div
       className={`w-full flex sm:flex-row xs:flex-col gap-4 justify-between ${className}`}
@@ -85,6 +92,14 @@ export const Paginate = (props: Props) => {
         dari <span className="font-bold">{dataPage?.totalData}</span> hasil
       </p>
       <div className="flex flex-row gap-2 items-center">
+        <div onClick={handlePreviousPage} className="cursor-pointer rotate-180">
+          <Icon
+            width={20}
+            height={20}
+            name="chevronRight"
+            color="purple_dark"
+          />
+        </div>
         <p className="text-xl">
           {renderPageNumbers()} ...{' '}
           <span

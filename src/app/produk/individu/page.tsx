@@ -279,7 +279,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[80px] sm:pb-[100px] gap-[36px] sm:gap-[48px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[5rem] sm:pb-[5rem] gap-[36px] sm:gap-[48px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab || ''}
