@@ -245,7 +245,7 @@ const CompanySection = () => {
   };
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center sm:py-32 xs:pt-[5rem] xs:pb-[3rem] gap-[3rem] bg-purple_light_bg">
+    <div className="flex flex-col self-stretch items-center justify-center sm:py-32 xs:pt-[5rem] xs:pb-[3rem] gap-[5rem] bg-purple_light_bg">
       <div className='px-[2rem]'>
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Mengapa Avrist Assurance?

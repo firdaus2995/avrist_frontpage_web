@@ -245,7 +245,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                 </>
               );
             })}
-          <div className="flex flex-col gap-[3rem] items-center justify-center w-full">
+          <div className="flex flex-col gap-[5rem] items-center justify-center w-full">
             <div className="flex justify-center items-center">
               <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark xs:text-center md:text-start">
                 Struktur Organisasi

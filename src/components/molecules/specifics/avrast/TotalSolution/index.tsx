@@ -206,7 +206,7 @@ const TotalSolution = () => {
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[2rem] md:px-[8.5rem] gap-[3rem] bg-white rounded-b-[65px] relative">
+    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[2rem] md:px-[8.5rem] gap-[5rem] bg-white rounded-b-[65px] relative">
       <div className='px-[2rem]'>
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Kami ada untuk Anda
