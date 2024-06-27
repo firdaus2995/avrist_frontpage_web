@@ -155,7 +155,7 @@ const CategoryWithThreeCards = ({
 
   return (
     <CustomContainer
-      className={`${outerClass} w-full flex flex-col sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row`}
+      className={`w-full flex flex-col sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row ${outerClass}`}
     >
       {/* CATEGORIES */}
       {!hiddenCategory && (
