@@ -91,7 +91,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
       <div
         style={{
           position: 'absolute',
-          left: 126,
+          left: window.innerWidth > 480 ? 136 : 156,
           width: 150,
           bottom: 50
         }}
@@ -137,9 +137,11 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                 ) => (
                   <div
                     key={index}
-                    className="flex w-full h-[30rem] md:h-[40rem] relative"
+                    className="flex w-full h-[49rem] md:h-[40rem] relative"
                   >
-                    <div className="md:hidden">
+                    <div className="md:hidden relative">
+                      <div className="h-[49rem] absolute bg-gradient-to-b from-white from-40% via-white via-10% to-transparent to-60% z-10 w-full"></div>
+                      <div className="h-[19rem]" />
                       <Image
                         alt="loop-image"
                         src={
@@ -148,8 +150,9 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                                 .imageUrl
                             : BlankImage
                         }
-                        fill
-                        className="w-full h-auto object-cover object-right-bottom"
+                        width={100}
+                        height={100}
+                        className="w-full h-[30rem] object-cover object-right-bottom"
                       />
                     </div>
                     <div className="md:block xs:hidden">
