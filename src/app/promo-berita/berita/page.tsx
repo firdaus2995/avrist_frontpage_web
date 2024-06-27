@@ -1199,17 +1199,19 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-[32px] mt-2">
-          <SectionPromo>
-            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
-              Dari Anda untuk Kami
-            </h2>
-            <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
-              Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
-            </h2>
-          </SectionPromo>
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className='xs:px-[2rem] sm:px-0'>
+            <SectionPromo>
+              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
+                Dari Anda untuk Kami
+              </h2>
+              <h2 className="md:text-4xl xs:text-2xl mb-6 w-full">
+                Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
+              </h2>
+            </SectionPromo>
+          </div>
 
-          <div className="w-full px-10 pb-10">
+          <div className="w-full sm:px-10 pb-10">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
@@ -1227,7 +1229,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     title={
                       <div className="flex flex-col gap-4 text-left">
                         <p
-                          className="text-[36px] font-bold"
+                          className="text-[36px] font-bold line-clamp-3"
                           dangerouslySetInnerHTML={{
                             __html: item.judul
                           }}
@@ -1252,7 +1254,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 );
               })}
             </Slider>
-            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-0">
+            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[2rem]">
               <div
                 className="p-2 border-2 rounded-full border-purple_dark"
                 role="button"
@@ -1270,7 +1272,7 @@ const Berita: React.FC<ParamsProps> = () => {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full xs:px-[2rem] md:px-[5rem]">
             <CategoryWithThreeCards
               hidePagination
               defaultSelectedCategory={params.category}
