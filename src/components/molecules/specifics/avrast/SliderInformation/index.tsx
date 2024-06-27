@@ -31,7 +31,7 @@ const SliderInformation = ({
   const [show, setShow] = useState(false);
 
   return (
-    <div className="xs:mx-[5px] md:mx-[5px]">
+    <div className="xs:px-[32px] md:px-[5px] pt-[5rem] pb-[3rem]">
       {/* Desktop */}
       <div
         className={`flex lg:px-[40px] bg-white w-full sm:px-0 xs:hidden md:block ${customClass}`}
@@ -64,9 +64,9 @@ const SliderInformation = ({
       </div>
 
       {/* Mobile */}
-      <div className="flex pt-[72px] pb-[1.5rem] bg-white w-full md:hidden">
+      <div className="flex pb-[1.5rem] bg-white w-full md:hidden">
         <div
-          className={`grid grid-cols-2 rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
+          className={`flex flex-col rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
         >
           <div
             className={`flex relative ${isVideo && 'cursor-pointer'}`}
@@ -76,7 +76,7 @@ const SliderInformation = ({
               height={0}
               width={0}
               alt="sliderInformationImage"
-              className={`min-h-[400px] w-full object-cover rounded-t-3xl`}
+              className={`min-h-[231px] w-full object-cover rounded-t-3xl`}
               src={imageUrl}
             />
             {isVideo && (
