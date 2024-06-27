@@ -121,7 +121,7 @@ const DPLKProductList = () => {
         selectedCategory="Produk"
         buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
         buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
-        buttonInactiveTextClassname="text-dplk_yellow"
+        buttonInactiveTextClassname="text-dplk_yellow hover:text-white"
         buttonActiveTextClassname="text-white"
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
@@ -149,7 +149,7 @@ const DPLKProductList = () => {
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
+      <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] sm:-mt-[3.4rem]">
         {paginatedData.map((i, index) => {
           return (
             <CardProduct
