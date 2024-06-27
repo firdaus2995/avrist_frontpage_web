@@ -276,12 +276,14 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                   Perlindungan Jiwa dan Kesehatan
                 </Link>
                 <Link
+                  target="_blank"
                   href={`${EXTERNAL_URL.agiUrl}`}
                   className="font-karla border-l-8 border-agi_grey bg-grey_bg rounded-r-[12px] text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
                 >
                   Perlindungan Harta Benda
                 </Link>
                 <Link
+                  target="_blank"
                   href={`${EXTERNAL_URL.avramUrl}`}
                   className="font-karla text-gray-400 border-l-8 border-avram_green rounded-r-[12px] bg-green_bg rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
                 >
