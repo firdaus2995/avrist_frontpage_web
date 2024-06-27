@@ -13,6 +13,8 @@ import Icon4 from '@/assets/images/common/procedure.svg';
 import Button from '@/components/atoms/Button/Button';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
+import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -111,11 +113,9 @@ const DetailKarir = () => {
         imageUrl={data?.titleImage}
       />
 
-      <div className="pb-2 w-full justify-between gap-2 items-stretch px-[2rem] md:px-[8.5rem] pt-[5rem] rounded-t-[76px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
+      <CustomContainer className="pb-2 w-full justify-between gap-2 items-stretch rounded-t-[76px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
         <div className="flex flex-col gap-[3rem]">
-          <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-karla font-bold">
-            {data.judul ?? ''}
-          </h1>
+          <TitleContainer className="!mb-0">{data.judul ?? ''}</TitleContainer>
 
           <p
             className="text-xl font-opensans flex flex-col"
@@ -125,7 +125,7 @@ const DetailKarir = () => {
           />
 
           <div className="flex flex-col gap-[1rem]">
-            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark">
+            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {data.subjudul}
             </h2>
             <p
@@ -167,7 +167,7 @@ const DetailKarir = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </CustomContainer>
 
       <div className="flex flex-col w-full">
         <RoundedFrameBottom />

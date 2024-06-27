@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Slider from 'react-slick';
+import TitleContainer from '../Containers/Title';
 import NODE_SELECTED from '@/assets/images/node-selected.svg';
 import NODE from '@/assets/images/node.svg';
 
@@ -39,11 +40,12 @@ const Timeline = ({ data }: IFooterInformation) => {
 
   return (
     <ol className="items-center flex flex-col">
-      <div className="flex justify-center items-center p-10">
+      <TitleContainer>
         <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark">
           Sejarah Perusahaan
         </p>
-      </div>
+      </TitleContainer>
+
       <div className="flex flex-row w-full h-full items-center justify-center pb-1">
         {/* {data.map((val, idx) => (
           <li key={idx} className="relative mb-10 sm:mb-0 w-full">

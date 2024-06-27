@@ -109,7 +109,7 @@ const DPLKProductList = () => {
   };
 
   return (
-    <div className="flex flex-col xs:gap-[2.25rem] md:gap-[4rem] mt-[3.125rem] sm:pb-[6px] xs:px-[2rem] md:px-[8.5rem]">
+    <div className="flex flex-col xs:gap-[3.125rem] md:gap-[5rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang DPLK Avrist',

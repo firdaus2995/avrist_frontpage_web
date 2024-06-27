@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 
 interface Card {
   name: string;
@@ -25,13 +26,11 @@ const PersonCard: React.FC<PersonCardProps> = ({
   headingClassname
 }) => (
   <div className="font-karla" id={idTags}>
-    <div className="text-center">
-      <p
-        className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] ${headingClassname ?? 'text-purple_dark'}`}
-      >
-        {heading}
-      </p>
-    </div>
+    <TitleContainer
+      className={`text-center ${headingClassname ?? 'text-purple_dark'}`}
+    >
+      {heading}
+    </TitleContainer>
     <div className="flex flex-row justify-center items-center gap-[1.5rem] mt-[1rem]">
       {cards.map((item, index) => (
         <div

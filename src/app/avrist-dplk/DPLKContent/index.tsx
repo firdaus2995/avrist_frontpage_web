@@ -17,8 +17,8 @@ type Props = {
 };
 const tabs = [
   'Tentang DPLK Avrist',
-  'Manfaat Utama',
   'Dewan Pengawas DPLK',
+  'Manfaat Utama',
   'Produk',
   'Klaim dan Layanan'
 ];
@@ -87,7 +87,7 @@ const DPLKContent = (props: Props) => {
   }, [tab, tabs]);
 
   return (
-    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] gap-[4rem] my-[3.125rem]">
+    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:my-[5rem] gap-[3.125rem] sm:gap-[5rem]">
       <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
         {tabs.map((val, idx) => (
           <LinkScroll

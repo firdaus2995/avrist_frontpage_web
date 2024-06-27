@@ -16,6 +16,7 @@ import Input from '@/components/atoms/Input';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -184,7 +185,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <div className="flex items-center justify-center w-full xs:px-[2rem] md:px-[8.5rem] xs:pt-[1.25rem] md:pt-[5rem]">
+        <CustomContainer className="flex items-center justify-center w-full xs:pt-[1.25rem] md:pt-[5rem]">
           <div className="flex flex-col gap-10 font-opensans">
             <div className="flex flex-col gap-5">
               <span className="text-purple_dark font-semibold">
@@ -193,7 +194,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 />
               </span>
               <p
-                className="font-bold xs:text-[1.5rem] md:text-[3.5rem] font-karla"
+                className="font-bold xs:text-[1.5rem] md:text-[3.5rem] font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]"
                 dangerouslySetInnerHTML={{ __html: contentData.judul }}
               />
               <div className="flex flex-row justify-between items-center">
@@ -239,7 +240,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               ? contentData?.loopArtikel?.map((item: any) => item)
               : null}
           </div>
-        </div>
+        </CustomContainer>
       )}
 
       <div className="flex flex-col">

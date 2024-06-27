@@ -206,7 +206,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[4.5rem] gap-[5rem]">
+      <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[5rem] xs:gap-[3.125rem] sm:gap-[5rem]">
         <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
           {tabs.map((val, idx) => (
             <LinkScroll
