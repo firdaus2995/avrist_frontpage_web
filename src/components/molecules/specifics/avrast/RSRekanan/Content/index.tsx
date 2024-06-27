@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
@@ -11,9 +11,31 @@ const Content = () => {
   const [searchParam, setSearchParam] = useState('');
   const [currentPage, setCurrentPage] = useState<number | any>(1);
   const [thirdParty, setThirdParty] = useState('Avrist');
-  const [btnVerticalData, setBtnVerticalData] = useState<
-    IBtnVerticalData[] | []
-  >([]);
+  const [loading, setLoading] = useState(false);
+
+  const btnVerticalData = useMemo(
+    () => [
+      {
+        title: 'Avrist',
+        onClick: () => {
+          setThirdParty('Avrist');
+        }
+      },
+      {
+        title: 'Admedika',
+        onClick: () => {
+          setThirdParty('Admedika');
+        }
+      },
+      {
+        title: 'AAI',
+        onClick: () => {
+          setThirdParty('Aai');
+        }
+      }
+    ],
+    [thirdParty]
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,6 +43,8 @@ const Content = () => {
 
   useEffect(() => {
     const fetchProviderData = async () => {
+      setData([]);
+      setLoading(true);
       const queryParams = {
         page: currentPage,
         name_contain: searchParam,
@@ -28,6 +52,7 @@ const Content = () => {
       };
       const data = await handleGetProvider(queryParams);
       if (data.responseMessage !== 'SUCCESS') {
+        setLoading(false);
         return [];
       }
       const { content } = data;
@@ -52,29 +77,10 @@ const Content = () => {
           );
           return [...prevData, ...newData];
         });
-
-        const thirdPartyGroupSet = new Set();
-
-        // get unique third party group from each content
-        content.forEach((item: any) => {
-          item?.thirdPartyAdministrations?.forEach((childItem: any) => {
-            thirdPartyGroupSet.add(childItem.name);
-          });
-        });
-
-        // convert thirdPartyGroupSet into Array
-        const thirdPartyGroup = Array.from(thirdPartyGroupSet);
-
-        const createBtnVerticalData = () => {
-          return thirdPartyGroup.map((item: any) => ({
-            title: item,
-            onClick: () => setThirdParty(item)
-          }));
-        };
-
-        setBtnVerticalData(createBtnVerticalData());
+        setLoading(false);
       } else {
         setData([]);
+        setLoading(false);
       }
     };
 
@@ -121,6 +127,7 @@ const Content = () => {
             onClickSearch={handleChangeSearchParams}
             onSetPage={(data) => setCurrentPage(data)}
             currentPage={currentPage}
+            loading={loading}
           />
         </section>
       </div>
@@ -138,9 +145,4 @@ export interface IDAta {
   phone: string;
   lat: number;
   lng: number;
-}
-
-interface IBtnVerticalData {
-  title: string;
-  onClick: () => void;
 }
