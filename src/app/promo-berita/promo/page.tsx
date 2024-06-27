@@ -352,7 +352,7 @@ const Promo: React.FC<ParamsProps> = () => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative">
+      <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative xs-px-[32px] md:px-0">
         <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
           <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] font-bold mb-[0.75rem] text-purple_dark">
             Avrist Promo Terbaru
