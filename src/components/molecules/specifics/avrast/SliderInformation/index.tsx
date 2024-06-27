@@ -64,9 +64,9 @@ const SliderInformation = ({
       </div>
 
       {/* Mobile */}
-      <div className="flex pb-[1.5rem] bg-white w-full md:hidden">
+      <div className="flex pb-[1.5rem] bg-white w-full md:hidden h-[700px]">
         <div
-          className={`flex flex-col rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
+          className={`flex h-[700px] flex-col w-full rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
         >
           <div
             className={`flex relative ${isVideo && 'cursor-pointer'}`}
@@ -85,7 +85,7 @@ const SliderInformation = ({
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-[24px] items-start justify-center py-[2.25rem] px-[1.5rem] bg-purple_superlight rounded-b-3xl">
+          <div className="flex flex-col grow gap-[24px] items-start justify-center py-[2.25rem] px-[1.5rem] bg-purple_superlight rounded-b-3xl">
             <div>{title}</div>
             {buttonTitle && <Button title={buttonTitle} />}
           </div>

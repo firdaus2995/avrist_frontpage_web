@@ -65,7 +65,6 @@ const Berita: React.FC<ParamsProps> = () => {
     dots: true,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -830,7 +829,7 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto xs:px-[32px] md:px-0">
+        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto">
           <SectionPromo>
             <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
               {params.category === 'Berita dan Kegiatan' &&
@@ -866,22 +865,21 @@ const Berita: React.FC<ParamsProps> = () => {
           </SectionPromo>
 
           {params.category === 'Berita dan Kegiatan' && (
-            <div className="w-full px-10 pb-[80px]">
-              <div className="w-full sm:px-10 xs:px-[10px]">
+            <div className="w-full pb-[80px]">
+              <div className="w-full sm:px-10 xs:px-0">
                 <Slider
                   ref={(slider) => {
                     sliderRef.current = slider;
                   }}
                   {...sliderSettings}
                   infinite={true}
-                  centerMode={false}
                 >
                   {contentData?.slice(0, 5)?.map((item: any, index: number) => (
                     <SliderInformation
                       key={index}
                       bgColor="purple_superlight"
                       title={
-                        <div className="flex flex-col gap-4 text-left">
+                        <div className="flex flex-col gap-4 text-left w-full">
                           <p className="text-[14px]">
                             <span className="font-bold text-purple_dark text-sm">
                               {htmlParser(item.artikelTopic)}
@@ -889,7 +887,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <p
-                            className="text-[36px] xs:max-sm:text-[24px] font-bold"
+                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-words"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
@@ -981,7 +979,7 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
+                    <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
                       {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
