@@ -216,7 +216,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
             </div>
           </div>
         </div>
-        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col relative mb-[5rem]">
+        <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col mb-[5rem]">
           <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
             <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
               Apa <span className="font-bold">perlindungan </span> yang{' '}
@@ -263,27 +263,27 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
               )}
             </button>
           </div>
-          <div className={`${dropdownVisible && 'mb-[80px]'}`}>
+          <div>
             {dropdownVisible && (
               <div
-                className={`absolute flex flex-col xs:top-[300px] sm:top-[120px] sm:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 sm:left-[40rem] md:left-[45rem] sm:w-[31.25rem]`}
+                className={`absolute shadow-xl flex flex-col xs:top-[100vh] md:top-[145vh] md:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 md:left-[50rem] md:w-[31.25rem] z-30`}
                 ref={dropdownRef}
               >
                 <Link
                   href="/produk/individu"
-                  className="font-karla border-l-8 border-purple_dark rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
+                  className="font-karla border-l-8 border-purple_dark bg-purple_bg rounded-r-[12px] rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
                 >
                   Perlindungan Jiwa dan Kesehatan
                 </Link>
                 <Link
                   href={`${EXTERNAL_URL.agiUrl}`}
-                  className="font-karla border-l-8 border-agi_grey text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                  className="font-karla border-l-8 border-agi_grey bg-grey_bg rounded-r-[12px] text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
                 >
                   Perlindungan Harta Benda
                 </Link>
                 <Link
                   href={`${EXTERNAL_URL.avramUrl}`}
-                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-r-[12px] bg-green_bg rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
                 >
                   Manajemen Investasi
                 </Link>

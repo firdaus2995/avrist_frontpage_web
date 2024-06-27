@@ -96,7 +96,10 @@ const config: Config = {
         grey_video_footer: '#8C8B89',
         syariah_green: '#3D5910',
         syariah_green_informing: '#417C40',
-        dplk_yellow: '#F2A625'
+        dplk_yellow: '#F2A625',
+        purple_bg: '#FCF4FF',
+        grey_bg: '#F6F6F6',
+        green_bg: '#EBFCFA'
       },
       textShadow: {
         DEFAULT: '0 0 3px #FFF, 0 0 5px #FFF',
