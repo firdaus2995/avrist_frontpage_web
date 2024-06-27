@@ -105,12 +105,14 @@ const CompanySection = () => {
 
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     arrows: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    adaptiveHeight: true
+    adaptiveHeight: true,
+    autoplay: true,
+    autoplaySpeed: 3000
   };
 
   const renderCard = (val: {
