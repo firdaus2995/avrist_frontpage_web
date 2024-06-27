@@ -157,7 +157,7 @@ export const ReportForm = (props: ReportFormProps) => {
                 Upload Dokumen
               </p>
               {maxSizeValidation && (
-                <p className="font-opensans font-medium text-[12px]">
+                <p className="text-xs text-error">
                   Maksimal total ukuran file yang dapat diunggah adalah 10MB
                 </p>
               )}
