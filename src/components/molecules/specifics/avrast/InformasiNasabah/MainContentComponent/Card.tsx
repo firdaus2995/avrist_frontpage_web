@@ -67,7 +67,7 @@ export const ContentCard = () => {
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center gap-[4rem]">
-      <div className="mt-[4rem] xs:hidden sm:grid sm:grid-cols-3 xs:grid-cols-1 gap-[1.5rem]">
+      <div className="xs:hidden sm:grid sm:grid-cols-3 xs:grid-cols-1 gap-[1.5rem]">
         {mockData.map((i) => (
           <div
             key={i.id}
