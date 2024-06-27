@@ -37,7 +37,7 @@ const ManfaatUtama = (props: Props) => {
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
-        headingClassname="text-black"
+        headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
       />
       <InformationCard
         heading="Tugas dan Peran"
