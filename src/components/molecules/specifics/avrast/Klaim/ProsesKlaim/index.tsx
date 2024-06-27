@@ -328,11 +328,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   return (
     <div
-      className={`w-full flex flex-col justify-center gap-[4rem] xs:px-[2rem] md:px-[8.5rem] relative ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[5rem]'} mb-1`}
+      className={`w-full flex flex-col justify-center gap-[5rem] xs:px-[2rem] md:px-[8.5rem] relative ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[5rem]'} mb-1`}
     >
       {!isSelectedData && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark">
+          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] md:-tracking-[2.56px]">
             Kami proses Klaim Anda dengan efisien
           </h2>
           <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">

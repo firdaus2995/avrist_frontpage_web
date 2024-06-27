@@ -60,10 +60,10 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   );
 
   return (
-    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:pt-[3.125rem] xs:pb-[2.25rem] md:pt-[5rem] md:pb-[3rem] sm:gap-[4rem] xs:gap-[2.25rem]">
+    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:pt-[3.125rem] xs:pb-[2.25rem] md:pt-[5rem] md:pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
       {/* Tab Desktop */}
       <div className="w-full xs:hidden md:block">
-        <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap mb-10">
+        <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
           {data.map((val, idx) =>
             val === 'Login Polis' ? (
               <a
