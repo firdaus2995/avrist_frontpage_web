@@ -198,14 +198,17 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
-        <CustomContainer className="w-full flex flex-col items-center justify-center text-center gap-[0.75rem] sm:mb-[0.5rem]">
-          <TitleContainer className="font-medium text-purple_dark !mb-0">
-            {params.category} Perusahaan
-          </TitleContainer>
-          <h2 className="xs:text-[1.25rem] md:text-[2.25rem] font-karla">
-            Temukan {params.category.toLowerCase()} perusahaan di sini
-          </h2>
-        </CustomContainer>
+        {params.category ? (
+          <CustomContainer className="w-full flex flex-col items-center justify-center text-center gap-[0.75rem] sm:mb-[0.5rem]">
+            <TitleContainer className="font-medium text-purple_dark !mb-0">
+              {params.category} Perusahaan
+            </TitleContainer>
+            <h2 className="xs:text-[1.25rem] md:text-[2.25rem] font-karla">
+              Temukan {params.category.toLowerCase()} perusahaan di sini
+            </h2>
+          </CustomContainer>
+        ) : null}
+
         <CategoryWithThreeCards
           defaultSelectedCategory={params.category}
           onCategoryChange={(tab) => setParams({ ...params, category: tab })}
