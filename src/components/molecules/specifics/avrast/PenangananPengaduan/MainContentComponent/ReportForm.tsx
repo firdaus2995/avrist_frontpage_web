@@ -13,10 +13,18 @@ type UploadBoxProps = {
   onChangeData: (value: string, uploadedFile: any, title: string) => void;
   value?: any;
   onDeleteData: () => void;
+  setMaxSizeValidation: (value: boolean) => void;
 };
 
 const UploadBox = (props: UploadBoxProps) => {
-  const { title, fileType, onChangeData, value, onDeleteData } = props;
+  const {
+    title,
+    fileType,
+    onChangeData,
+    value,
+    onDeleteData,
+    setMaxSizeValidation
+  } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleUploadClick = () => {
@@ -30,7 +38,6 @@ const UploadBox = (props: UploadBoxProps) => {
   ) => {
     if (event.target.files && event.target.files.length > 0) {
       const files = Array.from(event.target.files);
-
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         formData.append('files', files[i]);
@@ -39,6 +46,12 @@ const UploadBox = (props: UploadBoxProps) => {
       formData.append('fileName', files[0].name);
 
       try {
+        const size10Mb = 10 * 1024 * 1024;
+        if (files[0].size > size10Mb) {
+          setMaxSizeValidation(true);
+        } else {
+          setMaxSizeValidation(false);
+        }
         const response = await handleUploadDocument(formData);
         const uploadedFile: any = event.target?.files[0];
 
@@ -70,7 +83,7 @@ const UploadBox = (props: UploadBoxProps) => {
         </div>
       ) : (
         <div
-          className="border border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px]"
+          className="border cursor-pointer border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px]"
           onClick={() => onDeleteData()}
         >
           <Icon name="close" height={24} width={24} color="purple_dark" />
@@ -95,10 +108,12 @@ const UploadBox = (props: UploadBoxProps) => {
 
 type ReportFormProps = {
   onChangeData: (value: string, uploadedFile: any, type: string) => void;
+  maxSizeValidation?: boolean;
+  setMaxSizeValidation: (value: boolean) => void;
 };
 
 export const ReportForm = (props: ReportFormProps) => {
-  const { onChangeData } = props;
+  const { onChangeData, maxSizeValidation, setMaxSizeValidation } = props;
   const [attachmentFile, setAttachmentFile] = useState('');
   const [selectedFile, setSelectedFile] = useState({});
   const [fileKtp, setFileKtp] = useState<any>('');
@@ -137,9 +152,16 @@ export const ReportForm = (props: ReportFormProps) => {
         <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-8 mt-[2.25rem]">
           {/* upload */}
           <div>
-            <p className="font-opensans font-bold text-[1rem]">
-              Upload Dokumen
-            </p>
+            <div className="">
+              <p className="font-opensans font-bold text-[1rem]">
+                Upload Dokumen
+              </p>
+              {maxSizeValidation && (
+                <p className="font-opensans font-medium text-[12px]">
+                  Maksimal total ukuran file yang dapat diunggah adalah 10MB
+                </p>
+              )}
+            </div>
             <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[0.5rem]">
               <UploadBox
                 title="Upload KTP"
@@ -150,6 +172,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   onChangeData(fileKtp?.value, fileKtp?.file, 'delete');
                   setFileKtp('');
                 }}
+                setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
               <UploadBox
                 title="Upload Formulir"
@@ -164,6 +187,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   );
                   setFileFormulir('');
                 }}
+                setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
               <UploadBox
                 title="Dokumen Pendukung"
@@ -178,6 +202,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   );
                   setFileDocument('');
                 }}
+                setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
             </div>
           </div>
