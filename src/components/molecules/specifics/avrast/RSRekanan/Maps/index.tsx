@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
 import Slider, { LazyLoadTypes } from 'react-slick';
@@ -14,7 +14,8 @@ const Maps = ({
   hospitalData,
   onClickSearch,
   onSetPage,
-  currentPage
+  currentPage,
+  loading
 }: IProviderProps) => {
   const sliderRef = useRef<Slider | null>(null);
   const [mapCenter, setMapCenter] = useState<[number, number]>([
@@ -113,6 +114,11 @@ const Maps = ({
     ]
   });
 
+  useEffect(() => {
+    setMapCenter([-0.601784, 115.394436]);
+    setMapZoom(4.5);
+  }, [hospitalData]);
+
   const ChangeView = ({ center, zoom }: any) => {
     const map = useMap();
     map.setView(center, zoom);
@@ -181,28 +187,31 @@ const Maps = ({
           >
             {hospitalData?.length !== 0 &&
               hospitalData!.map((item, index) => (
-                <div
-                  key={index}
-                  className="w-full sm:h-full xs:h-[95%] mt-[0.75rem]"
-                >
-                  <MarkerCard
-                    name={item.name}
-                    address={item.address}
-                    phone={item.phone}
-                    lat={item.lat}
-                    lng={item.lng}
-                    onClickMarker={() => onClickMarker(item.lat, item.lng)}
-                  />
+                <div className="px-2" key={index}>
+                  <div className="w-full sm:h-full xs:h-[95%] mt-[0.75rem]">
+                    <MarkerCard
+                      name={item.name}
+                      address={item.address}
+                      phone={item.phone}
+                      lat={item.lat}
+                      lng={item.lng}
+                      onClickMarker={() => onClickMarker(item.lat, item.lng)}
+                    />
+                  </div>
                 </div>
               ))}
           </Slider>
+        ) : loading ? (
+          <div className="h-[36vh] w-full flex items-center justify-center">
+            <p className="font-opensans">Loading Data...</p>
+          </div>
         ) : (
           <div className="-mt-14">
             <NotFound title="Rumah Sakit Tidak Ditemukan" />
           </div>
         )}
 
-        <div className="sm:hidden flex flex-row items-center justify-between">
+        <div className="sm:hidden flex flex-row items-center justify-between mt-5 sm:mt-0">
           <div
             className="p-2 rounded-full border border-purple_dark cursor-pointer"
             onClick={previous}
@@ -236,4 +245,5 @@ export interface IProviderProps {
   onClickSearch: (value: string) => void;
   onSetPage: (value: number) => void;
   currentPage: number;
+  loading: boolean;
 }
