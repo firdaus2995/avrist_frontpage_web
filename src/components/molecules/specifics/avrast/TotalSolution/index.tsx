@@ -9,6 +9,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import CustomLink from '../CustomLink';
 import AGI1 from '@/assets/images/avrast/component/total-solution/agi-1.svg';
 import AGI2 from '@/assets/images/avrast/component/total-solution/agi-2.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
@@ -18,6 +19,7 @@ import AVRAM2 from '@/assets/images/avrast/component/total-solution/avram-2.svg'
 import AVRAST1 from '@/assets/images/avrast/component/total-solution/avrast-1.svg';
 import AVRAST2 from '@/assets/images/avrast/component/total-solution/avrast-2.svg';
 import Button from '@/components/atoms/Button/Button';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const data = [
   {
@@ -42,7 +44,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: `/under-construction`
+    link: EXTERNAL_URL.agiUrl
   },
 
   {
@@ -55,7 +57,7 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: `/under-construction`
+    link: EXTERNAL_URL.avramUrl
   },
   {
     category: 'Avrist Life Insurance',
@@ -78,7 +80,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: `/under-construction`
+    link: EXTERNAL_URL.agiUrl
   },
   {
     category: 'Avrist Asset Management',
@@ -90,7 +92,7 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: `/under-construction`
+    link: EXTERNAL_URL.avramUrl
   }
 ];
 
@@ -194,20 +196,20 @@ const TotalSolution = () => {
         <Image alt="loop-image" src={val.icon} />
         <p className="font-bold text-2xl">{val.title}</p>
         <p className="md:min-h-[55px] xs:min-h-[110px]">{val.content}</p>
-        <Link href={val.link}>
+        <CustomLink href={val.link}>
           <Button
             title={val.btnText}
             customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
             customTextClass="text-white"
           />
-        </Link>
+        </CustomLink>
       </div>
     </div>
   );
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[2rem] md:px-[8.5rem] gap-[5rem] bg-white rounded-b-[65px] relative">
-      <div className='px-[2rem]'>
+      <div className="px-[2rem]">
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Kami ada untuk Anda
         </p>

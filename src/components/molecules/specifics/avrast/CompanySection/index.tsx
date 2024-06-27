@@ -4,12 +4,12 @@ import React, { useState, useEffect, useMemo } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import CustomLink from '../CustomLink';
 import CHEVRONRIGHTGRAY from '@/assets/images/avrast/component/product-section/chevron-right-gray.svg';
 import CHEVRONRIGHTGREEN from '@/assets/images/avrast/component/product-section/chevron-right-green.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/product-section/chevron-right-purple.svg';
@@ -21,6 +21,7 @@ import ICON2PRODUCT2 from '@/assets/images/avrast/component/product-section/icon
 import ICON2PRODUCT3 from '@/assets/images/avrast/component/product-section/icon-2-product-3.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
 import { getHomeData } from '@/services/home-banner-modal-api';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 import {
   pageTransformer,
   singleImageTransformer
@@ -80,8 +81,8 @@ const CompanySection = () => {
         title2: 'Investasi dengan Tim Profesional',
         link1: 'Penghargaan',
         link2: 'Tentang Kami',
-        href1: '/under-construction',
-        href2: '/under-construction',
+        href1: EXTERNAL_URL.avramUrl,
+        href2: EXTERNAL_URL.avramUrl,
         linkIcon: CHEVRONRIGHTGREEN,
         img: img2.imageUrl
       },
@@ -93,8 +94,8 @@ const CompanySection = () => {
         title2: 'Efektif, terpercaya dan transparan ',
         link1: 'Penghargaan',
         link2: 'Tentang Kami',
-        href1: '/under-construction',
-        href2: '/under-construction',
+        href1: EXTERNAL_URL.agiUrl,
+        href2: EXTERNAL_URL.agiUrl,
         linkIcon: CHEVRONRIGHTGRAY,
         img: img3.imageUrl
       }
@@ -165,7 +166,7 @@ const CompanySection = () => {
               </div>
               <div className="flex flex-row items-center gap-2">
                 <div className="xs:w-7 md:w-15" />
-                <Link
+                <CustomLink
                   href={val.href1}
                   className="flex flex-row items-center gap-1"
                 >
@@ -181,7 +182,7 @@ const CompanySection = () => {
                     width={10}
                     height={10}
                   />
-                </Link>
+                </CustomLink>
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
@@ -200,7 +201,7 @@ const CompanySection = () => {
 
               <div className="flex flex-row items-center gap-2">
                 <div className="xs:w-7 md:w-15" />
-                <Link
+                <CustomLink
                   href={val.href2}
                   role="button"
                   className="flex flex-row items-center gap-1"
@@ -217,7 +218,7 @@ const CompanySection = () => {
                     width={10}
                     height={10}
                   />
-                </Link>
+                </CustomLink>
               </div>
             </div>
           </div>
@@ -246,7 +247,7 @@ const CompanySection = () => {
 
   return (
     <div className="flex flex-col self-stretch items-center justify-center sm:py-32 xs:pt-[5rem] xs:pb-[3rem] gap-[5rem] bg-purple_light_bg">
-      <div className='px-[2rem]'>
+      <div className="px-[2rem]">
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Mengapa Avrist Assurance?
         </p>

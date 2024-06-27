@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import CustomLink from '../CustomLink';
 import IconWrapper from './components/IconWrapper';
 import APPSTORE from '@/assets/images/avrast/appstore.svg';
 import GOOGLEPLAY from '@/assets/images/avrast/googleplay.svg';
@@ -10,6 +11,7 @@ import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
 import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
 import Icon from '@/components/atoms/Icon';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const additionalInfo = [
   {
@@ -111,7 +113,7 @@ const Footer = () => {
                   </p>
                 </Link>
                 <span className="h-[18px]" />
-                <div className='flex flex-col gap-2 mt-5'>
+                <div className="flex flex-col gap-2 mt-5">
                   <p className="text-lg font-bold">Avrist Total Solution</p>
                   <div className="flex flex-row gap-2">
                     <Link
@@ -158,13 +160,13 @@ const Footer = () => {
                 >
                   <p className="text-lg font-bold">Asuransi Jiwa</p>
                 </Link>
-                <Link href="/under-construction">
+                <CustomLink href={EXTERNAL_URL.avramUrl}>
                   <p className="text-lg font-bold">Investasi</p>
-                </Link>
-                <Link href="/under-construction">
+                </CustomLink>
+                <CustomLink href={EXTERNAL_URL.agiUrl}>
                   <p className="text-lg font-bold">Bengkel Rekanan</p>
-                </Link>
-                <div className='flex flex-col gap-2 mt-5'>
+                </CustomLink>
+                <div className="flex flex-col gap-2 mt-5">
                   <Link href={'https://my.avrist.com/welcome'} target="blank">
                     <p className="text-lg font-bold">Avrist Total Solution</p>
                   </Link>
@@ -245,18 +247,18 @@ const Footer = () => {
                 <Link href="/produk/individu" className="text-lg font-semibold">
                   Avrist Life Insurance
                 </Link>
-                <Link
-                  href="/under-construction"
+                <CustomLink
+                  href={EXTERNAL_URL.avramUrl}
                   className="text-lg font-semibold"
                 >
                   Avrist Asset Management
-                </Link>
-                <Link
-                  href="/under-construction"
+                </CustomLink>
+                <CustomLink
+                  href={EXTERNAL_URL.agiUrl}
                   className="text-lg font-semibold"
                 >
                   Avrist General Insurance
-                </Link>
+                </CustomLink>
                 <div className="w-full mt-6 flex items-center justify-start">
                   <Image
                     alt="Reksadana"

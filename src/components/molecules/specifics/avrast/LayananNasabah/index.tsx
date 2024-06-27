@@ -6,37 +6,48 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Link from 'next/link';
 
 import Slider from 'react-slick';
+import CustomLink from '../CustomLink';
 import CHEVRONRIGHTPURPLE from '@/assets/images/avrast/component/layanan-nasabah/chevron-right.svg';
 import ICON1 from '@/assets/images/avrast/component/layanan-nasabah/icon-1.svg';
 import ICON2 from '@/assets/images/avrast/component/layanan-nasabah/icon-2.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
+import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const data = [
   {
     icon: ICON1,
     title: 'FAQs',
-    link1: 'Avrist Life Insurance',
-    link2: 'Avrist Asset Management',
-    link3: 'Avrist General Insurance',
     linkIcon: CHEVRONRIGHTPURPLE,
-    href1: '/tanya-avrista',
-    href2: '/under-construction',
-    href3: '/under-construction'
+    items: [
+      { label: 'Avrist Life Insurance', url: '/tanya-avrista' },
+      {
+        label: 'Avrist Asset Management',
+        url: EXTERNAL_URL.avramUrl
+      },
+      {
+        label: 'Avrist General Insurance',
+        url: EXTERNAL_URL.agiUrl
+      }
+    ]
   },
   {
     icon: ICON2,
     title: 'Hubungi Kami',
-    link1: 'Avrist Life Insurance',
-    link2: 'Avrist Asset Management',
-    link3: 'Avrist General Insurance',
     linkIcon: CHEVRONRIGHTPURPLE,
-    href1: '/hubungi-kami',
-    href2: '/under-construction',
-    href3: '/under-construction'
+    items: [
+      { label: 'Avrist Life Insurance', url: '/hubungi-kami' },
+      {
+        label: 'Avrist Asset Management',
+        url: EXTERNAL_URL.avramUrl
+      },
+      {
+        label: 'Avrist General Insurance',
+        url: EXTERNAL_URL.agiUrl
+      }
+    ]
   }
 ];
 
@@ -65,13 +76,12 @@ const LayananNasabah = () => {
   const renderCard = (val: {
     icon: StaticImport;
     title: string;
-    link1: string;
-    link2: string;
-    link3: string;
+
     linkIcon: StaticImport;
-    href1: string;
-    href2: string;
-    href3: string;
+    items: {
+      label: string;
+      url: string;
+    }[];
   }) => (
     <div
       className={`w-full max-h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark pt-[24px] px-[32px] pb-[36px]`}
@@ -94,54 +104,27 @@ const LayananNasabah = () => {
             <p className="md:text-[32px] xs:text-[2rem] font-bold text-left w-full mb-2">
               {val.title}
             </p>
-            <div className="flex flex-row items-center gap-2 flex-wrap">
-              <Link
-                role="button"
-                className="flex flex-row items-center gap-4 whitespace-nowrap"
-                href={val.href1}
+            {val.items?.map((item, index) => (
+              <div
+                className="flex flex-row items-center gap-2 flex-wrap"
+                key={index}
               >
-                <p className={`font-semibold md:text-lg xs:text-xs`}>
-                  {val.link1}
-                </p>
-                <Image
-                  src={val.linkIcon}
-                  alt={val.link1}
-                  className="w-4 mix-blend-multiply"
-                />
-              </Link>
-            </div>
-            <div className="flex flex-row items-center gap-2 flex-wrap">
-              <Link
-                role="button"
-                className="flex flex-row items-center gap-4 whitespace-nowrap"
-                href={val.href2}
-              >
-                <p className={`font-semibold md:text-lg xs:text-xs`}>
-                  {val.link2}
-                </p>
-                <Image
-                  src={val.linkIcon}
-                  alt={val.link2}
-                  className="w-4 mix-blend-multiply"
-                />
-              </Link>
-            </div>
-            <div className="flex flex-row items-center gap-2 flex-wrap">
-              <Link
-                role="button"
-                className="flex flex-row items-center gap-4 whitespace-nowrap"
-                href={val.href3}
-              >
-                <p className={`font-semibold md:text-lg xs:text-xs`}>
-                  {val.link3}
-                </p>
-                <Image
-                  src={val.linkIcon}
-                  alt={val.link3}
-                  className="w-4 mix-blend-multiply"
-                />
-              </Link>
-            </div>
+                <CustomLink
+                  href={item.url}
+                  className="flex flex-row items-center gap-4 whitespace-nowrap"
+                  role="button"
+                >
+                  <p className={`font-semibold md:text-lg xs:text-xs`}>
+                    {item.label}
+                  </p>
+                  <Image
+                    src={val.linkIcon}
+                    alt={item.url}
+                    className="w-4 mix-blend-multiply"
+                  />
+                </CustomLink>
+              </div>
+            ))}
           </div>
         </div>
       </div>
