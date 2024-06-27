@@ -22,8 +22,8 @@ const KlaimDanLayanan = () => {
         ]}
         selectedCategory="Klaim & Layanan"
         buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
-        buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
-        buttonInactiveTextClassname="text-dplk_yellow"
+        buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow"
+        buttonInactiveTextClassname="text-dplk_yellow hover:text-white"
         buttonActiveTextClassname="text-white"
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
@@ -35,7 +35,7 @@ const KlaimDanLayanan = () => {
       />
 
       <InformationCard
-        heading="Pusat informasi layanan DPLK Avrist"
+        heading="Pusat Informasi Layanan DPLK Avrist"
         subHeading="Informasi seputar panduan dan layanan DPLK Avrist Assurance"
         cards={[
           {
@@ -57,8 +57,7 @@ const KlaimDanLayanan = () => {
           {
             cardIcon: YellowContact,
             cardTitle: 'Pengkinian Data',
-            cardBody:
-              'Lorem ipsum dolor sit amet consectetur. Enim tellus dignissim mauris lectus.',
+            cardBody: 'Bukti Komitmen kami untuk memberikan rasa Aman',
             cardButtonText: 'Login Employee',
             href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=inf'
           },
