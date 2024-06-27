@@ -109,7 +109,7 @@ const AvristSyariah = async () => {
               title: 'Klaim & Layanan',
               icon: ProdukClaim,
               subtitle: 'Lebih Lanjut',
-              href: '/avrist-syariah/klaim-layanan'
+              href: '/klaim-layanan/klaim?tab=Informasi+Klaim'
             },
             {
               title: 'Kelola Polis',

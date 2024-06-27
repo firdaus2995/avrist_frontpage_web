@@ -86,16 +86,19 @@ const DewanPengawasDPLK = (props: Props) => {
             {
               cardIcon: YellowHead,
               cardTitle: 'Consultative Approach',
-              cardBody: `Kami memiliki team ahli yang : \n
-     1. Memiliki Pengetahuan Cukup \n
-     2. Memiliki Pengalaman Cukup \n
-     3. Professional dan Berintegritas`
+              cardBody: `Kami memiliki tim ahli yang:
+              <div class="w-full">
+                <p><span class="font-bold">1.</span> Memiliki Pengetahuan Cukup</p>
+                <p><span class="font-bold">2.</span> Memiliki Pengalaman Cukup</p>
+                <p><span class="font-bold">3.</span> Professional dan Berintegritas</p>
+              </div>
+              `
             },
             {
               cardIcon: YellowPeople,
               cardTitle: 'Flexible',
               cardBody:
-                'Flexibilitas kami untuk pemilihan atau penempatan investasi yang tidak dibatasi. Flexibilitas juga untuk program pensiun yang dijalankan.'
+                'Fleksibilitas kami untuk pemilihan atau penempatan investasi yang tidak dibatasi. Fleksibilitas juga untuk program pensiun yang dijalankan.'
             },
             {
               cardIcon: YellowBinocular,
@@ -107,13 +110,13 @@ const DewanPengawasDPLK = (props: Props) => {
               cardIcon: YellowHead,
               cardTitle: 'Fast & Easy Claim',
               cardBody:
-                'Proses klaim yang mudah dibantu oleh dedicated client relationship dengan TAT 7-10 hari kerja. '
+                'Proses klaim yang mudah dibantu oleh <span class="italic">dedicated client relationship</span> dengan TAT 7-10 hari kerja. '
             },
             {
               cardIcon: YellowPeople,
               cardTitle: 'Competitive Fee Charge',
               cardBody:
-                'Menerapkan single fee yang kompetitif dan tidak ada biaya penalty (Termination Fee)'
+                'Menerapkan <span class="italic">single fee</span> yang kompetitif dan tidak ada biaya <span class="italic">penalty</span> (<span class="italic">Termination Fee</span>)'
             }
           ]}
           cardClassname="border-b-dplk_yellow"
