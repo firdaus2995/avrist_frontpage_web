@@ -122,7 +122,7 @@ const CategorySideBySideSixCards = ({
         </div>
       </div>
       <div className="col-span-1">
-        <div className="grid grid-rows-3 gap-[24px]">
+        <div className="grid grid-rows-1 gap-[24px]">
           {rightSide.map(
             (
               item: {
