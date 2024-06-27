@@ -6,7 +6,7 @@ interface Props {
 export const ContentPolicyList = ({title, desc}: Props) => {
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center text-center gap-[2.25rem]">
+      <div className="flex flex-col justify-center items-center text-center">
         <span className="text-purple_dark font-karla font-medium sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           {title}
         </span>

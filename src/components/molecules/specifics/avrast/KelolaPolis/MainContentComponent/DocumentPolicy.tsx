@@ -124,7 +124,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
   return (
     <div>
       {isShowDetail ? (
-        <div className='flex flex-col gap-[2.25rem] mt-[1.5rem] mb-[3rem]'>
+        <div className='flex flex-col gap-[5rem] mt-[1.5rem] mb-[3rem]'>
           <ContentPolicyList
             title={policyData?.title}
             desc={policyData?.desc}
