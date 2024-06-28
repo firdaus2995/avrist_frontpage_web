@@ -245,7 +245,7 @@ const SearchForm = () => {
         borderColor: 'border-olive_green'
       },
       {
-        title: 'Avrist DPLK',
+        title: 'DPLK Avrist',
         slug: 'Produk-Avrast-DPLK',
         color: 'bg-yellow_alternate',
         borderColor: 'border-yellow_alternate'
@@ -438,7 +438,7 @@ const SearchForm = () => {
                   index: React.Key | null | undefined
                 ) => (
                   <Link
-                    href={`${selectedTab.title === 'Asuransi Individu' ? '/produk/individu/' : selectedTab.title === 'Asuransi Korporasi' ? '/produk/korporasi/' : selectedTab.title === 'Avrist DPLK' ? '/avrist-dplk/produk/' : '/avrist-syariah/produk/'}${item.id}`}
+                    href={`${selectedTab.title === 'Asuransi Individu' ? '/produk/individu/' : selectedTab.title === 'Asuransi Korporasi' ? '/produk/korporasi/' : selectedTab.title === 'DPLK Avrist' ? '/avrist-dplk/produk/' : '/avrist-syariah/produk/'}${item.id}`}
                     key={index}
                   >
                     <NewsCard

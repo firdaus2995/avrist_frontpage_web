@@ -120,13 +120,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         // ref={videoPlayerRef}
         videoId={videoId}
         className="sm:h-[35.438rem] xs:h-[13.375rem]"
-        iframeClassName="-z-1 w-full sm:h-[35.438rem] xs:h-[13.375rem] rounded-t-xl"
+        iframeClassName={`-z-1 w-full sm:h-[35.438rem] xs:h-[13.375rem] ${type ? 'rounded-t-xl' : 'rounded-xl'}`}
         onReady={handleReady}
         opts={videoOptions}
       />
       {type && (
         <div
-          className={`p-[1.5rem] w-full bg-${color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+          className={`p-[1.5rem] w-full bg-${color} rounded-b-xl text-white font-bold xs:text-xl sm:text-2xl font-karla flex flex-row justify-between -tracking-[0.72px]`}
         >
           {type}
         </div>

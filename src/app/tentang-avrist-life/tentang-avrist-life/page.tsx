@@ -144,7 +144,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         </div>
 
         {/* Tab Mobile */}
-        <div className="w-[100%] md:hidden">
+        <div className="w-[100%] md:hidden mt-[20px]">
           <SliderComponent
             selected={tab}
             slideItems={tabs}

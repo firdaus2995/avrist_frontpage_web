@@ -55,7 +55,7 @@ export const VideoInformation = () => {
         const data = await handleGetContent('halaman-panduan-pembayaran-premi');
         const { content } = pageTransformer(data);
 
-        const communityVideos = convertData(content)["community-videos"];
+        const communityVideos = convertData(content)['community-videos'];
 
         setVideoData(communityVideos);
       } catch (error) {
@@ -66,7 +66,7 @@ export const VideoInformation = () => {
     fetchData();
   }, []);
 
-  const convertData = (data: { [x: string]: any; }) => {
+  const convertData = (data: { [x: string]: any }) => {
     const communityVideos = [];
     for (let i = 1; i <= 4; i++) {
       const videoId = `body-video${i}`;
@@ -74,24 +74,24 @@ export const VideoInformation = () => {
       const videoData = data[videoId];
       const captionData = data[captionId];
       if (videoData && captionData) {
-        let videoType = "";
-        let color = "";
+        let videoType = '';
+        let color = '';
         switch (i) {
           case 1:
-            videoType = "Asuransi Jiwa Individu";
-            color = "purple_dark";
+            videoType = 'Asuransi Jiwa Individu';
+            color = 'purple_dark';
             break;
           case 2:
-            videoType = "Avrist Jiwa Korporasi";
-            color = "grey_video_footer";
+            videoType = 'Avrist Jiwa Korporasi';
+            color = 'grey_video_footer';
             break;
           case 3:
-            videoType = "Avrist Syariah";
-            color = "green_border";
+            videoType = 'Avrist Syariah';
+            color = 'green_border';
             break;
           case 4:
-            videoType = "Avrist DPLK";
-            color = "orange_border";
+            videoType = 'DPLK Avrist';
+            color = 'orange_border';
             break;
           default:
             break;
@@ -99,13 +99,13 @@ export const VideoInformation = () => {
         communityVideos.push({
           id: videoId,
           videoUrl: videoData.value,
-          videoThumbnail: "",
+          videoThumbnail: '',
           type: videoType,
-          color: color,
+          color: color
         });
       }
     }
-    return { "community-videos": communityVideos };
+    return { 'community-videos': communityVideos };
   };
 
   const handleSubcardClick = (cardId: string) => {

@@ -38,10 +38,20 @@ const Timeline = ({ data }: IFooterInformation) => {
     speed: 500
   };
 
+  const settingsMobile = {
+    focusOnSelect: true,
+    infinite: false,
+    centerMode: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+    speed: 500
+  };
+
   return (
     <ol className="items-center flex flex-col">
-      <TitleContainer>
-        <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark">
+      <TitleContainer className="my-[5rem]">
+        <p className="sm:text-5xl xs:text-3xl font-extrabold text-purple_dark">
           Sejarah Perusahaan
         </p>
       </TitleContainer>
@@ -79,9 +89,46 @@ const Timeline = ({ data }: IFooterInformation) => {
             </div>
           </li>
         ))} */}
-        <div className="w-full relative overflow-hidden">
+        <div className="w-full relative overflow-hidden xs:hidden sm:block">
           <div className="w-full absolute bg-purple_verylight h-[2px] mt-[1.375rem]" />
           <Slider {...settings}>
+            {data.map((val, idx) => (
+              <div
+                key={idx}
+                onFocus={() => handleItemClick(val.year)}
+                className="pb-1"
+              >
+                <span className="flex flex-col items-center justify-center h-full gap-[1.5rem]">
+                  <span className="w-[3rem] h-[3rem] flex items-center justify-center">
+                    {selectedItem === val.year ? (
+                      <Image
+                        alt="timeline"
+                        src={NODE_SELECTED}
+                        width={48}
+                        height={48}
+                      />
+                    ) : (
+                      <Image alt="timeline" src={NODE} width={16} height={16} />
+                    )}
+                  </span>
+                  <button
+                    className={`${selectedItem === val.year ? 'bg-purple_dark text-white' : 'bg-white border border-purple_dark text-purple_dark'} xs:p-[0.5rem] md:px-[2.5rem] md:py-[0.75rem] md:text-[1.25rem] rounded-lg`}
+                  >
+                    {val.year === '' ? '-' : val.year}
+                  </button>
+                </span>
+              </div>
+            ))}
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </Slider>
+        </div>
+
+        <div className="w-full relative overflow-hidden sm:hidden">
+          <div className="w-full absolute bg-purple_verylight h-[2px] mt-[1.375rem]" />
+          <Slider {...settingsMobile}>
             {data.map((val, idx) => (
               <div
                 key={idx}
@@ -123,10 +170,10 @@ const Timeline = ({ data }: IFooterInformation) => {
             .map((filteredVal) =>
               filteredVal.data.map((val, idx) => (
                 <div className="flex flex-col gap-4" key={idx}>
-                  <h3 className="text-lg font-semibold text-gray-900 text-left">
+                  <h3 className="text-2xl font-bold text-[#1A141F] text-left font-karla">
                     {val.title}
                   </h3>
-                  <p className="text-base font-normal text-gray-500 dark:text-gray-400 font-opensans">
+                  <p className="text-base font-normal text-[#1A141F] font-opensans">
                     {val.desc}
                   </p>
                 </div>

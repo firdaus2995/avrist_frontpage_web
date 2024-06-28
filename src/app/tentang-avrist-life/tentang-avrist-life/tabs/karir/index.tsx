@@ -130,35 +130,46 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
 
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
-      <CustomContainer className="flex flex-col gap-[5rem]">
-        <div className="w-full flex flex-col items-center justify-center text-center font-karla gap-[0.75rem]">
-          <TitleContainer className="font-medium text-purple_dark !mb-0">
+      <CustomContainer className="flex flex-col">
+        {/* <div className="w-full flex flex-col items-center justify-center text-center font-karla xs:my-[2.25rem] sm:my-[5rem]">
+          <TitleContainer className="text-purple_dark xs:mb-0 leading-[2.25rem] sm:leading-normal !-tracking-[2.24px] font-extrabold">
             Tingkatkan karier bersama Avrist Assurance
           </TitleContainer>
-          <h2 className="xs:text-[1.5rem] md:text-[2.25rem] mb-6">
+          <h2 className="md:text-4xl xs:text-2xl mb-6 leading-[2.25rem] -tracking-[1.08px]">
             Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
             nomor 1 di Indonesia.
           </h2>
+        </div> */}
+        <div className="px-[2rem] xs:my-[2.25rem] sm:my-[5rem]">
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+            Tingkatkan karier bersama Avrist Assurance
+          </p>
+          <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+            Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
+            nomor 1 di Indonesia.
+          </p>
         </div>
-        <div className="flex justify-center xs:h-[200px] md:h-[651px] mb-[5rem]">
-          <VideoPlayer
-            color="purple_dark"
-            type={contentPage?.content['mengapabergabung-captionvideo'].value}
-            url={
-              getYouTubeId(
-                contentPage?.content['mengapabergabung-video'].value
-              ) ?? ''
-            }
-            thumbnail={''}
-            mute={true}
-          />
+        <div className="flex justify-center">
+          <div className="xs:h-[200px] md:h-[651px] xs:mb-[8rem] sm:mb-[5rem] w-[1120px]">
+            <VideoPlayer
+              color="purple_dark"
+              type={contentPage?.content['mengapabergabung-captionvideo'].value}
+              url={
+                getYouTubeId(
+                  contentPage?.content['mengapabergabung-video'].value
+                ) ?? ''
+              }
+              thumbnail={''}
+              mute={true}
+            />
+          </div>
         </div>
       </CustomContainer>
       <div className="flex flex-col w-full">
         <CustomContainer className="w-full bg-purple_superlight flex flex-col items-center justify-center pb-[5rem]">
           <div className="flex flex-col">
-            <TitleContainer className="text-center font-semibold text-purple_dark">
-              Mengapa berkarier bersama Avrist Assurance
+            <TitleContainer className="text-center font-extrabold text-purple_dark xs:my-[2.25rem] sm:my-[5rem] leading-[2.25rem]">
+              Mengapa berkarir bersama Avrist Assurance
             </TitleContainer>
           </div>
           <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
@@ -173,7 +184,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
             ))}
           </div>
         </CustomContainer>
-        <TitleContainer className="px-[2rem] text-center font-medium text-purple_dark sm:!mb-0 xs:my-[1.25rem]">
+        <TitleContainer className="px-[2rem] text-center font-extrabold text-purple_dark sm:!mb-0 xs:my-[2.25rem] sm:my-[5rem] leading-[2.25rem]">
           Lihat Lowongan di Avrist Life Insurance
         </TitleContainer>
         <CategoryWithThreeCards
@@ -198,37 +209,40 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                       key={index}
                       className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
                     >
-                      <p className="font-bold text-[1.5rem]">
+                      <p className="font-bold text-[1.5rem] font-karla">
                         {item.namaLoker}
                       </p>
-                      <div className="flex w-full flex-row items-center gap-2">
-                        <Image
-                          src={item.iconLokasiLoker}
-                          alt="lokasi"
-                          width={24}
-                          height={24}
-                        />
-                        <p className="font-opensans font-lg">
-                          {item.lokasiLoker}
-                        </p>
+                      <div className="flex flex-col gap-[12px]">
+                        <div className="flex w-full flex-row items-center gap-2">
+                          <Image
+                            src={item.iconLokasiLoker}
+                            alt="lokasi"
+                            width={18}
+                            height={18}
+                          />
+                          <p className="font-opensans font-lg leading-[25.2px]">
+                            {item.lokasiLoker}
+                          </p>
+                        </div>
+                        <div className="flex w-full flex-row items-center gap-2">
+                          <Image
+                            src={item.iconStatusLoker}
+                            alt="status"
+                            width={18}
+                            height={18}
+                          />
+                          <p className="font-opensans font-lg leading-[25.2px]">
+                            {item.statusLoker}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex w-full flex-row items-center gap-2">
-                        <Image
-                          src={item.iconStatusLoker}
-                          alt="status"
-                          width={24}
-                          height={24}
-                        />
-                        <p className="font-opensans font-lg">
-                          {item.statusLoker}
-                        </p>
-                      </div>
+
                       <div className="flex w-full flex-row items-center gap-2 hidden">
                         <Image
                           src={item.iconWaktuLoker}
                           alt="waktu"
-                          width={24}
-                          height={24}
+                          width={18}
+                          height={18}
                         />
                         <p className="font-opensans font-lg">
                           {item.waktuLoker}
@@ -313,8 +327,8 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
               </div>
 
               <p className="text-xl">
-                <span className="font-bold">Waktu Operasional:</span> Senin -
-                Jumat, 08.00 - 17.00 WIB
+                <span className="font-bold">Waktu Operasional:</span>
+                <br className="sm:hidden" /> Senin - Jumat, 08.00 - 17.00 WIB
               </p>
             </div>
           }

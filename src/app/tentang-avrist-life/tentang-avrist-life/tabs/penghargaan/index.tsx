@@ -10,6 +10,7 @@ import { handleGetContentPage } from '@/services/content-page.api';
 import { getListPenghargaan } from '@/services/penghargaan';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
+import { htmlParser } from '@/utils/helpers';
 import {
   handleTransformedContent,
   singleImageTransformer
@@ -225,35 +226,40 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                     >
                       <div
                         key={index}
-                        className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                        className="flex flex-col gap-[12px] border border-gray_light rounded-xl text-left md:h-full"
                       >
                         <Image
                           alt="blank-image"
                           width={0}
-                          height={170}
+                          height={0}
                           src={item.image}
-                          className="w-auto rounded-t-[12px] xs:h-[250px] md:h-[400px] xs:object-cover"
+                          className="w-auto aspect-video rounded-t-[12px] xs:object-fill"
                         />
-                        <div className="flex flex-col gap-2 p-5 h-full">
-                          <p className="text-xs">{item.waktu}</p>
+                        <div className="flex flex-col gap-3 p-5 h-full">
+                          <p className="text-xs sm:text-sm">{item.waktu}</p>
                           <p
-                            className="text-[20px] font-bold"
+                            className="xs:text-lg sm:text-[1.5rem] font-bold"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
                           />
-                          <p className="text-[20px]">{item.nama}</p>
-                          <p
+                          <p className="xs:text-lg sm:text-[1.5rem]">
+                            {item.nama}
+                          </p>
+                          {/* <p
                             dangerouslySetInnerHTML={{
-                              __html:
-                                item.deskripsi[0].value.substring(0, 150) +
-                                '...'
+                              __html: item.deskripsi[0].value
+                                .replace('<br>', '')
+                                .replace('&nbsp;', '')
                             }}
-                            className="text-xs"
-                          />
+                            className="xs:text-sm sm:text-base line-clamp-3 h-full 2xl:py-2"
+                          /> */}
+                          <p className="xs:text-sm sm:text-base line-clamp-3 h-full 2xl:py-2">
+                            {htmlParser(item.deskripsi[0].value)}
+                          </p>
                           <div className="flex flex-row items-end gap-1 text-left h-full">
-                            <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                              Baca Berita Pers
+                            <p className="text-purple_dark font-bold xs:text-sm sm:text-base cursor-pointer text-left">
+                              Baca Lebih Lengkap
                             </p>
                             <Icon
                               width={16}

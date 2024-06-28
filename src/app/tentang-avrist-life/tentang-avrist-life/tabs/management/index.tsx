@@ -91,7 +91,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value === 'Manajemen') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
       setShowDetail(false);
     } else {
       window.scrollTo({ top: 200 });
@@ -172,7 +172,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       {showDetail ? (
         <div
-          className="xs:px-[2rem] md:px-[8.5rem]"
+          className="xs:px-[2rem] md:px-[8.5rem] xs:mt-[2.25rem] sm:mt-[5rem]"
           onClick={() => {
             setShowDetail(false);
             router.push(
@@ -183,8 +183,8 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
             );
           }}
         >
-          <div className="flex flex-col gap-7 border rounded-xl p-4 shadow-lg">
-            <div className="flex xs:flex-col md:flex-row gap-5 items-center border rounded-xl">
+          <div className="flex flex-col gap-7 border rounded-xl p-[1.5rem] shadow-lg">
+            <div className="flex xs:flex-col md:flex-row gap-[1.5rem] items-center border rounded-xl">
               <div className="xs:w-full xs:h-full sm:w-[213px] sm:h-[213px] rounded-xl">
                 <Image
                   alt="blank-image"
@@ -195,7 +195,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                 />
               </div>
               <div className="flex flex-col gap-2 xs:text-center md:text-start xs:mb-7 sm:mb-0">
-                <p className="text-[36px] font-bold">{detailData.name}</p>
+                <p className="text-[36px] font-bold -tracking-[1.08px] font-karla">
+                  {detailData.name}
+                </p>
                 <p className="text-[24px] font-semibold text-purple_dark">
                   {detailData.role}
                 </p>
@@ -258,14 +260,20 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                 );
               })}
           </div>
-          <div className="flex flex-col gap-[5rem] items-center justify-center w-full">
+          <div className="flex flex-col xs:gap-[2.25rem] sm:gap-[5rem] items-center justify-center w-full">
             <div className="flex justify-center items-center">
               <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold text-purple_dark xs:text-center md:text-start">
                 Struktur Organisasi
               </p>
             </div>
-            <div className="w-full flex xs:flex-col md:flex-row justify-between items-center p-4 border rounded-xl">
-              <p className="font-bold text-2xl xs:text-center md:text-start xs:mb-4 md:mb-0">
+            <div className="w-full flex xs:flex-col md:flex-row justify-between items-center border rounded-xl p-[1.5rem]">
+              <p
+                className="font-bold text-2xl xs:text-center md:text-start xs:mb-4 md:mb-0 sm:hidden"
+                dangerouslySetInnerHTML={{
+                  __html: 'Struktur Organisasi<br />PT Avrist Assurance'
+                }}
+              />
+              <p className="font-bold text-2xl xs:text-center md:text-start xs:mb-4 md:mb-0 xs:hidden md:block">
                 Struktur Organisasi PT Avrist Assurance
               </p>
               <Button
@@ -280,8 +288,9 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
           </div>
         </div>
       )}
-
-      <RoundedFrameBottom />
+      <div className="-mt-3 sm:mt-0">
+        <RoundedFrameBottom />
+      </div>
     </div>
   );
 };
