@@ -31,10 +31,10 @@ const Produk = () => {
           <CardProduct
             key={index}
             symbol={YellowHome}
-            title="Avrist DPLK"
+            title="DPLK Avrist"
             summary="Lorem Ipsum"
             description="Lorem ipsum dolor sit amet consectetur purus tortor praesent feugiat ultricies aliquam lacinia pretium potenti."
-            tags={['Avrist DPLK', 'Premi Tetap', 'Premi Berkala']}
+            tags={['DPLK Avrist', 'Premi Tetap', 'Premi Berkala']}
             cardClassname="bg-white border-b-dplk_yellow"
             cardTitleClassname="text-dplk_yellow"
             cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
