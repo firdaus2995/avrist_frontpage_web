@@ -262,7 +262,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={contentData?.thumbnail ?? BlankImage}
       />
-      <div className="flex xl:flex-row xs:max-lg:flex-wrap px-[2rem] md:px-[8.5rem] pt-[80px] pb-[100px] gap-[48px]">
+      <div className="lg:flex xl:flex-row xs:max-lg:flex-wrap px-[2rem] md:px-[8.5rem] pt-[80px] pb-[100px] gap-[48px]">
         <div className="flex flex-col gap-[24px] py-10">
           <p className="text-2xl font-light font-karla">Daftar Isi</p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
@@ -301,7 +301,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
         <div className="flex flex-col grow">
           <div className="flex items-center justify-start w-full">
-            <div className="flex flex-col gap-10 w-2/3 xs:max-lg:w-full py-10">
+            <div className="flex flex-col gap-10 w-full py-10">
               <div className="flex flex-col gap-5">
                 <p className="text-purple_dark font-semibold text-[1.5rem]">
                   {contentData?.category}
