@@ -102,6 +102,8 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
   // show Detail Data
   useEffect(() => {
     const value = searchParams.get('tab')?.split('-').pop();
+    console.log('Value:', value);
+
     if (value !== 'Manajemen' && contentData && contentData.length > 0) {
       const data = contentData.map((item: any) => {
         return item.contentData.filter(
@@ -109,21 +111,30 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
         );
       });
 
-      const filteredData = data.filter((item: any) => item.length > 0)[0][0]
-        .details;
+      console.log('Data after mapping and filtering:', data);
 
-      setDetailData({
-        image: singleImageTransformer(filteredData[0]).imageUrl,
-        name: filteredData[1].value,
-        role: filteredData[2].value,
-        desc: (
-          <div className="flex flex-col gap-7">
-            <div dangerouslySetInnerHTML={{ __html: filteredData[3].value }} />
-          </div>
-        )
-      });
-      onSelectDetail(true);
-      setShowDetail(true);
+      const filteredData = data.filter((item: any) => item.length > 0);
+      console.log('Filtered Data:', filteredData);
+
+      if (filteredData.length > 0) {
+        const details = filteredData[0][0].details;
+        console.log('Details:', details);
+
+        setDetailData({
+          image: singleImageTransformer(details[0]).imageUrl,
+          name: details[1].value,
+          role: details[2].value,
+          desc: (
+            <div className="flex flex-col gap-7">
+              <div dangerouslySetInnerHTML={{ __html: details[3].value }} />
+            </div>
+          )
+        });
+        onSelectDetail(true);
+        setShowDetail(true);
+      } else {
+        setShowDetail(false);
+      }
     } else {
       setShowDetail(false);
     }
