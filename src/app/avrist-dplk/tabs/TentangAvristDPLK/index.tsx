@@ -63,13 +63,13 @@ const TentangAvristDPLK = (props: Props) => {
           cards={personsCardGenerator(pengawas)}
           roleClassname="text-dplk_yellow"
           idTags="#DewanPengawasDPLK"
-          headingClassname="text-black"
+          headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
         />
         <PersonCard
           heading="Pengurus DPLK PT Avrist Assurance"
           cards={personsCardGenerator(pengurus)}
           roleClassname="text-dplk_yellow"
-          headingClassname="text-black"
+          headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
         />
       </div>
 

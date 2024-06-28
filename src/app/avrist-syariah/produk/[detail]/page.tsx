@@ -449,7 +449,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           </div>
           <SimpleContainer>
             <div className="text-center">
-              <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]">
+              <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
                 Rekomendasi Produk Lainnya
               </p>
             </div>
