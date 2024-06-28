@@ -220,15 +220,28 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col mb-[5rem]">
-          <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
-            <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
+          <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-avrast_product_bg">
+            <p className="font-karla font-light xs:w-full sm:hidden xs:text-xl sm:text-[2rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px]">
               Apa <span className="font-bold">perlindungan </span> yang{' '}
               <span className="font-bold">Anda </span> butuhkan
             </p>
+            <div className="xs:hidden md:block font-karla font-light xs:text-xl sm:text-[2rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px]">
+              <p className="mb-4">
+                Apa <span className="font-bold">perlindungan</span>
+              </p>
+              <p>
+                yang <span className="font-bold">Anda</span> butuhkan
+              </p>
+            </div>
           </div>
           <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
-            <p className="font-karla font-bold text-[2.25rem]">
-              <span className="font-bold">Saya Ingin</span> pilihan rencana
+            <p className="xs:hidden font-karla font-bold text-[2.25rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px] flex flex-col">
+              <span className="font-bold">Saya Ingin</span>{' '}
+              <span>pilihan rencana</span>
+            </p>
+            <p className="sm:hidden font-karla font-bold text-[2.25rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px] flex flex-col">
+              <span className="font-bold">Saya Ingin</span>{' '}
+              <span>pilihan rencana</span>
             </p>
             <button
               className="text-white font-medium rounded-full text-sm p-2 text-center border-2 xs:w-[2rem] xs:h-[2rem] md:w-[2.5rem] md:h-[2.5rem] xs:max-md:mr-4"

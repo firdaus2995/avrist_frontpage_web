@@ -122,7 +122,7 @@ const Header = () => {
               >
                 <Menu.Item>
                   <Link
-                    href="/produk/individu"
+                    href="/"
                     className="font-karla hover:text-purple_dark hover:font-medium"
                   >
                     Avrist Life Insurance

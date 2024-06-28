@@ -65,7 +65,7 @@ const CompanySection = () => {
         icon1: ICON1PRODUCT1,
         icon2: ICON2PRODUCT1,
         title1: 'Perlindungan Komprehensif.',
-        title2: 'Proses Klaim mudah & cepat',
+        title2: 'Proses Klaim Mudah & Cepat.',
         link1: 'Produk Avrist',
         link2: 'Halaman Klaim',
         href1: '/produk/individu?tab=Asuransi+Jiwa',
@@ -78,7 +78,7 @@ const CompanySection = () => {
         icon1: ICON1PRODUCT2,
         icon2: ICON2PRODUCT2,
         title1: 'Inovasi Solusi.',
-        title2: 'Investasi dengan Tim Profesional',
+        title2: 'Investasi dengan Tim Profesional.',
         link1: 'Penghargaan',
         link2: 'Tentang Kami',
         href1: EXTERNAL_URL.avramUrl,
@@ -90,8 +90,8 @@ const CompanySection = () => {
         category: 'Avrist General Insurance',
         icon1: ICON1PRODUCT3,
         icon2: ICON2PRODUCT3,
-        title1: 'Dinamis progresif.',
-        title2: 'Efektif, terpercaya dan transparan ',
+        title1: 'Dinamis Progresif.',
+        title2: 'Efektif, Terpercaya dan Transparan.',
         link1: 'Penghargaan',
         link2: 'Tentang Kami',
         href1: EXTERNAL_URL.agiUrl,
@@ -144,97 +144,177 @@ const CompanySection = () => {
 
     return (
       <div
-        className={`mx-[0.5rem] md:mx-[7rem] md:h-[383px] max-h-[540px] flex mb-10 md:flex-row xs:flex-col gap-4 rounded-xl ${color} items-center justify-center text-center shadow-xl`}
+        className={`mx-[0.5rem] md:mx-[7rem] md:h-[383px] 2xl:h-full flex mb-10 md:flex-row xs:flex-col gap-4 rounded-2xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
-          className={`xs:h-[320px] md:w-1/2 xs:w-full p-5 flex flex-col items-start justify-center gap-6 md:gap-10 text-white`}
+          className={`xs:h-full md:w-1/2 xs:w-full md:pl-[48px] py-[36px] xs:px-[24px] md:pr-0 flex flex-col items-start justify-center gap-[32px] text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-[2rem] font-extrabold text-left font-karla leading-normal md:leading-[2.7rem]">
+          <p className="md:text-[3.5rem] xs:text-[40px] font-extrabold text-left font-karla leading-normal xs:leading-[48px] md:leading-[2.7rem] -tracking-[1.68px]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
-              <div className="flex flex-row items-center gap-2">
+            {/* Baris 1 Desktop */}
+            <section className="xs:hidden md:block">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
+                <div className="flex flex-row items-center gap-2">
+                  <Image
+                    src={val.icon1}
+                    alt={val.title1}
+                    className="w-[48px] max-h-[540px]"
+                    width={10}
+                    height={10}
+                  />
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                    {val.title1}
+                  </p>
+                </div>
+                <div className="flex flex-row items-center gap-2">
+                  <CustomLink
+                    href={val.href1}
+                    className="flex flex-row items-center gap-1"
+                  >
+                    <p
+                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                    >
+                      {val.link1}
+                    </p>
+                    <Image
+                      src={val.linkIcon}
+                      alt={val.link1}
+                      className="w-[24px]"
+                      width={10}
+                      height={10}
+                    />
+                  </CustomLink>
+                </div>
+              </div>
+            </section>
+
+            {/* Baris 1 Mobile */}
+            <section className="sm:hidden mb-[16px]">
+              <div className="w-full flex flex-row gap-[8px]">
                 <Image
                   src={val.icon1}
                   alt={val.title1}
-                  className="xs:w-7 md:w-15 max-h-[540px]"
+                  className="w-[48px] max-h-[540px]"
                   width={10}
                   height={10}
                 />
-                <p className="md:text-xl xs:text-xs font-bold font-karla text-left">
-                  {val.title1}
-                </p>
-              </div>
-              <div className="flex flex-row items-center gap-2">
-                <div className="xs:w-7 md:w-15" />
-                <CustomLink
-                  href={val.href1}
-                  className="flex flex-row items-center gap-1"
-                >
-                  <p
-                    className={`font-bold md:text-xl xs:text-xs ${textColor} font-karla`}
-                  >
-                    {val.link1}
+
+                <div className="flex flex-col">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                    {val.title1}
                   </p>
+                  <div className="flex flex-row items-center gap-2">
+                    <CustomLink
+                      href={val.href1}
+                      className="flex flex-row items-center gap-1"
+                    >
+                      <p
+                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                      >
+                        {val.link1}
+                      </p>
+                      <Image
+                        src={val.linkIcon}
+                        alt={val.link1}
+                        className="w-[24px]"
+                        width={10}
+                        height={10}
+                      />
+                    </CustomLink>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Baris 2 Desktop */}
+            <section className="xs:hidden md:block">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
+                <div className="flex flex-row items-center gap-2">
                   <Image
-                    src={val.linkIcon}
-                    alt={val.link1}
-                    className="w-4"
+                    src={val.icon2}
+                    alt={val.title2}
+                    className="w-[48px] max-h-[540px]"
                     width={10}
                     height={10}
                   />
-                </CustomLink>
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                    {val.title2}
+                  </p>
+                </div>
+                <div className="flex flex-row items-center gap-2">
+                  <CustomLink
+                    href={val.href2}
+                    className="flex flex-row items-center gap-1"
+                  >
+                    <p
+                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                    >
+                      {val.link2}
+                    </p>
+                    <Image
+                      src={val.linkIcon}
+                      alt={val.link2}
+                      className="w-[24px]"
+                      width={10}
+                      height={10}
+                    />
+                  </CustomLink>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
-              <div className="flex flex-row items-center gap-2">
+            </section>
+
+            {/* Baris 2 Mobile */}
+            <section className="sm:hidden">
+              <div className="w-full flex flex-row gap-[8px]">
                 <Image
                   src={val.icon2}
                   alt={val.title2}
-                  className="xs:w-7 md:w-15"
+                  className="w-[48px] max-h-[540px]"
                   width={10}
                   height={10}
                 />
-                <p className="md:text-xl xs:text-xs font-bold font-karla text-left">
-                  {val.title2}
-                </p>
-              </div>
 
-              <div className="flex flex-row items-center gap-2">
-                <div className="xs:w-7 md:w-15" />
-                <CustomLink
-                  href={val.href2}
-                  role="button"
-                  className="flex flex-row items-center gap-1"
-                >
-                  <p
-                    className={`font-bold font-karla md:text-xl xs:text-xs ${textColor}`}
-                  >
-                    {val.link2}
+                <div className="flex flex-col">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                    {val.title2}
                   </p>
-                  <Image
-                    src={val.linkIcon}
-                    alt={val.link2}
-                    className="w-4"
-                    width={10}
-                    height={10}
-                  />
-                </CustomLink>
+                  <div className="flex flex-row items-center gap-2">
+                    <CustomLink
+                      href={val.href2}
+                      className="flex flex-row items-center gap-1"
+                    >
+                      <p
+                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                      >
+                        {val.link2}
+                      </p>
+                      <Image
+                        src={val.linkIcon}
+                        alt={val.link2}
+                        className="w-[24px]"
+                        width={10}
+                        height={10}
+                      />
+                    </CustomLink>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
         <div
-          className={`md:w-1/2 xs:w-full h-full xs:max-md:h-[212px] md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative`}
+          className={`md:w-1/2 xs:w-full h-full xs:max-md:h-[212px] md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl flex flex-col items-end justify-end overflow-hidden relative 3xl:h-full`}
         >
+          {/* Desktop */}
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}
-            className="xs:hidden w-full md:arounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
+            className="lg:hidden w-full md:rounded-r-xl md:rounded-bl-none xs:rounded-b-xl"
             fill
           />
-
+          {/* Mobile */}
           <Image
             src={val.img ? val.img : BlankImage}
             alt={val.category}

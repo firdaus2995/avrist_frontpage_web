@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -31,7 +31,8 @@ const data = [
     btnText: 'Selengkapnya',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
-    link: '/produk/individu?tab=Asuransi+Jiwa'
+    link: '/produk/individu?tab=Asuransi+Jiwa',
+    openInNewTab: false
   },
 
   {
@@ -44,7 +45,8 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: EXTERNAL_URL.agiUrl
+    link: EXTERNAL_URL.agiUrl,
+    openInNewTab: true
   },
 
   {
@@ -57,7 +59,8 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: EXTERNAL_URL.avramUrl
+    link: EXTERNAL_URL.avramUrl,
+    openInNewTab: true
   },
   {
     category: 'Avrist Life Insurance',
@@ -68,7 +71,8 @@ const data = [
     btnText: 'Selengkapnya',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
-    link: '/produk/korporasi?tab=Employee+Benefit'
+    link: '/produk/korporasi?tab=Employee+Benefit',
+    openInNewTab: false
   },
 
   {
@@ -80,7 +84,8 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: EXTERNAL_URL.agiUrl
+    link: EXTERNAL_URL.agiUrl,
+    openInNewTab: true
   },
   {
     category: 'Avrist Asset Management',
@@ -92,20 +97,24 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: EXTERNAL_URL.avramUrl
+    link: EXTERNAL_URL.avramUrl,
+    openInNewTab: true
   }
 ];
 
 const TotalSolution = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
+      setCurrentSlide((prev) => prev + 1);
     }
   };
   const previous = () => {
     if (sliderRef.current) {
       sliderRef.current.slickPrev();
+      setCurrentSlide((prev) => prev - 1);
     }
   };
   const sliderSettings = {
@@ -128,6 +137,7 @@ const TotalSolution = () => {
       inlineStyling?: string;
       href?: string;
       link: string;
+      openInNewTab?: boolean;
     },
     idx: number
   ) => (
@@ -137,30 +147,36 @@ const TotalSolution = () => {
     >
       {idx <= 2 && (
         <div
-          className={`w-full bg-${val.color} text-sm font-semibold p-2 text-white rounded-t-xl`}
+          className={`w-full bg-${val.color} text-lg font-bold !py-[8px] text-white rounded-t-xl`}
         >
           {val.category}
         </div>
       )}
       <div
-        className={`p-5 flex flex-col items-center justify-between h-full ${idx <= 2 ? 'pb-10' : ''}`}
+        className={`px-[1.5rem] py-[2.25rem] flex flex-col gap-[1.5rem] items-center justify-between h-full ${idx <= 2 ? 'pb-10' : ''}`}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col gap-[1.5rem] items-center">
           <Image
             alt="loop-image"
             src={val.icon}
             className="mix-blend-multiply"
           />
-          <div className="py-[1.5rem]">
-            <p className="font-bold text-2xl">{val.title}</p>
-            <p>{val.content}</p>
+          <div className="py-[1.5rem] flex flex-col gap-[12px]">
+            <p className="font-bold text-[32px] font-karla -tracking-[1.28px]">
+              {val.title}
+            </p>
+            <p className="text-[16px] font-opensans">{val.content}</p>
           </div>
         </div>
-        <Link href={val.link} className="justify-self-end">
+        <Link
+          href={val.link}
+          className="justify-self-end"
+          target={val.openInNewTab ? '_blank' : '_self'}
+        >
           <Button
             title={val.btnText}
             customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-            customTextClass="text-white"
+            customTextClass="text-white font-opensans font-semibold"
           />
         </Link>
       </div>
@@ -184,25 +200,33 @@ const TotalSolution = () => {
     link: string;
   }) => (
     <div
-      className={`w-84 mb-10 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl mx-1`}
+      className={`w-84 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl mx-1`}
       style={{ backgroundColor: val.inlineStyling }}
     >
       <div
-        className={`w-full bg-${val.color} text-sm font-semibold py-[36px] px-[24px] text-white rounded-t-xl`}
+        className={`w-full bg-${val.color} text-lg font-semibold py-[8px] px-[24px] text-white rounded-t-xl `}
       >
         {val.category}
       </div>
       <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
-        <Image alt="loop-image" src={val.icon} />
-        <p className="font-bold text-2xl">{val.title}</p>
-        <p className="md:min-h-[55px] xs:min-h-[110px]">{val.content}</p>
-        <CustomLink href={val.link}>
-          <Button
-            title={val.btnText}
-            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-            customTextClass="text-white"
-          />
-        </CustomLink>
+        <Image alt="loop-image" src={val.icon} className="mix-blend-multiply" />
+        <div className="py-[1.5rem] flex flex-col gap-[12px]">
+          <p className="font-bold text-[32px] font-karla -tracking-[1.28px] leading-[38.4px]">
+            {val.title}
+          </p>
+          <p className="text-[16px] font-opensans leading-[22.4px]">
+            {val.content}
+          </p>
+        </div>
+        <div>
+          <CustomLink href={val.link}>
+            <Button
+              title={val.btnText}
+              customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+              customTextClass="text-white font-opensans"
+            />
+          </CustomLink>
+        </div>
       </div>
     </div>
   );
@@ -228,9 +252,21 @@ const TotalSolution = () => {
             <div key={idx}>{renderMobileCard(val)}</div>
           ))}
         </Slider>
-        <div className="flex flex-row gap-4 justify-between">
-          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
-          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+        <div className="flex flex-row gap-4 justify-between mt-[36px]">
+          <Image
+            alt="prev"
+            src={ARROW_LEFT}
+            role="button"
+            onClick={previous}
+            className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+          />
+          <Image
+            alt="next"
+            src={ARROW_RIGHT}
+            role="button"
+            onClick={next}
+            className={currentSlide === 5 ? 'opacity-50' : 'opacity-100'}
+          />
         </div>
       </div>
       <div className="xs:hidden lg:grid grid-cols-3 gap-4">
