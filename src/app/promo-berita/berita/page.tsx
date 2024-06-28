@@ -762,7 +762,7 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white relative">
+    <div className="flex flex-col items-center justify-center relative">
       <div className="absolute">
         <SubmittedFormModal
           show={visibleSubscribeModal}
@@ -777,11 +777,14 @@ const Berita: React.FC<ParamsProps> = () => {
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
         imageUrl={data?.titleImage}
-        // customClassName="xs:h-[150px] md:h-[200px]"
+        // customClassName={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' && 'sm:!max-h-[26.25rem]'}`}
       />
       {/* Tab Desktop */}
-      <div className="w-full z-20 top-32 xs:hidden md:block">
-        <div className="grid grid-cols-3 gap-[12px] px-[136px] pt-[5rem] bg-white">
+      <div
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block'} rounded-t-[72px] bg-white w-full min-h-[100px] bg-white z-10`}
+      ></div>
+      <div className="w-full z-20 xs:hidden md:block rounded-t-lg">
+        <div className="grid grid-cols-3 gap-[12px] px-[136px] bg-white">
           {tabs.map((val, idx) => (
             <div
               key={idx}
@@ -796,8 +799,10 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {/* Tab Mobile */}
-      <div className="w-[90%] z-20 top-32 md:hidden">
-        <div className="pt-[3rem]">
+      <div
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'xs:-mt-10 sm:-mt-[23rem]' : 'xs:-mt-[3rem] sm:-mt-[2rem]'} rounded-t-[72px] bg-white w-full min-h-[100px] bg-white z-10 w-[90%] z-20 md:hidden`}
+      >
+        <div className="pt-[100px]">
           <Slider
             ref={(slider) => {
               sliderTabRef.current = slider;
@@ -835,7 +840,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
               {params.category === 'AvriStory' && (
-                <p className='px-[2rem]'>
+                <p className="px-[2rem]">
                   <span className="font-black">AvriStory:</span> E-Bulletin
                   hadir setiap 3 bulan sekali
                 </p>
@@ -846,7 +851,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'Berita dan Kegiatan' &&
                 'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
               {params.category === 'AvriStory' && (
-                <p className='pb-[5rem] px-[2rem]'>
+                <p className="pb-[5rem] px-[2rem]">
                   Informasi terbaru mengenai{' '}
                   <span className="font-black">Avrist Life Insurance</span>
                 </p>
@@ -1200,7 +1205,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
-          <div className='xs:px-[2rem] sm:px-0'>
+          <div className="xs:px-[2rem] sm:px-0">
             <SectionPromo>
               <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
                 Dari Anda untuk Kami
