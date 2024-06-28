@@ -65,7 +65,6 @@ const Berita: React.FC<ParamsProps> = () => {
     dots: true,
     infinite: false,
     arrows: false,
-    centerMode: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -830,13 +829,13 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto xs:px-[32px] md:px-0">
+        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto">
           <SectionPromo>
             <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
               {params.category === 'AvriStory' && (
-                <p>
+                <p className='px-[2rem]'>
                   <span className="font-black">AvriStory:</span> E-Bulletin
                   hadir setiap 3 bulan sekali
                 </p>
@@ -847,7 +846,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'Berita dan Kegiatan' &&
                 'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
               {params.category === 'AvriStory' && (
-                <p>
+                <p className='pb-[5rem] px-[2rem]'>
                   Informasi terbaru mengenai{' '}
                   <span className="font-black">Avrist Life Insurance</span>
                 </p>
@@ -866,22 +865,21 @@ const Berita: React.FC<ParamsProps> = () => {
           </SectionPromo>
 
           {params.category === 'Berita dan Kegiatan' && (
-            <div className="w-full px-10 pb-[80px]">
-              <div className="w-full sm:px-10 xs:px-[10px]">
+            <div className="w-full pb-[80px]">
+              <div className="w-full sm:px-10 xs:px-0">
                 <Slider
                   ref={(slider) => {
                     sliderRef.current = slider;
                   }}
                   {...sliderSettings}
                   infinite={true}
-                  centerMode={false}
                 >
                   {contentData?.slice(0, 5)?.map((item: any, index: number) => (
                     <SliderInformation
                       key={index}
                       bgColor="purple_superlight"
                       title={
-                        <div className="flex flex-col gap-4 text-left">
+                        <div className="flex flex-col gap-4 text-left w-full">
                           <p className="text-[14px]">
                             <span className="font-bold text-purple_dark text-sm">
                               {htmlParser(item.artikelTopic)}
@@ -889,7 +887,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <p
-                            className="text-[36px] xs:max-sm:text-[24px] font-bold"
+                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-words"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
@@ -947,7 +945,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
+          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34 px-[2rem]">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               onCategoryChange={(tab) => onCategoryChange(tab)}
@@ -981,7 +979,7 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid grid-cols-3 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
+                    <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
                       {paginatedData?.map((item: any, index: number) => (
                         <Link
                           key={index}
@@ -1007,15 +1005,15 @@ const Berita: React.FC<ParamsProps> = () => {
                           key={index}
                           className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
                         >
-                          <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-2xl">
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="font-bold text-xl sm:text-2xl break-words">
                               {item.namaFile}
                             </p>
                             <MediumTag title="PDF" />
                           </div>
                           <Button
                             title="Unduh"
-                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
+                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 mt-3"
                             customTextClass="text-white text-xl"
                             onClick={async () =>
                               await handleDownload(item.file)
@@ -1201,17 +1199,19 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Testimonial' && (
-        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-[32px] mt-2">
-          <SectionPromo>
-            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
-              Dari Anda untuk Kami
-            </h2>
-            <h2 className="md:text-4xl xs:text-2xl mb-6 xs:w-[84%] lg:w-full">
-              Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
-            </h2>
-          </SectionPromo>
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className='xs:px-[2rem] sm:px-0'>
+            <SectionPromo>
+              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
+                Dari Anda untuk Kami
+              </h2>
+              <h2 className="md:text-4xl xs:text-2xl mb-6 w-full">
+                Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
+              </h2>
+            </SectionPromo>
+          </div>
 
-          <div className="w-full px-10 pb-10">
+          <div className="w-full sm:px-10 pb-10">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
@@ -1229,7 +1229,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     title={
                       <div className="flex flex-col gap-4 text-left">
                         <p
-                          className="text-[36px] font-bold"
+                          className="text-[36px] font-bold line-clamp-3"
                           dangerouslySetInnerHTML={{
                             __html: item.judul
                           }}
@@ -1254,7 +1254,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 );
               })}
             </Slider>
-            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-0">
+            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[2rem]">
               <div
                 className="p-2 border-2 rounded-full border-purple_dark"
                 role="button"
@@ -1272,7 +1272,7 @@ const Berita: React.FC<ParamsProps> = () => {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full xs:px-[2rem] md:px-[5rem]">
             <CategoryWithThreeCards
               hidePagination
               defaultSelectedCategory={params.category}
@@ -1326,13 +1326,13 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0">
-          <div className="w-full xs:px-[2rem] md:px-[8.5rem] xs:text-center md:text-start xs:mt-[2.25rem] sm:mt-0">
+        <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0 gap-[5rem]">
+          <div className="w-full md:px-[8.5rem] xs:text-center md:text-start sm:mt-0">
             <SectionPromo>
-              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark text-center">
+              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold text-purple_dark text-center">
                 Kumpulan Berita Pers
               </h2>
-              <h2 className="lg: text-[36px] xs:text-2xl mb-6 font-normal text-center">
+              <h2 className="lg: text-[36px] xs:text-2xl font-normal text-center">
                 Temukan siaran pers Avrist di sini!
               </h2>
             </SectionPromo>

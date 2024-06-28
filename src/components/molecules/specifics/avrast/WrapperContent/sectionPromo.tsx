@@ -5,7 +5,7 @@ interface WrapperProps {
 }
 
 const SectionPromo: React.FC<WrapperProps> = ({ children }) => {
-  return <div className="my-[5rem]">{children}</div>;
+  return <div className="mt-[5rem]">{children}</div>;
 };
 
 export default SectionPromo;
