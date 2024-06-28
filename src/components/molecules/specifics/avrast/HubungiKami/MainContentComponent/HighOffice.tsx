@@ -84,7 +84,7 @@ const HighOffice = (props: Props) => {
 
   return (
     <div className="flex flex-col gap-[4rem]">
-      <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem] text-center text-purple_dark">
+      <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem] text-center text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
         Lokasi Kantor Pusat Avrist Assurance
       </p>
       <Card className="bg-white p-[1.5rem] flex sm:flex-row xs:flex-col-reverse gap-6">
