@@ -13,6 +13,7 @@ interface ISliderInformation {
   bgColor?: string;
   imageClassName?: string;
   customClass?: string;
+  customMobileClass?: string;
 }
 
 const SliderInformation = ({
@@ -22,7 +23,8 @@ const SliderInformation = ({
   isVideo,
   bgColor,
   imageClassName,
-  customClass
+  customClass,
+  customMobileClass
 }: ISliderInformation) => {
   const imageUrl = isVideo
     ? `https://img.youtube.com/vi/${getYouTubeId(image)}/hqdefault.jpg`
@@ -85,7 +87,9 @@ const SliderInformation = ({
               </div>
             )}
           </div>
-          <div className="flex flex-col grow gap-[24px] items-start justify-center py-[2.25rem] px-[1.5rem] bg-purple_superlight rounded-b-3xl">
+          <div
+            className={`flex flex-col grow gap-[24px] items-start justify-center py-[2.25rem] px-[1.5rem] bg-purple_superlight rounded-b-3xl ${customMobileClass}`}
+          >
             <div>{title}</div>
             {buttonTitle && <Button title={buttonTitle} />}
           </div>

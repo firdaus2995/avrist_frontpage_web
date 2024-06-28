@@ -108,7 +108,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
       setFormData(
         dataForm
           ?.filter((data) => data.fieldType !== 'LABEL')
-          .map((item) => ({ name: item.name, value: '' }))
+          .map((item) => ({
+            name: item.name,
+            value: item.value ? item.value : ''
+          }))
       );
     }
   }, [dataForm]);

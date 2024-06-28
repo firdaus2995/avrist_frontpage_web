@@ -540,12 +540,16 @@ const Berita: React.FC<ParamsProps> = () => {
           item.contentData,
           item.title
         );
-
         const judul = content['judul-testimoni'].value;
-        const deskripsi = content['deskripsi-singkat-testimoni'].value;
+        let deskripsi = content['deskripsi-singkat-testimoni'].value;
         const penulis = content['penulis-testimoni'].value;
         const titlePenulis = content['title-penulis-testimoni'].value;
         const videoUrl = content['video-testimoni'].value;
+
+        const checkNull = />-</;
+        if (checkNull.test(deskripsi)) {
+          deskripsi = '-';
+        }
 
         return { judul, deskripsi, penulis, titlePenulis, videoUrl };
       });
@@ -1223,6 +1227,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 sliderRef.current?.slickGoTo(0);
               }}
               {...sliderSettings}
+              infinite={true}
             >
               {contentData?.slice(0, 5).map((item: any, index: number) => {
                 return (
@@ -1239,12 +1244,14 @@ const Berita: React.FC<ParamsProps> = () => {
                             __html: item.judul
                           }}
                         />
-                        <p
-                          className="text-[16px] line-clamp-4"
-                          dangerouslySetInnerHTML={{
-                            __html: item.deskripsi
-                          }}
-                        />
+                        {item.deskripsi !== '-' && (
+                          <p
+                            className="text-[16px] line-clamp-4"
+                            dangerouslySetInnerHTML={{
+                              __html: item.deskripsi
+                            }}
+                          />
+                        )}
                         <p className="text-[14px]">
                           <span className="font-bold text-purple_dark">
                             {item.penulis}
@@ -1255,6 +1262,7 @@ const Berita: React.FC<ParamsProps> = () => {
                     }
                     image={item.videoUrl}
                     customClass="py-[0px]"
+                    customMobileClass="grow-0"
                   />
                 );
               })}
