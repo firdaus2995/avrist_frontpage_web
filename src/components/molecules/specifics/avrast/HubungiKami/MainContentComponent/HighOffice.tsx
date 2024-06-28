@@ -7,10 +7,11 @@ import 'leaflet/dist/leaflet.css';
 
 type Props = {
   mapCenter?: any[];
+  branchData?: any;
 };
 
 const HighOffice = (props: Props) => {
-  const { mapCenter } = props;
+  const { mapCenter, branchData } = props;
 
   const renderMap = () => {
     const highOfficeCoordinate = {
@@ -47,6 +48,21 @@ const HighOffice = (props: Props) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {branchData?.map((marker: any, index: number) => (
+            <Marker
+              key={index}
+              position={[marker.lat, marker.lng]}
+              icon={markerIcon}
+            >
+              <Popup>
+                <div className="flex flex-col gap-2">
+                  <div>{marker.name}</div>
+                  <div>{marker.address}</div>
+                  <div>{marker.phone}</div>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
           <Marker
             position={[highOfficeCoordinate.lat, highOfficeCoordinate.lng]}
             icon={markerIcon}

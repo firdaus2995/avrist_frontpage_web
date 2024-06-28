@@ -11,10 +11,11 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 type Props = {
   formId?: string;
   formSaranId?: string;
+  branchData?: any;
 };
 
 export const MainContent = (props: Props) => {
-  const { formId, formSaranId } = props;
+  const { formId, formSaranId, branchData } = props;
   const [mapCenter, setMapCenter] = useState<[number, number]>([
     -6.214663280751351, 106.82071668189862
   ]);
@@ -46,10 +47,10 @@ export const MainContent = (props: Props) => {
       </div>
       <FeedbackForm Id={formSaranId} />
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem] xs:pt-[3.125rem]">
-        <HighOffice mapCenter={mapCenter} />
+        <HighOffice mapCenter={mapCenter} branchData={branchData} />
       </div>
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem]">
-        <BranchOffice onChangeCenter={onClickMarker} />
+        <BranchOffice onChangeCenter={onClickMarker} branchData={branchData} />
       </div>
       <RoundedFrameBottom frameColor="bg-purple_superlight" />
     </div>

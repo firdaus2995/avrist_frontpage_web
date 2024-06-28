@@ -14,6 +14,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { getHubungiKami } from '@/services/hubungi-kami.api';
 import {
   contentStringTransformer,
+  heroContentTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -33,6 +34,7 @@ const CallMe = () => {
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [formId, setFormId] = useState('');
   const [formSaranId, setFormSaranId] = useState('');
+  const [branchData, setBranchData] = useState<any>([]);
 
   const MainContent = useMemo(() => dynamic(
     () => import('@/components/molecules/specifics/avrast/HubungiKami').then(mod => mod.MainContent),
@@ -47,12 +49,25 @@ const CallMe = () => {
       try {
         const data = await handleGetContent('halaman-hubungi-kami');
         const { content } = pageTransformer(data);
-
+        
         setTitleImage(singleImageTransformer(content['title-image']));
         setBannerImage(singleImageTransformer(content['banner-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
         setFormId(contentStringTransformer(content['form-hubungikami']));
         setFormSaranId(contentStringTransformer(content['form-saran']));
+
+        const branch = heroContentTransformer(content['lokasikantor-cabang']);
+        const fetchedData = branch.map((item) => {
+          return {
+            name: contentStringTransformer(item['lokasikantor-nama']),
+            address: contentStringTransformer(item['lokasikantor-alamat']),
+            phone: contentStringTransformer(item['lokasikantor-telepon']),
+            lat: Number(contentStringTransformer(item['lokasikantor-latitude'])),
+            lng: Number(contentStringTransformer(item['lokasikantor-longitude']))
+          };
+        });
+
+        setBranchData(fetchedData)
       } catch (error) {
         console.error('Error:', error);
       }
@@ -74,7 +89,7 @@ const CallMe = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
       />
-      <MainContent formId={formId} formSaranId={formSaranId} />
+      <MainContent formId={formId} formSaranId={formSaranId} branchData={branchData} />
       <FooterInformation
         title={
           <div
