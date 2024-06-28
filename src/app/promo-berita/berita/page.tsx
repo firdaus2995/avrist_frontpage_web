@@ -892,7 +892,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <p
-                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-words text-clip overflow-hidden"
+                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-all"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
