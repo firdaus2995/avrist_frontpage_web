@@ -27,7 +27,7 @@ const CardCategoryD = ({
 }: ICardCategoryD) => {
   return (
     <div
-      className={`flex ${type === 'row' ? 'flex-row-reverse p-4 xs:max-lg:flex-wrap' : 'flex-col border-b-8 border-b-purple_dark'} gap-[18px] border border-gray_light rounded-[12px]`}
+      className={`flex ${type === 'row' ? 'md:flex-row-reverse p-4 xs:max-lg:flex-wrap xs:flex-col border-b-8 border-b-purple_dark' : 'flex-col border-b-8 border-b-purple_dark'} gap-[18px] border border-gray_light rounded-[12px]`}
     >
       <div
         className={`flex relative ${type === 'row' ? 'lg:w-1/3 xs:max-lg:w-full rounded-xl' : ''}`}
