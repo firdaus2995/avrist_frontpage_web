@@ -11,7 +11,7 @@ import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills
 
 const KlaimDanLayanan = () => {
   return (
-    <div className="flex flex-col xs:mt-[3.125rem] md:mt-[5rem] md:mb-[-5rem] xs:px-[2rem] sm:px-[8.5rem]">
+    <div className="flex flex-col xs:mt-[3.125rem] md:mt-[5rem] xs:px-[2rem] sm:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang DPLK Avrist',
@@ -33,7 +33,6 @@ const KlaimDanLayanan = () => {
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
       />
-
       <InformationCard
         heading="Pusat Informasi Layanan DPLK Avrist"
         subHeading="Informasi seputar panduan dan layanan DPLK Avrist Assurance"
