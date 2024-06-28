@@ -11,6 +11,7 @@ try{
     stage("Build & Deploy to Docker"){
         echo "Deploy Static HTML in Build Number : ${env.BUILD_NUMBER}"
         sh "sudo docker-compose down"
+        sh "cp .env .env.production"
         sh "sudo docker-compose up -d --build"
         echo "Deployed Successfully"
     }
