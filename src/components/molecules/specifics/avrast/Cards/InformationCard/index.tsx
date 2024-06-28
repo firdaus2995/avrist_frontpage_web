@@ -31,7 +31,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
   idTags
 }) => (
   <div
-    className="flex flex-col font-karla xs:py-[2.25rem] md:py-[5rem] mx-auto xs:gap-[1.5rem] md:gap-[5rem]"
+    className="flex flex-col font-karla xs:pt-[2.25rem] md:pt-[5rem] pb-[0.875rem] mx-auto xs:gap-[1.5rem] md:gap-[5rem]"
     id={idTags}
   >
     <div className="sm:text-center text-center">

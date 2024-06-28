@@ -43,28 +43,31 @@ const TentangAvristSyariah = (props: Props) => {
         idTags="#DewanPengawasSyariah"
         headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
       />
-      <InformationCard
-        heading="Tugas dan Peran"
-        subHeading="Tugas dan Peran DPS PT Avrist Assurance sebagai berikut:"
-        cards={[
-          {
-            cardIcon: GreenBinocular,
-            cardBody:
-              '<strong>Mengawasi,</strong> memberi nasihat dan saran kepada Direksi agar kegiatan Perusahaan sesuai dengan prinsip Syariah.'
-          },
-          {
-            cardIcon: GreenHead,
-            cardBody:
-              'Berupaya menjaga keseimbangan kepentingan semua pihak, khususnya <strong>kepentingan Nasabah.</strong>'
-          },
-          {
-            cardIcon: GreenPeople,
-            cardBody:
-              'Menyelenggarakan <strong>rapat DPS</strong> secara berkala paling sedikit enam kali dalam satu tahun.'
-          }
-        ]}
-        cardClassname="border-b-syariah_green"
-      />
+      <div className="xs:mb-[2.25rem] sm:mb-[4.125rem]">
+        <InformationCard
+          heading="Tugas dan Peran"
+          subHeading="Tugas dan Peran DPS PT Avrist Assurance sebagai berikut:"
+          cards={[
+            {
+              cardIcon: GreenBinocular,
+              cardBody:
+                '<strong>Mengawasi,</strong> memberi nasihat dan saran kepada Direksi agar kegiatan Perusahaan sesuai dengan prinsip Syariah.'
+            },
+            {
+              cardIcon: GreenHead,
+              cardBody:
+                'Berupaya menjaga keseimbangan kepentingan semua pihak, khususnya <strong>kepentingan Nasabah.</strong>'
+            },
+            {
+              cardIcon: GreenPeople,
+              cardBody:
+                'Menyelenggarakan <strong>rapat DPS</strong> secara berkala paling sedikit enam kali dalam satu tahun.'
+            }
+          ]}
+          cardClassname="border-b-syariah_green"
+        />
+      </div>
+
       <div className="flex mx-[-2rem] mb-[-3.125rem] sm:mx-[-8.5rem] sm:mb-[-4.5rem] px-[2rem] sm:px-[8.5rem] bg-gray_bglightgray">
         <InformationCard
           heading="Mengapa Avrist Syariah?"
