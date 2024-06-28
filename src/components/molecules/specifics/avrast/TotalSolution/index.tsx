@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -178,7 +177,7 @@ const TotalSolution = () => {
             customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
             customTextClass="text-white font-opensans font-semibold"
           />
-        </Link>
+        </CustomLink>
       </div>
       {idx > 2 && (
         <div

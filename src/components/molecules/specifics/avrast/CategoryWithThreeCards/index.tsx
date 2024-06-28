@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import CardCategoryB from '../Cards/CategoriB';
 import CardCategoryA from '../Cards/CategoryA';
@@ -73,6 +73,10 @@ const CategoryWithThreeCards = ({
       onCategoryChange(value);
     }
   };
+
+  useEffect(() => {
+    setSelectedCategory(defaultSelectedCategory);
+  }, [defaultSelectedCategory]);
 
   const Dropdown: React.FC<DropdownProps> = ({
     categories,
