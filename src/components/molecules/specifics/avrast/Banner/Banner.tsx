@@ -220,8 +220,8 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col mb-[5rem]">
-          <div className="flex py-10 px-[2rem] md:px-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
-            <p className="font-karla font-light xs:w-full md:w-[200px] xs:text-[1.25rem]">
+          <div className="flex py-10 px-[2rem] md:pr-[2.25rem] md:pl-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
+            <p className="font-karla font-light xs:w-full xs:text-[1.25rem] sm:text-[2.25rem]">
               Apa <span className="font-bold">perlindungan </span> yang{' '}
               <span className="font-bold">Anda </span> butuhkan
             </p>
@@ -269,7 +269,7 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           <div>
             {dropdownVisible && (
               <div
-                className={`absolute shadow-xl flex flex-col xs:top-[100vh] md:top-[920px] md:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 md:left-[50rem] md:w-[31.25rem] z-30`}
+                className={`absolute shadow-xl flex flex-col xs:top-[1220px] md:top-[920px] md:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 md:left-[50rem] md:w-[31.25rem] z-30`}
                 ref={dropdownRef}
               >
                 <Link
