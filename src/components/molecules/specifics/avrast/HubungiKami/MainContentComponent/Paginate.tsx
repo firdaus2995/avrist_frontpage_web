@@ -92,23 +92,20 @@ export const Paginate = (props: Props) => {
         dari <span className="font-bold">{dataPage?.totalData}</span> hasil
       </p>
       <div className="flex flex-row gap-2 items-center">
-        <div onClick={handlePreviousPage} className="cursor-pointer rotate-180">
-          <Icon
-            width={20}
-            height={20}
-            name="chevronRight"
-            color="purple_dark"
-          />
-        </div>
-        <p className="text-xl">
-          {renderPageNumbers()} ...{' '}
-          <span
-            className={`cursor-pointer font-bold ${dataPage.pagePos === dataPage.totalPage ? 'text-purple_dark' : ''}`}
-            onClick={() => onChangePage(dataPage.totalPage)}
+        {currentPage > 1 && (
+          <div
+            onClick={handlePreviousPage}
+            className="cursor-pointer rotate-180"
           >
-            {currentPage}
-          </span>
-        </p>
+            <Icon
+              width={20}
+              height={20}
+              name="chevronRight"
+              color="purple_dark"
+            />
+          </div>
+        )}
+        <p className="text-xl">{renderPageNumbers()}</p>
         <div onClick={handleNextPage} className="cursor-pointer">
           <Icon
             width={20}

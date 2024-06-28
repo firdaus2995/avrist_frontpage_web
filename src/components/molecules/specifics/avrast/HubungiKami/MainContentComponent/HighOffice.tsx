@@ -7,10 +7,11 @@ import 'leaflet/dist/leaflet.css';
 
 type Props = {
   mapCenter?: any[];
+  branchData?: any;
 };
 
 const HighOffice = (props: Props) => {
-  const { mapCenter } = props;
+  const { mapCenter, branchData } = props;
 
   const renderMap = () => {
     const highOfficeCoordinate = {
@@ -47,6 +48,21 @@ const HighOffice = (props: Props) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {branchData?.map((marker: any, index: number) => (
+            <Marker
+              key={index}
+              position={[marker.lat, marker.lng]}
+              icon={markerIcon}
+            >
+              <Popup>
+                <div className="flex flex-col gap-2">
+                  <div>{marker.name}</div>
+                  <div>{marker.address}</div>
+                  <div>{marker.phone}</div>
+                </div>
+              </Popup>
+            </Marker>
+          ))}
           <Marker
             position={[highOfficeCoordinate.lat, highOfficeCoordinate.lng]}
             icon={markerIcon}
@@ -55,10 +71,9 @@ const HighOffice = (props: Props) => {
               <div className="flex flex-col gap-2">
                 <div>Kantor Pusat Jakarta</div>
                 <div>
-                  World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Jl.
-                  Setiabudi Raya Kav 29-31, RT.8/RW.3
+                  World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Kav 29-31, RT.8/RW.3 Jakarta 12920 Indonesia
                 </div>
-                <div>(021) 5789 8188</div>
+                <div>+62 21 5789 8188</div>
               </div>
             </Popup>
           </Marker>
@@ -76,9 +91,9 @@ const HighOffice = (props: Props) => {
         <div className="sm:w-1/3 xs:w-full">
           <CardAddress
             title="Kantor Pusat Jakarta"
-            address="World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Jl. Setiabudi Raya Kav 29-31, RT.8/RW.3"
+            address="World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Kav 29-31, RT.8/RW.3 Jakarta 12920 Indonesia"
             workHour="Senin-Jumat 10.00 - 14.00 WIB"
-            contact="(021) 5789 8188"
+            contact="+62 21 5789 8188"
             lat={-6.214663280751351}
             lng={106.82071668189862}
             onChangeCenter={function (): void {
