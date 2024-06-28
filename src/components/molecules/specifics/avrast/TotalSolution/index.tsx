@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -156,13 +155,13 @@ const TotalSolution = () => {
             <p>{val.content}</p>
           </div>
         </div>
-        <Link href={val.link} className="justify-self-end">
+        <CustomLink href={val.link} className="justify-self-end">
           <Button
             title={val.btnText}
             customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
             customTextClass="text-white"
           />
-        </Link>
+        </CustomLink>
       </div>
       {idx > 2 && (
         <div
