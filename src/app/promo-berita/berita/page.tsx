@@ -69,8 +69,8 @@ const Berita: React.FC<ParamsProps> = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: true,
-    autoplaySpeed: 3000,
+    // autoplay: true,
+    // autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 640,
@@ -892,7 +892,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <p
-                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-words"
+                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-words text-clip overflow-hidden"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
