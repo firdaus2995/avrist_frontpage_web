@@ -27,6 +27,7 @@ const additionalInfo = [
 const Footer = () => {
   const pathname = usePathname();
   const isHomepage = pathname === '/';
+  const isDplk = pathname.includes('avrist-dplk');
 
   if (pathname.includes('/under-construction')) return null;
   return (
@@ -44,8 +45,9 @@ const Footer = () => {
           {/* Opening content */}
           <div className="flex flex-col gap-4 lg:gap-9">
             <p className="font-bold text-[1.25rem] 2xl:w-[60%]">
-              PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa
-              Keuangan.
+              {isDplk
+                ? 'DPLK Avrist berizin dan diawasi oleh Otoritas Jasa Keuangan'
+                : 'PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan.'}
             </p>
             <p className="text-sm font-opensans">
               Hak Cipta © 2023.
