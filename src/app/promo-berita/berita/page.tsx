@@ -888,28 +888,30 @@ const Berita: React.FC<ParamsProps> = () => {
                       key={index}
                       bgColor="purple_superlight"
                       title={
-                        <div className="flex flex-col gap-4 text-left w-full">
+                        <div className="flex flex-col gap-6 text-left w-full xs:h-[420px] sm:h-full">
                           <p className="text-[14px]">
                             <span className="font-bold text-purple_dark text-sm">
                               {htmlParser(item.artikelTopic)}
                             </span>{' '}
                             | {`${item.date} ${item.waktu}`}
                           </p>
-                          <p
-                            className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-all"
-                            dangerouslySetInnerHTML={{
-                              __html: item.judul
-                            }}
-                          />
-                          <p
-                            className="text-[16px] line-clamp-2"
-                            dangerouslySetInnerHTML={{
-                              __html: item.deskripsi
-                                ? item.deskripsi[0]?.value?.substring(0, 250) +
-                                  '...'
-                                : '-'
-                            }}
-                          />
+                          <div className='flex flex-col gap-3'>
+                            <p
+                              className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-all leading-[43.2px]"
+                              dangerouslySetInnerHTML={{
+                                __html: item.judul
+                              }}
+                            />
+                            <p
+                              className="text-[16px] line-clamp-2 leading-[22.4px]"
+                              dangerouslySetInnerHTML={{
+                                __html: item.deskripsi
+                                  ? item.deskripsi[0]?.value?.substring(0, 250) +
+                                    '...'
+                                  : '-'
+                              }}
+                            />
+                          </div>
 
                           <div className="flex flex-row flex-wrap gap-[12px]">
                             {item?.tags?.length > 0 &&
@@ -917,16 +919,18 @@ const Berita: React.FC<ParamsProps> = () => {
                                 <MediumTag key={idx} title={tag} />
                               ))}
                           </div>
-                          <Link
-                            href={{
-                              pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
-                              query: { id: item.id }
-                            }}
-                            className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark"
-                          >
-                            Selengkapnya
-                            <Icon name="chevronRight" color="purple_dark" />
-                          </Link>
+                          <div className='grow flex items-end'>
+                            <Link
+                              href={{
+                                pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                                query: { id: item.id }
+                              }}
+                              className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark"
+                            >
+                              Selengkapnya
+                              <Icon name="chevronRight" color="purple_dark" />
+                            </Link>
+                          </div>
                         </div>
                       }
                       image={item.image}

@@ -6,12 +6,13 @@ import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
 import 'leaflet/dist/leaflet.css';
 
 type Props = {
+  onChangeCenter: (lng: number, lat: number) => void;
   mapCenter?: any[];
   branchData?: any;
 };
 
 const HighOffice = (props: Props) => {
-  const { mapCenter, branchData } = props;
+  const { mapCenter, branchData, onChangeCenter } = props;
 
   const renderMap = () => {
     const highOfficeCoordinate = {
@@ -71,7 +72,8 @@ const HighOffice = (props: Props) => {
               <div className="flex flex-col gap-2">
                 <div>Kantor Pusat Jakarta</div>
                 <div>
-                  World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Kav 29-31, RT.8/RW.3 Jakarta 12920 Indonesia
+                  World Trade Center II Lt. 7 & 8, Jl. Jenderal Sudirman Kav
+                  29-31, RT.8/RW.3 Jakarta 12920 Indonesia
                 </div>
                 <div>+62 21 5789 8188</div>
               </div>
@@ -96,9 +98,7 @@ const HighOffice = (props: Props) => {
             contact="+62 21 5789 8188"
             lat={-6.214663280751351}
             lng={106.82071668189862}
-            onChangeCenter={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            onChangeCenter={onChangeCenter}
           />
         </div>
         <div className="sm:w-2/3 xs:w-full">

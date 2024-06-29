@@ -47,7 +47,7 @@ export const MainContent = (props: Props) => {
       </div>
       <FeedbackForm Id={formSaranId} />
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem] xs:pt-[3.125rem]">
-        <HighOffice mapCenter={mapCenter} branchData={branchData} />
+        <HighOffice mapCenter={mapCenter} branchData={branchData} onChangeCenter={onClickMarker} />
       </div>
       <div className="bg-purple_superlight sm:px-[8.5rem] sm:pb-[1.5rem] xs:pb-[2.25rem] xs:px-[2rem]">
         <BranchOffice onChangeCenter={onClickMarker} branchData={branchData} />
