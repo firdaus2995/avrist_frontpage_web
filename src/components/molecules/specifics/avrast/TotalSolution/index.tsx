@@ -44,7 +44,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: EXTERNAL_URL.agiUrl,
+    link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-property`,
     openInNewTab: true
   },
 
@@ -58,7 +58,7 @@ const data = [
     bgColor: 'avram_bg',
     color: 'avram_green',
     inlineStyling: '#EBFCFA',
-    link: EXTERNAL_URL.avramUrl,
+    link: `${EXTERNAL_URL.avramUrl}/informasi/promo`,
     openInNewTab: true
   },
   {
@@ -83,7 +83,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: EXTERNAL_URL.agiUrl,
+    link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-oto`,
     openInNewTab: true
   },
   {
@@ -140,7 +140,7 @@ const dataMobile = [
         content:
           'Perlindungan terbaik dari Avrist dengan flexibilitas dan tingkat premi yang kompetitif',
         btnText: 'Selengkapnya',
-        link: EXTERNAL_URL.agiUrl,
+        link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-property`,
         openInNewTab: true
       },
       {
@@ -148,7 +148,7 @@ const dataMobile = [
         title: 'Asuransi Kendaraan',
         content: 'Perlindungan menyeluruh bagi kendaraan kesayangan Anda',
         btnText: 'Selengkapnya',
-        link: EXTERNAL_URL.agiUrl,
+        link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-oto`,
         openInNewTab: true
       }
     ]
@@ -166,7 +166,7 @@ const dataMobile = [
         content:
           'Mulai dari 10 ribu rupiah,  Anda sudah bisa berinvestasi dengan mudah',
         btnText: 'Selengkapnya',
-        link: EXTERNAL_URL.avramUrl,
+        link: `${EXTERNAL_URL.avramUrl}/informasi/promo`,
         openInNewTab: true
       },
       {
