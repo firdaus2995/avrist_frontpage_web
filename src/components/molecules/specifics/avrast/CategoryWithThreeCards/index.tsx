@@ -8,7 +8,7 @@ import HeartSymbol from '@/assets/symbols/heart-symbol.svg';
 import ButtonSmall from '@/components/atoms/ButtonSmall';
 import ButtonSmallWithCheck from '@/components/atoms/ButtonSmallWithCheck';
 import Icon from '@/components/atoms/Icon';
-import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
+// import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 
 interface IOption {
   label: string;
@@ -135,9 +135,9 @@ const CategoryWithThreeCards = ({
         selectedCategory === item ? (
           <div
             key={index}
-            className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
+            className="border-l-4 border-purple_dark pl-[24px] py-[12px] cursor-pointer text-left"
           >
-            <span className="font-bold text-purple_dark text-[18px]">
+            <span className="font-bold text-purple_dark text-[18px]/[25.2px]">
               {item}
             </span>
           </div>
@@ -146,9 +146,9 @@ const CategoryWithThreeCards = ({
             key={index}
             role="button"
             onClick={() => handleCategoryChange(item)}
-            className="border-l-4 border-purple_mediumlight px-[15px] py-[12px] cursor-pointer text-left"
+            className="border-l-4 border-purple_mediumlight pl-[24px] py-[12px] cursor-pointer text-left"
           >
-            <span className="font-bold text-purple_mediumlight text-[18px]">
+            <span className="font-bold text-purple_mediumlight text-[18px]/[25.2px]">
               {item}
             </span>
           </div>
@@ -158,8 +158,8 @@ const CategoryWithThreeCards = ({
   );
 
   return (
-    <CustomContainer
-      className={`w-full flex flex-col sm:py-[72px] gap-[36px] sm:gap-[48px] md:flex-row ${outerClass}`}
+    <div
+      className={`w-full flex flex-col gap-[36px] sm:gap-[48px] lg:flex-row ${outerClass}`}
     >
       {/* CATEGORIES */}
       {!hiddenCategory && (
@@ -201,7 +201,7 @@ const CategoryWithThreeCards = ({
                         title={item.label}
                       />
                     ) : item.type === 'dropdown' ? (
-                      <div className="py-[8px] px-[12px] border rounded-xl border-purple_dark text-purple_dark font-opensans font-semibold">
+                      <div className="py-[8px] px-[12px] border rounded-md border-purple_dark text-purple_dark font-opensans font-semibold leading-[23.68px]">
                         <select
                           key={index}
                           onChange={(e) => {
@@ -235,7 +235,7 @@ const CategoryWithThreeCards = ({
             <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
-                className="focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
+                className="font-karla focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
                 onKeyDown={onSearch}
               />
@@ -286,7 +286,7 @@ const CategoryWithThreeCards = ({
           </div>
         )}
       </div>
-    </CustomContainer>
+    </div>
   );
 };
 

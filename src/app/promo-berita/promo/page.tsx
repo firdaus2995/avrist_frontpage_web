@@ -6,13 +6,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
 import Slider from 'react-slick';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
-import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -290,9 +289,9 @@ const Promo: React.FC<ParamsProps> = () => {
 
   const renderPage = () => {
     return (
-      <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
         <div>
-          <p className="text-[1.25rem]">
+          <p className="text-[20px]/[28px] font-normal">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
               {contentData?.length === 0 || contentData === undefined
@@ -307,29 +306,16 @@ const Promo: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <div className="flex flex-row gap-[0.5rem] items-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <div
-              key={page}
-              role="button"
-              onClick={() => handlePageChange(page)}
-              className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                pagination.currentPage === page
-                  ? 'text-purple_dark font-bold'
-                  : ''
-              }`}
-            >
-              {page}
-            </div>
-          ))}
-          <span
-            className="mt-[0.18rem]"
-            role="button"
-            onClick={() => handlePageChange(totalPages)}
-          >
-            <Icon name="chevronRight" color="purple_dark" />
-          </span>
-        </div>
+        <ReactPaginate
+          pageCount={totalPages}
+          pageRangeDisplayed={5}
+          onPageChange={() => handlePageChange(totalPages)}
+          nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+          previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+          containerClassName="flex flex-row gap-[12px] items-center"
+          activeClassName="text-purple_dark font-bold"
+          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+        />
       </div>
     );
   };
@@ -351,21 +337,22 @@ const Promo: React.FC<ParamsProps> = () => {
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
       />
-      <div className="w-full flex flex-col items-center justify-center pt-20 text-center relative xs-px-[32px] md:px-0 gap-[5rem]">
-        <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla">
-          <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] font-bold mb-[0.75rem] text-purple_dark">
+      <div className="w-full flex flex-col items-center justify-center text-center relative xs-px-[32px] md:px-0">
+        <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla" />
+        <div className="px-[2rem] md:px-[8.5rem]">
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             Avrist Promo Terbaru
-          </h2>
-          <h2 className="xs:text-[1.5rem] md:text-[2.25rem]">
+          </p>
+          <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
             Ikuti terus kuis menarik di Instagram{' '}
             <span className="font-semibold text-purple_dark">
               @avristsolution{' '}
             </span>
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
-          </h2>
+          </p>
         </div>
 
-        <div className="w-full xs:pt-[12rem] md:pt-[8.625rem] md:px-[4rem]">
+        <div className="w-full pb-[80px] px-[2rem] md:px-[8.5rem]">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;
@@ -375,16 +362,19 @@ const Promo: React.FC<ParamsProps> = () => {
             {contentData?.slice(0.5).map((item: any, index: number) => (
               <SliderInformation
                 key={index}
+                bgColor="purple_superlight"
                 imageClassName="object-fill"
                 title={
-                  <div className="flex flex-col gap-4 text-left">
-                    <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold font-karla">
-                      {htmlParser(item.judul)}
-                    </p>
-                    <p className="line-clamp-4 font-opensans">
-                      {htmlParser(item.deskripsi)}
-                    </p>
-                    <div className="flex flex-row flex-wrap gap-[12px]">
+                  <div className="flex flex-col gap-6 text-left">
+                    <div className="flex flex-col gap-3">
+                      <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
+                        {htmlParser(item.judul)}
+                      </p>
+                      <p className="line-clamp-4 font-opensans text-[16px]">
+                        {htmlParser(item.deskripsi)}
+                      </p>
+                    </div>
+                    <div className="flex flex-row flex-wrap gap-[8px]">
                       {item.tags?.length > 0 &&
                         item.tags?.map((el: any, idx: number) => (
                           <MediumTag
@@ -394,6 +384,7 @@ const Promo: React.FC<ParamsProps> = () => {
                           />
                         ))}
                     </div>
+
                     <Link
                       href={`/promo-berita/promo/${item.id}`}
                       className="flex flex-row items-center flex-wrap gap-[12px] font-bold text-purple_dark font-opensans text-sm cursor-pointer"
@@ -408,26 +399,25 @@ const Promo: React.FC<ParamsProps> = () => {
                     ? BlankImage
                     : item.image
                 }
+                rounded={12}
               />
             ))}
           </Slider>
-          <div className="flex flex-row justify-between w-full xs:px-[2rem] md:px-20">
-            <Image
-              src={ArrowCarouselLeft}
-              alt="prev"
+          <div className="flex flex-row justify-between w-full">
+            <div
+              className="p-2 border-2 rounded-full border-purple_dark"
+              role="button"
               onClick={previous}
-              className="-rotate-[90deg] cursor-pointer"
-              width={36}
-              height={36}
-            />
-            <Image
-              src={ArrowCarouselRight}
-              alt="next"
+            >
+              <Icon name="chevronLeft" color="purple_dark" />
+            </div>
+            <div
+              className="p-2 border-2 rounded-full border-purple_dark"
+              role="button"
               onClick={next}
-              className="rotate-[90deg] cursor-pointer"
-              width={36}
-              height={36}
-            />
+            >
+              <Icon name="chevronRight" color="purple_dark" />
+            </div>
           </div>
         </div>
 
@@ -473,7 +463,7 @@ const Promo: React.FC<ParamsProps> = () => {
                     >
                       <Image
                         src={item?.image ?? BlankImage}
-                        className="w-full h-auto"
+                        className="w-full min-h-[220px] shadow-avras rounded-lg object-fill"
                         alt="blank"
                         width={0}
                         height={0}
@@ -485,6 +475,7 @@ const Promo: React.FC<ParamsProps> = () => {
                 {renderPage()}
               </>
             }
+            outerClass="px-[2rem] md:px-[8.5rem]"
           />
         </div>
       </div>
