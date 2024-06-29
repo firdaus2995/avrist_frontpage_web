@@ -71,6 +71,7 @@ const Berita: React.FC<ParamsProps> = () => {
     initialSlide: 0,
     // autoplay: true,
     // autoplaySpeed: 3000,
+    centerPadding: '0px',
     responsive: [
       {
         breakpoint: 640,
@@ -113,7 +114,7 @@ const Berita: React.FC<ParamsProps> = () => {
     monthFilter: '',
     searchFilter: ''
   });
-  const [itemsPerPage] = useState(6);
+  const [itemsPerPage] = useState(3);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -730,9 +731,9 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const renderPage = () => {
     return (
-      <div className="flex flex-col gap-4 md:flex-row justify-between">
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
         <div>
-          <p className="text-[20px]">
+          <p className="text-[20px]/[28px] font-normal">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
               {contentData?.length === 0 || contentData === undefined
@@ -757,7 +758,7 @@ const Berita: React.FC<ParamsProps> = () => {
           onPageChange={handlePageClick}
           nextLabel={<Icon name="chevronRight" color="purple_dark" />}
           previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-          containerClassName="flex flex-row gap-[8px] items-center"
+          containerClassName="flex flex-row gap-[12px] items-center"
           activeClassName="text-purple_dark font-bold"
           pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
         />
@@ -785,7 +786,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div
-        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block'} rounded-t-[72px] bg-white w-full min-h-[100px] bg-white z-10`}
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block'} rounded-t-[60px] bg-white w-full min-h-[100px] bg-white z-10`}
       ></div>
       <div className="w-full z-20 xs:hidden md:block rounded-t-lg">
         <div className="grid grid-cols-3 gap-[12px] px-[136px] bg-white">
@@ -839,43 +840,43 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Avrist Terkini' && (
         <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto">
-          <SectionPromo>
-            <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] xs:text-[2.25rem] md:text-[3.5rem] xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] font-bold mb-4 text-purple_dark xs:mt-[2.25rem] md:-mt-4">
+          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+            <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
               {params.category === 'AvriStory' && (
-                <p className="px-[2rem]">
+                <>
                   <span className="font-black">AvriStory:</span> E-Bulletin
                   hadir setiap 3 bulan sekali
-                </p>
+                </>
               )}
               {params.category === 'Avrist Life Guide' && 'Avrist Life Guide'}
-            </h2>
-            <h2 className="xs:max-md:tracking-wide text-[36px] sm:mb-6 xs:max-md:text-2xl xs:max-sm:px-[50px] md:px-[110px] lg:px-[136px] md:text-2xl">
+            </p>
+            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
               {params.category === 'Berita dan Kegiatan' &&
                 'Informasi terkini dari siaran pers hingga aktivitas sosial.'}
               {params.category === 'AvriStory' && (
-                <p className="pb-[5rem] px-[2rem]">
+                <>
                   Informasi terbaru mengenai{' '}
                   <span className="font-black">Avrist Life Insurance</span>
-                </p>
+                </>
               )}
               {params.category === 'Avrist Life Guide' && (
-                <p className="text-[36px] font-normal">
+                <>
                   Kumpulan artikel mengenai{' '}
                   <span className="font-bold text-purple_dark">asuransi</span>{' '}
                   dan{' '}
                   <span className="font-bold text-purple_dark">
                     gaya hidup.
                   </span>
-                </p>
+                </>
               )}
-            </h2>
-          </SectionPromo>
+            </p>
+          </div>
 
           {params.category === 'Berita dan Kegiatan' && (
-            <div className="w-full pb-[80px]">
-              <div className="w-full sm:px-10 xs:px-0">
+            <div className="w-full pb-[80px] px-[2rem] md:px-[8.5rem]">
+              <div className="w-full">
                 <Slider
                   ref={(slider) => {
                     sliderRef.current = slider;
@@ -888,38 +889,40 @@ const Berita: React.FC<ParamsProps> = () => {
                       key={index}
                       bgColor="purple_superlight"
                       title={
-                        <div className="flex flex-col gap-6 text-left w-full xs:h-[420px] sm:h-full">
-                          <p className="text-[14px]">
+                        <div className="flex flex-col gap-6 text-left w-full">
+                          <p className="text-[14px]/[19.6px]">
                             <span className="font-bold text-purple_dark text-sm">
                               {htmlParser(item.artikelTopic)}
                             </span>{' '}
                             | {`${item.date} ${item.waktu}`}
                           </p>
-                          <div className='flex flex-col gap-3'>
+                          <div className="flex flex-col gap-3">
                             <p
-                              className="text-[36px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-all leading-[43.2px]"
+                              className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
                               dangerouslySetInnerHTML={{
                                 __html: item.judul
                               }}
                             />
                             <p
-                              className="text-[16px] line-clamp-2 leading-[22.4px]"
+                              className="text-[16px] line-clamp-2"
                               dangerouslySetInnerHTML={{
                                 __html: item.deskripsi
-                                  ? item.deskripsi[0]?.value?.substring(0, 250) +
-                                    '...'
+                                  ? item.deskripsi[0]?.value?.substring(
+                                      0,
+                                      250
+                                    ) + '...'
                                   : '-'
                               }}
                             />
                           </div>
 
-                          <div className="flex flex-row flex-wrap gap-[12px]">
+                          <div className="flex flex-row flex-wrap gap-[8px]">
                             {item?.tags?.length > 0 &&
                               item.tags.map((tag: any, idx: number) => (
                                 <MediumTag key={idx} title={tag} />
                               ))}
                           </div>
-                          <div className='grow flex items-end'>
+                          <div className="grow flex items-end">
                             <Link
                               href={{
                                 pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
@@ -936,11 +939,12 @@ const Berita: React.FC<ParamsProps> = () => {
                       image={item.image}
                       imageClassName="rounded-r-2xl"
                       customClass="py-[0px]"
+                      rounded={12}
                     />
                   ))}
                 </Slider>
               </div>
-              <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[10px]">
+              <div className="flex flex-row justify-between w-full">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -958,7 +962,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34 px-[2rem]">
+          <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
               onCategoryChange={(tab) => onCategoryChange(tab)}
@@ -982,7 +986,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]}
               hidePagination
-              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari Kegiatan' : 'Cari E-Buletin'}`}
+              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -1005,7 +1009,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             summary={item.judul}
                             description={`${item.date} ${item.waktu}`}
                             imageUrl={item.image}
-                            imageStyle="min-h-[170px]"
+                            imageStyle="min-h-[190px] object-fill"
                             lineClamp={3}
                           />
                         </Link>
@@ -1205,7 +1209,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </div>
                 ) : null
               }
-              outerClass="sm:!py-[0px]"
+              outerClass="sm:!py-[0px] px-[2rem] md:px-[8.5rem]"
             />
           </div>
         </div>
@@ -1213,83 +1217,78 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
-          <div className="xs:px-[2rem] sm:px-0">
-            <SectionPromo>
-              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] md:text-[56px] xs:text-4xl font-bold mb-6 text-purple_dark xs:mt-[2.25rem] sm:mt-0">
-                Dari Anda untuk Kami
-              </h2>
-              <h2 className="md:text-4xl xs:text-2xl mb-6 w-full">
-                Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
-              </h2>
-            </SectionPromo>
+          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+            <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+              Dari Anda untuk Kami
+            </p>
+            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+              Inilah Cerita Pengalaman Nasabah Avrist Assurance bersama Kami
+            </p>
           </div>
 
-          <div className="w-full sm:px-10 pb-10">
-            <Slider
-              ref={(slider) => {
-                sliderRef.current = slider;
-                sliderRef.current?.slickGoTo(0);
-              }}
-              {...sliderSettings}
-              infinite={true}
-            >
-              {contentData?.slice(0, 5).map((item: any, index: number) => {
-                return (
-                  <SliderInformation
-                    key={index}
-                    isVideo
-                    imageClassName="max-h-[400px] object-fill"
-                    bgColor="purple_superlight"
-                    title={
-                      <div className="flex flex-col gap-4 text-left">
-                        <p
-                          className="text-[36px] font-bold line-clamp-3"
-                          dangerouslySetInnerHTML={{
-                            __html: item.judul
-                          }}
-                        />
-                        {item.deskripsi !== '-' && (
-                          <p
-                            className="text-[16px] line-clamp-4"
-                            dangerouslySetInnerHTML={{
-                              __html: item.deskripsi
-                            }}
-                          />
-                        )}
-                        <p className="text-[14px]">
-                          <span className="font-bold text-purple_dark">
-                            {item.penulis}
-                          </span>{' '}
-                          | {item.titlePenulis}
-                        </p>
-                      </div>
-                    }
-                    image={item.videoUrl}
-                    customClass="py-[0px]"
-                    customMobileClass="grow-0"
-                  />
-                );
-              })}
-            </Slider>
-            <div className="flex flex-row justify-between w-full sm:px-20 xs:px-[2rem]">
-              <div
-                className="p-2 border-2 rounded-full border-purple_dark"
-                role="button"
-                onClick={previous}
+          <div className="w-full pb-[80px] px-[2rem] md:px-[8.5rem]">
+            <div className="w-full">
+              <Slider
+                ref={(slider) => {
+                  sliderRef.current = slider;
+                  sliderRef.current?.slickGoTo(0);
+                }}
+                {...sliderSettings}
+                infinite={true}
               >
-                <Icon name="chevronLeft" color="purple_dark" />
-              </div>
-              <div
-                className="p-2 border-2 rounded-full border-purple_dark"
-                role="button"
-                onClick={next}
-              >
-                <Icon name="chevronRight" color="purple_dark" />
+                {contentData?.slice(0, 5).map((item: any, index: number) => {
+                  return (
+                    <SliderInformation
+                      key={index}
+                      isVideo
+                      imageClassName="max-h-[360px] object-fill"
+                      bgColor="purple_superlight"
+                      title={
+                        <div className="flex flex-col gap-6 text-left">
+                          <div className="flex flex-col gap-3">
+                            <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
+                              {htmlParser(item.judul)}
+                            </p>
+                            <p className="line-clamp-4 font-opensans text-[16px]">
+                              {htmlParser(item.deskripsi)}
+                            </p>
+                          </div>
+                          <p className="text-[14px]">
+                            <span className="font-bold text-purple_dark">
+                              {item.penulis}
+                            </span>{' '}
+                            | {item.titlePenulis}
+                          </p>
+                        </div>
+                      }
+                      image={item.videoUrl}
+                      customClass="py-[0px]"
+                      customMobileClass="grow-0"
+                      rounded={12}
+                    />
+                  );
+                })}
+              </Slider>
+              <div className="flex flex-row justify-between w-full">
+                <div
+                  className="p-2 border-2 rounded-full border-purple_dark"
+                  role="button"
+                  onClick={previous}
+                >
+                  <Icon name="chevronLeft" color="purple_dark" />
+                </div>
+                <div
+                  className="p-2 border-2 rounded-full border-purple_dark"
+                  role="button"
+                  onClick={next}
+                >
+                  <Icon name="chevronRight" color="purple_dark" />
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="w-full xs:px-[2rem] md:px-[5rem]">
+          <div className="w-full">
             <CategoryWithThreeCards
               hidePagination
               defaultSelectedCategory={params.category}
@@ -1327,9 +1326,10 @@ const Berita: React.FC<ParamsProps> = () => {
                         key={index}
                         summary={htmlParser(item.judul)}
                         name={item.penulis}
-                        position={` | ${item.titlePenulis}`}
+                        position={item.titlePenulis}
                         isVideo
                         image={item.videoUrl}
+                        className=""
                       />
                     ))}
                   </div>
@@ -1337,6 +1337,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {renderPage()}
                 </>
               }
+              outerClass="px-[2rem] md:px-[8.5rem]"
             />
           </div>
         </div>
@@ -1344,7 +1345,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Kumpulan Berita Pers' && (
         <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0 gap-[5rem]">
-          <div className="w-full md:px-[8.5rem] xs:text-center md:text-start sm:mt-0">
+          <div className="w-full lg:px-[8.5rem] xs:text-center md:text-start sm:mt-0">
             <SectionPromo>
               <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold text-purple_dark text-center">
                 Kumpulan Berita Pers

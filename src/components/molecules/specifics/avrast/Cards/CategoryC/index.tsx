@@ -12,6 +12,7 @@ interface ICardCategoryC {
   position: string;
   image: string;
   isVideo?: boolean;
+  className?: string;
 }
 
 const CardCategoryC = ({
@@ -30,7 +31,9 @@ const CardCategoryC = ({
   return (
     <>
       {' '}
-      <div className="flex flex-col gap-[18px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
+      <div
+        className={`flex flex-col border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]`}
+      >
         <div
           className={`flex relative ${isVideo && 'cursor-pointer'}`}
           onClick={() => {
@@ -50,10 +53,16 @@ const CardCategoryC = ({
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-4 px-[24px] pb-[36px]">
-          <p className="text-[24px] font-bold text-left">{summary}</p>
-          <p className="text-[14px] text-left">
-            <span className="font-bold text-purple_dark">{name}</span>{' '}
+        <div className="flex flex-col gap-4 px-[24px] py-[36px]">
+          <p className="text-[24px] font-bold text-left line-clamp-3">
+            {summary}
+          </p>
+          <p className="text-[14px]/[19.6px] text-left hidden lg:block">
+            <span className="font -bold text-purple_dark">{name}</span> |&nbsp;
+            {position}
+          </p>
+          <p className="text-[14px]/[19.6px] text-left xs:max-md:block lg:hidden">
+            <span className="font -bold text-purple_dark">{name}</span> <br />
             {position}
           </p>
         </div>

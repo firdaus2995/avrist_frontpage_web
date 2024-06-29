@@ -25,7 +25,9 @@
     )
     rgb(var(--background-start-rgb));
 } */
-
+ul.slick-dots {
+  height: 18px;
+}
 .slick-dots li button:before {
   background-color: #81219a;
   height: 12px !important;
@@ -41,4 +43,15 @@
 }
 .tab-header-container::-webkit-scrollbar {
   display: none;
+}
+
+select.custom-select {
+  content: '>';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  pointer-events: none;
 }
