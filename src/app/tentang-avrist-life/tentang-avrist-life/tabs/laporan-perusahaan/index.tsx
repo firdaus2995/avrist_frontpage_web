@@ -11,8 +11,6 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
-import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
-import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { getListLaporanPerusahaan } from '@/services/laporan-perusahaan';
@@ -199,14 +197,23 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
         {params.category ? (
-          <CustomContainer className="w-full flex flex-col items-center justify-center text-center gap-[0.75rem] sm:mb-[0.5rem]">
-            <TitleContainer className="font-medium text-purple_dark !mb-0">
-              {params.category} Perusahaan
-            </TitleContainer>
-            <h2 className="xs:text-[1.25rem] md:text-[2.25rem] font-karla">
-              Temukan {params.category.toLowerCase()} perusahaan di sini
-            </h2>
-          </CustomContainer>
+          // <CustomContainer className="w-full flex flex-col items-center justify-center text-center font-karla xs:mt-[2.25rem] sm:mt-[5rem]">
+          //   <TitleContainer className="text-purple_dark !mb-[2.25rem] sm:leading-normal !-tracking-[2.24px] font-extrabold">
+          //     {params.category} Perusahaan
+          //   </TitleContainer>
+          //   <h2 className="md:text-4xl xs:text-2xl mb-6 -tracking-[1.08px]">
+          //     Temukan {params.category.toLowerCase()} perusahaan di sini
+          //   </h2>
+          // </CustomContainer>
+          <div className="px-[2rem] xs:my-[2.25rem] sm:mt-[5rem]">
+            <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+              {params.category.replace('Perusahaan', '')} Perusahaan
+            </p>
+            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+              Temukan {params.category.replace('Perusahaan', '').toLowerCase()}{' '}
+              perusahaan di sini
+            </p>
+          </div>
         ) : null}
 
         <CategoryWithThreeCards
@@ -242,16 +249,18 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                     (item: any, index: number) => (
                       <div
                         key={index}
-                        className="w-full flex flex-row justify-between items-center p-4 border rounded-xl gap-2"
+                        className="w-full flex flex-row justify-between items-center p-[1.5rem] border rounded-xl gap-2"
                       >
                         <div className="flex flex-row gap-2 items-center">
-                          <p className="font-bold">{item.name}</p>
+                          <p className="font-bold text-2xl font-karla">
+                            {item.name}
+                          </p>
                           <MediumTag title="PDF" />
                         </div>
                         <Button
                           title="Unduh"
                           customButtonClass="rounded-xl bg-purple_dark"
-                          customTextClass="text-white"
+                          customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                           onClick={async () => await handleDownload(item.file)}
                         />
                       </div>

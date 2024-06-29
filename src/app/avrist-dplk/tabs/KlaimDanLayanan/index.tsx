@@ -51,14 +51,14 @@ const KlaimDanLayanan = () => {
             cardBody:
               'Tim kami menganalisa pengajuan dan membayarkan dengan ketentuan polis.',
             cardButtonText: 'Login Employer',
-            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=inf'
+            href: 'https://polis.avrist.com/pgeSqplxruif.aspx?src=per&trx=inf'
           },
           {
             cardIcon: YellowContact,
             cardTitle: 'Pengkinian Data',
             cardBody: 'Bukti Komitmen kami untuk memberikan rasa Aman',
             cardButtonText: 'Login Employee',
-            href: 'https://polis.avrist.com/pgeLoginEmployer.aspx?src=per&trx=inf'
+            href: 'https://polis.avrist.com/pgeSqplxruif.aspx?src=pee&trx=inf'
           },
           {
             cardIcon: YellowForm,

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -25,11 +25,11 @@ const data = [
       { label: 'Avrist Life Insurance', url: '/tanya-avrista' },
       {
         label: 'Avrist Asset Management',
-        url: EXTERNAL_URL.avramUrl
+        url: `${EXTERNAL_URL.avramUrl}/contact-us`
       },
       {
         label: 'Avrist General Insurance',
-        url: EXTERNAL_URL.agiUrl
+        url: `${EXTERNAL_URL.agiUrl}/contact-us`
       }
     ]
   },
@@ -41,11 +41,11 @@ const data = [
       { label: 'Avrist Life Insurance', url: '/hubungi-kami' },
       {
         label: 'Avrist Asset Management',
-        url: EXTERNAL_URL.avramUrl
+        url: `${EXTERNAL_URL.avramUrl}/contact-us`
       },
       {
         label: 'Avrist General Insurance',
-        url: EXTERNAL_URL.agiUrl
+        url: `${EXTERNAL_URL.agiUrl}/contact-us`
       }
     ]
   }
@@ -53,16 +53,7 @@ const data = [
 
 const LayananNasabah = () => {
   const sliderRef = useRef<Slider | null>(null);
-  const next = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
-    }
-  };
-  const previous = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
-    }
-  };
+  const [currentSlide, setCurrentSlide] = useState(0);
   const sliderSettings = {
     dots: false,
     infinite: false,
@@ -83,16 +74,20 @@ const LayananNasabah = () => {
       url: string;
     }[];
   }) => (
+    //   <div
+    //   className={`w-full max-h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark py-[24px] px-[32px]`}
+    // >
     <div
-      className={`w-full max-h-[40vh] gap-[32px] flex mb-10 md:flex-row xs:flex-col rounded-xl bg-foamy_milk items-center justify-center text-center shadow-xl border-b-8 border-b-purple_dark pt-[24px] px-[32px] pb-[36px]`}
+      className={`rounded-xl bg-foamy_milk flex xs:flex-col sm:flex-row py-[24px] px-[32px] sm:items-center gap-[24px] shadow-xl border-b-8 border-b-purple_dark`}
     >
-      <div className="xs:block md:hidden flex items-start w-full pt-6 pl-5">
+      <div className="xs:block">
         <Image src={val.icon} alt={val.title} className="w-20" />
       </div>
-      <div
+      {/* <div
         className={`w-full md:pt-[24px] md:px-[32px] md:pb-[36px] xs:px-4 xs:pb-4 flex h-full flex-col items-start md:justify-center xs:justify-start md:gap-[24px] xs:gap-5`}
-      >
-        <div className="flex flex-row items-center gap-4">
+      > */}
+      <div className={``}>
+        <div className="flex flex-row gap-4">
           <div className="xs:hidden md:block">
             <Image
               src={val.icon}
@@ -101,30 +96,34 @@ const LayananNasabah = () => {
             />
           </div>
           <div className="flex flex-col gap-4">
-            <p className="md:text-[32px] xs:text-[2rem] font-bold text-left w-full mb-2">
+            <p className="md:text-[32px] xs:text-[2rem] font-bold text-left w-full mb-[1.5rem] font-karla -tracking-[1.6px] leading-[38.4px]">
               {val.title}
             </p>
-            {val.items?.map((item, index) => (
-              <div
-                className="flex flex-row items-center gap-2 flex-wrap"
-                key={index}
-              >
-                <CustomLink
-                  href={item.url}
-                  className="flex flex-row items-center gap-4 whitespace-nowrap"
-                  role="button"
+            <div className="flex flex-col gap-[16px]">
+              {val.items?.map((item, index) => (
+                <div
+                  className="flex flex-row items-center gap-2 flex-wrap font-opensans"
+                  key={index}
                 >
-                  <p className={`font-semibold md:text-lg xs:text-xs`}>
-                    {item.label}
-                  </p>
-                  <Image
-                    src={val.linkIcon}
-                    alt={item.url}
-                    className="w-4 mix-blend-multiply"
-                  />
-                </CustomLink>
-              </div>
-            ))}
+                  <CustomLink
+                    href={item.url}
+                    className="flex flex-row items-center gap-4 whitespace-nowrap"
+                    role="button"
+                  >
+                    <p className={`font-bold text-xl leading-[28px]`}>
+                      {item.label}
+                    </p>
+                    <Image
+                      src={val.linkIcon}
+                      alt={item.url}
+                      className="w-[18px] mix-blend-multiply"
+                      width={18}
+                      height={18}
+                    />
+                  </CustomLink>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -132,7 +131,7 @@ const LayananNasabah = () => {
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center py-32 gap-16 bg-white rounded-t-[65px] relative">
+    <div className="flex flex-col self-stretch items-center justify-center pt-[5rem] pb-[100px] gap-16 bg-white rounded-t-[65px] relative">
       <div className="w-full absolute z-20 top-2 h-20 bg-white rounded-t-[65px]"></div>
       <div className="w-full flex flex-row absolute z-10 top-0 h-20 rounded-t-[65px]">
         <div className="w-1/5 h-full bg-green_border rounded-tl-[65px]"></div>
@@ -154,24 +153,39 @@ const LayananNasabah = () => {
           <div key={idx}>{renderCard(val)}</div>
         ))}
       </div>
-      <div className="w-full grid grid-cols-1 md:hidden gap-4">
+      <div className="w-full grid grid-cols-1 md:hidden gap-[32px]">
         <div className="w-[85%] m-auto">
           <Slider
             ref={(slider) => {
               sliderRef.current = slider;
             }}
+            beforeChange={(_, index) => setCurrentSlide(index)}
             {...sliderSettings}
           >
             {data.map((val, idx) => (
-              <div className="" key={idx}>
+              <div className="px-[12px]" key={idx}>
                 {renderCard(val)}
               </div>
             ))}
           </Slider>
         </div>
         <div className="flex flex-row gap-4 justify-between w-[85%] m-auto">
-          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
-          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+          <Image
+            alt="prev"
+            src={ARROW_LEFT}
+            role="button"
+            onClick={() => sliderRef.current?.slickPrev()}
+            className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+          />
+          <Image
+            alt="next"
+            src={ARROW_RIGHT}
+            role="button"
+            onClick={() => sliderRef.current?.slickNext()}
+            className={
+              currentSlide === data.length - 1 ? 'opacity-50' : 'opacity-100'
+            }
+          />
         </div>
       </div>
     </div>

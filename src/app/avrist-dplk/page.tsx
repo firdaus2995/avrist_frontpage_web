@@ -60,10 +60,10 @@ const AvristSyariah = async () => {
   return (
     <Suspense fallback={null}>
       <Hero
-        title={'Avrist DPLK'}
+        title={'DPLK Avrist'}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Avrist DPLK', href: '#' }
+          { title: 'DPLK Avrist', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}

@@ -82,7 +82,7 @@ export const VideoInformation = ({
             color = 'green_border';
             break;
           case 4:
-            videoType = 'Avrist DPLK';
+            videoType = 'DPLK Avrist';
             color = 'orange_border';
             break;
           default:

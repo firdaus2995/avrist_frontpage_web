@@ -102,7 +102,7 @@ const dataPerformaInvestasi = [
   },
   {
     icon: PERSON_HOME_YELLOW,
-    title: 'Avrist DPLK',
+    title: 'DPLK Avrist',
     link1: 'Lihat Produk',
     color: 'text-orange_border',
     href: '/avrist-dplk?tab=Produk'
@@ -175,7 +175,7 @@ const FooterKlaim = () => {
     icon: StaticImport;
     title: string;
     link1: string;
-    href?: string,
+    href?: string;
     color?: string;
   }) => (
     <div
@@ -196,7 +196,10 @@ const FooterKlaim = () => {
           role="button"
           className="flex w-full flex-row items-center justify-center gap-4 whitespace-nowrap"
         >
-          <Link href={val.href || '/'} className={`font-semibold md:text-lg xs:text-xs text-purple_dark`}>
+          <Link
+            href={val.href || '/'}
+            className={`font-semibold md:text-lg xs:text-xs text-purple_dark`}
+          >
             {val.link1}
           </Link>
         </div>
@@ -219,7 +222,9 @@ const FooterKlaim = () => {
           {...sliderSettings}
         >
           {data.map((val, idx) => (
-            <div className='p-4' key={idx}>{renderCard(val)}</div>
+            <div className="p-4" key={idx}>
+              {renderCard(val)}
+            </div>
           ))}
         </Slider>
         <div className="flex flex-row justify-between mx-5">

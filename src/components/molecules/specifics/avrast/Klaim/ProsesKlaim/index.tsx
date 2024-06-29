@@ -56,7 +56,7 @@ const data = [
     ]
   },
   {
-    category: 'Avrist DPLK',
+    category: 'DPLK Avrist',
     data: [
       'Klaim Manfaat Hidup 3',
       'Klaim Kematian 3',

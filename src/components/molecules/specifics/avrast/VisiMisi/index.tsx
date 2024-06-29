@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
-import Plus from '@/assets/images/common/+.svg';
-import Minus from '@/assets/images/common/-.svg';
+import Chevron from '@/assets/images/common/chevron-right-purple.svg';
 
 interface IDataArray {
   title: string;
@@ -39,14 +38,14 @@ const VisiMisi = ({ data }: IVisiMisi) => {
               <Image
                 role="button"
                 onClick={() => setIsExpanded(false)}
-                src={Minus}
-                className="w-5"
+                src={Chevron}
+                className="w-5 -rotate-[90deg]"
                 alt="minus"
               />
             ) : null}
           </div>
           {!Array.isArray(val.desc) ? (
-            <p className="text-[1.25rem] md:text-[2.25rem] font-light">
+            <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
               {val.desc}
             </p>
           ) : !isExpanded ? (
@@ -55,26 +54,30 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 <p className="xs:text-[4rem] md:text-[6.25rem] font-bold text-purple_light font-karla">
                   1
                 </p>
-                <p className="text-[1.25rem] md:text-[2.25rem]">
+                <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
                   {val.desc[0]}
                 </p>
               </div>
               <div
                 role="button"
                 onClick={() => setIsExpanded(true)}
-                className="w-full flex flex-row gap-2 items-end justify-end"
+                className="w-full flex flex-row gap-2 items-center justify-end"
               >
-                <p className="font-semibold text-purple_dark">
+                <p className="text-2xl font-semibold text-purple_dark font-karla">
                   Lihat Lebih Lanjut
                 </p>
-                <Image src={Plus} className="w-5" alt="plus" />
+                <Image
+                  src={Chevron}
+                  className="w-5 rotate-[90deg]"
+                  alt="plus"
+                />
               </div>
             </div>
           ) : (
             val.desc.map((value, index) => (
               <div
                 key={index}
-                className="p-10 flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"
+                className="px-[1.5rem] pb-[2.25rem] pt-[1rem] flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"
               >
                 <div className="flex xs:flex-col md:flex-row items-center w-full xs:text-center md:text-start">
                   <span className="w-[7rem]">
@@ -86,7 +89,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                   </span>
 
                   <span className="w-full">
-                    <p className="text-base md:text-[2.25rem] leading-snug">
+                    <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
                       {value}
                     </p>
                   </span>

@@ -27,7 +27,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
 }) => (
   <div className="font-karla" id={idTags}>
     <TitleContainer
-      className={`text-center ${headingClassname ?? 'text-purple_dark'}`}
+      className={`leading-[2.25rem] text-center ${headingClassname ?? 'text-purple_dark'}`}
     >
       {heading}
     </TitleContainer>

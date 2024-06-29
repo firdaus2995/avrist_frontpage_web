@@ -156,7 +156,7 @@ const DPLKProductList = () => {
               key={index}
               imageProduk={i.produkImage.imageUrl}
               symbol={i.kategoriProdukIcon.imageUrl}
-              title={'Avrist DPLK'}
+              title={'DPLK Avrist'}
               summary={i.namaProduk}
               href={`${pathname}/${i.id}`}
               description={i.deskripsiSingkatProduk}

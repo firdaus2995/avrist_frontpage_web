@@ -220,17 +220,29 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           </div>
         </div>
         <div className="w-full -mt-[6px] flex md:flex-row xs:flex-col mb-[5rem]">
-          <div className="flex py-10 px-[2rem] md:pr-[2.25rem] md:pl-[8.5rem] items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-dark-purple">
-            <p className="font-karla font-light xs:w-full xs:text-[1.25rem] sm:text-[2.25rem]">
+          <div className="flex py-10 px-[2rem] md:px-[8.5rem] md:pr-0 items-center xs:justify-start text-white md:text-4xl xs:text-xl text-left w-full md:max-w-[45%] lg:max-w-[35%] bg-avrast_product_bg">
+            <p className="font-karla font-light xs:w-full sm:hidden xs:text-xl sm:text-[2rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px]">
               Apa <span className="font-bold">perlindungan </span> yang{' '}
-              <span className="font-bold">Anda </span> butuhkan
+              <span className="font-bold">Anda </span> butuhkan?
             </p>
+            <div className="xs:hidden md:block font-karla font-light xs:text-xl sm:text-[2rem]/[43px] xs:-tracking-[0.8px] sm:-tracking-[1.44px]">
+              <p className="block">
+                Apa <span className="font-bold">perlindungan </span>
+              </p>
+              yang <span className="font-bold">Anda </span> butuhkan?
+            </div>
           </div>
           <div className="flex xs:py-10 xs:px-[32px] md:pl-[4rem] md:pr-[8.5rem] flex-row justify-between items-center text-white md:text-[48px] xs:text-[24px] w-full bg-purple_light relative">
-            <p className="font-karla font-bold text-[2.25rem]">
-              <span className="font-bold">Saya Ingin</span> pilihan rencana
+            <p className="sm:hidden font-karla font-bold text-[2.25rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px] flex flex-col">
+              <span>Saya Ingin</span>{' '}
+              <span className="font-light">pilihan rencana</span>
+            </p>
+            <p className="xs:hidden md:block font-karla font-bold text-[3rem] xs:-tracking-[0.8px] sm:-tracking-[1.44px] flex flex-col">
+              <span>Saya Ingin</span>{' '}
+              <span className="font-light">pilihan rencana</span>
             </p>
             <button
+              id="drop-down"
               className="text-white font-medium rounded-full text-sm p-2 text-center border-2 xs:w-[2rem] xs:h-[2rem] md:w-[2.5rem] md:h-[2.5rem] xs:max-md:mr-4"
               type="button"
               onClick={toggleDropdown}
@@ -269,26 +281,27 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
           <div>
             {dropdownVisible && (
               <div
-                className={`absolute shadow-xl flex flex-col xs:top-[1220px] md:top-[920px] md:right-[1rem] rounded-md bg-white xs:right-[1.25rem] xs:left-0 md:left-[50rem] md:w-[31.25rem] z-30`}
+                aria-label="drop-down"
+                className={`absolute shadow-xl flex flex-col sm:top-[1220px] md:top-[1050px] lg:top-[950px] xl:top-[920px] rounded-md bg-white xs:left-0 md:left-[10rem] lg:left-[25rem] xl:left-[50rem] w-full md:w-[31.25rem] z-30 md:text-[36px]/[43.2px] md:-tracking-[1.44px] xs:text-[1.5rem] text-[#1A141F]`}
                 ref={dropdownRef}
               >
                 <Link
                   href="/produk/individu"
-                  className="font-karla border-l-8 border-purple_dark bg-purple_bg rounded-r-[12px] rounded-tl-md text-gray-400 hover:text-purple_dark hover:font-medium p-[24px] md:text-[20px] xs:text-[11px]"
+                  className="font-karla border-l-8 border-purple_dark bg-purple_bg rounded-r-[12px] rounded-tl-md hover:text-purple_dark hover:font-medium py-[24px] px-[32px]"
                 >
                   Perlindungan Jiwa dan Kesehatan
                 </Link>
                 <Link
                   target="_blank"
                   href={`${EXTERNAL_URL.agiUrl}`}
-                  className="font-karla border-l-8 border-agi_grey bg-grey_bg rounded-r-[12px] text-gray-400 hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                  className="font-karla border-l-8 border-agi_grey bg-grey_bg rounded-r-[12px] hover:text-purple_dark hover:font-medium py-[24px] px-[32px]"
                 >
                   Perlindungan Harta Benda
                 </Link>
                 <Link
                   target="_blank"
                   href={`${EXTERNAL_URL.avramUrl}`}
-                  className="font-karla text-gray-400 border-l-8 border-avram_green rounded-r-[12px] bg-green_bg rounded-bl-md hover:text-purple_dark hover:font-medium md:text-[20px] xs:text-[11px] p-[24px]"
+                  className="font-karla border-l-8 border-avram_green rounded-r-[12px] bg-green_bg rounded-bl-md hover:text-purple_dark hover:font-medium py-[24px] px-[32px]"
                 >
                   Manajemen Investasi
                 </Link>

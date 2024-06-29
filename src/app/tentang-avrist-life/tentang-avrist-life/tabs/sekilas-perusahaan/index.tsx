@@ -173,9 +173,9 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
 
   return (
     <div className="w-full flex flex-col bg-white justify-center">
-      <CustomContainer className="flex flex-col gap-[1.25rem] font-karla">
-        <p className="xs:text-[2.25rem] md:text-[3rem] xs:mt-[3.125rem] md:mt-[5rem]">
-          <span className="font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+      <CustomContainer className="flex flex-col gap-[1.25rem] font-karla text-black">
+        <p className="sm:text-5xl xs:text-3xl font-extrabold xs:mt-[3.125rem] md:mt-[5rem]">
+          <span className="text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             Sekilas Avrist
           </span>
         </p>
@@ -195,14 +195,17 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
           kantor pemasaran Avrist.
         </p>
         <div className="flex justify-center w-full md:h-[570px] my-[1.25rem]">
-          <VideoPlayer
-            color="purple_dark"
-            url={
-              getYouTubeId(contentPage?.content['sekilasavrist-video'].value) ??
-              ''
-            }
-            mute={true}
-          />
+          <div className="w-[1120px]">
+            <VideoPlayer
+              color="purple_dark"
+              url={
+                getYouTubeId(
+                  contentPage?.content['sekilasavrist-video'].value
+                ) ?? ''
+              }
+              mute={true}
+            />
+          </div>
         </div>
         <p className="font-karla xs:text-xl md:text-[1.5rem] font-light text-justify">
           Sejalan dengan perkembangannya tersebut, Avrist telah memiliki Dana
@@ -216,7 +219,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
         </p>
       </CustomContainer>
 
-      <div className="w-full">
+      <div className="w-full mt-[3.125rem]">
         {contentData && <Timeline data={contentData} />}
       </div>
       <CustomContainer className="xs:my-[3.125rem] sm:my-[5rem]">
@@ -224,7 +227,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
       </CustomContainer>
 
       <CustomContainer className="flex flex-col items-center justify-center bg-purple_superlight">
-        <TitleContainer className="text-purple_dark xs:text-center sm:text-left">
+        <TitleContainer className="text-purple_dark xs:text-center sm:text-left leading-[2.25rem] xs:py-[2.25rem] xs:pb-0 sm:py-[5rem] sm:text-5xl xs:text-3xl font-extrabold">
           Mengapa Avrist Life Insurance?
         </TitleContainer>
         <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">

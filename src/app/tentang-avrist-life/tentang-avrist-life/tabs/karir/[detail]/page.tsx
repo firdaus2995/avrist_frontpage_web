@@ -113,27 +113,29 @@ const DetailKarir = () => {
         imageUrl={data?.titleImage}
       />
 
-      <CustomContainer className="pb-2 w-full justify-between gap-2 items-stretch rounded-t-[76px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
+      <CustomContainer className="pb-2 w-full justify-between gap-2 items-stretch rounded-t-[60px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
         <div className="flex flex-col gap-[3rem]">
-          <TitleContainer className="!mb-0">{data.judul ?? ''}</TitleContainer>
+          <TitleContainer className="!mb-0 mt-[5rem] text-[3.5rem]">
+            {data.judul ?? ''}
+          </TitleContainer>
 
           <p
-            className="text-xl font-opensans flex flex-col"
+            className="text-xl font-opensans flex flex-col leading-[28px]"
             dangerouslySetInnerHTML={{
               __html: data.deskripsiJudul
             }}
           />
 
           <div className="flex flex-col gap-[1rem]">
-            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px] leading-[28px]">
               {data.subjudul}
             </h2>
             <p
-              className="text-xl font-opensans flex flex-col"
+              className="text-xl font-opensans flex flex-col leading-[28px] text-wrap xs:pl-[1rem] sm:pl-[1.5rem]"
               dangerouslySetInnerHTML={{
                 __html: data.deskripsiSubjudul.replace(
                   '<ul>',
-                  "<ul class='list-disc list-inside font-opensans'>"
+                  "<ul class='list-disc list-outside font-opensans'>"
                 )
               }}
             />
@@ -141,8 +143,8 @@ const DetailKarir = () => {
 
           <div className="w-full flex xs:justify-center md:justify-start">
             <Button
-              customButtonClass="rounded-xl bg-purple_dark"
-              customTextClass="text-white font-opensans text-xl font-semibold my-2 mx-[2.5rem]"
+              customButtonClass="rounded-xl bg-purple_dark !px-[40px] !py-[12px]"
+              customTextClass="text-white font-opensans text-xl font-semibold my-2 mx-[2.5rem] leading-[28px]"
               title="Yuk, isi form berikut!"
               onClick={() => {
                 setShow(true);
@@ -161,7 +163,7 @@ const DetailKarir = () => {
             >
               <Button
                 customButtonClass="rounded-xl bg-purple_dark"
-                customTextClass="text-white font-opensans font-semibold"
+                customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                 title="List Lowongan"
               />
             </Link>
@@ -190,8 +192,8 @@ const DetailKarir = () => {
               </div>
 
               <p className="text-xl">
-                <span className="font-bold">Waktu Operasional:</span> Senin -
-                Jumat, 08.00 - 17.00 WIB
+                <span className="font-bold">Waktu Operasional:</span>{' '}
+                <br className="sm:hidden" /> Senin - Jumat, 08.00 - 17.00 WIB
               </p>
             </div>
           }

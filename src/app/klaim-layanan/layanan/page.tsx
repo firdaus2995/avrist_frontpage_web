@@ -113,7 +113,7 @@ const dataPerformaInvestasi = [
   },
   {
     icon: PERSON_HOME_YELLOW,
-    title: 'Avrist DPLK',
+    title: 'DPLK Avrist',
     subtitle: 'Lihat Produk',
     textColor: 'text-orange_border',
     href: '/avrist-dplk/produk'

@@ -52,7 +52,7 @@ const TentangAvristDPLK = (props: Props) => {
         }
         subHeadingText={dewanpengawasdplkSubjudul}
         description={dewanpengawasdplkDeskripsi}
-        tags={['Avrist DPLK', 'Premi Tetap', 'Kecelakaan Diri']}
+        tags={[]}
         tagsClassname="bg-gray_bglightgray"
         tagsTextClassname="text-dplk_yellow"
         idTags="#TentangAvristDPLK"

@@ -122,16 +122,18 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
               return (
                 <div
-                  className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0"
+                  className="w-full h-full flex justify-center"
                   key={detailIndex}
                 >
-                  <VideoPlayer
-                    thumbnail=""
-                    url={detailItem.value ?? ''}
-                    color="purple_dark"
-                    type="Artikel Video"
-                    mute={true}
-                  />
+                  <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
+                    <VideoPlayer
+                      thumbnail=""
+                      url={detailItem.value ?? ''}
+                      color="purple_dark"
+                      type=""
+                      mute={true}
+                    />
+                  </div>
                 </div>
               );
             }
@@ -164,6 +166,15 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     return transformedData;
   };
 
+  const isNotEmpty = (item: string) => {
+    return (
+      item !== '<p>-</p>' &&
+      item !== '["-"]' &&
+      item !== '-' &&
+      !item.includes('>-<')
+    );
+  };
+
   useEffect(() => {
     fetchData();
     fetchDetailData();
@@ -190,24 +201,28 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-col gap-5">
               <span className="text-purple_dark font-semibold">
                 <span
-                  dangerouslySetInnerHTML={{ __html: contentData.tagline }}
+                  dangerouslySetInnerHTML={{ __html: contentData.nama }}
+                  className="text-2xl font-bold"
                 />
               </span>
+
               <p
                 className="font-bold xs:text-[1.5rem] md:text-[3.5rem] font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]"
                 dangerouslySetInnerHTML={{ __html: contentData.judul }}
               />
               <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 font-opensans">
                   <p>
                     {`${contentData.bulan} ${contentData.tahun}`}
                     {contentData.penulis !== '-'
                       ? ` | ${contentData.penulis}`
                       : ''}
                   </p>
-                  <div className="flex flex-row gap-2">
-                    <MediumTag title={contentData.tags} />
-                  </div>
+                  {isNotEmpty(contentData.tags) && (
+                    <div className="flex flex-row gap-2">
+                      <MediumTag title={contentData.tags} />
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1 items-center">
                   <div
@@ -244,11 +259,16 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       )}
 
       <div className="flex flex-col">
-        <RoundedFrameBottom />
+        <div className="-mt-8">
+          <RoundedFrameBottom />
+        </div>
+
         <FooterInformation
           title={
             <div className="flex flex-col gap-4">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
+              <p className="xs:text-[2.25rem] sm:text-[3.5rem]">
+                Subscribe Informasi Terkini!
+              </p>
               <Button
                 title="Avrist Life Insurance"
                 customButtonClass="bg-purple_dark rounded-xl"

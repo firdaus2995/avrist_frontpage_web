@@ -335,7 +335,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
           <SimpleContainer>
             <AboutHeading
               categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
-              categoriesName="Avrist DPLK"
+              categoriesName="DPLK Avrist"
               categoriesClassname="text-dplk_yellow"
               headingText={dataDetail?.namaProduk}
               subHeadingText={dataDetail?.taglineProduk}
