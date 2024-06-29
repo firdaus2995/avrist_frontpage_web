@@ -68,7 +68,7 @@ const SliderInformation = ({
       {/* Mobile */}
       <div className="flex pb-[1.5rem] bg-white w-full md:hidden h-[700px]">
         <div
-          className={`flex h-[700px] flex-col w-full rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
+          className={`flex h-full flex-col w-full rounded-[24px] ${bgColor ? `bg-${bgColor}` : 'bg-white'} border xs:max-sm:flex-wrap xs:max-sm:flex xs:max-sm:grid-cols-1`}
         >
           <div
             className={`flex relative ${isVideo && 'cursor-pointer'}`}
