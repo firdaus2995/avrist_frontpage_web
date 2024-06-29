@@ -54,19 +54,6 @@ const data = [
 const LayananNasabah = () => {
   const sliderRef = useRef<Slider | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const next = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
-      setCurrentSlide((prev) => prev + 1);
-    }
-  };
-  const previous = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
-      setCurrentSlide((prev) => prev - 1);
-    }
-  };
   const sliderSettings = {
     dots: false,
     infinite: false,
@@ -172,6 +159,7 @@ const LayananNasabah = () => {
             ref={(slider) => {
               sliderRef.current = slider;
             }}
+            beforeChange={(_, index) => setCurrentSlide(index)}
             {...sliderSettings}
           >
             {data.map((val, idx) => (
@@ -186,15 +174,17 @@ const LayananNasabah = () => {
             alt="prev"
             src={ARROW_LEFT}
             role="button"
-            onClick={previous}
+            onClick={() => sliderRef.current?.slickPrev()}
             className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
           />
           <Image
             alt="next"
             src={ARROW_RIGHT}
             role="button"
-            onClick={next}
-            className={currentSlide === 1 ? 'opacity-50' : 'opacity-100'}
+            onClick={() => sliderRef.current?.slickNext()}
+            className={
+              currentSlide === data.length - 1 ? 'opacity-50' : 'opacity-100'
+            }
           />
         </div>
       </div>

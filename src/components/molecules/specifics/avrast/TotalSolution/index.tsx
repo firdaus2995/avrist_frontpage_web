@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
@@ -101,27 +101,97 @@ const data = [
   }
 ];
 
+const dataMobile = [
+  {
+    category: 'Avrist Life Insurance',
+    bgColor: 'foamy_milk',
+    color: 'purple_dark',
+    items: [
+      {
+        icon: AVRAST1,
+        title: 'Asuransi Jiwa Individu',
+        content:
+          'Beragam perlindungan kesehatan dan jiwa yang bisa dipilih sesuai kebutuhan dengan premi terjangkau',
+        btnText: 'Selengkapnya',
+        link: '/produk/individu?tab=Asuransi+Jiwa',
+        openInNewTab: false
+      },
+      {
+        icon: AVRAST2,
+        title: 'Asuransi Jiwa Korporasi',
+        content:
+          'Dapatkan berbagai perlindungan jiwa dan kesehatan yang lengkap dan flexible untuk kebutuhan bisnis Anda',
+        btnText: 'Selengkapnya',
+        link: '/produk/korporasi?tab=Employee+Benefit',
+        openInNewTab: false
+      }
+    ]
+  },
+
+  {
+    category: 'Avrist General Insurance',
+    bgColor: 'soft_grey',
+    color: 'agi_grey',
+    inlineStyling: '#F6F6F6',
+    items: [
+      {
+        icon: AGI1,
+        title: 'Asuransi Properti',
+        content:
+          'Perlindungan terbaik dari Avrist dengan flexibilitas dan tingkat premi yang kompetitif',
+        btnText: 'Selengkapnya',
+        link: EXTERNAL_URL.agiUrl,
+        openInNewTab: true
+      },
+      {
+        icon: AGI2,
+        title: 'Asuransi Kendaraan',
+        content: 'Perlindungan menyeluruh bagi kendaraan kesayangan Anda',
+        btnText: 'Selengkapnya',
+        link: EXTERNAL_URL.agiUrl,
+        openInNewTab: true
+      }
+    ]
+  },
+
+  {
+    category: 'Avrist Asset Management',
+    bgColor: 'avram_bg',
+    color: 'avram_green',
+    inlineStyling: '#EBFCFA',
+    items: [
+      {
+        icon: AVRAM1,
+        title: 'Reksa Dana',
+        content:
+          'Mulai dari 10 ribu rupiah,  Anda sudah bisa berinvestasi dengan mudah',
+        btnText: 'Selengkapnya',
+        link: EXTERNAL_URL.avramUrl,
+        openInNewTab: true
+      },
+      {
+        icon: AVRAM2,
+        title: 'Jasa Investasi',
+        content:
+          'Mulai investasi dari Rp 10.000, dengan didampingi manajer investasi professional yang sudah berpengalaman',
+        btnText: 'Selengkapnya',
+        link: EXTERNAL_URL.avramUrl,
+        openInNewTab: true
+      }
+    ]
+  }
+];
+
 const TotalSolution = () => {
   const sliderRef = useRef<Slider | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const next = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickNext();
-      setCurrentSlide((prev) => prev + 1);
-    }
-  };
-  const previous = () => {
-    if (sliderRef.current) {
-      sliderRef.current.slickPrev();
-      setCurrentSlide((prev) => prev - 1);
-    }
-  };
   const sliderSettings = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    adaptiveHeight: true
   };
 
   const renderCard = (
@@ -161,13 +231,13 @@ const TotalSolution = () => {
             className="mix-blend-multiply"
           />
           <div className="py-[1.5rem] flex flex-col gap-[12px]">
-            <p className="font-bold text-[32px] font-karla -tracking-[1.28px]">
+            <p className="font-bold text-[32px]/[38px] font-karla -tracking-[1.28px] ">
               {val.title}
             </p>
             <p className="text-[16px] font-opensans">{val.content}</p>
           </div>
         </div>
-        <Link
+        <CustomLink
           href={val.link}
           className="justify-self-end"
           target={val.openInNewTab ? '_blank' : '_self'}
@@ -179,60 +249,83 @@ const TotalSolution = () => {
           />
         </CustomLink>
       </div>
+
       {idx > 2 && (
         <div
           className={`w-full bg-${val.color} text-sm font-semibold p-2 text-white rounded-b-xl`}
-        ></div>
+        />
       )}
     </div>
   );
 
   const renderMobileCard = (val: {
     category?: string;
-    icon: StaticImport;
-    title?: string;
-    content?: string;
-    btnText?: string;
     bgColor?: string;
     color?: string;
     inlineStyling?: string;
-    link: string;
+    items: {
+      icon: StaticImport;
+      title?: string;
+      content?: string;
+      btnText?: string;
+      link: string;
+    }[];
   }) => (
-    <div
-      className={`w-84 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl mx-1`}
-      style={{ backgroundColor: val.inlineStyling }}
-    >
-      <div
-        className={`w-full bg-${val.color} text-lg font-semibold py-[8px] px-[24px] text-white rounded-t-xl `}
-      >
-        {val.category}
-      </div>
-      <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
-        <Image alt="loop-image" src={val.icon} className="mix-blend-multiply" />
-        <div className="py-[1.5rem] flex flex-col gap-[12px]">
-          <p className="font-bold text-[32px] font-karla -tracking-[1.28px] leading-[38.4px]">
-            {val.title}
-          </p>
-          <p className="text-[16px] font-opensans leading-[22.4px]">
-            {val.content}
-          </p>
+    <>
+      {val.items.map((item, index) => (
+        <div
+          className={`grid flex-col grow shrink-0 ${index === 0 ? 'mb-4' : ''}`}
+          key={index}
+        >
+          <div
+            className={`w-84 flex flex-col gap-4 rounded-xl bg-${val.bgColor} items-center justify-center text-center shadow-xl mx-1`}
+            style={{ backgroundColor: val.inlineStyling }}
+          >
+            {index === 0 && (
+              <div
+                className={`w-full bg-${val.color} text-lg font-semibold py-[8px] px-[24px] text-white rounded-t-xl `}
+              >
+                {val.category}
+              </div>
+            )}
+            <div className="p-5 flex flex-col items-center justify-center gap-4 pb-10">
+              <Image
+                alt="loop-image"
+                src={item.icon}
+                className="mix-blend-multiply"
+              />
+              <div className="py-[1.5rem] flex flex-col gap-[12px]">
+                <p className="font-bold text-[28px] font-karla -tracking-[1.28px] leading-[38.4px]">
+                  {item.title}
+                </p>
+                <p className="text-[16px] font-opensans leading-[22.4px]">
+                  {item.content}
+                </p>
+              </div>
+              <div>
+                <CustomLink href={item.link}>
+                  <Button
+                    title={item.btnText}
+                    customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+                    customTextClass="text-white font-opensans"
+                  />
+                </CustomLink>
+              </div>
+            </div>
+            {index !== 0 && (
+              <div
+                className={`w-full bg-${val.color} text-sm font-semibold p-2 text-white rounded-b-xl`}
+              />
+            )}
+          </div>
         </div>
-        <div>
-          <CustomLink href={val.link}>
-            <Button
-              title={val.btnText}
-              customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
-              customTextClass="text-white font-opensans"
-            />
-          </CustomLink>
-        </div>
-      </div>
-    </div>
+      ))}
+    </>
   );
 
   return (
-    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[2rem] md:px-[8.5rem] gap-[5rem] bg-white rounded-b-[65px] relative">
-      <div className="px-[2rem]">
+    <div className="flex flex-col self-stretch items-center justify-center pb-32 px-[1rem] md:px-[8.5rem] gap-[5rem] bg-white rounded-b-[65px] relative">
+      <div>
         <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
           Kami ada untuk Anda
         </p>
@@ -245,10 +338,11 @@ const TotalSolution = () => {
           ref={(slider) => {
             sliderRef.current = slider;
           }}
+          beforeChange={(_, next) => setCurrentSlide(next)}
           {...sliderSettings}
         >
-          {data.map((val, idx) => (
-            <div key={idx}>{renderMobileCard(val)}</div>
+          {dataMobile.map((val, idx) => (
+            <Fragment key={idx}>{renderMobileCard(val)}</Fragment>
           ))}
         </Slider>
         <div className="flex flex-row gap-4 justify-between mt-[36px]">
@@ -256,15 +350,19 @@ const TotalSolution = () => {
             alt="prev"
             src={ARROW_LEFT}
             role="button"
-            onClick={previous}
+            onClick={() => sliderRef.current?.slickPrev()}
             className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
           />
           <Image
             alt="next"
             src={ARROW_RIGHT}
             role="button"
-            onClick={next}
-            className={currentSlide === 5 ? 'opacity-50' : 'opacity-100'}
+            onClick={() => sliderRef.current?.slickNext()}
+            className={
+              currentSlide === dataMobile.length - 1
+                ? 'opacity-50'
+                : 'opacity-100'
+            }
           />
         </div>
       </div>
