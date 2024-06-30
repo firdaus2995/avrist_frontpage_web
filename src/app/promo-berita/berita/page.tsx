@@ -815,7 +815,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {/* Tab Mobile */}
       <div
-        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'xs:-mt-10 sm:-mt-[23rem]' : 'xs:-mt-[3rem] sm:-mt-[2rem]'} rounded-t-[72px] bg-white w-full min-h-[100px] bg-white z-10 w-[90%] z-20 md:hidden`}
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'xs:-mt-10 sm:-mt-[23rem]' : 'xs:-mt-[3rem] sm:-mt-[2rem]'} rounded-t-[60px] bg-white w-full min-h-[100px] bg-white z-10 w-[90%] z-20 md:hidden`}
       >
         <div className="pt-[100px]">
           <Slider
