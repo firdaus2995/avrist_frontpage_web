@@ -4,7 +4,7 @@ import Image from 'next/image';
 import BlankImage from '@/assets/images/blank-image.svg';
 import PlayButton from '@/assets/images/play-button.svg';
 import { VideoModal } from '@/components/molecules/specifics/avrast/Modal/VideoModal';
-import { getYouTubeId } from '@/utils/helpers';
+import { getYouTubeId, isContentNotEmpty } from '@/utils/helpers';
 
 interface ICardCategoryC {
   summary: string;
@@ -54,17 +54,25 @@ const CardCategoryC = ({
           )}
         </div>
         <div className="flex flex-col gap-4 px-[24px] py-[36px]">
-          <p className="text-[24px] font-bold text-left line-clamp-3">
-            {summary}
-          </p>
-          <p className="text-[14px]/[19.6px] text-left hidden lg:block">
-            <span className="font -bold text-purple_dark">{name}</span> |&nbsp;
-            {position}
-          </p>
-          <p className="text-[14px]/[19.6px] text-left xs:max-md:block lg:hidden">
-            <span className="font -bold text-purple_dark">{name}</span> <br />
-            {position}
-          </p>
+          {isContentNotEmpty(summary) && (
+            <p className="text-[24px] font-bold text-left line-clamp-3">
+              {summary}
+            </p>
+          )}
+          {isContentNotEmpty(position || name) && (
+            <>
+              <p className="text-[14px]/[19.6px] text-left hidden lg:block">
+                <span className="font -bold text-purple_dark">{name}</span>{' '}
+                |&nbsp;
+                {position}
+              </p>
+              <p className="text-[14px]/[19.6px] text-left xs:max-md:block lg:hidden">
+                <span className="font -bold text-purple_dark">{name}</span>{' '}
+                <br />
+                {position}
+              </p>
+            </>
+          )}
         </div>
       </div>
       <VideoModal

@@ -39,7 +39,12 @@ import {
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
-import { handleDownload, htmlParser, mergeAllData } from '@/utils/helpers';
+import {
+  handleDownload,
+  htmlParser,
+  isContentNotEmpty,
+  mergeAllData
+} from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer,
@@ -937,23 +942,29 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <div className="flex flex-col gap-3">
-                            <p
-                              className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
-                              dangerouslySetInnerHTML={{
-                                __html: item.judul
-                              }}
-                            />
-                            <p
-                              className="text-[16px] line-clamp-2"
-                              dangerouslySetInnerHTML={{
-                                __html: item.deskripsi
-                                  ? item.deskripsi[0]?.value?.substring(
-                                      0,
-                                      250
-                                    ) + '...'
-                                  : '-'
-                              }}
-                            />
+                            {isContentNotEmpty(item.judul) && (
+                              <p
+                                className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.judul
+                                }}
+                              />
+                            )}
+                            {isContentNotEmpty(
+                              item.deskripsi[0]?.value ?? '-'
+                            ) && (
+                              <p
+                                className="text-[16px] line-clamp-2"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.deskripsi
+                                    ? item.deskripsi[0]?.value?.substring(
+                                        0,
+                                        250
+                                      ) + '...'
+                                    : '-'
+                                }}
+                              />
+                            )}
                           </div>
 
                           <div className="flex flex-row flex-wrap gap-[8px]">
@@ -1061,20 +1072,24 @@ const Berita: React.FC<ParamsProps> = () => {
                           key={index}
                           className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
                         >
-                          <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-xl sm:text-2xl break-words">
-                              {item.namaFile}
-                            </p>
-                            <MediumTag title="PDF" />
-                          </div>
-                          <Button
-                            title="Unduh"
-                            customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
-                            customTextClass="text-white text-[16px]"
-                            onClick={async () =>
-                              await handleDownload(item.file)
-                            }
-                          />
+                          {isContentNotEmpty(item.namaFile) && (
+                            <>
+                              <div className="flex flex-row gap-2 items-center">
+                                <p className="font-bold text-xl sm:text-2xl break-words">
+                                  {item.namaFile}
+                                </p>
+                                <MediumTag title="PDF" />
+                              </div>
+                              <Button
+                                title="Unduh"
+                                customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                                customTextClass="text-white text-[16px]"
+                                onClick={async () =>
+                                  await handleDownload(item.file)
+                                }
+                              />
+                            </>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -1439,38 +1454,36 @@ const Berita: React.FC<ParamsProps> = () => {
                         key={index}
                         className="w-full p-6 border rounded-xl flex flex-col gap-3"
                       >
-                        {
+                        {isContentNotEmpty(item.judul) && (
                           <p
                             className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
                           />
-                        }
-                        <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
-                          <>
-                            {item.arr.length > 5 ? (
-                              <>
-                                {item.isExpanded
-                                  ? item.arr
-                                  : item.arr.slice(0, 5)}
-                                <button
-                                  className="text-purple_dark cursor-pointer"
-                                  onClick={() => toggleExpandedLink(index)}
-                                >
-                                  {item.isExpanded ? 'Tutup ' : 'Lihat '} link
-                                  lainnya
-                                </button>
-                              </>
-                            ) : (
-                              item.arr
-                            )}
-                            {/* {item.arr.length > 5 && item.isExpanded
-                              ? item.arr
-                              : item.arr.slice(0, 5)
-                              } */}
-                          </>
-                        </div>
+                        )}
+                        {Array.isArray(item.arr) && item.arr.length > 0 && (
+                          <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
+                            <>
+                              {item.arr.length > 5 ? (
+                                <>
+                                  {item.isExpanded
+                                    ? item.arr
+                                    : item.arr.slice(0, 5)}
+                                  <button
+                                    className="text-purple_dark cursor-pointer"
+                                    onClick={() => toggleExpandedLink(index)}
+                                  >
+                                    {item.isExpanded ? 'Tutup ' : 'Lihat '} link
+                                    lainnya
+                                  </button>
+                                </>
+                              ) : (
+                                item.arr
+                              )}
+                            </>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>

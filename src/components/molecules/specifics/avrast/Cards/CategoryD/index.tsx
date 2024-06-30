@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 import BlankImage from '@/assets/images/blank-image.svg';
 import Book from '@/assets/images/common/book.svg';
+import { isContentNotEmpty } from '@/utils/helpers';
 
 interface ICardCategoryD {
   summary: string;
@@ -43,24 +44,32 @@ const CardCategoryD = ({
       <div
         className={`flex flex-col gap-3 ${type === 'row' ? 'lg:w-2/3 xs:max-lg:w-full py-5 pl-2 pr-12' : 'py-[36px] px-[24px]'}`}
       >
-        <p className="text-[14px] text-left font-opensans ">
-          <span className="text-[14px]/[19.6px] font-bold text-purple_dark">
-            {category === '-' ? '' : category}
-          </span>{' '}
-          {time === '-' ? '' : time}
-        </p>
-        <p className="font-karla text-[24px]/[28.8px] -tracking-[0.72px] font-bold text-left line-clamp-2">
-          {title === '-' ? '' : title}
-        </p>
-        <p className="text-[16px]/[22.4px] text-left line-clamp-2">
-          {summary === '-' ? '' : summary}
-        </p>
-        <div className="flex flex-row gap-2 items-center">
-          <Image alt="book-image" width={0} height={20} src={Book} />
-          <p className="font-bold text-[14px]/[19.6px]">
-            {readTime !== '-' && `${readTime}`}
+        {isContentNotEmpty(category) && (
+          <p className="text-[14px] text-left font-opensans ">
+            <span className="text-[14px]/[19.6px] font-bold text-purple_dark">
+              {category === '-' ? '' : category}
+            </span>{' '}
+            {time === '-' ? '' : time}
           </p>
-        </div>
+        )}
+        {isContentNotEmpty(title) && (
+          <p className="font-karla text-[24px]/[28.8px] -tracking-[0.72px] font-bold text-left line-clamp-2">
+            {title}
+          </p>
+        )}
+        {isContentNotEmpty(summary) && (
+          <p className="text-[16px]/[22.4px] text-left line-clamp-2">
+            {summary}
+          </p>
+        )}
+        {isContentNotEmpty(readTime ?? '-') && (
+          <div className="flex flex-row gap-2 items-center">
+            <Image alt="book-image" width={0} height={20} src={Book} />
+            <p className="font-bold text-[14px]/[19.6px]">
+              {readTime !== '-' && `${readTime}`}
+            </p>
+          </div>
+        )}
         <div className="font-opensans flex flex-row gap-2 items-center flex-wrap">
           {tags?.length > 0 &&
             tags?.map((item, index) => (
