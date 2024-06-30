@@ -4,17 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { UncontrolledPopover, PopoverBody } from 'reactstrap';
 import { month } from '../../berita/[detail]/month';
+import ContentPopover from '../../berita/life-guide/[detail]/content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
-import Email from '@/assets/images/common/email_color.svg';
-import Facebook from '@/assets/images/common/facebook_color.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
-import Linkedin from '@/assets/images/common/linkedin_color.svg';
-import Whatsapp from '@/assets/images/common/wa.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -190,7 +186,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     const artikel = content['artikel-looping'].contentData;
     const loopArtikel = artikel.map((item: any, itemIndex: number) => {
       return (
-        <React.Fragment key={itemIndex}>
+        <div key={itemIndex} className="font-opensans text-[20px]/[28px]">
           {item.details.map((detailItem: any, detailIndex: number) => {
             const fieldType = detailItem.fieldType;
             const isNotEmpty =
@@ -205,6 +201,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                     __html: detailItem.value
                   }}
                   key={detailIndex}
+                  className="py-6"
                 />
               );
             }
@@ -220,7 +217,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       singleImageTransformer(detailItem).imageUrl ?? BlankImage
                     }
                     alt="img"
-                    className="w-full"
+                    className="w-full py-6"
                     width={238}
                     height={172}
                   />
@@ -230,21 +227,23 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
               return (
                 <div
-                  className="w-full xs:h-[250px] md:h-[650px] xs:mb-10 md:mb-0"
+                  className="w-full h-full flex justify-center py-6"
                   key={detailIndex}
                 >
-                  <VideoPlayer
-                    thumbnail=""
-                    url={getYouTubeId(detailItem.value) ?? ''}
-                    color="purple_dark"
-                    type="Artikel Video"
-                  />
+                  <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
+                    <VideoPlayer
+                      thumbnail=""
+                      url={getYouTubeId(detailItem.value) ?? ''}
+                      color="purple_dark"
+                      mute
+                    />
+                  </div>
                 </div>
               );
             }
             return null;
           })}
-        </React.Fragment>
+        </div>
       );
     });
     const tags = content['tags'].value.split(',');
@@ -308,36 +307,6 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchSlugModal();
   }, []);
 
-  const shareToWhatsapp = () => {
-    setIsOPenPopover(false);
-    const url = `https://wa.me/?text=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank');
-  };
-
-  const shareToEmail = () => {
-    setIsOPenPopover(false);
-    const url = `mailto:?subject=Check this out&body=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank');
-  };
-
-  const shareToLinkedin = () => {
-    setIsOPenPopover(false);
-    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank');
-  };
-
-  const shareToFacebook = () => {
-    setIsOPenPopover(false);
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank');
-  };
-
-  const copyToClipboard = () => {
-    setIsOPenPopover(false);
-    navigator.clipboard.writeText(window.location.href);
-    alert('URL copied to clipboard');
-  };
-
   const handleSubmit = async () => {
     if (!validateEmail(email)) {
       setEmailError('Masukkan alamat email yang valid');
@@ -381,133 +350,66 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       />
 
       <div className="flex items-center justify-center w-full">
-        <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[23.281rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
-          <div className="flex flex-col gap-[0.5rem]">
-            <p className="text-purple_dark font-bold font-karla text-2xl">
-              Promo
-            </p>
-            <p className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]">
-              {contentData && htmlParser(contentData.judul)}
-            </p>
-            <div className="flex xs:flex-col md:flex-row justify-between md:items-center gap-1">
-              <div className="flex flex-col gap-2">
-                <p className="text-base text-gray_body">
+        <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] md:py-[5rem] md:px-[8.5rem] xs:gap-[1.5rem] md:gap-[3rem] font-opensans">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <p className="text-purple_dark font-bold font-karla text-[24px]/[28.8px] -tracking-[0.72px]">
+                Promo
+              </p>
+              <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]">
+                {contentData && htmlParser(contentData.judul)}
+              </p>
+            </div>
+            <div className="flex flex-row justify-between md:items-center gap-1">
+              <div className="flex flex-col gap-4">
+                <p className="font-opensans text-[16px]/[22.4px] text-gray_body">
                   {`${contentData.bulan} ${contentData.tahun}`}
                   {contentData.penulis !== '-'
                     ? ` | ${contentData.penulis}`
                     : ''}
                 </p>
+
+                {Array.isArray(contentData?.tags) && (
+                  <div className="flex flex-row gap-2 flex-wrap">
+                    {contentData.tags.map((tag: any, idx: number) => (
+                      <MediumTag
+                        title={tag}
+                        key={idx}
+                        customClass="font-opensans font-semibold text-[14px]/[19.6px] py-1 px-2 whitespace-nowrap"
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="flex flex-col gap-1 md:items-center">
+
+              <div className="flex flex-col gap-1 items-center">
                 <div
                   className="flex items-center"
-                  role="button"
                   id="PopoverFocus"
+                  role="button"
                   onClick={() => setIsOPenPopover(!isOpenPopover)}
                 >
                   <Icon
-                    width={16}
-                    height={16}
+                    width={24}
+                    height={24}
                     name="share"
                     color="purple_verylight"
                   />
                 </div>
 
-                <div className="text-xs font-bold">Share</div>
-                <UncontrolledPopover
-                  placement="right"
-                  target="PopoverFocus"
-                  trigger="focus"
-                  isOpen={isOpenPopover}
-                  toggle={() => setIsOPenPopover(false)}
-                >
-                  <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
-                    <div
-                      className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap"
-                      role="none"
-                    >
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          onClick={shareToWhatsapp}
-                          className="h-auto w-5"
-                          src={Whatsapp}
-                          alt="whatsapp"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Whatsapp
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          onClick={shareToEmail}
-                          className="h-auto w-5"
-                          src={Email}
-                          alt="email"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Email
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          onClick={shareToLinkedin}
-                          className="h-auto w-5"
-                          src={Linkedin}
-                          alt="linkedin"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          LinkedIn
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <Image
-                          role="button"
-                          onClick={shareToFacebook}
-                          className="h-auto w-5"
-                          src={Facebook}
-                          alt="facebook"
-                        />
-                        <div className="text-xs font-bold cursor-pointer">
-                          Facebook
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-1 items-center xs:max-md:m-auto">
-                        <div
-                          role="button"
-                          className="items-center"
-                          onClick={copyToClipboard}
-                        >
-                          <Icon
-                            width={18}
-                            height={18}
-                            name="copyUrl"
-                            color="purple_verylight"
-                          />
-                        </div>
-                        <div className="text-xs font-bold cursor-pointer">
-                          Copy URL
-                        </div>
-                      </div>
-                    </div>
-                  </PopoverBody>
-                </UncontrolledPopover>
+                <div className="font-opensans text-[14px]/[19.6px] font-bold">
+                  Share
+                </div>
+                <ContentPopover
+                  isOpenPopover={isOpenPopover}
+                  setIsOPenPopover={() => setIsOPenPopover(false)}
+                  message={contentData?.judul}
+                />
               </div>
             </div>
-
-            {Array.isArray(contentData?.tags) && (
-              <div className="flex flex-row gap-2">
-                {contentData.tags.map((tag: any, idx: number) => (
-                  <MediumTag title={tag} key={idx} />
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Loop Artikel */}
-
           {contentData
             ? contentData?.loopArtikel?.map((item: any) => item)
             : null}
@@ -518,8 +420,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
-          <p className="text-purple_dark font-bold xs:text-[2.25rem] md:text-[3.5rem] text-center font-karla">
-            Penawaran Promo Lainnya
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+            Promo Lainnya
           </p>
           <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px]">
             {otherContent?.map((item: any, index: number) => (

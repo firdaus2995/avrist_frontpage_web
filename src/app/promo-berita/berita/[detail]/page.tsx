@@ -252,35 +252,43 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       />
       <div className="w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
         <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-5">
-            <span className="text-purple_dark font-semibold">
-              {contentData[0] === '<' ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: contentData?.tagline }}
-                />
-              ) : (
-                <span className="text-[24px]">{contentData?.tagline}</span>
-              )}
-            </span>
-            <p
-              className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]"
-              dangerouslySetInnerHTML={{ __html: contentData.judul }}
-            />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <span className="font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px]">
+                {contentData[0] === '<' ? (
+                  <span
+                    dangerouslySetInnerHTML={{ __html: contentData?.tagline }}
+                  />
+                ) : (
+                  <span className="text-[24px]">{contentData?.tagline}</span>
+                )}
+              </span>
+              <p
+                className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]"
+                dangerouslySetInnerHTML={{ __html: contentData.judul }}
+              />
+            </div>
 
             <div className="flex flex-row justify-between items-center font-opensans">
-              <div className="flex flex-col gap-2">
-                <p>
+              <div className="flex flex-col gap-4">
+                <p className="font-opensans text-[16px]/[22.4px]">
                   {`${contentData?.date} ${contentData.monthInText} ${contentData.tahun}`}{' '}
                   {contentData?.penulis === '-'
                     ? ''
                     : `| ${contentData.penulis}`}
                 </p>
 
-                <div className="flex flex-row gap-2">
+                <div className="font-opensans text-sm font-semibold flex flex-row gap-2 flex-wrap">
                   {contentData?.tags.length > 0 &&
                     contentData.tags.map((tag: any, idx: number) => {
                       if (tag === '-') return null;
-                      return <MediumTag title={tag} key={idx} />;
+                      return (
+                        <MediumTag
+                          title={tag}
+                          key={idx}
+                          customClass="px-2 py-1 whitespace-nowrap"
+                        />
+                      );
                     })}
                 </div>
               </div>
@@ -292,14 +300,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   onClick={() => setIsOPenPopover(!isOpenPopover)}
                 >
                   <Icon
-                    width={16}
-                    height={16}
+                    width={24}
+                    height={24}
                     name="share"
                     color="purple_verylight"
                   />
                 </div>
 
-                <div className="text-xs font-bold">Share</div>
+                <div className="font-opensans text-sm font-bold">Share</div>
                 <ContentPopover
                   isOpenPopover={isOpenPopover}
                   setIsOPenPopover={() => setIsOPenPopover(false)}

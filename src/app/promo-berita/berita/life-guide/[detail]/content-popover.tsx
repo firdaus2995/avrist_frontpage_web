@@ -37,9 +37,9 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
       isOpen={isOpenPopover}
       toggle={() => setIsOPenPopover(false)}
     >
-      <PopoverBody className="absolute right-0 mt-[30px] z-10 mt-2 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px]">
+      <PopoverBody className="absolute inline-block right-0 mt-[36px] z-10 w-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2 lg:min-w-[350px] rounded-xl">
         <div
-          className="py-1 flex flex-row gap-5 xs:max-md:flex-wrap"
+          className="py-4 px-4 flex flex-col md:flex-row gap-6 grow shrink-0"
           role="none"
         >
           <div
@@ -108,7 +108,9 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
                 color="purple_verylight"
               />
             </div>
-            <div className="text-xs font-bold cursor-pointer">Copy URL</div>
+            <div className="font-opensans text-sm font-bold cursor-pointer">
+              Copy&nbsp;URL
+            </div>
           </div>
         </div>
       </PopoverBody>

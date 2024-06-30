@@ -21,7 +21,7 @@ import { LoopingContent } from '@/components/molecules/specifics/avrast/LifeGuid
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import { getAvristLifeGuide, subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { generateDaftarIsi } from '@/utils/helpers';
+import { generateDaftarIsi, isContentNotEmpty } from '@/utils/helpers';
 import {
   // contentDetailTransformer
   pageTransformer,
@@ -152,6 +152,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     setCurrentCategory(jsonData.data.categoryName);
 
     const tagline = content['tags'].value;
+    const category = jsonData.data.categoryName;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
@@ -196,7 +197,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       waktuBaca,
       daftarIsi,
       differenceTime,
-      artikel
+      artikel,
+      category
     };
 
     setContentData(transformedData);
@@ -262,19 +264,21 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         imageUrl={data?.titleImage}
         bottomImage={contentData?.thumbnail ?? BlankImage}
       />
-      <div className="lg:flex xl:flex-row xs:max-lg:flex-wrap px-[2rem] md:px-[8.5rem] pt-[80px] pb-[100px] gap-[48px]">
-        <div className="flex flex-col gap-[24px] py-10">
-          <p className="text-2xl font-light font-karla">Daftar Isi</p>
+      <div className="flex flex-col lg:flex-row px-[2rem] md:px-[8.5rem] pt-[80px] pb-[14px] gap-[36px]">
+        <div className="flex flex-col gap-6">
+          <p className="text-[24px]/[24px] -tracking-[0.72px] font-light font-karla">
+            Daftar Isi
+          </p>
           <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
             {contentData?.daftarIsi?.map((item: any, index: number) =>
               item?.label === '-' ? null : item?.label ===
                 contentData?.judul ? (
                 <div
                   key={index}
-                  className="border-l-4 border-purple_dark px-[15px] py-[12px] cursor-pointer text-left"
+                  className="border-l-4 border-purple_dark py-3 pr-3 pl-4 cursor-pointer text-left"
                 >
                   <div
-                    className="font-bold text-purple_dark text-lg font-['Source Sans Pro']"
+                    className="font-bold text-purple_dark text-[18px]/[25.2px] font-['Source Sans Pro']"
                     dangerouslySetInnerHTML={{
                       __html: item.judul
                     }}
@@ -301,27 +305,39 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
         <div className="flex flex-col grow">
           <div className="flex items-center justify-start w-full">
-            <div className="flex flex-col gap-10 w-full py-10">
-              <div className="flex flex-col gap-5">
-                <p className="text-purple_dark font-semibold text-[1.5rem]">
-                  {contentData?.category}
-                </p>
-                <p
-                  className="font-semibold text-[3.5rem] xs:max-lg:text-4xl"
-                  dangerouslySetInnerHTML={{
-                    __html: contentData?.judul
-                  }}
-                />
-                <div className="flex flex-row justify-between items-center">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-base">
-                      {`${contentData?.differenceTime} yang lalu`} |{' '}
-                      {contentData.penulis}
+            <div className="flex flex-col gap-12 w-full">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
+                  {isContentNotEmpty(contentData?.category ?? '-') && (
+                    <p className="font-karla text-purple_dark font-bold text-[1.5rem]/[28.8px] -tracking-[0.72px]">
+                      {contentData?.category}
                     </p>
+                  )}
+                  {isContentNotEmpty(contentData?.judul ?? '-') && (
+                    <p
+                      className="font-karla font-bold text-[3.5rem]/[67.2px] -tracking-[2.24px] xs:max-lg:text-4xl"
+                      dangerouslySetInnerHTML={{
+                        __html: contentData?.judul
+                      }}
+                    />
+                  )}
+                </div>
+                <div className="flex flex-row justify-between items-center gap-4">
+                  <div className="flex flex-col gap-4">
+                    {isContentNotEmpty(contentData?.differenceTime ?? '-') && (
+                      <p className="font-opensans text-base">
+                        {`${contentData?.differenceTime} yang lalu`} |{' '}
+                        {contentData.penulis ?? ''}
+                      </p>
+                    )}
                     <div className="flex flex-row gap-2 flex-wrap">
                       {!!contentData?.tags &&
                         contentData.tags?.map((tag: string, idx: Key) => (
-                          <MediumTag key={idx} title={tag} />
+                          <MediumTag
+                            key={idx}
+                            title={tag}
+                            customClass="font-opensans font-semibold text-[14px]/[19.6px] py-1 px-2 whitespace-nowrap"
+                          />
                         ))}
                     </div>
                   </div>
@@ -333,14 +349,16 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                       onClick={() => setIsOPenPopover(!isOpenPopover)}
                     >
                       <Icon
-                        width={16}
-                        height={16}
+                        width={24}
+                        height={24}
                         name="share"
                         color="purple_verylight"
                       />
                     </div>
 
-                    <div className="text-xs font-bold">Share</div>
+                    <div className="font-opensans text-[14px]/[19.6px] font-bold">
+                      Share
+                    </div>
                     <ContentPopover
                       isOpenPopover={isOpenPopover}
                       setIsOPenPopover={() => setIsOPenPopover(false)}
