@@ -35,7 +35,7 @@ const SliderInformation = ({
   const [show, setShow] = useState(false);
 
   return (
-    <div className="pt-[5rem] pb-[1rem]">
+    <div className="px-[8px]">
       {/* Desktop */}
       <div className={`flex bg-white w-full xs:hidden md:block ${customClass}`}>
         <div

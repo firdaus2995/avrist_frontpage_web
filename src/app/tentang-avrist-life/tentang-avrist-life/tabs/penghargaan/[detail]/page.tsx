@@ -82,7 +82,10 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     const artikel = content['artikel-looping'].contentData;
     const loopArtikel = artikel.map((item: any, itemIndex: number) => {
       return (
-        <React.Fragment key={itemIndex}>
+        <div
+          className="flex flex-col gap-10 font-opensans text-xl pb-[14px]"
+          key={itemIndex}
+        >
           {item.details.map((detailItem: any, detailIndex: number) => {
             const fieldType = detailItem.fieldType;
             const isNotEmpty =
@@ -97,6 +100,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                     __html: detailItem.value
                   }}
                   key={detailIndex}
+                  className="font-opensans text-xl"
                 />
               );
             }
@@ -139,7 +143,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             }
             return null;
           })}
-        </React.Fragment>
+        </div>
       );
     });
     const tags = content['tags'].value;
@@ -196,22 +200,24 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <CustomContainer className="flex items-center justify-center w-full xs:pt-[1.25rem] md:pt-[5rem]">
-          <div className="flex flex-col gap-10 font-opensans">
-            <div className="flex flex-col gap-5">
-              <span className="text-purple_dark font-semibold">
-                <span
-                  dangerouslySetInnerHTML={{ __html: contentData.nama }}
-                  className="text-2xl font-bold"
-                />
-              </span>
+        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
+          <div className="flex flex-col gap-12 font-opensans">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <span className="font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px]">
+                  <span
+                    dangerouslySetInnerHTML={{ __html: contentData.nama }}
+                    className="text-2xl font-bold"
+                  />
+                </span>
 
-              <p
-                className="font-bold xs:text-[1.5rem] md:text-[3.5rem] font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]"
-                dangerouslySetInnerHTML={{ __html: contentData.judul }}
-              />
+                <p
+                  className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]"
+                  dangerouslySetInnerHTML={{ __html: contentData.judul }}
+                />
+              </div>
               <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-2 font-opensans">
+                <div className="flex flex-col gap-2 font-opensans leading-[22.4px]">
                   <p>
                     {`${contentData.bulan} ${contentData.tahun}`}
                     {contentData.penulis !== '-'
@@ -219,8 +225,11 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                       : ''}
                   </p>
                   {isNotEmpty(contentData.tags) && (
-                    <div className="flex flex-row gap-2">
-                      <MediumTag title={contentData.tags} />
+                    <div className="flex flex-row gap-2 flex-wrap">
+                      <MediumTag
+                        title={contentData.tags}
+                        customClass="px-2 py-1 whitespace-nowrap"
+                      />
                     </div>
                   )}
                 </div>
@@ -232,14 +241,14 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                     onClick={() => setIsOpenPopover(!isOpenPopover)}
                   >
                     <Icon
-                      width={16}
-                      height={16}
+                      width={24}
+                      height={24}
                       name="share"
                       color="purple_verylight"
                     />
                   </div>
 
-                  <div className="text-xs font-bold">Share</div>
+                  <div className="font-opensans text-sm font-bold">Share</div>
                   <ContentPopover
                     isOpenPopover={isOpenPopover}
                     setIsOPenPopover={() => setIsOpenPopover(false)}

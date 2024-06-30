@@ -89,3 +89,12 @@ export const generateDaftarIsi = (data: any[], section: string) => {
 
   return listSection;
 };
+
+export const isContentNotEmpty = (str: string) => {
+  return (
+    str !== '<p>-</p>' &&
+    str !== '["-"]' &&
+    str !== '-' &&
+    !str?.includes('>-<')
+  );
+};

@@ -28,7 +28,6 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
-import SectionPromo from '@/components/molecules/specifics/avrast/WrapperContent/sectionPromo';
 import {
   getAvristLifeGuide,
   getAvriStory,
@@ -40,7 +39,12 @@ import {
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
-import { handleDownload, htmlParser, mergeAllData } from '@/utils/helpers';
+import {
+  handleDownload,
+  htmlParser,
+  isContentNotEmpty,
+  mergeAllData
+} from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer,
@@ -63,14 +67,14 @@ const Berita: React.FC<ParamsProps> = () => {
   };
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     arrows: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    // autoplay: true,
-    // autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 3000,
     centerPadding: '0px',
     responsive: [
       {
@@ -79,7 +83,18 @@ const Berita: React.FC<ParamsProps> = () => {
           centerMode: false
         }
       }
-    ]
+    ],
+    appendDots: (dots: any) => (
+      <div
+        style={{
+          position: 'absolute',
+          bottom: -40,
+          zIndex: -10
+        }}
+      >
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    )
   };
 
   const sliderTabSettings = {
@@ -114,7 +129,7 @@ const Berita: React.FC<ParamsProps> = () => {
     monthFilter: '',
     searchFilter: ''
   });
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -171,19 +186,33 @@ const Berita: React.FC<ParamsProps> = () => {
   useEffect(() => {
     pageSlug();
     if (tab === 'Avrist Terkini') {
-      params.category === 'Avrist Life Guide'
-        ? fetchLifeGuide()
-        : params.category === 'AvriStory'
-          ? fetchAvriStory()
-          : fetchContent();
+      switch (params.category) {
+        case 'Avrist Life Guide':
+          fetchLifeGuide();
+          break;
+        case 'AvriStory':
+          fetchAvriStory();
+          setItemsPerPage(5);
+          break;
+        default:
+          fetchContent();
+          setItemsPerPage(6);
+      }
+      // params.category === 'Avrist Life Guide'
+      //   ? fetchLifeGuide()
+      //   : params.category === 'AvriStory'
+      //     ? fetchAvriStory()
+      //     : fetchContent();
     }
 
     if (tab === 'Kumpulan Berita Pers') {
       fetchBeritaPers();
+      setItemsPerPage(5);
     }
 
     if (tab === 'Testimonial') {
       fetchTestimoni();
+      setItemsPerPage(3);
     }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
 
@@ -514,7 +543,9 @@ const Berita: React.FC<ParamsProps> = () => {
           arr.push(newLink);
         });
 
-        return { judul, newLink, arr };
+        const isExpanded = false; // toggle expand/collapse external link on Siaran Berita Pers
+
+        return { judul, newLink, arr, isExpanded };
       });
 
       setContentData(transformedData);
@@ -729,6 +760,20 @@ const Berita: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
+  const toggleExpandedLink = useCallback(
+    (index: number) => {
+      const newData = paginatedData.map((el, idx) => {
+        if (idx == index) return { ...el, isExpanded: !el.isExpanded };
+        return el;
+      });
+      const foundedItem = paginatedData.find((_, idx) => idx === index);
+      if (foundedItem) foundedItem.isExpanded = !foundedItem.isExpanded;
+
+      setPaginatedData(newData);
+    },
+    [paginatedData]
+  );
+
   const renderPage = () => {
     return (
       <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
@@ -786,7 +831,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div
-        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block'} rounded-t-[60px] bg-white w-full min-h-[100px] bg-white z-10`}
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block rounded-t-[60px]'} bg-white w-full min-h-[100px] z-10`}
       ></div>
       <div className="w-full z-20 xs:hidden md:block rounded-t-lg">
         <div className="grid grid-cols-3 gap-[12px] px-[136px] bg-white">
@@ -805,7 +850,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {/* Tab Mobile */}
       <div
-        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'xs:-mt-10 sm:-mt-[23rem]' : 'xs:-mt-[3rem] sm:-mt-[2rem]'} rounded-t-[72px] bg-white w-full min-h-[100px] bg-white z-10 w-[90%] z-20 md:hidden`}
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'xs:-mt-10 sm:-mt-[23rem]' : 'xs:-mt-[3rem] sm:-mt-[2rem]'} rounded-t-[60px] bg-white w-full min-h-[100px] bg-white z-10 w-[90%] z-20 md:hidden`}
       >
         <div className="pt-[100px]">
           <Slider
@@ -839,8 +884,8 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto">
-          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
@@ -897,23 +942,29 @@ const Berita: React.FC<ParamsProps> = () => {
                             | {`${item.date} ${item.waktu}`}
                           </p>
                           <div className="flex flex-col gap-3">
-                            <p
-                              className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
-                              dangerouslySetInnerHTML={{
-                                __html: item.judul
-                              }}
-                            />
-                            <p
-                              className="text-[16px] line-clamp-2"
-                              dangerouslySetInnerHTML={{
-                                __html: item.deskripsi
-                                  ? item.deskripsi[0]?.value?.substring(
-                                      0,
-                                      250
-                                    ) + '...'
-                                  : '-'
-                              }}
-                            />
+                            {isContentNotEmpty(item.judul) && (
+                              <p
+                                className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.judul
+                                }}
+                              />
+                            )}
+                            {isContentNotEmpty(
+                              item.deskripsi[0]?.value ?? '-'
+                            ) && (
+                              <p
+                                className="text-[16px] line-clamp-2"
+                                dangerouslySetInnerHTML={{
+                                  __html: item.deskripsi
+                                    ? item.deskripsi[0]?.value?.substring(
+                                        0,
+                                        250
+                                      ) + '...'
+                                    : '-'
+                                }}
+                              />
+                            )}
                           </div>
 
                           <div className="flex flex-row flex-wrap gap-[8px]">
@@ -938,13 +989,12 @@ const Berita: React.FC<ParamsProps> = () => {
                       }
                       image={item.image}
                       imageClassName="rounded-r-2xl"
-                      customClass="py-[0px]"
                       rounded={12}
                     />
                   ))}
                 </Slider>
               </div>
-              <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row justify-between w-full pt-[16px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -1020,22 +1070,26 @@ const Berita: React.FC<ParamsProps> = () => {
                       {paginatedData?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
+                          className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
                         >
-                          <div className="flex flex-row gap-2 items-center w-full">
-                            <p className="font-bold text-xl sm:text-2xl break-words">
-                              {item.namaFile}
-                            </p>
-                            <MediumTag title="PDF" />
-                          </div>
-                          <Button
-                            title="Unduh"
-                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 mt-3"
-                            customTextClass="text-white text-xl"
-                            onClick={async () =>
-                              await handleDownload(item.file)
-                            }
-                          />
+                          {isContentNotEmpty(item.namaFile) && (
+                            <>
+                              <div className="flex flex-row gap-2 items-center">
+                                <p className="font-bold text-xl sm:text-2xl break-words">
+                                  {item.namaFile}
+                                </p>
+                                <MediumTag title="PDF" />
+                              </div>
+                              <Button
+                                title="Unduh"
+                                customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                                customTextClass="text-white text-[16px]"
+                                onClick={async () =>
+                                  await handleDownload(item.file)
+                                }
+                              />
+                            </>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -1074,11 +1128,13 @@ const Berita: React.FC<ParamsProps> = () => {
               customLeftContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-5 h-auto">
-                    <div className="border rounded-xl py-[36px] px-[24px] flex flex-col gap-4 text-left grow">
-                      <p className="font-bold pb-2 border-b text-[24px]">
-                        Kategori Artikel
-                      </p>
-                      <div className="flex flex-col mt-5 gap-4">
+                    <div className="border rounded-xl px-[24px] flex flex-col text-left grow">
+                      <div className="b-2 border-b pt-[36px] pb-[24px]">
+                        <p className="font-karla font-bold text-[24px]/[28.8px] -tracking-[0.72px]">
+                          Kategori Artikel
+                        </p>
+                      </div>
+                      <div className="flex flex-col pt-[24px] pb-[36px] gap-4">
                         {lifeGuideCategory?.list?.map(
                           (item: any, index: number) => (
                             <div
@@ -1091,7 +1147,7 @@ const Berita: React.FC<ParamsProps> = () => {
                                 });
                               }}
                             >
-                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left text-[20px]">
+                              <p className="font-opensans text-purple_dark font-bold cursor-pointer text-left text-[20px]/[24px]">
                                 {item}
                               </p>
                               <div className="mt-1">
@@ -1107,14 +1163,17 @@ const Berita: React.FC<ParamsProps> = () => {
                         )}
                       </div>
                     </div>
-                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-purple_verylight">
-                      <p className="font-bold text-4xl text-purple_dark">
-                        Subscribe!
-                      </p>
-                      <p className="text-2xl font-light font-['Source Sans Pro']">
-                        Informasi terkini mengenai Avrist Life Insurance
-                      </p>
+                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-gray_spacerlight border-gray_bglightgray shadow-small">
+                      <div className="font-karla">
+                        <p className="font-bold text-[36px]/[43.2px] text-purple_dark -tracking-[1.08px]">
+                          Subscribe!
+                        </p>
+                        <p className="text-[24px]/[24px] font-light -tracking-[0.72px]">
+                          Informasi terkini mengenai Avrist Life Insurance
+                        </p>
+                      </div>
                       <Input
+                        customInputClass="custom-input"
                         placeholder="Masukkan email Anda"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -1126,8 +1185,10 @@ const Berita: React.FC<ParamsProps> = () => {
                         onClick={handleSubscribeButton}
                       />
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-[24px] text-left">
-                      <p className="font-bold text-[16px]">Ikuti Kami</p>
+                    <div className="border rounded-xl py-9 px-6 flex flex-col gap-[24px] text-left">
+                      <p className="font-karla font-bold text-[24px]/[28.8px] -tracking-[-0.72px]">
+                        Ikuti Kami
+                      </p>
                       <div className="flex flex-row gap-2">
                         <Link
                           href="https://www.youtube.com/@avristian"
@@ -1172,10 +1233,10 @@ const Berita: React.FC<ParamsProps> = () => {
               customRightContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-1 h-full">
-                    <p className="font-semibold pb-2 text-left text-[24px]">
+                    <p className="font-karla font-bold pb-2 text-left text-[36px]/[43.2px] -tracking-[1.08]">
                       Terbaru
                     </p>
-                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1">
+                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1 rounded-xl">
                       {contentData
                         ?.slice(0, 4)
                         .map((item: any, index: number) => (
@@ -1217,7 +1278,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
-          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               Dari Anda untuk Kami
             </p>
@@ -1269,7 +1330,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   );
                 })}
               </Slider>
-              <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row justify-between w-full pt-[16px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -1344,16 +1405,14 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0 gap-[5rem]">
-          <div className="w-full lg:px-[8.5rem] xs:text-center md:text-start sm:mt-0">
-            <SectionPromo>
-              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold text-purple_dark text-center">
-                Kumpulan Berita Pers
-              </h2>
-              <h2 className="lg: text-[36px] xs:text-2xl font-normal text-center">
-                Temukan siaran pers Avrist di sini!
-              </h2>
-            </SectionPromo>
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
+            <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+              Kumpulan Berita Pers
+            </p>
+            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+              Temukan siaran pers Avrist di sini!
+            </p>
           </div>
 
           <div className="w-full flex flex-col items-center justify-center pb-2 text-center">
@@ -1389,20 +1448,42 @@ const Berita: React.FC<ParamsProps> = () => {
               ]}
               customContent={
                 <>
-                  <div className="grid grid-cols-1 gap-[24px] w-full">
+                  <div className="grid grid-cols-1 gap-2 w-full">
                     {paginatedData?.map((item: any, index: number) => (
-                      <div key={index} className="w-full p-4 border rounded-xl">
-                        {
+                      <div
+                        key={index}
+                        className="w-full p-6 border rounded-xl flex flex-col gap-3"
+                      >
+                        {isContentNotEmpty(item.judul) && (
                           <p
                             className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
                             dangerouslySetInnerHTML={{
                               __html: item.judul
                             }}
                           />
-                        }
-                        <div className="flex gap-[12px] flex-wrap">
-                          {item.arr}
-                        </div>
+                        )}
+                        {Array.isArray(item.arr) && item.arr.length > 0 && (
+                          <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
+                            <>
+                              {item.arr.length > 5 ? (
+                                <>
+                                  {item.isExpanded
+                                    ? item.arr
+                                    : item.arr.slice(0, 5)}
+                                  <button
+                                    className="text-purple_dark cursor-pointer"
+                                    onClick={() => toggleExpandedLink(index)}
+                                  >
+                                    {item.isExpanded ? 'Tutup ' : 'Lihat '} link
+                                    lainnya
+                                  </button>
+                                </>
+                              ) : (
+                                item.arr
+                              )}
+                            </>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -1410,7 +1491,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {renderPage()}
                 </>
               }
-              outerClass="sm:!py-[0px]"
+              outerClass="px-[2rem] md:px-[8.5rem]"
             />
           </div>
         </div>

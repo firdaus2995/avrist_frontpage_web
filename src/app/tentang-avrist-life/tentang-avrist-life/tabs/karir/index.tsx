@@ -184,129 +184,138 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
             ))}
           </div>
         </CustomContainer>
-        <TitleContainer className="px-[2rem] text-center font-extrabold text-purple_dark sm:!mb-0 xs:my-[2.25rem] sm:my-[5rem] leading-[2.25rem]">
-          Lihat Lowongan di Avrist Life Insurance
-        </TitleContainer>
-        <CategoryWithThreeCards
-          hideSearchBar
-          defaultSelectedCategory={category}
-          onCategoryChange={(tab) => {
-            setCategory(tab);
-            if (category === 'Karyawan') {
-              fetchContentCategory();
-            }
-          }}
-          filterRowLayout={true}
-          hidePagination
-          categories={['Karyawan', 'Tenaga Pemasar']}
-          tabs={[]}
-          customContent={
-            <>
-              <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[1.5rem]">
-                {contentData &&
-                  paginatedData?.map((item: any, index: number) => (
-                    <div
-                      key={index}
-                      className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
-                    >
-                      <p className="font-bold text-[1.5rem] font-karla">
-                        {item.namaLoker}
-                      </p>
-                      <div className="flex flex-col gap-[12px]">
-                        <div className="flex w-full flex-row items-center gap-2">
-                          <Image
-                            src={item.iconLokasiLoker}
-                            alt="lokasi"
-                            width={18}
-                            height={18}
-                          />
-                          <p className="font-opensans font-lg leading-[25.2px]">
-                            {item.lokasiLoker}
-                          </p>
-                        </div>
-                        <div className="flex w-full flex-row items-center gap-2">
-                          <Image
-                            src={item.iconStatusLoker}
-                            alt="status"
-                            width={18}
-                            height={18}
-                          />
-                          <p className="font-opensans font-lg leading-[25.2px]">
-                            {item.statusLoker}
-                          </p>
-                        </div>
-                      </div>
 
-                      <div className="flex w-full flex-row items-center gap-2 hidden">
-                        <Image
-                          src={item.iconWaktuLoker}
-                          alt="waktu"
-                          width={18}
-                          height={18}
-                        />
-                        <p className="font-opensans font-lg">
-                          {item.waktuLoker}
-                        </p>
-                      </div>
-                      <Link
-                        className="w-full"
-                        href={item.urlLoker}
-                        target="blank"
-                      >
-                        <Button
-                          title="Lihat Detail"
-                          customButtonClass="rounded-xl bg-purple_dark w-full mt-2"
-                          customTextClass="text-white font-opensans text-xl font-normal"
-                        />
-                      </Link>
-                    </div>
-                  ))}
-              </div>
-
-              <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                <div>
-                  <p className="text-[1.25rem]">
-                    Menampilkan{' '}
-                    <span className="font-bold text-purple_dark">
-                      {contentData ? startIndex + 1 : 0}-
-                      {Math.min(endIndex, contentData ? contentData.length : 0)}
-                    </span>{' '}
-                    dari{' '}
-                    <span className="font-bold">
-                      {contentData ? contentData.length : 0}
-                    </span>{' '}
-                    hasil
-                  </p>
-                </div>
-                <div className="flex flex-row gap-[8px] items-center">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
+        <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+            Lihat Lowongan di Avrist Life Insurance
+          </p>
+        </div>
+        <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
+          <CategoryWithThreeCards
+            hideSearchBar
+            defaultSelectedCategory={category}
+            onCategoryChange={(tab) => {
+              setCategory(tab);
+              if (category === 'Karyawan') {
+                fetchContentCategory();
+              }
+            }}
+            filterRowLayout={true}
+            hidePagination
+            categories={['Karyawan', 'Tenaga Pemasar']}
+            tabs={[]}
+            customContent={
+              <>
+                <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[1.5rem]">
+                  {contentData &&
+                    paginatedData?.map((item: any, index: number) => (
                       <div
-                        key={page}
-                        role="button"
-                        onClick={() => handlePageChange(page)}
-                        className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                          pagination.currentPage === page
-                            ? 'text-purple_dark font-bold'
-                            : ''
-                        }`}
+                        key={index}
+                        className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
                       >
-                        {page}
+                        <p className="font-bold text-[1.5rem] font-karla">
+                          {item.namaLoker}
+                        </p>
+                        <div className="flex flex-col gap-[12px]">
+                          <div className="flex w-full flex-row items-center gap-2">
+                            <Image
+                              src={item.iconLokasiLoker}
+                              alt="lokasi"
+                              width={18}
+                              height={18}
+                            />
+                            <p className="font-opensans font-lg leading-[25.2px]">
+                              {item.lokasiLoker}
+                            </p>
+                          </div>
+                          <div className="flex w-full flex-row items-center gap-2">
+                            <Image
+                              src={item.iconStatusLoker}
+                              alt="status"
+                              width={18}
+                              height={18}
+                            />
+                            <p className="font-opensans font-lg leading-[25.2px]">
+                              {item.statusLoker}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex w-full flex-row items-center gap-2 hidden">
+                          <Image
+                            src={item.iconWaktuLoker}
+                            alt="waktu"
+                            width={18}
+                            height={18}
+                          />
+                          <p className="font-opensans font-lg">
+                            {item.waktuLoker}
+                          </p>
+                        </div>
+                        <Link
+                          className="w-full"
+                          href={item.urlLoker}
+                          target="blank"
+                        >
+                          <Button
+                            title="Lihat Detail"
+                            customButtonClass="rounded-xl bg-purple_dark w-full mt-2"
+                            customTextClass="text-white font-opensans text-xl font-normal"
+                          />
+                        </Link>
                       </div>
-                    )
-                  )}
-                  <span
-                    className="mt-[3px]"
-                    role="button"
-                    onClick={() => handlePageChange(totalPages)}
-                  >
-                    <Icon name="chevronRight" color="purple_dark" />
-                  </span>
+                    ))}
                 </div>
-              </div>
-            </>
-          }
-        />
+
+                <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                  <div>
+                    <p className="text-[1.25rem]">
+                      Menampilkan{' '}
+                      <span className="font-bold text-purple_dark">
+                        {contentData ? startIndex + 1 : 0}-
+                        {Math.min(
+                          endIndex,
+                          contentData ? contentData.length : 0
+                        )}
+                      </span>{' '}
+                      dari{' '}
+                      <span className="font-bold">
+                        {contentData ? contentData.length : 0}
+                      </span>{' '}
+                      hasil
+                    </p>
+                  </div>
+                  <div className="flex flex-row gap-[8px] items-center">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                      (page) => (
+                        <div
+                          key={page}
+                          role="button"
+                          onClick={() => handlePageChange(page)}
+                          className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                            pagination.currentPage === page
+                              ? 'text-purple_dark font-bold'
+                              : ''
+                          }`}
+                        >
+                          {page}
+                        </div>
+                      )
+                    )}
+                    <span
+                      className="mt-[3px]"
+                      role="button"
+                      onClick={() => handlePageChange(totalPages)}
+                    >
+                      <Icon name="chevronRight" color="purple_dark" />
+                    </span>
+                  </div>
+                </div>
+              </>
+            }
+            outerClass="sm:!py-[0px] px-[2rem] md:px-[8.5rem]"
+          />
+        </div>
         <RoundedFrameBottom />
         <FooterInformation
           bgColor="bg-gray_bglightgray"

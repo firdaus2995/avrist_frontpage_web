@@ -131,35 +131,25 @@ const CategoryWithThreeCards = ({
     selectedCategory
   }) => (
     <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
-      {categories.map((item: string, index: number) =>
-        selectedCategory === item ? (
-          <div
-            key={index}
-            className="border-l-4 border-purple_dark pl-[24px] py-[12px] cursor-pointer text-left"
+      {categories.map((item: string, index: number) => (
+        <div
+          key={index}
+          className={`border-l-4 ${selectedCategory === item ? 'border-purple_dark' : 'border-purple_mediumlight'} pl-[24px] py-[12px] cursor-pointer text-left`}
+          onClick={() => handleCategoryChange(item)}
+        >
+          <span
+            className={`font-bold ${selectedCategory === item ? 'text-purple_dark' : 'text-purple_mediumlight'} text-[18px]/[25.2px]`}
           >
-            <span className="font-bold text-purple_dark text-[18px]/[25.2px]">
-              {item}
-            </span>
-          </div>
-        ) : (
-          <div
-            key={index}
-            role="button"
-            onClick={() => handleCategoryChange(item)}
-            className="border-l-4 border-purple_mediumlight pl-[24px] py-[12px] cursor-pointer text-left"
-          >
-            <span className="font-bold text-purple_mediumlight text-[18px]/[25.2px]">
-              {item}
-            </span>
-          </div>
-        )
-      )}
+            {item}
+          </span>
+        </div>
+      ))}
     </div>
   );
 
   return (
     <div
-      className={`w-full flex flex-col gap-[36px] sm:gap-[48px] lg:flex-row ${outerClass}`}
+      className={`w-full flex flex-col gap-[24px] xs:max-lg:gap-[48px] lg:flex-row ${outerClass}`}
     >
       {/* CATEGORIES */}
       {!hiddenCategory && (

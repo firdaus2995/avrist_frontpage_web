@@ -25,7 +25,7 @@
     )
     rgb(var(--background-start-rgb));
 } */
-ul.slick-dots {
+.slick-dots {
   height: 18px;
 }
 .slick-dots li button:before {
@@ -54,4 +54,8 @@ select.custom-select {
   height: 20px;
   width: 20px;
   pointer-events: none;
+}
+
+.custom-input::placeholder {
+  color: #5e217ccc;
 }

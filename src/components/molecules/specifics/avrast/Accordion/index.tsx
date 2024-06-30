@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import EXPAND from '@/assets/images/common/+.svg';
 import SUBTRACT from '@/assets/images/common/-.svg';
+import { isContentNotEmpty } from '@/utils/helpers';
 
 interface IAccordion {
   bgColor?: string;
@@ -59,8 +60,10 @@ const Accordion: React.FC<IAccordion> & {
 
       {expand && (
         <>
-          {description && <p className="text-md 2xl:text-xl">{description}</p>}
-          {htmlDescription && (
+          {isContentNotEmpty(description ?? '-') && (
+            <p className="text-md 2xl:text-xl">{description}</p>
+          )}
+          {htmlDescription && isContentNotEmpty(htmlDescription ?? '-') && (
             <p
               className="text-xl list-disc"
               dangerouslySetInnerHTML={{
