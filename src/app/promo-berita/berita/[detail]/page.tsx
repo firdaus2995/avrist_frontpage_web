@@ -211,6 +211,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   url={getYouTubeId(artikelVideo) ?? ''}
                   color="purple_dark"
                   type="Artikel Video"
+                  mute
                 />
               }
             </div>
