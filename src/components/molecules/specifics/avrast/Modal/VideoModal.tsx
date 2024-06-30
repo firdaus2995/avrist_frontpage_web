@@ -47,7 +47,7 @@ export const VideoModal = (props: Props) => {
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
                   <YouTube
                     videoId={videoUrl}
-                    className="h-[600px] w-[800px]"
+                    className="h-auto w-full md:h-[600px] md:w-[800px]"
                     iframeClassName="-z-1 w-full h-full"
                     onReady={onPlayerReady}
                   />
