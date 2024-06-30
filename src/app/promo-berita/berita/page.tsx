@@ -28,7 +28,6 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
-import SectionPromo from '@/components/molecules/specifics/avrast/WrapperContent/sectionPromo';
 import {
   getAvristLifeGuide,
   getAvriStory,
@@ -84,6 +83,7 @@ const Berita: React.FC<ParamsProps> = () => {
       <div
         style={{
           position: 'absolute',
+          bottom: -40,
           zIndex: -10
         }}
       >
@@ -849,8 +849,8 @@ const Berita: React.FC<ParamsProps> = () => {
       </div>
 
       {tab === 'Avrist Terkini' && (
-        <div className="w-full flex flex-col items-center justify-center text-center sm:max-md:w-[90%] m-auto">
-          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {params.category === 'Berita dan Kegiatan' &&
                 'Berita dan Kegiatan Avrist Life Insurance'}
@@ -948,13 +948,12 @@ const Berita: React.FC<ParamsProps> = () => {
                       }
                       image={item.image}
                       imageClassName="rounded-r-2xl"
-                      customClass="py-[0px]"
                       rounded={12}
                     />
                   ))}
                 </Slider>
               </div>
-              <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row justify-between w-full pt-[16px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -1227,7 +1226,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
       {tab === 'Testimonial' && (
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
-          <div className="px-[2rem] md:px-[8.5rem] pt-[5rem]">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               Dari Anda untuk Kami
             </p>
@@ -1279,7 +1278,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   );
                 })}
               </Slider>
-              <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row justify-between w-full pt-[16px]">
                 <div
                   className="p-2 border-2 rounded-full border-purple_dark"
                   role="button"
@@ -1354,16 +1353,14 @@ const Berita: React.FC<ParamsProps> = () => {
       )}
 
       {tab === 'Kumpulan Berita Pers' && (
-        <div className="w-full flex flex-col items-center justify-center mt-2 xs:px-[32px] md:px-0 gap-[5rem]">
-          <div className="w-full lg:px-[8.5rem] xs:text-center md:text-start sm:mt-0">
-            <SectionPromo>
-              <h2 className="xs:-tracking-[1.44px] md:-tracking-[2.56px] lg:text-[56px] xs:text-4xl font-bold text-purple_dark text-center">
-                Kumpulan Berita Pers
-              </h2>
-              <h2 className="lg: text-[36px] xs:text-2xl font-normal text-center">
-                Temukan siaran pers Avrist di sini!
-              </h2>
-            </SectionPromo>
+        <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
+          <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
+            <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+              Kumpulan Berita Pers
+            </p>
+            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+              Temukan siaran pers Avrist di sini!
+            </p>
           </div>
 
           <div className="w-full flex flex-col items-center justify-center pb-2 text-center">
@@ -1420,7 +1417,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {renderPage()}
                 </>
               }
-              outerClass="sm:!py-[0px]"
+              outerClass="px-[2rem] md:px-[8.5rem]"
             />
           </div>
         </div>
