@@ -538,7 +538,9 @@ const Berita: React.FC<ParamsProps> = () => {
           arr.push(newLink);
         });
 
-        return { judul, newLink, arr };
+        const isExpanded = false; // toggle expand/collapse external link on Siaran Berita Pers
+
+        return { judul, newLink, arr, isExpanded };
       });
 
       setContentData(transformedData);
@@ -751,6 +753,20 @@ const Berita: React.FC<ParamsProps> = () => {
       return params.toString();
     },
     [searchParams]
+  );
+
+  const toggleExpandedLink = useCallback(
+    (index: number) => {
+      const newData = paginatedData.map((el, idx) => {
+        if (idx == index) return { ...el, isExpanded: !el.isExpanded };
+        return el;
+      });
+      const foundedItem = paginatedData.find((_, idx) => idx === index);
+      if (foundedItem) foundedItem.isExpanded = !foundedItem.isExpanded;
+
+      setPaginatedData(newData);
+    },
+    [paginatedData]
   );
 
   const renderPage = () => {
@@ -1417,9 +1433,12 @@ const Berita: React.FC<ParamsProps> = () => {
               ]}
               customContent={
                 <>
-                  <div className="grid grid-cols-1 gap-[24px] w-full">
+                  <div className="grid grid-cols-1 gap-2 w-full">
                     {paginatedData?.map((item: any, index: number) => (
-                      <div key={index} className="w-full p-4 border rounded-xl">
+                      <div
+                        key={index}
+                        className="w-full p-6 border rounded-xl flex flex-col gap-3"
+                      >
                         {
                           <p
                             className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
@@ -1428,8 +1447,29 @@ const Berita: React.FC<ParamsProps> = () => {
                             }}
                           />
                         }
-                        <div className="flex gap-[12px] flex-wrap">
-                          {item.arr}
+                        <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
+                          <>
+                            {item.arr.length > 5 ? (
+                              <>
+                                {item.isExpanded
+                                  ? item.arr
+                                  : item.arr.slice(0, 5)}
+                                <button
+                                  className="text-purple_dark cursor-pointer"
+                                  onClick={() => toggleExpandedLink(index)}
+                                >
+                                  {item.isExpanded ? 'Tutup ' : 'Lihat '} link
+                                  lainnya
+                                </button>
+                              </>
+                            ) : (
+                              item.arr
+                            )}
+                            {/* {item.arr.length > 5 && item.isExpanded
+                              ? item.arr
+                              : item.arr.slice(0, 5)
+                              } */}
+                          </>
                         </div>
                       </div>
                     ))}
