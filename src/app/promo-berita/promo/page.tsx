@@ -421,7 +421,7 @@ const Promo: React.FC<ParamsProps> = () => {
           </div>
         </div>
 
-        <div className="w-full xs:pt-[2.25rem] md:pt-0">
+        <div className="w-full">
           <CategoryWithThreeCards
             searchPlaceholder="Cari Promo"
             hidePagination
