@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactPaginate from 'react-paginate';
 import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import BlankImage from '@/assets/images/blank-image.svg';
 import Phone from '@/assets/images/common/phone.svg';
@@ -32,18 +33,27 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     searchFilter: ''
   });
   const [categories, setCategories] = useState<any>([]);
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    itemsPerPage: 5
-  });
-  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
-  const endIndex = startIndex + pagination.itemsPerPage;
-  const paginatedData = contentData
-    ? contentData?.slice(startIndex, endIndex)
-    : [];
-  const totalPages = contentData
-    ? Math.ceil(contentData?.length / pagination.itemsPerPage)
-    : 0;
+  const [itemsPerPage] = useState(3);
+
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!contentData?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(contentData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(contentData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, contentData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % contentData.length;
+    setItemOffset(newOffset);
+  };
 
   useEffect(() => {
     handleGetContentPage(
@@ -93,10 +103,6 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
       : [];
 
     return fileData;
-  };
-
-  const handlePageChange = (page: number) => {
-    setPagination({ ...pagination, currentPage: page });
   };
 
   const yearDropdown = (startYear: number) => {
@@ -193,6 +199,43 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     return month;
   };
 
+  const renderPage = () => {
+    return (
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
+        <div>
+          <p className="text-[20px]/[28px] font-normal">
+            Menampilkan{' '}
+            <span className="font-bold text-purple_dark">
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : itemOffset + 1}
+              -
+              {Math.min(
+                (itemOffset + 1) * itemsPerPage,
+                contentData ? contentData.length : 0
+              )}
+            </span>{' '}
+            dari{' '}
+            <span className="font-bold">
+              {contentData && contentData.length}
+            </span>{' '}
+            hasil
+          </p>
+        </div>
+        <ReactPaginate
+          pageCount={pageCount}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageClick}
+          nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+          previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+          containerClassName="flex flex-row gap-[12px] items-center"
+          activeClassName="text-purple_dark font-bold"
+          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
@@ -205,7 +248,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           //     Temukan {params.category.toLowerCase()} perusahaan di sini
           //   </h2>
           // </CustomContainer>
-          <div className="px-[2rem] xs:my-[2.25rem] sm:mt-[5rem]">
+          <div className="px-[2rem] xs:my-[2.25rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {params.category.replace('Perusahaan', '')} Perusahaan
             </p>
@@ -242,80 +285,42 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           }}
           hidePagination
           customContent={
-            paginatedData.length > 0 ? (
-              <>
-                {contentData &&
-                  getContentFile(paginatedData)?.map(
-                    (item: any, index: number) => (
-                      <div
-                        key={index}
-                        className="w-full flex flex-row justify-between items-center p-[1.5rem] border rounded-xl gap-2"
-                      >
-                        <div className="flex flex-row gap-2 items-center">
-                          <p className="font-bold text-2xl font-karla">
-                            {item.name}
-                          </p>
-                          <MediumTag title="PDF" />
-                        </div>
-                        <Button
-                          title="Unduh"
-                          customButtonClass="rounded-xl bg-purple_dark"
-                          customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
-                          onClick={async () => await handleDownload(item.file)}
-                        />
-                      </div>
-                    )
-                  )}
-
-                <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                  <div>
-                    <p className="text-[1.25rem]">
-                      Menampilkan{' '}
-                      <span className="font-bold text-purple_dark">
-                        {contentData ? startIndex + 1 : 0}-
-                        {Math.min(
-                          endIndex,
-                          contentData ? contentData.length : 0
-                        )}
-                      </span>{' '}
-                      dari{' '}
-                      <span className="font-bold">
-                        {contentData ? contentData.length : 0}
-                      </span>{' '}
-                      hasil
-                    </p>
-                  </div>
-                  <div className="flex flex-row gap-[8px] items-center">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
+            <>
+              {paginatedData.length > 0 ? (
+                <div className="w-full flex flex-col gap-6">
+                  {contentData &&
+                    getContentFile(paginatedData)?.map(
+                      (item: any, index: number) => (
                         <div
-                          key={page}
-                          role="button"
-                          onClick={() => handlePageChange(page)}
-                          className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                            pagination.currentPage === page
-                              ? 'text-purple_dark font-bold'
-                              : ''
-                          }`}
+                          key={index}
+                          className="w-full flex flex-row justify-between items-center p-[1.5rem] border rounded-xl gap-2"
                         >
-                          {page}
+                          <div className="flex flex-row gap-2 items-center">
+                            <p className="font-bold text-2xl font-karla">
+                              {item.name}
+                            </p>
+                            <MediumTag title="PDF" />
+                          </div>
+                          <Button
+                            title="Unduh"
+                            customButtonClass="rounded-xl bg-purple_dark"
+                            customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
+                            onClick={async () =>
+                              await handleDownload(item.file)
+                            }
+                          />
                         </div>
                       )
                     )}
-                    <span
-                      className="mt-[3px]"
-                      role="button"
-                      onClick={() => handlePageChange(totalPages)}
-                    >
-                      <Icon name="chevronRight" color="purple_dark" />
-                    </span>
-                  </div>
                 </div>
-              </>
-            ) : (
-              <NotFound />
-            )
+              ) : (
+                <NotFound />
+              )}
+
+              {renderPage()}
+            </>
           }
+          outerClass="sm:!py-[0px] px-[2rem] md:px-[8.5rem]"
         />
       </div>
       <div className="flex flex-col w-full">

@@ -14,7 +14,6 @@ import Button from '@/components/atoms/Button/Button';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
-import TitleContainer from '@/components/molecules/specifics/avrast/Containers/Title';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -115,9 +114,9 @@ const DetailKarir = () => {
 
       <CustomContainer className="pb-2 w-full justify-between gap-2 items-stretch rounded-t-[60px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
         <div className="flex flex-col gap-[3rem]">
-          <TitleContainer className="!mb-0 mt-[5rem] text-[3.5rem]">
+          <p className="!mb-0 mt-[5rem] text-[3.5rem] font-karla font-bold leading-[67.2px] -tracking-[2.24px]">
             {data.judul ?? ''}
-          </TitleContainer>
+          </p>
 
           <p
             className="text-xl font-opensans flex flex-col leading-[28px]"
@@ -127,7 +126,7 @@ const DetailKarir = () => {
           />
 
           <div className="flex flex-col gap-[1rem]">
-            <h2 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla font-bold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px] leading-[28px]">
+            <h2 className="text-[2.25rem] font-karla font-bold text-purple_dark -tracking-[2.56px] leading-[42.3px]">
               {data.subjudul}
             </h2>
             <p
