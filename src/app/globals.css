@@ -25,7 +25,7 @@
     )
     rgb(var(--background-start-rgb));
 } */
-ul.slick-dots {
+.slick-dots {
   height: 18px;
 }
 .slick-dots li button:before {

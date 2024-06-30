@@ -79,7 +79,17 @@ const Berita: React.FC<ParamsProps> = () => {
           centerMode: false
         }
       }
-    ]
+    ],
+    appendDots: (dots: any) => (
+      <div
+        style={{
+          position: 'absolute',
+          zIndex: -10
+        }}
+      >
+        <ul style={{ margin: '0px' }}> {dots} </ul>
+      </div>
+    )
   };
 
   const sliderTabSettings = {

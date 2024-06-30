@@ -340,10 +340,7 @@ const CompanySection = () => {
       <div className="w-full grid grid-cols-1 gap-4">
         <Slider {...sliderSettings}>
           {data.map((val, idx) => (
-            <div
-              key={idx}
-              className="w-full flex items-center justify-center px-[24px] py-[36px]"
-            >
+            <div key={idx} className="w-full">
               {renderCard(val)}
             </div>
           ))}
