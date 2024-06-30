@@ -55,3 +55,7 @@ select.custom-select {
   width: 20px;
   pointer-events: none;
 }
+
+.custom-input::placeholder {
+  color: #5e217ccc;
+}

@@ -108,7 +108,7 @@ const config: Config = {
         h1: '0 0 3px rgba(0, 0, 0, .8), 0 0 5px rgba(0, 0, 0, .9)'
       },
       boxShadow: {
-        avras: '0px 14px 20px 0px rgba(94, 33, 124, 0.04)'
+        small: '0px 14px 20px 0px rgba(94, 33, 124, 0.04)'
       }
     }
   },

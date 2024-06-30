@@ -124,7 +124,7 @@ const Berita: React.FC<ParamsProps> = () => {
     monthFilter: '',
     searchFilter: ''
   });
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -181,19 +181,33 @@ const Berita: React.FC<ParamsProps> = () => {
   useEffect(() => {
     pageSlug();
     if (tab === 'Avrist Terkini') {
-      params.category === 'Avrist Life Guide'
-        ? fetchLifeGuide()
-        : params.category === 'AvriStory'
-          ? fetchAvriStory()
-          : fetchContent();
+      switch (params.category) {
+        case 'Avrist Life Guide':
+          fetchLifeGuide();
+          break;
+        case 'AvriStory':
+          fetchAvriStory();
+          setItemsPerPage(5);
+          break;
+        default:
+          fetchContent();
+          setItemsPerPage(6);
+      }
+      // params.category === 'Avrist Life Guide'
+      //   ? fetchLifeGuide()
+      //   : params.category === 'AvriStory'
+      //     ? fetchAvriStory()
+      //     : fetchContent();
     }
 
     if (tab === 'Kumpulan Berita Pers') {
       fetchBeritaPers();
+      setItemsPerPage(5);
     }
 
     if (tab === 'Testimonial') {
       fetchTestimoni();
+      setItemsPerPage(3);
     }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
 
@@ -796,7 +810,7 @@ const Berita: React.FC<ParamsProps> = () => {
       />
       {/* Tab Desktop */}
       <div
-        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block'} rounded-t-[60px] bg-white w-full min-h-[100px] bg-white z-10`}
+        className={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' ? 'md:-mt-[6rem] xs:hidden md:block' : '-mt-[7rem] xs:hidden md:block rounded-t-[60px]'} bg-white w-full min-h-[100px] z-10`}
       ></div>
       <div className="w-full z-20 xs:hidden md:block rounded-t-lg">
         <div className="grid grid-cols-3 gap-[12px] px-[136px] bg-white">
@@ -1029,9 +1043,9 @@ const Berita: React.FC<ParamsProps> = () => {
                       {paginatedData?.map((item: any, index: number) => (
                         <div
                           key={index}
-                          className="w-full flex flex-wrap justify-between items-center p-[24px] border rounded-xl xm:text-left"
+                          className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
                         >
-                          <div className="flex flex-row gap-2 items-center w-full">
+                          <div className="flex flex-row gap-2 items-center">
                             <p className="font-bold text-xl sm:text-2xl break-words">
                               {item.namaFile}
                             </p>
@@ -1039,8 +1053,8 @@ const Berita: React.FC<ParamsProps> = () => {
                           </div>
                           <Button
                             title="Unduh"
-                            customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 mt-3"
-                            customTextClass="text-white text-xl"
+                            customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                            customTextClass="text-white text-[16px]"
                             onClick={async () =>
                               await handleDownload(item.file)
                             }
@@ -1083,11 +1097,13 @@ const Berita: React.FC<ParamsProps> = () => {
               customLeftContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-5 h-auto">
-                    <div className="border rounded-xl py-[36px] px-[24px] flex flex-col gap-4 text-left grow">
-                      <p className="font-bold pb-2 border-b text-[24px]">
-                        Kategori Artikel
-                      </p>
-                      <div className="flex flex-col mt-5 gap-4">
+                    <div className="border rounded-xl px-[24px] flex flex-col text-left grow">
+                      <div className="b-2 border-b pt-[36px] pb-[24px]">
+                        <p className="font-karla font-bold text-[24px]/[28.8px] -tracking-[0.72px]">
+                          Kategori Artikel
+                        </p>
+                      </div>
+                      <div className="flex flex-col pt-[24px] pb-[36px] gap-4">
                         {lifeGuideCategory?.list?.map(
                           (item: any, index: number) => (
                             <div
@@ -1100,7 +1116,7 @@ const Berita: React.FC<ParamsProps> = () => {
                                 });
                               }}
                             >
-                              <p className="text-purple_dark font-bold text-sm cursor-pointer text-left text-[20px]">
+                              <p className="font-opensans text-purple_dark font-bold cursor-pointer text-left text-[20px]/[24px]">
                                 {item}
                               </p>
                               <div className="mt-1">
@@ -1116,14 +1132,17 @@ const Berita: React.FC<ParamsProps> = () => {
                         )}
                       </div>
                     </div>
-                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-purple_verylight">
-                      <p className="font-bold text-4xl text-purple_dark">
-                        Subscribe!
-                      </p>
-                      <p className="text-2xl font-light font-['Source Sans Pro']">
-                        Informasi terkini mengenai Avrist Life Insurance
-                      </p>
+                    <div className="border rounded-xl px-[24px] py-[36px] flex flex-col gap-[24px] text-left bg-gray_spacerlight border-gray_bglightgray shadow-small">
+                      <div className="font-karla">
+                        <p className="font-bold text-[36px]/[43.2px] text-purple_dark -tracking-[1.08px]">
+                          Subscribe!
+                        </p>
+                        <p className="text-[24px]/[24px] font-light -tracking-[0.72px]">
+                          Informasi terkini mengenai Avrist Life Insurance
+                        </p>
+                      </div>
                       <Input
+                        customInputClass="custom-input"
                         placeholder="Masukkan email Anda"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -1135,8 +1154,10 @@ const Berita: React.FC<ParamsProps> = () => {
                         onClick={handleSubscribeButton}
                       />
                     </div>
-                    <div className="border rounded-xl p-4 flex flex-col gap-[24px] text-left">
-                      <p className="font-bold text-[16px]">Ikuti Kami</p>
+                    <div className="border rounded-xl py-9 px-6 flex flex-col gap-[24px] text-left">
+                      <p className="font-karla font-bold text-[24px]/[28.8px] -tracking-[-0.72px]">
+                        Ikuti Kami
+                      </p>
                       <div className="flex flex-row gap-2">
                         <Link
                           href="https://www.youtube.com/@avristian"
@@ -1181,10 +1202,10 @@ const Berita: React.FC<ParamsProps> = () => {
               customRightContent={
                 params.category === 'Avrist Life Guide' ? (
                   <div className="flex flex-col gap-4 mt-1 h-full">
-                    <p className="font-semibold pb-2 text-left text-[24px]">
+                    <p className="font-karla font-bold pb-2 text-left text-[36px]/[43.2px] -tracking-[1.08]">
                       Terbaru
                     </p>
-                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1">
+                    <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1 rounded-xl">
                       {contentData
                         ?.slice(0, 4)
                         .map((item: any, index: number) => (

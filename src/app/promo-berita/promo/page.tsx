@@ -463,7 +463,7 @@ const Promo: React.FC<ParamsProps> = () => {
                     >
                       <Image
                         src={item?.image ?? BlankImage}
-                        className="w-full min-h-[220px] shadow-avras rounded-lg object-fill"
+                        className="w-full min-h-[220px] shadow-small rounded-lg object-fill"
                         alt="blank"
                         width={0}
                         height={0}

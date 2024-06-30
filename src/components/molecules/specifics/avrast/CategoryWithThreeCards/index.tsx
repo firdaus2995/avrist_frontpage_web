@@ -159,7 +159,7 @@ const CategoryWithThreeCards = ({
 
   return (
     <div
-      className={`w-full flex flex-col gap-[36px] sm:gap-[48px] lg:flex-row ${outerClass}`}
+      className={`w-full flex flex-col gap-[24px] xs:max-lg:gap-[48px] lg:flex-row ${outerClass}`}
     >
       {/* CATEGORIES */}
       {!hiddenCategory && (
