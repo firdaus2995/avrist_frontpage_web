@@ -63,14 +63,14 @@ const Berita: React.FC<ParamsProps> = () => {
   };
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     arrows: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    // autoplay: true,
-    // autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 3000,
     centerPadding: '0px',
     responsive: [
       {
