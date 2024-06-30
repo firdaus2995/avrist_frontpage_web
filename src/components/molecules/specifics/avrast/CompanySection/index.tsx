@@ -74,30 +74,30 @@ const CompanySection = () => {
         img: img1.imageUrl
       },
       {
-        category: 'Avrist Asset Management',
-        icon1: ICON1PRODUCT2,
-        icon2: ICON2PRODUCT2,
-        title1: 'Inovasi Solusi.',
-        title2: 'Investasi dengan Tim Profesional.',
-        link1: 'Penghargaan',
-        link2: 'Tentang Kami',
-        href1: EXTERNAL_URL.avramUrl,
-        href2: EXTERNAL_URL.avramUrl,
-        linkIcon: CHEVRONRIGHTGREEN,
-        img: img2.imageUrl
-      },
-      {
         category: 'Avrist General Insurance',
         icon1: ICON1PRODUCT3,
         icon2: ICON2PRODUCT3,
-        title1: 'Dinamis Progresif.',
-        title2: 'Efektif, Terpercaya dan Transparan.',
-        link1: 'Penghargaan',
-        link2: 'Tentang Kami',
-        href1: EXTERNAL_URL.agiUrl,
-        href2: EXTERNAL_URL.agiUrl,
+        title1: 'Beragam perlindungan Asset.',
+        title2: 'Perlindungan asset yang lengkap.',
+        link1: 'Selengkapnya',
+        link2: 'Selengkapnya',
+        href1: `${EXTERNAL_URL.agiUrl}/about/tentang-avrist`,
+        href2: `${EXTERNAL_URL.agiUrl}/about/tentang-avrist`,
         linkIcon: CHEVRONRIGHTGRAY,
         img: img3.imageUrl
+      },
+      {
+        category: 'Avrist Asset Management',
+        icon1: ICON1PRODUCT2,
+        icon2: ICON2PRODUCT2,
+        title1: 'Investasi yang terjangkau.',
+        title2: 'Berpengalaman dan terus berkembang.',
+        link1: 'Selengkapnya',
+        link2: 'Tentang Avram',
+        href1: `${EXTERNAL_URL.avramUrl}/about/tentang-avrist`,
+        href2: `${EXTERNAL_URL.avramUrl}/about/tentang-avrist`,
+        linkIcon: CHEVRONRIGHTGREEN,
+        img: img2.imageUrl
       }
     ],
     [img1, img2, img3]
