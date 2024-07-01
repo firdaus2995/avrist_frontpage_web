@@ -63,7 +63,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         absolute top-full left-0 right-0 z-50
         flex md:hidden flex-col items-stretchgap-4 
         bg-[white]
-        text-white text-sm p-4
+        text-white text-sm p-[2rem]
         transition-all duration-300 ease-in-out
         max-h-[60vh] overflow-y-auto
         ${isVisible ? styles['show-menu'] : styles['hide-menu']}
@@ -73,7 +73,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         <Disclosure key={index}>
           <div>
             <div className="flex w-full">
-              <Disclosure.Button className="top- text-[black] font-medium w-full text-base text-start p-2 transition-all rounded hover:bg-white/20 outline-none focus:bg-white/20">
+              <Disclosure.Button className="top- text-[black] leading-[28px] font-semibold w-full text-[20px] text-start px-2 py-[17.5px] transition-all rounded hover:bg-white/20 outline-none focus:bg-white/20">
                 {item.title}
               </Disclosure.Button>
               <Disclosure.Button>
@@ -86,7 +86,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                   leaveTo="rotate-270 opacity-0"
                 >
                   <div className="px-2">
-                    <Icon name="chevronRight" color="purple_dark" />
+                    <Icon name="chevronRight" color="purple_dark" width={24} height={24} />
                   </div>
                 </Transition>
               </Disclosure.Button>
@@ -101,9 +101,9 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
             >
               <Disclosure.Panel className="p-2 text-[black] items-stretch gap-4 pl-2">
                 {item.content.map((val, idx) => (
-                  <div key={idx} className={`${val.title ? 'pt-4' : 'pt-0'}`}>
+                  <div key={idx} >
                     {val.title ? (
-                      <span className="text-md cursor-pointer rounded font-bold outline-none p-2">
+                      <span className="text-[20px] leading-[38.4px] -tracking-[0.96px] cursor-pointer rounded font-bold outline-none px-2 py-[17.5px]">
                         {val.title}
                       </span>
                     ) : null}
@@ -118,16 +118,16 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                               else setExpandedMenu(el.title);
                             }}
                           >
-                            <div className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2">
+                            <div className="text-[16px] font-semibold leading-[28px] cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2">
                               {el.title}
                             </div>
                             <span
-                              className={`mt-[3px] mr-1 ${expandedMenu === el.title && 'rotate-180 '}`}
+                              className={`mt-[3px] flex items-center justify-center mr-1 ${expandedMenu === el.title && 'rotate-180 '}`}
                             >
                               <Icon
                                 name="chevronDown"
                                 color="purple_dark"
-                                width={12}
+                                width={16}
                               />
                             </span>
                           </div>
@@ -146,7 +146,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                                     setExpandedMenu('');
                                     setVisibility(false);
                                   }}
-                                  className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
+                                  className="text-[16px] font-semibold leading-[28px] cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
                                 >
                                   {subMenu}
                                 </Link>
@@ -154,7 +154,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                           </div>
                         </React.Fragment>
                       ) : (
-                        <div key={menuIdx} className="mt-4">
+                        <div key={menuIdx} className="my-[17.5px]">
                           <Link
                             href={
                               index !== 1 || el.icon !== 2
@@ -171,7 +171,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                             target={
                               index === 1 && el.icon === 2 ? '_blank' : '_self'
                             }
-                            className="text-xs cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
+                            className="text-[16px] font-semibold leading-[28px] cursor-pointer rounded transition-all hover:bg-white/20 outline-none p-2"
                           >
                             {el.title}
                           </Link>
@@ -185,51 +185,43 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           </div>
         </Disclosure>
       ))}
-      <div className="grid grid-cols-2 gap-4 mt-2 border-t-2 pt-4">
+      <div className="grid grid-cols-2 gap-[20px] mt-[17.5px] border-t-2 pt-[2.25rem]">
         <Link
           href={`/tanya-avrista`}
-          className="flex flex-row gap-2 cursor-pointer"
+          className="flex flex-row gap-2 cursor-pointer ml-2 ml-2"
           onClick={() => setVisibility(false)}
         >
           <Icon name="helpcircle" color="gray_black" />
-          <p className="font-bold text-sm text-gray_black">Tanya Avrista</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Tanya Avrista</p>
         </Link>
         <Link
           href={'https://shop.avrist.com/'}
           target="blank"
-          className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
+          className="flex flex-row gap-2 cursor-pointer ml-2"
           onClick={() => setVisibility(false)}
         >
           <Icon name="shoppingCart" color="gray_black" />
-          <p className="font-bold text-sm text-gray_black">Beli Online</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Beli Online</p>
         </Link>
         <a
           href={'https://my.avrist.com/welcome'}
           target="_blank"
-          className="flex flex-row gap-2 cursor-pointer"
+          className="flex flex-row gap-2 cursor-pointer ml-2"
           onClick={() => setVisibility(false)}
         >
           <Icon name="lightBulb" color="gray_black" />
-          <p className="font-bold text-sm text-gray_black">Avrist Solution</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Avrist Solution</p>
         </a>
         <div
-          className="flex flex-row gap-2 cursor-pointer border-l-2 pl-2"
+          className="flex flex-row gap-2 cursor-pointer ml-2"
           onClick={() => {
             setIsShowEmailSubs(true);
             setVisibility(false);
           }}
         >
           <Icon name="mail" color="gray_black" />
-          <p className="font-bold text-sm text-gray_black">Subscribe</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Subscribe</p>
         </div>
-        <Link
-          href={`/pencarian`}
-          className="flex flex-row gap-2 cursor-pointer"
-          onClick={() => setVisibility(false)}
-        >
-          <Icon name="search" color="gray_black" />
-          <p className="font-bold text-sm text-gray_black">Pencarian</p>
-        </Link>
       </div>
       <EmailSubscribeModal
         show={isShowEmailSubs}
