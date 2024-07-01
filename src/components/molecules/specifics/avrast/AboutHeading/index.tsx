@@ -43,12 +43,12 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
         <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px] xs:leading-[43.2px] sm:leading-[67.2px]">
           {headingText}
         </h1>
-        <p
-          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0 "
-          dangerouslySetInnerHTML={{
-            __html: !subHeadingText?.includes('>-<') ? subHeadingText : ''
-          }}
-        ></p>
+
+        <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0 ">
+          {subHeadingText?.includes('>-<')
+            ? ''
+            : htmlParser(subHeadingText ?? '')}
+        </p>
         <p className="text-[1.5rem] font-light text-justify">
           {htmlParser(description)}
         </p>
