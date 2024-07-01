@@ -108,14 +108,23 @@ const Header = () => {
                 src={VectorLogo}
                 alt="vector-logo"
               />
-              <p className="text-md font-bold text-black">Avrist Group</p>
-              <span
-                className={`transform transition-transform ${
-                  isDropdownHeaderVisible ? 'rotate-180' : ''
-                }`}
-              >
-                <Icon width={10} height={10} name="chevronDown" color="black" />
-              </span>
+              <div className="flex flex-row gap-1 items-center">
+                <p className="text-md font-bold text-black text-[14px] leading-[19.6px]">
+                  Avrist Group
+                </p>
+                <span
+                  className={`transform transition-transform ${
+                    isDropdownHeaderVisible ? 'rotate-180' : ''
+                  }`}
+                >
+                  <Icon
+                    width={12}
+                    height={12}
+                    name="chevronDown"
+                    color="black"
+                  />
+                </span>
+              </div>
 
               <Menu.Items
                 className={`shadow-lg z-[99] rounded-md bg-white flex flex-col p-4 gap-4 w-[150%] h-auto absolute top-full left-0 text-start`}
@@ -151,13 +160,13 @@ const Header = () => {
           </div>
         </Menu>
 
-        <div className="flex flex-row justify-between gap-4 md:divide-x-2  justify-center items-center">
+        <div className="flex flex-row justify-between gap-4 md:divide-x-2 justify-center items-center">
           <Link
             href={`/tanya-avrista`}
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden"
           >
             <Icon name="helpcircle" color="gray_black" />
-            <p className="font-bold text-sm">Tanya Avrista</p>
+            <p className="font-bold text-sm leading-[19.6px]">Tanya Avrista</p>
           </Link>
           <Link
             href={'https://shop.avrist.com/'}
@@ -165,7 +174,7 @@ const Header = () => {
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="shoppingCart" color="gray_black" />
-            <p className="font-bold text-sm">Beli Online</p>
+            <p className="font-bold text-sm leading-[19.6px]">Beli Online</p>
           </Link>
           <a
             href={'https://my.avrist.com/welcome'}
@@ -173,14 +182,14 @@ const Header = () => {
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="lightBulb" color="gray_black" />
-            <p className="font-bold text-sm">Avrist Solution</p>
+            <p className="font-bold text-sm leading-[19.6px]">Avrist Solution</p>
           </a>
           <div
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
             onClick={() => setIsShowEmailSubs(true)}
           >
             <Icon name="mail" color="gray_black" />
-            <p className="font-bold text-sm">Subscribe</p>
+            <p className="font-bold text-sm leading-[19.6px]">Subscribe</p>
           </div>
           <div className="flex flex-row gap-2 cursor-pointer pl-3">
             <Link href={`/pencarian`}>
@@ -197,14 +206,14 @@ const Header = () => {
           <ul className="md:flex gap-[2.5rem] items-center hidden">
             <Link href={`/`}>
               <Button.IconButton>
-                <Icon name="homeIcon" color="white" width={20} isSquare />
+                <Icon name="homeIcon" color="white" width={24} isSquare />
               </Button.IconButton>
             </Link>
             {menus.map((item, idx) => {
               return (
                 <React.Fragment key={item.title}>
                   <li
-                    className={`font-opensans cursor-pointer relative font-semibold leading-6 ${styles['nav-list-item']}`}
+                    className={`font-opensans cursor-pointer relative font-semibold leading-[23.8px] ${styles['nav-list-item']}`}
                     ref={(el) => (listRef.current[idx] = el)}
                   >
                     {item.title}{' '}

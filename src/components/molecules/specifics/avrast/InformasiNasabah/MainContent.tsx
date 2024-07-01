@@ -6,7 +6,7 @@ export const MainContent = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col gap-6">
-        <div className="bg-white flex flex-col sm:pt-[5rem] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
+        <div className="bg-white flex flex-col sm:pt-[100px] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[26px]">
           <ButtonMenu
             buttonList={[
               'Informasi Nasabah',
