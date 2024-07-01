@@ -99,12 +99,12 @@ const NavCard: React.FC<NavCardProps> = ({
               </div>
             ) : null}
 
-            <div className="flex flex-col gap-6">
-              <h2 className="text-[2rem] font-bold text-gray_title font-karla">
+            <div className="flex flex-col gap-[2.25rem]">
+              <h2 className="text-[2rem] font-bold text-gray_title font-karla leading-[2.4rem] -tracking-[0.96px]">
                 {val.title}
               </h2>
               <div
-                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-6 w-full cursor-pointer`}
+                className={`${val.title === '' && 'mt-10'} flex flex-col justify-between gap-[2.25rem] w-full cursor-pointer`}
               >
                 {val?.subMenus?.map((item, index) =>
                   item?.listMenu ? (
@@ -119,7 +119,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           }
                         }}
                       >
-                        <div className="flex flex-row gap-4 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans">
+                        <div className="flex flex-row gap-3 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans leading-[28px]">
                           <Image
                             className="w-[2.25rem] h-[2.25rem]"
                             src={ICON_MAPPING[indexData][item.icon]}
@@ -128,16 +128,17 @@ const NavCard: React.FC<NavCardProps> = ({
                           {item.title}
                         </div>
                         <span
-                          className={`mt-[3px] mr-1 ${openedMenus === item.title && 'rotate-180 '}`}
+                          className={`mt-[3px] flex items-center justify-center mr-1 ${openedMenus === item.title && 'rotate-180 '}`}
                         >
                           <Icon
                             name="chevronDown"
                             color="purple_dark"
-                            width={12}
+                            width={16}
+                            height={16}
                           />
                         </span>
                       </div>
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-2 gap-5 ml-[48px]">
                         {openedMenus === item.title &&
                           item.listMenu.map((value, idx) => (
                             <Link
@@ -188,7 +189,7 @@ const NavCard: React.FC<NavCardProps> = ({
                           }, 700);
                         }}
                       >
-                        <div className="flex flex-row gap-4 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans">
+                        <div className="flex flex-row gap-3 items-center hover:text-purple_dark font-semibold text-[1.25rem] font-opensans leading-[28px]">
                           <Image
                             className="w-[2.25rem] h-[2.25rem]"
                             src={ICON_MAPPING[indexData][item.icon]}
@@ -197,7 +198,12 @@ const NavCard: React.FC<NavCardProps> = ({
                           {item.title}
                         </div>
                         <span className="mt-[3px]">
-                          <Icon name="chevronRight" color="purple_dark" />
+                          <Icon
+                            name="chevronRight"
+                            color="purple_dark"
+                            width={24}
+                            height={24}
+                          />
                         </span>
                       </Link>
                     </React.Fragment>

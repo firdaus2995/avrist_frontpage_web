@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     fontFamily: {
       opensans: 'var(--font-source-sans)',
+      opensanspro: 'var(--font-source-sans-pro)',
       karla: 'var(--font-karla)'
     },
     screens: {
