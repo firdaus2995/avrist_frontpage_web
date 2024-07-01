@@ -149,7 +149,7 @@ const DPLKProductList = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-[1.5rem]">
+      <div className="flex flex-col gap-[1.5rem] sm:-mt-[2.5rem]">
         <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
           {paginatedData.map((i, index) => {
             return (

@@ -21,9 +21,9 @@ import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
-import HelpCard from '@/components/molecules/specifics/avrast/Cards/HelpCard';
 
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
+import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -283,19 +283,19 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
       </div>
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-gray_bglightgray" />
-      <HelpCard
+      <FooterInformation
+        bgColor="bg-syariah_green_informing"
+        outerClassName="bg-white"
+        buttonVariant="syariah"
         title={
-          <p className="text-[2.25rem] sm:text-[3.5rem] text-white">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>
         }
-        cardClassname="bg-syariah_green_informing"
-        buttonClassname="bg-white border border-white"
-        buttonTextClassname="text-syariah_green_informing"
         buttonTitle="Tanya Avrista"
         image={footerImage.imageUrl}
-        href="/tanya-avrista"
+        href={'/tanya-avrista'}
       />
       <RoundedFrameTop
         bgColor="xs:bg-white md:bg-purple_superlight"

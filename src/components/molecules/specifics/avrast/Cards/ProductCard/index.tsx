@@ -43,7 +43,7 @@ const CardProduct = ({
         width={100}
         height={172}
         src={imageProduk || BlankImage}
-        className="w-full h-[172px] rounded-[10px]"
+        className="w-full h-min-[172px] rounded-[10px]"
       />
       <div className="flex flex-col gap-[0.75rem]">
         <div className="flex flex-row items-center gap-[8px]">

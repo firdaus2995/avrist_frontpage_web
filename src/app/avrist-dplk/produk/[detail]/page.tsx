@@ -15,6 +15,7 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
@@ -332,7 +333,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
           />
-          <SimpleContainer>
+          <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem]">
             <AboutHeading
               categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
               categoriesName="DPLK Avrist"
@@ -344,9 +345,9 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-dplk_yellow"
             />
-            <div className="flex justify-center w-full xs:h-[250px] md:h-[650px] xs:mb-[1.5rem] xs:-mt-12 md:mt-0">
+            <div className="flex justify-center w-full h-full xs:my-[1.5rem] sm:my-[4rem]">
               {/* <Image src={PlaceholderVideo} alt="video" /> */}
-              <div className="w-[1120px]">
+              <div className="w-[1120px] h-full">
                 <VideoPlayer
                   color="dplk_yellow"
                   type={dataDetail?.captionVideoProduk}
@@ -355,7 +356,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 />
               </div>
             </div>
-            <div>
+            <div className="xs:mt-0 sm:mt-[3.75rem]">
               <CategorySideBySideSixCards
                 leftSide={[
                   {
@@ -399,7 +400,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 buttonClassname="border-dplk_yellow text-dplk_yellow"
               />
             </div>
-          </SimpleContainer>
+          </CustomContainer>
           <SimpleContainer bgColor="yellow_light !py-[5rem]">
             {dataForm && (
               <CustomForm

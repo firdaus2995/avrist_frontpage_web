@@ -14,7 +14,7 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import ButtonSelection from '@/components/molecules/specifics/avrast/ButtonSelection';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -113,9 +113,9 @@ const ProdukSyariah = () => {
     : 0;
 
   const handleSelectedChannels = (value: any) => {
-    if (selectedChannels === value){
+    if (selectedChannels === value) {
       setSelectedChannels('');
-    }else{
+    } else {
       setSelectedChannels(value);
     }
   };
@@ -139,7 +139,7 @@ const ProdukSyariah = () => {
         imageUrl={titleImage.imageUrl}
         bottomImage={banner.imageUrl}
       />
-      <SimpleContainer>
+      <CustomContainer className="mt-[2.25rem] sm:mt-[5rem] flex flex-col gap-[3.125rem] sm:gap-[4rem]">
         <CategoryPills
           buttonTitle={[
             'Tentang Avrist Syariah',
@@ -266,14 +266,14 @@ const ProdukSyariah = () => {
             </div>
           </div>
         </div>
-      </SimpleContainer>
+      </CustomContainer>
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
       <FooterInformation
         bgColor="bg-syariah_green_informing"
         outerClassName="bg-white"
         buttonVariant="syariah"
         title={
-          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>
@@ -282,9 +282,12 @@ const ProdukSyariah = () => {
         image={footer.imageUrl}
         href={'/tanya-avrista'}
       />
-      <RoundedFrameTop bgColor="bg-purple_superlight" frameColor="bg-white" />
+      <RoundedFrameTop
+        bgColor="xs:bg-white sm:bg-purple_superlight"
+        frameColor="bg-white"
+      />
       <FooterCards
-        bgColor="bg-purple_superlight"
+        bgColor="xs:bg-white sm:bg-purple_superlight"
         cards={[
           {
             title: 'Rumah Sakit Rekanan',

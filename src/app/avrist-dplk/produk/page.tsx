@@ -31,7 +31,7 @@ const ProdukDplk = async () => {
         title="Program DPLK"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Program DPLK DPLK', href: '#' }
+          { title: 'Program DPLK', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}

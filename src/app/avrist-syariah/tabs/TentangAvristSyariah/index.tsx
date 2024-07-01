@@ -41,7 +41,7 @@ const TentangAvristSyariah = (props: Props) => {
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
-        headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
+        headingClassname="text-black py-[3.125rem] sm:pt-[4rem] !sm:pt-[4rem] !-mb-[1.5rem]"
       />
       <div className="xs:mb-[2.25rem] sm:mb-[4.125rem]">
         <InformationCard
@@ -71,6 +71,7 @@ const TentangAvristSyariah = (props: Props) => {
       <div className="flex mx-[-2rem] mb-[-3.125rem] sm:mx-[-8.5rem] sm:mb-[-4.5rem] px-[2rem] sm:px-[8.5rem] bg-gray_bglightgray">
         <InformationCard
           heading="Mengapa Avrist Syariah?"
+          cardContainerClassName="!gap-y-[1.5rem]"
           cards={[
             {
               cardIcon: GreenBinocular,
