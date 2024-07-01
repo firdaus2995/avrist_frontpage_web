@@ -45,6 +45,7 @@ const mockData = [
 
 export const ContentCard = () => {
   const sliderRef = useRef<Slider | null>(null);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const next = () => {
     if (sliderRef.current) {
@@ -59,10 +60,10 @@ export const ContentCard = () => {
   const sliderSettings = {
     dots: false,
     infinite: false,
-    arrows: false,
     speed: 500,
-    slidesToShow: 1.1,
-    slidesToScroll: 1
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true
   };
 
   return (
@@ -78,7 +79,7 @@ export const ContentCard = () => {
               src={i.icon}
               className="w-[6.25rem] h-[6.25rem]"
             />
-            <p className="text-center font-bold text-[2rem] font-karla">
+            <p className="text-center font-bold text-[2rem] font-karla line-clamp-3">
               {i.title}
             </p>
             <div className="flex flex-col justify-end grow items-center gap-[1.5rem]">
@@ -94,20 +95,18 @@ export const ContentCard = () => {
           </div>
         ))}
       </div>
-      <div className="w-full flex flex-col md:hidden gap-[1rem]">
+      <div className="w-full flex flex-col md:hidden mx-4 gap-5 ml-5">
         <Slider
           ref={(slider) => {
             sliderRef.current = slider;
           }}
+          beforeChange={(_, next) => setCurrentSlide(next)}
           {...sliderSettings}
-          className="flex"
+          className="flex w-full"
         >
           {mockData.map((i) => (
-            <div
-              key={i.id}
-              className="mt-[2.25rem] flex p-2 items-center justify-center grow"
-            >
-              <div className="flex w-full min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
+            <div key={i.id} className="flex gap-4">
+              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
                 <Image
                   alt={i.toString()}
                   src={i.icon}
@@ -116,7 +115,7 @@ export const ContentCard = () => {
                 <p className="text-center font-bold text-[2rem] font-karla">
                   {i.title}
                 </p>
-                <div className="flex flex-col justify-end grow items-center gap-[1.5rem] self-end">
+                <div className="flex flex-col justify-end grow items-center gap-[1.5rem] self-center">
                   <p className="font-opensans text-[1rem] text-center">
                     {i.desc}
                   </p>
@@ -132,9 +131,25 @@ export const ContentCard = () => {
             </div>
           ))}
         </Slider>
-        <div className="flex flex-row justify-between mx-[1.25rem]">
-          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
-          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+        <div className="flex flex-row justify-between md:mx-[1.25rem] xs:mt-[36px] md:mt-0">
+          <Image
+            className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+            alt="prev"
+            src={ARROW_LEFT}
+            role="button"
+            onClick={previous}
+          />
+          <Image
+            className={
+              currentSlide === mockData.length - 1
+                ? 'opacity-50'
+                : 'opacity-100'
+            }
+            alt="next"
+            src={ARROW_RIGHT}
+            role="button"
+            onClick={next}
+          />
         </div>
       </div>
     </div>
