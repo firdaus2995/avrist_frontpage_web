@@ -120,7 +120,7 @@
                 "customUrl": "/avrist-dplk"
               },
               {
-                "title": "Manfaat Utama",
+                "title": "Manfaat DPLK",
                 "icon": 1,
                 "customUrl": "/avrist-dplk"
               },
@@ -135,7 +135,7 @@
             "title": "",
             "subMenus": [
               {
-                "title": "Produk",
+                "title": "Program DPLK",
                 "icon": 3,
                 "customUrl": "/avrist-dplk/produk",
                 "skipParams": true

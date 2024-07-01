@@ -16,6 +16,7 @@ interface InformationCardProps {
   subHeading?: string;
   cards: Card[];
   cardClassname?: string;
+  cardContainerClassName?: string;
   cardButtonClassname?: string;
   cardButtonTextClassname?: string;
   idTags?: string;
@@ -28,13 +29,11 @@ const InformationCard: React.FC<InformationCardProps> = ({
   cardClassname,
   cardButtonClassname,
   cardButtonTextClassname,
+  cardContainerClassName,
   idTags
 }) => (
-  <div
-    className="flex flex-col font-karla xs:pt-[2.25rem] md:pt-[5rem] pb-[0.875rem] mx-auto xs:gap-[1.5rem] md:gap-[5rem]"
-    id={idTags}
-  >
-    <div className="sm:text-center text-center">
+  <div className="flex flex-col font-karla pb-[0.875rem] mx-auto" id={idTags}>
+    <div className="sm:text-center text-center py-[5rem]">
       <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
         {heading}
       </p>
@@ -42,11 +41,13 @@ const InformationCard: React.FC<InformationCardProps> = ({
         <p className="xs:text-[1.5rem] md:text-[2.25rem]">{subHeading}</p>
       )}
     </div>
-    <div className="grid sm:grid-cols-3 xs:grid-cols-1 justify-center items-center gap-[1.5rem]">
+    <div
+      className={`grid sm:grid-cols-3 xs:grid-cols-1 justify-center items-center gap-x-[1.5rem] xs:gap-y-[1.5rem] sm:gap-y-[4rem] ${cardContainerClassName}`}
+    >
       {cards.map((item, index) => (
         <div
           key={index}
-          className={`${cardClassname} flex flex-col justify-between w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white`}
+          className={`${cardClassname} flex flex-col justify-between w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white px-[1.5rem]`}
         >
           <div className="flex w-full justify-center my-[1.5rem]">
             <Image
@@ -54,12 +55,12 @@ const InformationCard: React.FC<InformationCardProps> = ({
               width={100}
               height={100}
               src={item.cardIcon}
-              className="w-auto"
+              className="w-[6.25rem] h-[6.25rem]"
             />
           </div>
           <div className="text-center mb-[1.75rem] mx-[1.5rem] flex flex-col gap-[0.75rem]">
             {item.cardTitle && (
-              <p className="text-[2rem] font-bold font-karla">
+              <p className="text-[2rem] font-bold font-karla leading-[38.4px]">
                 {item.cardTitle}
               </p>
             )}
@@ -70,10 +71,10 @@ const InformationCard: React.FC<InformationCardProps> = ({
           </div>
           <div className="text-center">
             {item.cardButtonText && (
-              <div className="h-full mt-[1.5rem] mb-[1.75rem] px-[3.542rem]">
+              <div className="h-full mt-[1.5rem] mb-[2.25rem] px-[3.542rem] font-opensans">
                 {item.isFile ? (
                   <button
-                    className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
+                    className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px]`}
                     onClick={() => {
                       window.open(item.href, '_blank');
                     }}
@@ -87,7 +88,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
                 ) : (
                   <Link href={item.href ?? '#'}>
                     <button
-                      className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px] w-3/4`}
+                      className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px]`}
                     >
                       <p
                         className={`${cardButtonTextClassname} font-semibold text-[16px]`}

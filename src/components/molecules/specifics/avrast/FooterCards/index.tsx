@@ -56,10 +56,10 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden font-opensanspro">
       {/* Desktop */}
       <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
-        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] pt-[0.875rem] h-full">
+        <div className="flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] pt-[0.375rem] h-full">
           {cards.map((item, index) => {
             const href =
               item?.hrefType === 'phone'
@@ -77,7 +77,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       : href ?? '#'
                 }
                 target={item.openInNewTab ? '_blank' : '_self'}
-                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[24px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
+                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[24px] rounded-[12px] flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
                   alt={index.toString()}

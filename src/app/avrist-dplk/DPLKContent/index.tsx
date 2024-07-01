@@ -18,8 +18,8 @@ type Props = {
 const tabs = [
   'Tentang DPLK Avrist',
   'Dewan Pengawas DPLK',
-  'Manfaat Utama',
-  'Produk',
+  'Manfaat DPLK',
+  'Program DPLK',
   'Klaim dan Layanan'
 ];
 
@@ -52,7 +52,7 @@ const DPLKContent = (props: Props) => {
 
   const handleTabClick = (tabs: string) => {
     setTab(tabs);
-    if (tabs === 'Produk') {
+    if (tabs === 'Program DPLK') {
       router.push(`${pathname}/produk`);
     } else if (tabs === 'Klaim dan Layanan') {
       router.push(`${pathname}/klaim-layanan`);
@@ -87,7 +87,7 @@ const DPLKContent = (props: Props) => {
   }, [tab, tabs]);
 
   return (
-    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:my-[5rem] gap-[3.125rem] sm:gap-[5rem]">
+    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">
       <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
         {tabs.map((val, idx) => (
           <LinkScroll
@@ -149,7 +149,7 @@ const DPLKContent = (props: Props) => {
           pengurus={pengurus}
         />
       )}
-      {tab === 'Manfaat Utama' && (
+      {tab === 'Manfaat DPLK' && (
         <ManfaatUtama
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}

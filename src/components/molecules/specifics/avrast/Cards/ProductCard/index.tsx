@@ -45,19 +45,25 @@ const CardProduct = ({
         src={imageProduk || BlankImage}
         className="w-full h-[172px] rounded-[10px]"
       />
-      <div className="flex flex-row items-center gap-[8px]">
-        <Image width={24} height={24} alt="symbol" src={symbol} />
-        <p className={`${cardTitleClassname} font-bold text-sm font-opensans`}>
-          {title}
+      <div className="flex flex-col gap-[0.75rem]">
+        <div className="flex flex-row items-center gap-[8px]">
+          <Image width={24} height={24} alt="symbol" src={symbol} />
+          <p
+            className={`${cardTitleClassname} font-bold text-sm font-opensans`}
+          >
+            {title}
+          </p>
+        </div>
+        <p className="text-[32px] font-bold leading-[38.4px] xs:-tracking-[1.44px] sm:-tracking-[2.56px] font-karla">
+          {summary}
         </p>
+        <span>
+          <p
+            className="line-clamp-3 font-opensans"
+            dangerouslySetInnerHTML={{ __html: description ?? '' }}
+          />
+        </span>
       </div>
-      <p className="text-[32px] font-bold">{summary}</p>
-      <span>
-        <p
-          className="line-clamp-3"
-          dangerouslySetInnerHTML={{ __html: description ?? '' }}
-        />
-      </span>
 
       <div className="flex flex-row flex-wrap gap-[12px]">
         {tags &&
@@ -71,13 +77,13 @@ const CardProduct = ({
               onClick={() => {
                 onClickTags ? onClickTags(item) : null;
               }}
-              className={`${cardTagsClassname} px-2 py-1 rounded-sm text-sm font-semibold`}
+              className={`${cardTagsClassname} px-2 py-1 rounded-[2px] text-sm font-semibold`}
             >
               <p>{item}</p>
             </Link>
           ))}
       </div>
-      <div className="h-full flex items-end">
+      <div className="h-full flex items-end font-opensanspro">
         {href ? (
           <Link href={href} className="w-full">
             <button
