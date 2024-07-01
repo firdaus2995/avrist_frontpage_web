@@ -12,7 +12,7 @@ const ArticleContainer = ({
 }: Props) => {
   return (
     <div
-      className={`flex justify-center max-w-screen-2xl flex-${direction} mx-auto ${className}`}
+      className={`flex justify-center flex-${direction} mx-auto ${className}`}
     >
       {children}
     </div>

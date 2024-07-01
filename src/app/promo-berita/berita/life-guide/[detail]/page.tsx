@@ -401,9 +401,10 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           }
           image={data?.footerImage ?? BlankImage}
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       </div>
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Hubungi Kami',
