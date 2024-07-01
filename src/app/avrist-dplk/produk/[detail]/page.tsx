@@ -15,6 +15,7 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
@@ -332,7 +333,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
           />
-          <SimpleContainer>
+          <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem]">
             <AboutHeading
               categoriesIcon={dataDetail?.kategoriProdukIcon.imageUrl}
               categoriesName="DPLK Avrist"
@@ -344,16 +345,18 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-dplk_yellow"
             />
-            <div className="flex justify-center w-full xs:h-[250px] md:h-[650px] xs:mb-[1.5rem] xs:-mt-12 md:mt-0">
+            <div className="flex justify-center w-full h-full xs:my-[1.5rem] sm:my-[4rem]">
               {/* <Image src={PlaceholderVideo} alt="video" /> */}
-              <VideoPlayer
-                color="dplk_yellow"
-                type={dataDetail?.captionVideoProduk}
-                url={dataDetail?.videoProduk}
-                mute={true}
-              />
+              <div className="w-[1120px] h-full">
+                <VideoPlayer
+                  color="dplk_yellow"
+                  type={dataDetail?.captionVideoProduk}
+                  url={dataDetail?.videoProduk}
+                  mute={true}
+                />
+              </div>
             </div>
-            <div>
+            <div className="xs:mt-0 sm:mt-[3.75rem]">
               <CategorySideBySideSixCards
                 leftSide={[
                   {
@@ -397,8 +400,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 buttonClassname="border-dplk_yellow text-dplk_yellow"
               />
             </div>
-          </SimpleContainer>
-          <SimpleContainer bgColor="yellow_light">
+          </CustomContainer>
+          <SimpleContainer bgColor="yellow_light !py-[5rem]">
             {dataForm && (
               <CustomForm
                 title="Saya tertarik program DPLK"
@@ -408,9 +411,9 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 resultData={receiveData}
               />
             )}
-            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-24 border-x border-x-gray_light">
-              <div className="accent-dplk_yellow flex flex-col items-center gap-[12px] h-full">
-                <div className="flex flex-row gap-4">
+            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-28 border-x border-x-gray_light">
+              <div className="accent-dplk_yellow flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
+                <div className="flex flex-row gap-[12px] font-opensans">
                   <input
                     type="checkbox"
                     checked={isChecked}
@@ -442,7 +445,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       type="submit"
                       disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => onSubmitData()}
-                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
                     >
                       Beli Sekarang
                     </button>
@@ -486,7 +489,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             outerClassName="bg-white"
             buttonVariant="dplk"
             title={
-              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
                 <span className="font-bold">Hello,</span> Ada yang bisa{' '}
                 <span className="font-bold">Avrista</span> bantu?
               </p>

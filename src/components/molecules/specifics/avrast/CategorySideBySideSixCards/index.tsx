@@ -37,7 +37,7 @@ const CategorySideBySideSixCards = ({
     const isUnordered = description.includes('<ul>');
     const defaultClassName = isRightSide
       ? 'text-sm font-opensans'
-      : 'text-2xl font-light font-karla';
+      : 'xs:text-xl sm:text-2xl font-light font-karla';
 
     if (isOrdered) {
       return (
@@ -96,7 +96,7 @@ const CategorySideBySideSixCards = ({
                 if (item.description === '<p>-</p>') return null;
                 return (
                   <React.Fragment key={index}>
-                    <div className="flex flex-col gap-[18px]">
+                    <div className="flex flex-col gap-[24px]">
                       <div className="flex flex-row items-center gap-[12px]">
                         <Image
                           width={36}

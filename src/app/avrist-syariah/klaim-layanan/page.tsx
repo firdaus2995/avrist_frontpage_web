@@ -9,7 +9,7 @@ import MESSAGE from '@/assets/images/common/message.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
@@ -64,7 +64,7 @@ const ProdukSyariah = () => {
         bottomImage={transformedData.bannerImage}
       />
 
-      <SimpleContainer>
+      <CustomContainer className="xs:mt-[3.125rem] mt-[5rem]">
         <CategoryPills
           buttonTitle={[
             'Tentang Avrist Syariah',
@@ -89,14 +89,14 @@ const ProdukSyariah = () => {
         />
         {/* isi klaim & layanan */}
         <KlaimDanLayanan />
-      </SimpleContainer>
+      </CustomContainer>
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
       <FooterInformation
         bgColor="bg-syariah_green_informing"
         outerClassName="bg-white"
         buttonVariant="syariah"
         title={
-          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>

@@ -31,7 +31,7 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
 }) => (
   <div className="flex flex-col flex-nowrap" id={idTags}>
     <div>
-      <div className="flex flex-row items-center gap-[0.75rem] font-karla">
+      <div className="flex flex-row items-center gap-[0.5rem] font-karla">
         {categoriesIcon && (
           <Image width={36} height={36} alt="symbol" src={categoriesIcon} />
         )}
@@ -39,13 +39,15 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
           {categoriesName}
         </p>
       </div>
-      <div className="font-karla my-[0.75rem]">
-        <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+      <div className="font-karla mt-[0.5rem] mb-[0.75rem]">
+        <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px] xs:leading-[43.2px] sm:leading-[67.2px]">
           {headingText}
         </h1>
         <p
           className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0 "
-          dangerouslySetInnerHTML={{ __html: subHeadingText ?? '' }}
+          dangerouslySetInnerHTML={{
+            __html: !subHeadingText?.includes('>-<') ? subHeadingText : ''
+          }}
         ></p>
         <p className="text-[1.5rem] font-light text-justify">
           {htmlParser(description)}

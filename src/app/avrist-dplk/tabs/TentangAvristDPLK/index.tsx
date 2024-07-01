@@ -63,13 +63,13 @@ const TentangAvristDPLK = (props: Props) => {
           cards={personsCardGenerator(pengawas)}
           roleClassname="text-dplk_yellow"
           idTags="#DewanPengawasDPLK"
-          headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
+          headingClassname="text-black py-[3.125rem] sm:pt-[4rem] !sm:pt-[4rem] !-mb-[1.5rem]"
         />
         <PersonCard
           heading="Pengurus DPLK PT Avrist Assurance"
           cards={personsCardGenerator(pengurus)}
           roleClassname="text-dplk_yellow"
-          headingClassname="text-black py-[3.125rem] sm:py-[5rem] !mb-0"
+          headingClassname="text-black py-[3.125rem] sm:pt-[4rem] !-mb-[1.5rem]"
         />
       </div>
 
@@ -86,19 +86,20 @@ const TentangAvristDPLK = (props: Props) => {
             {
               cardIcon: YellowHead,
               cardTitle: 'Consultative Approach',
-              cardBody: `Kami memiliki tim ahli yang:
-              <div class="w-full">
-                <p><span class="font-bold">1.</span> Memiliki Pengetahuan Cukup</p>
-                <p><span class="font-bold">2.</span> Memiliki Pengalaman Cukup</p>
-                <p><span class="font-bold">3.</span> Professional dan Berintegritas</p>
-              </div>
+              cardBody: `<ul class="w-full list-disc list-outside text-justify pl-4">
+                <li>Memiliki tim yang memiliki pengetahuan & keahlian serta pengalaman dalam memberikan rancangan program pensiun dan implementasi program pensiun;</li>
+                <li>Seperti memiliki konsultan selama menjadi nasabah DPLK Avrist</li>
+              </ul>
               `
             },
             {
               cardIcon: YellowPeople,
               cardTitle: 'Flexible',
-              cardBody:
-                'Fleksibilitas kami untuk pemilihan atau penempatan investasi yang tidak dibatasi. Fleksibilitas juga untuk program pensiun yang dijalankan.'
+              cardBody: `<ul class="w-full list-disc list-outside text-justify pl-4">
+                <li>Fleksibilitas dalam menentukan dan menjalankan program pensiun dengan Layanan dan fasilitas yang tersedia</li>
+                <li>Fleksibilitas untuk memilih investasi dan mengubahnya dari waktu waktu</li>
+              </ul>
+              `
             },
             {
               cardIcon: YellowBinocular,

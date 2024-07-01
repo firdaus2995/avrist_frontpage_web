@@ -156,7 +156,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
     return (
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[36px] border border-gray_light '} border-b-8 rounded-xl`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[36px] border border-gray_light '} border-b-8 rounded-[12px]`}
       >
         <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] p-4">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
@@ -472,7 +472,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             className={`grid xs:grid-cols-1 ${type === 'Karir' ? 'gap-[0.25rem] sm:gap-[1rem]' : 'sm:grid-cols-2 gap-[2rem]'} p-4`}
           >
             <div
-              className={`flex flex-col gap-[0.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+              className={`flex flex-col gap-[2.25rem] font-opensans ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
               {leftSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">
@@ -560,7 +560,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
               ))}
             </div>
             <div
-              className={`flex flex-col gap-[0.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+              className={`flex flex-col gap-[2.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
               {rightSide?.map((attribute: Attribute) => {
                 return (

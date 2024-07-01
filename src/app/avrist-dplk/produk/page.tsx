@@ -28,10 +28,10 @@ const ProdukDplk = async () => {
   return (
     <Suspense fallback={null}>
       <Hero
-        title="Produk DPLK"
+        title="Program DPLK"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Produk DPLK', href: '#' }
+          { title: 'Program DPLK', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
         imageUrl={titleImage.imageUrl}
@@ -43,7 +43,7 @@ const ProdukDplk = async () => {
         outerClassName="bg-white"
         buttonVariant="dplk"
         title={
-          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white md:text-black font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+          <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white md:text-black font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
             <span className="font-bold">Hello,</span> Ada yang bisa{' '}
             <span className="font-bold">Avrista</span> bantu?
           </p>
@@ -52,8 +52,12 @@ const ProdukDplk = async () => {
         image={cta1Image.imageUrl}
         href={'/tanya-avrista'}
       />
-      <RoundedFrameTop bgColor="bg-white" frameColor="bg-white" />
+      <RoundedFrameTop
+        bgColor="xs:bg-white md:bg-purple_superlight"
+        frameColor="bg-white"
+      />
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Rumah Sakit Rekanan',

@@ -32,7 +32,7 @@ const CategoryPillsBox: React.FC<CategoryPillsBoxProps> = ({
       {buttonTitle.map((item, index) => (
         <div
           key={index}
-          className={`${buttonClassname} flex flex-row items-center whitespace-nowrap gap-[8px] px-[12px] py-[8px] rounded-[6px] border cursor-default`}
+          className={`${buttonClassname} flex flex-row items-center whitespace-nowrap gap-[8px] px-[12px] py-[8px] rounded-[6px] border cursor-default font-opensans font-semibold`}
         >
           <input
             id={item}

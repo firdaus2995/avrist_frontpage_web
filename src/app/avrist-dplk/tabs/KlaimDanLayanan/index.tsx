@@ -16,8 +16,8 @@ const KlaimDanLayanan = () => {
         buttonTitle={[
           'Tentang DPLK Avrist',
           'Dewan Pengawas DPLK',
-          'Manfaat Utama',
-          'Produk',
+          'Manfaat DPLK',
+          'Program DPLK',
           'Klaim & Layanan'
         ]}
         selectedCategory="Klaim & Layanan"
@@ -28,14 +28,15 @@ const KlaimDanLayanan = () => {
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
           'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
-          'Manfaat Utama': '/avrist-dplk/#ManfaatUtama',
-          Produk: '/avrist-dplk/produk',
+          'Manfaat DPLK': '/avrist-dplk/#ManfaatUtama',
+          'Program DPLK': '/avrist-dplk/produk',
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
       />
       <InformationCard
         heading="Pusat Informasi Layanan DPLK Avrist"
         subHeading="Informasi seputar panduan dan layanan DPLK Avrist Assurance"
+        cardContainerClassName="sm:gap-y-[1.5rem]"
         cards={[
           {
             cardIcon: YellowRecipt,

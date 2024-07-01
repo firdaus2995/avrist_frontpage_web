@@ -11,10 +11,11 @@ import InformationCard from '@/components/molecules/specifics/avrast/Cards/Infor
 
 const KlaimDanLayanan = () => {
   return (
-    <div className="xs:-my-[2.25rem] md:-my-[5rem]">
+    <div className="">
       <InformationCard
         heading="Layanan Avrist Total Solution"
         subHeading="Komitmen kami untuk mejaga kepercayaan Anda dengan pelayanan yang professional dan efisien"
+        cardContainerClassName="sm:gap-y-[1.5rem]"
         cards={[
           {
             cardIcon: GreenReceipt,

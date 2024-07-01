@@ -109,16 +109,16 @@ const DPLKProductList = () => {
   };
 
   return (
-    <div className="flex flex-col xs:gap-[3.125rem] md:gap-[5rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem]">
+    <div className="flex flex-col xs:gap-[3.125rem] md:gap-[4rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem]">
       <CategoryPills
         buttonTitle={[
           'Tentang DPLK Avrist',
           'Dewan Pengawas DPLK',
-          'Manfaat Utama',
-          'Produk',
+          'Manfaat DPLK',
+          'Program DPLK',
           'Klaim & Layanan'
         ]}
-        selectedCategory="Produk"
+        selectedCategory="Program DPLK"
         buttonActiveClassname="bg-dplk_yellow border-dplk_yellow"
         buttonInactiveClassname="bg-transparent border-dplk_yellow text-black hover:bg-dplk_yellow hover:border-dplk_yellow hover:text-white"
         buttonInactiveTextClassname="text-dplk_yellow hover:text-white"
@@ -126,8 +126,8 @@ const DPLKProductList = () => {
         links={{
           'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
           'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
-          'Manfaat Utama': '/avrist-dplk/#ManfaatUtama',
-          Produk: '/avrist-dplk/produk',
+          'Manfaat DPLK': '/avrist-dplk/#ManfaatUtama',
+          'Program DPLK': '/avrist-dplk/produk',
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
       />
@@ -149,71 +149,76 @@ const DPLKProductList = () => {
           />
         </div>
       </div>
-      <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] sm:-mt-[3.4rem]">
-        {paginatedData.map((i, index) => {
-          return (
-            <CardProduct
-              key={index}
-              imageProduk={i.produkImage.imageUrl}
-              symbol={i.kategoriProdukIcon.imageUrl}
-              title={'DPLK Avrist'}
-              summary={i.namaProduk}
-              href={`${pathname}/${i.id}`}
-              description={i.deskripsiSingkatProduk}
-              tags={i.tags.split(',')}
-              cardClassname="bg-white border-b-dplk_yellow"
-              cardTitleClassname="text-dplk_yellow"
-              cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-              cardButtonClassname="bg-dplk_yellow text-white"
-            />
-          );
-        })}
-      </div>
-      {dataContent?.length === 0 && (
-        <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
-          <Image src={Search} alt="search" />
-          <div className="flex flex-col gap-4">
-            <div className="w-[324px] text-center">
-              <p className="font-karla font-bold text-[24px]">Page Not Found</p>
-              <p className="font-opensans text-[16px] mt-[12px]">
-                Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
-                cari.
-              </p>
+      <div className="flex flex-col gap-[1.5rem] sm:-mt-[2.5rem]">
+        <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
+          {paginatedData.map((i, index) => {
+            return (
+              <CardProduct
+                key={index}
+                imageProduk={i.produkImage.imageUrl}
+                symbol={i.kategoriProdukIcon.imageUrl}
+                title={'DPLK Avrist'}
+                summary={i.namaProduk}
+                href={`${pathname}/${i.id}`}
+                description={i.deskripsiSingkatProduk}
+                tags={i.tags.split(',')}
+                cardClassname="bg-white border-b-dplk_yellow"
+                cardTitleClassname="text-dplk_yellow"
+                cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+                cardButtonClassname="bg-dplk_yellow text-white"
+              />
+            );
+          })}
+        </div>
+        {dataContent?.length === 0 && (
+          <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
+            <Image src={Search} alt="search" />
+            <div className="flex flex-col gap-4">
+              <div className="w-[324px] text-center">
+                <p className="font-karla font-bold text-[24px]">
+                  Page Not Found
+                </p>
+                <p className="font-opensans text-[16px] mt-[12px]">
+                  Coba sesuaikan pencarian Anda untuk menemukan apa yang Anda
+                  cari.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <div className="flex flex-col gap-4 sm:flex-row justify-between">
-        <div>
-          <p className="text-[20px]">
-            Menampilkan{' '}
-            <span className="font-bold text-purple_dark">
-              {dataContent?.length === 0 ? 0 : startIndex + 1}-
-              {Math.min(endIndex, dataContent ? dataContent.length : 0)}
-            </span>{' '}
-            dari <span className="font-bold">{dataContent?.length}</span> hasil
-          </p>
-        </div>
-        <div className="flex flex-row gap-[12px] items-center">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <div
-              key={page}
+        )}
+        <div className="flex flex-col gap-4 sm:flex-row justify-between font-opensans">
+          <div>
+            <p className="text-[20px]">
+              Menampilkan{' '}
+              <span className="font-bold text-purple_dark">
+                {dataContent?.length === 0 ? 0 : startIndex + 1}-
+                {Math.min(endIndex, dataContent ? dataContent.length : 0)}
+              </span>{' '}
+              dari <span className="font-bold">{dataContent?.length}</span>{' '}
+              hasil
+            </p>
+          </div>
+          <div className="flex flex-row gap-[12px] items-center">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <div
+                key={page}
+                role="button"
+                onClick={() => handlePageChange(page)}
+                className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
+                  currentPage === page ? 'text-purple_dark font-bold' : ''
+                }`}
+              >
+                {page}
+              </div>
+            ))}
+            <span
+              className="mt-[3px]"
               role="button"
-              onClick={() => handlePageChange(page)}
-              className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                currentPage === page ? 'text-purple_dark font-bold' : ''
-              }`}
+              onClick={() => handlePageChange(totalPages)}
             >
-              {page}
-            </div>
-          ))}
-          <span
-            className="mt-[3px]"
-            role="button"
-            onClick={() => handlePageChange(totalPages)}
-          >
-            <Icon name="chevronRight" color="purple_dark" />
-          </span>
+              <Icon name="chevronRight" color="purple_dark" />
+            </span>
+          </div>
         </div>
       </div>
     </div>

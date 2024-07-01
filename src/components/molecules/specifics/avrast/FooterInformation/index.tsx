@@ -30,7 +30,7 @@ const FooterInformation = ({
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 rounded-[24px] bg-white overflow-hidden">
         <div
-          className={`xs:px-[1.5rem] xs:pb-[2.25rem] xs:min-h-[212px] sm:h-auto flex flex-col gap-[24px] md:justify-center py-[2.25rem] md:pl-[3rem] md:pr-[2.25rem] xs:text-center md:text-start ${bgColor}`}
+          className={`xs:px-[1.5rem] xs:pb-[2.25rem] xs:min-h-[212px] sm:h-auto flex flex-col gap-[32px] md:justify-center py-[2.25rem] md:pl-[3rem] md:pr-[2.25rem] xs:text-center md:text-start ${bgColor}`}
         >
           <div>{title}</div>
           {buttonTitle && (
@@ -68,7 +68,7 @@ const FooterInformation = ({
                         : buttonVariant === 'syariah'
                           ? 'text-syariah_green bg-white !py-[0.75rem]'
                           : buttonVariant === 'dplk'
-                            ? 'text-dplk_yellow bg-white'
+                            ? 'text-dplk_yellow bg-white !py-[0.75rem]'
                             : ''
                   }`}
                 >

@@ -332,17 +332,19 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-syariah_green"
             />
-            <div className="flex justify-center w-full h-[12.625rem] md:h-[40.688rem]">
+            <div className="flex justify-center w-full h-full">
               {/* <Image src={PlaceholderVideo} alt="video" /> */}
-              <VideoPlayer
-                thumbnail=""
-                color="syariah_green"
-                type={dataDetail?.captionVideoProduk}
-                url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
-                mute={true}
-              />
+              <div className="w-[1120px]">
+                <VideoPlayer
+                  thumbnail=""
+                  color="syariah_green"
+                  type={dataDetail?.captionVideoProduk}
+                  url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
+                  mute={true}
+                />
+              </div>
             </div>
-            <div className="mt-[3.75rem]">
+            <div>
               <CategorySideBySideSixCards
                 leftSide={[
                   {
@@ -404,9 +406,9 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 title="Saya tertarik dengan produk ini"
               />
             )}
-            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-10 border-x border-x-gray_light">
-              <div className="accent-syariah_green flex flex-col items-center gap-[12px] h-full">
-                <div className="flex flex-row gap-4">
+            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-12 border-x border-x-gray_light">
+              <div className="accent-syariah_green flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
+                <div className="flex flex-row gap-[12px] font-opensans">
                   <input
                     type="checkbox"
                     checked={isChecked}
@@ -438,7 +440,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                       type="submit"
                       disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => handleSubmit()}
-                      className={`${formIsValid && isChecked ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem] font-opensans font-semibold`}
                     >
                       Beli Sekarang
                     </button>
@@ -484,7 +486,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             outerClassName="bg-white"
             buttonVariant="syariah"
             title={
-              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem]">
+              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
                 <span className="font-bold">Hello,</span> Ada yang bisa{' '}
                 <span className="font-bold">Avrista</span> bantu?
               </p>
