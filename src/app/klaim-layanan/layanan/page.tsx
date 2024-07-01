@@ -236,9 +236,9 @@ const InformationCustomer = () => {
       <FooterInformation
         title={
           <div
-            className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
+            className={`md:w-full xs:w-full pt-5 px-5 pb-[32px] flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="sm:text-[4rem] xs:text-[2.25rem] md:text-left xs:text-center">
+            <p className="-tracking-[2.24px] leading-[67.2px] font-light sm:text-[3.5rem] xs:text-[2.25rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}
@@ -246,10 +246,10 @@ const InformationCustomer = () => {
             </p>
             <Link
               href={'https://www.youtube.com/@avristian'}
-              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2 items-center"
+              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2 items-center"
             >
               Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" />
+              <Icon name="youtubeIcon" color="white" width={32} height={32} />
             </Link>
           </div>
         }
