@@ -176,9 +176,9 @@ export const VideoInformation = ({
         {item.type && (
           <div className="flex items-center justify-center">
             <div
-              className={`px-[24px] sm:py-[16px] xs:py-[24px] sm:mt-0 w-[95%] xs:text-[24px] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between h-auto`}
             >
-              <p className=" xs:-mt-3">{item.type}</p>
+              {item.type}
             </div>
           </div>
         )}

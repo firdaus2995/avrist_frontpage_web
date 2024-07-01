@@ -52,7 +52,7 @@ export const ContentList = ({
 
   return (
     <div className={`w-full flex flex-col justify-center relative`}>
-      <div className="w-full flex md:flex-row xs:flex-col">
+      <div className="w-full flex md:flex-row xs:flex-col mt-10">
         <div className="xs:hidden md:block">
           <div
             className={`flex flex-col bg-purple_light_bg rounded-[12px] w-[200px]`}
@@ -68,7 +68,7 @@ export const ContentList = ({
                     'rounded-bl-[12px]'
                   } ${
                     selectedCategory !== category && 'opacity-50'
-                  } border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-[18px]`}
+                  } border-l-8 border-l-purple_dark px-[24px] py-[12px] font-bold text-purple_dark text-[18px]`}
                   onClick={() => onSelectedCategory(category)}
                 >
                   {category}
@@ -78,7 +78,7 @@ export const ContentList = ({
           </div>
         </div>
 
-        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px]">
+        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px] -mt-10">
           <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
             {btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
           </div>
@@ -92,7 +92,7 @@ export const ContentList = ({
             <Icon name="chevronLeft" color="purple_dark" />
             Kembali
           </div>
-          <div className="flex flex-col gap-[1.5rem]">
+          <div className="flex flex-col gap-[0.75rem]">
             {/* list */}
             {listData?.map(
               (
