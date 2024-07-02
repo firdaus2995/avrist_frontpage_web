@@ -39,12 +39,7 @@ import {
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
-import {
-  handleDownload,
-  htmlParser,
-  isContentNotEmpty,
-  mergeAllData
-} from '@/utils/helpers';
+import { htmlParser, isContentNotEmpty, mergeAllData } from '@/utils/helpers';
 import {
   handleTransformedContent,
   pageTransformer,
@@ -776,7 +771,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const renderPage = () => {
     return (
-      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans">
         <div>
           <p className="text-[20px]/[28px] font-normal">
             Menampilkan{' '}
@@ -799,7 +794,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
         <ReactPaginate
           pageCount={pageCount}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={2}
           onPageChange={handlePageClick}
           nextLabel={<Icon name="chevronRight" color="purple_dark" />}
           previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
@@ -950,21 +945,23 @@ const Berita: React.FC<ParamsProps> = () => {
                                 }}
                               />
                             )}
-                            {isContentNotEmpty(
-                              item.deskripsi[0]?.value ?? '-'
-                            ) && (
-                              <p
-                                className="text-[16px] line-clamp-2"
-                                dangerouslySetInnerHTML={{
-                                  __html: item.deskripsi
-                                    ? item.deskripsi[0]?.value?.substring(
-                                        0,
-                                        250
-                                      ) + '...'
-                                    : '-'
-                                }}
-                              />
-                            )}
+                            {item &&
+                              item.deskripsi[0] &&
+                              isContentNotEmpty(
+                                item.deskripsi[0]?.value ?? '-'
+                              ) && (
+                                <p
+                                  className="text-[16px] line-clamp-2"
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.deskripsi
+                                      ? item.deskripsi[0]?.value?.substring(
+                                          0,
+                                          250
+                                        ) + '...'
+                                      : '-'
+                                  }}
+                                />
+                              )}
                           </div>
 
                           <div className="flex flex-row flex-wrap gap-[8px]">
@@ -1084,9 +1081,7 @@ const Berita: React.FC<ParamsProps> = () => {
                                 title="Unduh"
                                 customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
                                 customTextClass="text-white text-[16px]"
-                                onClick={async () =>
-                                  await handleDownload(item.file)
-                                }
+                                onClick={() => window.open(item.file, '_blank')}
                               />
                             </>
                           )}
@@ -1448,45 +1443,47 @@ const Berita: React.FC<ParamsProps> = () => {
               ]}
               customContent={
                 <>
-                  <div className="grid grid-cols-1 gap-2 w-full">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <div
-                        key={index}
-                        className="w-full p-6 border rounded-xl flex flex-col gap-3"
-                      >
-                        {isContentNotEmpty(item.judul) && (
-                          <p
-                            className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
-                            dangerouslySetInnerHTML={{
-                              __html: item.judul
-                            }}
-                          />
-                        )}
-                        {Array.isArray(item.arr) && item.arr.length > 0 && (
-                          <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
-                            <>
-                              {item.arr.length > 5 ? (
-                                <>
-                                  {item.isExpanded
-                                    ? item.arr
-                                    : item.arr.slice(0, 5)}
-                                  <button
-                                    className="text-purple_dark cursor-pointer"
-                                    onClick={() => toggleExpandedLink(index)}
-                                  >
-                                    {item.isExpanded ? 'Tutup ' : 'Lihat '} link
-                                    lainnya
-                                  </button>
-                                </>
-                              ) : (
-                                item.arr
-                              )}
-                            </>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  {contentData?.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-2 w-full">
+                      {paginatedData?.map((item: any, index: number) => (
+                        <div
+                          key={index}
+                          className="w-full p-6 border rounded-xl flex flex-col gap-3"
+                        >
+                          {isContentNotEmpty(item.judul) && (
+                            <p
+                              className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
+                              dangerouslySetInnerHTML={{
+                                __html: item.judul
+                              }}
+                            />
+                          )}
+                          {Array.isArray(item.arr) && item.arr.length > 0 && (
+                            <div className="font-opensans text-sm font-semibold flex gap-4 flex-wrap">
+                              <>
+                                {item.arr.length > 5 ? (
+                                  <>
+                                    {item.isExpanded
+                                      ? item.arr
+                                      : item.arr.slice(0, 5)}
+                                    <button
+                                      className="text-purple_dark cursor-pointer"
+                                      onClick={() => toggleExpandedLink(index)}
+                                    >
+                                      {item.isExpanded ? 'Tutup ' : 'Lihat '}{' '}
+                                      link lainnya
+                                    </button>
+                                  </>
+                                ) : (
+                                  item.arr
+                                )}
+                              </>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
 
                   {renderPage()}
                 </>
