@@ -19,10 +19,10 @@ const SearchTerm = ({
           <span />
           <div className="flex flex-col xs:justify-center sm:gap-1 xs:gap-[36px] xs:px-[36px] sm:px-0 sm:pb-0 xs:pb-[4rem]">
             <div>
-              <p className="font-karla text-xl lg:text-5xl font-extrabold text-white text-shadow-h1">
+              <p className="font-karla text-xl lg:text-5xl font-extrabold text-white text-shadow-h1 sm:leading-[57.6px] tracking-[0.03em]">
                 Halo, apa kabar?
               </p>
-              <p className="font-karla text-xl lg:text-5xl text-white text-shadow-h1">
+              <p className="font-karla text-xl lg:text-5xl text-white text-shadow-h1 sm:leading-[57.6px] tracking-[0.03em]">
                 Bagaimana Avrista bisa membantumu?
               </p>
             </div>

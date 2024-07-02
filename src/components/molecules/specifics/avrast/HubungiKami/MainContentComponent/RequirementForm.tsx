@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import CustomForm from '../../CustomForm/Index';
 import { SuccessModal } from '../../Modal';
@@ -69,10 +70,10 @@ export const RequirementForm = (props: Props) => {
     <div className="bg-purple_superlight">
       <div className="bg-white mx-auto border rounded-xl border-gray_light overflow-hidden">
         <div className="p-[2.25rem]">
-          <p className="font-karla font-bold text-[2.25rem] md:text-[3.5rem]">
+          <p className="font-karla font-bold text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.24px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Diskusikan kebutuhan Anda disini!
           </p>
-          <p className="mt-[1.5rem] md:mt-[2.25rem] font-opensans text-[0.875rem] md:text-[1rem]">
+          <p className="my-[1.5rem] md:my-[2.25rem] font-opensans text-[0.875rem] md:text-[1rem] leading-[23.68px]">
             isi data berikut dan Kami akan menghubungi Anda.
           </p>
           {dataForm && (
@@ -94,24 +95,27 @@ export const RequirementForm = (props: Props) => {
                 }}
               />
             </div>
-            <span className="ml-[0.75rem]">
+            <span className="ml-[0.75rem] leading-[23.68px]">
               Saya /kami telah membaca, memahami dan memberikan persetujuan
               saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
               menggunakan dan mengungkapkan data pribadi saya/kami sesuai dengan{' '}
-              <span className="font-bold text-purple_dark">
-                Deklarasi Privasi *
-              </span>
+              <Link
+                href={'/keamanan-online'}
+                className="font-bold text-purple_dark"
+              >
+                Kebijakan Keamanan *
+              </Link>
             </span>
           </div>
           {/* submit */}
-          <div className="mt-[1.5rem] md:mt-[2.25rem] flex flex-col md:flex-row md:justify-end md:items-center">
+          <div className="mt-[1.5rem] md:mt-[2.875rem] flex flex-col md:flex-row md:justify-end md:items-center">
             {/* <img src={CaptchaPicture} alt="captha" className="md:w-auto" /> */}
             {/* <Image alt="captcha" src={CaptchaPicture} className="md:w-auto" /> */}
             <button
               type="submit"
               disabled={formIsValid ? (isChecked ? false : true) : true}
               onClick={() => onSubmitData()}
-              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[2.75rem] md:h-[4rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0`}
+              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white px-[2.5rem] py-[0.75rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0 font-semibold text-xl`}
             >
               Kirim
             </button>

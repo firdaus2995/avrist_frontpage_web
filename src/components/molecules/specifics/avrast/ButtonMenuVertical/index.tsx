@@ -51,7 +51,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
             <div
               className={`w-[6px] h-[49px] bg-purple_dark ${isOpen ? 'rounded-tl-xl' : 'rounded-l-xl'}`}
             />
-            <p className={`text-md sm:text-[18px] font-bold text-purple_dark`}>
+            <p className={`font-opensanspro text-[18px] font-bold text-purple_dark leading-[25.2px]`}>
               {item[selected]?.title}
             </p>
           </div>

@@ -95,7 +95,7 @@ const CallMe = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="sm:text-[3.5rem] xs:text-[2.5rem] md:text-left xs:text-center">
+            <p className="lg:text-[56px] md:text-[48px] xs:text-[40px] font-karla sm:leading-[67.2px] xs:leading-[48px] -tracking-[2.24px] font-light">
               <span className="font-bold text-purple_dark">
                 Bijak Berasuransi.
               </span>{' '}
@@ -114,7 +114,6 @@ const CallMe = () => {
         image={footerImage.imageUrl}
       />
       <RoundedFrameTop />
-      <div className="flex w-full items-center justify-center bg-purple_superlight">
         <FooterCards
           bgColor="bg-purple_superlight"
           cards={[
@@ -145,7 +144,6 @@ const CallMe = () => {
             }
           ]}
         />
-      </div>
     </div>
   );
 };

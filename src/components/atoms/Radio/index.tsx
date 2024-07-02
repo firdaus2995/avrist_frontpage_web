@@ -9,16 +9,8 @@ interface IRadio {
 const Radio = ({ id, name, label, onChange, value }: IRadio) => {
   return (
     <div className="accent-purple_dark flex flex-row gap-[12px] font-opensans">
-      <input
-        name={name}
-        width={18}
-        height={18}
-        id={id}
-        type="radio"
-        onChange={onChange}
-        value={value}
-      />
-      <label htmlFor={id}>{label}</label>
+      <input name={name} width={18} height={18} id={id} type="radio" onChange={onChange} value={value}/>
+      <label className="leading-[23.68px]" htmlFor={id}>{label}</label>
     </div>
   );
 };

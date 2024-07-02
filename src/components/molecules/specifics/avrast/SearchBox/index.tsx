@@ -37,7 +37,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       className={`w-full flex md:flex-row flex-col items-stretch gap-[12px] py-3 font-opensans text-[16px] font-normal leading-[22.4px] ${customClassName}`}
     >
       <Input
-        customInputClass="grow !bg-gray_bglightgray !border-none py-[12px] px-[16px]"
+        customInputClass="font-karla focus:outline-none w-full px-[16px] py-[12px] rounded-[12px] bg-gray_title/[0.06]"
         placeholder={placeHolder}
         value={keyword}
         onChange={(ev) => setKeyword(ev.target.value)}

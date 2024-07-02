@@ -126,7 +126,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       />
       {type && (
         <div
-          className={`p-[1.5rem] w-full bg-${color} rounded-b-xl text-white font-bold xs:text-xl sm:text-2xl font-karla flex flex-row justify-between -tracking-[0.72px]`}
+          className={`p-[1.5rem] w-full bg-${color} rounded-b-xl text-white font-bold xs:text-xl sm:text-2xl font-karla flex flex-row justify-between font-karla -tracking-[0.72px] leading-[28.8px]`}
         >
           {type}
         </div>

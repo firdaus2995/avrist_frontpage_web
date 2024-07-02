@@ -71,7 +71,7 @@ const MainContentSyaratPenggunaan = () => {
 
   return (
     <div className="w-full flex flex-col relative">
-      <div className="bg-white rounded-t-[80px] w-full min-h-[60px]">
+      <div className="bg-white rounded-t-[60px] w-full min-h-[60px]">
         <WrapperContent>
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg relative">
@@ -81,9 +81,9 @@ const MainContentSyaratPenggunaan = () => {
                   <div
                     key={idx}
                     role="button"
-                    className="border-l-4 border-purple_dark px-[15px] py-[10px] cursor-pointer text-left"
+                    className="border-l-4 border-purple_dark pr-[12px] py-[12px] pl-[24px] cursor-pointer text-left"
                   >
-                    <span className="font-bold text-purple_dark text-[18px]">
+                    <span className="font-bold text-purple_dark text-[18px] font-opensanspro leading-[25.2px]">
                       {val}
                     </span>
                   </div>
@@ -92,9 +92,9 @@ const MainContentSyaratPenggunaan = () => {
                     key={idx}
                     role="button"
                     onClick={() => handleTabClick(val, idx)}
-                    className="border-l-4 border-purple_mediumlight px-[15px] py-[10px] cursor-pointer text-left"
+                    className="border-l-4 border-purple_mediumlight pr-[12px] py-[12px] pl-[24px] cursor-pointer text-left"
                   >
-                    <span className="font-bold text-purple_mediumlight text-[18px]">
+                    <span className="font-bold text-purple_mediumlight text-[18px] font-opensanspro leading-[25.2px]">
                       {val}
                     </span>
                   </div>
@@ -136,7 +136,7 @@ const MainContentSyaratPenggunaan = () => {
             )}
           </div>{' '}
           {/* end tabs kiri */}
-          <div className="sm:ml-[48px] flex flex-col gap-10 xs:mt-4">
+          <div className="sm:ml-[48px] flex flex-col xs:mt-4 sm:mt-0">
             <div ref={disclaimerRef}>
               <Disclaimer />
             </div>

@@ -17,7 +17,7 @@ type IconInputProps = {
 } & InputProps;
 
 const BASE_COSMETIC_INPUT_CLASS =
-  'text-sm flex items-center rounded-lg bg-white border-solid border-1 border-gray_spacerlight';
+  'text-base flex items-center rounded-lg bg-white border-solid border-1 border-gray_spacerlight';
 
 const Input: RootInput & React.FC<InputProps> = ({
   customInputClass,

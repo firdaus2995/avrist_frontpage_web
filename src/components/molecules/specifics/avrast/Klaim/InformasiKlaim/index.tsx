@@ -60,10 +60,10 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   );
 
   return (
-    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:pt-[3.125rem] xs:pb-[2.25rem] md:pt-[5rem] md:pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
+    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:py-[50px] md:pt-[100px] md:pb-[80px] sm:gap-0 xs:gap-[2.25rem]">
       {/* Tab Desktop */}
       <div className="w-full xs:hidden md:block">
-        <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col gap-4 rounded-lg gap-[0.75rem] flex-wrap">
+        <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col rounded-lg gap-[0.75rem] flex-wrap">
           {data.map((val, idx) =>
             val === 'Login Polis' ? (
               <a
@@ -71,7 +71,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
                 href="https://my.avrist.com/welcome"
                 target="_blank"
                 role="button"
-                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
               >
                 {val}
               </a>
@@ -83,7 +83,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
                   handleTabClick(val);
                   onChangeBannerImg(idx);
                 }}
-                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
               >
                 {val}
               </div>

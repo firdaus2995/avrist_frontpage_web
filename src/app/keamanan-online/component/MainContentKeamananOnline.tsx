@@ -40,7 +40,7 @@ const MainContentKeamananOnline = () => {
   return (
     <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[3.75rem] w-full min-h-[3.75rem] relative">
-        <div className="sm:px-[8.5rem] sm:py-[6.25rem] xs:px-10 xs:py-16 flex sm:flex-row xs:flex-col xs:gap-[2.25rem] sm:gap-0">
+        <div className="sm:px-[8.5rem] sm:pt-[6.25rem] sm:pb-[24px] xs:px-10 xs:py-16 flex sm:flex-row xs:flex-col xs:gap-[2.25rem] sm:gap-0">
           {/* start tabs kiri */}
           <div className="sm:block hidden rounded-lg">
             <div className="flex flex-col shrink min-w-[13.125rem] bg-purple_light_bg rounded-r-[0.75rem] rounded-l-[0.25rem] overflow-hidden">

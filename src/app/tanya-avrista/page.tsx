@@ -221,7 +221,7 @@ const TanyaAvrista = () => {
       <RoundedFrameBottom />
       <FooterInformation
         title={
-          <p className="font-karla sm:text-[3.5rem] xs:text-[2.5rem]">
+          <p className="font-karla sm:text-[3.5rem] xs:text-[2.5rem] xs:leading-[44px] xs:-tracking-[0.03em] sm:leading-[67.2px] xs:-tracking-[0.04em]">
             <span className="font-bold text-purple_dark">Perlindungan</span>{' '}
             dini dan optimal dari{' '}
             <span className="font-bold text-purple_dark">sekarang!</span>

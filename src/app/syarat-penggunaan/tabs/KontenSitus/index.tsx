@@ -3,10 +3,10 @@ import React from 'react';
 const KontenSitus = () => {
   return (
     <div>
-      <h1 className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px]">
+      <h1 className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px] leading-[43.2px] -tracking-[1.08px]">
         Konten Situs
       </h1>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Seluruh material-material dalam situs ini, termasuk jasa, produk,
         informasi, data, teks, grafik, suara, video, tautan ataupun material
         lain diberikan sebagaimana adanya dan sebagaimana tersedia. Avrist dan
@@ -18,7 +18,7 @@ const KontenSitus = () => {
         jaminan tersirat tentang penjualbelian, kesesuaian untuk tujuan
         tertentu, dan tidak adanya pelanggaran milik dan hak pihak ketiga.
       </p>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Avrist tidak menjamin bahwa akses ke informasi atau materi pada situs
         ini, atau situs ini secara keseluruhan akan bebas dari gangguan atau
         kesalahan (error), bahwa cacat-cacat akan diperbaiki, atau bahwa situs
@@ -27,7 +27,7 @@ const KontenSitus = () => {
         destruktif, dan Avrist tidak bertanggung jawab atas seluruh kerugian dan
         biaya yang mungkin timbul daripadanya.
       </p>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Informasi dan penjelasan yang terdapat dalam syarat penggunaan ini tidak
         selalu dimaksudkan sebagai penjelasan yang lengkap atas semua
         ketentuan,pengecualian, dan syarat dan semata-mata diberikan untuk
@@ -37,7 +37,7 @@ const KontenSitus = () => {
         dapat secara mutlak untuk sewaktu-waktu menghapus atau mengganti
         material dan informasi yang tersedia di dalamnya.
       </p>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Situs web ini mungkin ditautkan dengan situs-situs web lainnya yang
         tidak dipelihara oleh Avrist. Avrist tidak bertanggung jawab atas isi
         dari situs-situs web tersebut. Disertakannya setiap tautan pada
