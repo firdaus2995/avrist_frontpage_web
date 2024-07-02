@@ -32,7 +32,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
               className={`w-[6px] h-full ${index === selected ? 'bg-purple_dark' : 'bg-purple_mediumlight'} ${index === 0 ? 'rounded-tl-xl' : index === item.length - 1 ? 'rounded-bl-xl' : ''}`}
             />
             <p
-              className={`w-[70%] text-md sm:text-[18px] font-bold ${i.color ? i.color : selected === index ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
+              className={`w-[70%] text-md sm:text-[18px] font-bold leading-[25.2px] ${i.color ? i.color : selected === index ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
             >
               {i.title}
             </p>

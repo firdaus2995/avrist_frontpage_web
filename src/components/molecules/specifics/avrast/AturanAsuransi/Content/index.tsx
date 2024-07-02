@@ -83,8 +83,11 @@ const renderContent = (description: string) => {
 const renderedtabContent = (content: string[]) => (
   <ol className="list-decimal marker:font-bold pl-5 text-xl">
     {content.map((item: string, index: number) => (
-      <li key={index} className="mb-4">
-        <p className="text-xl gap-4">{item}</p>
+      <li
+        key={index}
+        className={`${content.length - 1 === index ? 'mb-0' : 'mb-6'}`}
+      >
+        <p className="text-xl gap-4 font-normal">{item}</p>
       </li>
     ))}
   </ol>
@@ -121,7 +124,7 @@ const Content = () => {
 
   return (
     <div className="bg-purple_dark -mt-1">
-      <div className="bg-white pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[0.375rem] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between gap-[2.5rem]">
+      <div className="bg-white sm:pt-[6.25rem] xs:pt-[50px] px-[2rem] md:px-[8.5rem] pb-[28px] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between sm:gap-[2.5rem] xs:gap-[2.25rem]">
         <ButtonMenuVertical
           item={[
             {
@@ -145,18 +148,18 @@ const Content = () => {
           ]}
           outerClass="xs:w-full md:w-[12.5rem]"
         />
-        <div className="xs:w-full md:w-[82%] flex flex-col gap-[2rem]">
-          <h1 className="xs:text-2xl md:text-4xl font-karla text-purple_dark font-medium">
+        <div className="xs:w-full md:w-[82%] flex flex-col gap-[24px]">
+          <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium leading-[43.2px] -tracking-[1.08px]">
             {titleSideTab[tab]}
           </h1>
           {!lastContentValue &&
           titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ? (
             <>
-              <p
-                className="flex xs:text-[2.25rem] md:text-[3.5rem] leading-[3rem] font-karla font-bold"
-              >{contentTab[titleSideTab[tab]].title}</p>
+              <p className="flex xs:text-[36px] md:text-[56px] sm:leading-[67.2px] xs:leading-[43.2px] font-karla font-bold sm:-tracking-[2.24px] xs:-tracking-[1.44px]">
+                {contentTab[titleSideTab[tab]].title}
+              </p>
               <h2
-                className="text-[1.25rem] font-bold"
+                className="text-[1.25rem] font-bold font-opensans leading-[28px]"
                 dangerouslySetInnerHTML={{
                   __html: contentTab[titleSideTab[tab]].subTitle
                 }}
@@ -187,11 +190,11 @@ const Content = () => {
             )
           )}
           <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[1.5rem]">
-            <p className="font-bold text-[1.25rem] text-purple_dark">
+            <p className="font-bold text-[1.5rem] font-opensanspro text-purple_dark">
               Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
             </p>
             <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[1.25rem]">
+              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[1.25rem] font-opensans text-[16px] font-semibold leading-[23.68px]">
                 Ajukan Pengaduan
               </Button>
             </Link>
@@ -199,7 +202,6 @@ const Content = () => {
         </div>
       </div>
     </div>
-
   );
 };
 

@@ -70,7 +70,6 @@ export const ReportList = ({
       }
     };
   });
-  console.log(reportData[selectedCategory]);
 
   return (
     <div className={`w-full flex flex-col justify-center relative`}>
@@ -105,7 +104,7 @@ export const ReportList = ({
                   <ButtonMenuVertical item={btnVerticalData} />
                 )}
               </div>
-              <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark xs:w-[7.5rem] sm:w-full">
+              <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark xs:w-[7.5rem]">
                 <select value={selectedYear} onChange={handleYearChange}>
                   <option value="" selected>
                     Pilih Tahun

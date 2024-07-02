@@ -76,24 +76,27 @@ const Page = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="sm:text-[4rem] xs:text-[2.25rem] md:text-left xs:text-center">
+            <p className="-tracking-[2.24px] sm:leading-[67.2px] sm:leading-[43.2px] font-light sm:text-[3.5rem] xs:text-[2.25rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}
               Solusi Perlindungan Masa Depan
             </p>
             <Link
-              href={'https://www.youtube.com/@avristian'}
-              target="_blank"
-              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2 items-center"
+              href="https://www.youtube.com/@avristian"
+              target="blank"
+              role="button"
+              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white sm:flex flex-row gap-2 items-center font-opensans"
             >
               Cerita Lebih Detail di
-              <Icon
-                name="youtubeIcon"
-                color="white"
-                width={26.67}
-                height={18.67}
-              />
+              <div className="xs:m-auto w-[27px]">
+                <Icon
+                  name="youtubeIcon"
+                  color="white"
+                  width={26.67}
+                  height={18.67}
+                />
+              </div>
             </Link>
           </div>
         }
