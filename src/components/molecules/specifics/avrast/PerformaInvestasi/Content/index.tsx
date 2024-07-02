@@ -112,7 +112,7 @@ const Content = () => {
 
   return (
     <div className="w-full bg-purple_dark">
-      <div className="bg-white flex flex-col pt-[3.125rem] md:pt-[5rem] px-[2rem] md:px-[8.5rem] pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
+      <div className="bg-white flex flex-col pt-[3.125rem] md:pt-[100px] px-[2rem] md:px-[8.5rem] pb-[28px] sm:gap-[5rem] xs:gap-[5rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -123,10 +123,10 @@ const Content = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+          <h1 className="text-purple_dark font-karla text-center font-extrabold sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Performa Investasi
           </h1>
-          <h2 className="font-karla xs:text-[1.5rem] sm:text-[2.25rem]">
+          <h2 className="font-karla font-normal sm:text-[2.25rem] xs:text-[1.5rem] text-gray_bold sm:leading-[43.2px] xs:leading-[28.8px]">
             Laporan kinerja Investasi{' '}
             <span className="font-bold">Avrist Assurance</span>
           </h2>
@@ -223,7 +223,7 @@ const Content = () => {
           </Accordion>
         </section>
 
-        <section className="">
+        <section className="sm:-mt-[16px] xs:-mt-[44px]">
           <Disclaimer />
         </section>
       </div>

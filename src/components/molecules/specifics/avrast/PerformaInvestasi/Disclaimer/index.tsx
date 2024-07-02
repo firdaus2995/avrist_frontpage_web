@@ -5,10 +5,10 @@ import INFO_RED from '@/assets/symbols/info-red-symbol.svg';
 const Disclaimer = () => {
   return (
     <>
-      <div className="w-full rounded-t-xl border border-gray_light px-6 pt-6 pb-9 bg-purple_light_bg flex flex-col gap-6">
+      <div className="w-full rounded-t-xl border border-gray_light px-6 pt-6 pb-[36px] bg-purple_light_bg flex flex-col gap-6">
         <div className="flex flex-row gap-2">
           <Image alt="info" src={INFO_RED} />
-          <h1 className="font-karla font-bold text-xl sm:text-2xl">
+          <h1 className="font-karla font-bold text-xl sm:[24px] leading-[28.8px] -tracking-[0.72px]">
             Disclaimer
           </h1>
         </div>

@@ -37,7 +37,6 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
       const data = policyData?.contentData?.filter(
         (item: any) => item.category === selectedCategory
       );
-      console.log(data);
       setListContent(data);
       setIsShowDetail(true);
     }
@@ -141,7 +140,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
         </div>
       ) : (
         <div>
-          <div className="sm:-mt-[1rem] flex flex-col gap-[1.5rem] xs:mt-0">
+          <div className="sm:-mt-[1rem] flex flex-col gap-[1.5rem] xs:-mt-[44px]">
             {policyGuideData?.map((item: any, index: any) => (
               <div
                 key={index}

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import EXPAND from '@/assets/images/common/+.svg';
-import SUBTRACT from '@/assets/images/common/-.svg';
+// import SUBTRACT from '@/assets/images/common/-.svg';
+import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg';
 import { isContentNotEmpty } from '@/utils/helpers';
 
 interface IAccordion {
@@ -49,11 +50,11 @@ const Accordion: React.FC<IAccordion> & {
         ) : (
           <Image
             alt="toggle"
-            src={!expand ? EXPAND : SUBTRACT}
+            src={!expand ? CHEVRONRIGHTPURPLE : CHEVRONRIGHTPURPLE}
             onClick={() => {
               setExpand(!expand);
             }}
-            className="cursor-pointer w-[1.5rem] h-[1.5rem]"
+            className={`cursor-pointer w-[1.5rem] h-[1.5rem] ${!expand ? 'rotate-90' : '-rotate-90'}`}
           />
         )}
       </div>

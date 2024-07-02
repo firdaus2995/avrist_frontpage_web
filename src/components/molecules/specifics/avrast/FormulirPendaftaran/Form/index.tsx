@@ -62,12 +62,13 @@ const Form = () => {
     return listData.map((item: any, index: number) => {
       const filePath = `${BASE_URL.image}/${item?.url ?? ''}`;
       return (
-        <DownloadFileButton
-          key={index}
-          title={item.namaFile}
-          fileType={item?.fileType}
-          filePath={filePath}
-        />
+        <div key={index} className="xs:text-[18px]">
+          <DownloadFileButton
+            title={item.namaFile}
+            fileType={item?.fileType}
+            filePath={filePath}
+          />
+        </div>
       );
     });
   };
