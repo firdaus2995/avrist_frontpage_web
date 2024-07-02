@@ -37,7 +37,7 @@ const CategorySideBySideSixCards = ({
     const isUnordered = description.includes('<ul>');
     const defaultClassName = isRightSide
       ? 'text-sm font-opensans'
-      : 'xs:text-xl sm:text-2xl font-light font-karla';
+      : 'xs:text-xl sm:text-2xl font-light font-karla -tracking-[0.72px]';
 
     if (isOrdered) {
       return (
@@ -45,7 +45,7 @@ const CategorySideBySideSixCards = ({
           dangerouslySetInnerHTML={{
             __html: description.replace(
               '<ol>',
-              `<ol class="list-decimal pl-2 ${defaultClassName}">`
+              `<ol class="list-decimal pl-6 ${defaultClassName} list-outside">`
             )
           }}
         />
@@ -57,7 +57,7 @@ const CategorySideBySideSixCards = ({
           dangerouslySetInnerHTML={{
             __html: description.replace(
               '<ul>',
-              `<ul class="list-disc pl-2 ${defaultClassName}">`
+              `<ul class="list-disc pl-6 ${defaultClassName} list-outside">`
             )
           }}
         />
@@ -79,7 +79,7 @@ const CategorySideBySideSixCards = ({
           className={`${customLeftSideClassname} h-full flex flex-col gap-[36px] p-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
         >
           <p
-            className={`${leftTitleClassname} text-[36px] font-bold font-karla`}
+            className={`${leftTitleClassname} text-[36px] font-bold font-karla -tracking-[1.08px]`}
           >
             Ringkasan Produk
           </p>
@@ -149,7 +149,7 @@ const CategorySideBySideSixCards = ({
                   className={`${customRightSideClassname} flex flex-col gap-[24px] px-[24px] py-[36px] border border-gray_light border-b-8  rounded-[12px] rounded-b-[12px]`}
                 >
                   <p
-                    className={`${rightTitleClassname} font-bold text-4xl font-karla`}
+                    className={`${rightTitleClassname} font-bold text-4xl font-karla -tracking-[1.08px]`}
                   >
                     {item.title}
                   </p>

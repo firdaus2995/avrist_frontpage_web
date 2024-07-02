@@ -29,23 +29,29 @@ const CardCategoryA = ({
   setStateTags
 }: ICardCategoryA) => {
   return (
-    <div className="flex flex-col gap-[24px] px-[24px] pt-[24px] pb-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[18px] rounded-b-[12px]">
+    <div className="flex flex-col gap-[1.5rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-purple_dark border-b-8 border-b-8 rounded-[12px] rounded-b-[12px]">
       <Image
         alt="blank-image"
         width={100}
         height={172}
         src={imageProduk || BlankImage}
-        className="w-full h-[172px] rounded-[10px]"
+        className="w-full h-min-[172px] rounded-[10px]"
       />
-      <div className="flex flex-row items-center gap-[4px]">
-        <Image alt="symbol" src={symbol} width={24} height={24} />
-        <p className="text-purple_dark font-bold text-sm">{title}</p>
+      <div className="flex flex-col gap-[0.75rem]">
+        <div className="flex flex-row items-center gap-[8px]">
+          <Image width={24} height={24} alt="symbol" src={symbol} />
+          <p className={`font-bold text-sm font-opensans`}>{title}</p>
+        </div>
+        <p className="text-[32px] font-bold leading-[38.4px] xs:-tracking-[1.44px] sm:-tracking-[2.56px] font-karla">
+          {summary}
+        </p>
+        <span>
+          <p
+            className="line-clamp-3 font-opensans"
+            dangerouslySetInnerHTML={{ __html: description ?? '' }}
+          />
+        </span>
       </div>
-      <p className="text-[32px] font-bold">{summary}</p>
-      <p
-        className="line-clamp-3"
-        dangerouslySetInnerHTML={{ __html: description ?? '' }}
-      />
       <div className="flex flex-col justify-between grow gap-4">
         <div className="flex flex-row flex-wrap gap-[12px]">
           {tags.map((item: string, index: number) =>

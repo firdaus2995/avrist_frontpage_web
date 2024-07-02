@@ -26,7 +26,7 @@ const GridContainer = ({
   return (
     <>
       <div className="flex justify-center pt-[5rem] pb-[44px]">
-        <p className="font-bold font-karla text-center text-[36px] sm:text-[56px] text-purple_dark">
+        <p className="font-bold font-karla text-center text-[36px] sm:text-[56px] text-purple_dark -tracking-[2.24px]">
           {textTitle}
         </p>
       </div>

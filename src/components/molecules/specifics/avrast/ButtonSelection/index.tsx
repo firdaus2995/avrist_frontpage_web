@@ -46,26 +46,35 @@ const ButtonSelection: React.FC<ButtonSelectionProps> = ({
     }
   };
 
+  const buttonLength = buttonHelperAdditional.filter(
+    (item) => item.type === 'button'
+  ).length;
+
   return (
     <div className="flex flex-nowrap overflow-x-scroll sm:overflow-x-hidden py-1">
       <div className="flex flex-row gap-[12px] w-full">
         {buttonHelperAdditional.map((item, index) =>
           item.type === 'button' ? (
-            item.href ? (
-              <Link href={item.href} key={index} className="w-[200px]">
+            <div
+              key={index}
+              className={index === buttonLength - 1 ? 'pr-[7px]' : ''}
+            >
+              {item.href ? (
+                <Link href={item.href} className="w-full">
+                  <ButtonSmall
+                    title={item.label}
+                    customClassName="py-[8px] px-[20px] rounded-[6px] font-opensans"
+                    variant={item.variant}
+                  />
+                </Link>
+              ) : (
                 <ButtonSmall
                   title={item.label}
-                  customClassName="w-[200px]"
+                  customClassName="py-[8px] px-[20px] rounded-[6px] font-opensans"
                   variant={item.variant}
                 />
-              </Link>
-            ) : (
-              <ButtonSmall
-                title={item.label}
-                customClassName="w-[200px]"
-                variant={item.variant}
-              />
-            )
+              )}
+            </div>
           ) : item.type === 'button-checkbox' ? (
             <ButtonSmallWithCheck
               key={index}

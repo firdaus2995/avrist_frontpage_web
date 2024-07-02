@@ -35,7 +35,9 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
         {categoriesIcon && (
           <Image width={36} height={36} alt="symbol" src={categoriesIcon} />
         )}
-        <p className={`${categoriesClassname} font-bold text-[1.5rem]`}>
+        <p
+          className={`${categoriesClassname} font-bold text-[1.5rem] -tracking-[0.72px]`}
+        >
           {categoriesName}
         </p>
       </div>
@@ -44,12 +46,12 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
           {headingText}
         </h1>
 
-        <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] md:pb-0 ">
+        <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] -tracking-[1.44px] xs:leading-[28.8px] sm:leading-[43.2px]">
           {subHeadingText?.includes('>-<')
             ? ''
             : htmlParser(subHeadingText ?? '')}
         </p>
-        <p className="text-[1.5rem] font-light text-justify">
+        <p className="text-[1.5rem] font-light text-justify -tracking-[0.72px] leading-[33.6px]">
           {htmlParser(description)}
         </p>
       </div>

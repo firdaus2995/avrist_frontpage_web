@@ -16,8 +16,8 @@ import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import CardCategoryA from '@/components/molecules/specifics/avrast/Cards/CategoryA';
 import CategorySideBySideSixCards from '@/components/molecules/specifics/avrast/CategorySideBySideSixCards';
+import CustomContainer from '@/components/molecules/specifics/avrast/Containers/Custom';
 import GridContainer from '@/components/molecules/specifics/avrast/Containers/Grid';
-import SimpleContainer from '@/components/molecules/specifics/avrast/Containers/Simple';
 import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index';
 import DescriptionCategoryA from '@/components/molecules/specifics/avrast/Descriptions/CategoryA';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
@@ -26,10 +26,14 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal';
 import VideoInformation from '@/components/molecules/specifics/avrast/Produk/ContentComponent/VideoInformation';
+import { handleGetContent } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
 import { ContentDetailResponse } from '@/types/content.type';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import {
+  contentTransformer,
   contentDetailTransformer,
   contentStringTransformer,
   handleTransformedContent,
@@ -53,6 +57,8 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [popUpImage, setPopUpImage] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -221,6 +227,21 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       }
     };
 
+    const fetchModalImage = async () => {
+      try {
+        handleGetContent(BASE_SLUG.POP_UP_SUBMIT_FORM, {
+          includeAttributes: 'true'
+        }).then((res: any) => {
+          const { content } = contentTransformer(res);
+          const submitImage = singleImageTransformer(content['pop-up-image']);
+          setPopUpImage(submitImage.imageUrl);
+        });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchModalImage().then();
     fetchData().then();
     fetchDetailData()
       .then()
@@ -283,7 +304,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
 
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
-      router.refresh();
+      setShowSuccess(true);
     }
 
     if (data.status !== 'OK') {
@@ -308,11 +329,11 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         imageUrl={titleImage}
       />
       <Suspense>
-        <SimpleContainer>
+        <CustomContainer className="xs:py-[3.125rem] sm:py-[5rem]">
           {!dataDetail || dataDetail?.length === 0 ? (
             <></>
           ) : (
-            <>
+            <div className="flex flex-col xs:gap-[1.5rem] sm:gap-[4rem]">
               <DescriptionCategoryA
                 categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
                 categoryTitle={dataDetail?.categoryTitle || ''}
@@ -370,14 +391,14 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
                 title="Informasi Jalur Pemasaran"
                 description={dataDetail?.deskripsiJalurPemasaran}
               />
-            </>
+            </div>
           )}
-        </SimpleContainer>
+        </CustomContainer>
       </Suspense>
-      <SimpleContainer bgColor="purple_superlight" gap="gap-0">
+      <CustomContainer className="bg-purple_superlight py-[5rem]">
         {dataForm && (
           <CustomForm
-            customFormClassname="border-none p-[0px] rounded-[12px]"
+            customFormClassname="p-[2.25rem] rounded-[12px]"
             onChange={handleChange}
             dataForm={dataForm}
             resultData={receiveData}
@@ -385,42 +406,49 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
             dataRekomendasi={dataRekomendasi}
           />
         )}
-        <div className="flex flex-row bg-white p-[36px] rounded-b-[8px] border-b-purple_dark border-b-8">
-          <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={(e) => {
-                setIsChecked(e.target.checked);
-              }}
-            />
-            <label className="cursor-pointer" htmlFor="setuju">
-              Saya setuju memberikan data pribadi Saya kepada Avrist Life
-              Insurance dan telah membaca{' '}
-              <span
-                className="text-purple_dark font-bold"
-                onClick={() => window.open('/keamanan-online', '_blank')}
-              >
-                Kebijakan Keamanan
-              </span>{' '}
-              Avrist Life Insurance. Selanjutnya, Saya bersedia untuk dihubungi
-              oleh Avrist Life Insurance melalui media komunikasi pribadi Saya
-              sesuai hari dan jam operasional yang berlaku di Avrist Life
-              Insurance.
-            </label>
-          </div>
-          <div className="mt-[24px] md:mt-[36px] flex flex-col md:flex-row md:justify-end md:items-center">
-            <button
-              type="submit"
-              disabled={formIsValid ? (isChecked ? false : true) : true}
-              onClick={() => onSubmitData()}
-              className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
-            >
-              Beli Sekarang
-            </button>
+        <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-purple_dark border-b-8 -mt-12 border-x border-x-gray_light">
+          <div className="accent-purple_dark flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
+            <div className="flex flex-row gap-[12px] font-opensans">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => {
+                  setIsChecked(e.target.checked);
+                }}
+              />
+              <label className="cursor-pointer" htmlFor="setuju">
+                Saya setuju memberikan data pribadi Saya kepada Avrist Life
+                Insurance dan telah membaca{' '}
+                <span
+                  className="text-purple_dark font-bold"
+                  onClick={() => window.open('/keamanan-online', '_blank')}
+                >
+                  Kebijakan Keamanan
+                </span>{' '}
+                Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
+                dihubungi oleh Avrist Life Insurance melalui media komunikasi
+                pribadi Saya sesuai hari dan jam operasional yang berlaku di
+                Avrist Life Insurance.
+              </label>
+            </div>
+
+            <div className="w-full flex flex-col md:flex-row justify-between items-center">
+              {/* <Image alt="captcha" src={CaptchaPicture} /> */}
+              <div />
+              <div>
+                <button
+                  type="submit"
+                  disabled={formIsValid ? (isChecked ? false : true) : true}
+                  onClick={() => onSubmitData()}
+                  className={`${formIsValid && isChecked ? 'bg-purple_dark' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem] font-opensans font-semibold`}
+                >
+                  Beli Sekarang
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </SimpleContainer>
+      </CustomContainer>
       <GridContainer
         gridCols={1}
         gridColsSm={3}
@@ -442,7 +470,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
                 summary={item.namaProduk}
                 description={item.deskripsiSingkatProduk}
                 tags={item.tags.split(',')}
-                href={`/produk/individu/${item.id}`}
+                href={`/produk/korporasi/${item.id}`}
                 imageProduk={item.produkImage.imageUrl}
               />
             ))}
@@ -450,7 +478,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
         title={
-          <p className="text-[56px]">
+          <p className="font-light xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[2.5rem] md:leading-[67.2px] xs:-tracking-[2.5px] sm:-tracking-[2.24px]">
             <span className="font-bold text-purple_dark">Hello,</span> Ada yang
             bisa <span className="font-bold text-purple_dark">Avrista</span>{' '}
             bantu?
@@ -489,6 +517,16 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           }
         ]}
       />
+      <div className="absolute">
+        <SuccessModal
+          popUpImage={popUpImage}
+          show={showSuccess}
+          onClose={() => {
+            setShowSuccess(false);
+            window.location.reload();
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -26,7 +26,7 @@ const LeftTabs: React.FC<LeftTabsProps> = ({
     <div
       role="button"
       onClick={() => handleTabClick(val)}
-      className={`border-l-4 px-[15px] py-[12px] cursor-pointer text-left font-bold text-[18px] ${
+      className={`border-l-4 pl-[24px] py-[12px] cursor-pointer text-left font-bold text-[18px] ${
         isActive
           ? 'border-purple_dark text-purple_dark'
           : 'border-purple_mediumlight text-purple_mediumlight'
