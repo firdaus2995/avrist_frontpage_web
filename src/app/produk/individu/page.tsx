@@ -363,8 +363,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
         title={
-          <p className="text-[36px] sm:text-[56px] text-center sm:text-left">
-            <span className="font-bold text-purple_dark">Hello,</span> Ada yang
+          <p className="font-light xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[2.5rem] md:leading-[67.2px] xs:-tracking-[2.5px] sm:-tracking-[2.24px]">
+            <span className="font-bold text-purple_dark">Hello, </span>Ada yang
             bisa <span className="font-bold text-purple_dark">Avrista</span>{' '}
             bantu?
           </p>

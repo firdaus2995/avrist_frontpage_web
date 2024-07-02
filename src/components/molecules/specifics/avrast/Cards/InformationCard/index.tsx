@@ -49,7 +49,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
           key={index}
           className={`${cardClassname} flex flex-col justify-between w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white px-[1.5rem]`}
         >
-          <div className="flex w-full justify-center my-[1.5rem]">
+          <div className="flex flex-col justify-center mt-[1.5rem] text-center items-center mb-4 gap-4">
             <Image
               alt="blank-image"
               width={100}
@@ -57,13 +57,13 @@ const InformationCard: React.FC<InformationCardProps> = ({
               src={item.cardIcon}
               className="w-[6.25rem] h-[6.25rem]"
             />
-          </div>
-          <div className="text-center mb-[1.75rem] mx-[1.5rem] flex flex-col gap-[0.75rem]">
             {item.cardTitle && (
               <p className="text-[2rem] font-bold font-karla leading-[38.4px]">
                 {item.cardTitle}
               </p>
             )}
+          </div>
+          <div className="text-center mb-[1.75rem] mx-[1.5rem] flex flex-col gap-[0.75rem] h-full">
             <div
               dangerouslySetInnerHTML={{ __html: item.cardBody }}
               className="text-base font-opensans"

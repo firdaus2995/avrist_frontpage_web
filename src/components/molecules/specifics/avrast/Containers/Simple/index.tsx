@@ -13,7 +13,7 @@ const SimpleContainer = ({
 }: ISimpleContainer) => {
   return (
     <div
-      className={`flex flex-col justify-center px-[2rem] py-[3.125rem] sm:px-[8.5rem] sm:py-[4rem] ${gap ?? 'gap-[4rem]'} bg-${bgColor}`}
+      className={`flex flex-col justify-center px-[2rem] py-[3.125rem] sm:px-[8.5rem] sm:py-[5rem] ${gap ?? 'gap-[5rem]'} bg-${bgColor}`}
     >
       {children}
     </div>

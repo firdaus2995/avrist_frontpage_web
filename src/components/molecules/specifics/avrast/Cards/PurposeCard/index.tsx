@@ -17,16 +17,18 @@ const PurposeCard: React.FC<PurposeCardProps> = ({
   link,
   href
 }) => (
-  <div className="flex p-4 flex-col gap-4 items-center justify-center bg-white w-full border border-b-8 border-b-purple_dark rounded-xl text-center">
-    <Image src={icon} alt="img" className="w-20" />
+  <div className="flex p-4 flex-col gap-4 bg-white w-full h-full border border-b-8 border-b-purple_dark rounded-xl text-center">
+    <div className="flex flex-col gap-4 items-center">
+      <Image src={icon} alt="img" className="w-20" />
+      <p
+        className="text-[2rem] font-bold font-karla -tracking-[0.96px]"
+        dangerouslySetInnerHTML={{
+          __html: title
+        }}
+      />
+    </div>
     <p
-      className="text-[2rem] font-bold font-karla -tracking-[0.96px]"
-      dangerouslySetInnerHTML={{
-        __html: title
-      }}
-    />
-    <p
-      className="line-clamp-3 font-opensans leading-[22.4px]"
+      className="font-opensans leading-[22.4px]"
       dangerouslySetInnerHTML={{
         __html: desc
       }}

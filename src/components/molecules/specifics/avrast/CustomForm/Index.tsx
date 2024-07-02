@@ -5,7 +5,7 @@ import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
 import { handleUploadDocument } from '@/services/upload-document-service.api';
 import { Attribute } from '@/types/form.type';
-import { validateEmail } from '@/utils/validation';
+import { isNumber, validateEmail } from '@/utils/validation';
 
 interface CustomFormProps {
   title?: string;
@@ -255,17 +255,17 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             placeholder="Masukan nomor telepon"
                             name={attribute.name}
                             type="number"
-                            onKeyDown={(event) => {
-                              if (/[eE+\-/]/.test(event.key)) {
-                                event.preventDefault();
+                            onChange={(e) => {
+                              if (
+                                isNumber(e.target.value) ||
+                                e.target.value === ''
+                              ) {
+                                updateFormDataByName(
+                                  attribute.name,
+                                  e.target.value
+                                );
                               }
                             }}
-                            onChange={(e) =>
-                              updateFormDataByName(
-                                attribute.name,
-                                e.target.value
-                              )
-                            }
                             onInput={handleInput}
                             pattern="[0-9]*"
                           />

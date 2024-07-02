@@ -5,11 +5,12 @@ import { useRouter } from 'next/navigation';
 import YellowHeart from '@/assets/images/avrast/dplk/klaim-layanan.svg';
 import YellowChat from '@/assets/images/avrast/dplk/yellow-chat-heart.svg';
 import YellowShield from '@/assets/images/avrast/dplk/yellow-shield.svg';
+
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-
+import InfoRedSymbol from '@/assets/symbols/info-red-symbol.svg';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import AboutHeading from '@/components/molecules/specifics/avrast/AboutHeading';
@@ -21,6 +22,7 @@ import CustomForm from '@/components/molecules/specifics/avrast/CustomForm/Index
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import InfoError from '@/components/molecules/specifics/avrast/Info/Error';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal/SuccessModal';
 import { handleGetContent } from '@/services/content-page.api';
@@ -356,7 +358,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 />
               </div>
             </div>
-            <div className="xs:mt-0 sm:mt-[3.75rem]">
+            <div className="flex flex-col xs:my-[3.75rem] sm:mt-[3.75rem] sm:mb-[5rem] gap-[1.5rem] sm:gap-[4rem]">
               <CategorySideBySideSixCards
                 leftSide={[
                   {
@@ -399,13 +401,18 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 customRightSideClassname="border-b-dplk_yellow"
                 buttonClassname="border-dplk_yellow text-dplk_yellow"
               />
+              <InfoError
+                symbol={InfoRedSymbol}
+                title="Informasi Jalur Pemasaran"
+                description={dataDetail?.deskripsiJalurPemasaran}
+              />
             </div>
           </CustomContainer>
           <SimpleContainer bgColor="yellow_light !py-[5rem]">
             {dataForm && (
               <CustomForm
                 title="Saya tertarik program DPLK"
-                customFormClassname="border p-[1.5rem] rounded-[12px]"
+                customFormClassname="border p-[2.25rem] rounded-[12px]"
                 onChange={handleChange}
                 dataForm={dataForm}
                 resultData={receiveData}
@@ -489,7 +496,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             outerClassName="bg-white"
             buttonVariant="dplk"
             title={
-              <p className="xs:text-[2.25rem] sm:text-[3.5rem] text-white font-karla xs:leading-[2.5rem] md:leading-[3.125rem] xs:-tracking-[4px] sm:-tracking-[2.56px]">
+              <p className="font-light xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[2.5rem] md:leading-[67.2px] xs:-tracking-[2.5px] sm:-tracking-[2.24px]">
                 <span className="font-bold">Hello,</span> Ada yang bisa{' '}
                 <span className="font-bold">Avrista</span> bantu?
               </p>
