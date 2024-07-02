@@ -34,10 +34,10 @@ const Accordion: React.FC<IAccordion> & {
   const [expand, setExpand] = useState<boolean>(false);
   return (
     <div
-      className={`rounded-xl border border-gray_light p-[1.5rem] ${bgColor ?? 'bg-white'} flex flex-col gap-[1rem] shadow-sm`}
+      className={`rounded-xl border border-gray_light p-[1.5rem] ${bgColor ?? 'bg-white'} flex flex-col gap-[12px] shadow-sm`}
     >
-      <div className="flex flex-row justify-between items-center">
-        <h1 className="text-2xl font-bold">{title}</h1>
+      <div className="flex flex-row justify-between items-center gap-[12px]">
+        <h1 className="text-2xl font-bold font-opensanspro">{title}</h1>
         {isUrl ? (
           <Link href={url ?? ''} target="blank">
             <Image
@@ -61,7 +61,9 @@ const Accordion: React.FC<IAccordion> & {
       {expand && (
         <>
           {isContentNotEmpty(description ?? '-') && (
-            <p className="text-md 2xl:text-xl">{description}</p>
+            <p className="text-md 2xl:text-[20px] sm:leading-[32px] font-normal font-opensans">
+              {description}
+            </p>
           )}
           {htmlDescription && isContentNotEmpty(htmlDescription ?? '-') && (
             <p

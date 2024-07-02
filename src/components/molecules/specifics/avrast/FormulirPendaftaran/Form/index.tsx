@@ -74,7 +74,7 @@ const Form = () => {
 
   return (
     <div className="w-full bg-purple_dark">
-      <div className="bg-white flex flex-col pt-[5rem] md:pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
+      <div className="bg-white flex flex-col pt-[50px] md:pt-[6.25rem] px-[2rem] md:px-[8.5rem] pb-[28px] sm:gap-[5rem] xs:gap-[5rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -85,17 +85,17 @@ const Form = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-medium xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+          <h1 className="text-purple_dark font-karla text-center font-extrabold sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             List formulir dan buku panduan yang mungkin Anda butuhkan
           </h1>
-          <h2 className="font-karla sm:text-4xl xs:text-[1.5rem]">
+          <h2 className="font-karla font-normal sm:text-[2.25rem] xs:text-[1.5rem] text-gray_bold sm:leading-[43.2px] xs:leading-[28.8px]">
             Silahkan pilih dan unduh formulir dan buku panduan yang Anda
             butuhkan
           </h2>
         </section>
 
         <section className="">
-          <div className="flex xs:flex-col md:flex-row gap-10">
+          <div className="flex xs:flex-col md:flex-row sm:gap-[48px] xs:gap-[36px]">
             <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl">
               {btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
             </div>
@@ -105,6 +105,8 @@ const Form = () => {
                   setSearchKeywords(value);
                 }}
                 placeHolder="Cari Formulir"
+                customButton="max-w-[119px]"
+                customClassName="xs:!flex-row"
               />
               <div className="flex flex-col gap-3">
                 {transformedData &&

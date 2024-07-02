@@ -167,6 +167,7 @@ const Maps = ({
           placeHolder="Ketik Lokasi Rumah Sakit"
           onSearch={(e) => onClickSearch(e)}
           customButton="max-w-[119px]"
+          customClassName="!w-[90%] m-auto"
         />
       </div>
       <div className="flex sm:flex-row justify-between xs:flex-col px-3">

@@ -246,7 +246,7 @@ const InformationCustomer = () => {
             </p>
             <Link
               href={'https://www.youtube.com/@avristian'}
-              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex flex-row gap-2 items-center"
+              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex sm:flex-row xs:flex-col gap-2 items-center xs:-tracking-[1.44px] sm:-tracking-[2.24px]"
             >
               Cerita Lebih Detail di
               <Icon name="youtubeIcon" color="white" width={32} height={32} />
