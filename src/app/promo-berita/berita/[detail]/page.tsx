@@ -321,7 +321,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           <div className={`flex flex-row gap-4 'mt-0'}`}>
             <div className="flex flex-row gap-4">
               <p className="text-sm font-medium lg:min-w-[180px]">
-                Artikel ini telah di liput di:
+                Anda juga bisa mengikuti berita di media berikut:
               </p>
               <div className="flex flex-wrap gap-3">
                 {contentData?.externalLink?.map((el: any, index: number) => {
