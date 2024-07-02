@@ -177,7 +177,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         {attribute.name} <span className="text-reddist">*</span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
-                        <div className="flex flex-col gap-1">
+                        <div className="flex sm:flex-col xs:flex-row sm:gap-1 xs:gap-[32px]">
                           {attribute.value
                             ?.split(';')
                             .map((option, optionIndex) => (

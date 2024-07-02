@@ -25,7 +25,7 @@ import {
 import { handleSendEmail } from '@/services/form.api';
 import { PageInfo } from '@/types/provider.type';
 import { BASE_URL } from '@/utils/baseUrl';
-import { handleDownload } from '@/utils/helpers';
+// import { handleDownload } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
@@ -157,7 +157,8 @@ export const MainContent = ({
   };
 
   const handleClickDownload = async (fileUrl: string) => {
-    await handleDownload(fileUrl);
+    window.open(fileUrl, '_blank');
+    // await handleDownload(fileUrl);
   };
 
   const onSubmitData = async () => {

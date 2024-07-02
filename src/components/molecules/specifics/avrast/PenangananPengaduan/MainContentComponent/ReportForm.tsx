@@ -207,8 +207,8 @@ export const ReportForm = (props: ReportFormProps) => {
             </div>
           </div>
           {/* contact support */}
-          <div className="border border-gray_light rounded-xl flex flex-col justify-between overflow-hidden gap-[12px] pb-[1.5rem] px-[1.5rem] pt-[1rem] border-b-8 border-b-purple_dark">
-            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[12px]">
+          <div className="border border-gray_light rounded-xl flex flex-col justify-between overflow-hidden gap-[12px] pb-[1.5rem] px-[1.5rem] pt-[1.5rem] border-b-8 border-b-purple_dark">
+            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[0px]">
               <div className="flex flex-row gap-[24px]">
                 <Image
                   width={24}
@@ -225,7 +225,7 @@ export const ReportForm = (props: ReportFormProps) => {
               </span>
             </div>
             {/*  */}
-            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[12px]">
+            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[0px]">
               <div className="flex flex-row gap-[24px]">
                 <Image width={24} height={24} alt="symbol" src={EMAIL} />
                 <span className="font-opensans font-bold text-[1rem]">
@@ -237,7 +237,7 @@ export const ReportForm = (props: ReportFormProps) => {
               </span>
             </div>
             {/*  */}
-            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[12px]">
+            <div className="flex sm:flex-row xs:flex-col xs:items-start sm:items-center justify-between sm:gap-[24px] xs:gap-[0px]">
               <div className="flex flex-row gap-[24px]">
                 <Image width={24} height={24} alt="symbol" src={CLOCK} />
                 <span className="font-opensans font-bold text-[1rem]">

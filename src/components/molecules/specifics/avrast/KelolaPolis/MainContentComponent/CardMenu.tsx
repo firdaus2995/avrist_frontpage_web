@@ -36,16 +36,16 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
     <div
       role="button"
       onClick={() => {}}
-      className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex flex-row justify-between font-bold my-3 text-[1.5rem] gap-[0.75rem]"
+      className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex sm:flex-row xs:flex-col justify-between font-bold my-3 text-[1.5rem] gap-[0.75rem]"
     >
-      <span className="font-opensanspro text-[24px] font-bold">
-        {desc}{' '}
-        <span className="font-semibold text-[0.875rem] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[0.5rem] py-[0.25rem] ml-[0.75rem]">
+      <span className="font-opensanspro text-[24px] font-bold xs:text-left flex">
+        <span className="w-[90%]">{desc} </span>
+        <span className="font-semibold text-[0.875rem] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[0.5rem] py-[0.25rem] ml-[0.75rem] max-h-[30px] xs:mt-2 sm:mt-0">
           PDF
         </span>
       </span>
       <button
-        className="font-opensans font-semibold text-[1rem] bg-purple_dark text-white w-[8.5rem] h-[2.5rem] rounded-md px-[1.25rem] py-[0.5rem]"
+        className="font-opensans font-semibold text-[1rem] bg-purple_dark text-white w-[8.5rem] h-[2.5rem] rounded-md px-[1.25rem] py-[0.5rem] xs:self-start sm:self-end"
         onClick={() => onDownload && onDownload(href!)}
       >
         Unduh
