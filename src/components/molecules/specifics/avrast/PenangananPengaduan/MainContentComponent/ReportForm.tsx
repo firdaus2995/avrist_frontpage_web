@@ -70,7 +70,7 @@ const UploadBox = (props: UploadBoxProps) => {
           onClick={handleUploadClick}
         >
           <Icon name="UploadIcon" height={24} width={24} color="purple_dark" />
-          <p className="font-opensans font-normal text-[14px] text-center">
+          <p className="font-opensans font-normal text-[16px] text-center">
             {title}
           </p>
           <input
@@ -220,7 +220,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   Layanan Nasabah
                 </span>
               </div>
-              <span className="w-1/2 text-purple_dark font-normal text-[1rem]">
+              <span className="sm:w-1/2 xs:w-full text-purple_dark font-normal text-[1rem] leading-[23.68px] xs:ml-[48px] sm:ml-0">
                 021 5789 8188
               </span>
             </div>
@@ -232,7 +232,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   Email
                 </span>
               </div>
-              <span className="w-1/2 text-purple_dark font-normal text-[1rem]">
+              <span className="w-1/2 text-purple_dark font-normal text-[1rem] xs:ml-[48px] sm:ml-0">
                 customer@avrist.com
               </span>
             </div>
@@ -244,7 +244,7 @@ export const ReportForm = (props: ReportFormProps) => {
                   Waktu Operasional
                 </span>
               </div>
-              <span className="w-1/2 text-purple_dark font-normal text-[1rem]">
+              <span className="sm:w-1/2 xs:w-3/4 text-purple_dark font-normal text-[1rem] xs:ml-[48px] sm:ml-0">
                 Senin - Jumat, 08.00 - 17.00 WIB
               </span>
             </div>

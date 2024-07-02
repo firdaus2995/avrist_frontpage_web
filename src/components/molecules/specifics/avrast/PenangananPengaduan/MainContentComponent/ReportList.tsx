@@ -3,7 +3,6 @@ import ButtonMenuVertical from '../../ButtonMenuVertical';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
 import { Paginate } from './Paginate';
 import { PageInfo } from '@/types/provider.type';
-import { handleDownload } from '@/utils/helpers';
 import {
   contentStringTransformer,
   singleImageTransformer
@@ -44,7 +43,8 @@ export const ReportList = ({
   };
 
   const handleClickDownload = async (fileUrl: string) => {
-    await handleDownload(fileUrl);
+    window.open(fileUrl, '_blank');
+    // await handleDownload(fileUrl);
   };
 
   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -70,10 +70,11 @@ export const ReportList = ({
       }
     };
   });
+  console.log(reportData[selectedCategory]);
 
   return (
     <div className={`w-full flex flex-col justify-center relative`}>
-      <div className="w-full flex md:flex-row xs:flex-col">
+      <div className="w-full flex md:flex-row xs:flex-col gap-[48px]">
         <div className="xs:hidden md:block">
           <div
             className={`flex flex-col bg-purple_light_bg rounded-[12px] w-[200px]`}
@@ -86,7 +87,7 @@ export const ReportList = ({
                   index + 1 === categoriesInitial.length && 'rounded-bl-[12px]'
                 } ${
                   selectedCategory !== category && 'opacity-50'
-                } border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-[18px]`}
+                } border-l-8 border-l-purple_dark py-[12px] pl-[24px] font-bold text-purple_dark text-[18px]`}
                 onClick={() => onSelectedCategory(category)}
               >
                 {category}
@@ -95,7 +96,7 @@ export const ReportList = ({
           </div>
         </div>
 
-        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px]">
+        <div className="md:w-full xs:w-full flex flex-col gap-4">
           <div>
             {/* filter */}
             <div className="flex sm:flex-row xs:flex-col justify-between mb-[24px] gap-[24px]">
@@ -118,7 +119,7 @@ export const ReportList = ({
                   })}
                 </select>
               </div>
-              <div className="flex flex-row gap-[8px]">
+              <div className="flex flex-row gap-[12px]">
                 <input
                   placeholder="Cari Laporan"
                   className="w-[365px] py-[12px] px-[16px] rounded-xl bg-purple_dark/5"

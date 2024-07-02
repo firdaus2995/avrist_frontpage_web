@@ -38,9 +38,9 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
       onClick={() => {}}
       className="w-full p-[1.5rem] items-center bg-white border-2 rounded-[0.75rem] flex flex-row justify-between font-bold my-3 text-[1.5rem] gap-[0.75rem]"
     >
-      <span>
+      <span className="font-opensanspro text-[24px] font-bold">
         {desc}{' '}
-        <span className="font-opensans font-semibold text-[0.875rem] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[0.5rem] py-[0.25rem] ml-[0.75rem]">
+        <span className="font-semibold text-[0.875rem] text-purple_dark/80 bg-purple_dark/5 rounded-sm px-[0.5rem] py-[0.25rem] ml-[0.75rem]">
           PDF
         </span>
       </span>

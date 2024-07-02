@@ -222,11 +222,15 @@ export const MainContent = ({
   return (
     <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col">
-        <div className="bg-white w-full flex flex-col sm:py-[5rem] xs:py-[2.25rem] sm:px-[136px] sm:gap-[5rem] xs:px-4 xs:px-8 xs:gap-[36px]">
+        <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[5rem] xs:py-[2.25rem] sm:px-[136px] xs:px-4 xs:px-8 sm:gap-[5rem] xs:gap-[36px]">
           <ButtonMenu />
-          <Content />
+          <div className="xs:py-[44px]">
+            <Content />
+          </div>
           {videoData && <VideoInformation pageVideoData={videoData} />}
-          <ContentCard />
+          <div className="sm:-mt-[16px]">
+            <ContentCard />
+          </div>
           <ContentReportList />
           {dataMainContent && categories && (
             <ReportList
@@ -243,10 +247,10 @@ export const MainContent = ({
             />
           )}
         </div>
-        <div className="mt-[5rem] bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem]">
+        <div className="bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem]">
           <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden border-b-8 border-b-purple_dark">
             <div className="p-[2.25rem]">
-              <p className="font-karla font-bold text-[3.5rem]">
+              <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[3.2rem] leading-[67.2px] sm:-tracking-[2.24px] xs:-tracking-[1.44px]">
                 Form Pengaduan
               </p>
               {dataForm && (
@@ -265,7 +269,7 @@ export const MainContent = ({
                 maxSizeValidation={maxSizeValidation}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
-              <div className="flex flex-row mt-[2.25rem]">
+              <div className="flex flex-row mt-[2rem]">
                 <div>
                   <input
                     type="checkbox"
@@ -273,9 +277,10 @@ export const MainContent = ({
                     onChange={(e) => {
                       setIsChecked(e.target.checked);
                     }}
+                    className="w-[18px] h-[18px] mt-[5px]"
                   />
                 </div>
-                <span className="ml-[0.75rem]">
+                <span className="ml-[0.75rem] text-[16px] font-normal leading-[23.68px]">
                   Saya/kami telah membaca, memahami dan memberikan persetujuan
                   saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
                   menggunakan dan mengungkapkan data pribadi saya/kami sesuai
@@ -295,7 +300,7 @@ export const MainContent = ({
                   type="submit"
                   disabled={formIsValid ? (isChecked ? false : true) : true}
                   onClick={() => onSubmitData()}
-                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0 py-[12px] px-[40px] font-opensans text-[20px] font-semibold leading-[28px]`}
                 >
                   Kirim
                 </button>
