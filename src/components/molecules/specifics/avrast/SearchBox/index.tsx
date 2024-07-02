@@ -10,13 +10,15 @@ type SearchBoxProps = {
   onSearch: (target: string) => void;
   placeHolder?: string;
   value?: string;
+  customButton?: string;
 };
 
 const SearchBox: React.FC<SearchBoxProps> = ({
   buttonText = 'Cari',
   onSearch,
   placeHolder = 'Asuransi',
-  value
+  value,
+  customButton
 }) => {
   const [keyword, setKeyword] = useState(value || '');
 
@@ -29,7 +31,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   );
 
   return (
-    <div className="w-auto flex md:flex-row flex-col items-stretch gap-2 py-3">
+    <div className="w-[90%] m-auto flex md:flex-row flex-col items-stretch gap-[12px] py-3 font-opensans text-[16px] font-normal leading-[22.4px]">
       <Input
         customInputClass="grow !bg-gray_bglightgray !border-none py-[12px] px-[16px]"
         placeholder={placeHolder}
@@ -40,7 +42,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       <Button
         title={buttonText}
         onClick={() => onSearch(keyword)}
-        customButtonClass="!border-none !bg-purple_dark px-[2.5rem] py-[0.75rem]"
+        customButtonClass={`!border-none !bg-purple_dark px-[2.5rem] py-[0.75rem] ${customButton}`}
         customTextClass="text-white text-[20px] font-semibold leading-7"
       />
     </div>

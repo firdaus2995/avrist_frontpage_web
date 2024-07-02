@@ -81,7 +81,7 @@ const renderContent = (description: string) => {
 };
 
 const renderedtabContent = (content: string[]) => (
-  <ol className="list-decimal marker:font-bold pl-5 text-xl">
+  <ol className="list-decimal marker:font-normal font-opensans pl-5 text-xl">
     {content.map((item: string, index: number) => (
       <li
         key={index}
@@ -189,12 +189,12 @@ const Content = () => {
               </>
             )
           )}
-          <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[1.5rem]">
+          <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[20px]">
             <p className="font-bold text-[1.5rem] font-opensanspro text-purple_dark">
               Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
             </p>
             <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[1.25rem] font-opensans text-[16px] font-semibold leading-[23.68px]">
+              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[16px] font-opensans text-[16px] font-semibold leading-[23.68px]">
                 Ajukan Pengaduan
               </Button>
             </Link>

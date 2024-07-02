@@ -21,7 +21,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
       <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark">
         {item.map((i, index) => (
           <span
-            className="flex flex-row gap-4 items-center py-[12px]"
+            className="flex flex-row gap-4 items-center py-[12px] pl-[8px]"
             key={index}
             onClick={() => {
               i.onClick ? i.onClick() : null;

@@ -97,7 +97,7 @@ const Content = () => {
 
   return (
     <div className="w-full bg-purple_dark">
-      <div className="bg-white flex flex-col sm:pt-[5rem] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[3rem] sm:gap-[5rem] xs:gap-[2.25rem]">
+      <div className="bg-white flex flex-col sm:pt-[100px] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[28px] sm:gap-[5rem] xs:gap-[5rem]">
         <ButtonMenu
           buttonList={[
             'Informasi Nasabah',
@@ -108,16 +108,16 @@ const Content = () => {
         />
 
         <section className="w-full flex flex-col items-center text-center">
-          <h1 className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-purple_dark font-medium xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+          <h1 className="text-purple_dark font-karla text-center font-extrabold sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Jaringan Rekanan Rumah Sakit Avrist Assurance
           </h1>
-          <h2 className="font-karla xs:text-[1.5rem] sm:text-[2.25rem]">
+          <h2 className="font-karla font-normal sm:text-[2.25rem] xs:text-[1.5rem] text-gray_bold">
             Komitmen kami untuk memberikan rasa aman dan nyaman bersama lebih
             dari 1000 rumah sakit rekanan di seluruh Indonesia
           </h2>
         </section>
 
-        <section className="flex xs:flex-col md:flex-row gap-10">
+        <section className="flex xs:flex-col md:flex-row gap-[36px]">
           <div className="xs:w-full md:w-[250px]">
             <ButtonMenuVertical item={btnVerticalData} />
           </div>
