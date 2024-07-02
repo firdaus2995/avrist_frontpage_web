@@ -329,7 +329,7 @@ const Promo: React.FC<ParamsProps> = () => {
         </div>
         <ReactPaginate
           pageCount={totalPages}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={2}
           onPageChange={() => handlePageChange(totalPages)}
           nextLabel={<Icon name="chevronRight" color="purple_dark" />}
           previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
