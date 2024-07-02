@@ -17,7 +17,7 @@ export const CardMenuLink = (props: CardMenuLinkProps) => {
     <Link
       href={href ?? '#'}
       target={openNewTab ? '_blank' : '_self'}
-      className="w-full p-6 bg-purple_light_bg border-2 rounded-lg flex flex-row justify-between items-center font-bold text-[24px]"
+      className="w-full p-6 bg-purple_light_bg border-2 rounded-[12px] flex flex-row justify-between items-center font-bold text-[24px] font-opensanspro gap-[48px]"
     >
       {desc}
       <Image src={CHEVRONRIGHTPURPLE} alt="chevron-right" className="w-6 h-6" />
@@ -63,7 +63,7 @@ export const CardMenuChildren: React.FC<CardMenuChildrenProps> = (props) => {
   const { desc, children } = props;
   const [open, setOpen] = React.useState(false);
   return (
-    <div className="w-full p-4 bg-purple_light_bg border-2 rounded-lg flex flex-col font-black">
+    <div className="w-full p-4 bg-purple_light_bg border-2 rounded-[12px] flex flex-col font-black">
       <div
         className="flex flex-row justify-between cursor-pointer"
         onClick={() => setOpen(!open)}

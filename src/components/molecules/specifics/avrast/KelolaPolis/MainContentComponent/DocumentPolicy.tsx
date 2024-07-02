@@ -124,7 +124,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
   return (
     <div>
       {isShowDetail ? (
-        <div className='flex flex-col gap-[5rem] mt-[1.5rem] mb-[3rem]'>
+        <div className="flex flex-col gap-[5rem] -mt-[1rem] mb-[3rem]">
           <ContentPolicyList
             title={policyData?.title}
             desc={policyData?.desc}
@@ -141,7 +141,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
         </div>
       ) : (
         <div>
-          <div className="mt-[1.5rem] flex flex-col gap-[1.5rem]">
+          <div className="sm:-mt-[1rem] flex flex-col gap-[1.5rem] xs:mt-0">
             {policyGuideData?.map((item: any, index: any) => (
               <div
                 key={index}
@@ -154,7 +154,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
               </div>
             ))}
           </div>
-          <div className="mt-[1.5rem]">
+          <div className="mt-[4rem]">
             <CardMenuLink
               desc="Masuk untuk mengetahui informasi polis Anda"
               href="https://my.avrist.com/welcome"

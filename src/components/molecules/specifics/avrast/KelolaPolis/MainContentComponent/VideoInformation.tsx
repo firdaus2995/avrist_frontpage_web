@@ -44,6 +44,7 @@ export const VideoInformation = ({
   };
   const [videoData, setVideoData] = useState<VideoItem[]>([]);
   const [isMainVisible, setIsMainVisible] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const setDataVideo = () => {
@@ -175,7 +176,7 @@ export const VideoInformation = ({
         {item.type && (
           <div className="flex items-center justify-center">
             <div
-              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between h-auto`}
             >
               {item.type}
             </div>
@@ -186,7 +187,7 @@ export const VideoInformation = ({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-0">
       <div className="w-full m-auto flex flex-col gap-[20]">
         {videoData.length >= 1 && (
           <div
@@ -195,7 +196,7 @@ export const VideoInformation = ({
             <MainCard item={videoData[0]} mute={mute} />
           </div>
         )}
-        <div className="hidden w-full md:grid md:grid-cols-3 gap-8 mt-10">
+        <div className="hidden w-full md:grid md:grid-cols-3 gap-[24px] mt-[24px]">
           {renderSub()}
         </div>
         <Slider
@@ -204,12 +205,29 @@ export const VideoInformation = ({
           }}
           className="md:!hidden"
           {...sliderSettings}
+          beforeChange={(_, next) => setCurrentSlide(next)}
         >
           {renderMobileVideo()}
         </Slider>
-        <div className="flex flex-row justify-between mx-5 md:hidden xs:flex">
-          <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
-          <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+        <div className="flex flex-row justify-between md:hidden xs:flex mt-[32px]">
+          <Image
+            alt="prev"
+            className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+            src={ARROW_LEFT}
+            role="button"
+            onClick={previous}
+          />
+          <Image
+            alt="next"
+            className={
+              currentSlide === videoData.length - 1
+                ? 'opacity-50'
+                : 'opacity-100'
+            }
+            src={ARROW_RIGHT}
+            role="button"
+            onClick={next}
+          />
         </div>
       </div>
     </div>

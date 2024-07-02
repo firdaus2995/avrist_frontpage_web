@@ -9,7 +9,6 @@ type SubCardProps = {
 };
 
 const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
-  
   const videoId = useMemo(() => {
     if (!item.videoUrl) return '';
     const splittedUrl = item.videoUrl.split('/');
@@ -21,9 +20,8 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
     } else if (lastPiece && lastPiece.includes('?si=')) {
       const anotherSplitted = lastPiece.split('?si=');
       return anotherSplitted.at(0);
-    } 
-    else if (lastPiece && lastPiece.includes('?')) {
-      const videoIdParam = lastPiece.split('?')[0];      
+    } else if (lastPiece && lastPiece.includes('?')) {
+      const videoIdParam = lastPiece.split('?')[0];
       return videoIdParam ?? '';
     }
     return lastPiece ?? '';
@@ -32,7 +30,7 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
   return (
     <div
       onClick={() => onClick(item.id)}
-      className="w-[95%] md:max-w-[25rem] flex flex-col rounded-xl shadow-md cursor-pointer group"
+      className="w-[100%] md:max-w-[25rem] flex flex-col rounded-xl shadow-md cursor-pointer group"
     >
       <div className="w-full relative h-[13rem] md:h-[10rem] overflow-hidden rounded-t-xl">
         <Image
@@ -40,7 +38,10 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
           width={0}
           height={0}
           className="absolute w-full h-full inset-0"
-          src={item.videoThumbnail || `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          src={
+            item.videoThumbnail ||
+            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+          }
         />
         <div className="w-full h-full absolute flex items-center justify-center">
           <Image alt={'play-button'} className="w-16" src={PlayButton} />
