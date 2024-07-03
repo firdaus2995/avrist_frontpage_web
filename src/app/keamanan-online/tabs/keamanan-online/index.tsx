@@ -6,13 +6,13 @@ const KeamananOnline = () => {
       <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem]">
         Keamanan Online
       </p>
-      <p className="font-karla font-bold sm:text-[2.25rem] xs:text-[1.5rem] text-purple_dark mt-[1.5rem]">
+      <p className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px] leading-[43.2px] -tracking-[1.08px]">
         Kebijakan Keamanan Informasi
       </p>
-      <p className="font-opensans font-normal text-[1.25rem] text-gray_body mt-[1.5rem]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         PT. AVRIST ASSURANCE berkomitmen untuk:
       </p>
-      <ol className="font-opensans font-normal text-[1.25rem] text-gray_body mt-[1.5rem] list-decimal">
+      <ol className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px] list-decimal ml-[1.5rem]">
         <li>
           Menerapkan sistem manajemen keamanan informasi berdasarkan ISO
           27001:2013, serta mematuhi peraturan perundangan dan persyaratan

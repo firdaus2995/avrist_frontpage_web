@@ -34,9 +34,9 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
   };
 
   return (
-    <div className="w-full bg-white flex flex-col sm:gap-[7.5rem] xs:gap-[2.25rem] items-center bg-[#F7F4F8] sm:px-[5rem] sm:py-[3.90625rem] xs:py-[1.875rem] xs:px-[1.3125rem]">
-      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark text-center">
-        Apa yang ingin <span className="font-bold">Anda </span> ketahui?
+    <div className="w-full bg-white flex flex-col items-center justify-between bg-purple_superlight sm:px-[5rem] sm:py-[5rem] xs:py-[3.125rem] xs:px-[2rem]">
+      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark text-center mb-[5rem] font-light sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
+        Apa yang ingin <span className="font-extrabold">Anda </span> ketahui?
       </h1>
       <div className="xs:hidden sm:grid xs:grid-rows-1 xs:grid-cols-2 sm:grid-cols-4 gap-[1.5rem]">
         {cards.map((item, index) => (
@@ -56,7 +56,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                 width={60}
                 height={60}
               />
-              <p className="text-center font-bold xs:text-[2rem] sm:text-[1.5rem] leading-[2.4rem]">
+              <p className="text-center font-bold xs:text-[2rem] sm:text-[2rem] leading-[2.4rem] leading-[38.4px] -tracking-[0.03em]">
                 {item.title.split('\n').map((line, index) => (
                   <p key={index}>{line}</p>
                 ))}

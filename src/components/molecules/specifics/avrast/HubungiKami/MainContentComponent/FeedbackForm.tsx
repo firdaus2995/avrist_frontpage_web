@@ -75,10 +75,10 @@ export const FeedbackForm = (props: Props) => {
   };
 
   return (
-    <div className="bg-white sm:px-[8.5rem] sm:py-[4rem] xs:py-[1.875rem] xs:px-[1.3125rem]">
+    <div className="bg-white sm:px-[8.5rem] py-[5rem] xs:px-[1.3125rem]">
       <div className="border rounded-xl flex flex-col justify-between overflow-hidden">
         <div className="p-[2.25rem]">
-          <p className="font-bold font-karla text-[2.25rem] text-purple_dark">
+          <p className="font-bold font-karla text-[2.25rem] text-purple_dark mb-[36px] leading-[43.2px] -tracking-[1.08px]">
             Bagikan Saran Anda
           </p>
           {dataForm && (
@@ -106,7 +106,7 @@ export const FeedbackForm = (props: Props) => {
                     ? 'bg-purple_dark'
                     : 'bg-dark-grey'
                   : 'bg-dark-grey'
-              } text-white h-[2.75rem] md:h-[4rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0`}
+              }  text-white px-[2.5rem] py-[0.75rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0 font-semibold text-xl`}
             >
               Kirim
             </button>

@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import BlankImage from '@/assets/images/blank-image.svg';
-import Book from '@/assets/images/common/book.svg';
+import MediumTag from '@/components/atoms/Tag/MediumTag';
 import { isContentNotEmpty } from '@/utils/helpers';
 
 interface ICardCategoryD {
@@ -13,7 +13,6 @@ interface ICardCategoryD {
   tags: string[];
   type?: string;
   image?: string;
-  readTime?: string;
 }
 
 const CardCategoryD = ({
@@ -23,12 +22,11 @@ const CardCategoryD = ({
   title,
   tags,
   type,
-  image,
-  readTime
+  image
 }: ICardCategoryD) => {
   return (
     <div
-      className={`flex ${type === 'row' ? 'md:flex-row-reverse p-4 xs:max-lg:flex-wrap xs:flex-col border-b-8 border-b-purple_dark' : 'flex-col border-b-8 border-b-purple_dark'} border border-gray_light rounded-[12px] h-full`}
+      className={`flex ${type === 'row' ? 'md:flex-row-reverse px-6 py-9 xs:max-lg:flex-wrap xs:flex-col border-b-8 border-b-purple_dark' : 'flex-col border-b-8 border-b-purple_dark'} border border-gray_light rounded-[12px] h-full`}
     >
       <div
         className={`flex relative min-h-[300px] ${type === 'row' ? 'lg:w-1/3 xs:max-lg:w-full rounded-xl' : ''}`}
@@ -53,7 +51,7 @@ const CardCategoryD = ({
           </p>
         )}
         {isContentNotEmpty(title) && (
-          <p className="font-karla text-[24px]/[28.8px] -tracking-[0.72px] font-bold text-left line-clamp-2">
+          <p className="font-karla text-[24px]/[28.8px] -tracking-[0.72px] font-bold text-left xs:line-clamp-3 sm:line-clamp-2">
             {title}
           </p>
         )}
@@ -62,23 +60,14 @@ const CardCategoryD = ({
             {summary}
           </p>
         )}
-        {isContentNotEmpty(readTime ?? '-') && (
-          <div className="flex flex-row gap-2 items-center">
-            <Image alt="book-image" width={0} height={20} src={Book} />
-            <p className="font-bold text-[14px]/[19.6px]">
-              {readTime !== '-' && `${readTime}`}
-            </p>
-          </div>
-        )}
         <div className="font-opensans flex flex-row gap-2 items-center flex-wrap">
           {tags?.length > 0 &&
             tags?.map((item, index) => (
-              <p
+              <MediumTag
                 key={index}
-                className="text-purple_dark font-semibold bg-gray_bglightgray px-2 py-1 text-sm"
-              >
-                {item}
-              </p>
+                title={item}
+                customClass="font-opensans font-semibold text-[14px]/[19.6px] py-1 px-2 whitespace-nowrap"
+              />
             ))}
         </div>
       </div>

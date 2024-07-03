@@ -14,9 +14,9 @@ export const CardAddress = (props: Props) => {
   const { title, address, contact, workHour, onChangeCenter, lat, lng } = props;
   return (
     <CardPurple>
-      <div className="p-[24px]">
+      <div className="px-[24px] py-[24px]">
         <div className="flex flex-row justify-between items-center">
-          <span className="font-bold text-[24px]">{title}</span>
+          <span className="font-bold text-[24px] leading-[30.17px] font-opensanspro">{title}</span>
           <div role='button' onClick={() => onChangeCenter(lat, lng)}>
             <Icon
               name="navigation"
@@ -27,8 +27,8 @@ export const CardAddress = (props: Props) => {
           </div>
         </div>
         {address && (
-          <div className="flex flex-row items mt-[24px]">
-            <div className="w-[24px] h-[24px] mr-[8px]">
+          <div className="flex flex-row items mt-[24px] gap-2">
+            <div className="w-[24px] h-[24px]">
               <Icon
                 name="maps"
                 height={24}
@@ -36,12 +36,12 @@ export const CardAddress = (props: Props) => {
                 color="purple_verylight"
               />
             </div>
-            <span className="font-opensans text-[18px]">{address}</span>
+            <span className="font-opensans text-[18px] leading-[25.2px]">{address}</span>
           </div>
         )}
         {workHour && (
-          <div className="flex flex-row items mt-[12px]">
-            <div className="w-[24px] h-[24px] mr-[8px]">
+          <div className="flex flex-row items mt-[12px] gap-2">
+            <div className="w-[24px] h-[24px]">
               <Icon
                 name="clock"
                 height={24}
@@ -49,12 +49,12 @@ export const CardAddress = (props: Props) => {
                 color="purple_verylight"
               />
             </div>
-            <span className="font-opensans text-[18px]">{workHour}</span>
+            <span className="font-opensans text-[18px] leading-[25.2px]">{workHour}</span>
           </div>
         )}
         {contact && (
-          <div className="flex flex-row items mt-[12px]">
-            <div className="w-[24px] h-[24px] mr-[8px]">
+          <div className="flex flex-row items mt-[12px] gap-2">
+            <div className="w-[24px] h-[24px]">
               <Icon
                 name="phone"
                 height={24}
@@ -62,7 +62,7 @@ export const CardAddress = (props: Props) => {
                 color="purple_verylight"
               />
             </div>
-            <span className="font-opensans text-[18px]">{contact}</span>
+            <span className="font-opensans text-[18px] leading-[25.2px]">{contact}</span>
           </div>
         )}
       </div>

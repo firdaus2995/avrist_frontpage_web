@@ -69,7 +69,7 @@ const SyaratPengunaan = () => {
           <div
             className={`w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="sm:text-[56px] xs:text-[40px] font-karla sm:leading-[67.2px] xs:leading-[48px] -tracking-[2.24px] font-light">
               <span className="font-bold text-purple_dark">Komitmen</span> Kami,
               proses klaim yang{' '}
               <span className="font-bold text-purple_dark">efisien</span> dan{' '}

@@ -12,7 +12,6 @@ import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import { handleGetContentCategory } from '@/services/content-page.api';
-import { handleDownload } from '@/utils/helpers';
 import {
   contentCategoryTransformer,
   singleImageTransformer
@@ -173,7 +172,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   const renderStep = (idx: number) => {
     return (
       <div className="w-full flex flex-col items-center justify-start p-[2.25rem] text-left border rounded-[0.75rem] border-t-8 border-t-purple_dark">
-        <h2 className="w-full text-[2.25rem] font-bold text-purple_dark font-karla xs:mb-[1.5rem] md:mb-[2.25rem] leading-[2.7rem]">
+        <h2 className="w-full text-[2.25rem] font-bold text-purple_dark font-karla xs:mb-[1.5rem] md:mb-[2.25rem] leading-[43.2px] sm:-tracking-[1.08px] xs:-tracking-[0.04px]">
           {detailData[selectedDetailCategory]}
         </h2>
         {contentData && selectedData && renderDetailStep(idx)}
@@ -199,14 +198,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
               }}
-              className={`${isEmpty(selectedData.content['tab-1-paragraf-1'].value) && 'hidden'}`}
+              className={`${isEmpty(selectedData.content['tab-1-paragraf-1'].value) && 'hidden'} text-[20px] leading-[32px]`}
             />
             <div className="flex flex-col gap-[1.25rem]">
               <p
                 dangerouslySetInnerHTML={{
                   __html: selectedData.content['tab-1-paragraf-2'].value
                 }}
-                className={`${isEmpty(selectedData.content['tab-1-paragraf-2'].value) && 'hidden'}`}
+                className={`${isEmpty(selectedData.content['tab-1-paragraf-2'].value) && 'hidden'} text-[20px] leading-[32px]`}
               />
               <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-[2rem]">
                 {selectedData.content['tab-1-list'].contentData.map(
@@ -238,7 +237,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-3'].value
               }}
-              className={`${isEmpty(selectedData.content['tab-1-paragraf-3'].value) && 'hidden'}`}
+              className={`${isEmpty(selectedData.content['tab-1-paragraf-3'].value) && 'hidden'} text-[20px] leading-[32px]`}
             />
           </div>
         );
@@ -252,14 +251,20 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     key={idx}
                     className="flex flex-row items-start gap-[0.75rem] text-[1.25rem] font-semibold font-opensans"
                   >
-                    <Image
-                      src={singleImageTransformer(val.details[0]).imageUrl}
-                      alt={val.details[1].value}
-                      className="w-[2.25rem]"
-                      width={2.25}
-                      height={2.25}
-                    />
-                    <p>{val.details[1].value}</p>
+                    {singleImageTransformer(val.details[0]).imageUrl?.includes(
+                      'no-image'
+                    ) ? null : (
+                      <Image
+                        src={singleImageTransformer(val.details[0]).imageUrl}
+                        alt={val.details[1].value}
+                        className="w-[2.25rem]"
+                        width={2.25}
+                        height={2.25}
+                      />
+                    )}
+                    <p className="text-[20px] leading-[28px]">
+                      {val.details[1].value}
+                    </p>
                   </div>
                 )
             )}
@@ -282,21 +287,22 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                       key={idx}
                     >
                       <div className="flex flex-col gap-2">
-                        <p className="text-[1.5rem] font-bold">
+                        <p className="text-[1.5rem] font-bold font-opensanspro leading-[30.17px]">
                           {val.details[0].value}
                         </p>
                         <div className="flex flex-row gap-2 text-purple_dark font-semibold font-opensans">
-                          <p className="bg-purple_dark/[0.06] text-sm py-[0.25rem] px-[0.5rem]">
+                          <p className="bg-purple_dark/[0.06] text-sm py-[0.25rem] px-[0.5rem] leading-[19.6px]">
                             {format.toUpperCase()}
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-center">
+                      <div className="flex items-center xs:justify-start sm:justify-center">
                         <div
-                          className="py-[0.5rem] px-[1.25rem] rounded-[0.75rem] text-white font-semibold bg-purple_dark cursor-pointer font-opensans"
+                          className="py-[0.5rem] px-[1.25rem] flex items-center justify-center w-[96px] rounded-[6px] text-white font-semibold bg-purple_dark cursor-pointer font-opensans leading-[23.68px]"
                           onClick={async () =>
-                            await handleDownload(
-                              singleImageTransformer(val.details[1]).imageUrl
+                            window.open(
+                              singleImageTransformer(val.details[1]).imageUrl,
+                              '_blank'
                             )
                           }
                         >
@@ -314,7 +320,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         return (
           <div className="w-full flex flex-col gap-4">
             <p
-              className={`text-[1.25rem] font-opensans ${isEmpty(selectedData.content['tab-4-paragraf'].value) && 'hidden'}`}
+              className={`text-[1.25rem] leading-[32px] font-opensans ${isEmpty(selectedData.content['tab-4-paragraf'].value) && 'hidden'}`}
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-4-paragraf'].value
               }}
@@ -328,21 +334,21 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   return (
     <div
-      className={`w-full flex flex-col justify-center gap-[5rem] xs:px-[2rem] md:px-[8.5rem] relative ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg sm:pt-[5rem]'} mb-1`}
+      className={`w-full flex flex-col justify-center gap-[5rem] xs:px-[2rem] xs:pb-[26px] md:px-[8.5rem] relative ${isSelectedData ? 'bg-white' : 'bg-purple_light_bg pt-[5rem]'} mb-1`}
     >
       {!isSelectedData && (
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] md:-tracking-[2.56px]">
+          <h2 className="font-karla md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] md:-tracking-[2.24px] md:leading-[67.2px] xs:leading-[43.2px]">
             Kami proses Klaim Anda dengan efisien
           </h2>
-          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
+          <h2 className="font-karla md:text-[2.25rem] xs:text-[1.5rem] -tracking-[1.08px] md:leading-[43.2px] xs:leading-[28.8px] mt-[0.75rem]">
             Cek jenis klaim yang akan Anda ajukan, dan dokumen pendukung yang
             dibutuhkan
           </h2>
         </div>
       )}
 
-      <div className="w-full flex md:flex-row xs:flex-col gap-[4rem]">
+      <div className="w-full flex md:flex-row xs:flex-col gap-[3rem]">
         <div className="xs:hidden md:block">
           <div
             className={`w-full flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem]`}
@@ -358,7 +364,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         category: val
                       });
                     }}
-                    className={`${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark p-4 text-[1.125rem] font-bold text-purple_dark`}
+                    className={`min-w-[250px] ${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark pl-6 pr-3 py-3 text-[1.125rem] font-bold text-purple_dark`}
                   >
                     {val}
                   </div>
@@ -375,7 +381,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         onChangeBannerImg(2);
                       }
                     }}
-                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === detailData.length && 'rounded-bl-[0.75rem]'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-lg`}
+                    className={`${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === detailData.length && 'rounded-bl-[0.75rem]'} ${selectedDetailCategory !== idx && 'opacity-50'} border-l-8 border-l-purple_dark p-4 font-bold text-purple_dark text-lg font-opensanspro heading-[25.2px]`}
                   >
                     {val}
                   </div>
@@ -385,16 +391,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         <div className="xs:w-full flex flex-col gap-[2.25rem]">
           {!isSelectedData ? (
             <div className="flex flex-col gap-[2.25rem]">
-              <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
+              <div className="xs:w-[100%] md:w-[25%] h-full bg-purple_light_bg rounded-xl sm:hidden">
                 {btnVerticalData && (
                   <ButtonMenuVertical item={btnVerticalData} />
                 )}
               </div>
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-3">
                 <Input
                   type="text"
                   placeholder="Cari jenis klaim"
-                  customInputClass="w-full rounded-[0.75rem] px-[1rem] py-[0.75rem]"
+                  customInputClass="w-full rounded-[0.75rem] px-[1rem] py-[0.75rem] leading-[22.4px]"
                   onChange={(e) => {
                     setSearch(e.target.value);
                   }}
@@ -407,7 +413,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 <Button
                   title="Cari"
                   customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
-                  customTextClass="text-white text-[1.25rem] font-semibold"
+                  customTextClass="text-white text-[1.25rem] font-semibold leading-[28px]"
                   onClick={() => {
                     setParams({ ...params, searchFilter: search });
                   }}
@@ -415,16 +421,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-[2.25rem]">
+            <div className="flex flex-col gap-[36px]">
               <div className="flex md:flex-row xs:flex-col xs:divide-y md:divide-y-0 gap-4 justify-between border rounded-[0.75rem] p-3 text-purple_dark font-semibold">
                 <div className="flex flex-row items-center gap-2">
-                  <Image src={HeartIcon} alt="heart-icon" className="w-7" />
-                  <p className="text-[1.5rem] font-bold font-karla">
+                  <Image src={HeartIcon} alt="heart-icon" className="w-9" />
+                  <p className="text-[1.5rem] font-bold font-karla text-[24px] leading-[28.8px] -tracking-[0.72px]">
                     {params.category}
                   </p>
                 </div>
                 <div
-                  className="flex flex-row items-center gap-2 text-[1.25rem] font-semibold xs:pt-2 sm:pt-0"
+                  className="flex flex-row items-center gap-2 text-[20px] font-semibold xs:pt-2 sm:pt-0 leading-[28px]"
                   role="button"
                   onClick={() => {
                     setSelectedData('');
@@ -434,7 +440,12 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     window.scrollTo(0, 0);
                   }}
                 >
-                  <Icon name="chevronLeft" color="purple_dark" />
+                  <Icon
+                    name="chevronLeft"
+                    color="purple_dark"
+                    width={24}
+                    height={24}
+                  />
                   Kembali
                 </div>
               </div>
@@ -493,7 +504,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   )}
                 </div>
               </div>
-              <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla">
+              <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla leading-[67.2px] -tracking-[2.24px]">
                 {selectedData.title}
               </div>
             </div>
@@ -511,7 +522,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     onChangeBannerImg(2);
                     window.scrollTo(0, 0);
                   }}
-                  className="w-full p-4 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold"
+                  className="w-full p-6 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold font-opensanspro leading-[30.17px]"
                 >
                   {val.title}
                   <Image
@@ -527,7 +538,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           {!isSelectedData && (
             <div className="flex flex-col gap-4 sm:flex-row justify-between ">
               <div>
-                <p className="text-[1.25rem]">
+                <p className="text-xl">
                   Menampilkan{' '}
                   <span className="font-bold text-purple_dark">
                     {contentData?.length === 0 ? 0 : startIndex + 1}-
@@ -540,7 +551,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                   hasil
                 </p>
               </div>
-              <div className="flex flex-row gap-[0.5rem] items-center">
+              <div className="flex flex-row gap-[0.75rem] items-center text-xl">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (page) => (
                     <div

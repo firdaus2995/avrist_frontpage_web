@@ -44,13 +44,13 @@ export const BranchOffice = (props: Props) => {
   const totalPages = data ? Math.ceil(data.length / itemsPerPage) : 0;
 
   return (
-    <Card className="bg-white p-[1rem]">
-      <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-[0.75rem]">
-        <span className="font-opensans font-bold text-[1.5rem]">
+    <Card className="bg-white p-[1.5rem]">
+      <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-[1.5rem] items-center">
+        <span className="font-opensanspro font-bold text-[1.5rem] leading-[30.17px]">
           Kantor Cabang
         </span>
         <SearchInput
-          placeholder="Cari Lokasi Kantor Cabang"
+          placeholder="Cari lokasi kantor cabang"
           onClickSearch={handleClickSearchParams}
         />
       </div>
@@ -70,7 +70,7 @@ export const BranchOffice = (props: Props) => {
           </div>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-3 sm:grid-rows-2 xs:grid-cols-1 gap-x-[0.75rem] gap-y-[1.5rem] mt-[1.5rem]">
+        <div className="grid sm:grid-cols-3 sm:grid-rows-2 xs:grid-cols-1 gap-x-[0.75rem] sm:gap-y-[1.5rem] xs:gap-y-[0.75rem] mt-[1.5rem]">
           {paginatedData?.map((item: any, index: number) => (
             <CardAddress
               key={index}
@@ -84,7 +84,7 @@ export const BranchOffice = (props: Props) => {
           ))}
         </div>
       )}
-      <div className="flex flex-col gap-4 sm:flex-row justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row justify-between mt-[1.5rem]">
         <div>
           <p className="text-[20px]">
             Menampilkan{' '}

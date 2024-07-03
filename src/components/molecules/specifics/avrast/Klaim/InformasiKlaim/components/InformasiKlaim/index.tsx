@@ -122,35 +122,42 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
 
   return (
     <div>
-      <div className="flex flex-col self-stretch items-center justify-center gap-[5rem]">
+      <div className="flex flex-col self-stretch items-center justify-center gap-[5rem] mt-[5rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+          <h2 className="font-karla md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Komitmen Kami menangani klaim Anda
           </h2>
-          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
+          <h2 className="font-karla md:text-[2.25rem] xs:text-[1.5rem] sm:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px] mt-[0.75rem]">
             Kami memberikan pelayanan dengan{' '}
             <span className="font-bold">efisien.</span>
           </h2>
         </div>
-        <div className="grid grid-cols-3 gap-[1.25rem] xs:hidden md:grid">
+        <div className="grid grid-cols-3 gap-[1.5rem] xs:hidden md:grid">
           {data.map((val, idx) => (
             <div
               key={idx}
-              className="max-w-sm flex flex-col items-center justify-between pt-[1.5rem] px-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-[0.75rem] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+              className="max-w-sm flex flex-col gap-[24px] items-center justify-between pt-[1.5rem] px-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-[0.75rem] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
             >
-              <Image src={val.icon} alt={val.title} width={100} height={100} />
-              <div className="flex flex-col items-center justify-between gap-2">
-                <h5 className="mb-2 md:text-[2rem] xs:text-[1.25rem] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
-                  {val.title}
-                </h5>
+              <div className="flex flex-col items-center justify-center gap-[24px]">
+                <Image
+                  src={val.icon}
+                  alt={val.title}
+                  width={100}
+                  height={100}
+                />
+                <div className="flex flex-col items-center justify-between gap-3">
+                  <h5 className="font-karla md:text-[2rem] xs:text-[1.25rem] font-bold tracking-tight text-gray-900 dark:text-white text-center leading-[38.4px] -tracking-[0.096px]">
+                    {val.title}
+                  </h5>
+                  <p className="font-normal md:text-[1rem] xs:text-[0.75rem] text-gray-500 dark:text-gray-400 line-clamp-3 text-center leading-[22.4px]">
+                    {val.desc}
+                  </p>
+                </div>
               </div>
-              <p className="mb-3 font-normal md:text-[1rem] xs:text-[0.75rem] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
-                {val.desc}
-              </p>
               <div
                 role="button"
                 onClick={() => handleClickPelayananButton(val.btnText)}
-                className="w-[80%] p-2 bg-purple_dark mx-10 flex items-center justify-center text-white font-medium rounded-xl"
+                className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
               >
                 {val.btnText}
               </div>
@@ -171,7 +178,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
               >
                 <div
                   key={idx}
-                  className="w-full h-[21.375rem] flex flex-col items-center px-[1.5rem] pt-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
+                  className="w-full h-[23rem] gap-6 flex flex-col items-center px-[1.5rem] pt-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
                 >
                   <div className="flex w-full items-center justify-center">
                     <Image
@@ -181,21 +188,21 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                       height={100}
                     />
                   </div>
-                  <div className="flex flex-col items-center justify-between gap-2 grow">
-                    <div className="flex flex-col">
-                      <h5 className="mb-2 text-[1.25rem] font-bold tracking-tight text-gray-900 dark:text-white mt-5 text-center">
-                        {val.title}
-                      </h5>
-                      <p className="mb-3 font-normal text-[0.75rem] text-gray-500 dark:text-gray-400 line-clamp-3 text-center">
+                  <div className="flex flex-col items-center justify-between grow">
+                    <h5 className="font-karla text-[2rem] font-bold -tracking-[0.03rem] leading-[38.4px] text-gray-900 dark:text-white text-center">
+                      {val.title}
+                    </h5>
+                    <div className="flex flex-col gap-[24px]">
+                      <p className="font-normal text-[0.75rem] text-gray-500 leading-[22.4px] dark:text-gray-400 line-clamp-3 text-center">
                         {val.desc}
                       </p>
-                    </div>
-                    <div
-                      role="button"
-                      className="px-[1.25rem] py-[0.5rem] bg-purple_dark flex items-center justify-center text-white font-medium rounded-xl text-center"
-                      onClick={() => handleClickPelayananButton(val.btnText)}
-                    >
-                      {val.btnText}
+                      <div
+                        role="button"
+                        className="px-[1.25rem] py-[0.5rem] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] text-center leading-[23.68px]"
+                        onClick={() => handleClickPelayananButton(val.btnText)}
+                      >
+                        {val.btnText}
+                      </div>
                     </div>
                   </div>
                 </div>

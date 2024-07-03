@@ -3,10 +3,10 @@ import React from 'react';
 const KepemilikanInformasi = () => {
   return (
     <div>
-      <h1 className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px]">
+      <h1 className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px] leading-[43.2px] -tracking-[1.08px]">
         Kepemilikan Informasi
       </h1>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Kami mengumpulkan informasi pribadi Anda sesuai dengan peraturan yang
         berlaku dan sesuai dengan praktek usaha yang lazim dilakukan dalam
         rangka penyediaan produk dan jasa, serta mendukung kegiatan usaha kami.
@@ -19,7 +19,7 @@ const KepemilikanInformasi = () => {
         peraturan yang berlaku, seperti pengungkapan informasi kepada pihak
         reasuransi, agen atau perwakilan kami, dan pihak penyedia jasa kami.
       </p>
-      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px]">
+      <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         Selain dari data atau informasi pribadi, setiap informasi lain yang Anda
         kirimkan kepada Avrist melalui situs ini, melalui surat elektronik atau
         lainnya, termasuk data, pertanyaan, komentar, atau saran, akan dianggap

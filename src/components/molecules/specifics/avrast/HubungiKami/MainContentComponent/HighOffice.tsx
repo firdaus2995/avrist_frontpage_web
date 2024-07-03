@@ -38,7 +38,7 @@ const HighOffice = (props: Props) => {
     };
 
     return (
-      <div className="w-full sm:h-[37.5rem] xs:h-[12rem]">
+      <div className="w-full sm:h-[37.5rem] xs:aspect-[3/4]">
         <MapContainer
           center={defaultProps.center}
           zoom={16}
@@ -85,8 +85,8 @@ const HighOffice = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-[4rem]">
-      <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem] text-center text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+    <div className="flex flex-col gap-[5rem]">
+      <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
         Lokasi Kantor Pusat Avrist Assurance
       </p>
       <Card className="bg-white p-[1.5rem] flex sm:flex-row xs:flex-col-reverse gap-6">

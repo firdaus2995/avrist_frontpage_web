@@ -41,20 +41,20 @@ const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
   };
 
   return (
-    <div className="w-full bg-white flex flex-col sm:gap-[7.5rem] xs:gap-[2.25rem] items-center sm:px-[8.5rem] sm:pt-[3.125rem] xs:pb-[1.625rem] xs:py-[3rem] xs:px-[2.25rem]">
-      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-extrabold">
+    <div className="w-full bg-white flex flex-col gap-[5rem] items-center sm:px-[8.5rem] sm:pt-[5rem] xs:pb-[1.5rem] xs:py-[3rem] xs:px-[2rem]">
+      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-extrabold text-center sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
         {selected}
       </h1>
       {paginatedData?.length > 0 ? (
         <div className="w-full">
-          <div className="w-full flex flex-col gap-[1.25rem]">
+          <div className="w-full flex flex-col gap-[12px]">
             {paginatedData.map((item, index) => (
               <Link
                 href={item.href}
                 key={index}
-                className="w-full border border-gray_light rounded-xl px-[0.5rem] py-[0.75rem] flex flex-row justify-between items-center"
+                className="w-full border border-gray_light rounded-xl p-[1.5rem] flex flex-row justify-between items-center shadow-[0_13px_20px_0px_purple_dark/[0/03]]"
               >
-                <p className="text-xl font-bold">{item.title}</p>
+                <p className="text-2xl font-semibold leading-[30.17px] font-opensanspro">{item.title}</p>
                 <Image alt="chevron" src={CHEVRON_RIGHT_PURPLE} />
               </Link>
             ))}

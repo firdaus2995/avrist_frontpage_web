@@ -1110,7 +1110,6 @@ const Berita: React.FC<ParamsProps> = () => {
                                 : item.tags
                             }
                             image={item.image}
-                            readTime={item.waktuBaca}
                           />
                         </Link>
                       ))}
@@ -1254,7 +1253,6 @@ const Berita: React.FC<ParamsProps> = () => {
                                   : item.tags
                               }
                               image={item.image}
-                              readTime={item.waktuBaca}
                             />
                           </Link>
                         ))}

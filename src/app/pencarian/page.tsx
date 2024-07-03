@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
-import { Metadata } from 'next';
+'use client';
+import { Suspense, useState, useEffect } from 'react';
 import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import EMAIL from '@/assets/images/common/email.svg';
@@ -10,7 +10,7 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import SearchForm from '@/components/molecules/specifics/avrast/Pencarian/SearchForm';
-import { getImagePencarian } from '@/services/pencarian.api';
+import { handleGetContentPage } from '@/services/content-page.api';
 import {
   pageTransformer,
   singleImageTransformer
@@ -21,25 +21,33 @@ const breadcrumbsData = [
   { title: 'Pencarian', href: '/pencarian' }
 ];
 
-export const metadata: Metadata = {
-  title: 'Avrist | Pencarian',
-  description: 'Avrist Pencarian'
-};
+const Pencarian = () => {
+  const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
+  const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
 
-const Pencarian = async () => {
-  const data = await getImagePencarian();
-  const { content } = pageTransformer(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await handleGetContentPage('pencarian');
+        const { content } = pageTransformer(data);
+        
+        setTitleImage(singleImageTransformer(content['title-image']));
+        setFooterImage(singleImageTransformer(content['cta1-image']));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
-  const bannerImage = singleImageTransformer(content['title-image']);
-  const footerImage = singleImageTransformer(content['cta1-image']);
+    fetchData();
+  }, []);
 
   return (
     <Suspense>
       <div className="flex flex-col bg-purple_superlight">
         <Hero
-          title="Pencarian"
+          title='Pencarian'
           breadcrumbsData={breadcrumbsData}
-          imageUrl={bannerImage.imageUrl}
+          imageUrl={titleImage.imageUrl}
         />
         <div className="xs:-mt-[3.4rem] md:-mt-[6.3rem] relative z-[10]">
           {' '}
@@ -49,7 +57,7 @@ const Pencarian = async () => {
         <RoundedFrameBottom frameColor="bg-white" />
         <FooterInformation
           title={
-            <p className="text-[48px]">
+            <p className="sm:text-[56px] xs:text-[40px] font-karla sm:leading-[67.2px] xs:leading-[48px] -tracking-[2.24px] font-light">
               Solusi inovatif untuk{' '}
               <span className="text-purple_dark font-bold">nasabah</span>,
               <span className="text-purple_dark font-bold"> individu</span> dan{' '}

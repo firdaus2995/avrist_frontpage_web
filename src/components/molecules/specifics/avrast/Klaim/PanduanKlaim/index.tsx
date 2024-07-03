@@ -108,7 +108,7 @@ const PanduanKlaim = () => {
     return videoData.map((item) => (
       <div
         key={item.id}
-        className="w-full h-[17.813rem] mb-10 flex items-center justify-center"
+        className="w-full h-[17.813rem] mb-[36px] flex items-center justify-center"
       >
         <YouTube
           videoId={getVideoId(item.videoUrl)}
@@ -119,9 +119,11 @@ const PanduanKlaim = () => {
         {item.type && (
           <div className="flex items-center justify-center">
             <div
-              className={`p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+              className={`font-karla p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold text-2xl leading-[28.8px] -tracking-[0.03px] font-karla flex flex-row justify-between`}
             >
+              <p className='line-clamp-1'>
               {item.type}
+              </p>
             </div>
           </div>
         )}
@@ -130,13 +132,13 @@ const PanduanKlaim = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:pt-[5rem] md:px-[8.5rem] md:pb-[3rem] p-4 gap-4 relative pb-[1.625rem] bg-purple_light_bg">
-      <div className="w-full max-w-[78rem] m-auto flex flex-col sm:gap-[4rem] xs:gap-[2.25rem]">
-        <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+    <div className="w-full flex flex-col justify-center md:pt-[5rem] md:px-[8.5rem] md:pb-[26px] xs:pt-[50px] xs:px-[2rem] gap-4 relative pb-[1.625rem] bg-purple_light_bg">
+      <div className="w-full max-w-[78rem] m-auto flex flex-col">
+        <div className="w-full flex flex-col items-center justify-center py-2 text-center mb-[5rem]">
+          <h2 className="font-karla md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.24px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Video Panduan Klaim
           </h2>
-          <h2 className="md:text-[2.25rem] xs:text-[1.5rem]">
+          <h2 className="font-karla md:text-[2.25rem] xs:text-[1.5rem] sm:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px] mt-[0.75rem]">
             Kami memberikan <span className="font-bold">solusi</span> dan{' '}
             <span className="font-bold">efisiensi waktu</span> untuk Anda
           </h2>
@@ -148,7 +150,7 @@ const PanduanKlaim = () => {
             <MainCard item={videoData[0]} mute={true} />
           </div>
         )}
-        <div className="hidden md:grid md:grid-cols-3 gap-8 mt-2 justify-center p-2">
+        <div className="hidden md:grid md:grid-cols-3 gap-6 mt-2 justify-center p-2 mt-[24px]">
           {renderSub()}
         </div>
         <Slider
@@ -160,7 +162,7 @@ const PanduanKlaim = () => {
         >
           {renderMobileVideo()}
         </Slider>
-        <div className="flex flex-row justify-between mx-5 md:hidden xs:flex">
+        <div className="flex flex-row justify-between mx-5 mt-[36px] md:hidden xs:flex">
           <Image alt="prev" src={ARROW_LEFT} role="button" onClick={previous} />
           <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
         </div>

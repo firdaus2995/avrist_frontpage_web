@@ -2,22 +2,19 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
-import CardCategoryD from '../../Cards/CategoryD';
 import SearchBox from '../../SearchBox';
 import SliderComponent from '../../Slider';
 import NewsCard from './NewsCard';
 import ServiceCard from './ServiceCard';
 import { formatTimeDifference } from '@/app/promo-berita/berita/format-time';
-import BOOK from '@/assets/images/common/book.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 import { handleGetContentCategory } from '@/services/content-page.api';
-import { handleDownload, htmlParser } from '@/utils/helpers';
+import { handleDownload } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
@@ -99,7 +96,7 @@ const SearchForm = () => {
         }
 
         const dataContentValues = listData?.map(
-          ({ content, id, createdAt }) => {
+          ({ content, id, createdAt, categoryName, shortDesc }) => {
             if (selectedTab.title === 'Avristory') {
               const namaFile = contentStringTransformer(
                 content['nama-file-bulletin']
@@ -112,12 +109,12 @@ const SearchForm = () => {
             } else if (selectedTab.title === 'Avrist Life Guide') {
               const date = format(new Date(createdAt), 'dd MMMM yyyy');
               const judul = content['judul-artikel'].value;
-              const deskripsi =
-                content['artikel-looping'].contentData[0].details[0].value;
+              const deskripsi = shortDesc;
               const image = singleImageTransformer(
                 content['artikel-thumbnail']
               ).imageUrl;
               const tags = contentStringTransformer(content['tags']);
+              const category = categoryName;
               const waktuBaca = content['waktu-baca-artikel'].value;
               const differenceTime = formatTimeDifference(
                 new Date(createdAt),
@@ -132,7 +129,8 @@ const SearchForm = () => {
                 tags,
                 waktuBaca,
                 date,
-                differenceTime
+                differenceTime,
+                category
               };
             } else if (selectedTab.title === 'Penghargaan') {
               const judul = content['judul-artikel'].value;
@@ -268,6 +266,7 @@ const SearchForm = () => {
             setSearchKeywords(value);
           }}
           value={searchKeyWords}
+          placeHolder="Ketik kata yang ingin dicari"
         />
 
         <div className="px-[0.1875rem] hidden md:grid md:grid-cols-4 grid-cols-1 gap-[0.75rem]">
@@ -303,29 +302,33 @@ const SearchForm = () => {
           />
         </div>
 
-        <ServiceCard />
+        <div className="md:block xs:hidden">
+          <ServiceCard />
+        </div>
         {selectedTab.title === 'Avristory' ? (
-          <div className="grid lg:grid-cols-1 gap-[24px] w-full">
+          <div className="grid lg:grid-cols-1 gap-[12px] w-full">
             {paginatedData?.map((item: any, index: number) => (
               <div
                 key={index}
-                className="w-full flex flex-wrap justify-between items-center p-4 border rounded-xl xm:text-left"
+                className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
               >
                 <div className="flex flex-row gap-2 items-center">
-                  <p className="font-bold text-2xl">{item.namaFile}</p>
+                  <p className="font-bold text-xl sm:text-2xl break-words">
+                    {item.namaFile}
+                  </p>
                   <MediumTag title="PDF" />
                 </div>
                 <Button
                   title="Unduh"
-                  customButtonClass="rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3"
-                  customTextClass="text-white text-xl"
+                  customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                  customTextClass="text-white text-[16px]"
                   onClick={async () => await handleDownload(item.file)}
                 />
               </div>
             ))}
           </div>
         ) : selectedTab.title === 'Avrist Life Guide' ? (
-          <div className="grid grid-cols-1 gap-[24px]">
+          <div className="grid grid-cols-1 gap-[12px]">
             {paginatedData?.map((item: any, index: number) => (
               <Link
                 key={index}
@@ -334,16 +337,21 @@ const SearchForm = () => {
                   query: { id: item.id }
                 }}
               >
-                <CardCategoryD
-                  type="row"
-                  title={htmlParser(item.judul)}
-                  summary={htmlParser(item.deskripsi)}
-                  category={item.tags}
-                  time={` | ${item.date}`}
-                  tags={item?.tags?.split(',')}
-                  image={item.image}
-                  readTime={item.waktuBaca}
-                />
+                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
+                  <p className="text-sm leading-[19.6px]">{item.date}</p>
+                  <p
+                    className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
+                    dangerouslySetInnerHTML={{
+                      __html: item.judul
+                    }}
+                  />
+                  <div
+                    className="text-body-text-1 line-clamp-2"
+                    dangerouslySetInnerHTML={{
+                      __html: item.deskripsi
+                    }}
+                  />
+                </div>
               </Link>
             ))}
           </div>
@@ -358,10 +366,10 @@ const SearchForm = () => {
                   key={index}
                   className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
                 >
-                  <div className="flex flex-col gap-2 p-5 h-full">
-                    <p className="text-xs">{item.waktu}</p>
+                  <div className="flex flex-col gap-3 px-6 py-9 h-full">
+                    <p className="text-sm leading-[19.6px]">{item.waktu}</p>
                     <p
-                      className="text-[20px] font-bold"
+                      className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
                       dangerouslySetInnerHTML={{
                         __html: item.judul
                       }}
@@ -371,26 +379,15 @@ const SearchForm = () => {
                       dangerouslySetInnerHTML={{
                         __html: item.deskripsi
                       }}
-                      className="text-xs"
+                      className="line-clamp-3"
                     />
-                    <div className="flex flex-row items-end gap-1 text-left h-full">
-                      <p className="text-purple_dark font-bold text-sm cursor-pointer text-left">
-                        Baca Berita Pers
-                      </p>
-                      <Icon
-                        width={16}
-                        height={16}
-                        name="chevronRight"
-                        color="purple_dark"
-                      />
-                    </div>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         ) : selectedTab.title === 'Berita & Kegiatan' ? (
-          <div className="grid grid-cols-1 gap-[24px]">
+          <div className="grid grid-cols-1 gap-[12px]">
             {paginatedData?.map((item: any, index: number) => (
               <Link
                 key={index}
@@ -399,25 +396,20 @@ const SearchForm = () => {
                   query: { id: item.id }
                 }}
               >
-                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[1.5rem]">
-                  <p className="text-sm">{item.date}</p>
+                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
+                  <p className="text-sm leading-[19.6px]">{item.date}</p>
                   <p
-                    className="text-2xl w-[74%] font-bold"
+                    className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
                     dangerouslySetInnerHTML={{
                       __html: item.title
                     }}
                   />
                   <div
-                    className="text-sm text-body-text-1 line-clamp-2"
+                    className="text-body-text-1 line-clamp-2"
                     dangerouslySetInnerHTML={{
                       __html: item.description
                     }}
                   />
-
-                  <div className="flex flex-row gap-2">
-                    <Image alt="book" src={BOOK} />
-                    <p className="text-sm font-bold">Baca 2 Menit</p>
-                  </div>
                 </div>
               </Link>
             ))}
@@ -454,9 +446,9 @@ const SearchForm = () => {
           </div>
         )}
 
-        <div className="flex flex-col gap-[0.25rem] sm:flex-row justify-between">
+        <div className="flex flex-col gap-[1.5rem] sm:flex-row justify-between">
           <div>
-            <p className="text-[1.25rem]">
+            <p className="text-[1.25rem] leading-[28px]">
               Menampilkan{' '}
               <span className="font-bold text-purple_dark">
                 {dataContent?.length === 0 ? 0 : itemOffset + 1}-
@@ -476,7 +468,7 @@ const SearchForm = () => {
             onPageChange={handlePageChange}
             nextLabel={<Icon name="chevronRight" color="purple_dark" />}
             previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-            containerClassName="flex flex-row gap-[8px] items-center"
+            containerClassName="flex flex-row gap-[12px] items-center"
             activeClassName="text-purple_dark font-bold"
             pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
           />

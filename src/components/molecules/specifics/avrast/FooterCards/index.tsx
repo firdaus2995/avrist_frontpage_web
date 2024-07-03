@@ -77,7 +77,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       : href ?? '#'
                 }
                 target={item.openInNewTab ? '_blank' : '_self'}
-                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[24px] rounded-[12px] flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
+                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[18px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
                   alt={index.toString()}
@@ -85,11 +85,11 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                 />
                 <span className="flex flex-col grow justify-between">
-                  <p className="font-bold text-[1.5rem]">{item.title}</p>
+                  <p className="font-bold text-[1.5rem] font-opensanspro">{item.title}</p>
                   {item.subtitle && (
                     <div className="flex items-end justify-center">
                       <p
-                        className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                        className={`text-center items font-bold text-[1.5rem] font-opensanspro ${item.textColor ? item.textColor : 'text-purple_dark'}`}
                       >
                         {item.subtitle}
                       </p>
@@ -123,7 +123,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                             : href ?? '#'
                       }
                       target={item.openInNewTab ? '_blank' : '_self'}
-                      className="flex flex-col justify-between w-full mx-[2.5rem] h-full min-h-[18.75rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
+                      className="flex flex-col justify-between w-full mx-[2.5rem] h-full min-h-[18.75rem] px-[18px] pt-[1.5rem] pb-[2.25rem] gap-[1.5rem] border border-gray_light rounded-[0.75rem] shadow-md bg-white"
                     >
                       <div className="flex justify-center">
                         <Image
@@ -133,11 +133,11 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                         />
                       </div>
                       <div className="text-center pb-[2rem]">
-                        <p className="font-bold text-[1.5rem]">{item.title}</p>
+                        <p className="font-bold text-[1.5rem] font-opensanspro">{item.title}</p>
                         {item.subtitle && (
                           <div className="flex items-end justify-center">
                             <p
-                              className={`text-center items font-bold text-[1.5rem] ${item.textColor ? item.textColor : 'text-purple_dark'}`}
+                              className={`text-center items font-bold text-[1.5rem] font-opensanspro ${item.textColor ? item.textColor : 'text-purple_dark'}`}
                             >
                               {item.subtitle}
                             </p>
