@@ -97,8 +97,9 @@ const InformationPolicy = () => {
         }
         image={footerImage.imageUrl}
       />
-      <RoundedFrameTop bgColor="bg-white" />
+      <RoundedFrameTop bgColor="bg-[#F7F4F8]" />
       <FooterCards
+        bgColor="bg-[#F7F4F8]"
         cards={[
           {
             icon: FOOTER_NASABAH_1,
