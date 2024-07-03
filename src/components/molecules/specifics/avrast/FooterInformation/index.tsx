@@ -60,7 +60,7 @@ const FooterInformation = ({
                 title={buttonTitle}
               /> */}
                 <button
-                  className={`px-[2.5rem] py-[1rem] rounded-lg ${
+                  className={`px-[2.5rem] py-[0.75rem] rounded-lg ${
                     !buttonVariant || buttonVariant === 'primary'
                       ? 'bg-purple_dark text-white'
                       : buttonVariant === 'secondary'

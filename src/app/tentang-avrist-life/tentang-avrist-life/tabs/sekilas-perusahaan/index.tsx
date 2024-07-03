@@ -81,7 +81,7 @@ const purposeData = [
     icon: Icon5
   },
   {
-    title: 'Tenaga Pemasar Bepengalaman',
+    title: 'Tenaga Pemasar Berpengalaman',
     desc: 'Memiliki tenaga pemasar berpengalaman yang akan membantu Anda.',
     link: 'Pelajari Lebih Lanjut',
     icon: Icon6

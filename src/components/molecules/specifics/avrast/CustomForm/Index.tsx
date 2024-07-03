@@ -159,12 +159,12 @@ const CustomForm: React.FC<CustomFormProps> = ({
         className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[20px] border border-gray_light '} border-b-8 rounded-[12px]`}
       >
         {title !== ' ' && (
-          <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] p-4">
+          <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] pt-4 px-4 sm:pb-4 -tracking-[3px] sm:-tracking-[2.24px] xs:leading-[2.5rem] md:leading-[67.2px]">
             {title ? title : 'Saya berminat memiliki proteksi ini'}
           </p>
         )}
         {type === 'Hubungi Kami' ? (
-          <div className="sm:grid sm:grid-cols-2 xs:flex xs:flex-col gap-[2.25rem]">
+          <div className="sm:grid sm:grid-cols-2 xs:flex xs:flex-col xs:gap-[1.5rem] sm:gap-[2.25rem]">
             {attributeList?.map((attribute: Attribute, idx) => {
               return (
                 <div
@@ -172,7 +172,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
                 >
                   {attribute.fieldType === 'LABEL' ? (
-                    <p className='leading-[23.68px]'>{attribute.name}</p>
+                    <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
                       <p className="font-bold mb-2 leading-[21.79px]">
@@ -333,7 +333,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             })}
           </div>
         ) : type === 'Form Saran' ? (
-          <div className="grid grid-cols-1 gap-[2.25rem]">
+          <div className="grid grid-cols-1 xs:gap-[1.5rem] sm:gap-[2.25rem]">
             {attributeList?.map((attribute: Attribute) => (
               <div key={attribute.id} className={`pt-1`}>
                 {attribute.fieldType === 'LABEL' ? (
@@ -341,8 +341,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                 ) : (
                   <div>
                     <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
-                      </p>
+                      {attribute.name} <span className="text-reddist">*</span>
+                    </p>
                     {attribute.fieldType === 'RADIO_BUTTON' ? (
                       <div className="flex flex-row gap-1">
                         {attribute.value
@@ -388,33 +388,27 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       </select>
                     ) : attribute.fieldType === 'TEXT_AREA' ? (
                       <div className="flex flex-col justify-end items-end gap-2 text-[0.875rem]">
-                          <textarea
-                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            placeholder={
-                              JSON.parse(attribute.config).placeholder
-                            }
-                            name={attribute.name}
-                            rows={4}
-                            maxLength={
-                              JSON.parse(attribute.config).max_length === '0'
-                                ? 500
-                                : JSON.parse(attribute.config).max_length
-                            }
-                            onChange={(e) =>
-                              updateFormDataByName(
-                                attribute.name,
-                                e.target.value
-                              )
-                            }
-                          />
-                          {formData?.find(
-                            (item) => item.name === attribute.name
-                          )?.value.length +
-                            '/' +
-                            (JSON.parse(attribute.config).max_length === '0'
+                        <textarea
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          rows={4}
+                          maxLength={
+                            JSON.parse(attribute.config).max_length === '0'
                               ? 500
-                              : JSON.parse(attribute.config).max_length)}
-                        </div>
+                              : JSON.parse(attribute.config).max_length
+                          }
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
+                        />
+                        {formData?.find((item) => item.name === attribute.name)
+                          ?.value.length +
+                          '/' +
+                          (JSON.parse(attribute.config).max_length === '0'
+                            ? 500
+                            : JSON.parse(attribute.config).max_length)}
+                      </div>
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex grow shrink-0">
                         <input
@@ -480,7 +474,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
             className={`grid xs:grid-cols-1 ${type === 'Karir' ? 'gap-[0.25rem] sm:gap-[1rem]' : 'sm:grid-cols-2 gap-[2rem]'} p-4`}
           >
             <div
-              className={`flex flex-col gap-[2.25rem] font-opensans ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+              className={`flex flex-col xs:gap-[1.5rem] sm:gap-[2.25rem] font-opensans ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
               {leftSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">
@@ -568,7 +562,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
               ))}
             </div>
             <div
-              className={`flex flex-col gap-[2.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
+              className={`flex flex-col xs:gap-[1.5rem] sm:gap-[2.25rem] ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
               {rightSide?.map((attribute: Attribute) => {
                 return (
@@ -701,7 +695,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
   return !dataForm ? (
     <>
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[2.25rem] gap-[2.25rem] border border-gray_light border-b-8 rounded-[0.75rem] rounded-b-[0.5rem]`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white p-[2.25rem] xs:gap-[1.5rem] sm:gap-[2.25rem] border border-gray_light border-b-8 rounded-[0.75rem] rounded-b-[0.5rem]`}
       >
         <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem]">
           Saya berminat memiliki proteksi ini
