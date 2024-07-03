@@ -6,7 +6,9 @@ export const Content = () => {
           Penanganan Pengaduan
         </span>
         <span className="font-karla font-normal sm:text-[2.25rem] xs:text-[1.5rem] text-gray_bold sm:leading-[43.2px] xs:leading-[28.8px]">
-          {'Temukan informasi tentang pembayaran premi Anda di sini'}
+          {
+            'Kami mempermudah pilihan jalur komunikasi untuk Anda mengajukan pengaduan'
+          }
         </span>
       </div>
     </div>
