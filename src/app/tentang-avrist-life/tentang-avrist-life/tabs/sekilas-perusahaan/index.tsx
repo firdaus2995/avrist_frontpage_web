@@ -39,7 +39,7 @@ const visiMisi = [
     icon: MisiIcon,
     desc: [
       'Merangkul dan meneladani semangat kepeloporan yang menjadi bagian dari sejarah kami yang besar.',
-      'Menciptakan tempat bekerja yang terbaik guna memajukan karier serta masa depan.',
+      'Menciptakan tempat bekerja yang terbaik guna memajukan karir serta masa depan.',
       'Menempatkan pemangku kepentingan (karyawan, mitra, dan nasabah) sebagai inti dari setiap hal yang Avrist lakukan.',
       'Menawarkan produk dan layanan Avrist ke setiap rumah tangga.',
       'Memastikan produk Avrist selalu mudah diakses dan terjangkau.',

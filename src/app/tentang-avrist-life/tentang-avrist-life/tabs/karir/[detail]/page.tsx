@@ -183,7 +183,7 @@ const DetailKarir = () => {
                 <Link
                   href="tel:02157898188"
                   role="button"
-                  className="py-4 px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
+                  className="py-4 xs:px-[1.25rem] sm:px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
                 >
                   <Image src={Phone} alt="phone" className="w-10" />
                   <p>021 5789 8188</p>

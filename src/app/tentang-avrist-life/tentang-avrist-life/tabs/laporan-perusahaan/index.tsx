@@ -293,7 +293,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                       (item: any, index: number) => (
                         <div
                           key={index}
-                          className="w-full flex flex-row justify-between items-center p-[1.5rem] border rounded-xl gap-2"
+                          className="w-full flex xs:flex-col sm:flex-row xs:justify-start sm:justify-between  p-[1.5rem] border rounded-xl gap-2"
                         >
                           <div className="flex flex-row gap-2 items-center">
                             <p className="font-bold text-2xl font-karla">
@@ -301,14 +301,16 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                             </p>
                             <MediumTag title="PDF" />
                           </div>
-                          <Button
-                            title="Unduh"
-                            customButtonClass="rounded-xl bg-purple_dark"
-                            customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
-                            onClick={async () =>
-                              await handleDownload(item.file)
-                            }
-                          />
+                          <div>
+                            <Button
+                              title="Unduh"
+                              customButtonClass="rounded-xl bg-purple_dark"
+                              customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
+                              onClick={async () =>
+                                await handleDownload(item.file)
+                              }
+                            />
+                          </div>
                         </div>
                       )
                     )}
@@ -353,7 +355,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
               : BlankImage
           }
         />
-        <div className="sm:-mb-12">
+        <div className="">
           <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
         </div>
       </div>
