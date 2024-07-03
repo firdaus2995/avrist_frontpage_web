@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll } from 'react-scroll';
 import Slider from 'react-slick';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
-import ManfaatUtama from '../tabs/ManfaatUtama';
+import ManfaatDPLK from '../tabs/ManfaatDPLK';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
 import { ContentData } from '@/types/content.type';
 
@@ -45,6 +45,7 @@ const DPLKContent = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const params = searchParams.get('tab');
   const [tab, setTab] = useState(
     searchParams.get('tab') ?? 'Tentang DPLK Avrist'
   );
@@ -85,6 +86,27 @@ const DPLKContent = (props: Props) => {
       sliderRef.current.slickGoTo(activeIndex);
     }
   }, [tab, tabs]);
+
+  useEffect(() => {
+    if (params === 'Manfaat DPLK') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 2900 : 2200,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Dewan Pengawas DPLK') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 1400 : 1450,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Tentang DPLK Avrist') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 900 : 450,
+        behavior: 'smooth'
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [params, window.scrollY]);
 
   return (
     <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">
@@ -150,7 +172,7 @@ const DPLKContent = (props: Props) => {
         />
       )}
       {tab === 'Manfaat DPLK' && (
-        <ManfaatUtama
+        <ManfaatDPLK
           dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
           dewanpengawasdplkJudul={dewanpengawasdplkJudul}
           dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}

@@ -44,14 +44,14 @@ const PersonCard: React.FC<PersonCardProps> = ({
             width={0}
             height={372}
             src={item.image}
-            className="rounded-t-[12px] h-[23.25rem] w-full object-cover sm:block xs:hidden"
+            className="rounded-t-[12px] h-[23.25rem] w-full object-fill sm:block xs:hidden"
           />
           <Image
             alt="blank-image"
             width={0}
             height={142}
             src={item.image}
-            className="rounded-t-[12px] h-[8.875rem] w-full object-cover block sm:hidden"
+            className="rounded-t-[12px] h-[8.875rem] w-full object-fill block sm:hidden"
           />
           <div className="text-center md:m-[2rem] font-bold font-karla sm:h-[150px] xs:h-[45px] flex flex-col items-center justify-center sm:justify-between grow">
             <p className="xs:text-[0.813rem] md:text-[2.25rem] sm:line-clamp-2 xs:line-clamp-1 xs:leading-4 sm:leading-tight">

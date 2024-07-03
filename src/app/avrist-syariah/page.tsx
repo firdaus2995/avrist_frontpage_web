@@ -43,8 +43,8 @@ import {
 
 const tabs = [
   'Tentang Avrist Syariah',
-  'Manfaat Utama',
   'Dewan Pengawas Syariah',
+  'Manfaat Utama',
   'Produk',
   'Klaim dan Layanan'
 ];
@@ -195,6 +195,10 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     }
   }, [tab, tabs]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       <Hero
@@ -214,7 +218,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
               to={'#' + val.replace(/\s+/g, '')}
               spy={true}
               smooth={true}
-              offset={-12.5}
+              offset={-100}
               duration={500}
               onClick={() => handleTabClick(val)}
               className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
@@ -238,7 +242,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
                     to={'#' + val.replace(/\s+/g, '')}
                     spy={true}
                     smooth={true}
-                    offset={-12.5}
+                    offset={-150}
                     duration={500}
                     onClick={() => handleTabClick(val)}
                     className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}

@@ -19,6 +19,7 @@ interface InformationCardProps {
   cardContainerClassName?: string;
   cardButtonClassname?: string;
   cardButtonTextClassname?: string;
+  cardHeadingClassName?: string;
   idTags?: string;
 }
 
@@ -30,11 +31,14 @@ const InformationCard: React.FC<InformationCardProps> = ({
   cardButtonClassname,
   cardButtonTextClassname,
   cardContainerClassName,
+  cardHeadingClassName,
   idTags
 }) => (
   <div className="flex flex-col font-karla pb-[0.875rem] mx-auto" id={idTags}>
     <div className="sm:text-center text-center py-[5rem]">
-      <p className="font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+      <p
+        className={`font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] ${cardHeadingClassName}`}
+      >
         {heading}
       </p>
       {subHeading && (

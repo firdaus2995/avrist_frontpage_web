@@ -74,7 +74,7 @@ const DewanPengawasDPLK = (props: Props) => {
         />
       </div>
 
-      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-72px] px-[32px] sm:px-[136px] bg-yellow_light">
+      <div className="flex mx-[-32px] mb-[-50px] sm:mx-[-136px] sm:mb-[-70px] px-[32px] sm:px-[136px] bg-yellow_light">
         <InformationCard
           heading="Keuntungan memilih DPLK Avrist"
           cards={[
@@ -82,7 +82,7 @@ const DewanPengawasDPLK = (props: Props) => {
               cardIcon: YellowBinocular,
               cardTitle: 'Experienced',
               cardBody:
-                'Berpengalaman dalam mengelola Dana Pensiun sejak 1980 dalam bentuk Yayasan Dana Pensiun. Untuk DPLK sejak tahun 1994'
+                'Berpengalaman dalam mengelola program pensiun sejak 1980 '
             },
             {
               cardIcon: YellowHead,

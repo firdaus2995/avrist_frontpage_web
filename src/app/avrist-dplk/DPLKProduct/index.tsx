@@ -109,7 +109,7 @@ const DPLKProductList = () => {
   };
 
   return (
-    <div className="flex flex-col xs:gap-[3.125rem] md:gap-[4rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem]">
+    <div className="flex flex-col xs:gap-[3.125rem] md:gap-[4rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem] mb-2">
       <CategoryPills
         buttonTitle={[
           'Tentang DPLK Avrist',
@@ -124,9 +124,9 @@ const DPLKProductList = () => {
         buttonInactiveTextClassname="text-dplk_yellow hover:text-white"
         buttonActiveTextClassname="text-white"
         links={{
-          'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
-          'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
-          'Manfaat DPLK': '/avrist-dplk/#ManfaatUtama',
+          'Tentang DPLK Avrist': '/avrist-dplk?tab=Tentang+DPLK+Avrist',
+          'Dewan Pengawas DPLK': '/avrist-dplk?tab=Dewan+Pengawas+DPLK',
+          'Manfaat DPLK': '/avrist-dplk?tab=Manfaat+DPLK',
           'Program DPLK': '/avrist-dplk/produk',
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}

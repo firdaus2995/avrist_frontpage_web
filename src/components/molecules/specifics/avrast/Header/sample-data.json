@@ -77,13 +77,13 @@
                 "customUrl": "/avrist-syariah"
               },
               {
-                "title": "Manfaat Utama",
-                "icon": 1,
+                "title": "Dewan Pengawas Syariah",
+                "icon": 2,
                 "customUrl": "/avrist-syariah"
               },
               {
-                "title": "Dewan Pengawas Syariah",
-                "icon": 2,
+                "title": "Manfaat Utama",
+                "icon": 1,
                 "customUrl": "/avrist-syariah"
               }
             ]
@@ -120,13 +120,13 @@
                 "customUrl": "/avrist-dplk"
               },
               {
-                "title": "Manfaat DPLK",
-                "icon": 1,
+                "title": "Dewan Pengawas DPLK",
+                "icon": 2,
                 "customUrl": "/avrist-dplk"
               },
               {
-                "title": "Dewan Pengawas DPLK",
-                "icon": 2,
+                "title": "Manfaat DPLK",
+                "icon": 1,
                 "customUrl": "/avrist-dplk"
               }
             ]

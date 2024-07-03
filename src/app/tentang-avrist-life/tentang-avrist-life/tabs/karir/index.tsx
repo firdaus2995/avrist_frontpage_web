@@ -133,7 +133,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
       <CustomContainer className="flex flex-col">
         {/* <div className="w-full flex flex-col items-center justify-center text-center font-karla xs:my-[2.25rem] sm:my-[5rem]">
           <TitleContainer className="text-purple_dark xs:mb-0 leading-[2.25rem] sm:leading-normal !-tracking-[2.24px] font-extrabold">
-            Tingkatkan karier bersama Avrist Assurance
+            Tingkatkan karir bersama Avrist Assurance
           </TitleContainer>
           <h2 className="md:text-4xl xs:text-2xl mb-6 leading-[2.25rem] -tracking-[1.08px]">
             Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
@@ -142,7 +142,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
         </div> */}
         <div className="px-[2rem] xs:my-[2.25rem] sm:my-[5rem]">
           <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-            Tingkatkan karier bersama Avrist Assurance
+            Tingkatkan karir bersama Avrist Assurance
           </p>
           <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
             Kesempatan kamu untuk melangkah bersama menjadi perusahaan asuransi
@@ -328,7 +328,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                 <Link
                   href="tel:02157898188"
                   role="button"
-                  className="py-4 px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
+                  className="py-4 xs:px-[1.25rem] sm:px-[3.25rem] border border-purple_dark rounded-xl w-full flex flex-row items-center justify-center gap-2 text-purple_dark xs:text-[1.25rem] md:text-[2.25rem] font-bold bg-white font-karla"
                 >
                   <Image src={Phone} alt="phone" className="w-10" />
                   <p>021 5789 8188</p>
@@ -348,7 +348,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
               : BlankImage
           }
         />
-        <div className="sm:-mb-12">
+        <div className="">
           <RoundedFrameTop bgColor="xs:bg-white sm:bg-purple_superlight" />
         </div>
       </div>
