@@ -241,7 +241,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
             />
           ))}
         </div>
-        <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10">
+        <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10 mb-2">
           <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan
             (OJK)

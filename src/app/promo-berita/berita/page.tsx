@@ -1492,7 +1492,7 @@ const Berita: React.FC<ParamsProps> = () => {
         </div>
       )}
 
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col mt-2">
         <RoundedFrameBottom />
         <FooterInformation
           title={
