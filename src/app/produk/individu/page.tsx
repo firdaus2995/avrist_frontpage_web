@@ -279,7 +279,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] py-[50px] sm:pt-[5rem] sm:pb-[5rem] gap-[36px] sm:gap-[48px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] xs:pt-[50px] sm:pt-[5rem] xs:pb-[28px] sm:pb-[38px] xs:gap-[36px] sm:gap-[24px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab || ''}
@@ -287,8 +287,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
-        <div className="flex flex-col gap-[24px] grow">
-          <div className="flex flex-col gap-5 justify-between">
+        <div className="flex flex-col xs:gap-[36px] sm:gap-[24px] grow">
+          <div className="flex flex-col xs:gap-[36px] sm:gap-[24px] justify-between">
             <SearchBar
               placeholder="Cari"
               searchButtonTitle="Cari"
@@ -321,7 +321,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="flex flex-col gap-4 sm:flex-row justify-between">
+          <div className="flex flex-col gap-[24px] sm:flex-row justify-between">
             <div>
               <p className="text-[20px]">
                 Menampilkan{' '}

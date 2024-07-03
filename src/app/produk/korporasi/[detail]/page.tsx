@@ -321,7 +321,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           { title: 'Beranda', href: '/' },
           { title: 'Produk', href: '/produk/individu' },
           {
-            title: 'Avrist Pasti',
+            title: dataDetail?.namaProduk,
             href: '/produk/individu/avrist-pasti'
           }
         ]}
@@ -333,7 +333,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           {!dataDetail || dataDetail?.length === 0 ? (
             <></>
           ) : (
-            <div className="flex flex-col xs:gap-[1.5rem] sm:gap-[4rem]">
+            <div className="flex flex-col xs:gap-[2.25rem] sm:gap-[4rem]">
               <DescriptionCategoryA
                 categorySymbol={dataDetail?.kategoriProdukIcon.imageUrl || ''}
                 categoryTitle={dataDetail?.categoryTitle || ''}
@@ -398,7 +398,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       <CustomContainer className="bg-purple_superlight py-[5rem]">
         {dataForm && (
           <CustomForm
-            customFormClassname="p-[2.25rem] rounded-[12px]"
+            customFormClassname="xs:!p-[1.5rem] sm:!p-[2.25rem] rounded-[12px]"
             onChange={handleChange}
             dataForm={dataForm}
             resultData={receiveData}
@@ -440,7 +440,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
                   type="submit"
                   disabled={formIsValid ? (isChecked ? false : true) : true}
                   onClick={() => onSubmitData()}
-                  className={`${formIsValid && isChecked ? 'bg-purple_dark' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem] font-opensans font-semibold`}
+                  className={`${formIsValid && isChecked ? 'bg-purple_dark' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[0.75rem] px-[2.5rem] font-opensans font-semibold`}
                 >
                   Beli Sekarang
                 </button>
