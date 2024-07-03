@@ -10,6 +10,7 @@ import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-r
 import CONTACTS from '@/assets/images/common/contacts.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import PERSON from '@/assets/images/common/person.svg';
+import Button from '@/components/atoms/Button/Button';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -79,7 +80,7 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
           return (
             <div
               key={i.id}
-              className="flex flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem] bg-[#F7F4F8]"
+              className="flex flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]"
             >
               <Image
                 alt={i.toString()}
@@ -94,13 +95,17 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
                   {i.desc}
                 </p>
                 {i.title === 'Daftar Tenaga Pemasar' ? (
-                  <Link
-                    href={tenagaPemasaranFile?.filePath}
-                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
-                    target={'_blank'}
+                  <Button
+                    // className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                    // target={'_blank'}
+                    onClick={() =>
+                      window.open(tenagaPemasaranFile?.filePath, '_blank')
+                    }
+                    customButtonClass="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
+                    customTextClass="text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
                   >
                     {i.btn}
-                  </Link>
+                  </Button>
                 ) : (
                   <Link
                     href={i.link}
@@ -126,7 +131,7 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
         >
           {mockData.map((i) => (
             <div key={i.id} className="flex gap-4">
-              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem] bg-[#F7F4F8]">
+              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
                 <Image
                   alt={i.toString()}
                   src={i.icon}
