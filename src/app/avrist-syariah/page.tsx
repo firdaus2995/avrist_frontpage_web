@@ -43,8 +43,8 @@ import {
 
 const tabs = [
   'Tentang Avrist Syariah',
-  'Manfaat Utama',
   'Dewan Pengawas Syariah',
+  'Manfaat Utama',
   'Produk',
   'Klaim dan Layanan'
 ];
@@ -100,6 +100,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
         const queryParams: QueryParams = {
@@ -195,6 +196,28 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     }
   }, [tab, tabs]);
 
+  useEffect(() => {
+    const params = searchParams.get('tab');
+    if (params === 'Manfaat Utama') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 2700 : 2750,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Dewan Pengawas Syariah') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 1350 : 1200,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Tentang Avrist Syariah') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 900 : 450,
+        behavior: 'smooth'
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [tab, tabs]);
+
   return (
     <div>
       <Hero
@@ -214,7 +237,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
               to={'#' + val.replace(/\s+/g, '')}
               spy={true}
               smooth={true}
-              offset={-12.5}
+              offset={-100}
               duration={500}
               onClick={() => handleTabClick(val)}
               className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}
@@ -238,7 +261,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
                     to={'#' + val.replace(/\s+/g, '')}
                     spy={true}
                     smooth={true}
-                    offset={-12.5}
+                    offset={-150}
                     duration={500}
                     onClick={() => handleTabClick(val)}
                     className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-syariah_green hover:bg-syariah_green hover:text-white ${tab === val ? 'bg-syariah_green text-white' : 'text-syariah_green'} font-semibold`}

@@ -47,6 +47,7 @@ const TentangAvristSyariah = (props: Props) => {
         <InformationCard
           heading="Tugas dan Peran"
           subHeading="Tugas dan Peran DPS PT Avrist Assurance sebagai berikut:"
+          cardHeadingClassName="xs:text-[30px] md:text-5xl"
           cards={[
             {
               cardIcon: GreenBinocular,
