@@ -202,7 +202,6 @@ const InformationCustomer = () => {
         console.error('Error:', error);
       }
     };
-
     if (params) {
       fetchDataByParam(params);
     } else {

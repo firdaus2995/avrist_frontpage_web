@@ -13,6 +13,10 @@ import PERSON from '@/assets/images/common/person.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+interface CustomContentCardProps {
+  tenagaPemasaranFile?: any;
+}
+
 const mockData = [
   {
     id: '1',
@@ -43,7 +47,9 @@ const mockData = [
   }
 ];
 
-export const ContentCard = () => {
+export const ContentCard: React.FC<CustomContentCardProps> = ({
+  tenagaPemasaranFile
+}) => {
   const sliderRef = useRef<Slider | null>(null);
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
@@ -69,31 +75,45 @@ export const ContentCard = () => {
   return (
     <div className="flex flex-col self-stretch items-center justify-center gap-[4rem]">
       <div className="xs:hidden sm:grid sm:grid-cols-3 xs:grid-cols-1 gap-[1.5rem]">
-        {mockData.map((i) => (
-          <div
-            key={i.id}
-            className="flex flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]"
-          >
-            <Image
-              alt={i.toString()}
-              src={i.icon}
-              className="w-[6.25rem] h-[6.25rem]"
-            />
-            <p className="text-center font-bold text-[2rem] font-karla line-clamp-3">
-              {i.title}
-            </p>
-            <div className="flex flex-col justify-end grow items-center gap-[1.5rem]">
-              <p className="font-opensans text-[1rem] text-center">{i.desc}</p>
-              <Link
-                href={i.link}
-                className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem]"
-                target={i.isFile ? '_blank' : '_self'}
-              >
-                {i.btn}
-              </Link>
+        {mockData.map((i) => {
+          return (
+            <div
+              key={i.id}
+              className="flex flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem] bg-[#F7F4F8]"
+            >
+              <Image
+                alt={i.toString()}
+                src={i.icon}
+                className="w-[6.25rem] h-[6.25rem] mix-blend-multiply"
+              />
+              <p className="text-center font-bold text-[2rem] font-karla line-clamp-3 font-karla sm:leading-[38.4px]">
+                {i.title}
+              </p>
+              <div className="flex flex-col justify-end grow items-center gap-[1.5rem]">
+                <p className="font-opensans text-[1rem] text-center font-normal sm:leading-[22.4px]">
+                  {i.desc}
+                </p>
+                {i.title === 'Daftar Tenaga Pemasar' ? (
+                  <Link
+                    href={tenagaPemasaranFile?.filePath}
+                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                    target={'_blank'}
+                  >
+                    {i.btn}
+                  </Link>
+                ) : (
+                  <Link
+                    href={i.link}
+                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                    target={i.isFile ? '_blank' : '_self'}
+                  >
+                    {i.btn}
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div className="w-full flex flex-col md:hidden mx-4 gap-5 ml-5">
         <Slider
@@ -106,22 +126,22 @@ export const ContentCard = () => {
         >
           {mockData.map((i) => (
             <div key={i.id} className="flex gap-4">
-              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
+              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem] bg-[#F7F4F8]">
                 <Image
                   alt={i.toString()}
                   src={i.icon}
-                  className="w-[6.25rem] h-[6.25rem]"
+                  className="w-[6.25rem] h-[6.25rem] mix-blend-multiply"
                 />
-                <p className="text-center font-bold text-[2rem] font-karla">
+                <p className="text-center font-bold text-[2rem] font-karla leading-[38.4px]">
                   {i.title}
                 </p>
                 <div className="flex flex-col justify-end grow items-center gap-[1.5rem] self-center">
-                  <p className="font-opensans text-[1rem] text-center">
+                  <p className="font-opensans text-[1rem] text-center font-normal leading-[22.4px]">
                     {i.desc}
                   </p>
                   <Link
                     href={i.link}
-                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
+                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] font-semibold leading-[23.68px]"
                     target={i.isFile ? '_blank' : '_self'}
                   >
                     {i.btn}
