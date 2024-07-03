@@ -38,10 +38,7 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
           width={0}
           height={0}
           className="absolute w-full h-full inset-0"
-          src={
-            item.videoThumbnail ||
-            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
-          }
+          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
         />
         <div className="w-full h-full absolute flex items-center justify-center">
           <Image alt={'play-button'} className="w-16" src={PlayButton} />
