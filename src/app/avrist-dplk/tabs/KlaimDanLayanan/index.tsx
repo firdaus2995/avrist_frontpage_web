@@ -26,9 +26,9 @@ const KlaimDanLayanan = () => {
         buttonInactiveTextClassname="text-dplk_yellow hover:text-white"
         buttonActiveTextClassname="text-white"
         links={{
-          'Tentang DPLK Avrist': '/avrist-dplk/#TentangAvristDPLK',
-          'Dewan Pengawas DPLK': '/avrist-dplk/#DewanPengawasDPLK',
-          'Manfaat DPLK': '/avrist-dplk/#ManfaatUtama',
+          'Tentang DPLK Avrist': '/avrist-dplk?tab=Tentang+DPLK+Avrist',
+          'Dewan Pengawas DPLK': '/avrist-dplk?tab=Dewan+Pengawas+DPLK',
+          'Manfaat DPLK': '/avrist-dplk?tab=Manfaat+DPLK',
           'Program DPLK': '/avrist-dplk/produk',
           'Klaim & Layanan': '/avrist-dplk/klaim-layanan'
         }}
