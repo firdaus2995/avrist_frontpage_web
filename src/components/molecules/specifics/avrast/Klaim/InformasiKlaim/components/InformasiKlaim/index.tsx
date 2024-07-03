@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Slider from 'react-slick';
 import { PanduanLayananModal } from '../../../../Modal';
@@ -154,13 +155,23 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                   </p>
                 </div>
               </div>
-              <div
-                role="button"
-                onClick={() => handleClickPelayananButton(val.btnText)}
-                className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
-              >
-                {val.btnText}
-              </div>
+              {val.btnText === 'Lihat Di Sini' ? (
+                <Link
+                  href={'https://my.avrist.com/welcome'}
+                  target="_blank"
+                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                >
+                  {val.btnText}
+                </Link>
+              ) : (
+                <div
+                  role="button"
+                  onClick={() => handleClickPelayananButton(val.btnText)}
+                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                >
+                  {val.btnText}
+                </div>
+              )}
             </div>
           ))}
         </div>
