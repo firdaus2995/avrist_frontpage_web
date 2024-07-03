@@ -98,7 +98,7 @@ export const ReportList = ({
         <div className="md:w-full xs:w-full flex flex-col gap-4">
           <div>
             {/* filter */}
-            <div className="flex sm:flex-row xs:flex-col justify-between mb-[24px] gap-[24px]">
+            <div className="flex sm:flex-row xs:flex-col justify-between mb-[24px] sm:gap-[24px] xs:gap-[36px]">
               <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
                 {btnVerticalData && (
                   <ButtonMenuVertical item={btnVerticalData} />
