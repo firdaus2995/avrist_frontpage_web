@@ -6,8 +6,8 @@ import { PageInfo } from '@/types/provider.type';
 
 type Props = {
   className?: string;
-  dataPage: PageInfo,
-  onChangePage: (pageNumber: number) => void; 
+  dataPage: PageInfo;
+  onChangePage: (pageNumber: number) => void;
 };
 export const Paginate = (props: Props) => {
   const { className, dataPage, onChangePage } = props;
@@ -15,6 +15,8 @@ export const Paginate = (props: Props) => {
 
   const renderPageNumbers = () => {
     const { totalPage } = dataPage;
+    console.log(dataPage);
+
     const pageNumbers = [];
     const pageCountToShow = 5;
 
@@ -32,17 +34,23 @@ export const Paginate = (props: Props) => {
     }
 
     for (let pageIndex = startPage; pageIndex <= endPage; pageIndex++) {
-
       if (pageIndex === dataPage.pagePos) {
         pageNumbers.push(
-          <span key={pageIndex} className="cursor-pointer font-bold text-purple_dark" onClick={() => onChangePage(pageIndex)}>
+          <span
+            key={pageIndex}
+            className="cursor-pointer font-bold text-purple_dark"
+            onClick={() => onChangePage(pageIndex)}
+          >
             {pageIndex}
           </span>
         );
-      }
-      else {
+      } else {
         pageNumbers.push(
-          <span key={pageIndex} className="cursor-pointer text-xl" onClick={() => handleChangePage(pageIndex)}>
+          <span
+            key={pageIndex}
+            className="cursor-pointer text-xl"
+            onClick={() => handleChangePage(pageIndex)}
+          >
             {pageIndex}
           </span>
         );
@@ -66,23 +74,41 @@ export const Paginate = (props: Props) => {
       onChangePage(currentPage + 1);
     }
   };
-  
+
   return (
-    <div className={`w-full flex flex-row justify-between ${className}`}>
+    <div
+      className={`w-full flex sm:flex-row xs:flex-col justify-between ${className}`}
+    >
       <span>
-        Menampilkan <span className="font-bold text-purple_dark">1-{dataPage.pageSize}</span> dari{' '}
-        <span className="font-bold">{dataPage?.totalData}</span> hasil
+        Menampilkan{' '}
+        <span className="font-bold text-purple_dark">
+          1-{dataPage.pageSize}
+        </span>{' '}
+        dari <span className="font-bold">{dataPage?.totalData}</span> hasil
       </span>
-      <div className={`grid items-center ${dataPage.totalPage < 5 ? 'gap-0 grid-cols-2' : 'gap-3 grid-cols-5'}`}>
+      <div
+        className={`grid items-center ${dataPage.totalPage < 5 ? 'xs:gap-1 sm:gap-0 sm:grid-cols-2 xs:flex' : 'gap-3 grid-cols-5'}`}
+      >
         <span>
-          {renderPageNumbers()} { dataPage.totalPage > 5 && '... ' }
-            <span className={`cursor-pointer font-bold ${dataPage.pagePos === dataPage.totalPage ? 'text-purple_dark' : ''}`} onClick={() => onChangePage(dataPage.totalPage)}>
-              {dataPage.totalPage}
-            </span>
+          {renderPageNumbers()} {dataPage.totalPage > 5 && '... '}
+          <span
+            className={`cursor-pointer font-bold ${dataPage.pagePos === dataPage.totalPage ? 'text-purple_dark' : ''}`}
+            onClick={() => onChangePage(dataPage.totalPage)}
+          >
+            {dataPage.totalPage === 0 ? 1 : dataPage.totalPage}
           </span>
-          <div onClick={handleNextPage} className='cursor-pointer'>
-            <Icon width={15} height={15} name="chevronRight" color="purple_dark"/>
-          </div>
+        </span>
+        <div
+          onClick={handleNextPage}
+          className="cursor-pointer xs:mt-[2px] sm:mt-0"
+        >
+          <Icon
+            width={15}
+            height={15}
+            name="chevronRight"
+            color="purple_dark"
+          />
+        </div>
       </div>
     </div>
   );

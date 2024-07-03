@@ -156,7 +156,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
     return (
       <div
-        className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[36px] border border-gray_light '} border-b-8 rounded-[12px]`}
+        className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[20px] border border-gray_light '} border-b-8 rounded-[12px]`}
       >
         <p className="font-karla font-bold text-[2.25rem] sm:text-[3.5rem] p-4">
           {title ? title : 'Saya berminat memiliki proteksi ini'}
@@ -177,7 +177,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         {attribute.name} <span className="text-reddist">*</span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
-                        <div className="flex flex-col gap-1">
+                        <div className="flex sm:flex-col xs:flex-row sm:gap-1 xs:gap-[32px]">
                           {attribute.value
                             ?.split(';')
                             .map((option, optionIndex) => (

@@ -71,7 +71,7 @@ const HandleComplaint = () => {
           <div
             className={`md:w-full xs:w-full p-5 flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
           >
-            <p className="md:text-4xl xs:text-2xl md:text-left xs:text-center">
+            <p className="-tracking-[2.24px] sm:leading-[67.2px] sm:leading-[43.2px] font-light sm:text-[3.5rem] xs:text-[2.25rem] md:text-left xs:text-center">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}
@@ -81,22 +81,24 @@ const HandleComplaint = () => {
               href="https://www.youtube.com/@avristian"
               target="blank"
               role="button"
-              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg md:text-xl font-semibold text-white flex flex-row gap-[0.667rem] items-center font-opensans"
+              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white sm:flex flex-row gap-2 items-center font-opensans"
             >
               Cerita Lebih Detail di
-              <Icon
-                name="youtubeIcon"
-                color="white"
-                width={26.67}
-                height={18.67}
-              />
+              <div className="xs:m-auto w-[27px]">
+                <Icon
+                  name="youtubeIcon"
+                  color="white"
+                  width={26.67}
+                  height={18.67}
+                />
+              </div>
             </Link>
           </div>
         }
         image={footerImage.imageUrl}
       />
       <RoundedFrameTop bgColor="bg-white" />
-      <div className="w-full">
+      <div className="w-full mt-[6px]">
         <FooterCards
           bgColor="bg-white"
           cards={[

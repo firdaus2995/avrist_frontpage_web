@@ -133,8 +133,8 @@ const Maps = ({
   };
 
   return (
-    <div className="sm:w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[0.75rem] pb-6">
-      <div className="w-full h-[43.75rem] rounded-t-[0.75rem] z-0">
+    <div className="sm:w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[24px] pb-6">
+      <div className="w-full h-[43.75rem] xs:max-h-[339px] sm:max-h-[691px] rounded-t-[0.75rem] z-0">
         <MapContainer
           center={defaultProps.center}
           zoom={4.5}
@@ -162,10 +162,12 @@ const Maps = ({
           ))}
         </MapContainer>
       </div>
-      <div className="px-[5%]">
+      <div className="px-[5%] pt-[0.75rem]">
         <SearchBox
-          placeHolder="Cari Rumah Sakit"
+          placeHolder="Ketik Lokasi Rumah Sakit"
           onSearch={(e) => onClickSearch(e)}
+          customButton="max-w-[119px]"
+          customClassName="!w-[90%] m-auto"
         />
       </div>
       <div className="flex sm:flex-row justify-between xs:flex-col px-3">
@@ -188,7 +190,7 @@ const Maps = ({
             {hospitalData?.length !== 0 &&
               hospitalData!.map((item, index) => (
                 <div className="px-2" key={index}>
-                  <div className="w-full sm:h-full xs:h-[95%] mt-[0.75rem]">
+                  <div className="w-full sm:h-full xs:h-[95%] mb-[12px]">
                     <MarkerCard
                       name={item.name}
                       address={item.address}

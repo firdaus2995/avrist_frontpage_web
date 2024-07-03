@@ -51,12 +51,12 @@ export const VideoInformation = ({
           videoId={getVideoId(
             contentStringTransformer(pageVideoData['body-video'])
           )}
-          className="w-[95%] flex items-center justify-center"
-          iframeClassName="-z-1 w-[95%] h-full rounded-t-xl"
+          className="w-[100%] flex items-center justify-center"
+          iframeClassName="-z-1 w-[100%] h-full rounded-t-xl"
         />
-        <div className="flex w-[95%] items-center justify-center">
+        <div className="flex w-[100%] items-center justify-center">
           <div
-            className={`p-[0.75rem] w-[95%] bg-purple_dark rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
+            className={`p-[0.75rem] w-[100%] bg-purple_dark rounded-b-xl text-white font-bold md:text-2xl font-karla flex flex-row justify-between`}
           >
             Penanganan Pengaduan
           </div>

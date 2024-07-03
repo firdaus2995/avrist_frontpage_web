@@ -92,6 +92,7 @@ export const Paginate = (props: Props) => {
         dari <span className="font-bold">{dataPage?.totalData}</span> hasil
       </p>
       <div className="flex flex-row gap-2 items-center">
+        {dataPage?.totalPage === 0 ? 1 : dataPage.totalPage}
         {currentPage > 1 && (
           <div
             onClick={handlePreviousPage}

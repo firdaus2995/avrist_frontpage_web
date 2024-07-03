@@ -10,7 +10,7 @@ const RoundedFrameBottom: React.FC<IRoundedFrameBottom> = ({
   bgColor
 }) => {
   return (
-    <div className={`relative ${bgColor ?? 'bg-avrast_product_bg'} mt-2 -mb-2`}>
+    <div className={`relative ${bgColor ?? 'bg-avrast_product_bg'} -mb-2`}>
       <span
         className={`w-full absolute z-20 bottom-2 h-[72px] ${frameColor ?? 'bg-white'} rounded-b-[65px]`}
       />
