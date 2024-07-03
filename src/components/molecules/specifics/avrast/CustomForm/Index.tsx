@@ -172,7 +172,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                   className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
                 >
                   {attribute.fieldType === 'LABEL' ? (
-                    <p className='leading-[23.68px]'>{attribute.name}</p>
+                    <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
                       <p className="font-bold mb-2 leading-[21.79px]">
@@ -341,8 +341,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                 ) : (
                   <div>
                     <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
-                      </p>
+                      {attribute.name} <span className="text-reddist">*</span>
+                    </p>
                     {attribute.fieldType === 'RADIO_BUTTON' ? (
                       <div className="flex flex-row gap-1">
                         {attribute.value
@@ -388,33 +388,27 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       </select>
                     ) : attribute.fieldType === 'TEXT_AREA' ? (
                       <div className="flex flex-col justify-end items-end gap-2 text-[0.875rem]">
-                          <textarea
-                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            placeholder={
-                              JSON.parse(attribute.config).placeholder
-                            }
-                            name={attribute.name}
-                            rows={4}
-                            maxLength={
-                              JSON.parse(attribute.config).max_length === '0'
-                                ? 500
-                                : JSON.parse(attribute.config).max_length
-                            }
-                            onChange={(e) =>
-                              updateFormDataByName(
-                                attribute.name,
-                                e.target.value
-                              )
-                            }
-                          />
-                          {formData?.find(
-                            (item) => item.name === attribute.name
-                          )?.value.length +
-                            '/' +
-                            (JSON.parse(attribute.config).max_length === '0'
+                        <textarea
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          rows={4}
+                          maxLength={
+                            JSON.parse(attribute.config).max_length === '0'
                               ? 500
-                              : JSON.parse(attribute.config).max_length)}
-                        </div>
+                              : JSON.parse(attribute.config).max_length
+                          }
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
+                        />
+                        {formData?.find((item) => item.name === attribute.name)
+                          ?.value.length +
+                          '/' +
+                          (JSON.parse(attribute.config).max_length === '0'
+                            ? 500
+                            : JSON.parse(attribute.config).max_length)}
+                      </div>
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex grow shrink-0">
                         <input
@@ -559,9 +553,19 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                       placeholder={JSON.parse(attribute.config).placeholder}
                       name={attribute.name}
-                      onChange={(e) =>
-                        updateFormDataByName(attribute.name, e.target.value)
-                      }
+                      value={attribute.value ?? ''}
+                      onChange={(e) => {
+                        const regex = /[^a-zA-Z]/g;
+                        if (attribute.name === 'Kota') {
+                          if (!e.target.value.match(regex)) {
+                            attribute.value = e.target.value;
+                          }
+                        } else {
+                          attribute.value = e.target.value;
+                        }
+                        updateFormDataByName(attribute.name, e.target.value);
+                        forceUpdate();
+                      }}
                     />
                   )}
                 </div>
@@ -683,9 +687,19 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                         placeholder={JSON.parse(attribute.config).placeholder}
                         name={attribute.name}
-                        onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
-                        }
+                        value={attribute.value ?? ''}
+                        onChange={(e) => {
+                          const regex = /[^a-zA-Z]/g;
+                          if (attribute.name === 'Nama') {
+                            if (!e.target.value.match(regex)) {
+                              attribute.value = e.target.value;
+                            }
+                          } else {
+                            attribute.value = e.target.value;
+                          }
+                          updateFormDataByName(attribute.name, e.target.value);
+                          forceUpdate();
+                        }}
                       />
                     )}
                   </div>
