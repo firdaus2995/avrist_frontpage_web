@@ -29,7 +29,7 @@ const data = [
     title: 'Komitmen Pelayanan Klaim',
     desc: 'Komitmen kami untuk menjadikan semua proses klaim efisien',
     icon: KetepatanWaktuIcon,
-    btnText: 'Panduan Layanan Nasabah'
+    btnText: 'Standar Pelayanan'
   },
   {
     title: 'Lihat Polis',
