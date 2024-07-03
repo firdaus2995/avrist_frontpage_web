@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import GreenBinocular from '@/assets/images/avrast/avrist-syariah/green-binocular.svg';
 import GreenHead from '@/assets/images/avrast/avrist-syariah/green-head.svg';
@@ -19,6 +20,30 @@ type Props = {
 
 const ManfaatUtama = (props: Props) => {
   const { boards, desc, subTitle, title } = props;
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const params = searchParams.get('tab');
+    if (params === 'Manfaat Utama') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 2700 : 2750,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Dewan Pengawas Syariah') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 1350 : 1200,
+        behavior: 'smooth'
+      });
+    } else if (params === 'Tentang Avrist Syariah') {
+      window.scrollTo({
+        top: window.innerWidth > 480 ? 900 : 450,
+        behavior: 'smooth'
+      });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [searchParams]);
+
   return (
     <div>
       <AboutHeading
