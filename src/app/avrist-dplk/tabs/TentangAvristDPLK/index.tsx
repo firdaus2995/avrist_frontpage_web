@@ -81,7 +81,7 @@ const TentangAvristDPLK = (props: Props) => {
               cardIcon: YellowBinocular,
               cardTitle: 'Experienced',
               cardBody:
-                'Berpengalaman dalam mengelola Dana Pensiun sejak 1980 dalam bentuk Yayasan Dana Pensiun. Untuk DPLK sejak tahun 1994'
+                'Berpengalaman dalam mengelola program pensiun sejak 1980 '
             },
             {
               cardIcon: YellowHead,
