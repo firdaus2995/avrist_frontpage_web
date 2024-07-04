@@ -45,7 +45,6 @@ const DPLKContent = (props: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const params = searchParams.get('tab');
   const [tab, setTab] = useState(
     searchParams.get('tab') ?? 'Tentang DPLK Avrist'
   );
@@ -87,27 +86,6 @@ const DPLKContent = (props: Props) => {
     }
   }, [tab, tabs]);
 
-  useEffect(() => {
-    if (params === 'Manfaat DPLK') {
-      window.scrollTo({
-        top: window.innerWidth > 480 ? 2900 : 2200,
-        behavior: 'smooth'
-      });
-    } else if (params === 'Dewan Pengawas DPLK') {
-      window.scrollTo({
-        top: window.innerWidth > 480 ? 1400 : 1450,
-        behavior: 'smooth'
-      });
-    } else if (params === 'Tentang DPLK Avrist') {
-      window.scrollTo({
-        top: window.innerWidth > 480 ? 900 : 450,
-        behavior: 'smooth'
-      });
-    } else {
-      window.scrollTo(0, 0);
-    }
-  }, [params, window.scrollY]);
-
   return (
     <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">
       <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
@@ -117,7 +95,7 @@ const DPLKContent = (props: Props) => {
             to={'#' + val.replace(/\s+/g, '')}
             spy={true}
             smooth={true}
-            offset={-12.5}
+            offset={-100}
             duration={500}
             onClick={() => handleTabClick(val)}
             className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
@@ -141,7 +119,7 @@ const DPLKContent = (props: Props) => {
                   to={'#' + val.replace(/\s+/g, '')}
                   spy={true}
                   smooth={true}
-                  offset={-12.5}
+                  offset={-150}
                   duration={500}
                   onClick={() => handleTabClick(val)}
                   className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}

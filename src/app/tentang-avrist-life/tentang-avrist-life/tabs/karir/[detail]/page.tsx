@@ -21,9 +21,11 @@ import {
   KarirModal,
   SuccessModal
 } from '@/components/molecules/specifics/avrast/Modal';
+import { handleGetContent } from '@/services/content-page.api';
 import { getDetailKarir } from '@/services/detail-karir.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
+  contentTransformer,
   contentStringTransformer,
   pageTransformer,
   singleImageTransformer
@@ -35,6 +37,7 @@ const DetailKarir = () => {
   // const slug = pathSegments[pathSegments.length - 1];
   const [show, setShow] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [popUpImage, setPopUpImage] = useState<string>('');
   const [data, setData] = useState<any>({
     titleImage: '',
     bannerImage: '',
@@ -88,7 +91,22 @@ const DetailKarir = () => {
     }
   };
 
+  const fetchModalImage = () => {
+    try {
+      handleGetContent(BASE_SLUG.POP_UP_SUBMIT_FORM, {
+        includeAttributes: 'true'
+      }).then((res: any) => {
+        const { content } = contentTransformer(res);
+        const submitImage = singleImageTransformer(content['pop-up-image']);
+        setPopUpImage(submitImage.imageUrl);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   useEffect(() => {
+    fetchModalImage();
     fetchData();
   }, []);
 
@@ -242,6 +260,7 @@ const DetailKarir = () => {
           setSuccess={setShowSuccess}
         />
         <SuccessModal
+          popUpImage={popUpImage}
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);

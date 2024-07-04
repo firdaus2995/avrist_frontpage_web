@@ -32,10 +32,10 @@ const CardCategoryA = ({
     <div className="flex flex-col gap-[1.5rem] px-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-purple_dark border-b-8 border-b-8 rounded-[12px] rounded-b-[12px]">
       <Image
         alt="blank-image"
-        width={100}
+        width={318}
         height={172}
         src={imageProduk || BlankImage}
-        className="w-full h-min-[172px] max-h-[214px] rounded-[10px]"
+        className="w-full h-[172px] rounded-[10px]"
       />
       <div className="flex flex-col gap-[0.75rem]">
         <div className="flex flex-row items-center gap-[8px]">

@@ -146,6 +146,26 @@ const CustomForm: React.FC<CustomFormProps> = ({
     e.target.value = e.target.value.replace(/\D/g, '');
   };
 
+  const isText = (name: string) => {
+    return (
+      name.toLowerCase().includes('kota') ||
+      name.toLowerCase().includes('nama') ||
+      name.toLowerCase().includes('domisili') ||
+      name.toLowerCase().includes('agama')
+    );
+  };
+
+  const isNumeric = (name: string) => {
+    return (
+      name.toLowerCase().includes('handphone') ||
+      name.toLowerCase().includes('ktp')
+    );
+  };
+
+  const isAlphaNumeric = (name: string) => {
+    return name.toLowerCase().includes('pendidikan');
+  };
+
   const RenderFetchedForm = () => {
     if (!dataForm) return null;
     const attributeList = dataForm;
@@ -555,9 +575,25 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       name={attribute.name}
                       value={attribute.value ?? ''}
                       onChange={(e) => {
-                        const regex = /[^a-zA-Z]/g;
-                        if (attribute.name === 'Kota') {
-                          if (!e.target.value.match(regex)) {
+                        const regexText = /[^a-zA-Z]/g;
+                        const regexNumber = /\D/g;
+                        const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
+
+                        // Text
+                        if (isText(attribute.name)) {
+                          if (!e.target.value.match(regexText)) {
+                            attribute.value = e.target.value;
+                          }
+                        }
+                        // Numeric
+                        else if (isNumeric(attribute.name)) {
+                          if (!e.target.value.match(regexNumber)) {
+                            attribute.value = e.target.value;
+                          }
+                        }
+                        // Alphanumeric
+                        else if (isAlphaNumeric(attribute.name)) {
+                          if (!e.target.value.match(regexAlphaNumeric)) {
                             attribute.value = e.target.value;
                           }
                         } else {
@@ -689,9 +725,25 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         name={attribute.name}
                         value={attribute.value ?? ''}
                         onChange={(e) => {
-                          const regex = /[^a-zA-Z]/g;
-                          if (attribute.name === 'Nama') {
-                            if (!e.target.value.match(regex)) {
+                          const regexText = /[^a-zA-Z]/g;
+                          const regexNumber = /\D/g;
+                          const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
+
+                          // Text
+                          if (isText(attribute.name)) {
+                            if (!e.target.value.match(regexText)) {
+                              attribute.value = e.target.value;
+                            }
+                          }
+                          // Numeric
+                          else if (isNumeric(attribute.name)) {
+                            if (!e.target.value.match(regexNumber)) {
+                              attribute.value = e.target.value;
+                            }
+                          }
+                          // Alphanumeric
+                          else if (isAlphaNumeric(attribute.name)) {
+                            if (!e.target.value.match(regexAlphaNumeric)) {
                               attribute.value = e.target.value;
                             }
                           } else {
