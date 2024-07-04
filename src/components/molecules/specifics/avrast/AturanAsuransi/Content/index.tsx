@@ -1,101 +1,13 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/atoms/Button/Button';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import { getContent } from '@/services/content-page.api';
 import { QueryParams } from '@/utils/httpService';
-import {
-  contentStringTransformer,
-  contentTransformer
-} from '@/utils/responseTransformer';
-
-const titleSideTab = [
-  'Hak - Hak Nasabah',
-  'Kewajiban Nasabah',
-  'Cara Avrist Life Tangani Keluhan Nasabah'
-];
-
-const contentTab: any = {
-  'Hak - Hak Nasabah': {
-    title:
-      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan',
-    subTitle: 'Hak Konsumen meliputi :',
-    content: [
-      'Mendapatkan keamanan dalam menggunakan produk dan/atau memanfaatkan layanan sesuai yang ditetapkan dalam ketentuan peraturan perundang-undangan dan/atau Polis.',
-      'Memilih produk dan/atau layanan.',
-      'Mendapatkan produk dan/atau layanan sesuai dengan penawaran yang dijanjikan dan/atau sesuai dengan ketentuan peraturan perundang-undangan dan/atau Polis.',
-      'Mendapatkan informasi mengenai produk dan/atau layanan yang jelas, akurat, benar, mudah diakses, dan tidak berpotensi menyesatkan.',
-      'Didengar pendapat dan pengaduannya atas produk yang digunakan dan/atau layanan yang dimanfaatkan.',
-      'Mendapatkan advokasi, pelindungan, dan upaya penyelesaian Sengketa Konsumen sesuai dengan ketentuan peraturan perundang-undangan dan/atau Polis.',
-      'Mendapat edukasi keuangan.',
-      'Diperlakukan atau dilayani secara benar.',
-      'Mendapatkan ganti rugi apabila produk dan/atau layanan yang diterima tidak sesuai dengan Polis dan/atau ketentuan peraturan perundang-undangan,'
-    ]
-  },
-  'Kewajiban Nasabah': {
-    title:
-      'Sesuai POJK 22 Tahun 2023 tentang Pelindungan Konsumen & Masyarakat di Sektor Jasa Keuangan',
-    subTitle: 'Kewajiban konsumen meliputi :',
-    content: [
-      'Mendengarkan penjelasan informasi mengenai produk dan/ layanan yang disampaikan dengan metode pemasaran tertentu oleh Perusahaan sebelum membeli produk dan/atau layanan Perusahaan.',
-      'Membaca, memahami, dan melaksanakan dengan benar Polis dan/atau dokumen penggunaan produk dan/ layanan.',
-      'Beriktikad baik dalam penggunaan produk dan/atau layanan.',
-      'Memberikan informasi dan/atau dokumen yang jelas, akurat, benar, dan tidak menyesatkan.',
-      'Membayar sesuai dengan nilai/harga dan/atau biaya produk dan/ layanan yang disepakati dengan Perusahaan.',
-      'Mengikuti upaya penyelesaian Sengketa Pelindungan Konsumen sesuai dengan ketentuan perundang-undangan.'
-    ]
-  }
-};
-
-const renderContent = (description: string) => {
-  const isOrdered = description.includes('<ol>');
-  const isUnordered = description.includes('<ul>');
-
-  if (isOrdered) {
-    return (
-      <p
-        className="text-xl gap-4"
-        dangerouslySetInnerHTML={{
-          __html: description.replace('<ol>', '<ol class="list-decimal pl-5">')
-        }}
-      />
-    );
-  }
-  if (isUnordered) {
-    return (
-      <p
-        className="text-xl gap-4"
-        dangerouslySetInnerHTML={{
-          __html: description.replace('<ul>', '<ul class="list-disc pl-5">')
-        }}
-      />
-    );
-  }
-
-  return (
-    <p
-      className="text-xl gap-4"
-      dangerouslySetInnerHTML={{ __html: description }}
-    />
-  );
-};
-
-const renderedtabContent = (content: string[]) => (
-  <ol className="list-decimal marker:font-normal font-opensans pl-5 text-xl">
-    {content.map((item: string, index: number) => (
-      <li
-        key={index}
-        className={`${content.length - 1 === index ? 'mb-0' : 'mb-6'}`}
-      >
-        <p className="text-xl gap-4 font-normal">{item}</p>
-      </li>
-    ))}
-  </ol>
-);
 
 const Content = () => {
   const [tab, setTab] = useState(0);
-  const [lastContentValue, setLastContentValue] = useState<any>();
+  const [leftTabData, setLeftTabData] = useState<any>();
 
   useEffect(() => {
     const fetchLastContentData = async () => {
@@ -103,106 +15,66 @@ const Content = () => {
         includeAttributes: 'true'
       };
       try {
+        const temp: any = [];
         const fetchedContent = await getContent('Hak-Nasabah', queryParams);
-        const { content } = contentTransformer(fetchedContent);
-        const title = contentStringTransformer(content['body-judul-konten']);
-        const isiKonten = contentStringTransformer(content['body-isi-konten']);
 
-        setLastContentValue({
-          title,
-          isiKonten
-        });
+        fetchedContent?.data?.contentDataList?.map(
+          (item: any, index: number) => {
+            temp.push({
+              title: item.title,
+              onClick: () => setTab(index),
+              content: {
+                title: item?.contentData[0]?.value,
+                description: item?.contentData[1]?.value
+              }
+            });
+          }
+        );
+        setLeftTabData(temp);
       } catch (error: any) {
         throw new Error(error);
       }
     };
-
-    if (titleSideTab[tab] === 'Cara Avrist Life Tangani Keluhan Nasabah') {
-      fetchLastContentData().then();
-    }
+    fetchLastContentData().then();
   }, [tab]);
 
   return (
     <div className="bg-purple_dark -mt-1">
-      <div className="bg-white sm:pt-[6.25rem] xs:pt-[50px] px-[2rem] md:px-[8.5rem] pb-[28px] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between sm:gap-[2.5rem] xs:gap-[2.25rem]">
-        <ButtonMenuVertical
-          item={[
-            {
-              title: 'Hak Nasabah',
-              onClick: () => {
-                setTab(0);
-              }
-            },
-            {
-              title: 'Kewajiban Nasabah',
-              onClick: () => {
-                setTab(1);
-              }
-            },
-            {
-              title: 'Cara Avrist Life Tangani Keluhan Nasabah',
-              onClick: () => {
-                setTab(2);
-              }
-            }
-          ]}
-          outerClass="xs:w-full md:w-[12.5rem]"
-        />
-        <div className="xs:w-full md:w-[82%] flex flex-col gap-[24px]">
-          <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium leading-[43.2px] -tracking-[1.08px]">
-            {titleSideTab[tab]}
-          </h1>
-          {!lastContentValue &&
-          titleSideTab[tab] !== 'Cara Avrist Life Tangani Keluhan Nasabah' ? (
-            <>
-              <p className="flex xs:text-[36px] md:text-[56px] sm:leading-[67.2px] xs:leading-[43.2px] font-karla font-bold sm:-tracking-[2.24px] xs:-tracking-[1.44px]">
-                {contentTab[titleSideTab[tab]].title}
+      {leftTabData && (
+        <div className="bg-white sm:pt-[6.25rem] xs:pt-[50px] px-[2rem] md:px-[8.5rem] pb-[28px] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between sm:gap-[2.5rem] xs:gap-[2.25rem]">
+          <ButtonMenuVertical
+            item={leftTabData}
+            outerClass="xs:w-full md:w-[12.5rem]"
+          />
+          <div className="xs:w-full md:w-[82%] flex flex-col gap-[24px]">
+            <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium leading-[43.2px] -tracking-[1.08px]">
+              {leftTabData[tab]?.title}
+            </h1>
+            <div
+              className="text-[1.25rem] font-bold font-opensans leading-[28px]"
+              dangerouslySetInnerHTML={{
+                __html: leftTabData[tab]?.content?.title
+              }}
+            />
+            <div
+              className="text-[1.25rem] font-bold font-opensans leading-[28px]"
+              dangerouslySetInnerHTML={{
+                __html: leftTabData[tab]?.content?.description
+              }}
+            />
+            <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[20px]">
+              <p className="font-bold text-[1.5rem] font-opensanspro text-purple_dark">
+                Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
               </p>
-              <h2
-                className="text-[1.25rem] font-bold font-opensans leading-[28px]"
-                dangerouslySetInnerHTML={{
-                  __html: contentTab[titleSideTab[tab]].subTitle
-                }}
-              />
-              <div className="flex flex-col gap-[2rem]">
-                <span className="flex flex-col gap-[1rem]">
-                  <Suspense>
-                    {renderedtabContent(contentTab[titleSideTab[tab]].content)}
-                  </Suspense>
-                </span>
-              </div>
-            </>
-          ) : (
-            lastContentValue && (
-              <>
-                <h2
-                  className="xs:text-[36px] md:text-[56px] sm:leading-[67.2px] xs:leading-[43.2px] font-karla font-bold sm:-tracking-[2.24px] xs:-tracking-[1.44px]"
-                  dangerouslySetInnerHTML={{
-                    __html: lastContentValue.title?.replace(/<strong>/gi, '')
-                  }}
-                />
-                <div className="flex flex-col gap-[2rem]">
-                  <span className="flex flex-col gap-[1rem]">
-                    <Suspense>
-                      {renderContent(lastContentValue.isiKonten)}
-                    </Suspense>
-                  </span>
-                </div>
-              </>
-            )
-          )}
-          <div className="p-[1.5rem] border border-gray_light rounded-[0.75rem] flex xs:flex-col md:flex-row justify-between xs:items-start md:items-center gap-[20px]">
-            <p className="font-bold text-[1.5rem] font-opensanspro text-purple_dark">
-              Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
-            </p>
-            <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-              <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[16px] font-opensans text-[16px] font-semibold leading-[23.68px]">
-                Ajukan Pengaduan
-              </Button>
-            </Link>
+              <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
+                <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[16px] font-opensans text-[16px] font-semibold leading-[23.68px]">
+                  Ajukan Pengaduan
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
