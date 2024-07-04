@@ -16,7 +16,6 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import { handleGetContentPage } from '@/services/content-page.api';
 import { getListLaporanPerusahaan } from '@/services/laporan-perusahaan';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { handleDownload } from '@/utils/helpers';
 import {
   pageTransformer,
   singleImageTransformer
@@ -307,7 +306,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                               customButtonClass="rounded-xl bg-purple_dark"
                               customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                               onClick={async () =>
-                                await handleDownload(item.file)
+                                window.open(item.file, '_blank')
                               }
                             />
                           </div>
