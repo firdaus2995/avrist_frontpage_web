@@ -21,13 +21,16 @@ import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
+import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import { handleGetContentPage } from '@/services/content-page.api';
+import { subscribeApi } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   contentDetailTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
   console.log(params);
@@ -41,6 +44,11 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     bannerImage: '',
     footerImage: ''
   });
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
+  const [isValidEmailContent, setIsValidEmailContent] =
+    useState<boolean>(false);
+  const [emailContent, setEmailContent] = useState('');
 
   const [isOpenPopover, setIsOpenPopover] = useState<boolean>(false);
   const fetchData = () => {
@@ -179,6 +187,23 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     );
   };
 
+  const handleSubscribeContentButton = async () => {
+    const isEmail = validateEmail(emailContent);
+    if (!isEmail) return setIsValidEmailContent(true);
+    try {
+      const response: any = await subscribeApi({
+        email: emailContent,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true);
+        setEmailContent('');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     fetchData();
     fetchDetailData();
@@ -186,6 +211,13 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
   return (
     <>
+      <div className="absolute">
+        <SubmittedFormModal
+          show={visibleSubscribeModal}
+          onClose={() => setVisibleSubscribeModal(false)}
+        />
+      </div>
+
       <Hero
         title="Penghargaan"
         breadcrumbsData={[
@@ -274,22 +306,36 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
         <FooterInformation
           title={
-            <div className="flex flex-col gap-4">
-              <p className="xs:text-[2.25rem] sm:text-[3.5rem]">
+            <div className="flex flex-col gap-4 px-2">
+              <p className="text-[56px] md:text-4xl">
                 Subscribe Informasi Terkini!
               </p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
-              />
-              <div className="flex flex-row gap-2">
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  value={emailContent}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmailContent(e.target.value);
+                  }}
                 />
-                <Button title="Subscribe" customButtonClass="rounded-xl" />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
+                <Button
+                  title="Subscribe"
+                  customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
+                  onClick={handleSubscribeContentButton}
+                />
               </div>
             </div>
           }
