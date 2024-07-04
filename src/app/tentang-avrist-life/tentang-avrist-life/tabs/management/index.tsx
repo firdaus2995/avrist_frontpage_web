@@ -12,7 +12,6 @@ import {
 } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { handleDownload } from '@/utils/helpers';
 import {
   singleImageTransformer,
   handleTransformedContent,
@@ -280,8 +279,8 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                 title="Lihat Di Sini"
                 customButtonClass="bg-purple_dark rounded-lg"
                 customTextClass="text-white font-bold"
-                onClick={async () => {
-                  data ? await handleDownload(data) : null;
+                onClick={() => {
+                  data ? window.open(data, '_blank') : null;
                 }}
               />
             </div>
