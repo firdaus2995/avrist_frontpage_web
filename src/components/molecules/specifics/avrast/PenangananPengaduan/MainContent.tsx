@@ -229,7 +229,7 @@ export const MainContent = ({
             <Content />
           </div>
           {videoData && <VideoInformation pageVideoData={videoData} />}
-          <div className="sm:-mt-[16px]">
+          <div className="sm:-mt-[16px] xs:mt-[24px]">
             <ContentCard />
           </div>
           <ContentReportList />
