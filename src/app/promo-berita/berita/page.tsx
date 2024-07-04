@@ -691,6 +691,8 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const handleSubscribeButton = async () => {
+    const isEmail = validateEmail(email);
+    if (!isEmail) return setIsValidEmailContent(true);
     try {
       const response: any = await subscribeApi({
         email: email,
@@ -1170,8 +1172,21 @@ const Berita: React.FC<ParamsProps> = () => {
                         customInputClass="custom-input"
                         placeholder="Masukkan email Anda"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setIsValidEmailContent(false);
+                          setEmail(e.target.value);
+                        }}
+                        onKeyDown={(e: any) => {
+                          if (e.key === 'Enter' || e.keyCode === 13) {
+                            handleSubscribeButton();
+                          }
+                        }}
                       />
+                      {isValidEmailContent && (
+                        <p className="text-[10px] text-[red] -my-2">
+                          Masukkan alamat email yang benar!
+                        </p>
+                      )}
                       <Button
                         title="Subscribe"
                         customButtonClass="bg-purple_dark rounded-xl"
