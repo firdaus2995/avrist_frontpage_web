@@ -121,7 +121,7 @@ const TentangAvristDPLK = (props: Props) => {
             }
           ]}
           cardClassname="border-b-dplk_yellow"
-          idTags="#ManfaatUtama"
+          idTags="#ManfaatDPLK"
         />
       </div>
     </div>
