@@ -76,17 +76,19 @@ const InformationPolicy = () => {
       <FooterInformation
         title={
           <div
-            className={`md:w-full xs:w-full pt-5 px-5 pb-[32px] flex h-full flex-col md:items-start xs:items-center justify-center gap-10`}
+            className={`flex flex-col gap-[2rem] xs:items-center md:items-start min-h-[250px]`}
           >
-            <p className="-tracking-[2.24px] sm:leading-[67.2px] xs:leading-[43.2px] font-light sm:text-[3.5rem] xs:text-[2.25rem] md:text-left xs:text-center">
+            <p className="font-karla xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[43.2px] md:leading-[67.2px] -tracking-[2.24px]">
               <span className="font-bold text-purple_dark">
                 Warisan Kebaikan,
               </span>{' '}
               Solusi Perlindungan Masa Depan
             </p>
             <Link
-              href={'https://www.youtube.com/@avristian'}
-              className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white flex sm:flex-row xs:flex-col gap-2 items-center xs:-tracking-[1.44px] sm:-tracking-[2.24px]"
+              href="https://www.youtube.com/@avristian"
+              target="blank"
+              role="button"
+              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg text-xl font-semibold text-white flex flex-row gap-2 items-center font-opensans leading-[28px]"
             >
               Cerita Lebih Detail di
               <Icon name="youtubeIcon" color="white" width={32} height={32} />
@@ -95,8 +97,9 @@ const InformationPolicy = () => {
         }
         image={footerImage.imageUrl}
       />
-      <RoundedFrameTop bgColor="bg-white" />
+      <RoundedFrameTop bgColor="bg-[#F7F4F8]" />
       <FooterCards
+        bgColor="bg-[#F7F4F8]"
         cards={[
           {
             icon: FOOTER_NASABAH_1,

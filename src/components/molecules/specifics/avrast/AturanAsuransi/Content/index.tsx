@@ -176,8 +176,10 @@ const Content = () => {
             lastContentValue && (
               <>
                 <h2
-                  className="xs:text-4xl md:text-[3.5rem] font-karla font-bold"
-                  dangerouslySetInnerHTML={{ __html: lastContentValue.title }}
+                  className="xs:text-[36px] md:text-[56px] sm:leading-[67.2px] xs:leading-[43.2px] font-karla font-bold sm:-tracking-[2.24px] xs:-tracking-[1.44px]"
+                  dangerouslySetInnerHTML={{
+                    __html: lastContentValue.title?.replace(/<strong>/gi, '')
+                  }}
                 />
                 <div className="flex flex-col gap-[2rem]">
                   <span className="flex flex-col gap-[1rem]">

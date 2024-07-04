@@ -1303,9 +1303,11 @@ const Berita: React.FC<ParamsProps> = () => {
                             <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
                               {htmlParser(item.judul)}
                             </p>
-                            <p className="line-clamp-4 font-opensans text-[16px]">
-                              {htmlParser(item.deskripsi)}
-                            </p>
+                            {item.deskripsi !== '-' && (
+                              <p className="line-clamp-4 font-opensans text-[16px]">
+                                {htmlParser(item.deskripsi)}
+                              </p>
+                            )}
                           </div>
                           <p className="text-[14px]">
                             <span className="font-bold text-purple_dark">

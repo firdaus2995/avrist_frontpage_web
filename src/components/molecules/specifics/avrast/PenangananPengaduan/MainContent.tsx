@@ -223,7 +223,7 @@ export const MainContent = ({
   return (
     <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col">
-        <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[5rem] xs:py-[2.25rem] sm:px-[136px] xs:px-4 xs:px-8 sm:gap-[5rem] xs:gap-[36px]">
+        <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[5rem] xs:pb-[100px] xs:pt-[50px] sm:px-[136px] xs:px-4 xs:px-8 sm:gap-[5rem] xs:gap-[36px]">
           <ButtonMenu />
           <div className="xs:py-[44px]">
             <Content />
@@ -248,7 +248,7 @@ export const MainContent = ({
             />
           )}
         </div>
-        <div className="bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem]">
+        <div className="bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem] xs:pb-[28px]">
           <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden border-b-8 border-b-purple_dark">
             <div className="p-[2.25rem]">
               <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[3.2rem] leading-[67.2px] sm:-tracking-[2.24px] xs:-tracking-[1.44px]">

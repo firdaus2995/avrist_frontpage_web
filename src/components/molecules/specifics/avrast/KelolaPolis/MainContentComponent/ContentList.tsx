@@ -78,7 +78,7 @@ export const ContentList = ({
           </div>
         </div>
 
-        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px] -mt-10">
+        <div className="md:w-3/4 xs:w-full flex flex-col gap-4 sm:ml-[48px]">
           <div className="xs:w-[100%] md:w-[23%] h-full bg-purple_light_bg rounded-xl sm:hidden">
             {btnVerticalData && <ButtonMenuVertical item={btnVerticalData} />}
           </div>
@@ -92,7 +92,7 @@ export const ContentList = ({
             <Icon name="chevronLeft" color="purple_dark" />
             Kembali
           </div>
-          <div className="flex flex-col gap-[0.75rem]">
+          <div className="flex flex-col gap-[0.75rem] mt-[48px]">
             {/* list */}
             {listData?.map(
               (

@@ -38,7 +38,7 @@ export const MainContent = ({
 
   return (
     <div className="w-full flex flex-col">
-      <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[26px] xs:pt-[50px] xs:pb-[28px] sm:px-[136px] sm:gap-[5rem] xs:px-[2rem] xs:gap-[5rem]">
+      <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[28px] xs:pt-[50px] xs:pb-[28px] sm:px-[136px] sm:gap-[5rem] xs:px-[2rem] xs:gap-[5rem]">
         <ButtonMenu />
         <Content />
         {videoData && (

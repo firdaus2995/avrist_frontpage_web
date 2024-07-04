@@ -39,7 +39,7 @@ export const SubmittedFormModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
-                  <div className="sm:h-[50vh] xs:h-full lg:w-[50vw] md:w-[70vw] xs:w-[80vw] transition xs:p-4">
+                  <div className="sm:h-[40vh] sm:w-[50vw] xs:w-full xs:h-full transition xs:p-4">
                     <div className="absolute right-0 p-[1.5rem]">
                       <button onClick={onClose}>
                         <Icon
@@ -50,14 +50,12 @@ export const SubmittedFormModal = (props: Props) => {
                         />
                       </button>
                     </div>
-                    <div className="flex flex-1 flex-col items-center justify-center h-full text-center md:px-[4.5rem] sm:px-[2rem] xs:px-[1.5rem] xs:py-[1rem]">
-                      <p className="font-karla font-semibold sm:text-[3rem] xs:text-[2rem]  text-white">
+                    <div className="flex flex-1 flex-col items-center justify-center h-full text-center sm:px-[4.5rem] sm:py-[6.25rem] xs:px-[2rem] xs:py-[3.125rem] gap-[36px]">
+                      <p className="font-karla font-extrabold text-[3rem] text-white xs:leading-[43.2px] sm:leading-[57.6px] -tracking-[1.92px] mb-2">
                         Terima kasih atas langganan Anda!
                       </p>
-                      <p className="font-opensans font-normal text-[1.25rem] text-white">
-                        Anda telah berhasil berlangganan untuk mendapatkan
-                        informasi terkini, wawasan eksklusif, tips investasi,
-                        dan berita terbaru.
+                      <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
+                        Cek email untuk konfirmasi email Anda
                       </p>
                     </div>
                   </div>
