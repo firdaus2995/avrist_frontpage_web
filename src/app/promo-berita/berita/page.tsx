@@ -16,6 +16,7 @@ import Icon4 from '@/assets/images/common/heart-check.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
@@ -216,6 +217,12 @@ const Berita: React.FC<ParamsProps> = () => {
       fetchData();
     }
   }, [data]);
+
+  useEffect(() => {
+    setSearch('');
+    setParams({ ...params, searchFilter: '' });
+    console.log(search);
+  }, [params.category]);
 
   useEffect(() => {
     setParams({
@@ -792,16 +799,18 @@ const Berita: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <ReactPaginate
-          pageCount={pageCount}
-          pageRangeDisplayed={2}
-          onPageChange={handlePageClick}
-          nextLabel={<Icon name="chevronRight" color="purple_dark" />}
-          previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-          containerClassName="flex flex-row gap-[12px] items-center"
-          activeClassName="text-purple_dark font-bold"
-          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
-        />
+        {contentData?.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+            previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+            containerClassName="flex flex-row gap-[12px] items-center"
+            activeClassName="text-purple_dark font-bold"
+            pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          />
+        )}
       </div>
     );
   };
@@ -946,7 +955,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               />
                             )}
                             {item &&
-                              item.deskripsi[0] &&
+                              item?.deskripsi?.length > 0 &&
                               isContentNotEmpty(
                                 item.deskripsi[0]?.value ?? '-'
                               ) && (
@@ -1034,6 +1043,7 @@ const Berita: React.FC<ParamsProps> = () => {
               ]}
               hidePagination
               searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
+              searchValue={search}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
               }}
@@ -1043,76 +1053,90 @@ const Berita: React.FC<ParamsProps> = () => {
               customContent={
                 <>
                   {params.category === 'Berita dan Kegiatan' ? (
-                    <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2">
-                      {paginatedData?.map((item: any, index: number) => (
-                        <Link
-                          key={index}
-                          href={{
-                            pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
-                            query: { id: item.id }
-                          }}
-                        >
-                          <CardCategoryB
-                            summary={item.judul}
-                            description={`${item.date} ${item.waktu}`}
-                            imageUrl={item.image}
-                            imageStyle="min-h-[190px] object-fill"
-                            lineClamp={3}
-                          />
-                        </Link>
-                      ))}
-                    </div>
+                    contentData?.length > 0 ? (
+                      <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px] xs:max-sm:grid-cols-1 sm:max-md:grid-cols-2 ">
+                        {paginatedData?.map((item: any, index: number) => (
+                          <Link
+                            key={index}
+                            href={{
+                              pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                              query: { id: item.id }
+                            }}
+                          >
+                            <CardCategoryB
+                              summary={item.judul}
+                              description={`${item.date} ${item.waktu}`}
+                              imageUrl={item.image}
+                              imageStyle="min-h-[190px] object-fill"
+                              lineClamp={3}
+                            />
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <NotFound />
+                    )
                   ) : params.category === 'AvriStory' ? (
                     <div className="grid lg:grid-cols-1 gap-[24px] w-full">
-                      {paginatedData?.map((item: any, index: number) => (
-                        <div
-                          key={index}
-                          className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
-                        >
-                          {isContentNotEmpty(item.namaFile) && (
-                            <>
-                              <div className="flex flex-row gap-2 items-center">
-                                <p className="font-bold text-xl sm:text-2xl break-words">
-                                  {item.namaFile}
-                                </p>
-                                <MediumTag title="PDF" />
-                              </div>
-                              <Button
-                                title="Unduh"
-                                customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
-                                customTextClass="text-white text-[16px]"
-                                onClick={() => window.open(item.file, '_blank')}
-                              />
-                            </>
-                          )}
-                        </div>
-                      ))}
+                      {contentData?.length > 0 ? (
+                        paginatedData?.map((item: any, index: number) => (
+                          <div
+                            key={index}
+                            className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
+                          >
+                            {isContentNotEmpty(item.namaFile) && (
+                              <>
+                                <div className="flex flex-row gap-2 items-center">
+                                  <p className="font-bold text-xl sm:text-2xl break-words">
+                                    {item.namaFile}
+                                  </p>
+                                  <MediumTag title="PDF" />
+                                </div>
+                                <Button
+                                  title="Unduh"
+                                  customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                                  customTextClass="text-white text-[16px]"
+                                  onClick={() =>
+                                    window.open(item.file, '_blank')
+                                  }
+                                />
+                              </>
+                            )}
+                          </div>
+                        ))
+                      ) : (
+                        <NotFound />
+                      )}
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 gap-[24px]">
-                      {paginatedData?.map((item: any, index: number) => (
-                        <Link
-                          key={index}
-                          href={{
-                            pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                            query: { id: item.id }
-                          }}
-                        >
-                          <CardCategoryD
-                            type="row"
-                            title={htmlParser(item.judul)}
-                            summary={htmlParser(item.deskripsi)}
-                            category={item.category}
-                            time={` | ${item.date} ${item.waktu}`}
-                            tags={
-                              typeof item.tags === 'string'
-                                ? item.tags.split(',')
-                                : item.tags
-                            }
-                            image={item.image}
-                          />
-                        </Link>
-                      ))}
+                      {contentData?.length > 0 ? (
+                        paginatedData?.map((item: any, index: number) => (
+                          <Link
+                            key={index}
+                            href={{
+                              pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                              query: { id: item.id }
+                            }}
+                          >
+                            <CardCategoryD
+                              type="row"
+                              title={htmlParser(item.judul)}
+                              summary={htmlParser(item.deskripsi)}
+                              category={item.category}
+                              time={` | ${item.date} ${item.waktu}`}
+                              tags={
+                                typeof item.tags === 'string'
+                                  ? item.tags.split(',')
+                                  : item.tags
+                              }
+                              image={item.image}
+                            />
+                          </Link>
+                        ))
+                      ) : (
+                        <NotFound />
+                      )}
                     </div>
                   )}
 

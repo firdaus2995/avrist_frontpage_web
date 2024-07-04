@@ -58,6 +58,7 @@ const CategoryWithThreeCards = ({
   searchPlaceholder,
   onCategoryChange,
   hideSearchBar,
+  searchValue,
   onSearchChange,
   onSearch,
   hidePagination,
@@ -222,15 +223,21 @@ const CategoryWithThreeCards = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-row gap-[12px] xs:w-full md:w-auto">
+            <form
+              className="flex flex-row gap-[12px] xs:w-full md:w-auto"
+              onSubmit={(e) => {
+                e.preventDefault();
+                onSearch ? onSearch : null;
+              }}
+            >
               <input
                 placeholder={searchPlaceholder ?? 'Cari'}
                 className="font-karla focus:outline-none xs:w-full md:w-96 px-[16px] py-[12px] rounded-[12px] bg-purple_dark/[.06]"
                 onChange={onSearchChange}
-                onKeyDown={onSearch}
+                value={searchValue}
               />
-              <ButtonSmall title="Cari" onClick={onSearch} />
-            </div>
+              <ButtonSmall title="Cari" onClick={onSearch} type="submit" />
+            </form>
           </div>
         )}
         {!customContent ? (

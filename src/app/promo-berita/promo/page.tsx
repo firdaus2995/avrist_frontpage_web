@@ -16,6 +16,7 @@ import Icon4 from '@/assets/images/common/heart-check.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
@@ -327,16 +328,18 @@ const Promo: React.FC<ParamsProps> = () => {
             hasil
           </p>
         </div>
-        <ReactPaginate
-          pageCount={totalPages}
-          pageRangeDisplayed={2}
-          onPageChange={() => handlePageChange(totalPages)}
-          nextLabel={<Icon name="chevronRight" color="purple_dark" />}
-          previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-          containerClassName="flex flex-row gap-[12px] items-center"
-          activeClassName="text-purple_dark font-bold"
-          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
-        />
+        {contentData?.length > 0 && (
+          <ReactPaginate
+            pageCount={totalPages}
+            pageRangeDisplayed={2}
+            onPageChange={() => handlePageChange(totalPages)}
+            nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+            previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+            containerClassName="flex flex-row gap-[12px] items-center"
+            activeClassName="text-purple_dark font-bold"
+            pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          />
+        )}
       </div>
     );
   };
@@ -477,23 +480,27 @@ const Promo: React.FC<ParamsProps> = () => {
             }}
             customContent={
               <>
-                <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px] w-full">
-                  {paginatedData?.map((item: any, index: number) => (
-                    <Link
-                      key={index}
-                      href={`/promo-berita/promo/${item.id}`}
-                      className="w-full h-auto flex justify-center"
-                    >
-                      <Image
-                        src={item?.image ?? BlankImage}
-                        className="w-full min-h-[220px] shadow-small rounded-lg object-fill"
-                        alt="blank"
-                        width={0}
-                        height={0}
-                      />
-                    </Link>
-                  ))}
-                </div>
+                {contentData?.length > 0 ? (
+                  <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px] w-full">
+                    {paginatedData?.map((item: any, index: number) => (
+                      <Link
+                        key={index}
+                        href={`/promo-berita/promo/${item.id}`}
+                        className="w-full h-auto flex justify-center"
+                      >
+                        <Image
+                          src={item?.image ?? BlankImage}
+                          className="w-full min-h-[220px] shadow-small rounded-lg object-fill"
+                          alt="blank"
+                          width={0}
+                          height={0}
+                        />
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <NotFound />
+                )}
 
                 {renderPage()}
               </>
