@@ -22,7 +22,7 @@ const mockData = [
     title: 'Prosedur dan Form Pengaduan',
     icon: CHECK_ICON,
     btn: 'Selengkapnya',
-    link: '/klaim-layanan/layanan/penanganan-pengaduan/aturan-asuransi'
+    link: '/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan'
   },
   {
     id: '3',
