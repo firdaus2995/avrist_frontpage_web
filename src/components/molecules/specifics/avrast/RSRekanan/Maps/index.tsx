@@ -192,6 +192,7 @@ const Maps = ({
                 <div className="px-2" key={index}>
                   <div className="w-full sm:h-full xs:h-[95%] mb-[12px]">
                     <MarkerCard
+                      index={index}
                       name={item.name}
                       address={item.address}
                       phone={item.phone}

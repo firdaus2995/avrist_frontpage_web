@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Tooltip } from 'reactstrap';
 import Icon from '@/components/atoms/Icon';
 
 interface IMarkerCard {
@@ -8,6 +9,7 @@ interface IMarkerCard {
   lat: number;
   lng: number;
   onClickMarker: (lat: number, lng: number) => void;
+  index?: number;
 }
 
 const MarkerCard: React.FC<IMarkerCard> = ({
@@ -16,10 +18,17 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   phone,
   lat,
   lng,
-  onClickMarker
+  onClickMarker,
+  index
 }) => {
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  const toggle = () => setTooltipOpen(!tooltipOpen);
   return (
-    <div className="rounded-xl border border-gray_light p-6 sm:w-[95%] flex flex-col gap-4 overflow-auto">
+    <div
+      id={'Tooltip-' + index}
+      className="rounded-xl border border-gray_light p-6 sm:w-[95%] flex flex-col gap-4 overflow-auto sm:min-h-[19rem] xs:h-auto"
+    >
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>
         {lat !== 0 && lng !== 0 ? (
@@ -43,6 +52,16 @@ const MarkerCard: React.FC<IMarkerCard> = ({
           {phone}
         </p>
       </span>
+      <Tooltip
+        placement="bottom"
+        isOpen={tooltipOpen}
+        target={'Tooltip-' + index}
+        toggle={toggle}
+        autohide={true}
+        className="relative left-0"
+      >
+        {name}
+      </Tooltip>
     </div>
   );
 };
