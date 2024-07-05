@@ -20,7 +20,6 @@ export const MainContent = (props: Props) => {
   const [mapCenter, setMapCenter] = useState<[number, number]>([
     -6.214663280751351, 106.82071668189862
   ]);
-  console.log(branchData)
   const HighOffice = useMemo(() => dynamic(
     () => import('./MainContentComponent/HighOffice').then(mod => mod.default),
     {
