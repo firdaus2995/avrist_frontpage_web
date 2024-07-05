@@ -51,7 +51,7 @@ const SyaratPengunaan = () => {
   }
 
   return (
-    <div className="bg-avrast_product_bg">
+    <div className="bg-purple_superlight">
       <Hero
         title="Syarat Penggunaan"
         breadcrumbsData={[
