@@ -479,6 +479,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
       </GridContainer>
       <RoundedFrameBottom frameColor="bg-white" />
       <FooterInformation
+        bgColor="xs:bg-white md:bg-purple_superlight"
         title={
           <p className="font-light xs:text-[2.25rem] sm:text-[3.5rem] text-black font-karla xs:leading-[2.5rem] md:leading-[67.2px] xs:-tracking-[2.5px] sm:-tracking-[2.24px]">
             <span className="font-bold text-purple_dark">Hello,</span> Ada yang
@@ -490,7 +491,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         image={footerImage}
         href="/tanya-avrista"
       />
-      <RoundedFrameTop bgColor="bg-white" />
+      <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       <FooterCards
         cards={[
           {
