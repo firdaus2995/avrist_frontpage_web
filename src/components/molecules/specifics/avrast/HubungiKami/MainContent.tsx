@@ -37,7 +37,7 @@ export const MainContent = (props: Props) => {
 
   return (
     <div className="w-full flex flex-col">
-      <div className="bg-purple_superlight flex flex-col sm:gap-[5rem] xs:gap-[2.25rem] xs:py-[3.125rem] xs:px-[2rem] sm:p-0 sm:px-[8.5rem] sm:pt-[5rem] sm:pb-[100px] xs:px-[1.3125rem]">
+      <div className="bg-purple_superlight flex flex-col gap-[5rem] xs:py-[3.125rem] xs:px-[2rem] sm:p-0 sm:px-[8.5rem] sm:pt-[5rem] sm:pb-[100px] xs:px-[1.3125rem]">
         <div className="">
           <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Kebutuhan Anda adalah prioritas kami
