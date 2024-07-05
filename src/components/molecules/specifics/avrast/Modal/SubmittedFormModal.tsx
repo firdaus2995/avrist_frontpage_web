@@ -51,7 +51,7 @@ export const SubmittedFormModal = (props: Props) => {
                       </button>
                     </div>
                     <div className="flex flex-1 flex-col items-center justify-center h-full text-center sm:px-[4.5rem] sm:py-[6.25rem] xs:px-[2rem] xs:py-[3.125rem] gap-[36px]">
-                      <p className="font-karla font-extrabold text-[3rem] text-white xs:leading-[43.2px] sm:leading-[57.6px] -tracking-[1.92px] mb-2">
+                      <p className="font-karla font-extrabold xs:text-[2.25rem] md:text-[3.5rem] text-white xs:leading-[43.2px] sm:leading-[57.6px] -tracking-[1.92px] mb-2">
                         Terima kasih atas langganan Anda!
                       </p>
                       <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">

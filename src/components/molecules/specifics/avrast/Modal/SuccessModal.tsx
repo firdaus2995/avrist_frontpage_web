@@ -10,9 +10,14 @@ type Props = {
   show: boolean;
   onClose: () => void;
   popUpImage?: string;
+  hideImage?: boolean;
+  title?: string;
+  subtitle?: string;
+  className?: string;
 };
 export const SuccessModal = (props: Props) => {
-  const { onClose, show, popUpImage } = props;
+  const { onClose, show, popUpImage, hideImage, title, subtitle, className } =
+    props;
 
   return (
     <Transition appear show={show} as={Fragment}>
@@ -42,7 +47,9 @@ export const SuccessModal = (props: Props) => {
             >
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
-                  <div className="xs:w-full md:w-[48.75rem] flex flex-col">
+                  <div
+                    className={`${className ?? 'xs:w-full md:w-[48.75rem] flex flex-col'}`}
+                  >
                     <div className="absolute right-0 p-[1.5rem]">
                       <button onClick={onClose}>
                         <Icon
@@ -53,19 +60,22 @@ export const SuccessModal = (props: Props) => {
                         />
                       </button>
                     </div>
-                    <Image
-                      alt="success"
-                      src={popUpImage ?? BLANK_IMAGE}
-                      className="w-full h-[320px] object-cover"
-                      width={24}
-                      height={24}
-                    />
-                    <div className="w-full h-[320px] text-white flex flex-col items-center text-center justify-center ">
-                      <h1 className="font-karla xs:text-[2.25rem] md:text-[3.5rem] font-extrabold">
-                        Terima Kasih
-                      </h1>
-                      <p className="xs:text-lg md:text-xl font-opensans">
-                        Form telah berhasil dikirim
+                    {!hideImage && (
+                      <Image
+                        alt="success"
+                        src={popUpImage ?? BLANK_IMAGE}
+                        className="w-full h-[320px] object-cover"
+                        width={24}
+                        height={24}
+                      />
+                    )}
+
+                    <div className="flex flex-1 flex-col items-center justify-center h-full text-center sm:px-[4.5rem] sm:py-[6.25rem] xs:px-[2rem] xs:py-[3.125rem] gap-[36px]">
+                      <p className="font-karla font-extrabold xs:text-[2.25rem] md:text-[3.5rem] text-white xs:leading-[43.2px] sm:leading-[57.6px] -tracking-[1.92px] mb-2">
+                        {title ?? 'Terima Kasih'}
+                      </p>
+                      <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
+                        {subtitle ?? 'Form terlah berhasil dikirim.'}
                       </p>
                     </div>
                   </div>

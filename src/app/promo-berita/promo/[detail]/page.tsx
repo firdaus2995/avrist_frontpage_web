@@ -24,12 +24,11 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import InterestSection from '@/components/molecules/specifics/avrast/InterestSection';
 import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlayer';
 import { SuccessModal } from '@/components/molecules/specifics/avrast/Modal';
-import { getPenawaran } from '@/services/berita';
+import { getPenawaran, subscribeApi } from '@/services/berita';
 import {
   handleGetContentPage,
   handleGetContent
 } from '@/services/content-page.api';
-import { handleSubscribe } from '@/services/subscribe-service.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser, getYouTubeId } from '@/utils/helpers';
 import {
@@ -40,6 +39,7 @@ import {
   contentStringTransformer,
   contentTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const monthDropdown = () => {
   const month = [
@@ -128,9 +128,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const [popUpImage, setPopUpImage] = useState<string>('');
   const [formId, setFormId] = useState('');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [visibleSubscribeModal, setVisibleSubscribeModal] =
+    useState<boolean>(false);
+  const [isValidEmailContent, setIsValidEmailContent] =
+    useState<boolean>(false);
+  const [emailContent, setEmailContent] = useState('');
 
   const fetchData = () => {
     try {
@@ -307,31 +309,21 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     fetchSlugModal();
   }, []);
 
-  const handleSubmit = async () => {
-    if (!validateEmail(email)) {
-      setEmailError('Masukkan alamat email yang valid');
-      return;
+  const handleSubscribeContentButton = async () => {
+    const isEmail = validateEmail(emailContent);
+    if (!isEmail) return setIsValidEmailContent(true);
+    try {
+      const response: any = await subscribeApi({
+        email: emailContent,
+        entity: 'avrist'
+      });
+      if (response?.code === 200) {
+        setVisibleSubscribeModal(true);
+        setEmailContent('');
+      }
+    } catch (e) {
+      console.log(e);
     }
-
-    setEmailError('');
-
-    const queryParams = {
-      email: email,
-      entity: 'Avras'
-    };
-    const data = await handleSubscribe(queryParams);
-    if (data.status === 'OK') {
-      setShowModal(true);
-    }
-
-    if (data.status !== 'OK') {
-      console.error('Error:', data.errors.message);
-    }
-  };
-
-  const validateEmail = (email: string) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
   };
 
   return (
@@ -449,29 +441,37 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         <RoundedFrameBottom />
         <FooterInformation
           title={
-            <div className="flex flex-col gap-4">
-              <p className="xs:text-[2.25rem] md:text-[3.5rem]">
+            <div className="flex flex-col gap-4 px-2">
+              <p className="text-4xl 2xl:text-[3.5rem]">
                 Subscribe Informasi Terkini!
               </p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
-              />
-              <div className="flex flex-row gap-2">
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
-                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  value={emailContent}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmailContent(e.target.value);
+                  }}
                 />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
                 <Button
                   title="Subscribe"
-                  onClick={() => handleSubmit()}
-                  customButtonClass="rounded-xl"
+                  customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
+                  onClick={handleSubscribeContentButton}
                 />
               </div>
-              {emailError && <p className="text-red-500 ml-2">{emailError}</p>}
             </div>
           }
           image={data?.footerImage ?? BlankImage}
@@ -509,11 +509,15 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       />
       <SuccessModal
         popUpImage={popUpImage}
-        show={showModal}
+        show={visibleSubscribeModal}
         onClose={() => {
-          setShowModal(false);
+          setVisibleSubscribeModal(false);
           window.location.reload();
         }}
+        hideImage
+        title={'Terima kasih atas langganan Anda!'}
+        subtitle={'Cek email untuk konfirmasi email Anda'}
+        className="sm:h-[40vh] sm:w-[50vw] xs:w-full xs:h-full transition xs:p-4"
       />
     </>
   );

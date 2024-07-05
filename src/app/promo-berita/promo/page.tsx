@@ -36,6 +36,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const Promo: React.FC<ParamsProps> = () => {
   const sliderRef = useRef<Slider | null>(null);
@@ -93,7 +94,9 @@ const Promo: React.FC<ParamsProps> = () => {
   const [search, setSearch] = useState('');
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
     useState<boolean>(false);
-  const [email, setEmail] = useState('');
+  const [isValidEmailContent, setIsValidEmailContent] =
+    useState<boolean>(false);
+  const [emailContent, setEmailContent] = useState('');
   const [params, setParams] = useState({
     yearFilter: '',
     monthFilter: '',
@@ -290,15 +293,17 @@ const Promo: React.FC<ParamsProps> = () => {
     return month;
   };
 
-  const handleSubscribeButton = async () => {
+  const handleSubscribeContentButton = async () => {
+    const isEmail = validateEmail(emailContent);
+    if (!isEmail) return setIsValidEmailContent(true);
     try {
       const response: any = await subscribeApi({
-        email: email,
+        email: emailContent,
         entity: 'avrist'
       });
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
-        setEmail('');
+        setEmailContent('');
       }
     } catch (e) {
       console.log(e);
@@ -513,28 +518,35 @@ const Promo: React.FC<ParamsProps> = () => {
         <RoundedFrameBottom />
         <FooterInformation
           title={
-            <div className="flex flex-col gap-4">
-              <p className="xs:text-[2.25rem] md:text-[3.5rem]">
+            <div className="flex flex-col gap-4 px-2">
+              <p className="text-4xl 2xl:text-[3.5rem]">
                 Subscribe Informasi Terkini!
               </p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
-              />
-              <div className="flex flex-row gap-2">
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
+              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  value={emailContent}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmailContent(e.target.value);
+                  }}
                 />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
                 <Button
                   title="Subscribe"
-                  customButtonClass="rounded-xl"
-                  customTextClass="text-[1rem]"
-                  onClick={handleSubscribeButton}
+                  customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
+                  onClick={handleSubscribeContentButton}
                 />
               </div>
             </div>
