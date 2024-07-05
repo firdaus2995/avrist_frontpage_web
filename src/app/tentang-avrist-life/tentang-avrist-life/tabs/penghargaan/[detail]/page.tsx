@@ -232,7 +232,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
+        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[28px]">
           <div className="flex flex-col gap-12 font-opensans">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
