@@ -96,10 +96,10 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
 
   const handleClickPelayananButton = (text: string) => {
     const actionMap: { [key: string]: () => void } = {
-      'Panduan Layanan Nasabah': () => {
+      'Cek Di Sini': () => {
         setShowModalPelayanan(true);
       },
-      'Cek Di Sini': () => {
+      'Standar Pelayanan': () => {
         setIsShowPanduanLayananModal(true);
       },
       'Lihat Di Sini': () => {
