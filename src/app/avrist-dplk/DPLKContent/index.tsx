@@ -1,11 +1,12 @@
 'use client';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, Suspense } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll } from 'react-scroll';
 import Slider from 'react-slick';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatDPLK from '../tabs/ManfaatDPLK';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
+import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { ContentData } from '@/types/content.type';
 
 type Props = {
@@ -14,6 +15,8 @@ type Props = {
   dewanpengawasdplkDeskripsi: string;
   pengawas: ContentData[];
   pengurus: ContentData[];
+  bottomImage: string;
+  bannerImageUrl: string;
 };
 const tabs = [
   'Tentang DPLK Avrist',
@@ -40,7 +43,9 @@ const DPLKContent = (props: Props) => {
     dewanpengawasdplkJudul,
     dewanpengawasdplkSubjudul,
     pengawas,
-    pengurus
+    pengurus,
+    bottomImage,
+    bannerImageUrl
   } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -87,78 +92,89 @@ const DPLKContent = (props: Props) => {
   }, [tab, tabs]);
 
   return (
-    <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">
-      <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
-        {tabs.map((val, idx) => (
-          <LinkScroll
-            key={idx}
-            to={'#' + val.replace(/\s+/g, '')}
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={500}
-            onClick={() => handleTabClick(val)}
-            className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
-          >
-            <span className="font-semibold text-[1rem]">{val}</span>
-          </LinkScroll>
-        ))}
-      </div>
-      {/* Tab Mobile */}
-      <div className="w-full z-20 top-8 md:hidden">
-        <div>
-          <Slider
-            {...sliderTabSettings}
-            ref={(slider) => {
-              sliderRef.current = slider;
-            }}
-          >
-            {tabs.map((val, idx) => (
-              <div className="px-[3.5px]" key={idx}>
-                <LinkScroll
-                  to={'#' + val.replace(/\s+/g, '')}
-                  spy={true}
-                  smooth={true}
-                  offset={-150}
-                  duration={500}
-                  onClick={() => handleTabClick(val)}
-                  className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
-                >
-                  <span className="font-semibold text-[1rem]">{val}</span>
-                </LinkScroll>
-              </div>
-            ))}
-          </Slider>
+    <Suspense fallback={null}>
+      <Hero
+        title={tab}
+        breadcrumbsData={[
+          { title: 'Beranda', href: '/' },
+          { title: tab, href: '#' }
+        ]}
+        bottomImage={bottomImage}
+        imageUrl={bannerImageUrl}
+      />
+      <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">
+        <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
+          {tabs.map((val, idx) => (
+            <LinkScroll
+              key={idx}
+              to={'#' + val.replace(/\s+/g, '')}
+              spy={true}
+              smooth={true}
+              offset={-100}
+              duration={500}
+              onClick={() => handleTabClick(val)}
+              className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
+            >
+              <span className="font-semibold text-[1rem]">{val}</span>
+            </LinkScroll>
+          ))}
         </div>
+        {/* Tab Mobile */}
+        <div className="w-full z-20 top-8 md:hidden">
+          <div>
+            <Slider
+              {...sliderTabSettings}
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+            >
+              {tabs.map((val, idx) => (
+                <div className="px-[3.5px]" key={idx}>
+                  <LinkScroll
+                    to={'#' + val.replace(/\s+/g, '')}
+                    spy={true}
+                    smooth={true}
+                    offset={-150}
+                    duration={500}
+                    onClick={() => handleTabClick(val)}
+                    className={`flex justify-center items-center w-full min-h-full border-1 rounded-lg px-[1.25rem] py-[0.5rem] cursor-pointer text-center align-middle border-dplk_yellow hover:bg-dplk_yellow hover:text-white ${tab === val ? 'bg-dplk_yellow text-white' : 'text-dplk_yellow'} font-semibold`}
+                  >
+                    <span className="font-semibold text-[1rem]">{val}</span>
+                  </LinkScroll>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+        {tab === 'Tentang DPLK Avrist' && (
+          <TentangAvristDPLK
+            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+            pengawas={pengawas}
+            pengurus={pengurus}
+          />
+        )}
+        {tab === 'Dewan Pengawas DPLK' && (
+          <DewanPengawasDPLK
+            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+            pengawas={pengawas}
+            pengurus={pengurus}
+          />
+        )}
+        {tab === 'Manfaat DPLK' && (
+          <ManfaatDPLK
+            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+            pengawas={pengawas}
+            pengurus={pengurus}
+          />
+        )}
       </div>
-      {tab === 'Tentang DPLK Avrist' && (
-        <TentangAvristDPLK
-          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          pengawas={pengawas}
-          pengurus={pengurus}
-        />
-      )}
-      {tab === 'Dewan Pengawas DPLK' && (
-        <DewanPengawasDPLK
-          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          pengawas={pengawas}
-          pengurus={pengurus}
-        />
-      )}
-      {tab === 'Manfaat DPLK' && (
-        <ManfaatDPLK
-          dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-          dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-          dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-          pengawas={pengawas}
-          pengurus={pengurus}
-        />
-      )}
-    </div>
+    </Suspense>
   );
 };
 
