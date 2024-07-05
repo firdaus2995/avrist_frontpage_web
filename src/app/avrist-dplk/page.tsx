@@ -11,7 +11,6 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
-import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 import {
   handleGetContent,
@@ -59,21 +58,14 @@ const AvristSyariah = async () => {
 
   return (
     <Suspense fallback={null}>
-      <Hero
-        title={'DPLK Avrist'}
-        breadcrumbsData={[
-          { title: 'Beranda', href: '/' },
-          { title: 'DPLK Avrist', href: '#' }
-        ]}
-        bottomImage={bannerImage.imageUrl}
-        imageUrl={titleImage.imageUrl}
-      />
       <DPLKContent
         dewanpengawasdplkJudul={dewanpengawasdplkJudul}
         dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
         dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
         pengawas={pengawas}
         pengurus={pengurus}
+        bottomImage={bannerImage.imageUrl}
+        bannerImageUrl={titleImage.imageUrl}
       />
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-yellow_light" />
