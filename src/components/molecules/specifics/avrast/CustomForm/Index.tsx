@@ -498,14 +498,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
             >
               {leftSide?.map((attribute: Attribute) => (
                 <div key={attribute.id} className="pt-1">
-                  <p className="font-bold">
-                    {attribute.name}{' '}
-                    <span
-                      className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
-                    >
-                      *
-                    </span>
-                  </p>
+                  {attribute.name.includes('produk') ? null : (
+                    <p className="font-bold">
+                      {attribute.name}{' '}
+                      <span
+                        className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                      >
+                        *
+                      </span>
+                    </p>
+                  )}
                   {attribute.fieldType === 'RADIO_BUTTON' ? (
                     attribute.value
                       ?.split(';')
@@ -521,7 +523,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           }
                         />
                       ))
-                  ) : attribute.fieldType === 'DROPDOWN' ? (
+                  ) : attribute.fieldType === 'DROPDOWN' ? attribute.name.includes('produk') ? null : (
                     <select
                       onChange={(e) =>
                         updateFormDataByName(attribute.name, e.target.value)

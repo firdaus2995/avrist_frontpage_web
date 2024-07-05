@@ -296,10 +296,17 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const onSubmitData = async () => {
+    const updatedData = formValue.map((item) => {
+      if (item.name.includes('produk')) {
+        return { ...item, value: dataDetail?.namaProduk };
+      }
+      return item;
+    });
+
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: formValue
+      placeholderValue: updatedData
     };
 
     const data = await handleSendEmail(queryParams);

@@ -49,7 +49,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   const [bannerImg, setBannerImg] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
-  const [formValue, setFormValue] = useState({});
+  const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
@@ -250,7 +250,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   useEffect(() => {
-    setFormValue({});
+    setFormValue([{ name: '', value: '' }]);
     if (dataDetail?.formId) {
       const fetchDataForm = async () => {
         try {
@@ -287,10 +287,17 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const handleSubmit = async () => {
+    const updatedData = formValue.map((item) => {
+      if (item.name.includes('produk')) {
+        return { ...item, value: dataDetail?.namaProduk };
+      }
+      return item;
+    });
+
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: formValue
+      placeholderValue: updatedData
     };
 
     const data = await handleSendEmail(queryParams);
