@@ -1044,7 +1044,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]}
               hidePagination
-              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
+              searchPlaceholder={`${params.category !== 'AvriStory' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
               searchValue={search}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
