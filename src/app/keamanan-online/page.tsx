@@ -51,7 +51,7 @@ const SyaratPengunaan = () => {
     footerImage = data.footerImage.imageUrl;
   }
   return (
-    <div className="bg-purple_dark">
+    <div className="bg-purple_superlight">
       <Hero
         title="Keamanan Online"
         breadcrumbsData={[
