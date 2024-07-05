@@ -25,10 +25,11 @@ const Timeline = ({ data }: IFooterInformation) => {
   };
 
   useEffect(() => {
-    setSelectedItem(data[0].year);
+    setSelectedItem(data[data.length - 1].year);
   }, []);
 
   const settings = {
+    initialSlide: data.length - 1,
     focusOnSelect: true,
     infinite: false,
     centerMode: true,
@@ -39,6 +40,7 @@ const Timeline = ({ data }: IFooterInformation) => {
   };
 
   const settingsMobile = {
+    initialSlide: data.length - 1,
     focusOnSelect: true,
     infinite: false,
     centerMode: true,
@@ -108,7 +110,17 @@ const Timeline = ({ data }: IFooterInformation) => {
                         height={48}
                       />
                     ) : (
-                      <Image alt="timeline" src={NODE} width={16} height={16} />
+                      <div
+                        onClick={() => handleItemClick(val.year)}
+                        className="cursor-pointer"
+                      >
+                        <Image
+                          alt="timeline"
+                          src={NODE}
+                          width={16}
+                          height={16}
+                        />
+                      </div>
                     )}
                   </span>
                   <button
