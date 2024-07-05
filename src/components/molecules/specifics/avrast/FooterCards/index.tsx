@@ -58,7 +58,9 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
   return (
     <div className="overflow-hidden font-opensanspro">
       {/* Desktop */}
-      <div className={`xs:hidden md:block ${bgColor ?? ''}`}>
+      <div
+        className={`xs:hidden md:block ${bgColor ?? 'xs:bg-white sm:bg-purple_superlight'}`}
+      >
         <div className="font-opensanspro flex flex-row justify-between px-[8.5rem] gap-[1.5rem] pb-[5rem] pt-[0.375rem] h-full">
           {cards.map((item, index) => {
             const href =
@@ -85,7 +87,9 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                   className="w-[6.25rem] h-[6.25rem]" // 100px = 6.25rem
                 />
                 <span className="flex flex-col grow justify-between">
-                  <p className="font-bold text-[1.5rem] font-opensanspro">{item.title}</p>
+                  <p className="font-bold text-[1.5rem] font-opensanspro">
+                    {item.title}
+                  </p>
                   {item.subtitle && (
                     <div className="flex items-end justify-center">
                       <p
@@ -133,7 +137,9 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                         />
                       </div>
                       <div className="text-center pb-[2rem]">
-                        <p className="font-bold text-[1.5rem] font-opensanspro">{item.title}</p>
+                        <p className="font-bold text-[1.5rem] font-opensanspro">
+                          {item.title}
+                        </p>
                         {item.subtitle && (
                           <div className="flex items-end justify-center">
                             <p

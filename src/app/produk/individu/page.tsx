@@ -279,7 +279,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         imageUrl={data.titleImageUrl}
       />
-      <div className="flex flex-col px-[32px] sm:px-[136px] xs:pt-[50px] sm:pt-[5rem] xs:pb-[28px] sm:pb-[38px] xs:gap-[36px] sm:gap-[24px] sm:flex-row">
+      <div className="flex flex-col px-[32px] sm:px-[136px] xs:pt-[50px] sm:pt-[5rem] pb-[28px] xs:gap-[36px] sm:gap-[24px] sm:flex-row">
         <LeftTabs
           tabs={tabs}
           activeTab={activeTab || ''}
@@ -373,8 +373,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
         image={data.footerInfoImageUrl}
         href={'/tanya-avrista'}
       />
-      <RoundedFrameTop bgColor="bg-white" />
+      <RoundedFrameTop bgColor="xs:bg-white md:bg-purple_superlight" />
       <FooterCards
+        bgColor="xs:bg-white md:bg-purple_superlight"
         cards={[
           {
             title: 'Rumah Sakit Rekanan',

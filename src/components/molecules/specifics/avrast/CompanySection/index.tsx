@@ -147,9 +147,9 @@ const CompanySection = () => {
         className={`mx-[0.5rem] md:mx-[7rem] md:h-[383px] 2xl:h-full flex mb-10 md:flex-row xs:flex-col gap-4 rounded-2xl ${color} items-center justify-center text-center shadow-xl`}
       >
         <div
-          className={`xs:h-full md:w-1/2 xs:w-full md:pl-[48px] py-[36px] xs:px-[24px] md:pr-0 flex flex-col items-start justify-center gap-[32px] text-white`}
+          className={`xs:h-full md:w-1/2 xs:w-full md:pl-[48px] py-[36px] xs:px-[32px] md:pr-0 flex flex-col items-start justify-center gap-[32px] text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-[40px] font-extrabold text-left font-karla leading-normal xs:leading-[48px] md:leading-[2.7rem] -tracking-[1.68px]">
+          <p className="md:text-[3.5rem] xs:text-[40px] font-extrabold text-left font-karla xs:leading-[48px] sm:leading-[2.7rem] xs:-tracking-[1.2px] sm:-tracking-[1.68px]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
@@ -164,7 +164,7 @@ const CompanySection = () => {
                     width={10}
                     height={10}
                   />
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px]">
                     {val.title1}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ const CompanySection = () => {
                     className="flex flex-row items-center gap-1"
                   >
                     <p
-                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px]`}
                     >
                       {val.link1}
                     </p>
@@ -202,7 +202,7 @@ const CompanySection = () => {
                 />
 
                 <div className="flex flex-col">
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px]">
                     {val.title1}
                   </p>
                   <div className="flex flex-row items-center gap-2">
@@ -211,7 +211,7 @@ const CompanySection = () => {
                       className="flex flex-row items-center gap-1"
                     >
                       <p
-                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px]`}
                       >
                         {val.link1}
                       </p>
@@ -239,7 +239,7 @@ const CompanySection = () => {
                     width={10}
                     height={10}
                   />
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px]">
                     {val.title2}
                   </p>
                 </div>
@@ -249,7 +249,7 @@ const CompanySection = () => {
                     className="flex flex-row items-center gap-1"
                   >
                     <p
-                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px]`}
                     >
                       {val.link2}
                     </p>
@@ -277,7 +277,7 @@ const CompanySection = () => {
                 />
 
                 <div className="flex flex-col">
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left">
+                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px]">
                     {val.title2}
                   </p>
                   <div className="flex flex-row items-center gap-2">
@@ -286,7 +286,7 @@ const CompanySection = () => {
                       className="flex flex-row items-center gap-1"
                     >
                       <p
-                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla`}
+                        className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px]`}
                       >
                         {val.link2}
                       </p>
@@ -337,7 +337,7 @@ const CompanySection = () => {
           Satu Polis untuk setiap rumah tangga di Indonesia!
         </p>
       </div>
-      <div className="w-full grid grid-cols-1 gap-4">
+      <div className="w-full grid grid-cols-1 gap-4 px-[2rem]">
         <Slider {...sliderSettings}>
           {data.map((val, idx) => (
             <div key={idx} className="w-full">

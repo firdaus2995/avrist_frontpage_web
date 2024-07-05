@@ -1044,7 +1044,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]}
               hidePagination
-              searchPlaceholder={`${params.category !== 'Avrist Life Guide' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
+              searchPlaceholder={`${params.category !== 'AvriStory' ? 'Cari berita/kegiatan' : 'Cari E-Buletin'}`}
               searchValue={search}
               onSearchChange={(e) => {
                 setSearch(e.target.value);
@@ -1538,7 +1538,7 @@ const Berita: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px] md:text-4xl">
+              <p className="text-4xl 2xl:text-[3.5rem]">
                 Subscribe Informasi Terkini!
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">

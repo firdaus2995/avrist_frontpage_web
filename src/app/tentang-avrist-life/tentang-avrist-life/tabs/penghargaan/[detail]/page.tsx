@@ -232,7 +232,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       />
 
       {contentData && (
-        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
+        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[28px]">
           <div className="flex flex-col gap-12 font-opensans">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
@@ -307,7 +307,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-[56px] md:text-4xl">
+              <p className="text-4xl 2xl:text-[3.5rem]">
                 Subscribe Informasi Terkini!
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
