@@ -60,7 +60,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
   );
 
   return (
-    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:py-[50px] md:pt-[100px] md:pb-[80px] sm:gap-0 xs:gap-[2.25rem]">
+    <div className="w-full flex flex-col self-stretch items-center justify-center xs:px-[2rem] md:px-[8.5rem] bg-white xs:py-[2.5rem] md:pt-[100px] md:pb-[80px] sm:gap-0 xs:gap-[2.25rem]">
       {/* Tab Desktop */}
       <div className="w-full xs:hidden md:block">
         <div className="flex sm:w-full xs:w-[90%] md:flex-row xs:flex-col rounded-lg gap-[0.75rem] flex-wrap">
