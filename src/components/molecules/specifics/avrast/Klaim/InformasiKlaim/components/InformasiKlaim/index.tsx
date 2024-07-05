@@ -73,6 +73,8 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
   const sliderRef = useRef<Slider | null>(null);
   const [isShowPanduanLayananModal, setIsShowPanduanLayananModal] =
     useState(false);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
   const next = () => {
     if (sliderRef.current) {
       sliderRef.current.slickNext();
@@ -94,7 +96,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
 
   const handleClickPelayananButton = (text: string) => {
     const actionMap: { [key: string]: () => void } = {
-      'Panduan Layanan Nasabah': () => {
+      'Standar Pelayanan': () => {
         setShowModalPelayanan(true);
       },
       'Cek Di Sini': () => {
@@ -123,9 +125,9 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
 
   return (
     <div>
-      <div className="flex flex-col self-stretch items-center justify-center gap-[5rem] mt-[5rem]">
+      <div className="flex flex-col self-stretch items-center justify-center gap-[5rem] mt-[2.75rem]">
         <div className="w-full flex flex-col items-center justify-center py-2 text-center">
-          <h2 className="font-karla md:text-[3.5rem] xs:text-[2.25rem] font-medium text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
+          <h2 className="font-karla md:text-[3.5rem] xs:text-[2.25rem] font-extrabold text-purple_dark xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
             Komitmen Kami menangani klaim Anda
           </h2>
           <h2 className="font-karla md:text-[2.25rem] xs:text-[1.5rem] sm:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px] mt-[0.75rem]">
@@ -180,6 +182,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
             ref={(slider) => {
               sliderRef.current = slider;
             }}
+            beforeChange={(_, next) => setCurrentSlide(next)}
             {...sliderSettings}
           >
             {data.map((val, idx) => (
@@ -222,12 +225,23 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
           </Slider>
           <div className="flex flex-row justify-between mx-5">
             <Image
+              className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
               alt="prev"
               src={ARROW_LEFT}
               role="button"
               onClick={previous}
             />
-            <Image alt="next" src={ARROW_RIGHT} role="button" onClick={next} />
+            <Image
+              className={
+                currentSlide === data.length - 1
+                  ? 'opacity-50'
+                  : 'opacity-100'
+              }
+              alt="next"
+              src={ARROW_RIGHT}
+              role="button"
+              onClick={next}
+            />
           </div>
         </div>
         <StandarPelayananModal
