@@ -260,7 +260,7 @@ const SearchForm = () => {
 
   return (
     <div className=" w-full flex flex-col -mt-[-0.0625rem]">
-      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[1.625rem] xs:pt-[3rem] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col sm:gap-[3rem] xs:gap-[2.25rem]">
+      <div className="sm:px-[8.5rem] sm:pt-[6.25rem] pb-[28px] xs:pt-[50px] xs:px-[2.25rem] bg-white rounded-t-[3.75rem] flex flex-col sm:gap-[3rem] xs:gap-[2.25rem]">
         <SearchBox
           onSearch={(value: string) => {
             setSearchKeywords(value);
