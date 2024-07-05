@@ -332,18 +332,21 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-syariah_green"
             />
-            <div className="flex justify-center w-full h-full">
-              {/* <Image src={PlaceholderVideo} alt="video" /> */}
-              <div className="w-[1120px]">
-                <VideoPlayer
-                  thumbnail=""
-                  color="syariah_green"
-                  type={dataDetail?.captionVideoProduk}
-                  url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
-                  mute={true}
-                />
+            {dataDetail?.videoProduk && (
+              <div className="flex justify-center w-full h-full">
+                {/* <Image src={PlaceholderVideo} alt="video" /> */}
+                <div className="w-[1120px]">
+                  <VideoPlayer
+                    thumbnail=""
+                    color="syariah_green"
+                    type={dataDetail?.captionVideoProduk}
+                    url={getYouTubeId(dataDetail?.videoProduk) ?? ''}
+                    mute={true}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+
             <div>
               <CategorySideBySideSixCards
                 leftSide={[

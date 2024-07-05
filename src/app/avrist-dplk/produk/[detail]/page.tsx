@@ -347,17 +347,20 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               tagsClassname="bg-gray_bglightgray"
               tagsTextClassname="text-dplk_yellow"
             />
-            <div className="flex justify-center w-full h-full xs:my-[1.5rem] sm:my-[4rem]">
-              {/* <Image src={PlaceholderVideo} alt="video" /> */}
-              <div className="w-[1120px] h-full">
-                <VideoPlayer
-                  color="dplk_yellow"
-                  type={dataDetail?.captionVideoProduk}
-                  url={dataDetail?.videoProduk}
-                  mute={true}
-                />
+            {dataDetail?.videoProduk && (
+              <div className="flex justify-center w-full h-full xs:my-[1.5rem] sm:my-[4rem]">
+                {/* <Image src={PlaceholderVideo} alt="video" /> */}
+                <div className="w-[1120px] h-full">
+                  <VideoPlayer
+                    color="dplk_yellow"
+                    type={dataDetail?.captionVideoProduk}
+                    url={dataDetail?.videoProduk}
+                    mute={true}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+
             <div className="flex flex-col xs:my-[3.75rem] sm:mt-[3.75rem] sm:mb-[5rem] gap-[1.5rem] sm:gap-[4rem]">
               <CategorySideBySideSixCards
                 leftSide={[
