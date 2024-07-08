@@ -95,9 +95,9 @@ const Page = () => {
         }
         image={footerImage.imageUrl}
       />
-      <RoundedFrameTop bgColor="sm:bg-[#F7F4F8] xs:bg-white" />
+      <RoundedFrameTop bgColor="sm:bg-purple_superlight xs:bg-white" />
       <FooterCards
-        bgColor="sm:bg-[#F7F4F8] xs:bg-white"
+        bgColor="sm:bg-purple_superlight xs:bg-white"
         cards={[
           {
             title: 'Layanan Nasabah',
