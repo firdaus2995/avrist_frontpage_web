@@ -25,7 +25,10 @@ const Content = () => {
               onClick: () => setTab(index),
               content: {
                 title: item?.contentData[0]?.value,
-                description: item?.contentData[1]?.value
+                description: item?.contentData[1]?.value.replaceAll(
+                  '<ol>',
+                  "<ol class='list-decimal list-inside font-opensans'>"
+                )
               }
             });
           }
@@ -47,17 +50,17 @@ const Content = () => {
             outerClass="xs:w-full md:w-[12.5rem]"
           />
           <div className="xs:w-full md:w-[82%] flex flex-col gap-[24px]">
-            <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium leading-[43.2px] -tracking-[1.08px]">
+            <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium md:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px]">
               {leftTabData[tab]?.title}
             </h1>
-            <div
-              className="text-[1.25rem] font-bold font-opensans leading-[28px]"
+            <p
+              className="sm:text-[56px] xs:text-[36px] font-bold font-karla md:leading-[67.2px] xs:leading-[43.2px] md:-tracking-[2.24px] md:-tracking-[2.24px] xs:-tracking-[1.44px]"
               dangerouslySetInnerHTML={{
                 __html: leftTabData[tab]?.content?.title
               }}
             />
-            <div
-              className="text-[1.25rem] font-bold font-opensans leading-[28px]"
+            <p
+              className="text-[1.25rem] font-opensans leading-[28px]"
               dangerouslySetInnerHTML={{
                 __html: leftTabData[tab]?.content?.description
               }}
