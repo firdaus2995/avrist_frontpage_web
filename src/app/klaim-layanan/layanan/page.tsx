@@ -256,9 +256,9 @@ const InformationCustomer = () => {
         }
         image={data.footerInfoImageUrl}
       />
-      <RoundedFrameTop bgColor="bg-[#F7F4F8]" />
+      <RoundedFrameTop bgColor="sm:bg-[#F7F4F8] xs:bg-white" />
       <FooterCards
-        bgColor="bg-[#F7F4F8]"
+        bgColor="sm:bg-[#F7F4F8] xs:bg-white"
         cards={
           params.includes('Informasi Nasabah')
             ? dataInformasiNasabah

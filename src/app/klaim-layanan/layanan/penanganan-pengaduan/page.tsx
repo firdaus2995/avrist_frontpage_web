@@ -97,10 +97,10 @@ const HandleComplaint = () => {
         }
         image={footerImage.imageUrl}
       />
-      <RoundedFrameTop bgColor="bg-[#F7F4F8]" />
+      <RoundedFrameTop bgColor="sm:bg-[#F7F4F8] xs:bg-white" />
       <div className="w-full">
         <FooterCards
-          bgColor="bg-[#F7F4F8]"
+          bgColor="sm:bg-[#F7F4F8] xs:bg-white"
           cards={[
             {
               icon: FOOTER_NASABAH_1,
