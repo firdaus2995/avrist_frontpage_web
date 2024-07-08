@@ -43,7 +43,7 @@ const Pencarian = () => {
 
   return (
     <Suspense>
-      <div className="flex flex-col bg-purple_superlight">
+      <div className="flex flex-col bg-white">
         <Hero
           title='Pencarian'
           breadcrumbsData={breadcrumbsData}
@@ -68,9 +68,9 @@ const Pencarian = () => {
           image={footerImage.imageUrl}
           href="produk/individu"
         />
-        <RoundedFrameTop />
+        <RoundedFrameTop bgColor='bg-white sm:bg-purple_superlight' />
         <FooterCards
-          bgColor="bg-purple_superlight"
+          bgColor="bg-white sm:bg-purple_superlight"
           cards={[
             {
               title: 'Layanan Nasabah',
