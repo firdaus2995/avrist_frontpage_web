@@ -29,12 +29,15 @@ import {
   handleTransformedContent,
   contentDetailTransformer
 } from '@/utils/responseTransformer';
+import { validateEmail } from '@/utils/validation';
 
 const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   console.log(params);
   const param = useSearchParams();
   const id = param.get('id');
   const [isOpenPopover, setIsOPenPopover] = useState<boolean>(false);
+  const [isValidEmailContent, setIsValidEmailContent] =
+    useState<boolean>(false);
   const [contentData, setContentData] = useState<any>({
     tagline: '',
     judul: '',
@@ -208,6 +211,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
   const handleSubscribeButton = async () => {
     try {
+      const isEmail = validateEmail(email);
+      if (!isEmail) return setIsValidEmailContent(true);
       const response: any = await subscribeApi({
         email: email,
         entity: 'avrist'
@@ -376,24 +381,34 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         <RoundedFrameBottom />
         <FooterInformation
           title={
-            <div className="flex flex-col gap-4">
-              <p className="text-[56px]">Subscribe Informasi Terkini!</p>
-              <Button
-                title="Avrist Life Insurance"
-                customButtonClass="bg-purple_dark rounded-xl"
-                customTextClass="text-white font-bold"
-              />
-              <div className="flex flex-row gap-2">
+            <div className="flex flex-col gap-4 px-2">
+              <p className="text-4xl 2xl:text-[3.5rem]">
+                Subscribe Informasi Terkini!
+              </p>
+              <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
+                <p className="text-white text-center font-bold md:w-full cursor-default">
+                  Avrist Life Insurance
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 xs:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%]"
+                  customInputClass="w-[90%] xs:w-full md:w-full md:text-xs"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setIsValidEmailContent(false);
+                    setEmail(e.target.value);
+                  }}
                 />
+                {isValidEmailContent && (
+                  <p className="text-[10px] text-[red]">
+                    Masukkan alamat email yang benar!
+                  </p>
+                )}
                 <Button
                   title="Subscribe"
-                  customButtonClass="rounded-xl"
+                  customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeButton}
                 />
               </div>
