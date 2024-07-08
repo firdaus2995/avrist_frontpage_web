@@ -22,13 +22,17 @@ const Maps = ({
     -0.601784, 115.394436
   ]);
   const [mapZoom, setMapZoom] = useState(4.5);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [controlNextNav, setControlNextNav] = useState(false);
 
   const next = () => {
+    if (controlNextNav) return null;
     if (sliderRef.current) {
       sliderRef.current.slickNext();
     }
   };
   const previous = () => {
+    if (currentSlide === 0) return null;
     if (sliderRef.current) {
       sliderRef.current.slickPrev();
     }
@@ -52,20 +56,21 @@ const Maps = ({
   const sliderSettings = (totalData: number) => ({
     dots: false,
     infinite: false,
-    focusOnSelect: true,
+    focusOnSelect: false,
     arrows: false,
     centerMode: false,
     initialSlide: 0,
+    draggable: false,
     lazyLoad: 'progressive' as LazyLoadTypes,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: hospitalData.length <= 2 ? 2 : 3,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1536,
         settings: {
           initialSlide: 0,
-          slidesToShow: 3,
+          slidesToShow: hospitalData.length <= 2 ? 2 : 3,
           lazyLoad: 'progressive' as LazyLoadTypes,
           slidesToScroll: 1,
           rows: 1,
@@ -117,7 +122,13 @@ const Maps = ({
   useEffect(() => {
     setMapCenter([-0.601784, 115.394436]);
     setMapZoom(4.5);
-  }, [hospitalData]);
+
+    if (hospitalData.length <= 2 && hospitalData.length !== 0) {
+      setControlNextNav(true);
+    } else {
+      setControlNextNav(false);
+    }
+  }, [hospitalData, currentSlide]);
 
   const ChangeView = ({ center, zoom }: any) => {
     const map = useMap();
@@ -173,7 +184,7 @@ const Maps = ({
       <div className="flex sm:flex-row justify-between xs:flex-col px-3">
         <div className="sm:flex xs:hidden items-center justify-center">
           <div
-            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            className={`${currentSlide === 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
             onClick={previous}
           >
             <Icon name="chevronLeft" color="purple_dark" />
@@ -185,12 +196,13 @@ const Maps = ({
               sliderRef.current = slider;
             }}
             {...sliderSettings(hospitalData.length)}
-            className="sm:w-[90%] w-full flex flex-row px-4"
+            beforeChange={(_, next) => setCurrentSlide(next)}
+            className="sm:w-[90%] w-full flex flex-row"
           >
             {hospitalData?.length !== 0 &&
               hospitalData!.map((item, index) => (
                 <div className="px-2" key={index}>
-                  <div className="w-full sm:h-full xs:h-[95%] mb-[12px]">
+                  <div className="w-full sm:h-full xs:h-[95%]">
                     <MarkerCard
                       index={index}
                       name={item.name}
@@ -230,7 +242,7 @@ const Maps = ({
         </div>
         <div className="sm:flex xs:hidden items-center justify-center">
           <div
-            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            className={`p-2 rounded-full border border-purple_dark cursor-pointer ${controlNextNav ? 'opacity-50' : 'opacity-100'}`}
             onClick={next}
           >
             <Icon name="chevronRight" color="purple_dark" />

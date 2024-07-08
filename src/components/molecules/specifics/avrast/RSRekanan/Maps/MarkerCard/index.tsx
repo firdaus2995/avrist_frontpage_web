@@ -27,7 +27,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   return (
     <div
       id={'Tooltip-' + index}
-      className="rounded-xl border border-gray_light p-6 sm:w-[95%] flex flex-col gap-4 overflow-auto sm:min-h-[19rem] xs:h-auto"
+      className="rounded-xl border border-gray_light p-6 sm:w-[95%] flex flex-col gap-4 overflow-auto sm:min-h-[20rem] xs:h-auto"
     >
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>
@@ -52,16 +52,24 @@ const MarkerCard: React.FC<IMarkerCard> = ({
           {phone}
         </p>
       </span>
-      <Tooltip
-        placement="bottom"
-        isOpen={tooltipOpen}
-        target={'Tooltip-' + index}
-        toggle={toggle}
-        autohide={true}
-        className="relative left-0"
-      >
-        {name}
-      </Tooltip>
+      <div className="">
+        <Tooltip
+          placement="top"
+          isOpen={tooltipOpen}
+          target={'Tooltip-' + index}
+          toggle={toggle}
+          autohide={true}
+          className="relative"
+        >
+          <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute left-0 sm:min-w-[200px]">
+            <div className="p-2">
+              <p>{name}</p>
+              <p>{address}</p>
+              <p>{phone}</p>
+            </div>
+          </div>
+        </Tooltip>
+      </div>
     </div>
   );
 };
