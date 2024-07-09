@@ -26,7 +26,7 @@ export const VideoInformation = ({
         <div
           className={`transition-all hidden sm:grid rounded-xl visible opacity-100 overflow-hidden`}
         >
-          <MainCard item={MOCK_VIDEO(pageVideoData)} />
+          <MainCard item={MOCK_VIDEO(pageVideoData)} mute={true} />
         </div>
       </div>
       <div className="w-full sm:hidden h-[13rem] flex flex-col items-center justify-center">
