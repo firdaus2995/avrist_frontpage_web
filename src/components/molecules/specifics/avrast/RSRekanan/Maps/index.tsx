@@ -63,14 +63,14 @@ const Maps = ({
     draggable: false,
     lazyLoad: 'progressive' as LazyLoadTypes,
     speed: 500,
-    slidesToShow: hospitalData.length <= 2 ? 2 : 3,
+    slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1536,
         settings: {
-          initialSlide: 0,
-          slidesToShow: hospitalData.length <= 2 ? 2 : 3,
+          initialSlide: 1,
+          slidesToShow: 3,
           lazyLoad: 'progressive' as LazyLoadTypes,
           slidesToScroll: 1,
           rows: 1,
@@ -191,31 +191,33 @@ const Maps = ({
           </div>
         </div>
         {hospitalData?.length !== 0 ? (
-          <Slider
-            ref={(slider) => {
-              sliderRef.current = slider;
-            }}
-            {...sliderSettings(hospitalData.length)}
-            beforeChange={(_, next) => setCurrentSlide(next)}
-            className="sm:w-[90%] w-full flex flex-row"
-          >
-            {hospitalData?.length !== 0 &&
-              hospitalData!.map((item, index) => (
-                <div className="px-2" key={index}>
-                  <div className="w-full sm:h-full xs:h-[95%]">
-                    <MarkerCard
-                      index={index}
-                      name={item.name}
-                      address={item.address}
-                      phone={item.phone}
-                      lat={item.lat}
-                      lng={item.lng}
-                      onClickMarker={() => onClickMarker(item.lat, item.lng)}
-                    />
+          <div className="w-[90%] m-auto">
+            <Slider
+              ref={(slider) => {
+                sliderRef.current = slider;
+              }}
+              {...sliderSettings(hospitalData.length)}
+              beforeChange={(_, next) => setCurrentSlide(next)}
+              className="w-full px-5"
+            >
+              {hospitalData?.length !== 0 &&
+                hospitalData!.map((item, index) => (
+                  <div className="px-2 flex flex-start" key={index}>
+                    <div className="w-full sm:h-full xs:h-[95%]">
+                      <MarkerCard
+                        index={index}
+                        name={item.name}
+                        address={item.address}
+                        phone={item.phone}
+                        lat={item.lat}
+                        lng={item.lng}
+                        onClickMarker={() => onClickMarker(item.lat, item.lng)}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-          </Slider>
+                ))}
+            </Slider>
+          </div>
         ) : loading ? (
           <div className="h-[36vh] w-full flex items-center justify-center">
             <p className="font-opensans">Loading Data...</p>
@@ -228,13 +230,13 @@ const Maps = ({
 
         <div className="sm:hidden flex flex-row items-center justify-between mt-5 sm:mt-0">
           <div
-            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            className={`${currentSlide === 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
             onClick={previous}
           >
             <Icon name="chevronLeft" color="purple_dark" />
           </div>
           <div
-            className="p-2 rounded-full border border-purple_dark cursor-pointer"
+            className={`p-2 rounded-full border border-purple_dark cursor-pointer ${controlNextNav ? 'opacity-50' : 'opacity-100'}`}
             onClick={next}
           >
             <Icon name="chevronRight" color="purple_dark" />

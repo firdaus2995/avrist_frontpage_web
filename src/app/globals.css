@@ -28,6 +28,10 @@
 .slick-dots {
   height: 18px;
 }
+
+.slick-track {
+  margin-left: 0px !important;
+}
 .slick-dots li button:before {
   background-color: #81219a;
   height: 12px !important;
