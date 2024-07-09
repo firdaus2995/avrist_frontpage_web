@@ -15,6 +15,7 @@ export const VideoModal = (props: Props) => {
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     // access to player in all event handlers via event.target
     event.target.playVideo();
+    event.target.mute();
   };
 
   return (
