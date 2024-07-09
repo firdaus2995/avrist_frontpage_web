@@ -20,15 +20,28 @@ const Content = () => {
 
         fetchedContent?.data?.contentDataList?.map(
           (item: any, index: number) => {
+            const replacements = {
+              '<ol>':
+                "<ol class='list-decimal list-outside font-opensans px-5'>",
+              '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
+              '<table>':
+                "<table class='table-auto border-collapse border-spacing-2 border border-slate-400' >",
+              '<th>': "<th class='border border-slate-300 p-4' >",
+              '<td>': "<td class='border border-slate-300 p-4' >"
+            };
+
+            let valueDescription = item?.contentData[1]?.value;
+
+            for (const [key, value] of Object.entries(replacements)) {
+              valueDescription = valueDescription.replaceAll(key, value);
+            }
+
             temp.push({
               title: item.title,
               onClick: () => setTab(index),
               content: {
                 title: item?.contentData[0]?.value,
-                description: item?.contentData[1]?.value.replaceAll(
-                  '<ol>',
-                  "<ol class='list-decimal list-inside font-opensans'>"
-                )
+                description: valueDescription
               }
             });
           }
