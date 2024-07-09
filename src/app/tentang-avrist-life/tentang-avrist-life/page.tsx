@@ -46,7 +46,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
     titleImage: '',
     ctaImage: ''
   });
-  const [isSelectedDetail, setIsSelectedDetail] = useState(false);
+  const [, setIsSelectedDetail] = useState(false);
 
   useEffect(() => {
     const value = searchParams.get('tab');
@@ -196,28 +196,26 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                       <Icon name="linkedInIcon" color="white" />
                       <p>LinkedIn</p>
                     </Link>
+                  ) : tab.includes('Manajemen-') ? (
+                    <Link
+                      href={'https://www.facebook.com/avrist/'}
+                      target="blank"
+                      className="flex flex-row items-center justify-center gap-2 w-full p-4"
+                    >
+                      <p>Ikuti kami di</p>
+                      <Icon name="facebookIcon" color="white" />
+                      <p>Facebook</p>
+                    </Link>
                   ) : tab === 'Manajemen' ? (
-                    isSelectedDetail ? (
-                      <Link
-                        href={'https://www.facebook.com/avrist/'}
-                        target="blank"
-                        className="flex flex-row items-center justify-center gap-2 w-full p-4"
-                      >
-                        <p>Ikuti kami di</p>
-                        <Icon name="facebookIcon" color="white" />
-                        <p>Facebook</p>
-                      </Link>
-                    ) : (
-                      <Link
-                        href="https://www.instagram.com/avristsolution/"
-                        target="blank"
-                        className="flex flex-row items-center justify-center gap-2 w-full p-4"
-                      >
-                        <p>Ikuti kami di</p>
-                        <Icon name="instaIcon" color="white" />
-                        <p>Instagram</p>
-                      </Link>
-                    )
+                    <Link
+                      href="https://www.instagram.com/avristsolution/"
+                      target="blank"
+                      className="flex flex-row items-center justify-center gap-2 w-full p-4"
+                    >
+                      <p>Ikuti kami di</p>
+                      <Icon name="instaIcon" color="white" />
+                      <p>Instagram</p>
+                    </Link>
                   ) : (
                     <Link
                       href={'https://www.youtube.com/@avristian'}
@@ -265,55 +263,55 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
               title:
                 tab === 'Sekilas Perusahaan'
                   ? 'Facebook'
-                  : tab === 'Manajemen' || tab.includes('Manajemen')
-                    ? isSelectedDetail
-                      ? 'Youtube'
-                      : 'LinkedIn'
-                    : tab === 'Penghargaan'
-                      ? 'Prosedur Pengaduan'
-                      : tab === 'Laporan Perusahaan'
+                  : tab === 'Manajemen'
+                    ? 'LinkedIn'
+                    : tab.includes('Manajemen-')
+                      ? 'YouTube'
+                      : tab === 'Penghargaan'
                         ? 'Prosedur Pengaduan'
-                        : 'Prosedur Pengaduan',
+                        : tab === 'Laporan Perusahaan'
+                          ? 'Prosedur Pengaduan'
+                          : 'Prosedur Pengaduan',
               icon:
                 tab === 'Sekilas Perusahaan'
                   ? Icon4
-                  : tab === 'Manajemen' || tab.includes('Manajemen')
-                    ? isSelectedDetail
+                  : tab === 'Manajemen'
+                    ? Icon5
+                    : tab.includes('Manajemen-')
                       ? Icon8
-                      : Icon5
-                    : tab === 'Penghargaan'
-                      ? Icon7
-                      : tab === 'Laporan Perusahaan'
+                      : tab === 'Penghargaan'
                         ? Icon7
-                        : Icon7,
+                        : tab === 'Laporan Perusahaan'
+                          ? Icon7
+                          : Icon7,
               subtitle:
                 tab === 'Sekilas Perusahaan'
                   ? 'Ikuti Kami'
-                  : tab === 'Manajemen' || tab.includes('Manajemen')
-                    ? isSelectedDetail
+                  : tab === 'Manajemen'
+                    ? 'Ikuti Kami'
+                    : tab.includes('Manajemen-')
                       ? 'Subscribe'
-                      : 'Ikuti Kami'
-                    : tab === 'Penghargaan'
-                      ? 'Lihat Prosedur'
-                      : tab === 'Laporan Perusahaan'
+                      : tab === 'Penghargaan'
                         ? 'Lihat Prosedur'
-                        : 'Lihat Prosedur',
+                        : tab === 'Laporan Perusahaan'
+                          ? 'Lihat Prosedur'
+                          : 'Lihat Prosedur',
               href:
                 tab === 'Sekilas Perusahaan'
                   ? 'https://www.facebook.com/avrist/'
                   : tab === 'Manajemen'
-                    ? isSelectedDetail
+                    ? 'https://id.linkedin.com/company/avristassurance'
+                    : tab.includes('Manajemen-')
                       ? 'https://www.youtube.com/@avristian'
-                      : 'https://id.linkedin.com/company/avristassurance'
-                    : tab === 'Penghargaan'
-                      ? '/klaim-layanan/layanan/penanganan-pengaduan'
-                      : tab === 'Laporan Perusahaan'
+                      : tab === 'Penghargaan'
                         ? '/klaim-layanan/layanan/penanganan-pengaduan'
-                        : '/klaim-layanan/layanan/penanganan-pengaduan',
+                        : tab === 'Laporan Perusahaan'
+                          ? '/klaim-layanan/layanan/penanganan-pengaduan'
+                          : '/klaim-layanan/layanan/penanganan-pengaduan',
               openInNewTab:
                 tab === 'Sekilas Perusahaan'
                   ? false
-                  : tab === 'Manajemen'
+                  : tab.includes('Manajemen')
                     ? false
                     : tab === 'Penghargaan'
                       ? false

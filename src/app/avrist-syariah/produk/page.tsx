@@ -267,7 +267,10 @@ const ProdukSyariah = () => {
           </div>
         </div>
       </CustomContainer>
-      <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
+      <div className="w-full flex flex-col mt-2">
+        <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
+      </div>
+
       <FooterInformation
         bgColor="bg-syariah_green_informing"
         outerClassName="bg-white"
