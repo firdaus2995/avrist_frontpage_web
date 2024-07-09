@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import ReactPaginate from 'react-paginate';
 import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon2 from '@/assets/images/avrast/about/menagemen.svg';
 import Icon3 from '@/assets/images/avrast/about/penghargaan.svg';
@@ -267,12 +268,15 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                     ))}
                 </div>
 
-                <div className="flex flex-col gap-4 sm:flex-row justify-between">
+                <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans ">
                   <div>
-                    <p className="text-[1.25rem]">
+                    <p className="text-[20px]/[28px] font-normal">
                       Menampilkan{' '}
                       <span className="font-bold text-purple_dark">
-                        {contentData ? startIndex + 1 : 0}-
+                        {contentData?.length === 0 || contentData === undefined
+                          ? 0
+                          : startIndex + 1}
+                        -
                         {Math.min(
                           endIndex,
                           contentData ? contentData.length : 0
@@ -280,36 +284,27 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                       </span>{' '}
                       dari{' '}
                       <span className="font-bold">
-                        {contentData ? contentData.length : 0}
+                        {contentData && contentData.length}
                       </span>{' '}
                       hasil
                     </p>
                   </div>
-                  <div className="flex flex-row gap-[8px] items-center">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
-                        <div
-                          key={page}
-                          role="button"
-                          onClick={() => handlePageChange(page)}
-                          className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                            pagination.currentPage === page
-                              ? 'text-purple_dark font-bold'
-                              : ''
-                          }`}
-                        >
-                          {page}
-                        </div>
-                      )
-                    )}
-                    <span
-                      className="mt-[3px]"
-                      role="button"
-                      onClick={() => handlePageChange(totalPages)}
-                    >
-                      <Icon name="chevronRight" color="purple_dark" />
-                    </span>
-                  </div>
+                  {contentData?.length > 0 && (
+                    <ReactPaginate
+                      pageCount={totalPages}
+                      pageRangeDisplayed={2}
+                      onPageChange={() => handlePageChange(totalPages)}
+                      nextLabel={
+                        <Icon name="chevronRight" color="purple_dark" />
+                      }
+                      previousLabel={
+                        <Icon name="chevronLeft" color="purple_dark" />
+                      }
+                      containerClassName="flex flex-row gap-[12px] items-center"
+                      activeClassName="text-purple_dark font-bold"
+                      pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+                    />
+                  )}
                 </div>
               </>
             }
