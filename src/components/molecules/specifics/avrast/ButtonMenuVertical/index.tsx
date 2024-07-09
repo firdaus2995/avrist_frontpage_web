@@ -18,10 +18,10 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
   const [selected, setSelected] = useState(0);
   return (
     <div className={outerClass}>
-      <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark">
+      <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark min-w-[200px]">
         {item.map((i, index) => (
           <span
-            className="flex flex-row gap-4 items-center py-[12px] pl-[8px]"
+            className="flex flex-row gap-4 items-center py-[12px] pl-[24px]"
             key={index}
             onClick={() => {
               i.onClick ? i.onClick() : null;
@@ -32,7 +32,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
               className={`w-[6px] h-full ${index === selected ? 'bg-purple_dark' : 'bg-purple_mediumlight'} ${index === 0 ? 'rounded-tl-xl' : index === item.length - 1 ? 'rounded-bl-xl' : ''}`}
             />
             <p
-              className={`w-[70%] text-md sm:text-[18px] font-bold leading-[25.2px] ${i.color ? i.color : selected === index ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
+              className={`w-full text-md sm:text-[18px] font-bold leading-[25.2px] ${i.color ? i.color : selected === index ? 'text-purple_dark' : 'text-purple_mediumlight'}`}
             >
               {i.title}
             </p>

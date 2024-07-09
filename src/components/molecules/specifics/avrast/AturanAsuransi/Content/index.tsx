@@ -25,9 +25,9 @@ const Content = () => {
                 "<ol class='list-decimal list-outside font-opensans px-5'>",
               '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
               '<table>':
-                "<table class='table-auto border-collapse border-spacing-2 border border-slate-400' >",
-              '<th>': "<th class='border border-slate-300 p-4' >",
-              '<td>': "<td class='border border-slate-300 p-4' >"
+                "<table class='table-auto border-collapse border-spacing-2 border border-slate-500' >",
+              '<th>': "<th class='border border-slate-500 p-4' >",
+              '<td>': "<td class='border border-slate-500 p-4' >"
             };
 
             let valueDescription = item?.contentData[1]?.value;
