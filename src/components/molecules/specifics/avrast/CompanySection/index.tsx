@@ -149,7 +149,7 @@ const CompanySection = () => {
         <div
           className={`xs:h-full md:w-1/2 xs:w-full md:pl-[48px] py-[36px] xs:px-[32px] md:pr-0 flex flex-col items-start justify-center gap-[32px] text-white`}
         >
-          <p className="md:text-[3.5rem] xs:text-[40px] font-extrabold text-left font-karla xs:leading-[48px] sm:leading-[3.85rem] xs:-tracking-[1.2px] sm:-tracking-[1.68px]">
+          <p className="md:text-[3.5rem] xs:text-[40px] font-extrabold text-left font-karla xs:leading-[48px] sm:leading-[2.7rem] xs:-tracking-[1.2px] sm:-tracking-[1.68px]">
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
