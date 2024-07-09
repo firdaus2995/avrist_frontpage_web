@@ -341,9 +341,9 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                 <Image src={Phone} alt="phone" className="w-10" />
                 <p>021 5789 8188</p>
               </Link>
-              <p>
-                <span className="font-bold">Waktu Operasional:</span> Senin -
-                Jumat, 08.00 - 17.00 WIB
+              <p className="text-xl">
+                <span className="font-bold">Waktu Operasional:</span>
+                <br className="sm:hidden" /> Senin - Jumat, 08.00 - 17.00 WIB
               </p>
             </div>
           }

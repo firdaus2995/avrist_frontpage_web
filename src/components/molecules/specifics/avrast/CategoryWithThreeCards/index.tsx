@@ -131,7 +131,7 @@ const CategoryWithThreeCards = ({
     categories,
     selectedCategory
   }) => (
-    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden">
+    <div className="flex flex-col shrink min-w-[210px] bg-purple_light_bg rounded-r-[12px] rounded-l-[4px] overflow-hidden 2xl:pr-2">
       {categories.map((item: string, index: number) => (
         <div
           key={index}
