@@ -80,42 +80,42 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
           return (
             <div
               key={i.id}
-              className="flex flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]"
+              className="max-w-sm flex flex-col gap-[24px] items-center justify-between pt-[1.5rem] px-[1.5rem] pb-[2.25rem] bg-white border border-gray-200 rounded-[0.75rem] shadow dark:bg-gray-800 dark:border-gray-700 border-b-8 border-b-purple_dark"
             >
-              <Image
-                alt={i.toString()}
-                src={i.icon}
-                className="w-[6.25rem] h-[6.25rem] mix-blend-multiply"
-              />
-              <p className="text-center font-bold text-[2rem] font-karla line-clamp-3 font-karla sm:leading-[38.4px]">
-                {i.title}
-              </p>
-              <div className="flex flex-col justify-end grow items-center gap-[1.5rem]">
-                <p className="font-opensans text-[1rem] text-center font-normal sm:leading-[22.4px]">
-                  {i.desc}
-                </p>
-                {i.title === 'Daftar Tenaga Pemasar' ? (
-                  <Button
-                    // className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
-                    // target={'_blank'}
-                    onClick={() =>
-                      window.open(tenagaPemasaranFile?.filePath, '_blank')
-                    }
-                    customButtonClass="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
-                    customTextClass="text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
-                  >
-                    {i.btn}
-                  </Button>
-                ) : (
-                  <Link
-                    href={i.link}
-                    className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
-                    target={i.isFile ? '_blank' : '_self'}
-                  >
-                    {i.btn}
-                  </Link>
-                )}
+              <div className="flex flex-col items-center justify-center gap-[24px]">
+                <Image
+                  alt={i.toString()}
+                  src={i.icon}
+                  className="w-[6.25rem] h-[6.25rem] mix-blend-multiply"
+                />
+                <div className="flex flex-col items-center justify-between gap-3">
+                  <h5 className="text-center font-bold text-[2rem] font-karla line-clamp-3 font-karla sm:leading-[38.4px]">
+                    {i.title}
+                  </h5>
+                  <p className="font-opensans text-[1rem] text-center font-normal sm:leading-[22.4px]">
+                    {i.desc}
+                  </p>
+                </div>
               </div>
+              {i.title === 'Daftar Tenaga Pemasar' ? (
+                <Button
+                  onClick={() =>
+                    window.open(tenagaPemasaranFile?.filePath, '_blank')
+                  }
+                  customButtonClass="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
+                  customTextClass="text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                >
+                  {i.btn}
+                </Button>
+              ) : (
+                <Link
+                  href={i.link}
+                  className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                  target={i.isFile ? '_blank' : '_self'}
+                >
+                  {i.btn}
+                </Link>
+              )}
             </div>
           );
         })}
