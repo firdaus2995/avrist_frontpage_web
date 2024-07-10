@@ -153,46 +153,9 @@ const CompanySection = () => {
             {val.category}
           </p>
           <div className="flex flex-col gap-4">
-            {/* Baris 1 Desktop */}
-            <section className="xs:hidden md:block">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
-                <div className="flex flex-row items-center gap-2">
-                  <Image
-                    src={val.icon1}
-                    alt={val.title1}
-                    className="w-[48px] max-h-[540px]"
-                    width={10}
-                    height={10}
-                  />
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[33.6px]">
-                    {val.title1}
-                  </p>
-                </div>
-                <div className="flex flex-row items-center gap-2">
-                  <CustomLink
-                    href={val.href1}
-                    className="flex flex-row items-center gap-1"
-                  >
-                    <p
-                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[33.6px]`}
-                    >
-                      {val.link1}
-                    </p>
-                    <Image
-                      src={val.linkIcon}
-                      alt={val.link1}
-                      className="w-[24px]"
-                      width={10}
-                      height={10}
-                    />
-                  </CustomLink>
-                </div>
-              </div>
-            </section>
-
-            {/* Baris 1 Mobile */}
-            <section className="sm:hidden mb-[16px]">
-              <div className="w-full flex flex-row gap-[8px]">
+            {/* Baris 1 */}
+            <section>
+              <div className="w-full flex flex-row gap-[8px] items-center">
                 <Image
                   src={val.icon1}
                   alt={val.title1}
@@ -201,7 +164,9 @@ const CompanySection = () => {
                   height={10}
                 />
 
-                <div className="flex flex-col">
+                <div
+                  className={`flex flex-col ${val.title1.length < 33 ? '3xl:flex-row' : ''} gap-2`}
+                >
                   <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[28.8px]">
                     {val.title1}
                   </p>
@@ -228,46 +193,9 @@ const CompanySection = () => {
               </div>
             </section>
 
-            {/* Baris 2 Desktop */}
-            <section className="xs:hidden md:block">
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-2 flex-wrap">
-                <div className="flex flex-row items-center gap-2">
-                  <Image
-                    src={val.icon2}
-                    alt={val.title2}
-                    className="w-[48px] max-h-[540px]"
-                    width={10}
-                    height={10}
-                  />
-                  <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[33.6px]">
-                    {val.title2}
-                  </p>
-                </div>
-                <div className="flex flex-row items-center gap-2">
-                  <CustomLink
-                    href={val.href2}
-                    className="flex flex-row items-center gap-1"
-                  >
-                    <p
-                      className={`font-bold md:text-[28px] xs:text-2xl ${textColor} font-karla xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[33.6px]`}
-                    >
-                      {val.link2}
-                    </p>
-                    <Image
-                      src={val.linkIcon}
-                      alt={val.link2}
-                      className="w-[24px]"
-                      width={10}
-                      height={10}
-                    />
-                  </CustomLink>
-                </div>
-              </div>
-            </section>
-
-            {/* Baris 2 Mobile */}
-            <section className="sm:hidden">
-              <div className="w-full flex flex-row gap-[8px]">
+            {/* Baris 2 */}
+            <section>
+              <div className="w-full flex flex-row gap-[8px] items-center">
                 <Image
                   src={val.icon2}
                   alt={val.title2}
@@ -276,7 +204,9 @@ const CompanySection = () => {
                   height={10}
                 />
 
-                <div className="flex flex-col">
+                <div
+                  className={`flex flex-col ${val.title2.length < 33 ? '3xl:flex-row' : ''} gap-2`}
+                >
                   <p className="md:text-[28px] xs:text-2xl font-bold font-karla text-left xs:-tracking-[0.72px] sm:-tracking-[0.84px] !leading-[28.8px]">
                     {val.title2}
                   </p>
