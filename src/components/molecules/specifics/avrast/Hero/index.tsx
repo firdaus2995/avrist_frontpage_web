@@ -5,8 +5,6 @@ import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import HERO_IMAGE from '@/assets/images/hero-image.svg';
-
 interface IHero {
   title: string;
   breadcrumbsData: {
@@ -61,7 +59,7 @@ const Hero: React.FC<IHero> = ({
       <Image
         className={`-z-[2] w-full top-0 absolute object-cover object-bottom ${bottomImage ? 'h-[9.375rem] sm:h-[17.5rem]' : 'md:h-[15.625rem] xs:h-[150px]'}`}
         alt="Avrist"
-        src={imageUrl ?? HERO_IMAGE}
+        src={imageUrl ?? ''}
         width={0}
         height={0}
       />
