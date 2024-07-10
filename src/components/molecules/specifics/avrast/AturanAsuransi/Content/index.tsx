@@ -73,7 +73,7 @@ const Content = () => {
               }}
             />
             <p
-              className="text-[1.25rem] font-opensans leading-[28px]"
+              className="text-[1.25rem] font-opensans leading-[32px]"
               dangerouslySetInnerHTML={{
                 __html: leftTabData[tab]?.content?.description
               }}
