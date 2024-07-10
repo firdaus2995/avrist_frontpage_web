@@ -324,7 +324,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   return (
     <div className="flex flex-col">
       <Hero
-        title={dataDetail?.namaProduk ?? 'Produk'}
+        title={dataDetail?.namaProduk}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           { title: 'Produk', href: '/produk/individu' },
