@@ -245,7 +245,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         .getElementsByTagName('h1')
         [
           lastIndex ? idx - 1 : idx
-        ].scrollIntoView({ behavior: 'smooth', block: !lastIndex ? 'nearest' : 'start', inline: 'end' });
+        ].scrollIntoView({ behavior: 'smooth', block: !lastIndex ? 'nearest' : 'center', inline: 'end' });
     }
   };
 
