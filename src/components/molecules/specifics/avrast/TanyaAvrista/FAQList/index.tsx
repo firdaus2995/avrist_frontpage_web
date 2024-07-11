@@ -27,7 +27,11 @@ const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
 
   // PAGINATION LOGIC HOOK
   useEffect(() => {
-    if (!data.length) return; // check if contentaData already present
+    if (!data?.length) {
+      setPaginatedData([]);
+      setPageCount(0);
+      return;
+    }; // check if contentaData already present
 
     const endOffset = itemOffset + itemsPerPage;
     setPaginatedData(data.slice(itemOffset, endOffset));
