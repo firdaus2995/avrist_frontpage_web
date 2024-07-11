@@ -166,6 +166,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       const artikelImage = singleImageTransformer(item['details'][1]);
       let paragrafDua = item['details'][2]?.value ?? '-';
       const artikelVideo = item['details'][3]?.value ?? '-';
+
       let paragrafTiga = item['details'][4]?.value ?? '-';
       if (paragrafSatu === '<p>-</p>') {
         paragrafSatu = '-';
@@ -173,11 +174,14 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       if (paragrafDua === '<p>-</p>') {
         paragrafDua = '-';
       }
-      if (paragrafTiga === '<p>-</p>') {
+      if (
+        paragrafTiga === '<p>-</p>' ||
+        paragrafTiga === '<p>-<br>&nbsp;</p>'
+      ) {
         paragrafTiga = '-';
       }
       return (
-        <div key={index}>
+        <div key={index} className="gap-[48px]">
           {paragrafSatu !== '-' && (
             <p
               dangerouslySetInnerHTML={{
@@ -209,13 +213,13 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             />
           )}
           {artikelVideo !== '-' && (
-            <div className="w-full xs:h-[200px] md:h-[650px] mb-10">
+            <div className="w-full xs:h-[200px] md:h-[570px] mt-[28px]">
               {
                 <VideoPlayer
                   thumbnail=""
                   url={getYouTubeId(artikelVideo) ?? ''}
                   color="purple_dark"
-                  type="Artikel Video"
+                  // type="Artikel Video"
                   mute
                 />
               }
@@ -256,7 +260,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         bottomImage={contentData?.bottomImage ?? BlankImage}
       />
       <div className="w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[1rem]">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-[48px]">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <span className="font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px]">
