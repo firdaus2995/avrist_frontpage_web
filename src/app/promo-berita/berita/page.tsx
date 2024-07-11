@@ -46,6 +46,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import useMobileDetector from '@/utils/useMobileDetector';
 import { validateEmail } from '@/utils/validation';
 
 const Berita: React.FC<ParamsProps> = () => {
@@ -126,6 +127,7 @@ const Berita: React.FC<ParamsProps> = () => {
     searchFilter: ''
   });
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const isMobileWidth = useMobileDetector();
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -145,6 +147,9 @@ const Berita: React.FC<ParamsProps> = () => {
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
     setItemOffset(newOffset);
+    if (params.category === 'Avrist Life Guide') {
+      window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
+    }
   };
 
   const [data, setData] = useState<any>({
