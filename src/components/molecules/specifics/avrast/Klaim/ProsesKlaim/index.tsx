@@ -197,6 +197,14 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             <p
               dangerouslySetInnerHTML={{
                 __html: selectedData.content['tab-1-paragraf-1'].value
+                  .replace(
+                    '<ul>',
+                    "<ul class='list-disc list-outside font-opensans pl-5'>"
+                  )
+                  .replace(
+                    '<ol>',
+                    "<ol class='list-decimal list-outside font-opensans pl-5'>"
+                  )
               }}
               className={`${isEmpty(selectedData.content['tab-1-paragraf-1'].value) && 'hidden'} text-[20px] leading-[32px]`}
             />
