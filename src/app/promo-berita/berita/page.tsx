@@ -412,6 +412,9 @@ const Berita: React.FC<ParamsProps> = () => {
           artikelTopic
         };
       });
+      if (transformedData.length <= 0) {
+        window.scrollTo({ top: !isMobileWidth ? 700 : 850 });
+      }
 
       setContentData(transformedData);
     } catch (err) {
