@@ -374,9 +374,13 @@ const Promo: React.FC<ParamsProps> = () => {
           </p>
           <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
             Ikuti terus kuis menarik di Instagram{' '}
-            <span className="font-semibold text-purple_dark">
+            <Link
+              className="font-semibold text-purple_dark"
+              href="https://www.instagram.com/avristsolution/"
+              target="blank"
+            >
               @avristsolution{' '}
-            </span>
+            </Link>
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
           </p>
         </div>

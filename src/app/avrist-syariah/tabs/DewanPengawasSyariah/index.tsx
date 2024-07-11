@@ -17,24 +17,23 @@ type Props = {
 };
 
 const DewanPengawasSyariah = (props: Props) => {
-  const { boards } = props;
+  const { boards, title, subTitle, desc } = props;
 
   return (
     <div>
       <AboutHeading
         categoriesName="Sejarah"
         categoriesClassname="text-syariah_green"
-        headingText={'SEJARAH UNIT SYARIAH PT AVRIST ASSURANCE'}
-        description={
-          'PT Avrist Assurance (d/h PT Asuransi AIA Indonesia) memperoleh Izin untuk menjalankan usaha Asuransi berdasarkan Prinsip Syariah (Syariah Unit) pada tanggal 28 September 2005 dari Kementerian Keuangan Republik Indonesia, No. KEP – 326/KM.5/2005'
-        }
+        headingText={title}
+        subHeadingText={subTitle}
+        description={desc}
         tags={['Avrist Syariah', 'Premi Tetap', 'Kecelakaan Diri']}
         tagsClassname="bg-gray_bglightgray"
         tagsTextClassname="text-syariah_green"
         idTags="#TentangAvristSyariah"
       />
       <PersonCard
-        heading="DEWAN PENGAWAS SYARIAH PT AVRIST ASSURANCE"
+        heading="Dewan Pengawas Syariah PT Avrist Assurance"
         cards={boards}
         roleClassname="text-syariah_green"
         idTags="#DewanPengawasSyariah"
