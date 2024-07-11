@@ -1420,19 +1420,23 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               customContent={
                 <>
-                  <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <CardCategoryC
-                        key={index}
-                        summary={htmlParser(item.judul)}
-                        name={item.penulis}
-                        position={item.titlePenulis}
-                        isVideo
-                        image={item.videoUrl}
-                        className=""
-                      />
-                    ))}
-                  </div>
+                  {paginatedData?.length <= 0 ? (
+                    <NotFound />
+                  ) : (
+                    <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
+                      {paginatedData?.map((item: any, index: number) => (
+                        <CardCategoryC
+                          key={index}
+                          summary={htmlParser(item.judul)}
+                          name={item.penulis}
+                          position={item.titlePenulis}
+                          isVideo
+                          image={item.videoUrl}
+                          className=""
+                        />
+                      ))}
+                    </div>
+                  )}
 
                   {renderPage()}
                 </>
