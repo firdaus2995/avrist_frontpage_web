@@ -15,7 +15,7 @@ const MainCard: React.FC<MainCardProps> = ({ item, mute = false }) => {
       <div className="w-full sm:min-h-[40.688rem] xs:h-[17.5rem] lg:col-span-2 rounded-lg border border-solid border-gray_bglightgray shadow-md">
         <VideoPlayer
           url={item.videoUrl}
-          thumbnail={item.videoThumbnail}
+          thumbnail={'https://via.placeholder.com/150/000000/000000'}
           type={item.type}
           color={item.color}
           mute={mute}
