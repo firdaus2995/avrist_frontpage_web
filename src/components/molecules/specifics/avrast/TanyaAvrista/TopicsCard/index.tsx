@@ -99,7 +99,6 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
           </Slider>
           <div className="w-full flex flex-row justify-between px-[2.5rem]">
             <Image
-              style={{ rotate: '-90deg' }}
               width={36}
               height={36}
               alt="next"
@@ -108,7 +107,6 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
               className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
             />
             <Image
-              style={{ rotate: '90deg' }}
               width={36}
               height={36}
               alt="next"
