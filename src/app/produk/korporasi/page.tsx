@@ -11,8 +11,6 @@ import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
-
-import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import ButtonSelection from '@/components/molecules/specifics/avrast/ButtonSelection';
@@ -22,6 +20,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import LeftTabs from '@/components/molecules/specifics/avrast/LeftTabs';
+import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
 import { handleGetContentPage } from '@/services/content-page.api';
@@ -45,9 +44,11 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   const [data, setData] = useState<dataKlaim>(initialData);
   const [dataContent, setDataContent] = useState<any>();
   const itemsPerPage = 9;
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -213,15 +214,20 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     fetchDataContentWithCategory().then();
   }, [searchValue]);
 
-  const paginatedData = dataContent
-    ? dataContent.slice(startIndex, endIndex)
-    : [];
-  const totalPages = dataContent
-    ? Math.ceil(dataContent.length / itemsPerPage)
-    : 0;
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!dataContent?.length) return; // check if contentaData already present
 
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(dataContent.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(dataContent.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, dataContent]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+    setItemOffset(newOffset);
+    window.scroll(0, 680);
   };
 
   const handleChangeSearchParams = (value: string) => {
@@ -278,42 +284,13 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
               </div>
             </div>
           )}
-          <div className="flex flex-col gap-[24px] sm:flex-row justify-between">
-            <div>
-              <p className="text-[20px]">
-                Menampilkan{' '}
-                <span className="font-bold text-purple_dark">
-                  {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                  {Math.min(endIndex, dataContent ? dataContent.length : 0)}
-                </span>{' '}
-                dari <span className="font-bold">{dataContent?.length}</span>{' '}
-                hasil
-              </p>
-            </div>
-            <div className="flex flex-row gap-[12px] items-center">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <div
-                    key={page}
-                    role="button"
-                    onClick={() => handlePageChange(page)}
-                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                      currentPage === page ? 'text-purple_dark font-bold' : ''
-                    }`}
-                  >
-                    {page}
-                  </div>
-                )
-              )}
-              <span
-                className="mt-[3px]"
-                role="button"
-                onClick={() => handlePageChange(totalPages)}
-              >
-                <Icon name="chevronRight" color="purple_dark" />
-              </span>
-            </div>
-          </div>
+          <Pagination
+            data={dataContent}
+            itemOffset={itemOffset}
+            itemsPerPage={itemsPerPage}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+          />
         </div>
       </div>
 

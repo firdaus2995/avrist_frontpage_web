@@ -8,7 +8,6 @@ import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
 import ProdukTestimoni from '@/assets/images/produk-testimoni.svg';
 
-import Icon from '@/components/atoms/Icon';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import ButtonSelection from '@/components/molecules/specifics/avrast/ButtonSelection';
@@ -18,6 +17,7 @@ import CustomContainer from '@/components/molecules/specifics/avrast/Containers/
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
+import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
@@ -35,9 +35,10 @@ const ProdukSyariah = () => {
   const [selectedChannels, setSelectedChannels] = useState('');
 
   const itemsPerPage = 9;
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
   const { content } = pageTransformer(data);
   const titleImage = singleImageTransformer(content['title-image']);
@@ -105,13 +106,6 @@ const ProdukSyariah = () => {
     });
   }, [selectedChannels, searchValue]);
 
-  const paginatedData = dataContent
-    ? dataContent.slice(startIndex, endIndex)
-    : [];
-  const totalPages = dataContent
-    ? Math.ceil(dataContent.length / itemsPerPage)
-    : 0;
-
   const handleSelectedChannels = (value: any) => {
     if (selectedChannels === value) {
       setSelectedChannels('');
@@ -120,8 +114,20 @@ const ProdukSyariah = () => {
     }
   };
 
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!dataContent?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(dataContent.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(dataContent.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, dataContent]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+    setItemOffset(newOffset);
+    window.scroll(0, 680);
   };
 
   const handleChangeSearchParams = (value: string) => {
@@ -226,45 +232,14 @@ const ProdukSyariah = () => {
               </div>
             </div>
           )}
-          <div className="flex flex-col gap-4 sm:flex-row justify-between">
-            <div>
-              <p className="text-[1.25rem]">
-                Menampilkan{' '}
-                <span className="font-bold text-syariah_green">
-                  {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                  {Math.min(endIndex, dataContent ? dataContent.length : 0)}
-                </span>{' '}
-                dari{' '}
-                <span className="font-bold text-syariah_green">
-                  {dataContent?.length}
-                </span>{' '}
-                hasil
-              </p>
-            </div>
-            <div className="flex flex-row gap-[8px] items-center">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <div
-                    key={page}
-                    role="button"
-                    onClick={() => handlePageChange(page)}
-                    className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                      currentPage === page ? 'text-syariah_green font-bold' : ''
-                    }`}
-                  >
-                    {page}
-                  </div>
-                )
-              )}
-              <span
-                className="mt-[3px]"
-                role="button"
-                onClick={() => handlePageChange(totalPages)}
-              >
-                <Icon name="chevronRight" color="syariah_green" />
-              </span>
-            </div>
-          </div>
+          <Pagination
+            data={dataContent}
+            itemOffset={itemOffset}
+            itemsPerPage={itemsPerPage}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            customColor="syariah_green"
+          />
         </div>
       </CustomContainer>
       <div className="w-full flex flex-col mt-2">

@@ -4,10 +4,10 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 import Search from '@/assets/images/common/search.svg';
-import Icon from '@/components/atoms/Icon';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
 import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills';
 import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPillsBox';
+import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import {
   contentCategoryTransformer,
@@ -22,9 +22,10 @@ const DPLKProductList = () => {
   const [selectedChannels, setSelectedChannels] = useState<any>([]);
   const [dataContent, setDataContent] = useState<IDataContent[]>();
   const itemsPerPage = 9;
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
 
   useEffect(() => {
     const fetchDataContentWithCategory = async () => {
@@ -89,19 +90,26 @@ const DPLKProductList = () => {
     });
   }, [selectedChannels, search]);
 
-  const paginatedData = dataContent
-    ? dataContent.slice(startIndex, endIndex)
-    : [];
-  const totalPages = dataContent
-    ? Math.ceil(dataContent.length / itemsPerPage)
-    : 0;
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!dataContent?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(dataContent.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(dataContent.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, dataContent]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    if (dataContent) {
+      const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+      setItemOffset(newOffset);
+      window.scroll(0, 680);
+    }
+  };
 
   const handleSelectedChannels = (value: any) => {
     setSelectedChannels(value[0]);
-  };
-
-  const handlePageChange = (page: React.SetStateAction<number>) => {
-    setCurrentPage(page);
   };
 
   const handleChangeSearchParams = (value: string) => {
@@ -186,40 +194,14 @@ const DPLKProductList = () => {
             </div>
           </div>
         )}
-        <div className="flex flex-col gap-4 sm:flex-row justify-between font-opensans">
-          <div>
-            <p className="text-[20px]">
-              Menampilkan{' '}
-              <span className="font-bold text-purple_dark">
-                {dataContent?.length === 0 ? 0 : startIndex + 1}-
-                {Math.min(endIndex, dataContent ? dataContent.length : 0)}
-              </span>{' '}
-              dari <span className="font-bold">{dataContent?.length}</span>{' '}
-              hasil
-            </p>
-          </div>
-          <div className="flex flex-row gap-[12px] items-center">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <div
-                key={page}
-                role="button"
-                onClick={() => handlePageChange(page)}
-                className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                  currentPage === page ? 'text-purple_dark font-bold' : ''
-                }`}
-              >
-                {page}
-              </div>
-            ))}
-            <span
-              className="mt-[3px]"
-              role="button"
-              onClick={() => handlePageChange(totalPages)}
-            >
-              <Icon name="chevronRight" color="purple_dark" />
-            </span>
-          </div>
-        </div>
+        <Pagination
+          data={dataContent}
+          itemOffset={itemOffset}
+          itemsPerPage={itemsPerPage}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          customColor="dplk_yellow"
+        />
       </div>
     </div>
   );
