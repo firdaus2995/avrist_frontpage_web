@@ -285,6 +285,10 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
     }
   }, [dataDetail]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormValue((prevState) => ({

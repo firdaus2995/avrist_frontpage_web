@@ -250,6 +250,10 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     setFormValue([{ name: '', value: '' }]);
     if (dataDetail?.formId) {
       const fetchDataForm = async () => {
