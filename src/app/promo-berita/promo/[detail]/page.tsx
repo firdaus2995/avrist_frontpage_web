@@ -420,8 +420,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               <Link
                 key={index}
                 href={{
-                  pathname: `/promo-berita/promo/promo-terbaru`,
-                  query: { id: item.id }
+                  pathname: `/promo-berita/promo/${item.id}`
                 }}
               >
                 <CardCategoryB

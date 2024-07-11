@@ -46,6 +46,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import useMobileDetector from '@/utils/useMobileDetector';
 import { validateEmail } from '@/utils/validation';
 
 const Berita: React.FC<ParamsProps> = () => {
@@ -108,6 +109,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
   const [contentData, setContentData] = useState<any>([]);
+  const [dataSliderTestimonial, setDataSliderTestimonial] = useState<any>([]);
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
     useState<boolean>(false);
   const [isValidEmailContent, setIsValidEmailContent] =
@@ -126,6 +128,7 @@ const Berita: React.FC<ParamsProps> = () => {
     searchFilter: ''
   });
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const isMobileWidth = useMobileDetector();
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -145,6 +148,9 @@ const Berita: React.FC<ParamsProps> = () => {
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
     setItemOffset(newOffset);
+    if (params.category === 'Avrist Life Guide') {
+      window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
+    }
   };
 
   const [data, setData] = useState<any>({
@@ -232,6 +238,41 @@ const Berita: React.FC<ParamsProps> = () => {
       searchFilter: ''
     });
   }, [tab, searchParams]);
+
+  useEffect(() => {
+    const getTestimonial = async () => {
+      try {
+        const fetchData = await getTestimoni({
+          includeAttributes: 'true'
+        });
+
+        const data = fetchData.data.categoryList;
+
+        const transformedData = data['']?.map((item: any) => {
+          const { content } = handleTransformedContent(
+            item.contentData,
+            item.title
+          );
+          const judul = content['judul-testimoni'].value;
+          let deskripsi = content['deskripsi-singkat-testimoni'].value;
+          const penulis = content['penulis-testimoni'].value;
+          const titlePenulis = content['title-penulis-testimoni'].value;
+          const videoUrl = content['video-testimoni'].value;
+
+          const checkNull = />-</;
+          if (checkNull.test(deskripsi)) {
+            deskripsi = '-';
+          }
+
+          return { judul, deskripsi, penulis, titlePenulis, videoUrl };
+        });
+        setDataSliderTestimonial(transformedData ?? []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getTestimonial();
+  }, []);
 
   const pageSlug = () => {
     if (tab === 'Avrist Terkini') {
@@ -371,6 +412,9 @@ const Berita: React.FC<ParamsProps> = () => {
           artikelTopic
         };
       });
+      if (transformedData.length <= 0) {
+        window.scrollTo({ top: !isMobileWidth ? 700 : 850 });
+      }
 
       setContentData(transformedData);
     } catch (err) {
@@ -1329,40 +1373,42 @@ const Berita: React.FC<ParamsProps> = () => {
                 {...sliderSettings}
                 infinite={true}
               >
-                {contentData?.slice(0, 5).map((item: any, index: number) => {
-                  return (
-                    <SliderInformation
-                      key={index}
-                      isVideo
-                      imageClassName="max-h-[360px] object-fill"
-                      bgColor="purple_superlight"
-                      title={
-                        <div className="flex flex-col gap-6 text-left">
-                          <div className="flex flex-col gap-3">
-                            <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
-                              {htmlParser(item.judul)}
-                            </p>
-                            {item.deskripsi !== '-' && (
-                              <p className="line-clamp-4 font-opensans text-[16px]">
-                                {htmlParser(item.deskripsi)}
+                {dataSliderTestimonial
+                  ?.slice(0, 5)
+                  .map((item: any, index: number) => {
+                    return (
+                      <SliderInformation
+                        key={index}
+                        isVideo
+                        imageClassName="max-h-[360px] object-fill"
+                        bgColor="purple_superlight"
+                        title={
+                          <div className="flex flex-col gap-6 text-left">
+                            <div className="flex flex-col gap-3">
+                              <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
+                                {htmlParser(item.judul)}
                               </p>
-                            )}
+                              {item.deskripsi !== '-' && (
+                                <p className="line-clamp-4 font-opensans text-[16px]">
+                                  {htmlParser(item.deskripsi)}
+                                </p>
+                              )}
+                            </div>
+                            <p className="text-[14px]">
+                              <span className="font-bold text-purple_dark">
+                                {item.penulis}
+                              </span>{' '}
+                              | {item.titlePenulis}
+                            </p>
                           </div>
-                          <p className="text-[14px]">
-                            <span className="font-bold text-purple_dark">
-                              {item.penulis}
-                            </span>{' '}
-                            | {item.titlePenulis}
-                          </p>
-                        </div>
-                      }
-                      image={item.videoUrl}
-                      customClass="py-[0px]"
-                      customMobileClass="grow-0"
-                      rounded={12}
-                    />
-                  );
-                })}
+                        }
+                        image={item.videoUrl}
+                        customClass="py-[0px]"
+                        customMobileClass="grow-0"
+                        rounded={12}
+                      />
+                    );
+                  })}
               </Slider>
               <div className="flex flex-row justify-between w-full pt-[16px]">
                 <div
@@ -1415,19 +1461,23 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               customContent={
                 <>
-                  <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
-                    {paginatedData?.map((item: any, index: number) => (
-                      <CardCategoryC
-                        key={index}
-                        summary={htmlParser(item.judul)}
-                        name={item.penulis}
-                        position={item.titlePenulis}
-                        isVideo
-                        image={item.videoUrl}
-                        className=""
-                      />
-                    ))}
-                  </div>
+                  {paginatedData?.length <= 0 ? (
+                    <NotFound />
+                  ) : (
+                    <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
+                      {paginatedData?.map((item: any, index: number) => (
+                        <CardCategoryC
+                          key={index}
+                          summary={htmlParser(item.judul)}
+                          name={item.penulis}
+                          position={item.titlePenulis}
+                          isVideo
+                          image={item.videoUrl}
+                          className=""
+                        />
+                      ))}
+                    </div>
+                  )}
 
                   {renderPage()}
                 </>
