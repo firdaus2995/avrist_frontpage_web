@@ -196,7 +196,7 @@ export const VideoInformation = ({
             <MainCard item={videoData[0]} mute={mute} />
           </div>
         )}
-        <div className="hidden w-full md:grid md:grid-cols-3 gap-[24px] mt-[24px]">
+        <div className="hidden w-full md:grid md:grid-cols-3 2xl:flex 2xl:justify-between gap-[24px] mt-[24px]">
           {renderSub()}
         </div>
         <Slider
