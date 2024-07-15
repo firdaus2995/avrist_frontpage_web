@@ -18,7 +18,7 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
   const [selected, setSelected] = useState(0);
   return (
     <div className={outerClass}>
-      <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark min-w-[200px]">
+      <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark min-w-[240px]">
         {item.map((i, index) => (
           <span
             className="flex flex-row gap-4 items-center py-[12px] pl-[24px]"
