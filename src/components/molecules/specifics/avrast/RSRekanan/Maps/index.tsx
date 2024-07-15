@@ -173,15 +173,15 @@ const Maps = ({
           ))}
         </MapContainer>
       </div>
-      <div className="px-[5%] pt-[0.75rem]">
+      <div className="px-5 pt-[0.75rem]">
         <SearchBox
           placeHolder="Ketik Lokasi Rumah Sakit"
           onSearch={(e) => onClickSearch(e)}
           customButton="max-w-[119px]"
-          customClassName="!w-[90%] m-auto"
+          customClassName="!w-[86%] m-auto"
         />
       </div>
-      <div className="flex sm:flex-row justify-between xs:flex-col px-3">
+      <div className="flex sm:flex-row justify-between xs:flex-col w-[98%] m-auto 2xl:px-2">
         <div className="sm:flex xs:hidden items-center justify-center">
           <div
             className={`${currentSlide === 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
