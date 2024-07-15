@@ -24,6 +24,7 @@ const Maps = ({
   const [mapZoom, setMapZoom] = useState(4.5);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [controlNextNav, setControlNextNav] = useState(false);
+  const [searchFlag, setSearchFlag] = useState(false);
 
   const next = () => {
     if (controlNextNav) return null;
@@ -75,7 +76,7 @@ const Maps = ({
           slidesToScroll: 1,
           rows: 1,
           afterChange: (current: number) => {
-            if (current === hospitalData.length - 3) {
+            if (!searchFlag && current === hospitalData.length - 3) {
               onSetPage(currentPage + 1);
             }
           }
@@ -110,7 +111,10 @@ const Maps = ({
           slidesToScroll: 1,
           rows: 3,
           afterChange: (current: number) => {
-            if (current === Math.floor(hospitalData.length / 3)) {
+            if (
+              !searchFlag &&
+              current === Math.floor(hospitalData.length / 3)
+            ) {
               onSetPage(currentPage + 1);
             }
           }
@@ -124,6 +128,8 @@ const Maps = ({
     setMapZoom(4.5);
 
     if (hospitalData.length <= 2 && hospitalData.length !== 0) {
+      setControlNextNav(true);
+    } else if (currentSlide === hospitalData.length - 3) {
       setControlNextNav(true);
     } else {
       setControlNextNav(false);
@@ -176,7 +182,14 @@ const Maps = ({
       <div className="px-5 pt-[0.75rem]">
         <SearchBox
           placeHolder="Ketik Lokasi Rumah Sakit"
-          onSearch={(e) => onClickSearch(e)}
+          onSearch={(e) => {
+            if (e !== '') {
+              setSearchFlag(true);
+            } else {
+              setSearchFlag(false);
+            }
+            onClickSearch(e);
+          }}
           customButton="max-w-[119px]"
           customClassName="!w-[86%] m-auto"
         />
@@ -184,7 +197,7 @@ const Maps = ({
       <div className="flex sm:flex-row justify-between xs:flex-col w-[98%] m-auto 2xl:px-2">
         <div className="sm:flex xs:hidden items-center justify-center">
           <div
-            className={`${currentSlide === 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
+            className={`${currentSlide <= 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
             onClick={previous}
           >
             <Icon name="chevronLeft" color="purple_dark" />
