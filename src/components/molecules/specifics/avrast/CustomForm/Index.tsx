@@ -40,6 +40,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
   const [filename, setFilename] = useState('');
+  const [date, setDate] = useState('');
+  const [rangeDate, setRangeDate] = useState({ dateFrom: '', dateTo: '' });
+  const [value, setValue] = useState('');
 
   const updateFormDataByName = (name: string, value: string) => {
     setFormData((prevData) => {
@@ -103,6 +106,38 @@ const CustomForm: React.FC<CustomFormProps> = ({
     }
   };
 
+  const handleInputChange = (e: any, max_decimal: number) => {
+    const inputValue = e.target.value;
+    // Prevent '0' as the first character
+    if (inputValue.startsWith('0') && inputValue.length === 1) {
+      setValue('');
+      return;
+    }
+    const formattedValue = formatCurrency(inputValue, max_decimal);
+    setValue(formattedValue);
+  };
+
+  const formatCurrency = (value: any, max_decimal: number) => {
+    // Allow only digits and commas
+    value = value.replace(/[^\d.]/g, '');
+
+    // Split the input value into integer and decimal parts
+    const parts = value.split(',');
+
+    // Format the integer part with thousand separators
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    if (parts.length > 1) {
+      const decimalPart = parts[1].replace(/[^\d]/g, ''); // Allow only digits in decimal part
+      console.log(decimalPart.length);
+      if (decimalPart.length < max_decimal) {
+        return `${integerPart},${decimalPart}`;
+      }
+    } else {
+      return integerPart;
+    }
+  };
+
   useEffect(() => {
     if (dataForm) {
       setFormData(
@@ -135,6 +170,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
     }
   }, [formData, resultData]);
 
+  //function for updating range date picker
+  useEffect(() => {}, [rangeDate]);
+
   const isRequired = (name: string): boolean => {
     const attribute = dataForm?.find((item) => item.name === name);
     return attribute?.config
@@ -164,6 +202,46 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   const isAlphaNumeric = (name: string) => {
     return name.toLowerCase().includes('pendidikan');
+  };
+
+  const dateValidation = (
+    date_validation: string,
+    value: string
+  ): string | boolean => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month =
+      date.getMonth() < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1; // Months are zero-indexed
+    const day = date.getDate();
+    const currentDate = `${year}-${month}-${day}`;
+
+    if (date_validation === 'incoming_date_with_today') {
+      if (value >= currentDate) {
+        return true;
+      } else {
+        return 'Tidak dapat memilih tanggal sebelum hari ini!';
+      }
+    } else if (date_validation === 'incoming_date_without_today') {
+      if (value > currentDate) {
+        return true;
+      } else {
+        return 'Tidak dapat memilih hari ini dan tanggal sebelumnya!';
+      }
+    } else if (date_validation === 'past_date_with_today') {
+      if (value <= currentDate) {
+        return true;
+      } else {
+        return 'Tidak dapat memilih tanggal setelah hari ini!';
+      }
+    } else if (date_validation === 'past_date_without_today') {
+      if (value < currentDate) {
+        return true;
+      } else {
+        return 'Tidak dapat memilih hari ini dan tanggal kedepan!';
+      }
+    } else {
+      return true;
+    }
   };
 
   const RenderFetchedForm = () => {
@@ -276,7 +354,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                             placeholder="Masukan nomor telepon"
                             name={attribute.name}
-                            type="number"
+                            maxLength={JSON.parse(attribute.config).max_length}
+                            type="text"
                             onChange={(e) => {
                               if (
                                 isNumber(e.target.value) ||
@@ -318,10 +397,115 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               </p>
                             )}
                         </div>
+                      ) : attribute.fieldType === 'DATE_PICKER' ? (
+                        <section className="flex flex-col">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="date"
+                            value={date}
+                            onChange={(e) => {
+                              setDate(e.target.value);
+                            }}
+                          />
+                          {(() => {
+                            const validationResult = dateValidation(
+                              JSON.parse(attribute.config).date_validation,
+                              date
+                            );
+                            if (validationResult !== true) {
+                              return (
+                                <p className="text-xs text-error">
+                                  {validationResult}
+                                </p>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </section>
+                      ) : attribute.fieldType === 'RANGE_DATE_PICKER' ? (
+                        <section className="flex flex-col">
+                          <div className="flex flex-row w-full gap-2">
+                            <div className="flex flex-row gap-2 items-center w-full">
+                              <p className="text-sm font-bold font-opensans">
+                                From
+                              </p>
+                              <input
+                                className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                                placeholder={
+                                  JSON.parse(attribute.config).placeholder
+                                }
+                                name={attribute.name}
+                                type="date"
+                                value={rangeDate.dateFrom}
+                                onChange={(e) => {
+                                  setRangeDate({
+                                    ...rangeDate,
+                                    dateFrom: e.target.value
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="flex flex-row gap-2 items-center w-full">
+                              <p className="text-sm font-bold font-opensans">
+                                To
+                              </p>
+                              <input
+                                className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                                placeholder={
+                                  JSON.parse(attribute.config).placeholder
+                                }
+                                name={attribute.name}
+                                type="date"
+                                value={rangeDate.dateTo}
+                                onChange={(e) => {
+                                  setRangeDate({
+                                    ...rangeDate,
+                                    dateTo: e.target.value
+                                  });
+                                }}
+                              />
+                            </div>
+                          </div>
+                          {rangeDate.dateFrom &&
+                            rangeDate.dateTo &&
+                            rangeDate.dateFrom > rangeDate.dateTo && (
+                              <p className="text-xs text-error">
+                                Tanggal awal tidak boleh lebih dari tanggal
+                                akhir!
+                              </p>
+                            )}
+                        </section>
+                      ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
+                        <section className="flex flex-row gap-2 items-center">
+                          <p>RP</p>
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="text"
+                            value={value}
+                            onChange={(e) => {
+                              handleInputChange(
+                                e,
+                                parseInt(
+                                  JSON.parse(attribute.config).max_decimal
+                                )
+                              );
+                            }}
+                          />
+                        </section>
                       ) : (
                         <input
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          placeholder={JSON.parse(attribute.config).placeholder}
+                          placeholder={
+                            JSON.parse(attribute.config)?.placeholder ?? ''
+                          }
                           name={attribute.name}
                           type="text"
                           value={attribute.value ?? ''}
@@ -523,29 +707,31 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           }
                         />
                       ))
-                  ) : attribute.fieldType === 'DROPDOWN' ? attribute.name.includes('produk') ? null : (
-                    <select
-                      onChange={(e) =>
-                        updateFormDataByName(attribute.name, e.target.value)
-                      }
-                      className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
-                    >
-                      <option value={''}>Pilih</option>
-                      {attribute.value?.split(/[,;]/).map((option, idx) => (
-                        <option
-                          key={idx}
-                          value={option}
-                          selected={
-                            option ===
-                            formData?.find(
-                              (item) => item.name === attribute.name
-                            )?.value
-                          }
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
+                  ) : attribute.fieldType === 'DROPDOWN' ? (
+                    attribute.name.includes('produk') ? null : (
+                      <select
+                        onChange={(e) =>
+                          updateFormDataByName(attribute.name, e.target.value)
+                        }
+                        className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                      >
+                        <option value={''}>Pilih</option>
+                        {attribute.value?.split(/[,;]/).map((option, idx) => (
+                          <option
+                            key={idx}
+                            value={option}
+                            selected={
+                              option ===
+                              formData?.find(
+                                (item) => item.name === attribute.name
+                              )?.value
+                            }
+                          >
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    )
                   ) : attribute.name.includes('Email') ? (
                     <div className="flex flex-col justify-between">
                       <input
