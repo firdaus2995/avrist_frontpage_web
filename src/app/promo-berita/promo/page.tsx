@@ -399,24 +399,26 @@ const Promo: React.FC<ParamsProps> = () => {
                   bgColor="purple_superlight"
                   imageClassName="object-fill"
                   title={
-                    <div className="flex flex-col gap-6 text-left">
-                      <div className="flex flex-col gap-3">
-                        <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
-                          {htmlParser(item.judul)}
-                        </p>
-                        <p className="line-clamp-4 font-opensans text-[16px]">
-                          {htmlParser(item.deskripsi)}
-                        </p>
-                      </div>
-                      <div className="flex flex-row flex-wrap gap-[8px]">
-                        {item.tags?.length > 0 &&
-                          item.tags?.map((el: any, idx: number) => (
-                            <MediumTag
-                              title={el}
-                              customClass="font-opensans"
-                              key={idx}
-                            />
-                          ))}
+                    <div className="flex flex-col justify-between text-left h-full">
+                      <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-3">
+                          <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
+                            {htmlParser(item.judul)}
+                          </p>
+                          <p className="line-clamp-4 font-opensans text-[16px]">
+                            {htmlParser(item.deskripsi)}
+                          </p>
+                        </div>
+                        <div className="flex flex-row flex-wrap gap-[8px]">
+                          {item.tags?.length > 0 &&
+                            item.tags?.map((el: any, idx: number) => (
+                              <MediumTag
+                                title={el}
+                                customClass="font-opensans"
+                                key={idx}
+                              />
+                            ))}
+                        </div>
                       </div>
 
                       <Link
