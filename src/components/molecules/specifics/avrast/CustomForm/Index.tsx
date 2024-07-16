@@ -118,19 +118,42 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   useEffect(() => {
     if (resultData) {
-      const isValid = formData?.every((item) => {
+      const isNotEmpty = formData?.every((item) => {
         if (isRequired(item.name)) {
           return item.value.trim() !== '';
         }
         return true;
       });
+
+      const isEmailValid = validateEmail(
+        formData.find((i) => i.name.toLowerCase().includes('email'))?.value ??
+          ''
+      );
+
+      // if there contains ';', then it means the value is still multiple and needs to be select 1 value
+      const isNasabahCheckboxValid = formData?.every((item) => {
+        if (isRequired(item.name)) {
+          return !item.value.includes('Calon Nasabah;');
+        }
+        return true;
+      });
+
+      const isGenderCheckboxValid = formData?.every((item) => {
+        if (isRequired(item.name)) {
+          return (
+            !item.value.includes('Bapak;') &&
+            !item.value.includes('Laki-laki;Perempuan')
+          );
+        }
+        return true;
+      });
+
       resultData(
         formData,
-        isValid &&
-          validateEmail(
-            formData.find((i) => i.name.toLowerCase().includes('email'))
-              ?.value ?? ''
-          )
+        isNotEmpty &&
+          isEmailValid &&
+          isNasabahCheckboxValid &&
+          isGenderCheckboxValid
       );
     }
   }, [formData, resultData]);
@@ -523,29 +546,31 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           }
                         />
                       ))
-                  ) : attribute.fieldType === 'DROPDOWN' ? attribute.name.includes('produk') ? null : (
-                    <select
-                      onChange={(e) =>
-                        updateFormDataByName(attribute.name, e.target.value)
-                      }
-                      className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
-                    >
-                      <option value={''}>Pilih</option>
-                      {attribute.value?.split(/[,;]/).map((option, idx) => (
-                        <option
-                          key={idx}
-                          value={option}
-                          selected={
-                            option ===
-                            formData?.find(
-                              (item) => item.name === attribute.name
-                            )?.value
-                          }
-                        >
-                          {option}
-                        </option>
-                      ))}
-                    </select>
+                  ) : attribute.fieldType === 'DROPDOWN' ? (
+                    attribute.name.includes('produk') ? null : (
+                      <select
+                        onChange={(e) =>
+                          updateFormDataByName(attribute.name, e.target.value)
+                        }
+                        className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                      >
+                        <option value={''}>Pilih</option>
+                        {attribute.value?.split(/[,;]/).map((option, idx) => (
+                          <option
+                            key={idx}
+                            value={option}
+                            selected={
+                              option ===
+                              formData?.find(
+                                (item) => item.name === attribute.name
+                              )?.value
+                            }
+                          >
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    )
                   ) : attribute.name.includes('Email') ? (
                     <div className="flex flex-col justify-between">
                       <input
@@ -604,28 +629,35 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         const regexNumber = /\D/g;
                         const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
 
+                        const updateForm = () => {
+                          updateFormDataByName(attribute.name, e.target.value);
+                          forceUpdate();
+                        };
+
                         // Text
                         if (isText(attribute.name)) {
                           if (!e.target.value.match(regexText)) {
                             attribute.value = e.target.value;
+                            updateForm();
                           }
                         }
                         // Numeric
                         else if (isNumeric(attribute.name)) {
                           if (!e.target.value.match(regexNumber)) {
                             attribute.value = e.target.value;
+                            updateForm();
                           }
                         }
                         // Alphanumeric
                         else if (isAlphaNumeric(attribute.name)) {
                           if (!e.target.value.match(regexAlphaNumeric)) {
                             attribute.value = e.target.value;
+                            updateForm();
                           }
                         } else {
                           attribute.value = e.target.value;
+                          updateForm();
                         }
-                        updateFormDataByName(attribute.name, e.target.value);
-                        forceUpdate();
                       }}
                     />
                   )}
@@ -754,28 +786,38 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           const regexNumber = /\D/g;
                           const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
 
+                          const updateForm = () => {
+                            updateFormDataByName(
+                              attribute.name,
+                              e.target.value
+                            );
+                            forceUpdate();
+                          };
+
                           // Text
                           if (isText(attribute.name)) {
                             if (!e.target.value.match(regexText)) {
                               attribute.value = e.target.value;
+                              updateForm();
                             }
                           }
                           // Numeric
                           else if (isNumeric(attribute.name)) {
                             if (!e.target.value.match(regexNumber)) {
                               attribute.value = e.target.value;
+                              updateForm();
                             }
                           }
                           // Alphanumeric
                           else if (isAlphaNumeric(attribute.name)) {
                             if (!e.target.value.match(regexAlphaNumeric)) {
                               attribute.value = e.target.value;
+                              updateForm();
                             }
                           } else {
                             attribute.value = e.target.value;
+                            updateForm();
                           }
-                          updateFormDataByName(attribute.name, e.target.value);
-                          forceUpdate();
                         }}
                       />
                     )}

@@ -75,6 +75,8 @@ export const KarirModal = (props: Props) => {
     }
   };
 
+  console.log(dataForm);
+
   return (
     <Transition appear show={show} as={Fragment}>
       <Dialog as="div" className="relative z-[99]" onClose={onClose}>
