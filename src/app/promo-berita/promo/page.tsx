@@ -439,14 +439,14 @@ const Promo: React.FC<ParamsProps> = () => {
             </Slider>
             <div className="flex flex-row justify-between w-full pt-[16px]">
               <div
-                className="p-2 border-2 rounded-full border-purple_dark"
+                className="p-2 border-2 rounded-full border-purple_dark z-10"
                 role="button"
                 onClick={previous}
               >
                 <Icon name="chevronLeft" color="purple_dark" />
               </div>
               <div
-                className="p-2 border-2 rounded-full border-purple_dark"
+                className="p-2 border-2 rounded-full border-purple_dark z-10"
                 role="button"
                 onClick={next}
               >
