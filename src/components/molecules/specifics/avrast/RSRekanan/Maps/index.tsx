@@ -144,7 +144,7 @@ const Maps = ({
   };
 
   return (
-    <div className="sm:w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[24px] pb-6">
+    <div className="sm:min-w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[24px] pb-6">
       <div className="w-full h-[43.75rem] xs:max-h-[339px] sm:max-h-[691px] rounded-t-[0.75rem] z-0">
         <MapContainer
           center={defaultProps.center}
@@ -173,12 +173,12 @@ const Maps = ({
           ))}
         </MapContainer>
       </div>
-      <div className="px-5 pt-[0.75rem]">
+      <div className="pt-[0.75rem] max-w-[90%] min-w-[90%] m-auto px-4 2xl:px-[17px]">
         <SearchBox
           placeHolder="Ketik Lokasi Rumah Sakit"
           onSearch={(e) => onClickSearch(e)}
           customButton="max-w-[119px]"
-          customClassName="!w-[86%] m-auto"
+          customClassName="2xl:!max-w-[98%] 2xl:px-2 px-0 xl:!max-w-[98%]"
         />
       </div>
       <div className="flex sm:flex-row justify-between xs:flex-col w-[98%] m-auto 2xl:px-2">
@@ -191,14 +191,14 @@ const Maps = ({
           </div>
         </div>
         {hospitalData?.length !== 0 ? (
-          <div className="w-[90%] m-auto">
+          <div className="max-w-[90%] min-w-[90%]">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
               }}
               {...sliderSettings(hospitalData.length)}
               beforeChange={(_, next) => setCurrentSlide(next)}
-              className="w-full px-5"
+              className="w-full"
             >
               {hospitalData?.length !== 0 &&
                 hospitalData!.map((item, index) => (
