@@ -191,12 +191,12 @@ export const VideoInformation = ({
       <div className="w-full m-auto flex flex-col gap-[20]">
         {videoData.length >= 1 && (
           <div
-            className={`transition-all hidden md:grid rounded-xl ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
+            className={`transition-all max-w-[95rem] hidden md:grid ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
           >
             <MainCard item={videoData[0]} mute={mute} />
           </div>
         )}
-        <div className="hidden w-full md:grid md:grid-cols-3 2xl:flex 2xl:justify-between gap-[24px] mt-[24px]">
+        <div className="hidden md:grid md:grid-cols-3 gap-6 mt-2 justify-center p-2 mt-[24px]">
           {renderSub()}
         </div>
         <Slider

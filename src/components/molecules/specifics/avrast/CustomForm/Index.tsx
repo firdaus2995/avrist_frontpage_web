@@ -155,6 +155,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
     if (resultData) {
       const isNotEmpty = formData?.every((item) => {
         if (isRequired(item.name)) {
+          if (item.value.includes(';')) {
+            return;
+          }
           return item.value.trim() !== '';
         }
         return true;

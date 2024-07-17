@@ -511,7 +511,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         show={visibleSubscribeModal}
         onClose={() => {
           setVisibleSubscribeModal(false);
-          window.location.reload();
+          // window.location.reload();
         }}
         hideImage
         title={'Terima kasih atas langganan Anda!'}
