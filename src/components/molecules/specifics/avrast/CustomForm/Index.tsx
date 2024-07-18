@@ -41,7 +41,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
   const [filename, setFilename] = useState('');
   const [date, setDate] = useState('');
-  const [rangeDate, setRangeDate] = useState({ dateFrom: '', dateTo: '' });
+  const [rangeDate, setRangeDate] = useState({
+    name: '',
+    dateFrom: '',
+    dateTo: ''
+  });
   const [value, setValue] = useState('');
 
   const updateFormDataByName = (name: string, value: string) => {
@@ -106,34 +110,39 @@ const CustomForm: React.FC<CustomFormProps> = ({
     }
   };
 
-  const handleInputChange = (e: any, max_decimal: number) => {
+  const handleInputChange = (e: any, currency: string) => {
     const inputValue = e.target.value;
     // Prevent '0' as the first character
     if (inputValue.startsWith('0') && inputValue.length === 1) {
       setValue('');
       return;
     }
-    const formattedValue = formatCurrency(inputValue, max_decimal);
+    const formattedValue = formatCurrency(inputValue, currency);
     setValue(formattedValue);
   };
 
-  const formatCurrency = (value: any, max_decimal: number) => {
-    // Allow only digits and commas
-    value = value.replace(/[^\d.]/g, '');
+  const formatCurrency = (value: any, currency: string) => {
+    if (currency === 'idr') {
+      // Allow only digits and commas
+      value = value.replace(/[^\d,]/g, '');
 
-    // Split the input value into integer and decimal parts
-    const parts = value.split(',');
+      // Split the input value into integer and decimal parts
+      const parts = value.split('.');
 
-    // Format the integer part with thousand separators
-    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      // Format the integer part with thousand separators
+      const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-    if (parts.length > 1) {
-      const decimalPart = parts[1].replace(/[^\d]/g, ''); // Allow only digits in decimal part
-      console.log(decimalPart.length);
-      if (decimalPart.length < max_decimal) {
-        return `${integerPart},${decimalPart}`;
-      }
+      return integerPart;
     } else {
+      // Allow only digits and commas
+      value = value.replace(/[^\d.]/g, '');
+
+      // Split the input value into integer and decimal parts
+      const parts = value.split(',');
+
+      // Format the integer part with thousand separators
+      const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
       return integerPart;
     }
   };
@@ -197,7 +206,12 @@ const CustomForm: React.FC<CustomFormProps> = ({
   }, [formData, resultData]);
 
   //function for updating range date picker
-  useEffect(() => {}, [rangeDate]);
+  useEffect(() => {
+    updateFormDataByName(
+      rangeDate.name,
+      `${rangeDate.dateFrom} - ${rangeDate.dateTo}`
+    );
+  }, [rangeDate]);
 
   const isRequired = (name: string): boolean => {
     const attribute = dataForm?.find((item) => item.name === name);
@@ -247,7 +261,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
       } else {
         return 'Tidak dapat memilih tanggal sebelum hari ini!';
       }
-    } else if (date_validation === 'incoming_date_without_today') {
+    } else if (date_validation === 'incoming_date') {
       if (value > currentDate) {
         return true;
       } else {
@@ -259,7 +273,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
       } else {
         return 'Tidak dapat memilih tanggal setelah hari ini!';
       }
-    } else if (date_validation === 'past_date_without_today') {
+    } else if (date_validation === 'past_date') {
       if (value < currentDate) {
         return true;
       } else {
@@ -396,6 +410,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             onInput={handleInput}
                             pattern="[0-9]*"
                           />
+                          {!attribute.value ||
+                            (JSON.parse(attribute.config).min_length >
+                              attribute.value && (
+                              <p className="text-xs text-error">
+                                Masukkan jumlah nomor telepon yang benar!
+                              </p>
+                            ))}
                         </div>
                       ) : attribute.name.includes('Email') ? (
                         <div className="flex flex-col justify-between">
@@ -435,6 +456,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             value={date}
                             onChange={(e) => {
                               setDate(e.target.value);
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              );
                             }}
                           />
                           {(() => {
@@ -454,9 +479,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         </section>
                       ) : attribute.fieldType === 'RANGE_DATE_PICKER' ? (
                         <section className="flex flex-col">
-                          <div className="flex flex-row w-full gap-2">
+                          <div className="flex xs:flex-col sm:flex-row w-full gap-2">
                             <div className="flex flex-row gap-2 items-center w-full">
-                              <p className="text-sm font-bold font-opensans">
+                              <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
                                 From
                               </p>
                               <input
@@ -470,13 +495,14 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 onChange={(e) => {
                                   setRangeDate({
                                     ...rangeDate,
+                                    name: attribute.name,
                                     dateFrom: e.target.value
                                   });
                                 }}
                               />
                             </div>
                             <div className="flex flex-row gap-2 items-center w-full">
-                              <p className="text-sm font-bold font-opensans">
+                              <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
                                 To
                               </p>
                               <input
@@ -490,6 +516,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 onChange={(e) => {
                                   setRangeDate({
                                     ...rangeDate,
+                                    name: attribute.name,
                                     dateTo: e.target.value
                                   });
                                 }}
@@ -507,7 +534,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         </section>
                       ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
                         <section className="flex flex-row gap-2 items-center">
-                          <p>RP</p>
+                          <p className="font-bold text-sm">
+                            {JSON.parse(
+                              attribute.config
+                            ).currency.toUpperCase()}
+                          </p>
                           <input
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                             placeholder={
@@ -519,9 +550,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             onChange={(e) => {
                               handleInputChange(
                                 e,
-                                parseInt(
-                                  JSON.parse(attribute.config).max_decimal
-                                )
+                                JSON.parse(attribute.config).currency
+                              );
+                              updateFormDataByName(
+                                attribute.name,
+                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
                               );
                             }}
                           />
