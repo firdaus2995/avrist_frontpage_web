@@ -52,7 +52,7 @@ const Promo: React.FC<ParamsProps> = () => {
   };
   const sliderSettings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     arrows: false,
     speed: 500,
     slidesToShow: 1,
