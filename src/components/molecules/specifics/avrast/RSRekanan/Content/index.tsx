@@ -119,7 +119,7 @@ const Content = () => {
 
         <section className="flex xs:flex-col md:flex-row gap-[36px]">
           <div className="xs:w-full md:w-[250px]">
-            <ButtonMenuVertical item={btnVerticalData} />
+            <ButtonMenuVertical item={btnVerticalData} loading={loading} />
           </div>
 
           <Maps

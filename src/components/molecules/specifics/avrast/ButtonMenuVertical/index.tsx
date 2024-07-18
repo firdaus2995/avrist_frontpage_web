@@ -8,11 +8,13 @@ interface IButtonMenuVertical {
     onClick?: () => void;
   }[];
   outerClass?: string;
+  loading?: boolean;
 }
 
 const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
   item,
-  outerClass
+  outerClass,
+  loading
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(0);
@@ -21,11 +23,13 @@ const ButtonMenuVertical: React.FC<IButtonMenuVertical> = ({
       <div className="xs:hidden md:block w-full bg-purple_light_bg rounded-xl cursor-pointer gap-[12px] border-l-8 border-l-purple_dark min-w-[240px]">
         {item.map((i, index) => (
           <span
-            className="flex flex-row gap-4 items-center py-[12px] pl-[24px]"
+            className={`flex flex-row gap-4 items-center py-[12px] pl-[24px] ${loading && 'cursor-default'}`}
             key={index}
             onClick={() => {
-              i.onClick ? i.onClick() : null;
-              setSelected(index);
+              if (!loading) {
+                i.onClick ? i.onClick() : null;
+                setSelected(index);
+              }
             }}
           >
             <div

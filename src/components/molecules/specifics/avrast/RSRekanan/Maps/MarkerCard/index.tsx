@@ -27,7 +27,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   return (
     <div
       id={'Tooltip-' + index}
-      className="rounded-xl border border-gray_light p-6 sm:w-[95%] flex flex-col gap-4 overflow-auto sm:min-h-[20rem] xs:h-auto"
+      className="rounded-xl border border-gray_light p-6 sm:w-[100%] flex flex-col gap-4 overflow-auto sm:min-h-[20rem] xs:h-auto"
     >
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>

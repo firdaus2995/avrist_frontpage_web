@@ -82,34 +82,38 @@ export const Paginate = (props: Props) => {
       <span>
         Menampilkan{' '}
         <span className="font-bold text-purple_dark">
-          1-{dataPage.pageSize}
+          {!dataPage.totalData ? 0 : 1}{' '}
+          {dataPage.totalData && `- ${dataPage.pageSize}`}
         </span>{' '}
-        dari <span className="font-bold">{dataPage?.totalData}</span> hasil
+        dari <span className="font-bold">{dataPage?.totalData ? 1 : 0}</span>{' '}
+        hasil
       </span>
-      <div
-        className={`grid items-center ${dataPage.totalPage < 5 ? 'xs:gap-1 sm:gap-0 sm:grid-cols-2 xs:flex' : 'gap-3 grid-cols-5'}`}
-      >
-        <span>
-          {renderPageNumbers()} {dataPage.totalPage > 5 && '... '}
-          <span
-            className={`cursor-pointer font-bold ${dataPage.pagePos === dataPage.totalPage ? 'text-purple_dark' : ''}`}
-            onClick={() => onChangePage(dataPage.totalPage)}
-          >
-            {dataPage.totalPage === 0 ? 1 : dataPage.totalPage}
-          </span>
-        </span>
+      {dataPage?.totalData && (
         <div
-          onClick={handleNextPage}
-          className="cursor-pointer xs:mt-[2px] sm:mt-0"
+          className={`grid items-center ${dataPage.totalPage < 5 ? 'xs:gap-1 sm:gap-0 sm:grid-cols-2 xs:flex' : 'gap-3 grid-cols-5'}`}
         >
-          <Icon
-            width={15}
-            height={15}
-            name="chevronRight"
-            color="purple_dark"
-          />
+          <span>
+            {renderPageNumbers()} {dataPage.totalPage > 5 && '... '}
+            <span
+              className={`cursor-pointer font-bold ${dataPage.pagePos === dataPage.totalPage ? 'text-purple_dark' : ''}`}
+              onClick={() => onChangePage(dataPage.totalPage)}
+            >
+              {dataPage.totalPage === 0 ? 1 : dataPage.totalPage}
+            </span>
+          </span>
+          <div
+            onClick={handleNextPage}
+            className="cursor-pointer xs:mt-[2px] sm:mt-0"
+          >
+            <Icon
+              width={15}
+              height={15}
+              name="chevronRight"
+              color="purple_dark"
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

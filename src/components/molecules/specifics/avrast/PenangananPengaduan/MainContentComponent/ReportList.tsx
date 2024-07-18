@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ButtonMenuVertical from '../../ButtonMenuVertical';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
 import { Paginate } from './Paginate';
+import NotFound from '@/components/atoms/NotFound';
 import { PageInfo } from '@/types/provider.type';
 import {
   contentStringTransformer,
@@ -124,6 +125,11 @@ export const ReportList = ({
                   className="w-[365px] py-[12px] px-[16px] rounded-xl bg-purple_dark/5"
                   onChange={handleSeachChange}
                   value={keyword}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.keyCode === 13) {
+                      onChangeSearch(keyword);
+                    }
+                  }}
                 />
                 <button
                   className="py-[8px] px-[20px] bg-purple_dark text-white rounded-[6px]"
@@ -135,20 +141,24 @@ export const ReportList = ({
             </div>
             {/* list */}
             <div>
-              {reportData[selectedCategory]?.map(
-                (item: any, itemIndex: number) => (
-                  <CardMenuDownload
-                    key={itemIndex}
-                    desc={contentStringTransformer(
-                      item.content['panduanpenanganan-namafile']
-                    )}
-                    href={
-                      singleImageTransformer(
-                        item.content['panduanpenanganan-filelaporanpublikasi']
-                      ).imageUrl
-                    }
-                    onDownload={handleClickDownload}
-                  />
+              {!reportData[selectedCategory] ? (
+                <NotFound />
+              ) : (
+                reportData[selectedCategory]?.map(
+                  (item: any, itemIndex: number) => (
+                    <CardMenuDownload
+                      key={itemIndex}
+                      desc={contentStringTransformer(
+                        item.content['panduanpenanganan-namafile']
+                      )}
+                      href={
+                        singleImageTransformer(
+                          item.content['panduanpenanganan-filelaporanpublikasi']
+                        ).imageUrl
+                      }
+                      onDownload={handleClickDownload}
+                    />
+                  )
                 )
               )}
             </div>

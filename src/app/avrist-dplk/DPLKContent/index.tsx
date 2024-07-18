@@ -1,13 +1,14 @@
 'use client';
 import { useCallback, useEffect, useState, useRef, Suspense } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Link as LinkScroll } from 'react-scroll';
+import { Link as LinkScroll, Element, scroller } from 'react-scroll';
 import Slider from 'react-slick';
 import DewanPengawasDPLK from '../tabs/DewanPengawasDPLK';
 import ManfaatDPLK from '../tabs/ManfaatDPLK';
 import TentangAvristDPLK from '../tabs/TentangAvristDPLK';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { ContentData } from '@/types/content.type';
+import useMobileDetector from '@/utils/useMobileDetector';
 
 type Props = {
   dewanpengawasdplkJudul: string;
@@ -47,6 +48,7 @@ const DPLKContent = (props: Props) => {
     bottomImage,
     bannerImageUrl
   } = props;
+  const isMobile = useMobileDetector();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -90,6 +92,39 @@ const DPLKContent = (props: Props) => {
       sliderRef.current.slickGoTo(activeIndex);
     }
   }, [tab, tabs]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      scroller.scrollTo(tab, {
+        duration: 2000,
+        delay: 100,
+        smooth: true,
+        spy: true,
+        offset:
+          tab === 'Tentang DPLK Avrist'
+            ? -280
+            : tab === 'Dewan Pengawas DPLK'
+              ? 250
+              : tab === 'Manfaat DPLK'
+                ? 1850
+                : 0
+      });
+    } else {
+      scroller.scrollTo(tab, {
+        duration: 2000,
+        delay: 100,
+        smooth: true,
+        spy: true,
+        offset:
+          tab === 'Tentang DPLK Avrist'
+            ? -280
+            : tab === 'Manfaat DPLK'
+              ? 1300
+              : 520,
+        isDynamic: true
+      });
+    }
+  }, [isMobile, tab]);
 
   return (
     <Suspense fallback={null}>
@@ -147,31 +182,37 @@ const DPLKContent = (props: Props) => {
           </div>
         </div>
         {tab === 'Tentang DPLK Avrist' && (
-          <TentangAvristDPLK
-            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-            pengawas={pengawas}
-            pengurus={pengurus}
-          />
+          <Element name="Tentang DPLK Avrist">
+            <TentangAvristDPLK
+              dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+              dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+              dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+              pengawas={pengawas}
+              pengurus={pengurus}
+            />
+          </Element>
         )}
         {tab === 'Dewan Pengawas DPLK' && (
-          <DewanPengawasDPLK
-            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-            pengawas={pengawas}
-            pengurus={pengurus}
-          />
+          <Element name="Dewan Pengawas DPLK">
+            <DewanPengawasDPLK
+              dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+              dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+              dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+              pengawas={pengawas}
+              pengurus={pengurus}
+            />
+          </Element>
         )}
         {tab === 'Manfaat DPLK' && (
-          <ManfaatDPLK
-            dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-            dewanpengawasdplkJudul={dewanpengawasdplkJudul}
-            dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
-            pengawas={pengawas}
-            pengurus={pengurus}
-          />
+          <Element name="Manfaat DPLK">
+            <ManfaatDPLK
+              dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
+              dewanpengawasdplkJudul={dewanpengawasdplkJudul}
+              dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
+              pengawas={pengawas}
+              pengurus={pengurus}
+            />
+          </Element>
         )}
       </div>
     </Suspense>

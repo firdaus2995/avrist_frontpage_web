@@ -121,7 +121,7 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
   };
 
   return (
-    <div>
+    <div className="max-w-[78rem] m-auto">
       {isShowDetail ? (
         <div className="flex flex-col gap-[5rem] -mt-[1rem] mb-[3rem]">
           <ContentPolicyList

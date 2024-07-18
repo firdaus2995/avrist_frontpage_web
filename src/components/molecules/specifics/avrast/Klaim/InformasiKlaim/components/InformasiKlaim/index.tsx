@@ -16,7 +16,7 @@ import PengajuanKlaimIcon from '@/assets/images/avrast/component/informasi-klaim
 import RsRekananIcon from '@/assets/images/avrast/component/informasi-klaim/rs-rekanan.svg';
 import ARROW_LEFT from '@/assets/images/avrast/component/total-solution/arrow-left.svg';
 import ARROW_RIGHT from '@/assets/images/avrast/component/total-solution/arrow-right.svg';
-import { handleDownload } from '@/utils/helpers';
+// import { handleDownload } from '@/utils/helpers';
 
 const data = [
   {
@@ -106,7 +106,8 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
         router.push('https://my.avrist.com/welcome');
       },
       'Lebih Lengkap': () => {
-        handleDownload(file);
+        // handleDownload(file);
+        window.open(file, '_blank');
       },
       'Cari Rumah Sakit': () => {
         router.push('/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan');
@@ -233,9 +234,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
             />
             <Image
               className={
-                currentSlide === data.length - 1
-                  ? 'opacity-50'
-                  : 'opacity-100'
+                currentSlide === data.length - 1 ? 'opacity-50' : 'opacity-100'
               }
               alt="next"
               src={ARROW_RIGHT}
