@@ -307,6 +307,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
         {type === 'Hubungi Kami' ? (
           <div className="sm:grid sm:grid-cols-2 xs:flex xs:flex-col xs:gap-[1.5rem] sm:gap-[2.25rem]">
             {attributeList?.map((attribute: Attribute, idx) => {
+              if (attribute.name.includes('produk')) {
+                return null;
+              }
               return (
                 <div
                   key={attribute.id}
