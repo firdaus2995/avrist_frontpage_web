@@ -163,7 +163,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
   useEffect(() => {
     if (resultData) {
       const isNotEmpty = formData?.every((item) => {
-        if (isRequired(item.name)) {
+        if (
+          isRequired(item.name) &&
+          !item.name.toLocaleLowerCase().includes('produk')
+        ) {
           if (item.value.includes(';')) {
             return;
           }

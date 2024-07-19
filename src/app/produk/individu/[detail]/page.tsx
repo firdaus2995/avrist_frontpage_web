@@ -292,6 +292,8 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     data: any,
     isValid: boolean | ((prevState: boolean) => boolean)
   ) => {
+    console.log(isValid)
+    console.log(data)
     setFormIsValid(isValid);
     setFormValue(data);
   };
