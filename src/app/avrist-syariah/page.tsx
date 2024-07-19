@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Link as LinkScroll } from 'react-scroll';
+import { Link as LinkScroll, Element, scroller } from 'react-scroll';
 
 import Slider from 'react-slick';
 import DewanPengawasSyariah from './tabs/DewanPengawasSyariah';
@@ -40,6 +40,7 @@ import {
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
+import useMobileDetector from '@/utils/useMobileDetector';
 
 const tabs = [
   'Tentang Avrist Syariah',
@@ -54,6 +55,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   const pathname = usePathname();
   const sliderRef = useRef<Slider | null>(null);
   const searchParams = useSearchParams();
+  const isMobile = useMobileDetector();
   const [tab, setTab] = useState('');
   // content
   const [data, setData] = useState<PageResponse>();
@@ -199,6 +201,39 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) {
+      scroller.scrollTo(tab, {
+        duration: 500,
+        delay: 100,
+        smooth: true,
+        spy: true,
+        offset:
+          tab === 'Tentang Avrist Syariah'
+            ? -180
+            : tab === 'Dewan Pengawas Syariah'
+              ? 200
+              : tab === 'Manfaat Utama'
+                ? 1600
+                : 0
+      });
+    } else {
+      scroller.scrollTo(tab, {
+        duration: 500,
+        delay: 100,
+        smooth: true,
+        spy: true,
+        offset:
+          tab === 'Tentang Avrist Syariah'
+            ? -280
+            : tab === 'Manfaat Utama'
+              ? 2200
+              : 400,
+        isDynamic: true
+      });
+    }
+  }, [isMobile, tab]);
+
   return (
     <div>
       <Hero
@@ -255,32 +290,38 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           </div>
         </div>
         {tab === 'Tentang Avrist Syariah' && (
-          <TentangAvristSyariah
-            title={dewanPengawasJudul}
-            subTitle={dewanPengawasSubJudul}
-            desc={dewanPengawasDeskripsi}
-            boards={manajemenData}
-          />
+          <Element name="Tentang Avrist Syariah">
+            <TentangAvristSyariah
+              title={dewanPengawasJudul}
+              subTitle={dewanPengawasSubJudul}
+              desc={dewanPengawasDeskripsi}
+              boards={manajemenData}
+            />
+          </Element>
         )}
         {tab === 'Dewan Pengawas Syariah' && (
-          <DewanPengawasSyariah
-            title={dewanPengawasJudul}
-            subTitle={dewanPengawasSubJudul}
-            desc={dewanPengawasDeskripsi}
-            boards={manajemenData}
-            manfaatUtamaJudul={manfaatUtamaJudul}
-            manfaatUtamaDesc={manfaatUtamaDeskripsi}
-          />
+          <Element name="Dewan Pengawas Syariah">
+            <DewanPengawasSyariah
+              title={dewanPengawasJudul}
+              subTitle={dewanPengawasSubJudul}
+              desc={dewanPengawasDeskripsi}
+              boards={manajemenData}
+              manfaatUtamaJudul={manfaatUtamaJudul}
+              manfaatUtamaDesc={manfaatUtamaDeskripsi}
+            />
+          </Element>
         )}
         {tab === 'Manfaat Utama' && (
-          <ManfaatUtama
-            title={dewanPengawasJudul}
-            subTitle={dewanPengawasSubJudul}
-            desc={dewanPengawasDeskripsi}
-            boards={manajemenData}
-            manfaatUtamaJudul={manfaatUtamaJudul}
-            manfaatUtamaDesc={manfaatUtamaDeskripsi}
-          />
+          <Element name="Manfaat Utama">
+            <ManfaatUtama
+              title={dewanPengawasJudul}
+              subTitle={dewanPengawasSubJudul}
+              desc={dewanPengawasDeskripsi}
+              boards={manajemenData}
+              manfaatUtamaJudul={manfaatUtamaJudul}
+              manfaatUtamaDesc={manfaatUtamaDeskripsi}
+            />
+          </Element>
         )}
         {tab === 'Produk' && <Produk />}
         {tab === 'Klaim dan Layanan' && <KlaimDanLayanan />}
