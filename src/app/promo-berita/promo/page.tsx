@@ -32,6 +32,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
 import { htmlParser } from '@/utils/helpers';
 import {
+  contentStringTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer
@@ -90,7 +91,8 @@ const Promo: React.FC<ParamsProps> = () => {
     bannerImage: '',
     footerImage: ''
   });
-  const [contentData, setContentData] = useState<any>();
+  const [listData, setListData] = useState<any>([]);
+  const [sliderData, setSliderData] = useState<any>([]);
   const [search, setSearch] = useState('');
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
     useState<boolean>(false);
@@ -108,11 +110,9 @@ const Promo: React.FC<ParamsProps> = () => {
   });
   const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
   const endIndex = startIndex + pagination.itemsPerPage;
-  const paginatedData = contentData
-    ? contentData?.slice(startIndex, endIndex)
-    : [];
-  const totalPages = contentData
-    ? Math.ceil(contentData?.length / pagination.itemsPerPage)
+  const paginatedData = listData ? listData?.slice(startIndex, endIndex) : [];
+  const totalPages = listData
+    ? Math.ceil(listData?.length / pagination.itemsPerPage)
     : 0;
 
   useEffect(() => {
@@ -174,29 +174,45 @@ const Promo: React.FC<ParamsProps> = () => {
           item.title
         );
 
-        const judul = content['judul-artikel'].value;
+        const judul = contentStringTransformer(content['judul-artikel']);
         const waktu = `${
-          monthDropdown().find((item) => item.label === content['bulan'].value)
-            ?.label
-        } ${content['tahun'].value}`;
+          monthDropdown().find(
+            (item) => item.label === contentStringTransformer(content['bulan'])
+          )?.label
+        } ${contentStringTransformer(content['tahun'])}`;
         const deskripsi =
           content['artikel-looping'].contentData[0].details[0].value;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
-        const tags =
-          !!content['tags']?.value || content['tags']?.value !== '-'
-            ? content['tags']?.value.split(',')
-            : content['tags']?.value;
+        const tags = contentStringTransformer(content['tags'])
+          .split(',')
+          .map((tag: string) => tag.trim());
 
         return { judul, waktu, deskripsi, image, id, tags };
       });
 
-      setContentData(transformedData);
+      if (!transformedData) {
+        setListData([]);
+      } else {
+        if (sliderData?.length > 0) {
+          setListData(getDifference(transformedData, sliderData));
+        } else {
+          setSliderData(transformedData.slice(0, 5));
+          setListData(transformedData.slice(5));
+        }
+      }
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const getDifference = (arr1: any, arr2: any) => {
+    const map2 = new Map(arr2.map((obj: { id: any }) => [obj.id, obj]));
+    const difference = arr1.filter((obj: { id: unknown }) => !map2.has(obj.id));
+
+    return difference;
   };
 
   const yearDropdown = (startYear: number) => {
@@ -321,19 +337,19 @@ const Promo: React.FC<ParamsProps> = () => {
           <p className="text-[20px]/[28px] font-normal">
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
-              {contentData?.length === 0 || contentData === undefined
+              {paginatedData?.length === 0 || paginatedData === undefined
                 ? 0
                 : startIndex + 1}
-              -{Math.min(endIndex, contentData ? contentData.length : 0)}
+              -{Math.min(endIndex, paginatedData ? paginatedData.length : 0)}
             </span>{' '}
             dari{' '}
             <span className="font-bold">
-              {contentData && contentData.length}
+              {paginatedData && paginatedData.length}
             </span>{' '}
             hasil
           </p>
         </div>
-        {contentData?.length > 0 && (
+        {paginatedData?.length > 0 && (
           <ReactPaginate
             pageCount={totalPages}
             pageRangeDisplayed={2}
@@ -393,7 +409,7 @@ const Promo: React.FC<ParamsProps> = () => {
               }}
               {...sliderSettings}
             >
-              {contentData?.slice(0.5).map((item: any, index: number) => (
+              {sliderData?.map((item: any, index: number) => (
                 <SliderInformation
                   key={index}
                   bgColor="purple_superlight"
@@ -491,7 +507,7 @@ const Promo: React.FC<ParamsProps> = () => {
             }}
             customContent={
               <>
-                {contentData?.length > 0 ? (
+                {listData?.length > 0 ? (
                   <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px] w-full">
                     {paginatedData?.map((item: any, index: number) => (
                       <Link
