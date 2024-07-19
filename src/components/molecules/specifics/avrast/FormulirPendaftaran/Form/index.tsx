@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import Accordion from '@/components/molecules/specifics/avrast/Accordion';
 import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
@@ -13,7 +14,7 @@ import { QueryParams } from '@/utils/httpService';
 
 const Form = () => {
   const [categories, setCategories] = useState<string[]>([]);
-  const [transformedData, setTransFormedData] = useState<any>();
+  const [transformedData, setTransFormedData] = useState<any>({});
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchKeyWords, setSearchKeywords] = useState('');
 
@@ -110,7 +111,10 @@ const Form = () => {
                 customClassName="xs:!flex-row"
               />
               <div className="flex flex-col gap-3">
-                {transformedData &&
+                {Object.keys(transformedData).length <= 0 ? (
+                  <NotFound />
+                ) : (
+                  transformedData &&
                   Object.keys(transformedData).map((category: string) => (
                     <Accordion
                       key={category}
@@ -138,7 +142,8 @@ const Form = () => {
                           )}
                       </Accordion.Item>
                     </Accordion>
-                  ))}
+                  ))
+                )}
               </div>
             </div>
           </div>

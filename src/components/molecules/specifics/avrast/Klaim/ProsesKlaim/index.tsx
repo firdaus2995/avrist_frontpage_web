@@ -11,6 +11,7 @@ import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg'
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
+import NotFound from '@/components/atoms/NotFound';
 import { handleGetContentCategory } from '@/services/content-page.api';
 import {
   contentCategoryTransformer,
@@ -519,28 +520,32 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           )}
           {!isSelectedData && (
             <div className="w-full flex flex-col gap-2">
-              {paginatedData.map((val: any, index: number) => (
-                <div
-                  key={index}
-                  role="button"
-                  onClick={() => {
-                    setSelectedData(val);
-                    setIsSelectedData(true);
-                    onSelectDetail(true);
-                    onChangeBannerImg(2);
-                    window.scrollTo(0, 0);
-                  }}
-                  className="w-full p-6 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold font-opensanspro leading-[30.17px]"
-                >
-                  {val.title}
-                  <Image
-                    src={CHEVRONRIGHTPURPLE}
-                    alt="chevron-right"
-                    width={24}
-                    height={24}
-                  />
-                </div>
-              ))}
+              {paginatedData.length <= 0 ? (
+                <NotFound />
+              ) : (
+                paginatedData.map((val: any, index: number) => (
+                  <div
+                    key={index}
+                    role="button"
+                    onClick={() => {
+                      setSelectedData(val);
+                      setIsSelectedData(true);
+                      onSelectDetail(true);
+                      onChangeBannerImg(2);
+                      window.scrollTo(0, 0);
+                    }}
+                    className="w-full p-6 bg-white border-2 text-[1.5rem] rounded-[0.75rem] flex flex-row justify-between font-bold font-opensanspro leading-[30.17px]"
+                  >
+                    {val.title}
+                    <Image
+                      src={CHEVRONRIGHTPURPLE}
+                      alt="chevron-right"
+                      width={24}
+                      height={24}
+                    />
+                  </div>
+                ))
+              )}
             </div>
           )}
           {!isSelectedData && (

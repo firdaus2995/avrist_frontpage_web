@@ -188,10 +188,10 @@ export const VideoInformation = ({
 
   return (
     <div className="w-full pb-0">
-      <div className="w-full m-auto flex flex-col gap-[20]">
+      <div className="w-full max-w-[78rem] m-auto flex flex-col">
         {videoData.length >= 1 && (
           <div
-            className={`transition-all max-w-[95rem] hidden md:grid ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
+            className={`transition-all hidden md:grid ${isMainVisible ? 'visible opacity-100' : 'invisible opacity-0'}`}
           >
             <MainCard item={videoData[0]} mute={mute} />
           </div>

@@ -191,7 +191,7 @@ const Maps = ({
             onClickSearch(e);
           }}
           customButton="max-w-[119px]"
-          customClassName="2xl:!max-w-[98%] 2xl:px-2 px-0 xl:!max-w-[98%]"
+          customClassName="2xl:!max-w-[100%] 2xl:px-2 px-0 xl:!max-w-[100%]"
         />
       </div>
       <div className="flex sm:flex-row justify-between xs:flex-col w-[98%] m-auto 2xl:px-2">
