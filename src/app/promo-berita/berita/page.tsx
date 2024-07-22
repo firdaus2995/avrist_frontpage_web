@@ -108,6 +108,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState('');
+  const [sliderData, setSliderData] = useState<any>([]);
   const [contentData, setContentData] = useState<any>([]);
   const [dataSliderTestimonial, setDataSliderTestimonial] = useState<any>([]);
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
@@ -227,7 +228,6 @@ const Berita: React.FC<ParamsProps> = () => {
   useEffect(() => {
     setSearch('');
     setParams({ ...params, searchFilter: '' });
-    console.log(search);
   }, [params.category]);
 
   useEffect(() => {
@@ -238,41 +238,6 @@ const Berita: React.FC<ParamsProps> = () => {
       searchFilter: ''
     });
   }, [tab, searchParams]);
-
-  useEffect(() => {
-    const getTestimonial = async () => {
-      try {
-        const fetchData = await getTestimoni({
-          includeAttributes: 'true'
-        });
-
-        const data = fetchData.data.categoryList;
-
-        const transformedData = data['']?.map((item: any) => {
-          const { content } = handleTransformedContent(
-            item.contentData,
-            item.title
-          );
-          const judul = content['judul-testimoni'].value;
-          let deskripsi = content['deskripsi-singkat-testimoni'].value;
-          const penulis = content['penulis-testimoni'].value;
-          const titlePenulis = content['title-penulis-testimoni'].value;
-          const videoUrl = content['video-testimoni'].value;
-
-          const checkNull = />-</;
-          if (checkNull.test(deskripsi)) {
-            deskripsi = '-';
-          }
-
-          return { judul, deskripsi, penulis, titlePenulis, videoUrl };
-        });
-        setDataSliderTestimonial(transformedData ?? []);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getTestimonial();
-  }, []);
 
   const pageSlug = () => {
     if (tab === 'Avrist Terkini') {
@@ -416,7 +381,16 @@ const Berita: React.FC<ParamsProps> = () => {
         window.scrollTo({ top: !isMobileWidth ? 700 : 850 });
       }
 
-      setContentData(transformedData);
+      if (!transformedData) {
+        setContentData([]);
+      } else {
+        if (sliderData?.length > 0) {
+          setContentData(getDifference(transformedData, sliderData));
+        } else {
+          setSliderData(transformedData.slice(0, 5));
+          setContentData(transformedData.slice(5));
+        }
+      }
     } catch (err) {
       console.error(err);
     }
@@ -502,7 +476,16 @@ const Berita: React.FC<ParamsProps> = () => {
             };
           });
         });
-        return setContentData(temp);
+        if (!temp) {
+          setContentData([]);
+        } else {
+          if (sliderData?.length > 0) {
+            setContentData(getDifference(temp, sliderData));
+          } else {
+            setSliderData(temp.slice(0, 4));
+            setContentData(temp.slice(4));
+          }
+        };
       } else {
         const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
           (item: any) => {
@@ -550,7 +533,16 @@ const Berita: React.FC<ParamsProps> = () => {
             };
           }
         );
-        setContentData(transformedData);
+        if (!transformedData) {
+          setContentData([]);
+        } else {
+          if (sliderData?.length > 0) {
+            setContentData(getDifference(transformedData, sliderData));
+          } else {
+            setSliderData(transformedData.slice(0, 4));
+            setContentData(transformedData.slice(4));
+          }
+        };
       }
     } catch (err) {
       console.error(err);
@@ -632,12 +624,28 @@ const Berita: React.FC<ParamsProps> = () => {
         return { judul, deskripsi, penulis, titlePenulis, videoUrl };
       });
       if (!transformedData) {
+        setContentData([]);
         setPaginatedData([]);
+      } else {
+        if (dataSliderTestimonial?.length > 0) {
+          setContentData(getDifference(transformedData, dataSliderTestimonial));
+          setPaginatedData(getDifference(transformedData, dataSliderTestimonial));
+        } else {
+          setDataSliderTestimonial(transformedData.slice(0, 5));
+          setContentData(transformedData.slice(5));
+          setPaginatedData(transformedData.slice(5));
+        }
       }
-      setContentData(transformedData ?? []);
     } catch (err) {
       console.error(err);
     }
+  };
+  
+  const getDifference = (arr1: any, arr2: any) => {
+    const map2 = new Map(arr2.map((obj: { id: any }) => [obj.id, obj]));
+    const difference = arr1.filter((obj: { id: unknown }) => !map2.has(obj.id));
+
+    return difference;
   };
 
   const yearDropdown = (startYear: number) => {
@@ -979,7 +987,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   {...sliderSettings}
                   infinite={true}
                 >
-                  {contentData?.slice(0, 5)?.map((item: any, index: number) => (
+                  {sliderData?.slice(0, 5)?.map((item: any, index: number) => (
                     <SliderInformation
                       key={index}
                       bgColor="purple_superlight"
@@ -1314,9 +1322,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       Terbaru
                     </p>
                     <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1 rounded-xl">
-                      {contentData
-                        ?.slice(0, 4)
-                        .map((item: any, index: number) => (
+                      {sliderData.map((item: any, index: number) => (
                           <Link
                             key={index}
                             href={{

@@ -163,7 +163,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
   useEffect(() => {
     if (resultData) {
       const isNotEmpty = formData?.every((item) => {
-        if (isRequired(item.name)) {
+        if (
+          isRequired(item.name) &&
+          !item.name.toLocaleLowerCase().includes('produk')
+        ) {
           if (item.value.includes(';')) {
             return;
           }
@@ -569,7 +572,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           type="text"
                           value={attribute.value ?? ''}
                           onChange={(e) => {
-                            const regex = /[^a-zA-Z]/g;
+                            const regex = /[^a-zA-Z ]/g;
                             if (
                               attribute.name === 'Nama' ||
                               attribute.name === 'Domisili' ||
@@ -714,7 +717,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         name={attribute.name}
                         value={attribute.value ?? ''}
                         onChange={(e) => {
-                          const regex = /[^a-zA-Z]/g;
+                          const regex = /[^a-zA-Z ]/g;
                           if (attribute.name === 'Nama Anda') {
                             if (!e.target.value.match(regex)) {
                               attribute.value = e.target.value;
@@ -845,7 +848,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       name={attribute.name}
                       value={attribute.value ?? ''}
                       onChange={(e) => {
-                        const regexText = /[^a-zA-Z]/g;
+                        const regexText = /[^a-zA-Z ]/g;
                         const regexNumber = /\D/g;
                         const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
 
@@ -1002,7 +1005,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         name={attribute.name}
                         value={attribute.value ?? ''}
                         onChange={(e) => {
-                          const regexText = /[^a-zA-Z]/g;
+                          const regexText = /[^a-zA-Z ]/g;
                           const regexNumber = /\D/g;
                           const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
 
