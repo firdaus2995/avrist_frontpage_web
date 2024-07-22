@@ -785,6 +785,9 @@ const Berita: React.FC<ParamsProps> = () => {
 
   const onCategoryChange = (value: string) => {
     setParams({ ...params, category: value });
+    setPaginatedData([]);
+    setContentData([]);
+    setSliderData([]);
     router.push(pathname + '?' + createQueryStringCategory('category', value), {
       scroll: false
     });
