@@ -1578,7 +1578,9 @@ const Berita: React.FC<ParamsProps> = () => {
                         </div>
                       ))}
                     </div>
-                  ) : null}
+                  ) : (
+                    <NotFound />
+                  )}
 
                   {renderPage()}
                 </>

@@ -219,7 +219,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       singleImageTransformer(detailItem).imageUrl ?? BlankImage
                     }
                     alt="img"
-                    className="w-full py-6"
+                    className="w-full py-6 bg-white"
                     width={238}
                     height={172}
                   />
