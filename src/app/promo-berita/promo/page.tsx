@@ -413,7 +413,7 @@ const Promo: React.FC<ParamsProps> = () => {
                 <SliderInformation
                   key={index}
                   bgColor="purple_superlight"
-                  imageClassName="object-fill"
+                  imageClassName="object-fill md:!max-h-[350px] md:!min-h-[350px]"
                   title={
                     <div className="flex flex-col justify-between text-left h-full">
                       <div className="flex flex-col gap-6">

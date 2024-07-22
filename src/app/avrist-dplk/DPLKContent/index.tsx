@@ -96,7 +96,7 @@ const DPLKContent = (props: Props) => {
   useEffect(() => {
     if (!isMobile) {
       scroller.scrollTo(tab, {
-        duration: 2000,
+        duration: 500,
         delay: 100,
         smooth: true,
         spy: true,
@@ -111,7 +111,7 @@ const DPLKContent = (props: Props) => {
       });
     } else {
       scroller.scrollTo(tab, {
-        duration: 2000,
+        duration: 500,
         delay: 100,
         smooth: true,
         spy: true,
