@@ -135,6 +135,8 @@ export default InformationPolicy;
 
 export interface PolicyContent {
   [key: string]: any;
+  isShowDetail?: boolean;
+  setIsShowDetail?: any;
 }
 export interface Item {
   title: string;
