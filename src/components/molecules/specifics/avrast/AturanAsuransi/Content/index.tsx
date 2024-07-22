@@ -55,14 +55,11 @@ const Content = () => {
   }, [tab]);
 
   return (
-    <div className="bg-purple_dark sm:-mt-[50px] -mt-1">
+    <div className="bg-purple_dark -mt-1">
       {leftTabData && (
-        <div className="bg-white sm:pt-[6.25rem] xs:pt-[50px] px-[2rem] md:px-[8.5rem] pb-[28px] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between sm:gap-[2.5rem] xs:gap-[2.25rem]">
-          <ButtonMenuVertical
-            item={leftTabData}
-            outerClass="xs:w-full md:w-[12.5rem]"
-          />
-          <div className="xs:w-full md:w-[82%] flex flex-col gap-[24px]">
+        <div className="bg-white px-[2rem] md:px-[8.5rem] pb-[28px] flex xs:flex-col md:flex-row justify-between sm:gap-[1.5rem] xs:gap-[2.25rem]">
+          <ButtonMenuVertical item={leftTabData} />
+          <div className="flex flex-col gap-[24px]">
             <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium md:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px]">
               {leftTabData[tab]?.title}
             </h1>

@@ -204,7 +204,7 @@ const Maps = ({
           </div>
         </div>
         {hospitalData?.length !== 0 ? (
-          <div className="max-w-[90%] min-w-[90%]">
+          <div className="sm:max-w-[90%] sm:min-w-[90%] xs:max-h-[580px]">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;
@@ -216,7 +216,7 @@ const Maps = ({
               {hospitalData?.length !== 0 &&
                 hospitalData!.map((item, index) => (
                   <div className="px-2 flex flex-start" key={index}>
-                    <div className="w-full sm:h-full xs:h-[95%]">
+                    <div className="w-full sm:h-full xs:h-[95%] xs:mt-[12px] sm:mt-[12px]">
                       <MarkerCard
                         index={index}
                         name={item.name}
@@ -241,7 +241,7 @@ const Maps = ({
           </div>
         )}
 
-        <div className="sm:hidden flex flex-row items-center justify-between mt-5 sm:mt-0">
+        <div className="sm:hidden flex flex-row items-center justify-between mt-5 sm:mt-0 w-[90%] m-auto">
           <div
             className={`${currentSlide === 0 ? 'opacity-50' : 'opacity-100'} p-2 rounded-full border border-purple_dark cursor-pointer`}
             onClick={previous}
