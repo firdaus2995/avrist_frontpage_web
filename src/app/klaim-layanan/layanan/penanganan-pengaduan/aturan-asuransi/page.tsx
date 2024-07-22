@@ -67,7 +67,7 @@ const Page = () => {
           }
         ]}
         imageUrl={titleImage.imageUrl}
-        bottomImage={bannerImage.imageUrl}
+        bottomImage={bannerImage?.imageUrl}
       />
       <Content />
       <RoundedFrameBottom />

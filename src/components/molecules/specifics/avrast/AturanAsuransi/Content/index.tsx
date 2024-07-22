@@ -55,7 +55,7 @@ const Content = () => {
   }, [tab]);
 
   return (
-    <div className="bg-purple_dark -mt-1">
+    <div className="bg-purple_dark sm:-mt-[50px] -mt-1">
       {leftTabData && (
         <div className="bg-white sm:pt-[6.25rem] xs:pt-[50px] px-[2rem] md:px-[8.5rem] pb-[28px] rounded-t-[4.063rem] flex xs:flex-col md:flex-row justify-between sm:gap-[2.5rem] xs:gap-[2.25rem]">
           <ButtonMenuVertical

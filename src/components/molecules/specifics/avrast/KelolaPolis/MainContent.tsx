@@ -30,6 +30,7 @@ export const MainContent = ({
     [key: string]: any;
   }>();
   const [policyGuideData, setPolicyGuideData] = useState<any>();
+  const [isShowDetail, setIsShowDetail] = useState(false);
 
   useEffect(() => {
     fetchContentData().then((data) => setDataMainContent(data));
@@ -39,15 +40,21 @@ export const MainContent = ({
   return (
     <div className="w-full flex flex-col">
       <div className="bg-white w-full flex flex-col sm:pt-[100px] sm:pb-[28px] xs:pt-[50px] xs:pb-[28px] sm:px-[136px] sm:gap-[5rem] xs:px-[2rem] xs:gap-[5rem]">
-        <ButtonMenu />
-        <Content />
-        {videoData && (
-          <VideoInformation pageVideoData={videoData} mute={mute} />
+        {!isShowDetail && (
+          <div>
+            <ButtonMenu />
+            <Content />
+            {videoData && (
+              <VideoInformation pageVideoData={videoData} mute={mute} />
+            )}
+          </div>
         )}
         {dataMainContent && policyGuideData && (
           <DocumentPolicy
             policyContentData={dataMainContent}
             policyGuideData={policyGuideData}
+            setIsShowDetail={(bool: boolean) => setIsShowDetail(bool)}
+            isShowDetail={isShowDetail}
           />
         )}
       </div>

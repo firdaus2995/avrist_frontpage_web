@@ -26,13 +26,13 @@ const Content = () => {
         onClick: () => {
           setThirdParty('Admedika');
         }
-      },
-      {
-        title: 'AAI',
-        onClick: () => {
-          setThirdParty('Aai');
-        }
       }
+      // {
+      //   title: 'AAI',
+      //   onClick: () => {
+      //     setThirdParty('Aai');
+      //   }
+      // }
     ],
     [thirdParty]
   );

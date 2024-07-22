@@ -10,7 +10,11 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
+export const DocumentPolicy = ({
+  policyGuideData,
+  isShowDetail,
+  setIsShowDetail
+}: PolicyContent) => {
   const initialPageInfo: PageInfo = {
     pageSize: 5,
     totalPage: 0,
@@ -21,7 +25,6 @@ export const DocumentPolicy = ({ policyGuideData }: PolicyContent) => {
   const [policyData, setPolicyData] = useState<any>(null);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [listContent, setListContent] = useState('');
-  const [isShowDetail, setIsShowDetail] = useState(false);
   const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
 
   useEffect(() => {

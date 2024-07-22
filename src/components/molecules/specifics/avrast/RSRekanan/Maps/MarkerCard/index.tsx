@@ -23,7 +23,15 @@ const MarkerCard: React.FC<IMarkerCard> = ({
 }) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
-  const toggle = () => setTooltipOpen(!tooltipOpen);
+  const toggle = () => {
+    if (!tooltipOpen) {
+      setTimeout(() => {
+        setTooltipOpen(true);
+      }, 1000);
+    } else {
+      setTooltipOpen(false);
+    }
+  };
   return (
     <div
       id={'Tooltip-' + index}
