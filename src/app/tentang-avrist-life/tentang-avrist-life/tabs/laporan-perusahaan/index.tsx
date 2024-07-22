@@ -80,11 +80,13 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
         yearFilter: params.yearFilter,
         monthFilter: params.monthFilter
       });
-
       const categoryList = Object.keys(apiContent.data.categoryList);
 
       categories.length < 1 && setCategories(categoryList);
 
+      if (Object.keys(apiContent.data.categoryList).length <= 0) {
+        setPaginatedData([]);
+      }
       setContentData(apiContent.data.categoryList[params.category]);
     } catch (err) {
       console.error(err);
