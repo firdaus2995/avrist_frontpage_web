@@ -146,6 +146,7 @@ const NavCard: React.FC<NavCardProps> = ({
                                 pathname: `${!skipUrl ? `/${convertToKebabCase(title)}` : ''}/${camelToKebabCase(val.title !== '' ? val.title : content[0].title)}`,
                                 query: { tab: item.title, category: value }
                               }}
+                              scroll={false}
                               key={idx}
                               className={`flex flex-row justify-between`}
                               onClick={() => {
@@ -176,6 +177,7 @@ const NavCard: React.FC<NavCardProps> = ({
                               }
                             : 'https://my.avrist.com/welcome'
                         }
+                        scroll={false}
                         target={
                           indexData === 1 && item.icon === 2
                             ? '_blank'
