@@ -24,18 +24,14 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const toggle = () => {
-    if (!tooltipOpen) {
-      setTimeout(() => {
-        setTooltipOpen(true);
-      }, 1000);
-    } else {
-      setTooltipOpen(false);
-    }
+    setTooltipOpen(!tooltipOpen);
   };
   return (
     <div
       id={'Tooltip-' + index}
       className="rounded-xl border border-gray_light p-6 sm:w-[100%] flex flex-col gap-4 overflow-auto sm:min-h-[20rem] xs:h-auto"
+      onMouseLeave={() => setTooltipOpen(false)}
+      onMouseEnter={() => setTooltipOpen(true)}
     >
       <span className="flex flex-row justify-between">
         <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>
@@ -60,7 +56,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
           {phone}
         </p>
       </span>
-      <div className="">
+      <div className="mt-2">
         <Tooltip
           placement="top"
           isOpen={tooltipOpen}
@@ -69,7 +65,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
           autohide={true}
           className="relative"
         >
-          <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute left-0 sm:min-w-[200px]">
+          <div className="bg-white rounded-lg shadow-lg z-20 top-[60px] absolute -left-4 sm:min-w-[200px]">
             <div className="p-2">
               <p>{name}</p>
               <p>{address}</p>

@@ -55,11 +55,17 @@ const Content = () => {
       const queryParams = {
         page: currentPage,
         name_contain: searchParam,
-        third_party_administration_name_contain: thirdParty,
-        latitude: locatinUser?.latitude,
-        longitude: locatinUser?.longitude
+        third_party_administration_name_contain: thirdParty
       };
-      const data = await handleGetProvider(queryParams);
+      const data = await handleGetProvider(
+        locatinUser
+          ? {
+              ...queryParams,
+              latitude: locatinUser?.latitude,
+              longitude: locatinUser?.longitude
+            }
+          : queryParams
+      );
       if (data.responseMessage !== 'SUCCESS') {
         setLoading(false);
         return [];
