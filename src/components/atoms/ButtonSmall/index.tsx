@@ -15,10 +15,10 @@ const ButtonSmall = ({
 }: IButtonSmall) => {
   const variantButtonClassName =
     variant === 'outlined'
-      ? 'bg-transparent border border-purple_dark'
-      : 'bg-purple_dark border border-purple_dark';
-  const variantTextClassName =
-    variant === 'outlined' ? 'text-purple_dark' : 'text-white';
+      ? 'bg-transparent border border-purple_dark text-purple_dark hover:bg-purple_light hover:text-white'
+      : 'bg-purple_dark border border-purple_dark text-white hover:bg-purple_light';
+  // const variantTextClassName =
+  //   variant === 'outlined' ? 'text-purple_dark' : 'text-white';
 
   return (
     <button
@@ -26,7 +26,7 @@ const ButtonSmall = ({
       className={`px-[20px] py-[8px] rounded-[6px] ${variantButtonClassName} ${customClassName}`}
       onClick={onClick}
     >
-      <span className={`font-semibold ${variantTextClassName}`}>{title}</span>
+      <p className={`font-semibold`}>{title}</p>
     </button>
   );
 };

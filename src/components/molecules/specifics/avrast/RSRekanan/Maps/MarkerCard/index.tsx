@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Tooltip } from 'reactstrap';
 import Icon from '@/components/atoms/Icon';
 
@@ -10,6 +10,8 @@ interface IMarkerCard {
   lng: number;
   onClickMarker: (lat: number, lng: number) => void;
   index?: number;
+  tooltip?: boolean;
+  onHover: (from?: string) => void;
 }
 
 const MarkerCard: React.FC<IMarkerCard> = ({
@@ -19,56 +21,57 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   lat,
   lng,
   onClickMarker,
-  index
+  index,
+  tooltip,
+  onHover
 }) => {
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-
   const toggle = () => {
-    setTooltipOpen(!tooltipOpen);
+    onHover();
   };
   return (
-    <div
-      id={'Tooltip-' + index}
-      className="rounded-xl border border-gray_light p-6 sm:w-[100%] flex flex-col gap-4 overflow-auto sm:min-h-[20rem] xs:h-auto"
-      onMouseLeave={() => setTooltipOpen(false)}
-      onMouseEnter={() => setTooltipOpen(true)}
-    >
-      <span className="flex flex-row justify-between">
-        <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>
-        {lat !== 0 && lng !== 0 ? (
-          <div role="button" onClick={() => onClickMarker(lat, lng)}>
-            <Icon
-              name="navigation"
-              color="purple_verylight"
-              width={24}
-              height={24}
-            />
-          </div>
-        ) : null}
-      </span>
-      <span className="flex flex-row gap-2">
-        <Icon name="maps" width={24} height={24} color="purple_verylight" />
-        <p className="text-sm sm:text-[16px] sm:w-[85%]">{address}</p>
-      </span>
-      <span className="flex flex-row gap-2">
-        <Icon name="phone" width={24} height={24} color="purple_verylight" />
-        <p className="text-sm sm:text-[16px] sm:w-[85%] w-[100%] truncate">
-          {phone}
-        </p>
-      </span>
-      <div className="mt-2">
+    <div className="rounded-xl border border-gray_light p-6">
+      <div className="gap-4 flex flex-col overflow-auto sm:min-h-[20rem] xs:h-auto  sm:w-[100%]">
+        <span className="flex flex-row justify-between">
+          <h1 className="font-bold xl:text-[20px] text-sm w-[80%]">{name}</h1>
+          {lat !== 0 && lng !== 0 ? (
+            <div
+              role="button"
+              onClick={() => onClickMarker(lat, lng)}
+              id={'Tooltip-' + index}
+            >
+              <Icon
+                name="navigation"
+                color="purple_verylight"
+                width={24}
+                height={24}
+              />
+            </div>
+          ) : null}
+        </span>
+        <span className="flex flex-row gap-2">
+          <Icon name="maps" width={24} height={24} color="purple_verylight" />
+          <p className="text-sm sm:text-[16px] sm:w-[85%]">{address}</p>
+        </span>
+        <span className="flex flex-row gap-2">
+          <Icon name="phone" width={24} height={24} color="purple_verylight" />
+          <p className="text-sm sm:text-[16px] sm:w-[85%] w-[100%] truncate">
+            {phone}
+          </p>
+        </span>
+      </div>
+      <div className="mt-1">
         <Tooltip
           placement="top"
-          isOpen={tooltipOpen}
+          isOpen={tooltip}
           target={'Tooltip-' + index}
           toggle={toggle}
           autohide={true}
           className="relative"
         >
-          <div className="bg-white rounded-lg shadow-lg z-20 top-[60px] absolute -left-4 sm:min-w-[200px]">
+          <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute -left-4 sm:min-w-[200px]">
             <div className="p-2">
-              <p>{name}</p>
-              <p>{address}</p>
+              <p className="mb-1.5">{name}</p>
+              <p className="mb-1.5">{address}</p>
               <p>{phone}</p>
             </div>
           </div>

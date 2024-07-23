@@ -9,7 +9,7 @@ import APPSTORE from '@/assets/images/avrast/appstore.svg';
 import GOOGLEPLAY from '@/assets/images/avrast/googleplay.svg';
 import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
-import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
+// import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
 import Icon from '@/components/atoms/Icon';
 import { EXTERNAL_URL } from '@/utils/baseUrl';
 
@@ -19,7 +19,7 @@ const additionalInfo = [
     href: '/syarat-penggunaan'
   },
   {
-    title: 'Keamanan Online',
+    title: 'Kebijakan Keamanan Online',
     href: '/keamanan-online'
   }
 ];
@@ -65,30 +65,36 @@ const Footer = () => {
 
           {/* Communication content */}
           <div className="flex flex-col gap-6 whitespace-nowrap">
-            <p className="font-bold text-space_purpink text-xl font-opensanspro leading-[1.5rem]">
-              Tanya Avrista
+            <p className="font-bold text-white text-xl font-opensanspro leading-[1.5rem]">
+              Hubungi Kami
             </p>
             <div className="text-sm flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <p className="text-lg font-opensanspro leading-[25.2px]">Layanan Nasabah</p>
+                <p className="text-lg font-opensanspro leading-[25.2px]">
+                  Layanan Nasabah
+                </p>
                 <a
                   href="tel:+622157898188"
-                  className="font-bold text-2xl font-karla leading-[28.8px] -tracking-[0.72px]"
+                  className="font-bold text-xl font-karla leading-[28.8px] -tracking-[0.72px] hover:underline"
                 >
                   021 5789 8188
                 </a>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-lg font-opensanspro leading-[25.2px]">Waktu Operasional</p>
-                <p className="text-sm font-opensans whitespace-normal font-bold leading-[19.6px]">
+                <p className="text-lg font-opensanspro leading-[25.2px]">
+                  Waktu Operasional
+                </p>
+                <p className="text-lg font-opensans whitespace-normal font-normal leading-[19.6px]">
                   Senin - Jumat, 08.00 - 17.00 WIB
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-lg font-opensanspro leading-[25.2px]">Email</p>
+                <p className="text-lg font-opensanspro leading-[25.2px]">
+                  Email
+                </p>
                 <a
                   href="mailto:customer-service@avrist.com"
-                  className="text-sm font-opensans font-bold leading-[19.6px]"
+                  className="text-lg font-opensans font-normal leading-[19.6px] hover:underline"
                 >
                   customer-service@avrist.com
                 </a>
@@ -100,23 +106,29 @@ const Footer = () => {
           {!isHomepage ? (
             <div className="flex flex-col gap-4">
               <Link href="/produk/individu?tab=Asuransi+Jiwa">
-                <p className="font-bold text-space_purpink text-xl font-opensanspro leading-[1.5rem]">Produk</p>
+                <p className="font-normal text-white text-xl font-opensanspro leading-[1.5rem]">
+                  Produk
+                </p>
               </Link>
               <div className="flex flex-col gap-4 h-full">
                 <Link
                   href="/klaim-layanan/klaim?tab=Informasi+Klaim"
                   className="text-xl flex flex-col gap-2 font-light whitespace-nowrap"
                 >
-                  <p className="text-xl font-bold text-space_purpink font-opensanspro leading-[1.5rem]">Klaim</p>
+                  <p className="text-xl font-normal text-white font-opensanspro leading-[1.5rem] hover:underline">
+                    Klaim
+                  </p>
                 </Link>
                 <Link href="/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan">
-                  <p className="text-xl font-bold text-space_purpink font-opensanspro leading-[1.5rem]">
+                  <p className="text-xl font-normal text-white font-opensanspro leading-[1.5rem] hover:underline">
                     Rumah Sakit Rekanan
                   </p>
                 </Link>
                 <span className="h-[18px] xs:hidden sm:block" />
                 <div className="flex flex-col gap-2 sm:mt-5 xs:mt-2">
-                  <p className="text-lg font-bold font-opensanspro leading-[25.2px]">Avrist Total Solution</p>
+                  <p className="text-lg font-bold font-opensanspro leading-[25.2px]">
+                    Unduh Avrist Total Solution
+                  </p>
                   <div className="flex flex-row gap-2">
                     <Link
                       href={
@@ -152,26 +164,32 @@ const Footer = () => {
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              <p className="font-bold text-space_purpink text-xl font-opensanspro leading-[1.5rem]">
-                Quick Links
+              <p className="font-bold text-white text-xl font-opensanspro leading-[1.5rem]">
+                Tautan Lainnya
               </p>
               <div className="flex flex-col gap-4 h-full">
                 <Link
                   href="/produk/individu?tab=Asuransi+Jiwa"
                   className="text-lg flex flex-col gap-2 font-light whitespace-nowrap"
                 >
-                  <p className="text-lg font-bold font-opensanspro leading-[25.2px]">Asuransi Jiwa</p>
+                  <p className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline">
+                    Asuransi Jiwa
+                  </p>
                 </Link>
                 <CustomLink href={EXTERNAL_URL.avramUrl}>
-                  <p className="text-lg font-bold font-opensanspro leading-[25.2px]">Investasi</p>
+                  <p className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline">
+                    Investasi
+                  </p>
                 </CustomLink>
                 <CustomLink href={EXTERNAL_URL.agiUrl}>
-                  <p className="text-lg font-bold font-opensanspro leading-[25.2px]">Bengkel Rekanan</p>
+                  <p className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline">
+                    Bengkel Rekanan
+                  </p>
                 </CustomLink>
                 <div className="flex flex-col gap-2 sm:mt-5 xs:mt-2">
-                  <Link href={'https://my.avrist.com/welcome'} target="blank">
-                    <p className="text-lg font-bold font-opensanspro leading-[25.2px]">Avrist Total Solution</p>
-                  </Link>
+                  <p className="text-xl font-bold font-opensanspro leading-[25.2px] cursor-default">
+                    Unduh Avrist Total Solution
+                  </p>
                   <div className="flex flex-row gap-2">
                     <Link
                       href={
@@ -210,26 +228,29 @@ const Footer = () => {
           {/* Quick links content */}
           {!isHomepage ? (
             <div className="flex flex-col gap-6">
-              <p className="font-bold text-space_purpink text-xl font-opensanspro leading-[1.5rem]">
-                Quick Links
+              <p className="font-bold text-white text-xl font-opensanspro leading-[1.5rem]">
+                Tautan Lainnya
               </p>
               <div className="flex flex-col gap-4 h-full">
                 <Link
                   href="/klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan"
-                  className="text-lg font-bold font-opensanspro leading-[25.2px]"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
                 >
                   Formulir dan Buku Panduan
                 </Link>
                 <Link
                   href="/klaim-layanan/layanan?tab=Performa+Investasi"
-                  className="text-lg font-bold font-opensanspro leading-[25.2px]"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
                 >
                   Performa Investasi
                 </Link>
-                <Link href="/hubungi-kami" className="text-lg font-bold font-opensanspro leading-[25.2px]">
+                <Link
+                  href="/hubungi-kami"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
+                >
                   Agen Aktif
                 </Link>
-                <div className="w-full mt-3">
+                {/* <div className="w-full mt-3">
                   <Image
                     alt="Reksadana"
                     width={0}
@@ -237,31 +258,34 @@ const Footer = () => {
                     className="h-auto w-[9.912rem]"
                     src={REKSADANA_IMAGE}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           ) : (
             <div className="flex flex-col gap-4">
-              <p className="font-bold text-space_purpink text-xl font-opensanspro leading-[1.5rem]">
+              <p className="font-bold text-white text-xl font-opensanspro leading-[1.5rem]">
                 Avrist Group
               </p>
               <div className="flex flex-col gap-4 h-full">
-                <Link href="/produk/individu" className="text-lg font-bold font-opensanspro leading-[25.2px]">
+                <Link
+                  href="/produk/individu"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
+                >
                   Avrist Life Insurance
                 </Link>
                 <CustomLink
                   href={EXTERNAL_URL.avramUrl}
-                  className="text-lg font-bold font-opensanspro leading-[25.2px]"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
                 >
                   Avrist Asset Management
                 </CustomLink>
                 <CustomLink
                   href={EXTERNAL_URL.agiUrl}
-                  className="text-lg font-bold font-opensanspro leading-[25.2px]"
+                  className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
                 >
                   Avrist General Insurance
                 </CustomLink>
-                <div className="w-full mt-6 flex items-center justify-start">
+                {/* <div className="w-full mt-6 flex items-center justify-start">
                   <Image
                     alt="Reksadana"
                     width={0}
@@ -269,7 +293,7 @@ const Footer = () => {
                     className="h-auto w-[9.912rem]"
                     src={REKSADANA_IMAGE}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           )}
@@ -283,7 +307,9 @@ const Footer = () => {
             {additionalInfo.map((item, index) => (
               <React.Fragment key={index}>
                 <Link href={item.href}>
-                  <span className="font-bold text-lg font-opensanspro leading-[25.2px]">{item.title}</span>
+                  <span className="font-bold text-lg font-opensanspro leading-[25.2px]">
+                    {item.title}
+                  </span>
                 </Link>
                 {index === 0 && (
                   <div className="bg-white w-[2px] h-[70%] opacity-[50%]" />

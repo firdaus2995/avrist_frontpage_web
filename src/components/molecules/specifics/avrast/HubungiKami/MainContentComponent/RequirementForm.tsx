@@ -129,7 +129,7 @@ export const RequirementForm = (props: Props) => {
                 href={'/keamanan-online'}
                 className="font-bold text-purple_dark"
               >
-                Kebijakan Keamanan *
+                Kebijakan Keamanan Online*
               </Link>
             </span>
           </div>

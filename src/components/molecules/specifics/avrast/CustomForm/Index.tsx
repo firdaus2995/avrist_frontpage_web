@@ -204,8 +204,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
       });
 
       const isEmailValid = validateEmail(
-        formData.find((i) => i.name.toLowerCase().includes('email'))?.value ??
-          ''
+        formData.find((i) => i?.name?.toLowerCase()?.includes('email'))
+          ?.value ?? ''
       );
 
       // if there contains ';', then it means the value is still multiple and needs to be select 1 value
@@ -275,8 +275,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
   const isAlphaNumeric = (name: string) => {
     return name.toLowerCase().includes('pendidikan');
   };
-
-  console.log(formData);
 
   const dateValidation = (
     date_validation: string,

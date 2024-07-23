@@ -10,7 +10,7 @@ const MainContentKeamananOnline = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [tab, setTab] = useState('Keamanan Online');
+  const [tab, setTab] = useState('Kebijakan Keamanan Online');
   const [isOpen, setIsOpen] = useState(false);
 
   const handleTabClick = (tabs: string) => {
@@ -36,7 +36,7 @@ const MainContentKeamananOnline = () => {
     }
   }, [searchParams]);
 
-  const tabs = ['Keamanan Online'];
+  const tabs = ['Kebijakan Keamanan Online'];
   return (
     <div className="w-full flex flex-col relative">
       <div className="bg-white rounded-t-[3.75rem] w-full min-h-[3.75rem] relative">
@@ -81,7 +81,9 @@ const MainContentKeamananOnline = () => {
                   isOpen ? 'rotate-180' : ''
                 }`}
               >
-                {tabs.length > 1 && <Icon name="chevronDown" color="purple_dark" />}
+                {tabs.length > 1 && (
+                  <Icon name="chevronDown" color="purple_dark" />
+                )}
               </div>
             </div>
             {isOpen && (
@@ -105,7 +107,7 @@ const MainContentKeamananOnline = () => {
           </div>
           {/* end tabs kiri */}
           <div className="sm:ml-[3rem]">
-            {tab === 'Keamanan Online' && <KeamananOnline />}
+            {tab === 'Kebijakan Keamanan Online' && <KeamananOnline />}
           </div>
         </div>
       </div>

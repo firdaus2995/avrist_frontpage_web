@@ -81,7 +81,8 @@ const Content = () => {
             address: item.address,
             phone: formattedPhoneNumber,
             lat: item.latitude,
-            lng: item.longitude
+            lng: item.longitude,
+            tooltip: false
           };
         });
 
@@ -160,4 +161,5 @@ export interface IDAta {
   phone: string;
   lat: number;
   lng: number;
+  tooltip: boolean;
 }
