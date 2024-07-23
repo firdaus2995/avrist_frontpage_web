@@ -306,7 +306,301 @@ const CustomForm: React.FC<CustomFormProps> = ({
         )}
         {type === 'Hubungi Kami' ? (
           <div className="sm:grid sm:grid-cols-2 xs:flex xs:flex-col xs:gap-[1.5rem] sm:gap-[2.25rem]">
-            {attributeList?.map((attribute: Attribute, idx) => {
+            {leftSide?.map((attribute: Attribute, idx) => {
+              if (attribute.name.includes('produk')) {
+                return null;
+              }
+              return (
+                <div
+                  key={attribute.id}
+                  className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
+                >
+                  {attribute.fieldType === 'LABEL' ? (
+                    <p className="leading-[23.68px]">{attribute.name}</p>
+                  ) : (
+                    <div>
+                      <p className="font-bold mb-2 leading-[21.79px]">
+                        {attribute.name} <span className="text-reddist">*</span>
+                      </p>
+                      {attribute.fieldType === 'RADIO_BUTTON' ? (
+                        <div className="flex flex-row gap-9">
+                          {attribute.value
+                            ?.split(';')
+                            .map((option, optionIndex) => (
+                              <Radio
+                                key={optionIndex}
+                                id={`${attribute.fieldId}_${optionIndex}`}
+                                name={attribute.name}
+                                label={option}
+                                value={option}
+                                onChange={(e) =>
+                                  updateFormDataByName(
+                                    attribute.name,
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            ))}
+                        </div>
+                      ) : attribute.fieldType === 'DROPDOWN' ? (
+                        <select
+                          onChange={(e) =>
+                            updateFormDataByName(attribute.name, e.target.value)
+                          }
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
+                        >
+                          <option value={''}>Pilih</option>
+                          {attribute.value?.split(';').map((option, idx) => (
+                            <option
+                              key={idx}
+                              value={option}
+                              selected={
+                                option ===
+                                formData?.find(
+                                  (item) => item.name === attribute.name
+                                )?.value
+                              }
+                            >
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      ) : attribute.fieldType === 'TEXT_AREA' ? (
+                        <div className="flex flex-col justify-end items-end gap-2 text-[0.875rem]">
+                          <textarea
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            rows={4}
+                            maxLength={
+                              JSON.parse(attribute.config).max_length === '0'
+                                ? 500
+                                : JSON.parse(attribute.config).max_length
+                            }
+                            onChange={(e) =>
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              )
+                            }
+                          />
+                          {formData?.find(
+                            (item) => item.name === attribute.name
+                          )?.value.length +
+                            '/' +
+                            (JSON.parse(attribute.config).max_length === '0'
+                              ? 500
+                              : JSON.parse(attribute.config).max_length)}
+                        </div>
+                      ) : attribute.name.includes('Telepon') ? (
+                        <div className="flex grow shrink-0">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder="Masukan nomor telepon"
+                            name={attribute.name}
+                            maxLength={JSON.parse(attribute.config).max_length}
+                            type="text"
+                            onChange={(e) => {
+                              if (
+                                isNumber(e.target.value) ||
+                                e.target.value === ''
+                              ) {
+                                updateFormDataByName(
+                                  attribute.name,
+                                  e.target.value
+                                );
+                              }
+                            }}
+                            onInput={handleInput}
+                            pattern="[0-9]*"
+                          />
+                          {!attribute.value ||
+                            (JSON.parse(attribute.config).min_length >
+                              attribute.value && (
+                              <p className="text-xs text-error">
+                                Masukkan jumlah nomor telepon yang benar!
+                              </p>
+                            ))}
+                        </div>
+                      ) : attribute.name.includes('Email') ? (
+                        <div className="flex flex-col justify-between">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            onChange={(e) =>
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              )
+                            }
+                          />
+                          {formData.find((i) => i.name === attribute.name)
+                            ?.value !== '' &&
+                            !validateEmail(
+                              formData.find((i) => i.name === attribute.name)
+                                ?.value ?? ''
+                            ) && (
+                              <p className="text-xs text-error">
+                                Masukkan alamat email yang benar!
+                              </p>
+                            )}
+                        </div>
+                      ) : attribute.fieldType === 'DATE_PICKER' ? (
+                        <section className="flex flex-col">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="date"
+                            value={date}
+                            onChange={(e) => {
+                              setDate(e.target.value);
+                              updateFormDataByName(
+                                attribute.name,
+                                e.target.value
+                              );
+                            }}
+                          />
+                          {(() => {
+                            const validationResult = dateValidation(
+                              JSON.parse(attribute.config).date_validation,
+                              date
+                            );
+                            if (validationResult !== true) {
+                              return (
+                                <p className="text-xs text-error">
+                                  {validationResult}
+                                </p>
+                              );
+                            }
+                            return null;
+                          })()}
+                        </section>
+                      ) : attribute.fieldType === 'RANGE_DATE_PICKER' ? (
+                        <section className="flex flex-col">
+                          <div className="flex xs:flex-col sm:flex-row w-full gap-2">
+                            <div className="flex flex-row gap-2 items-center w-full">
+                              <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                                From
+                              </p>
+                              <input
+                                className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                                placeholder={
+                                  JSON.parse(attribute.config).placeholder
+                                }
+                                name={attribute.name}
+                                type="date"
+                                value={rangeDate.dateFrom}
+                                onChange={(e) => {
+                                  setRangeDate({
+                                    ...rangeDate,
+                                    name: attribute.name,
+                                    dateFrom: e.target.value
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="flex flex-row gap-2 items-center w-full">
+                              <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                                To
+                              </p>
+                              <input
+                                className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                                placeholder={
+                                  JSON.parse(attribute.config).placeholder
+                                }
+                                name={attribute.name}
+                                type="date"
+                                value={rangeDate.dateTo}
+                                onChange={(e) => {
+                                  setRangeDate({
+                                    ...rangeDate,
+                                    name: attribute.name,
+                                    dateTo: e.target.value
+                                  });
+                                }}
+                              />
+                            </div>
+                          </div>
+                          {rangeDate.dateFrom &&
+                            rangeDate.dateTo &&
+                            rangeDate.dateFrom > rangeDate.dateTo && (
+                              <p className="text-xs text-error">
+                                Tanggal awal tidak boleh lebih dari tanggal
+                                akhir!
+                              </p>
+                            )}
+                        </section>
+                      ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
+                        <section className="flex flex-row gap-2 items-center">
+                          <p className="font-bold text-sm">
+                            {JSON.parse(
+                              attribute.config
+                            ).currency.toUpperCase()}
+                          </p>
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="text"
+                            value={value}
+                            onChange={(e) => {
+                              handleInputChange(
+                                e,
+                                JSON.parse(attribute.config).currency
+                              );
+                              updateFormDataByName(
+                                attribute.name,
+                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
+                              );
+                            }}
+                          />
+                        </section>
+                      ) : (
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={
+                            JSON.parse(attribute.config)?.placeholder ?? ''
+                          }
+                          name={attribute.name}
+                          type="text"
+                          value={attribute.value ?? ''}
+                          onChange={(e) => {
+                            const regex = /[^a-zA-Z ]/g;
+                            if (
+                              attribute.name === 'Nama' ||
+                              attribute.name === 'Domisili' ||
+                              attribute.name === 'Kota'
+                            ) {
+                              if (!e.target.value.match(regex)) {
+                                attribute.value = e.target.value;
+                              }
+                            } else {
+                              attribute.value = e.target.value;
+                            }
+                            updateFormDataByName(
+                              attribute.name,
+                              e.target.value
+                            );
+                            forceUpdate();
+                          }}
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            {rightSide?.map((attribute: Attribute, idx) => {
               if (attribute.name.includes('produk')) {
                 return null;
               }

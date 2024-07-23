@@ -43,12 +43,22 @@ const Content = () => {
 
   useEffect(() => {
     const fetchProviderData = async () => {
+      let locatinUser: any = null;
       setData([]);
       setLoading(true);
+      if (typeof window !== 'undefined') {
+        const location: any = localStorage.getItem('location');
+        if (location) {
+          locatinUser = JSON.parse(location);
+          console.log(locatinUser, 'locatinUser');
+        }
+      }
       const queryParams = {
         page: currentPage,
         name_contain: searchParam,
-        third_party_administration_name_contain: thirdParty
+        third_party_administration_name_contain: thirdParty,
+        latitude: locatinUser?.latitude,
+        longitude: locatinUser?.longitude
       };
       const data = await handleGetProvider(queryParams);
       if (data.responseMessage !== 'SUCCESS') {
