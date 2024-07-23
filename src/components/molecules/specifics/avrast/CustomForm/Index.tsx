@@ -587,7 +587,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             onChange={(e) => {
                               handleInputChange(
                                 e,
-                                JSON.parse(attribute.config).currency
+                                JSON.parse(attribute.config).currency,
+                                JSON.parse(attribute.config).max_decimal
                               );
                               updateFormDataByName(
                                 attribute.name,
