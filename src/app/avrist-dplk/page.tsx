@@ -52,10 +52,10 @@ const AvristSyariah = async () => {
   );
 
   const pengawas = pageContent.data.contentDataList.filter((i) =>
-    i.categoryName.toLocaleLowerCase().includes('pengawas')
+    i.categoryName?.toLocaleLowerCase().includes('pengawas')
   );
   const pengurus = pageContent.data.contentDataList
-    .filter((i) => i.categoryName.toLocaleLowerCase().includes('pengurus'))
+    .filter((i) => i.categoryName?.toLocaleLowerCase().includes('pengurus'))
     .sort((a, b) => a.id - b.id);
 
   return (
