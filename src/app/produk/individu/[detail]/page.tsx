@@ -460,7 +460,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                   className="text-purple_dark font-bold"
                   onClick={() => window.open('/keamanan-online', '_blank')}
                 >
-                  Kebijakan Keamanan
+                  Kebijakan Keamanan Online
                 </span>{' '}
                 Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
                 dihubungi oleh Avrist Life Insurance melalui media komunikasi

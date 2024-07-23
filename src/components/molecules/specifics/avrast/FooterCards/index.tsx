@@ -79,7 +79,7 @@ const FooterCards: React.FC<IFooterCards> = ({ cards, bgColor }) => {
                       : href ?? '#'
                 }
                 target={item.openInNewTab ? '_blank' : '_self'}
-                className="relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[18px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
+                className="hover:scale-105 relative border border-gray_superlight w-full h-auto pt-[24px] pb-[36px] px-[18px] rounded-xl flex flex-col gap-[1.5rem] items-center text-center shadow-md bg-white xs:max-sm:mt-4"
               >
                 <Image
                   alt={index.toString()}

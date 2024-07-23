@@ -53,10 +53,10 @@ const SyaratPengunaan = () => {
   return (
     <div className="bg-purple_superlight">
       <Hero
-        title="Keamanan Online"
+        title="Kebijakan Keamanan Online"
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
-          { title: 'Keamanan Online', href: '#' }
+          { title: 'Kebijakan Keamanan Online', href: '#' }
         ]}
         imageUrl={bannerImage}
       />

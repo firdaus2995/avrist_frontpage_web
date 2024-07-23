@@ -17,6 +17,7 @@ const Maps = ({
   currentPage,
   loading
 }: IProviderProps) => {
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const sliderRef = useRef<Slider | null>(null);
   const [mapCenter, setMapCenter] = useState<[number, number]>([
     -0.601784, 115.394436
@@ -237,6 +238,15 @@ const Maps = ({
                         lat={item.lat}
                         lng={item.lng}
                         onClickMarker={() => onClickMarker(item.lat, item.lng)}
+                        tooltip={item.tooltip}
+                        onHover={(content) => {
+                          if (content) {
+                            item.tooltip = true;
+                          } else {
+                            item.tooltip = !item.tooltip;
+                          }
+                          forceUpdate();
+                        }}
                       />
                     </div>
                   </div>

@@ -8,7 +8,8 @@
             "title": "Individu",
             "subMenus": [
               { "title": "Asuransi Jiwa", "icon": 0 },
-              { "title": "Asuransi Kesehatan", "icon": 1 }
+              { "title": "Asuransi Kesehatan", "icon": 1 },
+              { "title": "Asuransi Tambahan", "icon": 3 }
             ]
           },
           {

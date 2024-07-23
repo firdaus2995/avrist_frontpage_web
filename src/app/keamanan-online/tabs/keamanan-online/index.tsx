@@ -4,11 +4,11 @@ const KeamananOnline = () => {
   return (
     <div>
       <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem]">
-        Keamanan Online
+        Kebijakan Keamanan Online
       </p>
-      <p className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px] leading-[43.2px] -tracking-[1.08px]">
+      {/* <p className="font-karla font-bold sm:text-[36px] xs:text-[24px] text-purple_dark mt-[24px] leading-[43.2px] -tracking-[1.08px]">
         Kebijakan Keamanan Informasi
-      </p>
+      </p> */}
       <p className="font-opensans font-normal text-[20px] text-gray_body mt-[24px] leading-[28px]">
         PT. AVRIST ASSURANCE berkomitmen untuk:
       </p>
