@@ -2,6 +2,7 @@ import React from 'react';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
+import { htmlParser } from '@/utils/helpers';
 
 interface AboutHeadingProps {
   categoriesName: string;
@@ -44,21 +45,15 @@ const AboutHeading: React.FC<AboutHeadingProps> = ({
         <h1 className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px] xs:leading-[43.2px] sm:leading-[67.2px]">
           {headingText}
         </h1>
-        {subHeadingText && (
-          <p
-            className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] -tracking-[1.44px] xs:leading-[28.8px] sm:leading-[43.2px]"
-            dangerouslySetInnerHTML={{
-              __html: subHeadingText.includes('>-<') ? '' : subHeadingText
-            }}
-          />
-        )}
 
-        <p
-          className="text-[1.5rem] font-light text-justify -tracking-[0.72px] leading-[33.6px]"
-          dangerouslySetInnerHTML={{
-            __html: description
-          }}
-        />
+        <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold xs:pt-[1.5rem] xs:pb-[0.75rem] -tracking-[1.44px] xs:leading-[28.8px] sm:leading-[43.2px]">
+          {subHeadingText?.includes('>-<')
+            ? ''
+            : htmlParser(subHeadingText ?? '')}
+        </p>
+        <p className="text-[1.5rem] font-light text-justify -tracking-[0.72px] leading-[33.6px]">
+          {htmlParser(description)}
+        </p>
       </div>
       <div className="flex flex-row flex-nowrap gap-[0.75rem]">
         {tags &&

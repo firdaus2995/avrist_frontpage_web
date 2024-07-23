@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
+import { htmlParser } from '@/utils/helpers';
 
 interface IDescriptionCategoryA {
   tags: string[];
@@ -32,13 +33,10 @@ const DescriptionCategoryA = ({
         </h1>
       </div>
       <div className="flex flex-col gap-[12px]">
-        <p
-          className="xs:text-[1.5rem] md:text-[2.25rem] font-bold md:pb-0 -tracking-[1.08px] xs:leading-[28.8px] sm:leading-[43.2px]"
-          dangerouslySetInnerHTML={{
-            __html: tagLineProduk?.includes('>-<') ? '' : tagLineProduk
-          }}
-        >
-          {}
+        <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold md:pb-0 -tracking-[1.08px] xs:leading-[28.8px] sm:leading-[43.2px]">
+          {tagLineProduk?.includes('>-<')
+            ? ''
+            : htmlParser(tagLineProduk ?? '')}
         </p>
         <p
           className="md:text-[24px] xs:text-[24px] -tracking-[0.72px] leading-[33.6px]"
