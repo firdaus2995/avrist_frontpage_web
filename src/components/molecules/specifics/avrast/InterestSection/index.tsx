@@ -16,6 +16,12 @@ const InterestSection = (props: Props) => {
   const [dataForm, setDataForm] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
+  const [attachment, setAttachment] = useState(false);
+  const [attachmentPath, setAttachmentPath] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailSubjectSubmitter, setEmailSubjectSubmitter] = useState('');
+  const [emailBodySubmitter, setEmailBodySubmitter] = useState('');
   const [loading, setLoading] = useState<any>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -28,6 +34,10 @@ const InterestSection = (props: Props) => {
           setFormId(dataFormJson.data.id);
           setDataForm(dataFormJson.data.attributeList);
           setFormPic(dataFormJson.data.pic);
+          setEmailSubject(dataFormJson.data.emailSubject);
+          setEmailBody(dataFormJson.data.emailBody);
+          setEmailSubjectSubmitter(dataFormJson.data.emailSubjectSubmitter);
+          setEmailBodySubmitter(dataFormJson.data.emailBodySubmitter);
         } catch (error: any) {
           throw new Error('Error fetching form data: ', error.message);
         }
@@ -41,6 +51,16 @@ const InterestSection = (props: Props) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  useEffect(() => {
+    setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
+    setAttachmentPath(
+      formValue
+        .filter((item) => item.value.includes('/var/upload/files'))
+        .map((item) => item.value)
+        .join('|')
+    );
+  }, [formValue]);
+
   const receiveData = (
     data: any,
     isValid: boolean | ((prevState: boolean) => boolean)
@@ -53,7 +73,13 @@ const InterestSection = (props: Props) => {
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: formValue
+      placeholderValue: formValue,
+      attachment: attachment.toString(),
+      attachmentPath,
+      emailSubject,
+      emailBody,
+      emailSubjectSubmitter,
+      emailBodySubmitter
     };
     setLoading(true);
 
