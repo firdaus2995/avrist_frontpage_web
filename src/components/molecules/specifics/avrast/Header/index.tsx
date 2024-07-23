@@ -182,7 +182,9 @@ const Header = () => {
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="lightBulb" color="gray_black" />
-            <p className="font-bold text-sm leading-[19.6px]">Avrist Solution</p>
+            <p className="font-bold text-sm leading-[19.6px]">
+              Avrist Solution
+            </p>
           </a>
           <div
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"

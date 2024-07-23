@@ -56,7 +56,9 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   const sliderRef = useRef<Slider | null>(null);
   const searchParams = useSearchParams();
   const isMobile = useMobileDetector();
-  const [tab, setTab] = useState('');
+  const [tab, setTab] = useState(
+    searchParams.get('tab') ?? 'Tentang Avrist Syariah'
+  );
   // content
   const [data, setData] = useState<PageResponse>();
   const [manajemenData, setManajemenData] = useState([
@@ -188,6 +190,12 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     handleGetContentPage('halaman-tentang-avrist-syariah-new').then((res) =>
       setData(res)
     );
+    setTimeout(() => {
+      const element = document.getElementById('DewanPengawasSyariah');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    }, 100);
   }, []);
 
   useEffect(() => {
@@ -198,14 +206,14 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   }, [tab, tabs]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    scrollToElement();
+  }, [isMobile, tab]);
 
-  useEffect(() => {
+  const scrollToElement = () => {
     if (!isMobile) {
       scroller.scrollTo(tab, {
         duration: 500,
-        delay: 100,
+        delay: 50,
         smooth: true,
         spy: true,
         offset:
@@ -220,7 +228,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     } else {
       scroller.scrollTo(tab, {
         duration: 500,
-        delay: 100,
+        delay: 50,
         smooth: true,
         spy: true,
         offset:
@@ -232,7 +240,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         isDynamic: true
       });
     }
-  }, [isMobile, tab]);
+  };
 
   return (
     <div>
@@ -300,16 +308,18 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           </Element>
         )}
         {tab === 'Dewan Pengawas Syariah' && (
-          <Element name="Dewan Pengawas Syariah">
-            <DewanPengawasSyariah
-              title={dewanPengawasJudul}
-              subTitle={dewanPengawasSubJudul}
-              desc={dewanPengawasDeskripsi}
-              boards={manajemenData}
-              manfaatUtamaJudul={manfaatUtamaJudul}
-              manfaatUtamaDesc={manfaatUtamaDeskripsi}
-            />
-          </Element>
+          <div id="DewanPengawasSyariah">
+            <Element name="Dewan Pengawas Syariah">
+              <DewanPengawasSyariah
+                title={dewanPengawasJudul}
+                subTitle={dewanPengawasSubJudul}
+                desc={dewanPengawasDeskripsi}
+                boards={manajemenData}
+                manfaatUtamaJudul={manfaatUtamaJudul}
+                manfaatUtamaDesc={manfaatUtamaDeskripsi}
+              />
+            </Element>
+          </div>
         )}
         {tab === 'Manfaat Utama' && (
           <Element name="Manfaat Utama">

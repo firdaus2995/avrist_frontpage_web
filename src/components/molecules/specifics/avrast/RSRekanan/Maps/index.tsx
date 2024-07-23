@@ -124,7 +124,7 @@ const Maps = ({
   });
 
   useEffect(() => {
-    setMapCenter([-0.601784, 115.394436]);
+    // setMapCenter([-0.601784, 115.394436]);
     setMapZoom(4.5);
 
     if (hospitalData.length <= 2 && hospitalData.length !== 0) {
@@ -148,6 +148,18 @@ const Maps = ({
       setMapZoom(17);
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const location: any = localStorage.getItem('location');
+      if (location) {
+        const locationObj = JSON.parse(location);
+
+        setMapCenter([locationObj?.latitude, locationObj?.longitude]);
+        setMapZoom(17);
+      }
+    }
+  }, []);
 
   return (
     <div className="sm:min-w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[24px] pb-6">
