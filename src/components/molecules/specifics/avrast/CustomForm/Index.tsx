@@ -165,7 +165,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
       const isNotEmpty = formData?.every((item) => {
         if (
           isRequired(item.name) &&
-          !item.name.toLocaleLowerCase().includes('produk')
+          !item.name?.toLocaleLowerCase().includes('produk')
         ) {
           if (item.value.includes(';')) {
             return;
