@@ -26,6 +26,7 @@ const Maps = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [controlNextNav, setControlNextNav] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
+  const [locationFlag, setLocationFlag] = useState(false);
 
   const next = () => {
     if (controlNextNav) return null;
@@ -126,7 +127,7 @@ const Maps = ({
 
   useEffect(() => {
     // setMapCenter([-0.601784, 115.394436]);
-    setMapZoom(4.5);
+    // setMapZoom(4.5);
 
     if (hospitalData.length <= 2 && hospitalData.length !== 0) {
       setControlNextNav(true);
@@ -155,9 +156,12 @@ const Maps = ({
       const location: any = localStorage.getItem('location');
       if (location) {
         const locationObj = JSON.parse(location);
+        setMapZoom(17);
+        setLocationFlag(true);
 
         setMapCenter([locationObj?.latitude, locationObj?.longitude]);
-        setMapZoom(17);
+      } else {
+        setLocationFlag(false);
       }
     }
   }, []);
@@ -167,7 +171,7 @@ const Maps = ({
       <div className="w-full h-[43.75rem] xs:max-h-[339px] sm:max-h-[691px] rounded-t-[0.75rem] z-0">
         <MapContainer
           center={defaultProps.center}
-          zoom={4.5}
+          zoom={mapZoom}
           className="w-full h-full"
         >
           <ChangeView center={mapCenter} zoom={mapZoom} />
@@ -175,6 +179,15 @@ const Maps = ({
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {locationFlag && (
+            <Marker position={mapCenter} icon={markerIcon}>
+              <Popup>
+                <div className="flex flex-col gap-2">
+                  <div>{'Lokasi Anda'}</div>
+                </div>
+              </Popup>
+            </Marker>
+          )}
           {hospitalData?.map((marker, index) => (
             <Marker
               key={index}

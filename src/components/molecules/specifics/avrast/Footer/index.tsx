@@ -9,7 +9,7 @@ import APPSTORE from '@/assets/images/avrast/appstore.svg';
 import GOOGLEPLAY from '@/assets/images/avrast/googleplay.svg';
 import AVRIST_LOGO from '@/assets/images/avrast/logo.svg';
 import FOOTER_IMAGE from '@/assets/images/footer-image.svg';
-import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
+// import REKSADANA_IMAGE from '@/assets/images/reksadana-logo.svg';
 import Icon from '@/components/atoms/Icon';
 import { EXTERNAL_URL } from '@/utils/baseUrl';
 

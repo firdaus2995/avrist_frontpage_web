@@ -152,7 +152,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         kategoriProdukIcon,
         fileRiplay,
         fileBrosur,
-        categoryTitle: jsonData.data.categoryName,
+        categoryTitle: jsonData?.data?.categories[0]?.categoryName,
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
@@ -349,12 +349,12 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   return (
     <div className="flex flex-col">
       <Hero
-        title={dataDetail?.namaProduk}
+        title={dataDetail?.categoryTitle}
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           { title: 'Produk', href: '/produk/individu' },
           {
-            title: dataDetail?.namaProduk,
+            title: dataDetail?.categoryTitle,
             href: '/produk/individu/avrist-pasti'
           }
         ]}

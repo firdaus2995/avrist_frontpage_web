@@ -40,7 +40,9 @@ const CardCategoryA = ({
       <div className="flex flex-col gap-[0.75rem]">
         <div className="flex flex-row items-center gap-[8px]">
           <Image width={24} height={24} alt="symbol" src={symbol} />
-          <p className={`font-bold text-sm font-opensans`}>{title}</p>
+          <p className={`font-bold text-sm font-opensans text-purple_dark`}>
+            {title}
+          </p>
         </div>
         <p className="text-[32px] font-bold leading-[38.4px] xs:-tracking-[1.44px] sm:-tracking-[2.56px] font-karla">
           {summary}
