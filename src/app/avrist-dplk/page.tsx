@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import DPLKContent from './DPLKContent';
+import dynamic from 'next/dynamic';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
 import ProdukRumahSakit from '@/assets/images/produk-rumah-sakit.svg';
@@ -27,6 +27,8 @@ const AvristSyariah = async () => {
   const pageBase = await handleGetContentPage(
     BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
   );
+
+  const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false })
 
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
