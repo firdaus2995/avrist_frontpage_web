@@ -20,6 +20,12 @@ export const KarirModal = (props: Props) => {
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [attachment, setAttachment] = useState(false);
+  const [attachmentPath, setAttachmentPath] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailSubjectSubmitter, setEmailSubjectSubmitter] = useState('');
+  const [emailBodySubmitter, setEmailBodySubmitter] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
 
   const fetchForm = async () => {
@@ -30,6 +36,10 @@ export const KarirModal = (props: Props) => {
       setDataForm(jsonData.data.attributeList);
       setFormId(jsonData.data.id);
       setFormPic(jsonData.data.pic);
+      setEmailSubject(jsonData.data.emailSubject);
+      setEmailBody(jsonData.data.emailBody);
+      setEmailSubjectSubmitter(jsonData.data.emailSubjectSubmitter);
+      setEmailBodySubmitter(jsonData.data.emailBodySubmitter);
     } catch (err) {
       console.error(err);
     }
@@ -49,6 +59,16 @@ export const KarirModal = (props: Props) => {
     }));
   };
 
+  useEffect(() => {
+    setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
+    setAttachmentPath(
+      formValue
+        .filter((item) => item.value.includes('/var/upload/files'))
+        .map((item) => item.value)
+        .join('|')
+    );
+  }, [formValue]);
+
   const receiveData = (
     data: any,
     isValid: boolean | ((prevState: boolean) => boolean)
@@ -61,21 +81,25 @@ export const KarirModal = (props: Props) => {
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: formValue
+      placeholderValue: formValue,
+      attachment: attachment.toString(),
+      attachmentPath,
+      emailSubject,
+      emailBody,
+      emailSubjectSubmitter,
+      emailBodySubmitter
     };
-
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
       setSuccess(true);
     }
-
     if (data.status !== 'OK') {
       console.error('Error:', data.errors.message);
       router.refresh();
     }
   };
 
-  console.log(dataForm);
+  console.log(formId, formPic, formValue, attachment, attachmentPath);
 
   return (
     <Transition appear show={show} as={Fragment}>

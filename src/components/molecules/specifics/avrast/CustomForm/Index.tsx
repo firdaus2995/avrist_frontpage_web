@@ -47,6 +47,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
     dateTo: ''
   });
   const [value, setValue] = useState('');
+  const [validPhoneNumber, setValidPhoneNumber] = useState<null | boolean>(
+    null
+  );
 
   const updateFormDataByName = (name: string, value: string) => {
     setFormData((prevData) => {
@@ -110,15 +113,40 @@ const CustomForm: React.FC<CustomFormProps> = ({
     }
   };
 
-  const handleInputChange = (e: any, currency: string) => {
+  const handleInputChange = async (
+    e: any,
+    currency: string,
+    maxDecimal: number
+  ) => {
     const inputValue = e.target.value;
     // Prevent '0' as the first character
     if (inputValue.startsWith('0') && inputValue.length === 1) {
       setValue('');
       return;
     }
-    const formattedValue = formatCurrency(inputValue, currency);
+    const formattedValue = await formatCurrency(inputValue, currency);
     setValue(formattedValue);
+    setTimeout(() => {
+      if (maxDecimal > 0) {
+        if (currency.toLowerCase() === 'idr') {
+          const integer = formattedValue.split(',')[0];
+          const decimal = formattedValue.split(',')[1];
+          formattedValue.includes(',') &&
+            decimal.length > maxDecimal &&
+            setValue(
+              `${integer},${decimal.replace('.', '').slice(0, maxDecimal)}`
+            );
+        } else {
+          const integer = formattedValue.split('.')[0];
+          const decimal = formattedValue.split('.')[1];
+          formattedValue.includes('.') &&
+            decimal.length > maxDecimal &&
+            setValue(`${integer}.${decimal.replace(',', '').slice(0, 2)}`);
+        }
+      } else {
+        setValue(formattedValue);
+      }
+    }, 10);
   };
 
   const formatCurrency = (value: any, currency: string) => {
@@ -134,7 +162,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
       return integerPart;
     } else {
-      // Allow only digits and commas
+      // Allow only digits and period
       value = value.replace(/[^\d.]/g, '');
 
       // Split the input value into integer and decimal parts
@@ -153,7 +181,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
         dataForm
           ?.filter((data) => data.fieldType !== 'LABEL')
           .map((item) => ({
-            name: item.name,
+            name: item.componentId,
             value: item.value ? item.value : ''
           }))
       );
@@ -203,7 +231,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
         isNotEmpty &&
           isEmailValid &&
           isNasabahCheckboxValid &&
-          isGenderCheckboxValid
+          isGenderCheckboxValid &&
+          validPhoneNumber === true
       );
     }
   }, [formData, resultData]);
@@ -246,6 +275,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
   const isAlphaNumeric = (name: string) => {
     return name.toLowerCase().includes('pendidikan');
   };
+
+  console.log(formData);
 
   const dateValidation = (
     date_validation: string,
@@ -639,7 +670,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       ) : attribute.fieldType === 'DROPDOWN' ? (
                         <select
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                         >
@@ -675,7 +709,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             onChange={(e) =>
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               )
                             }
@@ -687,6 +721,42 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             (JSON.parse(attribute.config).max_length === '0'
                               ? 500
                               : JSON.parse(attribute.config).max_length)}
+                        </div>
+                      ) : attribute.fieldType === 'PHONE_NUMBER' ? (
+                        <div className="flex grow shrink-0">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder="Masukan nomor telepon"
+                            name={attribute.name}
+                            maxLength={JSON.parse(attribute.config).max_length}
+                            type="text"
+                            onChange={(e) => {
+                              if (
+                                isNumber(e.target.value) ||
+                                e.target.value === ''
+                              ) {
+                                updateFormDataByName(
+                                  attribute.componentId,
+                                  e.target.value
+                                );
+                              }
+                              if (
+                                e.target.value.length <
+                                JSON.parse(attribute.config).min_length
+                              ) {
+                                setValidPhoneNumber(false);
+                              } else {
+                                setValidPhoneNumber(true);
+                              }
+                            }}
+                            onInput={handleInput}
+                            pattern="[0-9]*"
+                          />
+                          {validPhoneNumber === false && (
+                            <p className="text-xs text-error">
+                              Masukkan jumlah nomor telepon yang benar!
+                            </p>
+                          )}
                         </div>
                       ) : attribute.name.includes('Telepon') ? (
                         <div className="flex grow shrink-0">
@@ -702,7 +772,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 e.target.value === ''
                               ) {
                                 updateFormDataByName(
-                                  attribute.name,
+                                  attribute.componentId,
                                   e.target.value
                                 );
                               }
@@ -728,16 +798,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             name={attribute.name}
                             onChange={(e) =>
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               )
                             }
                           />
-                          {formData.find((i) => i.name === attribute.name)
-                            ?.value !== '' &&
+                          {formData.find(
+                            (i) => i.name === attribute.componentId
+                          )?.value !== '' &&
                             !validateEmail(
-                              formData.find((i) => i.name === attribute.name)
-                                ?.value ?? ''
+                              formData.find(
+                                (i) => i.name === attribute.componentId
+                              )?.value ?? ''
                             ) && (
                               <p className="text-xs text-error">
                                 Masukkan alamat email yang benar!
@@ -753,11 +825,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             name={attribute.name}
                             type="date"
-                            value={date}
                             onChange={(e) => {
                               setDate(e.target.value);
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               );
                             }}
@@ -795,7 +866,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 onChange={(e) => {
                                   setRangeDate({
                                     ...rangeDate,
-                                    name: attribute.name,
+                                    name: attribute.componentId,
                                     dateFrom: e.target.value
                                   });
                                 }}
@@ -816,7 +887,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 onChange={(e) => {
                                   setRangeDate({
                                     ...rangeDate,
-                                    name: attribute.name,
+                                    name: attribute.componentId,
                                     dateTo: e.target.value
                                   });
                                 }}
@@ -850,10 +921,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             onChange={(e) => {
                               handleInputChange(
                                 e,
-                                JSON.parse(attribute.config).currency
+                                JSON.parse(attribute.config).currency,
+                                JSON.parse(attribute.config).max_decimal
                               );
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
                               );
                             }}
@@ -882,7 +954,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               attribute.value = e.target.value;
                             }
                             updateFormDataByName(
-                              attribute.name,
+                              attribute.componentId,
                               e.target.value
                             );
                             forceUpdate();
@@ -919,7 +991,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               value={option}
                               onChange={(e) =>
                                 updateFormDataByName(
-                                  attribute.name,
+                                  attribute.componentId,
                                   e.target.value
                                 )
                               }
@@ -929,7 +1001,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.fieldType === 'DROPDOWN' ? (
                       <select
                         onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          )
                         }
                         className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
                       >
@@ -962,7 +1037,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               : JSON.parse(attribute.config).max_length
                           }
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                         />
                         {formData?.find((item) => item.name === attribute.name)
@@ -972,6 +1050,42 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             ? 500
                             : JSON.parse(attribute.config).max_length)}
                       </div>
+                    ) : attribute.fieldType === 'PHONE_NUMBER' ? (
+                      <div className="flex grow shrink-0">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder="Masukan nomor telepon"
+                          name={attribute.name}
+                          maxLength={JSON.parse(attribute.config).max_length}
+                          type="text"
+                          onChange={(e) => {
+                            if (
+                              isNumber(e.target.value) ||
+                              e.target.value === ''
+                            ) {
+                              updateFormDataByName(
+                                attribute.componentId,
+                                e.target.value
+                              );
+                            }
+                            if (
+                              e.target.value.length <
+                              JSON.parse(attribute.config).min_length
+                            ) {
+                              setValidPhoneNumber(false);
+                            } else {
+                              setValidPhoneNumber(true);
+                            }
+                          }}
+                          onInput={handleInput}
+                          pattern="[0-9]*"
+                        />
+                        {validPhoneNumber === false && (
+                          <p className="text-xs text-error">
+                            Masukkan jumlah nomor telepon yang benar!
+                          </p>
+                        )}
+                      </div>
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex grow shrink-0">
                         <input
@@ -980,7 +1094,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           name={attribute.name}
                           type="text"
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                           onInput={handleInput}
                           pattern="[0-9]*"
@@ -993,20 +1110,133 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           placeholder={JSON.parse(attribute.config).placeholder}
                           name={attribute.name}
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                         />
-                        {formData.find((i) => i.name === attribute.name)
+                        {formData.find((i) => i.name === attribute.componentId)
                           ?.value !== '' &&
                           !validateEmail(
-                            formData.find((i) => i.name === attribute.name)
-                              ?.value ?? ''
+                            formData.find(
+                              (i) => i.name === attribute.componentId
+                            )?.value ?? ''
                           ) && (
                             <p className="text-xs text-error">
                               Masukkan alamat email yang benar!
                             </p>
                           )}
                       </div>
+                    ) : attribute.fieldType === 'DATE_PICKER' ? (
+                      <section className="flex flex-col">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          type="date"
+                          value={date}
+                          onChange={(e) => {
+                            setDate(e.target.value);
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            );
+                          }}
+                        />
+                        {(() => {
+                          const validationResult = dateValidation(
+                            JSON.parse(attribute.config).date_validation,
+                            date
+                          );
+                          if (validationResult !== true) {
+                            return (
+                              <p className="text-xs text-error">
+                                {validationResult}
+                              </p>
+                            );
+                          }
+                          return null;
+                        })()}
+                      </section>
+                    ) : attribute.fieldType === 'RANGE_DATE_PICKER' ? (
+                      <section className="flex flex-col">
+                        <div className="flex xs:flex-col sm:flex-row w-full gap-2">
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                              From
+                            </p>
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="date"
+                              value={rangeDate.dateFrom}
+                              onChange={(e) => {
+                                setRangeDate({
+                                  ...rangeDate,
+                                  name: attribute.componentId,
+                                  dateFrom: e.target.value
+                                });
+                              }}
+                            />
+                          </div>
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                              To
+                            </p>
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="date"
+                              value={rangeDate.dateTo}
+                              onChange={(e) => {
+                                setRangeDate({
+                                  ...rangeDate,
+                                  name: attribute.componentId,
+                                  dateTo: e.target.value
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+                        {rangeDate.dateFrom &&
+                          rangeDate.dateTo &&
+                          rangeDate.dateFrom > rangeDate.dateTo && (
+                            <p className="text-xs text-error">
+                              Tanggal awal tidak boleh lebih dari tanggal akhir!
+                            </p>
+                          )}
+                      </section>
+                    ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
+                      <section className="flex flex-row gap-2 items-center">
+                        <p className="font-bold text-sm">
+                          {JSON.parse(attribute.config).currency.toUpperCase()}
+                        </p>
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          type="text"
+                          value={value}
+                          onChange={(e) => {
+                            handleInputChange(
+                              e,
+                              JSON.parse(attribute.config).currency,
+                              JSON.parse(attribute.config).max_decimal
+                            );
+                            updateFormDataByName(
+                              attribute.componentId,
+                              `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
+                            );
+                          }}
+                        />
+                      </section>
                     ) : (
                       <input
                         className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -1022,7 +1252,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           } else {
                             attribute.value = e.target.value;
                           }
-                          updateFormDataByName(attribute.name, e.target.value);
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          );
                           forceUpdate();
                         }}
                       />
@@ -1062,7 +1295,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           label={option}
                           value={option}
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                         />
                       ))
@@ -1070,7 +1306,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     attribute.name.includes('produk') ? null : (
                       <select
                         onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          )
                         }
                         className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
                       >
@@ -1098,13 +1337,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         placeholder={JSON.parse(attribute.config).placeholder}
                         name={attribute.name}
                         onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          )
                         }
                       />
-                      {formData.find((i) => i.name === attribute.name)
+                      {formData.find((i) => i.name === attribute.componentId)
                         ?.value !== '' &&
                         !validateEmail(
-                          formData.find((i) => i.name === attribute.name)
+                          formData.find((i) => i.name === attribute.componentId)
                             ?.value ?? ''
                         ) && (
                           <p className="text-xs text-error">
@@ -1128,7 +1370,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         type="file"
                         ref={fileInputRef}
                         accept=".pdf"
-                        onChange={(e) => handleUploadChange(attribute.name, e)}
+                        onChange={(e) =>
+                          handleUploadChange(attribute.componentId, e)
+                        }
                         className="hidden"
                       />
                       <button
@@ -1150,7 +1394,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         const regexAlphaNumeric = /[^a-zA-Z0-9]/g;
 
                         const updateForm = () => {
-                          updateFormDataByName(attribute.name, e.target.value);
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          );
                           forceUpdate();
                         };
 
@@ -1208,7 +1455,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             value={option}
                             onChange={(e) =>
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               )
                             }
@@ -1218,7 +1465,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.fieldType === 'DROPDOWN' ? (
                       <select
                         onChange={(e) =>
-                          updateFormDataByName(attribute.name, e.target.value)
+                          updateFormDataByName(
+                            attribute.componentId,
+                            e.target.value
+                          )
                         }
                         className={`w-full px-[1rem] py-[0.625rem] border ${customFormClassname ?? 'border-purple_dark text-purple_dark'} rounded-xl focus:outline-none focus:border-blue-500`}
                       >
@@ -1253,6 +1503,42 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           </option>
                         ))}
                       </select>
+                    ) : attribute.fieldType === 'PHONE_NUMBER' ? (
+                      <div className="flex flex-col grow shrink-0">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder="Masukan nomor telepon"
+                          name={attribute.name}
+                          maxLength={JSON.parse(attribute.config).max_length}
+                          type="text"
+                          onChange={(e) => {
+                            if (
+                              isNumber(e.target.value) ||
+                              e.target.value === ''
+                            ) {
+                              updateFormDataByName(
+                                attribute.componentId,
+                                e.target.value
+                              );
+                            }
+                            if (
+                              e.target.value.length <
+                              JSON.parse(attribute.config).min_length
+                            ) {
+                              setValidPhoneNumber(false);
+                            } else {
+                              setValidPhoneNumber(true);
+                            }
+                          }}
+                          onInput={handleInput}
+                          pattern="[0-9]*"
+                        />
+                        {validPhoneNumber === false && (
+                          <p className="text-xs text-error">
+                            Masukkan jumlah nomor telepon yang benar!
+                          </p>
+                        )}
+                      </div>
                     ) : attribute.name.includes('Telepon') ? (
                       <div className="flex grow shrink-0">
                         <input
@@ -1261,7 +1547,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           name={attribute.name}
                           type="text"
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                           onInput={handleInput}
                           pattern="[0-9]*"
@@ -1284,7 +1573,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           ref={fileInputRef}
                           accept=".pdf"
                           onChange={(e) =>
-                            handleUploadChange(attribute.name, e)
+                            handleUploadChange(attribute.componentId, e)
                           }
                           className="hidden"
                         />
@@ -1294,6 +1583,125 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         >
                           Browse
                         </button>
+                      </div>
+                    ) : attribute.fieldType === 'DATE_PICKER' ? (
+                      <section className="flex flex-col">
+                        <input
+                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          placeholder={JSON.parse(attribute.config).placeholder}
+                          name={attribute.name}
+                          type="date"
+                          value={date}
+                          onChange={(e) => {
+                            setDate(e.target.value);
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            );
+                          }}
+                        />
+                        {(() => {
+                          const validationResult = dateValidation(
+                            JSON.parse(attribute.config).date_validation,
+                            date
+                          );
+                          if (validationResult !== true) {
+                            return (
+                              <p className="text-xs text-error">
+                                {validationResult}
+                              </p>
+                            );
+                          }
+                          return null;
+                        })()}
+                      </section>
+                    ) : attribute.fieldType === 'RANGE_DATE_PICKER' ? (
+                      <section className="flex flex-col">
+                        <div className="flex xs:flex-col sm:flex-row w-full gap-2">
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                              From
+                            </p>
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="date"
+                              value={rangeDate.dateFrom}
+                              onChange={(e) => {
+                                setRangeDate({
+                                  ...rangeDate,
+                                  name: attribute.componentId,
+                                  dateFrom: e.target.value
+                                });
+                              }}
+                            />
+                          </div>
+                          <div className="flex flex-row gap-2 items-center w-full">
+                            <p className="text-sm font-bold font-opensans xs:w-[15%] sm:w-auto">
+                              To
+                            </p>
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="date"
+                              value={rangeDate.dateTo}
+                              onChange={(e) => {
+                                setRangeDate({
+                                  ...rangeDate,
+                                  name: attribute.componentId,
+                                  dateTo: e.target.value
+                                });
+                              }}
+                            />
+                          </div>
+                        </div>
+                        {rangeDate.dateFrom &&
+                          rangeDate.dateTo &&
+                          rangeDate.dateFrom > rangeDate.dateTo && (
+                            <p className="text-xs text-error">
+                              Tanggal awal tidak boleh lebih dari tanggal akhir!
+                            </p>
+                          )}
+                      </section>
+                    ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
+                      <div className="flex flex-col">
+                        <section className="flex flex-row gap-2 items-center">
+                          <p className="font-bold text-sm">
+                            {JSON.parse(
+                              attribute.config
+                            ).currency.toUpperCase()}
+                          </p>
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="text"
+                            value={value}
+                            onChange={(e) => {
+                              handleInputChange(
+                                e,
+                                JSON.parse(attribute.config).currency,
+                                JSON.parse(attribute.config).max_decimal
+                              );
+                              updateFormDataByName(
+                                attribute.componentId,
+                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
+                              );
+                            }}
+                          />
+                        </section>
+                        <p className="text-xs text-error">
+                          Minimal input adalah{' '}
+                          {JSON.parse(attribute.config).min_value}!
+                        </p>
                       </div>
                     ) : (
                       <input
@@ -1308,7 +1716,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
                           const updateForm = () => {
                             updateFormDataByName(
-                              attribute.name,
+                              attribute.componentId,
                               e.target.value
                             );
                             forceUpdate();

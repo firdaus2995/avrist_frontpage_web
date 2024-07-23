@@ -61,6 +61,12 @@ export const MainContent = ({
   const [dataFormId, setDataFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [, setAttachment] = useState(false);
+  const [, setAttachmentPath] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailSubjectSubmitter, setEmailSubjectSubmitter] = useState('');
+  const [emailBodySubmitter, setEmailBodySubmitter] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
@@ -110,6 +116,10 @@ export const MainContent = ({
           setDataForm(dataFormJson.data.attributeList);
           setDataFormId(dataFormJson.data.id);
           setFormPic(dataFormJson.data.pic);
+          setEmailSubject(dataFormJson.data.emailSubject);
+          setEmailBody(dataFormJson.data.emailBody);
+          setEmailSubjectSubmitter(dataFormJson.data.emailSubjectSubmitter);
+          setEmailBodySubmitter(dataFormJson.data.emailBodySubmitter);
         } catch (error: any) {
           throw new Error('Error fetching form data: ', error.message);
         }
@@ -118,6 +128,16 @@ export const MainContent = ({
       fetchDataForm().then();
     }
   }, [formId]);
+
+  useEffect(() => {
+    setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
+    setAttachmentPath(
+      formValue
+        .filter((item) => item.value.includes('/var/upload/files'))
+        .map((item) => item.value)
+        .join('|')
+    );
+  }, [formValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -167,7 +187,11 @@ export const MainContent = ({
       queryParams = {
         id: dataFormId,
         pic: formPic,
-        placeholderValue: formValue
+        placeholderValue: formValue,
+        emailSubject,
+        emailBody,
+        emailSubjectSubmitter,
+        emailBodySubmitter
       };
     } else {
       queryParams = {
@@ -175,7 +199,11 @@ export const MainContent = ({
         pic: formPic,
         placeholderValue: formValue,
         attachment: true,
-        attachment_path: attachmentFile
+        attachment_path: attachmentFile,
+        emailSubject,
+        emailBody,
+        emailSubjectSubmitter,
+        emailBodySubmitter
       };
     }
     const size10Mb = 10 * 1024;

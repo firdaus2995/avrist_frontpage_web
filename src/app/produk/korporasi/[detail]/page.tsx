@@ -55,6 +55,12 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
+  const [attachment, setAttachment] = useState(false);
+  const [attachmentPath, setAttachmentPath] = useState('');
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailBody, setEmailBody] = useState('');
+  const [emailSubjectSubmitter, setEmailSubjectSubmitter] = useState('');
+  const [emailBodySubmitter, setEmailBodySubmitter] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
@@ -263,6 +269,10 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           setDataForm(dataFormJson.data.attributeList);
           setFormId(dataFormJson.data.id);
           setFormPic(dataFormJson.data.pic);
+          setEmailSubject(dataFormJson.data.emailSubject);
+          setEmailBody(dataFormJson.data.emailBody);
+          setEmailSubjectSubmitter(dataFormJson.data.emailSubjectSubmitter);
+          setEmailBodySubmitter(dataFormJson.data.emailBodySubmitter);
         } catch (error: any) {
           throw new Error('Error fetching form data: ', error.message);
         }
@@ -271,6 +281,16 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
       fetchDataForm().then();
     }
   }, [dataDetail]);
+
+  useEffect(() => {
+    setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
+    setAttachmentPath(
+      formValue
+        .filter((item) => item.value.includes('/var/upload/files'))
+        .map((item) => item.value)
+        .join('|')
+    );
+  }, [formValue]);
 
   let titleImage, footerImage;
 
@@ -306,7 +326,13 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: updatedData
+      placeholderValue: updatedData,
+      attachment: attachment.toString(),
+      attachmentPath,
+      emailSubject,
+      emailBody,
+      emailSubjectSubmitter,
+      emailBodySubmitter
     };
 
     const data = await handleSendEmail(queryParams);
