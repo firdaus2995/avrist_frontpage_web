@@ -82,7 +82,9 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         );
 
         const id = item.id;
-        const category = item.categoryName;
+        const category = item.categories
+          .map((item: any) => item.categoryName)
+          .join(', ');
         const tagline = content['tags'].value;
         const judul = content['judul-artikel'].value;
         const penulis = content['penulis-artikel'].value;
@@ -152,10 +154,14 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
-    setCurrentCategory(jsonData.data.categoryName);
+    setCurrentCategory(
+      jsonData.data.categories.map((item: any) => item.categoryName).join(', ')
+    );
 
     const tagline = content['tags'].value;
-    const category = jsonData.data.categoryName;
+    const category = jsonData.data.categories
+      .map((item: any) => item.categoryName)
+      .join(', ');
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
@@ -248,6 +254,8 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         ].scrollIntoView({ behavior: 'smooth', block: !lastIndex ? 'nearest' : 'center', inline: 'end' });
     }
   };
+
+  console.log(contentData);
 
   return (
     <div className="flex flex-col">

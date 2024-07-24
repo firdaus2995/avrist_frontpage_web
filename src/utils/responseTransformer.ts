@@ -1,5 +1,12 @@
 import { BASE_URL } from './baseUrl';
-import { ContentCategoryResponse, ContentData, ContentDetailResponse, ContentResponse, DetailDataPage, DetailPage } from '@/types/content.type';
+import {
+  ContentCategoryResponse,
+  ContentData,
+  ContentDetailResponse,
+  ContentResponse,
+  DetailDataPage,
+  DetailPage
+} from '@/types/content.type';
 import { ContentDatum, PageResponse } from '@/types/page.type';
 
 export const pageTransformer = (data?: PageResponse) => {
@@ -16,26 +23,37 @@ export const pageTransformer = (data?: PageResponse) => {
   return { title: '', content: {}, fieldId: [] };
 };
 
-export const contentCategoryTransformer = (data: ContentCategoryResponse, category: string) => {
+export const contentCategoryTransformer = (
+  data: ContentCategoryResponse,
+  category: string
+) => {
   try {
-    
     const categoryData = data.data.categoryList[category];
     if (!categoryData || categoryData.length === 0) {
-      throw new Error("Category data is empty or not found.");
+      throw new Error('Category data is empty or not found.');
     }
 
-    return categoryData.map(({ title, contentData, id, createdAt, categoryDescription, categoryName, shortDesc }: ContentData) => {
-      return {
-        ...handleTransformedContent(contentData, title),
+    return categoryData.map(
+      ({
+        title,
+        contentData,
         id,
         createdAt,
         categoryDescription,
-        categoryName,
+        categories,
         shortDesc
-      };
-    });
-  }
-  catch(error) {
+      }: ContentData) => {
+        return {
+          ...handleTransformedContent(contentData, title),
+          id,
+          createdAt,
+          categoryDescription,
+          categories,
+          shortDesc
+        };
+      }
+    );
+  } catch (error) {
     console.error(error);
     return [];
   }
@@ -51,7 +69,10 @@ export const contentDetailTransformer = (data: ContentDetailResponse) => {
   return handleTransformedContent(contentData, '');
 };
 
-export const handleTransformedContent = (contentData: ContentDatum[], title: string) => {
+export const handleTransformedContent = (
+  contentData: ContentDatum[],
+  title: string
+) => {
   const transformedDataContent = contentData.reduce((acc, obj) => {
     // @ts-ignore
     acc[obj.fieldId] = obj;

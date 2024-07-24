@@ -74,6 +74,8 @@ export const MainContent = ({
   const [attachmentFile, setAttachmentFile] = useState('');
   const [attachmentFileSize, setAttachmentFileSize] = useState(0);
 
+  console.log(categories, selectedCategory);
+
   useEffect(() => {
     const params = {
       selectedCategory,
@@ -380,7 +382,9 @@ const fetchContentData = async (params: {
         (item: any) => {
           return {
             ...handleTransformedContent(item.contentData, item.title),
-            categoryName: item.categoryName,
+            categoryName: item.categories
+              .map((item: any) => item.categoryName)
+              .join(', '),
             id: item.id
           };
         }

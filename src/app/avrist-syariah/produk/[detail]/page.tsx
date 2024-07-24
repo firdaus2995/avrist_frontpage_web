@@ -149,7 +149,9 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         kategoriProdukIcon,
         fileRiplay,
         fileBrosur,
-        categoryTitle: jsonData.data.categoryName,
+        categoryTitle: jsonData.data.categories
+          .map((item: any) => item.categoryName)
+          .join(', '),
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
