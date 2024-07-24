@@ -152,7 +152,9 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         kategoriProdukIcon,
         fileRiplay,
         fileBrosur,
-        categoryTitle: jsonData?.data?.categories[0]?.categoryName,
+        categoryTitle: jsonData?.data?.categories
+          ?.map((item: any) => item.categoryName)
+          .join(', '),
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 

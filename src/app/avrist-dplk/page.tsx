@@ -28,7 +28,7 @@ const AvristSyariah = async () => {
     BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
   );
 
-  const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false })
+  const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false });
 
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
@@ -52,10 +52,12 @@ const AvristSyariah = async () => {
   );
 
   const pengawas = pageContent.data.contentDataList.filter((i) =>
-    i.categoryName?.toLocaleLowerCase().includes('pengawas')
+    JSON.stringify(i.categories)?.toLocaleLowerCase().includes('pengawas')
   );
   const pengurus = pageContent.data.contentDataList
-    .filter((i) => i.categoryName?.toLocaleLowerCase().includes('pengurus'))
+    .filter((i) =>
+      JSON.stringify(i.categories)?.toLocaleLowerCase().includes('pengurus')
+    )
     .sort((a, b) => a.id - b.id);
 
   return (

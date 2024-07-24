@@ -96,7 +96,7 @@ const SearchForm = () => {
         }
 
         const dataContentValues = listData?.map(
-          ({ content, id, createdAt, categoryName, shortDesc }) => {
+          ({ content, id, createdAt, categories, shortDesc }) => {
             if (selectedTab.title === 'Avristory') {
               const namaFile = contentStringTransformer(
                 content['nama-file-bulletin']
@@ -114,7 +114,9 @@ const SearchForm = () => {
                 content['artikel-thumbnail']
               ).imageUrl;
               const tags = contentStringTransformer(content['tags']);
-              const category = categoryName;
+              const category = categories
+                .map((item: any) => item.categoryName)
+                .join(', ');
               const waktuBaca = content['waktu-baca-artikel'].value;
               const differenceTime = formatTimeDifference(
                 new Date(createdAt),
