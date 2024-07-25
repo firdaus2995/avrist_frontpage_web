@@ -78,8 +78,8 @@ const InterestSection = (props: Props) => {
       attachmentPath,
       emailSubject,
       emailBody,
-      emailSubjectSubmitter,
-      emailBodySubmitter
+      emailSubjectSubmitter: emailSubjectSubmitter ?? '',
+      emailBodySubmitter: emailBodySubmitter ?? ''
     };
     setLoading(true);
 
@@ -94,6 +94,14 @@ const InterestSection = (props: Props) => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormValue((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
   return (
     <div className="w-full flex xs:px-[2rem] md:px-[8.5rem] xs:py-[3.125rem] md:py-[5.125rem] bg-purple_superlight justify-center">
       <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
@@ -102,11 +110,12 @@ const InterestSection = (props: Props) => {
         </p>
         {dataForm && (
           <CustomForm
+            customFormClassname="xs:!p-[1.5rem] sm:!p-[2.25rem]"
+            onChange={handleChange}
             dataForm={dataForm}
-            customFormClassname="border-none p-[0rem]"
-            title=" "
-            type="Hubungi Kami"
             resultData={receiveData}
+            selectedProduct={'-'}
+            title=" "
           />
         )}
 

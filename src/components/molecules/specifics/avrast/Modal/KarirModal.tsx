@@ -86,8 +86,8 @@ export const KarirModal = (props: Props) => {
       attachmentPath,
       emailSubject,
       emailBody,
-      emailSubjectSubmitter,
-      emailBodySubmitter
+      emailSubjectSubmitter: emailSubjectSubmitter ?? '',
+      emailBodySubmitter: emailBodySubmitter ?? ''
     };
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
@@ -98,8 +98,6 @@ export const KarirModal = (props: Props) => {
       router.refresh();
     }
   };
-
-  console.log(formId, formPic, formValue, attachment, attachmentPath);
 
   return (
     <Transition appear show={show} as={Fragment}>

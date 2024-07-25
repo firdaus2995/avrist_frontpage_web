@@ -40,19 +40,76 @@ const CustomForm: React.FC<CustomFormProps> = ({
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
   const [filename, setFilename] = useState('');
-  const [date, setDate] = useState('');
-  const [rangeDate, setRangeDate] = useState({
-    name: '',
-    dateFrom: '',
-    dateTo: ''
-  });
-  const [value, setValue] = useState('');
-  const [validPhoneNumber, setValidPhoneNumber] = useState<null | boolean>(
-    null
-  );
+  const [dateValue, setDateValue] = useState([{ name: '', value: '' }]);
+  const [rangeDateValue, setRangeDateValue] = useState([
+    {
+      name: '',
+      dateFrom: '',
+      dateTo: ''
+    }
+  ]);
+  const [currencyValue, setCurrencyValue] = useState([{ name: '', value: '' }]);
+  const [validPhoneNumber, setValidPhoneNumber] = useState<
+    { name: string; value: boolean | string }[]
+  >([{ name: '', value: '' }]);
 
   const updateFormDataByName = (name: string, value: string) => {
     setFormData((prevData) => {
+      const newData = prevData?.map((item) => {
+        if (item.name === name) {
+          return { ...item, value: value };
+        }
+        return item;
+      });
+      return newData;
+    });
+  };
+
+  const updateCurrencyValue = (name: string, value: string) => {
+    setCurrencyValue((prevData) => {
+      const newData = prevData?.map((item) => {
+        if (item.name === name) {
+          return { ...item, value: value };
+        }
+        return item;
+      });
+      return newData;
+    });
+  };
+
+  const updateDateValue = (name: string, value: string) => {
+    setDateValue((prevData) => {
+      const newData = prevData?.map((item) => {
+        if (item.name === name) {
+          return { ...item, value: value };
+        }
+        return item;
+      });
+      return newData;
+    });
+  };
+
+  const updateRangeDateValue = (
+    name: string,
+    dateFrom: string,
+    dateTo: string
+  ) => {
+    setRangeDateValue((prevData) => {
+      const newData = prevData?.map((item) => {
+        if (item.name === name) {
+          return { ...item, dateFrom: dateFrom, dateTo: dateTo };
+        }
+        return item;
+      });
+      return newData;
+    });
+  };
+
+  const updatePhoneNumberValidation = (
+    name: string,
+    value: boolean | string
+  ) => {
+    setValidPhoneNumber((prevData) => {
       const newData = prevData?.map((item) => {
         if (item.name === name) {
           return { ...item, value: value };
@@ -115,17 +172,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   const handleInputChange = async (
     e: any,
+    name: string,
     currency: string,
     maxDecimal: number
   ) => {
     const inputValue = e.target.value;
     // Prevent '0' as the first character
     if (inputValue.startsWith('0') && inputValue.length === 1) {
-      setValue('');
+      updateCurrencyValue(name, '');
       return;
     }
     const formattedValue = await formatCurrency(inputValue, currency);
-    setValue(formattedValue);
+    updateCurrencyValue(name, `${currency.toUpperCase()} ${formattedValue}`);
     setTimeout(() => {
       if (maxDecimal > 0) {
         if (currency.toLowerCase() === 'idr') {
@@ -133,18 +191,25 @@ const CustomForm: React.FC<CustomFormProps> = ({
           const decimal = formattedValue.split(',')[1];
           formattedValue.includes(',') &&
             decimal.length > maxDecimal &&
-            setValue(
-              `${integer},${decimal.replace('.', '').slice(0, maxDecimal)}`
+            updateCurrencyValue(
+              name,
+              `${currency.toUpperCase()} ${integer},${decimal.replace('.', '').slice(0, maxDecimal)}`
             );
         } else {
           const integer = formattedValue.split('.')[0];
           const decimal = formattedValue.split('.')[1];
           formattedValue.includes('.') &&
             decimal.length > maxDecimal &&
-            setValue(`${integer}.${decimal.replace(',', '').slice(0, 2)}`);
+            updateCurrencyValue(
+              name,
+              `${currency.toUpperCase()} ${integer}.${decimal.replace(',', '').slice(0, 2)}`
+            );
         }
       } else {
-        setValue(formattedValue);
+        updateCurrencyValue(
+          name,
+          `${currency.toUpperCase()} ${formattedValue}`
+        );
       }
     }, 10);
   };
@@ -185,8 +250,47 @@ const CustomForm: React.FC<CustomFormProps> = ({
             value: item.value ? item.value : ''
           }))
       );
+
+      setDateValue(
+        dataForm
+          ?.filter((data) => data.fieldType === 'DATE_PICKER')
+          .map((item) => ({
+            name: item.componentId,
+            value: item.value ? item.value : ''
+          }))
+      );
+
+      setRangeDateValue(
+        dataForm
+          ?.filter((data) => data.fieldType === 'RANGE_DATE_PICKER')
+          .map((item) => ({
+            name: item.componentId,
+            dateFrom: '',
+            dateTo: ''
+          }))
+      );
+
+      setCurrencyValue(
+        dataForm
+          ?.filter((data) => data.fieldType === 'TEXT_CURRENCY')
+          .map((item) => ({
+            name: item.componentId,
+            value: item.value ? item.value : ''
+          }))
+      );
+
+      setValidPhoneNumber(
+        dataForm
+          ?.filter((data) => data.fieldType === 'PHONE_NUMBER')
+          .map((item) => ({
+            name: item.componentId,
+            value: ''
+          }))
+      );
     }
   }, [dataForm]);
+
+  console.log(formData);
 
   useEffect(() => {
     if (resultData) {
@@ -195,9 +299,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
           isRequired(item.name) &&
           !item.name?.toLocaleLowerCase().includes('produk')
         ) {
-          if (item.value.includes(';')) {
-            return;
-          }
           return item.value.trim() !== '';
         }
         return true;
@@ -226,24 +327,105 @@ const CustomForm: React.FC<CustomFormProps> = ({
         return true;
       });
 
+      const isDateValid =
+        dateValue?.every((item) => {
+          if (isRequired(item.name)) {
+            return item.value.trim() !== '';
+          }
+          return true;
+        }) &&
+        dateValue?.every((item) => {
+          const configString =
+            dataForm?.find((i) => i.componentId === item.name)?.config ?? '{}';
+          let config;
+          try {
+            config = JSON.parse(configString);
+          } catch (error) {
+            return false; // If JSON parsing fails, return false
+          }
+          const validationResult = dateValidation(
+            config.date_validation,
+            item.value
+          );
+          return typeof validationResult === 'boolean';
+        });
+
+      const isRangeDateValid = rangeDateValue?.every((item) => {
+        if (isRequired(item.name)) {
+          return item.dateFrom.trim() !== '' && item.dateTo.trim() !== '';
+        }
+        return true;
+      });
+
+      const isCurrencyValid =
+        currencyValue?.every((item) => {
+          if (isRequired(item.name)) {
+            return item.value.trim() !== '';
+          }
+          return true;
+        }) &&
+        currencyValue?.every((item) => {
+          const configString =
+            dataForm?.find((i) => i.componentId === item.name)?.config ?? '{}';
+          let config;
+          try {
+            config = JSON.parse(configString);
+          } catch (error) {
+            return false; // If JSON parsing fails, return false
+          }
+
+          const currValue = parseInt(
+            currencyValue
+              .find((j) => j.name === item.name)
+              ?.value.replace(/[^0-9]/g, '') ?? '0'
+          );
+
+          const minValue = parseInt(config.min_value);
+
+          return currValue >= minValue;
+        });
+
+      const isPhoneNumberValid = validPhoneNumber.every((item) => {
+        if (isRequired(item.name)) {
+          return typeof item.value === 'boolean' && item.value;
+        }
+        return true;
+      });
+
       resultData(
         formData,
         isNotEmpty &&
           isEmailValid &&
           isNasabahCheckboxValid &&
           isGenderCheckboxValid &&
-          validPhoneNumber === true
+          isDateValid &&
+          isRangeDateValid &&
+          isCurrencyValid &&
+          isPhoneNumberValid
       );
     }
   }, [formData, resultData]);
 
-  //function for updating range date picker
+  // function for updating date picker
   useEffect(() => {
-    updateFormDataByName(
-      rangeDate.name,
-      `${rangeDate.dateFrom} - ${rangeDate.dateTo}`
-    );
-  }, [rangeDate]);
+    dateValue.forEach((item) => {
+      updateFormDataByName(item.name, `${item.value}`);
+    });
+  }, [dateValue]);
+
+  // function for updating range date picker
+  useEffect(() => {
+    rangeDateValue.forEach((item) => {
+      updateFormDataByName(item.name, `${item.dateFrom} - ${item.dateTo}`);
+    });
+  }, [rangeDateValue]);
+
+  // function for updating currency
+  useEffect(() => {
+    currencyValue.forEach((item) => {
+      updateFormDataByName(item.name, `${item.value}`);
+    });
+  }, [currencyValue]);
 
   const isRequired = (name: string): boolean => {
     const attribute = dataForm?.find((item) => item.name === name);
@@ -364,7 +546,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 value={option}
                                 onChange={(e) =>
                                   updateFormDataByName(
-                                    attribute.name,
+                                    attribute.componentId,
                                     e.target.value
                                   )
                                 }
@@ -374,7 +556,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
                       ) : attribute.fieldType === 'DROPDOWN' ? (
                         <select
                           onChange={(e) =>
-                            updateFormDataByName(attribute.name, e.target.value)
+                            updateFormDataByName(
+                              attribute.componentId,
+                              e.target.value
+                            )
                           }
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                         >
@@ -410,7 +595,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             onChange={(e) =>
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               )
                             }
@@ -437,7 +622,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 e.target.value === ''
                               ) {
                                 updateFormDataByName(
-                                  attribute.name,
+                                  attribute.componentId,
                                   e.target.value
                                 );
                               }
@@ -463,16 +648,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             name={attribute.name}
                             onChange={(e) =>
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               )
                             }
                           />
-                          {formData.find((i) => i.name === attribute.name)
-                            ?.value !== '' &&
+                          {formData.find(
+                            (i) => i.name === attribute.componentId
+                          )?.value !== '' &&
                             !validateEmail(
-                              formData.find((i) => i.name === attribute.name)
-                                ?.value ?? ''
+                              formData.find(
+                                (i) => i.name === attribute.componentId
+                              )?.value ?? ''
                             ) && (
                               <p className="text-xs text-error">
                                 Masukkan alamat email yang benar!
@@ -488,11 +675,18 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             name={attribute.name}
                             type="date"
-                            value={date}
+                            value={
+                              dateValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value
+                            }
                             onChange={(e) => {
-                              setDate(e.target.value);
+                              updateDateValue(
+                                attribute.componentId,
+                                e.target.value
+                              );
                               updateFormDataByName(
-                                attribute.name,
+                                attribute.componentId,
                                 e.target.value
                               );
                             }}
@@ -500,9 +694,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           {(() => {
                             const validationResult = dateValidation(
                               JSON.parse(attribute.config).date_validation,
-                              date
+                              dateValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value ?? ''
                             );
-                            if (validationResult !== true) {
+                            if (
+                              formData.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value &&
+                              validationResult !== true
+                            ) {
                               return (
                                 <p className="text-xs text-error">
                                   {validationResult}
@@ -526,13 +727,21 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 }
                                 name={attribute.name}
                                 type="date"
-                                value={rangeDate.dateFrom}
+                                value={
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateFrom
+                                }
                                 onChange={(e) => {
-                                  setRangeDate({
-                                    ...rangeDate,
-                                    name: attribute.name,
-                                    dateFrom: e.target.value
-                                  });
+                                  updateRangeDateValue(
+                                    attribute.componentId,
+                                    e.target.value,
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateTo ?? ''
+                                  );
                                 }}
                               />
                             </div>
@@ -547,20 +756,37 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 }
                                 name={attribute.name}
                                 type="date"
-                                value={rangeDate.dateTo}
+                                value={
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateTo
+                                }
                                 onChange={(e) => {
-                                  setRangeDate({
-                                    ...rangeDate,
-                                    name: attribute.name,
-                                    dateTo: e.target.value
-                                  });
+                                  updateRangeDateValue(
+                                    attribute.componentId,
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateFrom ?? '',
+                                    e.target.value
+                                  );
                                 }}
                               />
                             </div>
                           </div>
-                          {rangeDate.dateFrom &&
-                            rangeDate.dateTo &&
-                            rangeDate.dateFrom > rangeDate.dateTo && (
+                          {rangeDateValue.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateFrom &&
+                            rangeDateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateTo &&
+                            (rangeDateValue?.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateFrom ?? '') >
+                              (rangeDateValue?.find(
+                                (item) => item.name === attribute.componentId
+                              )?.dateTo ?? '') && (
                               <p className="text-xs text-error">
                                 Tanggal awal tidak boleh lebih dari tanggal
                                 akhir!
@@ -568,36 +794,49 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             )}
                         </section>
                       ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
-                        <section className="flex flex-row gap-2 items-center">
-                          <p className="font-bold text-sm">
-                            {JSON.parse(
-                              attribute.config
-                            ).currency.toUpperCase()}
-                          </p>
-                          <input
-                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            placeholder={
-                              JSON.parse(attribute.config).placeholder
-                            }
-                            name={attribute.name}
-                            type="text"
-                            value={value}
-                            onChange={(e) => {
-                              handleInputChange(
-                                e,
-                                JSON.parse(attribute.config).currency,
-                                JSON.parse(attribute.config).max_decimal
-                              );
-                              updateFormDataByName(
-                                attribute.name,
-                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
-                              );
-                            }}
-                          />
-                        </section>
+                        <div className="flex flex-col">
+                          <section className="flex flex-row gap-2 items-center">
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="text"
+                              value={
+                                currencyValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.value
+                              }
+                              onChange={(e) => {
+                                handleInputChange(
+                                  e,
+                                  attribute.componentId,
+                                  JSON.parse(attribute.config).currency,
+                                  JSON.parse(attribute.config).max_decimal
+                                );
+                              }}
+                            />
+                          </section>
+                          {parseInt(
+                            currencyValue
+                              .find(
+                                (item) => item.name === attribute.componentId
+                              )
+                              ?.value.replace(/[^0-9]/g, '') ?? '0'
+                          ) <
+                            parseInt(
+                              JSON.parse(attribute.config).min_value
+                            ) && (
+                            <p className="text-xs text-error">
+                              Minimal input adalah{' '}
+                              {JSON.parse(attribute.config).min_value}!
+                            </p>
+                          )}
+                        </div>
                       ) : (
                         <input
-                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                          className={`w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem] ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
                           placeholder={
                             JSON.parse(attribute.config)?.placeholder ?? ''
                           }
@@ -618,7 +857,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               attribute.value = e.target.value;
                             }
                             updateFormDataByName(
-                              attribute.name,
+                              attribute.componentId,
                               e.target.value
                             );
                             forceUpdate();
@@ -637,7 +876,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
               return (
                 <div
                   key={attribute.id}
-                  className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''}`}
+                  className={`pt-1 ${idx === 0 || attribute.fieldType === 'LABEL' ? 'col-span-2' : ''} ${longTextArea ? (attribute.fieldType === 'TEXT_AREA' ? 'col-span-2' : '') : ''} ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
                 >
                   {attribute.fieldType === 'LABEL' ? (
                     <p className="leading-[23.68px]">{attribute.name}</p>
@@ -659,7 +898,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 value={option}
                                 onChange={(e) =>
                                   updateFormDataByName(
-                                    attribute.name,
+                                    attribute.componentId,
                                     e.target.value
                                   )
                                 }
@@ -743,15 +982,23 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 e.target.value.length <
                                 JSON.parse(attribute.config).min_length
                               ) {
-                                setValidPhoneNumber(false);
+                                updatePhoneNumberValidation(
+                                  attribute.componentId,
+                                  false
+                                );
                               } else {
-                                setValidPhoneNumber(true);
+                                updatePhoneNumberValidation(
+                                  attribute.componentId,
+                                  true
+                                );
                               }
                             }}
                             onInput={handleInput}
                             pattern="[0-9]*"
                           />
-                          {validPhoneNumber === false && (
+                          {validPhoneNumber.find(
+                            (item) => item.name === attribute.componentId
+                          )?.value === false && (
                             <p className="text-xs text-error">
                               Masukkan jumlah nomor telepon yang benar!
                             </p>
@@ -824,8 +1071,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             name={attribute.name}
                             type="date"
+                            value={
+                              dateValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value
+                            }
                             onChange={(e) => {
-                              setDate(e.target.value);
+                              updateDateValue(
+                                attribute.componentId,
+                                e.target.value
+                              );
                               updateFormDataByName(
                                 attribute.componentId,
                                 e.target.value
@@ -835,9 +1090,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           {(() => {
                             const validationResult = dateValidation(
                               JSON.parse(attribute.config).date_validation,
-                              date
+                              dateValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value ?? ''
                             );
-                            if (validationResult !== true) {
+                            if (
+                              formData.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value &&
+                              validationResult !== true
+                            ) {
                               return (
                                 <p className="text-xs text-error">
                                   {validationResult}
@@ -861,13 +1123,21 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 }
                                 name={attribute.name}
                                 type="date"
-                                value={rangeDate.dateFrom}
+                                value={
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateFrom
+                                }
                                 onChange={(e) => {
-                                  setRangeDate({
-                                    ...rangeDate,
-                                    name: attribute.componentId,
-                                    dateFrom: e.target.value
-                                  });
+                                  updateRangeDateValue(
+                                    attribute.componentId,
+                                    e.target.value,
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateTo ?? ''
+                                  );
                                 }}
                               />
                             </div>
@@ -882,20 +1152,37 @@ const CustomForm: React.FC<CustomFormProps> = ({
                                 }
                                 name={attribute.name}
                                 type="date"
-                                value={rangeDate.dateTo}
+                                value={
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateTo
+                                }
                                 onChange={(e) => {
-                                  setRangeDate({
-                                    ...rangeDate,
-                                    name: attribute.componentId,
-                                    dateTo: e.target.value
-                                  });
+                                  updateRangeDateValue(
+                                    attribute.componentId,
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateFrom ?? '',
+                                    e.target.value
+                                  );
                                 }}
                               />
                             </div>
                           </div>
-                          {rangeDate.dateFrom &&
-                            rangeDate.dateTo &&
-                            rangeDate.dateFrom > rangeDate.dateTo && (
+                          {rangeDateValue.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateFrom &&
+                            rangeDateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateTo &&
+                            (rangeDateValue?.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateFrom ?? '') >
+                              (rangeDateValue?.find(
+                                (item) => item.name === attribute.componentId
+                              )?.dateTo ?? '') && (
                               <p className="text-xs text-error">
                                 Tanggal awal tidak boleh lebih dari tanggal
                                 akhir!
@@ -903,33 +1190,46 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             )}
                         </section>
                       ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
-                        <section className="flex flex-row gap-2 items-center">
-                          <p className="font-bold text-sm">
-                            {JSON.parse(
-                              attribute.config
-                            ).currency.toUpperCase()}
-                          </p>
-                          <input
-                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                            placeholder={
-                              JSON.parse(attribute.config).placeholder
-                            }
-                            name={attribute.name}
-                            type="text"
-                            value={value}
-                            onChange={(e) => {
-                              handleInputChange(
-                                e,
-                                JSON.parse(attribute.config).currency,
-                                JSON.parse(attribute.config).max_decimal
-                              );
-                              updateFormDataByName(
-                                attribute.componentId,
-                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
-                              );
-                            }}
-                          />
-                        </section>
+                        <div className="flex flex-col">
+                          <section className="flex flex-row gap-2 items-center">
+                            <input
+                              className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                              placeholder={
+                                JSON.parse(attribute.config).placeholder
+                              }
+                              name={attribute.name}
+                              type="text"
+                              value={
+                                currencyValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.value
+                              }
+                              onChange={(e) => {
+                                handleInputChange(
+                                  e,
+                                  attribute.componentId,
+                                  JSON.parse(attribute.config).currency,
+                                  JSON.parse(attribute.config).max_decimal
+                                );
+                              }}
+                            />
+                          </section>
+                          {parseInt(
+                            currencyValue
+                              .find(
+                                (item) => item.name === attribute.componentId
+                              )
+                              ?.value.replace(/[^0-9]/g, '') ?? '0'
+                          ) <
+                            parseInt(
+                              JSON.parse(attribute.config).min_value
+                            ) && (
+                            <p className="text-xs text-error">
+                              Minimal input adalah{' '}
+                              {JSON.parse(attribute.config).min_value}!
+                            </p>
+                          )}
+                        </div>
                       ) : (
                         <input
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -969,7 +1269,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
         ) : type === 'Form Saran' ? (
           <div className="grid grid-cols-1 xs:gap-[1.5rem] sm:gap-[2.25rem]">
             {attributeList?.map((attribute: Attribute) => (
-              <div key={attribute.id} className={`pt-1`}>
+              <div
+                key={attribute.id}
+                className={`pt-1 ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
+              >
                 {attribute.fieldType === 'LABEL' ? (
                   <p>{attribute.name}</p>
                 ) : (
@@ -1071,15 +1374,23 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               e.target.value.length <
                               JSON.parse(attribute.config).min_length
                             ) {
-                              setValidPhoneNumber(false);
+                              updatePhoneNumberValidation(
+                                attribute.componentId,
+                                false
+                              );
                             } else {
-                              setValidPhoneNumber(true);
+                              updatePhoneNumberValidation(
+                                attribute.componentId,
+                                true
+                              );
                             }
                           }}
                           onInput={handleInput}
                           pattern="[0-9]*"
                         />
-                        {validPhoneNumber === false && (
+                        {validPhoneNumber.find(
+                          (item) => item.name === attribute.componentId
+                        )?.value === false && (
                           <p className="text-xs text-error">
                             Masukkan jumlah nomor telepon yang benar!
                           </p>
@@ -1134,9 +1445,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           placeholder={JSON.parse(attribute.config).placeholder}
                           name={attribute.name}
                           type="date"
-                          value={date}
+                          value={
+                            dateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value
+                          }
                           onChange={(e) => {
-                            setDate(e.target.value);
+                            updateDateValue(
+                              attribute.componentId,
+                              e.target.value
+                            );
                             updateFormDataByName(
                               attribute.componentId,
                               e.target.value
@@ -1146,9 +1464,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         {(() => {
                           const validationResult = dateValidation(
                             JSON.parse(attribute.config).date_validation,
-                            date
+                            dateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value ?? ''
                           );
-                          if (validationResult !== true) {
+                          if (
+                            formData.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value &&
+                            validationResult !== true
+                          ) {
                             return (
                               <p className="text-xs text-error">
                                 {validationResult}
@@ -1172,13 +1497,20 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               }
                               name={attribute.name}
                               type="date"
-                              value={rangeDate.dateFrom}
+                              value={
+                                rangeDateValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.dateFrom
+                              }
                               onChange={(e) => {
-                                setRangeDate({
-                                  ...rangeDate,
-                                  name: attribute.componentId,
-                                  dateFrom: e.target.value
-                                });
+                                updateRangeDateValue(
+                                  attribute.componentId,
+                                  e.target.value,
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateTo ?? ''
+                                );
                               }}
                             />
                           </div>
@@ -1193,49 +1525,78 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               }
                               name={attribute.name}
                               type="date"
-                              value={rangeDate.dateTo}
+                              value={
+                                rangeDateValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.dateTo
+                              }
                               onChange={(e) => {
-                                setRangeDate({
-                                  ...rangeDate,
-                                  name: attribute.componentId,
-                                  dateTo: e.target.value
-                                });
+                                updateRangeDateValue(
+                                  attribute.componentId,
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateFrom ?? '',
+                                  e.target.value
+                                );
                               }}
                             />
                           </div>
                         </div>
-                        {rangeDate.dateFrom &&
-                          rangeDate.dateTo &&
-                          rangeDate.dateFrom > rangeDate.dateTo && (
+                        {rangeDateValue.find(
+                          (item) => item.name === attribute.componentId
+                        )?.dateFrom &&
+                          rangeDateValue.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateTo &&
+                          (rangeDateValue?.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateFrom ?? '') >
+                            (rangeDateValue?.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateTo ?? '') && (
                             <p className="text-xs text-error">
                               Tanggal awal tidak boleh lebih dari tanggal akhir!
                             </p>
                           )}
                       </section>
                     ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
-                      <section className="flex flex-row gap-2 items-center">
-                        <p className="font-bold text-sm">
-                          {JSON.parse(attribute.config).currency.toUpperCase()}
-                        </p>
-                        <input
-                          className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
-                          placeholder={JSON.parse(attribute.config).placeholder}
-                          name={attribute.name}
-                          type="text"
-                          value={value}
-                          onChange={(e) => {
-                            handleInputChange(
-                              e,
-                              JSON.parse(attribute.config).currency,
-                              JSON.parse(attribute.config).max_decimal
-                            );
-                            updateFormDataByName(
-                              attribute.componentId,
-                              `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
-                            );
-                          }}
-                        />
-                      </section>
+                      <div className="flex flex-col">
+                        <section className="flex flex-row gap-2 items-center">
+                          <input
+                            className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                            placeholder={
+                              JSON.parse(attribute.config).placeholder
+                            }
+                            name={attribute.name}
+                            type="text"
+                            value={
+                              currencyValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value
+                            }
+                            onChange={(e) => {
+                              handleInputChange(
+                                e,
+                                attribute.componentId,
+                                JSON.parse(attribute.config).currency,
+                                JSON.parse(attribute.config).max_decimal
+                              );
+                            }}
+                          />
+                        </section>
+                        {parseInt(
+                          currencyValue
+                            .find((item) => item.name === attribute.componentId)
+                            ?.value.replace(/[^0-9]/g, '') ?? '0'
+                        ) <
+                          parseInt(JSON.parse(attribute.config).min_value) && (
+                          <p className="text-xs text-error">
+                            Minimal input adalah{' '}
+                            {JSON.parse(attribute.config).min_value}!
+                          </p>
+                        )}
+                      </div>
                     ) : (
                       <input
                         className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -1272,7 +1633,10 @@ const CustomForm: React.FC<CustomFormProps> = ({
               className={`flex flex-col xs:gap-[1.5rem] sm:gap-[2.25rem] font-opensans ${type === 'Karir' && 'sm:gap-[1rem]'}`}
             >
               {leftSide?.map((attribute: Attribute) => (
-                <div key={attribute.id} className="pt-1">
+                <div
+                  key={attribute.id}
+                  className={`pt-1 ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
+                >
                   {attribute.name.includes('produk') ? null : (
                     <p className="font-bold">
                       {attribute.name}{' '}
@@ -1383,7 +1747,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     </div>
                   ) : (
                     <input
-                      className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                      className={`w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem] ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
                       placeholder={JSON.parse(attribute.config).placeholder}
                       name={attribute.name}
                       value={attribute.value ?? ''}
@@ -1435,8 +1799,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
             >
               {rightSide?.map((attribute: Attribute) => {
                 return (
-                  <div key={attribute.id} className="pt-1">
-                    <p className="font-bold">
+                  <div
+                    key={attribute.id}
+                    className={`pt-1 ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
+                  >
+                    <p className={`font-bold`}>
                       {attribute.name}{' '}
                       <span
                         className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
@@ -1524,15 +1891,23 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               e.target.value.length <
                               JSON.parse(attribute.config).min_length
                             ) {
-                              setValidPhoneNumber(false);
+                              updatePhoneNumberValidation(
+                                attribute.componentId,
+                                false
+                              );
                             } else {
-                              setValidPhoneNumber(true);
+                              updatePhoneNumberValidation(
+                                attribute.componentId,
+                                true
+                              );
                             }
                           }}
                           onInput={handleInput}
                           pattern="[0-9]*"
                         />
-                        {validPhoneNumber === false && (
+                        {validPhoneNumber.find(
+                          (item) => item.name === attribute.componentId
+                        )?.value === false && (
                           <p className="text-xs text-error">
                             Masukkan jumlah nomor telepon yang benar!
                           </p>
@@ -1590,9 +1965,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           placeholder={JSON.parse(attribute.config).placeholder}
                           name={attribute.name}
                           type="date"
-                          value={date}
+                          value={
+                            dateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value
+                          }
                           onChange={(e) => {
-                            setDate(e.target.value);
+                            updateDateValue(
+                              attribute.componentId,
+                              e.target.value
+                            );
                             updateFormDataByName(
                               attribute.componentId,
                               e.target.value
@@ -1602,9 +1984,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         {(() => {
                           const validationResult = dateValidation(
                             JSON.parse(attribute.config).date_validation,
-                            date
+                            dateValue.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value ?? ''
                           );
-                          if (validationResult !== true) {
+                          if (
+                            formData.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value &&
+                            validationResult !== true
+                          ) {
                             return (
                               <p className="text-xs text-error">
                                 {validationResult}
@@ -1628,13 +2017,35 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               }
                               name={attribute.name}
                               type="date"
-                              value={rangeDate.dateFrom}
+                              value={
+                                rangeDateValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.dateFrom
+                              }
                               onChange={(e) => {
-                                setRangeDate({
-                                  ...rangeDate,
-                                  name: attribute.componentId,
-                                  dateFrom: e.target.value
-                                });
+                                updateRangeDateValue(
+                                  attribute.componentId,
+                                  e.target.value,
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateTo ?? ''
+                                );
+
+                                updateFormDataByName(
+                                  attribute.componentId,
+                                  `${
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateFrom
+                                  } - ${
+                                    rangeDateValue.find(
+                                      (item) =>
+                                        item.name === attribute.componentId
+                                    )?.dateTo
+                                  }`
+                                );
                               }}
                             />
                           </div>
@@ -1649,20 +2060,36 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               }
                               name={attribute.name}
                               type="date"
-                              value={rangeDate.dateTo}
+                              value={
+                                rangeDateValue.find(
+                                  (item) => item.name === attribute.componentId
+                                )?.dateTo
+                              }
                               onChange={(e) => {
-                                setRangeDate({
-                                  ...rangeDate,
-                                  name: attribute.componentId,
-                                  dateTo: e.target.value
-                                });
+                                updateRangeDateValue(
+                                  attribute.componentId,
+                                  rangeDateValue.find(
+                                    (item) =>
+                                      item.name === attribute.componentId
+                                  )?.dateFrom ?? '',
+                                  e.target.value
+                                );
                               }}
                             />
                           </div>
                         </div>
-                        {rangeDate.dateFrom &&
-                          rangeDate.dateTo &&
-                          rangeDate.dateFrom > rangeDate.dateTo && (
+                        {rangeDateValue.find(
+                          (item) => item.name === attribute.componentId
+                        )?.dateFrom &&
+                          rangeDateValue.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateTo &&
+                          (rangeDateValue?.find(
+                            (item) => item.name === attribute.componentId
+                          )?.dateFrom ?? '') >
+                            (rangeDateValue?.find(
+                              (item) => item.name === attribute.componentId
+                            )?.dateTo ?? '') && (
                             <p className="text-xs text-error">
                               Tanggal awal tidak boleh lebih dari tanggal akhir!
                             </p>
@@ -1671,11 +2098,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     ) : attribute.fieldType === 'TEXT_CURRENCY' ? (
                       <div className="flex flex-col">
                         <section className="flex flex-row gap-2 items-center">
-                          <p className="font-bold text-sm">
-                            {JSON.parse(
-                              attribute.config
-                            ).currency.toUpperCase()}
-                          </p>
                           <input
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
                             placeholder={
@@ -1683,28 +2105,36 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                             name={attribute.name}
                             type="text"
-                            value={value}
+                            value={
+                              currencyValue.find(
+                                (item) => item.name === attribute.componentId
+                              )?.value
+                            }
                             onChange={(e) => {
                               handleInputChange(
                                 e,
+                                attribute.componentId,
                                 JSON.parse(attribute.config).currency,
                                 JSON.parse(attribute.config).max_decimal
-                              );
-                              updateFormDataByName(
-                                attribute.componentId,
-                                `${JSON.parse(attribute.config).currency.toUpperCase()} ${value}`
                               );
                             }}
                           />
                         </section>
-                        <p className="text-xs text-error">
-                          Minimal input adalah{' '}
-                          {JSON.parse(attribute.config).min_value}!
-                        </p>
+                        {parseInt(
+                          currencyValue
+                            .find((item) => item.name === attribute.componentId)
+                            ?.value.replace(/[^0-9]/g, '') ?? '0'
+                        ) <
+                          parseInt(JSON.parse(attribute.config).min_value) && (
+                          <p className="text-xs text-error">
+                            Minimal input adalah{' '}
+                            {JSON.parse(attribute.config).min_value}!
+                          </p>
+                        )}
                       </div>
                     ) : (
                       <input
-                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
+                        className={`w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem] ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
                         placeholder={JSON.parse(attribute.config).placeholder}
                         name={attribute.name}
                         value={attribute.value ?? ''}

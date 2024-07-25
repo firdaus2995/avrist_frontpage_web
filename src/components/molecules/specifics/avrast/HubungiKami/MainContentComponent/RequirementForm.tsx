@@ -77,8 +77,8 @@ export const RequirementForm = (props: Props) => {
       attachmentPath,
       emailSubject,
       emailBody,
-      emailSubjectSubmitter,
-      emailBodySubmitter
+      emailSubjectSubmitter: emailSubjectSubmitter ?? '',
+      emailBodySubmitter: emailBodySubmitter ?? ''
     };
 
     const data = await handleSendEmail(queryParams);
