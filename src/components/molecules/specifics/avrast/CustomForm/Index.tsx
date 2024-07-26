@@ -428,7 +428,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
   }, [currencyValue]);
 
   const isRequired = (name: string): boolean => {
-    const attribute = dataForm?.find((item) => item.name === name);
+    const attribute = dataForm?.find((item) => item.componentId === name);
     return attribute?.config
       ? JSON.parse(attribute.config).required === 'true'
       : false;
