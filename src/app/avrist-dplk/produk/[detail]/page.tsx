@@ -343,8 +343,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       attachmentPath,
       emailSubject,
       emailBody,
-      emailSubjectSubmitter,
-      emailBodySubmitter
+      emailSubjectSubmitter: emailSubjectSubmitter ?? '',
+      emailBodySubmitter: emailBodySubmitter ?? ''
     };
 
     const data = await handleSendEmail(queryParams);
