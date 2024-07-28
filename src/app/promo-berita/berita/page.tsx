@@ -743,6 +743,9 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const handleTabClick = (tabs: string) => {
+    setContentData([]);
+    setPaginatedData([]);
+    setSliderData([]);
     setTab(tabs);
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
@@ -784,10 +787,10 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const onCategoryChange = (value: string) => {
-    setParams({ ...params, category: value });
     setPaginatedData([]);
     setContentData([]);
     setSliderData([]);
+    setParams({ ...params, category: value });
     router.push(pathname + '?' + createQueryStringCategory('category', value), {
       scroll: false
     });
@@ -1078,7 +1081,9 @@ const Berita: React.FC<ParamsProps> = () => {
           <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
             <CategoryWithThreeCards
               defaultSelectedCategory={params.category}
-              onCategoryChange={(tab) => onCategoryChange(tab)}
+              onCategoryChange={(tab) => {
+                setItemOffset(0);
+                onCategoryChange(tab)}}
               filterRowLayout={true}
               categoryCard="B"
               categories={[
