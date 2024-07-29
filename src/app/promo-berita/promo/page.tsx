@@ -491,7 +491,7 @@ const Promo: React.FC<ParamsProps> = () => {
               {
                 type: 'dropdown',
                 label: 'tahun',
-                options: yearDropdown(2009)
+                options: yearDropdown(new Date().getFullYear() - 10)
               },
               {
                 type: 'dropdown',

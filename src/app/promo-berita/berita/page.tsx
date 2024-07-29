@@ -485,7 +485,7 @@ const Berita: React.FC<ParamsProps> = () => {
             setSliderData(temp.slice(0, 4));
             setContentData(temp.slice(4));
           }
-        };
+        }
       } else {
         const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
           (item: any) => {
@@ -542,7 +542,7 @@ const Berita: React.FC<ParamsProps> = () => {
             setSliderData(transformedData.slice(0, 4));
             setContentData(transformedData.slice(4));
           }
-        };
+        }
       }
     } catch (err) {
       console.error(err);
@@ -629,7 +629,9 @@ const Berita: React.FC<ParamsProps> = () => {
       } else {
         if (dataSliderTestimonial?.length > 0) {
           setContentData(getDifference(transformedData, dataSliderTestimonial));
-          setPaginatedData(getDifference(transformedData, dataSliderTestimonial));
+          setPaginatedData(
+            getDifference(transformedData, dataSliderTestimonial)
+          );
         } else {
           setDataSliderTestimonial(transformedData.slice(0, 5));
           setContentData(transformedData.slice(5));
@@ -640,7 +642,7 @@ const Berita: React.FC<ParamsProps> = () => {
       console.error(err);
     }
   };
-  
+
   const getDifference = (arr1: any, arr2: any) => {
     const map2 = new Map(arr2.map((obj: { id: any }) => [obj.id, obj]));
     const difference = arr1.filter((obj: { id: unknown }) => !map2.has(obj.id));
@@ -1083,7 +1085,8 @@ const Berita: React.FC<ParamsProps> = () => {
               defaultSelectedCategory={params.category}
               onCategoryChange={(tab) => {
                 setItemOffset(0);
-                onCategoryChange(tab)}}
+                onCategoryChange(tab);
+              }}
               filterRowLayout={true}
               categoryCard="B"
               categories={[
@@ -1095,7 +1098,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 {
                   type: 'dropdown',
                   label: 'tahun',
-                  options: yearDropdown(2009)
+                  options: yearDropdown(new Date().getFullYear() - 10)
                 },
                 {
                   type: 'dropdown',
@@ -1331,28 +1334,28 @@ const Berita: React.FC<ParamsProps> = () => {
                     </p>
                     <div className="grid lg:grid-cols-2 gap-[24px] md:grid-cols-1 rounded-xl">
                       {sliderData.map((item: any, index: number) => (
-                          <Link
+                        <Link
+                          key={index}
+                          href={{
+                            pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                            query: { id: item.id }
+                          }}
+                        >
+                          <CardCategoryD
                             key={index}
-                            href={{
-                              pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                              query: { id: item.id }
-                            }}
-                          >
-                            <CardCategoryD
-                              key={index}
-                              title={htmlParser(item.judul)}
-                              summary={htmlParser(item.deskripsi)}
-                              category={item.category}
-                              time={` | ${item?.differenceTime} yang lalu`}
-                              tags={
-                                typeof item.tags === 'string'
-                                  ? item.tags.split(',')
-                                  : item.tags
-                              }
-                              image={item.image}
-                            />
-                          </Link>
-                        ))}
+                            title={htmlParser(item.judul)}
+                            summary={htmlParser(item.deskripsi)}
+                            category={item.category}
+                            time={` | ${item?.differenceTime} yang lalu`}
+                            tags={
+                              typeof item.tags === 'string'
+                                ? item.tags.split(',')
+                                : item.tags
+                            }
+                            image={item.image}
+                          />
+                        </Link>
+                      ))}
                     </div>
                     <p className="font-bold pb-2 text-left text-[36px] mt-10">
                       Artikel Lainnya
@@ -1459,7 +1462,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 {
                   type: 'dropdown',
                   label: 'tahun',
-                  options: yearDropdown(2009)
+                  options: yearDropdown(new Date().getFullYear() - 10)
                 },
                 {
                   type: 'dropdown',
@@ -1536,7 +1539,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 {
                   type: 'dropdown',
                   label: 'tahun',
-                  options: yearDropdown(2009)
+                  options: yearDropdown(new Date().getFullYear() - 10)
                 },
                 {
                   type: 'dropdown',
