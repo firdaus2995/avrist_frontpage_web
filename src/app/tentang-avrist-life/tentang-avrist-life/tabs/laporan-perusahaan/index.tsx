@@ -264,7 +264,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           defaultSelectedCategory={params.category}
           onCategoryChange={(tab) => setParams({ ...params, category: tab })}
           filterRowLayout={true}
-          categories={contentData && categories ? categories : []}
+          categories={categories ?? []}
           tabs={[
             {
               type: 'dropdown',
