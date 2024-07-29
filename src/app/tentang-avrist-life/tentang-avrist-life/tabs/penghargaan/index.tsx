@@ -198,7 +198,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
           {
             type: 'dropdown',
             label: 'tahun',
-            options: yearDropdown(2009)
+            options: yearDropdown(new Date().getFullYear() - 10)
           },
           {
             type: 'dropdown',
