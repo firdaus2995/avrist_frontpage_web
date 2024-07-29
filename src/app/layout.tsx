@@ -1,8 +1,6 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
-import ClientSideScrollRestorer from '@/ClientSideScrollRestorer';
 import Footer from '@/components/molecules/specifics/avrast/Footer';
 import Header from '@/components/molecules/specifics/avrast/Header';
 
@@ -31,9 +29,6 @@ export default function RootLayout({
         {children}
         <Footer />
       </body>
-      <Suspense>
-        <ClientSideScrollRestorer />
-      </Suspense>
     </html>
   );
 }

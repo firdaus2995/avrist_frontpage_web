@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { VideoItem } from '../../../types';
 import PlayButton from '@/assets/images/play-button.svg';
@@ -9,23 +9,23 @@ type SubCardProps = {
 };
 
 const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
-  const videoId = useMemo(() => {
-    if (!item.videoUrl) return '';
-    const splittedUrl = item.videoUrl.split('/');
-    const lastPiece = splittedUrl.at(-1);
+  // const videoId = useMemo(() => {
+  //   if (!item.videoUrl) return '';
+  //   const splittedUrl = item.videoUrl.split('/');
+  //   const lastPiece = splittedUrl.at(-1);
 
-    if (lastPiece && lastPiece.includes('watch')) {
-      const anotherSplitted = lastPiece.split('?v=');
-      return anotherSplitted.at(-1) ?? '';
-    } else if (lastPiece && lastPiece.includes('?si=')) {
-      const anotherSplitted = lastPiece.split('?si=');
-      return anotherSplitted.at(0);
-    } else if (lastPiece && lastPiece.includes('?')) {
-      const videoIdParam = lastPiece.split('?')[0];
-      return videoIdParam ?? '';
-    }
-    return lastPiece ?? '';
-  }, [item.videoUrl]);
+  //   if (lastPiece && lastPiece.includes('watch')) {
+  //     const anotherSplitted = lastPiece.split('?v=');
+  //     return anotherSplitted.at(-1) ?? '';
+  //   } else if (lastPiece && lastPiece.includes('?si=')) {
+  //     const anotherSplitted = lastPiece.split('?si=');
+  //     return anotherSplitted.at(0);
+  //   } else if (lastPiece && lastPiece.includes('?')) {
+  //     const videoIdParam = lastPiece.split('?')[0];
+  //     return videoIdParam ?? '';
+  //   }
+  //   return lastPiece ?? '';
+  // }, [item.videoUrl]);
 
   return (
     <div
@@ -38,7 +38,7 @@ const SubCard: React.FC<SubCardProps> = ({ item, onClick }) => {
           width={0}
           height={0}
           className="absolute w-full h-full inset-0"
-          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          src={`https://via.placeholder.com/150/000000/000000`}
         />
         <div className="w-full h-full absolute flex items-center justify-center">
           <Image alt={'play-button'} className="w-16" src={PlayButton} />
