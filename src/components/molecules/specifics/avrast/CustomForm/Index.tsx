@@ -312,19 +312,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
       );
 
       // if there contains ';', then it means the value is still multiple and needs to be select 1 value
-      const isNasabahCheckboxValid = formData?.every((item) => {
-        if (isRequired(item.name)) {
-          return !item.value.includes('Calon Nasabah;');
-        }
-        return true;
-      });
-
-      const isGenderCheckboxValid = formData?.every((item) => {
-        if (isRequired(item.name)) {
-          return (
-            !item.value.includes('Bapak;') &&
-            !item.value.includes('Laki-laki;Perempuan')
-          );
+      const isMultipleChoiceValid = formData?.every((item) => {
+        if (isRequired(item.name) && isMultipleChoice(item.name)) {
+          return !item.value.includes(';');
         }
         return true;
       });
@@ -398,8 +388,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
         formData,
         isNotEmpty &&
           isEmailValid &&
-          isNasabahCheckboxValid &&
-          isGenderCheckboxValid &&
+          isMultipleChoiceValid &&
           isDateValid &&
           isRangeDateValid &&
           isCurrencyValid &&
@@ -434,6 +423,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
     return attribute?.config
       ? JSON.parse(attribute.config).required === 'true'
       : false;
+  };
+
+  const isMultipleChoice = (name: string): boolean => {
+    const attribute = dataForm?.find((item) => item.componentId === name);
+    return (
+      (attribute?.fieldType === 'RADIO_BUTTON' ||
+        attribute?.fieldType === 'DROPDOWN') ??
+      false
+    );
   };
 
   const handleInput = (e: any) => {
@@ -603,7 +601,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                           />
                           {formData?.find(
-                            (item) => item.name === attribute.name
+                            (item) => item.name === attribute.componentId
                           )?.value.length +
                             '/' +
                             (JSON.parse(attribute.config).max_length === '0'
@@ -925,7 +923,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               selected={
                                 option ===
                                 formData?.find(
-                                  (item) => item.name === attribute.name
+                                  (item) => item.name === attribute.componentId
                                 )?.value
                               }
                             >
@@ -955,7 +953,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             }
                           />
                           {formData?.find(
-                            (item) => item.name === attribute.name
+                            (item) => item.name === attribute.componentId
                           )?.value.length +
                             '/' +
                             (JSON.parse(attribute.config).max_length === '0'
@@ -1347,8 +1345,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             )
                           }
                         />
-                        {formData?.find((item) => item.name === attribute.name)
-                          ?.value.length +
+                        {formData?.find(
+                          (item) => item.name === attribute.componentId
+                        )?.value.length +
                           '/' +
                           (JSON.parse(attribute.config).max_length === '0'
                             ? 500
