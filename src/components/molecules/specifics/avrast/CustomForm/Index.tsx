@@ -1,6 +1,7 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import DocumentForm from './Components/Document';
 import CaptchaPicture from '@/assets/images/form-captcha.svg';
 import Radio from '@/components/atoms/Radio';
 import { handleUploadDocument } from '@/services/upload-document-service.api';
@@ -35,11 +36,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
   selectedProduct,
   dataRekomendasi
 }) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const [formData, setFormData] = useState([{ name: '', value: '' }]);
-  const [filename, setFilename] = useState('');
+  const [filename, setFilename] = useState([{ name: '', value: '' }]);
   const [dateValue, setDateValue] = useState([{ name: '', value: '' }]);
   const [rangeDateValue, setRangeDateValue] = useState([
     {
@@ -120,20 +119,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
     });
   };
 
-  const getFilename = () => {
-    if (filename && filename.length > 60) {
-      return filename.slice(0, 60) + '...';
-    }
-    return filename;
-  };
-
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
   const handleFileChange = async (
+    name: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -148,7 +135,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
       try {
         const response = await handleUploadDocument(formData);
-        setFilename(files[0].name);
+        setFilename((prevData) => {
+          const newData = prevData?.map((item) => {
+            if (item.name === name) {
+              return { ...item, value: files[0].name };
+            }
+            return item;
+          });
+          return newData;
+        });
         return response.data;
       } catch (error) {
         console.error('Error uploading document:', error);
@@ -162,7 +157,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
     attributeName: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const data = await handleFileChange(event);
+    const data = await handleFileChange(attributeName, event);
     if (data) {
       updateFormDataByName(attributeName, data);
     } else {
@@ -251,6 +246,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
           }))
       );
 
+      setFilename(
+        dataForm
+          ?.filter((data) => data.fieldType === 'DOCUMENT')
+          .map((item) => ({
+            name: item.componentId,
+            value: item.value ? item.value : ''
+          }))
+      );
+
       setDateValue(
         dataForm
           ?.filter((data) => data.fieldType === 'DATE_PICKER')
@@ -289,8 +293,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
       );
     }
   }, [dataForm]);
-
-  console.log(formData);
 
   useEffect(() => {
     if (resultData) {
@@ -1718,33 +1720,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         )}
                     </div>
                   ) : attribute.fieldType === 'DOCUMENT' ? (
-                    <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
-                      <p
-                        className={`px-[1rem] line-clamp-1 truncate ${
-                          filename !== '' ? '' : 'text-dark-grey'
-                        }`}
-                      >
-                        {filename !== ''
-                          ? getFilename()
-                          : JSON.parse(attribute.config).placeholder ??
-                            `Klik Browse untuk mencari`}
-                      </p>
-                      <input
-                        type="file"
-                        ref={fileInputRef}
-                        accept=".pdf"
-                        onChange={(e) =>
-                          handleUploadChange(attribute.componentId, e)
-                        }
-                        className="hidden"
-                      />
-                      <button
-                        className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
-                        onClick={() => handleUploadClick()}
-                      >
-                        Browse
-                      </button>
-                    </div>
+                    <DocumentForm
+                      filename={filename}
+                      attribute={attribute}
+                      handleUploadChange={(e: any) =>
+                        handleUploadChange(attribute.componentId, e)
+                      }
+                    />
                   ) : (
                     <input
                       className={`w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem] ${JSON.parse(attribute.config)?.hidden === 'true' ? 'hidden' : ''}`}
@@ -1931,33 +1913,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                         />
                       </div>
                     ) : attribute.fieldType === 'DOCUMENT' ? (
-                      <div className="w-full rounded-[0.875rem] text-[0.875rem] flex flex-row items-center justify-between border border-gray_light">
-                        <p
-                          className={`px-[1rem] line-clamp-1 truncate ${
-                            filename !== '' ? '' : 'text-dark-grey'
-                          }`}
-                        >
-                          {filename !== ''
-                            ? getFilename()
-                            : JSON.parse(attribute.config).placeholder ??
-                              `Klik Browse untuk mencari`}
-                        </p>
-                        <input
-                          type="file"
-                          ref={fileInputRef}
-                          accept=".pdf"
-                          onChange={(e) =>
-                            handleUploadChange(attribute.componentId, e)
-                          }
-                          className="hidden"
-                        />
-                        <button
-                          className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
-                          onClick={() => handleUploadClick()}
-                        >
-                          Browse
-                        </button>
-                      </div>
+                      <DocumentForm
+                        filename={filename}
+                        attribute={attribute}
+                        handleUploadChange={(e: any) =>
+                          handleUploadChange(attribute.componentId, e)
+                        }
+                      />
                     ) : attribute.fieldType === 'DATE_PICKER' ? (
                       <section className="flex flex-col">
                         <input
