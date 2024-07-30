@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import AsuransiJiwa from './tabs/AsuransiJiwa';
@@ -382,7 +383,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   );
 };
 
-export default IndividuProduk;
+export default dynamic(() => Promise.resolve(IndividuProduk), {
+  ssr: false
+});
 
 export interface IDataPage {
   titleImageUrl: string;

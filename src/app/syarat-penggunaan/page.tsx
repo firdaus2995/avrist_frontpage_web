@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import MainContentSyaratPenggunaan from './component/MainContentSyaratPenggunaan';
 import CONTACTS from '@/assets/images/common/contacts.svg';
 import DOCUMENT_SEARCH from '@/assets/images/common/document-search.svg';
 import HOSPITAL from '@/assets/images/common/hospital.svg';
@@ -19,6 +19,10 @@ import {
 
 const SyaratPengunaan = () => {
   const [data, setData] = useState<any>({});
+  const MainContentSyaratPenggunaan = dynamic(
+    () => import('./component/MainContentSyaratPenggunaan'),
+    { ssr: false }
+  );
 
   useEffect(() => {
     const fetchData = async () => {

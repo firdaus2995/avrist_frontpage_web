@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Link as LinkScroll, Element, scroller } from 'react-scroll';
 
@@ -417,4 +418,6 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   );
 };
 
-export default AvristSyariah;
+export default dynamic(() => Promise.resolve(AvristSyariah), {
+  ssr: false,
+});
