@@ -304,7 +304,7 @@ const SearchForm = () => {
           />
         </div>
 
-        <div className="md:block xs:hidden">
+        <div className="">
           <ServiceCard />
         </div>
         {selectedTab.title === 'Avristory' ? (
