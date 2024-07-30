@@ -295,7 +295,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
 
         return { judul, waktu, image, id };
       });
-      const otherData = transformedData?.filter((item) => item.id !== id).slice(0,3);
+      const otherData = transformedData?.filter((item) => item.id !== parseInt(id)).slice(0,3);
       setOtherContent(otherData);
     } catch (err) {
       console.error(err);

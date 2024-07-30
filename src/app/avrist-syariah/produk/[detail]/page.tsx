@@ -226,7 +226,10 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           }
         );
 
-        setDataRekomendasi(sortedData);
+        const otherData = sortedData?.filter(
+          (item: any) => item.id !== parseInt(params.detail)
+        );
+        setDataRekomendasi(otherData);
         return dataContentValues;
       } catch (error: any) {
         throw new Error(error.message);
@@ -450,10 +453,11 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             )}
             <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-12 border-x border-x-gray_light">
               <div className="accent-syariah_green flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
-                <div className="flex flex-row gap-[12px] font-opensans">
+                <div className="flex flex-row gap-[12px] font-opensans items-start">
                   <input
                     type="checkbox"
                     checked={isChecked}
+                    className='mt-1'
                     onChange={(e) => {
                       setIsChecked(e.target.checked);
                     }}

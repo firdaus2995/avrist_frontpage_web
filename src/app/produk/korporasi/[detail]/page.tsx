@@ -171,8 +171,8 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           return {
             ...handleTransformedContent(item.contentData, item.title),
             categoryName: item.categories
-            .map((item: any) => item.categoryName)
-            .join(', '),
+              .map((item: any) => item.categoryName)
+              .join(', '),
             createdAt: item.createdAt,
             id: item.id
           };
@@ -230,7 +230,10 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
           }
         );
 
-        setDataRekomendasi(sortedData);
+        const otherData = sortedData?.filter(
+          (item: any) => item.id !== parseInt(params.detail)
+        );
+        setDataRekomendasi(otherData);
         return dataContentValues;
       } catch (error: any) {
         throw new Error(error.message);
@@ -445,10 +448,11 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         )}
         <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-purple_dark border-b-8 -mt-12 border-x border-x-gray_light">
           <div className="accent-purple_dark flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
-            <div className="flex flex-row gap-[12px] font-opensans">
+            <div className="flex flex-row gap-[12px] font-opensans items-start">
               <input
                 type="checkbox"
                 checked={isChecked}
+                className='mt-1'
                 onChange={(e) => {
                   setIsChecked(e.target.checked);
                 }}

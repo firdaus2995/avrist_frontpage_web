@@ -616,13 +616,14 @@ const Berita: React.FC<ParamsProps> = () => {
         const penulis = content['penulis-testimoni'].value;
         const titlePenulis = content['title-penulis-testimoni'].value;
         const videoUrl = content['video-testimoni'].value;
+        const id = item.id;
 
         const checkNull = />-</;
         if (checkNull.test(deskripsi)) {
           deskripsi = '-';
         }
 
-        return { judul, deskripsi, penulis, titlePenulis, videoUrl };
+        return { id, judul, deskripsi, penulis, titlePenulis, videoUrl };
       });
       if (!transformedData) {
         setContentData([]);
