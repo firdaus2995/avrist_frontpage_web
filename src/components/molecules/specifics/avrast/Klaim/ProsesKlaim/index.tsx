@@ -170,6 +170,20 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     };
   });
 
+  const btnVerticalDetailData = detailData?.map((item, idx) => {
+    return {
+      title: item,
+      onClick: () => {
+        setSelectedDetailCategory(idx);
+        if (idx > 0) {
+          onChangeBannerImg(idx + 2);
+        } else {
+          onChangeBannerImg(2);
+        }
+      }
+    };
+  });
+
   const renderStep = (idx: number) => {
     return (
       <div className="w-full flex flex-col items-center justify-start p-[2.25rem] text-left border rounded-[0.75rem] border-t-8 border-t-purple_dark">
@@ -459,10 +473,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 </div>
               </div>
               <div className="w-full flex xs:block md:hidden">
-                <div
-                  className={`w-full p-2 flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem] border-l-8 border-l-purple_dark font-bold text-purple_dark text-lg`}
-                >
-                  {!isSelectedData ? (
+                {!isSelectedData ? (
+                  <div
+                    className={`w-full p-2 flex flex-col ${isSelectedData ? 'bg-purple_light_bg' : 'bg-white'} rounded-[0.75rem] border-l-8 border-l-purple_dark font-bold text-purple_dark text-lg`}
+                  >
                     <select
                       id="selected-categories"
                       onChange={(e) => {
@@ -485,33 +499,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         </option>
                       ))}
                     </select>
-                  ) : (
-                    <select
-                      id="selected-detail-categories"
-                      onChange={(e) => {
-                        const idx = e.target.selectedIndex;
-                        setSelectedDetailCategory(idx);
-                        if (idx > 0) {
-                          onChangeBannerImg(idx + 2);
-                        } else {
-                          onChangeBannerImg(2);
-                        }
-                      }}
-                      className="px-5 py-2 bg-purple_light_bg whitespace-normal"
-                    >
-                      {detailData.map((val, idx) => (
-                        <option
-                          key={idx}
-                          selected={val === selectedData}
-                          value={val}
-                          className="w-[80%]"
-                        >
-                          {val}
-                        </option>
-                      ))}
-                    </select>
-                  )}
-                </div>
+                  </div>
+                ) : (
+                  <ButtonMenuVertical item={btnVerticalDetailData} outerClass='border-1 rounded-xl' />
+                )}
               </div>
               <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla leading-[67.2px] -tracking-[2.24px]">
                 {selectedData.title}

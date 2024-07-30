@@ -131,7 +131,7 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
         >
           {mockData.map((i) => (
             <div key={i.id} className="flex gap-4">
-              <div className="flex max-w-[98%] min-h-[32.8125rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
+              <div className="flex max-w-[98%] min-h-[29rem] flex-col items-center justify-center gap-[1.5rem] p-[1.5rem] pt-[1.5rem] pb-[2.25rem] border border-gray_light border-b-8 border-b-purple_dark rounded-[0.75rem]">
                 <Image
                   alt={i.toString()}
                   src={i.icon}
