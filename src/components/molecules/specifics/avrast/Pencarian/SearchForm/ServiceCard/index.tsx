@@ -12,7 +12,7 @@ const ServiceCard = () => {
       <Card
         image={HEART_HAND}
         title="Klaim & Layanan"
-        onClick={() => router.push('klaim-layanan/klaim?tab=Informasi%20klaim')}
+        onClick={() => router.push('klaim-layanan/klaim?tab=Informasi+Klaim')}
       />
       <Card
         image={DOCUMENT_SEARCH}
