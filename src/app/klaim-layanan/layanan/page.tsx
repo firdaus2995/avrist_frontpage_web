@@ -275,4 +275,6 @@ const InformationCustomer = () => {
   );
 };
 
-export default InformationCustomer;
+export default dynamic(() => Promise.resolve(InformationCustomer), {
+  ssr: false
+});

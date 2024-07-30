@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -339,7 +340,9 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
   );
 };
 
-export default ProdukKorporasi;
+export default dynamic(() => Promise.resolve(ProdukKorporasi), {
+  ssr: false
+});
 
 export interface IDataContent {
   categoryName?: string;

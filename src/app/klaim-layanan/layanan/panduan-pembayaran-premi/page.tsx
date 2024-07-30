@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Icon from '@/components/atoms/Icon';
@@ -96,4 +97,6 @@ const TutorialPayment = () => {
   );
 };
 
-export default TutorialPayment;
+export default dynamic(() => Promise.resolve(TutorialPayment), {
+  ssr: false
+});

@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
@@ -1677,4 +1678,6 @@ const Berita: React.FC<ParamsProps> = () => {
   );
 };
 
-export default Berita;
+export default dynamic(() => Promise.resolve(Berita), {
+  ssr: false
+});
