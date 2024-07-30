@@ -13,10 +13,7 @@ const nextConfig = {
       }
     ]
   },
-  output: 'standalone',
-  experimental: {
-    scrollRestoration:true 
-  },
+  output: 'standalone'
 };
 
 module.exports = nextConfig;
