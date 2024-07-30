@@ -170,7 +170,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         const newDataContent = data.data.contentDataList.map((item: any) => {
           return {
             ...handleTransformedContent(item.contentData, item.title),
-            categoryName: item.categoryName,
+            categoryName: item.categories[0].categoryName,
             createdAt: item.createdAt,
             id: item.id
           };

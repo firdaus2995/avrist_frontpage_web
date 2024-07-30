@@ -228,7 +228,6 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             return dateB - dateA;
           }
         );
-        console.log(sortedData)
         setDataRekomendasi(sortedData);
         return dataContentValues;
       } catch (error: any) {
