@@ -237,23 +237,27 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   useEffect(() => {
     if (dataForm) {
-      setFormData(
-        dataForm
-          ?.filter((data) => data.fieldType !== 'LABEL')
-          .map((item) => ({
-            name: item.componentId,
-            value: item.value ? item.value : ''
-          }))
-      );
+      const visibleFields = dataForm
+        ?.filter(
+          (data) =>
+            data.fieldType !== 'LABEL' &&
+            !data.config.includes('"hidden": "true"')
+        )
+        .map((item) => ({
+          name: item.componentId,
+          value: item.value ? item.value : ''
+        }));
 
-      setFilename(
-        dataForm
-          ?.filter((data) => data.fieldType === 'DOCUMENT')
-          .map((item) => ({
-            name: item.componentId,
-            value: item.value ? item.value : ''
-          }))
-      );
+      const hiddenFields = dataForm
+        ?.filter((data) => data.config.includes('"hidden": "true"'))
+        .map((item) => ({
+          name: item.componentId,
+          value: '-'
+        }));
+
+      const combinedFields = [...visibleFields, ...hiddenFields];
+
+      setFormData(combinedFields);
 
       setDateValue(
         dataForm
@@ -427,11 +431,11 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   const isMultipleChoice = (name: string): boolean => {
     const attribute = dataForm?.find((item) => item.componentId === name);
-    return (
-      (attribute?.fieldType === 'RADIO_BUTTON' ||
-        attribute?.fieldType === 'DROPDOWN') ??
-      false
-    );
+    return attribute?.config
+      ? (attribute?.fieldType === 'RADIO_BUTTON' ||
+          attribute?.fieldType === 'DROPDOWN') &&
+          !attribute.name.includes('produk')
+      : false;
   };
 
   const handleInput = (e: any) => {
@@ -500,7 +504,9 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
   const RenderFetchedForm = () => {
     if (!dataForm) return null;
-    const attributeList = dataForm;
+    const attributeList = dataForm.filter(
+      (data) => !data.config.includes('"hidden": "true"')
+    );
     const midIndex = Math.ceil(attributeList.length / 2);
 
     const leftSide = attributeList.slice(0, midIndex);
