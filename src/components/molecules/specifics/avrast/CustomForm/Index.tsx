@@ -257,6 +257,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
 
       const combinedFields = [...visibleFields, ...hiddenFields];
 
+      setFilename(
+        dataForm
+          ?.filter((data) => data.fieldType === 'DOCUMENT')
+          .map((item) => ({
+            name: item.componentId,
+            value: item.value ? item.value : ''
+          }))
+      );
+
       setFormData(combinedFields);
 
       setDateValue(
