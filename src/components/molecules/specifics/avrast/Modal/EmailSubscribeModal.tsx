@@ -94,7 +94,7 @@ export const EmailSubscribeModal = (props: Props) => {
               <Dialog.Panel className="transform transition-all overflow-hidden">
                 <CardRainbow className="bg-[#7e3f96] overflow-hidden">
                   {isSuccessSubs ? (
-                    <div className="sm:h-[50vh] sm:w-[50vw] xs:w-full xs:h-full transition xs:p-4">
+                    <div className="sm:h-[50vh] sm:w-[50vw] xs:w-full xs:h-full transition">
                       <div className="absolute right-0 p-[1.5rem]">
                         <button onClick={onClose}>
                           <Icon
