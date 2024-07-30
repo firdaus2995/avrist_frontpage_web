@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Karir from './tabs/karir';
@@ -326,4 +327,6 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
   );
 };
 
-export default TentangAvristLife;
+export default dynamic(() => Promise.resolve(TentangAvristLife), {
+  ssr: false,
+});

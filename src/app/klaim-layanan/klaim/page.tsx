@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -351,4 +352,6 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   );
 };
 
-export default InformasiKlaim;
+export default dynamic(() => Promise.resolve(InformasiKlaim), {
+  ssr: false,
+});

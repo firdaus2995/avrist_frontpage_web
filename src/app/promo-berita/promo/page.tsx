@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // import CustomerFund from '@/components/molecules/specifics/avram/_investasi/CustomerFund';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -612,4 +613,6 @@ const Promo: React.FC<ParamsProps> = () => {
   );
 };
 
-export default Promo;
+export default dynamic(() => Promise.resolve(Promo), {
+  ssr: false
+});
