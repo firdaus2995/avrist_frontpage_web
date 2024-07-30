@@ -23,7 +23,7 @@ const ServiceCard = () => {
         image={CREDIT_CARD}
         title="Pembayaran Premi"
         onClick={() =>
-          router.push('klaim-layanan/layanan/panduan-pembayaran-premi')
+          router.push('klaim-layanan/layanan?tab=Formulir+%26+Buku+Panduan')
         }
       />
     </div>
