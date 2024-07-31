@@ -96,7 +96,9 @@ export const singleImageTransformer = (data: any) => {
 };
 
 export const customImageTransformer = (data: any) => {
-  const width = window.innerWidth;
+  const isBrowser = typeof window !== 'undefined';
+  const width = isBrowser ? window.innerWidth : 0;
+
   if (!data || data?.value === '-')
     return {
       imageUrl: '',

@@ -79,7 +79,7 @@ const Page = () => {
         customClassName="!-z-[2]"
       />
       <div
-        className={`xs:-mt-[3rem] sm:-mt-[7rem] md:block rounded-t-[60px] bg-white w-full sm:min-h-[100px] xs:min-h-[50px] z-100`}
+        className={`xs:-mt-[3rem] sm:-mt-[6.3rem] md:block rounded-t-[60px] bg-white w-full sm:min-h-[100px] xs:min-h-[50px] z-100`}
       ></div>
       <Content />
       <RoundedFrameBottom />

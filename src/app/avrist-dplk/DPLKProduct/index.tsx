@@ -153,7 +153,7 @@ const DPLKProductList = () => {
           <SearchBar
             placeholder="Cari Produk"
             searchButtonTitle="Cari"
-            searchButtonClassname="bg-dplk_yellow text-white"
+            searchButtonClassname="bg-dplk_yellow hover:bg-dplk_yellow_highlight text-white"
             onSearch={handleChangeSearchParams}
           />
         </div>

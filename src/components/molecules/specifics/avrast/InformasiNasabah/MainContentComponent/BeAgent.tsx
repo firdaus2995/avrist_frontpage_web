@@ -14,7 +14,7 @@ export const BeAgent = () => {
       >
         <Button
           title="Selengkapnya"
-          customButtonClass="bg-purple_dark mr-[1.5rem]"
+          customButtonClass="bg-purple_dark hover:bg-purple_light mr-[1.5rem]"
           customTextClass="text-white text-[1rem]"
         />
       </Link>

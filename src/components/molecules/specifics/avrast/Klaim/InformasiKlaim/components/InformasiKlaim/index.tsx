@@ -162,7 +162,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                 <Link
                   href={'https://my.avrist.com/welcome'}
                   target="_blank"
-                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                  className="py-[8px] px-[20px] bg-purple_dark hover:bg-purple_light flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
                 >
                   {val.btnText}
                 </Link>
@@ -170,7 +170,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                 <div
                   role="button"
                   onClick={() => handleClickPelayananButton(val.btnText)}
-                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                  className="py-[8px] px-[20px] bg-purple_dark hover:bg-purple_light flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
                 >
                   {val.btnText}
                 </div>

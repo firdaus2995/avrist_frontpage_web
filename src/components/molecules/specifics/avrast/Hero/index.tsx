@@ -65,17 +65,7 @@ const Hero: React.FC<IHero> = ({
 
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${customClassName}`}
-      style={{
-        width: '100%',
-        height: bottomImage
-          ? imageSize.width < 640
-            ? '20.25rem'
-            : '38.5rem'
-          : imageSize.width < 640
-            ? '9.375rem'
-            : '18.75rem'
-      }}
+      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[26.25rem] sm:h-[38.5rem]' : 'xs:h-[9.375rem] md:h-[18.75rem]'} ${customClassName}`}
     >
       <div className="w-full flex items-center">
         <div

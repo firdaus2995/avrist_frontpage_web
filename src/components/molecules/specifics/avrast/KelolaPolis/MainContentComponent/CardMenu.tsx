@@ -45,7 +45,7 @@ export const CardMenuDownload = (props: CardMenuDownloadProps) => {
         </span>
       </span>
       <button
-        className="font-opensans font-semibold text-[1rem] bg-purple_dark text-white w-[8.5rem] h-[2.5rem] rounded-md px-[1.25rem] py-[0.5rem] xs:self-start sm:self-end"
+        className="font-opensans font-semibold text-[1rem] bg-purple_dark hover:!bg-purple_light text-white w-[8.5rem] h-[2.5rem] rounded-md px-[1.25rem] py-[0.5rem] xs:self-start sm:self-end"
         onClick={() => onDownload && onDownload(href!)}
       >
         Unduh

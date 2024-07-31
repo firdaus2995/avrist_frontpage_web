@@ -34,7 +34,7 @@ const DownloadFileButton: React.FC<IDownloadFileButton> = ({
       <div className="xs:w-full md:w-auto">
         <Button
           title="Unduh"
-          customButtonClass="bg-purple_dark rounded-lg px-6 py-1"
+          customButtonClass="bg-purple_dark hover:bg-purple_light rounded-lg px-6 py-1"
           customTextClass="text-white text-[16px] font-semibold leading-[23.68px] font-opensans"
           onClick={handleClickUnduh}
         />

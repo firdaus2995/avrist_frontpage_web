@@ -30,6 +30,7 @@ const data = [
     btnText: 'Selengkapnya',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
+    highlightColor: 'purple_light',
     link: '/produk/individu?tab=Asuransi+Jiwa',
     openInNewTab: false
   },
@@ -244,7 +245,7 @@ const TotalSolution = () => {
         >
           <Button
             title={val.btnText}
-            customButtonClass={`bg-${val.color} hover:bg-${val.color} border-none`}
+            customButtonClass={`${val.category === 'Avrist Life Insurance' ? 'bg-purple_dark hover:bg-purple_light' : val.category === 'Avrist Asset Management' ? 'bg-avram_green hover:!bg-avram_green_highlight' : 'bg-agi_grey hover:!bg-gray_highlight'} border-none`}
             customTextClass="text-white font-opensans font-semibold"
           />
         </CustomLink>

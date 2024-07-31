@@ -76,7 +76,7 @@ export const ContentCard = () => {
               <Link href={i.link}>
                 <div
                   role="button"
-                  className="bg-purple_dark flex text-white font-semibold rounded-[0.375rem] px-[1.25rem] py-[0.5rem] justify-center text-[16px] leading-[23.68px] font-opensanspro mt-[24px]"
+                  className="bg-purple_dark hover:bg-purple_light flex text-white font-semibold rounded-[0.375rem] px-[1.25rem] py-[0.5rem] justify-center text-[16px] leading-[23.68px] font-opensanspro mt-[24px]"
                 >
                   {i.btn}
                 </div>

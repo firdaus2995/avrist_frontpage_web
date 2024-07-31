@@ -132,7 +132,7 @@ export const ReportList = ({
                   }}
                 />
                 <button
-                  className="py-[8px] px-[20px] bg-purple_dark text-white rounded-[6px]"
+                  className="py-[8px] px-[20px] bg-purple_dark hover:bg-purple_light text-white rounded-[6px]"
                   onClick={() => onChangeSearch(keyword)}
                 >
                   Cari

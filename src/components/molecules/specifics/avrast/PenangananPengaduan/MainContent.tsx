@@ -321,7 +321,7 @@ export const MainContent = ({
                     target="_blank"
                     className="font-bold text-purple_dark cursor-pointer"
                   >
-                    Kebijakan Keamanan *
+                    Kebijakan Keamanan Online
                   </Link>
                 </span>
               </div>
@@ -331,7 +331,7 @@ export const MainContent = ({
                   type="submit"
                   disabled={formIsValid ? (isChecked ? false : true) : true}
                   onClick={() => onSubmitData()}
-                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0 py-[12px] px-[40px] font-opensans text-[20px] font-semibold leading-[28px]`}
+                  className={`${formIsValid ? (isChecked ? 'bg-purple_dark hover:bg-purple_light' : 'bg-dark-grey') : 'bg-dark-grey'} text-white h-[44px] md:h-[64px] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0 py-[12px] px-[40px] font-opensans text-[20px] font-semibold leading-[28px]`}
                 >
                   Kirim
                 </button>

@@ -31,8 +31,16 @@ const breadcrumbsData = [
 const topics = [
   { iconKey: 'topik1-icon', textKey: 'topik1-teks' },
   { iconKey: 'topik2-icon', textKey: 'topik2-teks' },
-  { iconKey: 'topik3-icon', textKey: 'topik3-teks', color: 'bg-green_border' },
-  { iconKey: 'topik4-icon', textKey: 'topik4-teks', color: 'bg-orange_border' },
+  {
+    iconKey: 'topik3-icon',
+    textKey: 'topik3-teks',
+    color: 'border-b-syariah_green'
+  },
+  {
+    iconKey: 'topik4-icon',
+    textKey: 'topik4-teks',
+    color: 'border-b-dplk_yellow'
+  },
   { iconKey: 'topik5-icon', textKey: 'topik5-teks' },
   { iconKey: 'topik6-icon', textKey: 'topik6-teks' },
   { iconKey: 'topik7-icon', textKey: 'topik7-teks' },

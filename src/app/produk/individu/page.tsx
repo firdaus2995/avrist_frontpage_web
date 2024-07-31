@@ -304,7 +304,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             <SearchBar
               placeholder="Cari"
               searchButtonTitle="Cari"
-              searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
+              searchButtonClassname="bg-purple_dark hover:bg-purple_light text-white font-semibold"
               onSearch={handleChangeSearchParams}
               activeTab={activeTab}
               value={searchValue}
@@ -316,8 +316,10 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
               selectedChannels={selectedChannels}
             />
           </div>
-          {renderCard()}
-          {dataContent?.length === 0 && (
+
+          {dataContent?.length > 0 ? (
+            renderCard()
+          ) : (
             <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
               <Image src={Search} alt="search" />
               <div className="flex flex-col gap-4">

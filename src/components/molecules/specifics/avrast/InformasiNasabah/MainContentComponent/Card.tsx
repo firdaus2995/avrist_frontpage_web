@@ -102,7 +102,7 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
                   onClick={() =>
                     window.open(tenagaPemasaranFile?.filePath, '_blank')
                   }
-                  customButtonClass="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
+                  customButtonClass="bg-purple_dark hover:bg-purple_light max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem]"
                   customTextClass="text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
                 >
                   {i.btn}
@@ -110,7 +110,7 @@ export const ContentCard: React.FC<CustomContentCardProps> = ({
               ) : (
                 <Link
                   href={i.link}
-                  className="bg-purple_dark max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
+                  className="bg-purple_dark hover:bg-purple_light max-w-[16.25rem] w-full text-white rounded-md flex items-center justify-center py-[0.5rem] px-[1.25rem] text-[1rem] sm:leading-[23.68px] font-semibold font-opensans"
                   target={i.isFile ? '_blank' : '_self'}
                 >
                   {i.btn}

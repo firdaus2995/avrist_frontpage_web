@@ -32,7 +32,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     searchFilter: ''
   });
   const [categories, setCategories] = useState<any>([]);
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage] = useState(5);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -46,7 +46,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     const endOffset = itemOffset + itemsPerPage;
     setPaginatedData(contentData.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(contentData.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, contentData]);
+  }, [itemOffset, itemsPerPage, contentData, params.category]);
 
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
@@ -66,6 +66,10 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   useEffect(() => {
     fetchContent();
   }, [params]);
+
+  useEffect(() => {
+    setItemOffset(0);
+  }, [params.category]);
 
   useEffect(() => {
     categories.length > 0 && setParams({ ...params, category: categories[0] });
@@ -301,7 +305,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                           <div>
                             <Button
                               title="Unduh"
-                              customButtonClass="rounded-xl bg-purple_dark"
+                              customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light"
                               customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                               onClick={async () =>
                                 window.open(item.file, '_blank')

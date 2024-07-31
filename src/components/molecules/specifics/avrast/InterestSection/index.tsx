@@ -150,7 +150,7 @@ const InterestSection = (props: Props) => {
             disabled={formIsValid ? (isChecked ? false : true) : true}
             title="Kirim"
             onClick={() => onSubmitData()}
-            customButtonClass="rounded-lg bg-purple_dark px-[2.5rem] py-[1.125rem]"
+            customButtonClass="rounded-lg bg-purple_dark hover:bg-purple_light px-[2.5rem] py-[1.125rem]"
             customTextClass="text-white font-opensans font-semibold text-xl"
           />
         </div>
