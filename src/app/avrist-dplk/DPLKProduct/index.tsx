@@ -176,7 +176,7 @@ const DPLKProductList = () => {
                   cardClassname="bg-white border-b-dplk_yellow"
                   cardTitleClassname="text-dplk_yellow"
                   cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                  cardButtonClassname="bg-dplk_yellow text-white"
+                  cardButtonClassname="bg-dplk_yellow text-white hover:bg-dplk_yellow_highlight"
                 />
               );
             })}

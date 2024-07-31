@@ -416,7 +416,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   bgColor="purple_superlight"
                   imageClassName="object-fill md:!max-h-[350px] md:!min-h-[350px]"
                   title={
-                    <div className="flex flex-col justify-between text-left h-full">
+                    <div className="flex flex-col justify-between text-left h-full gap-[1.5rem]">
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-3">
                           <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
@@ -542,19 +542,19 @@ const Promo: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-4xl 2xl:text-[3.5rem]">
-                Subscribe Informasi Terkini!
+              <p className="text-4xl 2xl:text-[3.5rem] mb-[2rem] xs:leading-[43.2px] sm:leading-[67.2px]">
+                Dapatkan Informasi Terbaru
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
                   Avrist Life Insurance
                 </p>
               </div>
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
+              <div className="flex xs:flex-col sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
@@ -567,7 +567,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   </p>
                 )}
                 <Button
-                  title="Subscribe"
+                  title="Subscribe Sekarang!"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeContentButton}
                 />

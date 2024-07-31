@@ -19,7 +19,10 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
-import { handleGetContentCategory, handleGetContentPage } from '@/services/content-page.api';
+import {
+  handleGetContentCategory,
+  handleGetContentPage
+} from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import {
   contentCategoryTransformer,
@@ -210,7 +213,7 @@ const ProdukSyariah = () => {
                   cardClassname="bg-white border-b-syariah_green"
                   cardTitleClassname="text-syariah_green"
                   cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
-                  cardButtonClassname="bg-syariah_green_informing text-white"
+                  cardButtonClassname="bg-syariah_green_informing text-white hover:bg-syariah_green_highlight"
                   onClickTags={(item: string) => {
                     handleChangeSearchParams(item);
                   }}
