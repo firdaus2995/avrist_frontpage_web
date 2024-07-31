@@ -31,10 +31,6 @@ const DPLKProductList = () => {
   useEffect(() => {
     const fetchDataContentWithCategory = async () => {
       try {
-        // const contentCategoryResponse = await fetch(
-        //   `/api/produk-dplk/content-category?channelFilter=${selectedChannels?.length === channels?.length ? undefined : selectedChannels}&searchFilter=${search}`
-        // );
-        // const data = await contentCategoryResponse.json();
         const data = await handleGetContentCategory('Produk-Avrast-DPLK', {
           searchFilter: search,
           channelFilter: selectedChannels ?? '',
@@ -74,7 +70,6 @@ const DPLKProductList = () => {
             };
           }
         );
-        console.log(dataContentValues);
         setDataContent(dataContentValues);
 
         return dataContentValues;
