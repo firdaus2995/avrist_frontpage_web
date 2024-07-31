@@ -9,6 +9,7 @@ import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills
 import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPillsBox';
 import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
+import { handleGetContentCategory } from '@/services/content-page.api';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
@@ -30,10 +31,11 @@ const DPLKProductList = () => {
   useEffect(() => {
     const fetchDataContentWithCategory = async () => {
       try {
-        const contentCategoryResponse = await fetch(
-          `/api/produk-dplk/content-category?channelFilter=${selectedChannels?.length === channels?.length ? undefined : selectedChannels}&searchFilter=${search}`
-        );
-        const data = await contentCategoryResponse.json();
+        const data = await handleGetContentCategory('Produk-Avrast-DPLK', {
+          searchFilter: search,
+          channelFilter: selectedChannels ?? '',
+          includeAttributes: 'true'
+        });
         const transformedDataContent = contentCategoryTransformer(data, '-');
 
         const dataContentValues = transformedDataContent?.map(
@@ -68,7 +70,6 @@ const DPLKProductList = () => {
             };
           }
         );
-
         setDataContent(dataContentValues);
 
         return dataContentValues;
@@ -159,24 +160,26 @@ const DPLKProductList = () => {
       </div>
       <div className="flex flex-col gap-[1.5rem] sm:-mt-[2.5rem]">
         <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-[24px]">
-          {paginatedData.map((i, index) => {
-            return (
-              <CardProduct
-                key={index}
-                imageProduk={i.produkImage.imageUrl}
-                symbol={i.kategoriProdukIcon.imageUrl}
-                title={'DPLK Avrist'}
-                summary={i.namaProduk}
-                href={`${pathname}/${i.id}`}
-                description={i.deskripsiSingkatProduk}
-                tags={i.tags.split(',')}
-                cardClassname="bg-white border-b-dplk_yellow"
-                cardTitleClassname="text-dplk_yellow"
-                cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                cardButtonClassname="bg-dplk_yellow text-white"
-              />
-            );
-          })}
+          {dataContent &&
+            dataContent?.length > 0 &&
+            paginatedData.map((i, index) => {
+              return (
+                <CardProduct
+                  key={index}
+                  imageProduk={i.produkImage.imageUrl}
+                  symbol={i.kategoriProdukIcon.imageUrl}
+                  title={'DPLK Avrist'}
+                  summary={i.namaProduk}
+                  href={`${pathname}/${i.id}`}
+                  description={i.deskripsiSingkatProduk}
+                  tags={i.tags.split(',')}
+                  cardClassname="bg-white border-b-dplk_yellow"
+                  cardTitleClassname="text-dplk_yellow"
+                  cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
+                  cardButtonClassname="bg-dplk_yellow text-white"
+                />
+              );
+            })}
         </div>
         {dataContent?.length === 0 && (
           <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
