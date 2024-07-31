@@ -3,6 +3,7 @@ export interface dataKlaim {
   titleAltText: string;
   bannerImageUrl: string;
   bannerAltText: string;
+  bannerImageFit?: string;
   footerInfoImageUrl: string;
   footerInfoAltText: string;
 }

@@ -33,6 +33,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser, getYouTubeId } from '@/utils/helpers';
 import {
   contentDetailTransformer,
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer,
@@ -249,9 +250,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       );
     });
     const tags = content['tags'].value.split(',');
-    const thumbnail = singleImageTransformer(
+    const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
+    const thumbnailFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
 
     const transformedData = {
       tagline,
@@ -261,7 +265,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       tahun,
       loopArtikel,
       tags,
-      thumbnail
+      thumbnail,
+      thumbnailFit
     };
 
     setContentData(transformedData);
@@ -341,6 +346,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         ]}
         imageUrl={data?.titleImage}
         bottomImage={thumbnail}
+        bottomImageFit={contentData.thumbnailFit}
       />
 
       <div className="flex items-center justify-center w-full">

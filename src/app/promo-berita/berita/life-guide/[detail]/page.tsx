@@ -24,6 +24,7 @@ import { handleGetContentPage } from '@/services/content-page.api';
 import { generateDaftarIsi, isContentNotEmpty } from '@/utils/helpers';
 import {
   // contentDetailTransformer
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   handleTransformedContent,
@@ -134,7 +135,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
-          const bannerImage = singleImageTransformer(
+          const bannerImage = customImageTransformer(
             content['banner-image']
           ).imageUrl;
           const footerImage = singleImageTransformer(
@@ -166,9 +167,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     const penulis = content['penulis-artikel'].value;
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
-    const thumbnail = singleImageTransformer(
+    const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
+    const thumbnailFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
     const artikel = content['artikel-looping'].contentData;
     // const paragrafSatu = artikel[0]?.value;
     // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
@@ -195,6 +199,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
       bulan,
       tahun,
       thumbnail,
+      thumbnailFit,
       // paragrafSatu,
       // artikelImage,
       // paragrafDua,
@@ -276,6 +281,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         ]}
         imageUrl={data?.titleImage}
         bottomImage={contentData?.thumbnail ?? BlankImage}
+        bottomImageFit={contentData?.thumbnailFit}
       />
       <div className="flex flex-col lg:flex-row px-[2rem] md:px-[8.5rem] pt-[80px] pb-[14px] gap-[36px]">
         <div className="flex flex-col gap-6">

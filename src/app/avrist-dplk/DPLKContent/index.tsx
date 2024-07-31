@@ -17,6 +17,7 @@ type Props = {
   pengawas: ContentData[];
   pengurus: ContentData[];
   bottomImage: string;
+  bannerImageFit?: string;
   bannerImageUrl: string;
 };
 const tabs = [
@@ -46,7 +47,8 @@ const DPLKContent = (props: Props) => {
     pengawas,
     pengurus,
     bottomImage,
-    bannerImageUrl
+    bannerImageUrl,
+    bannerImageFit
   } = props;
   const isMobile = useMobileDetector();
   const router = useRouter();
@@ -135,6 +137,7 @@ const DPLKContent = (props: Props) => {
           { title: tab, href: '#' }
         ]}
         bottomImage={bottomImage}
+        bottomImageFit={bannerImageFit}
         imageUrl={bannerImageUrl}
       />
       <div className="flex flex-col justify-center xs:px-[2rem] md:px-[8.5rem] my-[3.125rem] sm:mt-[5rem] sm:mb-[4rem] gap-[3.125rem] sm:gap-[5rem]">

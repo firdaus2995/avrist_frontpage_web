@@ -27,6 +27,7 @@ import { subscribeApi } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   contentDetailTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -156,9 +157,12 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     });
     const tags = content['tags'].value;
     const externalLink = content['external-link-info'].value;
-    const thumbnail = singleImageTransformer(
+    const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
+    const thumbnailFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
 
     const transformedData = {
       tagline,
@@ -170,7 +174,8 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       tags,
       loopArtikel,
       externalLink,
-      thumbnail
+      thumbnail,
+      thumbnailFit
     };
 
     setContentData(transformedData);

@@ -28,6 +28,7 @@ import { dataKlaim } from '@/components/molecules/specifics/avrast/Klaim/type';
 import { PerformaInvestasi } from '@/components/molecules/specifics/avrast/PerformaInvestasi';
 import { getContentPage } from '@/services/content-page.api';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -178,9 +179,12 @@ const InformationCustomer = () => {
         const data = await getContentPage(pageSlug as string);
         const { content } = pageTransformer(data);
         const banner =
-          singleImageTransformer(content['banner-image']).imageUrl !== ''
-            ? singleImageTransformer(content['banner-image'])
-            : singleImageTransformer(content['image-banner']);
+          customImageTransformer(content['banner-image']).imageUrl !== ''
+            ? customImageTransformer(content['banner-image'])
+            : customImageTransformer(content['image-banner']);
+        const bannerImageFit = content['banner-image']?.config
+          ? JSON.parse(content['banner-image']?.config)?.image_fit
+          : '';
         const title =
           singleImageTransformer(content['title-image']).imageUrl !== ''
             ? singleImageTransformer(content['title-image'])
@@ -193,6 +197,7 @@ const InformationCustomer = () => {
         setData({
           titleImageUrl: title.imageUrl,
           bannerImageUrl: banner.imageUrl,
+          bannerImageFit,
           titleAltText: title.altText,
           bannerAltText: banner.altText,
           footerInfoAltText: footerInformation.altText,
@@ -219,6 +224,7 @@ const InformationCustomer = () => {
         ]}
         imageUrl={data.titleImageUrl}
         bottomImage={data.bannerImageUrl}
+        bottomImageFit={data.bannerImageFit}
       />
       {params.includes('Informasi Nasabah') ? (
         <MainContent />

@@ -27,6 +27,7 @@ import { handleGetContentPage } from '@/services/content-page.api';
 import { getYouTubeId } from '@/utils/helpers';
 import {
   contentDetailTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -72,7 +73,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         const titleImage = singleImageTransformer(
           content['title-image']
         ).imageUrl;
-        const bannerImage = singleImageTransformer(
+        const bannerImage = customImageTransformer(
           content['banner-image']
         ).imageUrl;
         const footerImage = singleImageTransformer(
@@ -108,9 +109,12 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const date = new Date(jsonData?.data?.createdAt).getDate();
     const monthInText = month.find((item) => item.value === bulan)?.label;
     const externalLink = content['list-external-link'].contentData;
-    const bottomImage = singleImageTransformer(
+    const bottomImage = customImageTransformer(
       content['artikel-thumbnail']
     )?.imageUrl;
+    const bottomImageFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
 
     const transformedData = {
       tagline,
@@ -130,7 +134,8 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       monthInText,
       externalLink,
       dataArtikel,
-      bottomImage
+      bottomImage,
+      bottomImageFit
     };
 
     setContentData(transformedData);

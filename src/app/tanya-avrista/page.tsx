@@ -18,6 +18,7 @@ import { getListFaq, getTanyaAvrista } from '@/services/tanya-avrista.api';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -74,6 +75,7 @@ export interface IListFaq {
 const TanyaAvrista = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [cards, setCards] = useState<IListCards[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
@@ -90,7 +92,12 @@ const TanyaAvrista = () => {
         const { content } = pageTransformer(data);
 
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
 
         const listCards = topics.map((topic) => ({
@@ -208,6 +215,7 @@ const TanyaAvrista = () => {
         breadcrumbsData={breadcrumbsData}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
         customComponent={
           <SearchTerm
             onSearch={handleGetListFaqFilter}

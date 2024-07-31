@@ -34,6 +34,7 @@ import { ParamsProps } from '@/utils/globalTypes';
 import { htmlParser } from '@/utils/helpers';
 import {
   contentStringTransformer,
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer
@@ -144,13 +145,16 @@ const Promo: React.FC<ParamsProps> = () => {
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
-          const bannerImage = singleImageTransformer(
+          const bannerImage = customImageTransformer(
             content['banner-image']
           ).imageUrl;
+          const bannerImageFit = content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : '';
           const footerImage = singleImageTransformer(
             content['cta1-image']
           ).imageUrl;
-          setData({ titleImage, bannerImage, footerImage });
+          setData({ titleImage, bannerImage, bannerImageFit, footerImage });
         }
       );
     } catch (error) {
@@ -382,6 +386,7 @@ const Promo: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
+        bottomImageFit={data?.bannerImageFit}
       />
       <div className="w-full flex flex-col items-center justify-center text-center relative xs-px-[32px] md:px-0">
         <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla" />

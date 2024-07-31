@@ -30,6 +30,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { getYouTubeId } from '@/utils/helpers';
 import {
   contentTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer,
@@ -47,6 +48,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
   const [bannerImg, setBannerImg] = useState<any>();
+  const [bannerImgFit, setBannerImgFit] = useState('');
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
@@ -155,7 +157,12 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
-      setBannerImg(singleImageTransformer(content['produk-image']));
+      setBannerImg(customImageTransformer(content['produk-image']));
+      setBannerImgFit(
+        content['banner-image']?.config
+          ? JSON.parse(content['banner-image']?.config)?.image_fit
+          : ''
+      );
       setDataDetail(detailData);
     }
 
@@ -361,6 +368,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             ]}
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
+            bottomImageFit={bannerImgFit}
           />
           <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] xs:gap-[1.5rem] md:py-[5rem] md:px-[8.5rem] md:gap-[4rem]">
             <AboutHeading
@@ -457,7 +465,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    className='mt-1'
+                    className="mt-1"
                     onChange={(e) => {
                       setIsChecked(e.target.checked);
                     }}

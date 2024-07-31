@@ -27,6 +27,7 @@ import { PageResponse } from '@/types/page.type';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -45,7 +46,10 @@ const ProdukSyariah = () => {
 
   const { content } = pageTransformer(data);
   const titleImage = singleImageTransformer(content['title-image']);
-  const banner = singleImageTransformer(content['banner-image']);
+  const banner = customImageTransformer(content['banner-image']);
+  const bannerImageFit = content['banner-image']?.config
+    ? JSON.parse(content['banner-image']?.config)?.image_fit
+    : '';
   const footer = singleImageTransformer(content['cta1-image']);
   const [searchValue, setSearchValue] = useState('');
 
@@ -149,6 +153,7 @@ const ProdukSyariah = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={banner.imageUrl}
+        bottomImageFit={bannerImageFit}
       />
       <CustomContainer className="mt-[2.25rem] sm:mt-[5rem] flex flex-col gap-[3.125rem] sm:gap-[4rem]">
         <CategoryPills

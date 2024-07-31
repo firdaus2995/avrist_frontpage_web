@@ -18,6 +18,7 @@ import {
 } from '@/services/content-page.api';
 import {
   pageTransformer,
+  customImageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
@@ -25,7 +26,10 @@ const KlaimLayanan = async () => {
   const pageBase = await handleGetContentPage('halaman-klaim-dan-layanan-dplk');
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
+  const bannerImage = customImageTransformer(content['banner-image']);
+  const bannerImageFit = content['banner-image']?.config
+    ? JSON.parse(content['banner-image']?.config)?.image_fit
+    : '';
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
   // const contentBase = await handleGetContent('Halaman-Klaim-dan-Layanan-DPLK', {
@@ -42,6 +46,7 @@ const KlaimLayanan = async () => {
           { title: 'Klaim dan Layanan', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
         imageUrl={titleImage.imageUrl}
       />
       <KlaimDanLayanan />

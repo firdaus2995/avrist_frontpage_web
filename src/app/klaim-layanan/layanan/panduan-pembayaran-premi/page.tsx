@@ -11,6 +11,7 @@ import FooterKlaim from '@/components/molecules/specifics/avrast/Klaim/FooterKla
 import { MainContent } from '@/components/molecules/specifics/avrast/PanduanPembayaranPolis';
 import { getPanduanPembayaran } from '@/services/layanan.api';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -27,6 +28,7 @@ const handleGetContent = async (slug: string) => {
 const TutorialPayment = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
 
   useEffect(() => {
@@ -36,7 +38,12 @@ const TutorialPayment = () => {
         const { content } = pageTransformer(data);
 
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
       } catch (error) {
         console.error('Error:', error);
@@ -60,6 +67,7 @@ const TutorialPayment = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
       />
       <MainContent />
       <FooterInformation
