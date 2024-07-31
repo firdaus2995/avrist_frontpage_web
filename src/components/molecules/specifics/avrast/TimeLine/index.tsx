@@ -56,6 +56,9 @@ const Timeline = ({ data }: IFooterInformation) => {
         <p className="sm:text-5xl xs:text-3xl font-extrabold text-purple_dark">
           Sejarah Perusahaan
         </p>
+        <p className="md:text-lg xs:text-2xl text-center lg:mt-2 font-light -tracking-[1.08px]">
+          Klik pada tahun untuk membaca sejarah lebih lanjut
+        </p>
       </TitleContainer>
 
       <div className="flex flex-row w-full h-full items-center justify-center pb-1">

@@ -30,7 +30,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 className="xs:w-[2.25rem] md:w-[5rem]"
                 alt="logo"
               />
-              <p className="xs:text-[2.25rem] md:text-[3.5rem] font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+              <p className="sm:text-5xl xs:text-3xl font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
                 {val.title}
               </p>
             </div>
@@ -45,16 +45,16 @@ const VisiMisi = ({ data }: IVisiMisi) => {
             ) : null}
           </div>
           {!Array.isArray(val.desc) ? (
-            <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
+            <p className="xs:text-xl md:text-[1.5rem] font-light -tracking-[1.08px]">
               {val.desc}
             </p>
           ) : !isExpanded ? (
             <div className="flex flex-col gap-4">
               <div className="flex flex-row xs:gap-[2rem] md:gap-[3.75rem] items-center">
-                <p className="xs:text-[4rem] md:text-[6.25rem] font-bold text-purple_light font-karla">
+                <p className="xs:text-[4rem] md:text-[5rem] font-bold text-purple_light font-karla">
                   1
                 </p>
-                <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
+                <p className="xs:text-xl md:text-[1.5rem] font-light -tracking-[1.08px]">
                   {val.desc[0]}
                 </p>
               </div>
@@ -82,14 +82,14 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                 <div className="flex xs:flex-col md:flex-row items-center w-full xs:text-center md:text-start">
                   <span className="w-[7rem]">
                     <p
-                      className={`xs:text-[4rem] md:text-[6.25rem] font-bold text-purple_light font-karla ${index + 1 === 1 ? 'md:pl-4' : ''}`}
+                      className={`xs:text-[4rem] md:text-[5rem] font-bold text-purple_light font-karla ${index + 1 === 1 ? 'md:pl-4' : ''}`}
                     >
                       {index + 1}
                     </p>
                   </span>
 
                   <span className="w-full">
-                    <p className="text-[1.25rem] md:text-[2.25rem] font-light -tracking-[1.08px]">
+                    <p className="xs:text-xl md:text-[1.5rem] font-light -tracking-[1.08px]">
                       {value}
                     </p>
                   </span>

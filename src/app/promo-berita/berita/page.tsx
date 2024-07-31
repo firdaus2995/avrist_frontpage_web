@@ -1028,7 +1028,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             <span className="font-bold text-purple_dark text-sm">
                               {htmlParser(item.artikelTopic)}
                             </span>{' '}
-                            | {`${item.date} ${item.waktu}`}
+                            | {`${item.waktu}`}
                           </p>
                           <div className="flex flex-col gap-3">
                             {isContentNotEmpty(item.judul) && (
@@ -1153,7 +1153,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           >
                             <CardCategoryB
                               summary={item.judul}
-                              description={`${item.date} ${item.waktu}`}
+                              description={`${item.waktu}`}
                               imageUrl={item.image}
                               imageStyle="min-h-[190px] object-fill"
                               lineClamp={3}
@@ -1212,7 +1212,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               title={htmlParser(item.judul)}
                               summary={htmlParser(item.deskripsi)}
                               category={item.category}
-                              time={` | ${item.date} ${item.waktu}`}
+                              time={` | ${item.waktu}`}
                               tags={
                                 typeof item.tags === 'string'
                                   ? item.tags.split(',')
@@ -1369,7 +1369,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
                             category={item.category}
-                            time={` | ${item?.differenceTime} yang lalu`}
+                            time={` | ${item?.waktu}`}
                             tags={
                               typeof item.tags === 'string'
                                 ? item.tags.split(',')
@@ -1532,10 +1532,7 @@ const Berita: React.FC<ParamsProps> = () => {
         <div className="w-full flex flex-col items-center justify-center px-[136px] text-center xs:px-0 mt-2">
           <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-              Kumpulan Berita Pers
-            </p>
-            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
-              Temukan siaran pers Avrist di sini!
+              Temukan Kumpulan Berita Pers di Sini
             </p>
           </div>
 
@@ -1630,19 +1627,19 @@ const Berita: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-4xl 2xl:text-[3.5rem]">
-                Subscribe Informasi Terkini!
+              <p className="text-4xl 2xl:text-[3.5rem] mb-[2rem] xs:leading-[43.2px] sm:leading-[67.2px]">
+                Dapatkan Informasi Terbaru
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
                   Avrist Life Insurance
                 </p>
               </div>
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
+              <div className="flex xs:flex-col sm:flex-row sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
@@ -1655,7 +1652,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </p>
                 )}
                 <Button
-                  title="Subscribe"
+                  title="Subscribe Sekarang!"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeContentButton}
                 />

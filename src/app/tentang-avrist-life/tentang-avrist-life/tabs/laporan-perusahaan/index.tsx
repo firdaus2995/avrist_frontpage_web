@@ -251,11 +251,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           // </CustomContainer>
           <div className="px-[2rem] xs:my-[2.25rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-              {params.category.replace('Perusahaan', '')} Perusahaan
-            </p>
-            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
-              Temukan {params.category.replace('Perusahaan', '').toLowerCase()}{' '}
-              perusahaan di sini
+              Temukan {params.category.replace('Perusahaan', '')} di Sini
             </p>
           </div>
         ) : null}
