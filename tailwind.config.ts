@@ -97,7 +97,9 @@ const config: Config = {
         grey_video_footer: '#8C8B89',
         syariah_green: '#3D5910',
         syariah_green_informing: '#417C40',
+        syariah_green_highlight: '#83AA3F',
         dplk_yellow: '#F2A625',
+        dplk_yellow_highlight: '#F2CC61',
         purple_bg: '#FCF4FF',
         grey_bg: '#F6F6F6',
         green_bg: '#EBFCFA'
