@@ -43,6 +43,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
 import { htmlParser, isContentNotEmpty, mergeAllData } from '@/utils/helpers';
 import {
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer
@@ -277,13 +278,16 @@ const Berita: React.FC<ParamsProps> = () => {
         const titleImage = singleImageTransformer(
           content['title-image']
         ).imageUrl;
-        const bannerImage = singleImageTransformer(
+        const bannerImage = customImageTransformer(
           content['banner-image']
         ).imageUrl;
+        const bannerImageFit = content['produk-image']?.config
+          ? JSON.parse(content['produk-image']?.config)?.image_fit
+          : '';
         const footerImage = singleImageTransformer(
           content['cta1-image']
         ).imageUrl;
-        setData({ titleImage, bannerImage, footerImage });
+        setData({ titleImage, bannerImage, bannerImageFit, footerImage });
       });
     } catch (error) {
       console.error('Error:', error);
@@ -915,6 +919,7 @@ const Berita: React.FC<ParamsProps> = () => {
           { title: tab === 'Avrist Terkini' ? params.category : tab, href: '#' }
         ]}
         bottomImage={params.category === 'AvriStory' ? data?.bannerImage : null}
+        bottomImageFit={data?.bannerImageFit}
         imageUrl={data?.titleImage}
         // customClassName={`${tab === 'Avrist Terkini' && params.category === 'AvriStory' && 'sm:!max-h-[26.25rem]'}`}
       />

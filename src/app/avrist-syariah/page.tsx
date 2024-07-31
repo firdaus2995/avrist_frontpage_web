@@ -38,6 +38,7 @@ import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -72,7 +73,10 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   const { content } = pageTransformer(data);
 
   const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
+  const bannerImage = customImageTransformer(content['banner-image']);
+  const bannerImageFit = content['banner-image']?.config
+    ? JSON.parse(content['banner-image']?.config)?.image_fit
+    : '';
 
   const dewanPengawasJudul = contentStringTransformer(
     content['dewanpengawassyariah-judul']
@@ -103,6 +107,10 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     slidesToScroll: 1,
     centerPadding: '0px'
   };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -253,6 +261,7 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
       />
       <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[5rem] xs:gap-[3.125rem] sm:gap-[5rem]">
         <div className="flex-row w-full justify-between gap-[0.75rem] items-stretch xs:hidden md:flex">
@@ -419,5 +428,5 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
 };
 
 export default dynamic(() => Promise.resolve(AvristSyariah), {
-  ssr: false,
+  ssr: false
 });

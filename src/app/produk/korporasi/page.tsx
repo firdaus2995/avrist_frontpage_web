@@ -29,6 +29,7 @@ import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -102,11 +103,15 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         const pageBase = await handleGetContentPage('produk-korporasi');
         const { content } = pageTransformer(pageBase);
         const titleImage = singleImageTransformer(content['title-image']);
-        const bannerImage = singleImageTransformer(content['banner-image']);
+        const bannerImage = customImageTransformer(content['banner-image']);
+        const bannerImageFit = content['banner-image']?.config
+          ? JSON.parse(content['banner-image']?.config)?.image_fit
+          : '';
         const footerImage = singleImageTransformer(content['cta1-image']);
         setData({
           titleImageUrl: titleImage.imageUrl,
           bannerImageUrl: bannerImage.imageUrl,
+          bannerImageFit,
           titleAltText: titleImage.altText,
           bannerAltText: bannerImage.altText,
           footerInfoAltText: footerImage.altText,
@@ -244,6 +249,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           { title: 'Produk', href: '#' }
         ]}
         bottomImage={data.bannerImageUrl}
+        bottomImageFit={data.bannerImageFit}
         imageUrl={data.titleImageUrl}
       />
       <div className="flex flex-col px-[32px] sm:px-[136px] xs:pt-[50px] sm:pt-[5rem] pb-[28px] xs:gap-[36px] sm:gap-[24px] sm:flex-row">

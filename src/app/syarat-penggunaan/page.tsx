@@ -13,6 +13,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import {
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -36,7 +37,7 @@ const SyaratPengunaan = () => {
 
         const { title, content } = pageTransformer(data);
         const artikel = contentStringTransformer(content['body-jawaban']);
-        const bannerImage = singleImageTransformer(content['image-title']);
+        const bannerImage = customImageTransformer(content['image-title']);
         const footerImage = singleImageTransformer(content['image-cta1']);
         setData({ title, artikel, bannerImage, footerImage });
       } catch (error) {

@@ -18,6 +18,7 @@ import {
 } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer
@@ -32,7 +33,10 @@ const AvristSyariah = async () => {
 
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
+  const bannerImage = customImageTransformer(content['banner-image']);
+  const bannerImageFit = content['banner-image']?.config
+    ? JSON.parse(content['banner-image']?.config)?.image_fit
+    : '';
   const dewanpengawasdplkJudul = contentStringTransformer(
     content['dewanpengawasdplk-judul']
   );
@@ -70,6 +74,7 @@ const AvristSyariah = async () => {
         pengurus={pengurus}
         bottomImage={bannerImage.imageUrl}
         bannerImageUrl={titleImage.imageUrl}
+        bannerImageFit={bannerImageFit}
       />
 
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-yellow_light" />

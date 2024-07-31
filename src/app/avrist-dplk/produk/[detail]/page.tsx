@@ -32,6 +32,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { BASE_URL } from '@/utils/baseUrl';
 import {
   contentTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer,
@@ -62,6 +63,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
   const [bannerImg, setBannerImg] = useState<any>();
+  const [bannerImgFit, setBannerImgFit] = useState('');
 
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -172,7 +174,12 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
-      setBannerImg(singleImageTransformer(content['produk-image']));
+      setBannerImg(customImageTransformer(content['produk-image']));
+      setBannerImgFit(
+        content['produk-image']?.config
+          ? JSON.parse(content['produk-image']?.config)?.image_fit
+          : ''
+      );
       setDataDetail(detailData);
     }
 
@@ -376,6 +383,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             ]}
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
+            bottomImageFit={bannerImgFit}
           />
           <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem]">
             <AboutHeading
@@ -469,7 +477,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    className='mt-1'
+                    className="mt-1"
                     onChange={(e) => {
                       setIsChecked(e.target.checked);
                     }}

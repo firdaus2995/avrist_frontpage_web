@@ -14,6 +14,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -21,8 +22,11 @@ import {
 const ProdukDplk = async () => {
   const pageBase = await handleGetContentPage('halaman-produk-dplk');
   const { content } = pageTransformer(pageBase);
+  const bannerImageFit = content['banner-image']?.config
+    ? JSON.parse(content['banner-image']?.config)?.image_fit
+    : '';
   const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = singleImageTransformer(content['banner-image']);
+  const bannerImage = customImageTransformer(content['banner-image']);
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
   return (
@@ -34,6 +38,7 @@ const ProdukDplk = async () => {
           { title: 'Program DPLK', href: '#' }
         ]}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
         imageUrl={titleImage.imageUrl}
       />
       <DPLKProductList />

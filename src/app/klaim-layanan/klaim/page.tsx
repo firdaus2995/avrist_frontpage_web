@@ -34,6 +34,7 @@ import { getContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -152,6 +153,7 @@ const dataRSRekanan = [
 const initialData = {
   titleImageUrl: '',
   bannerImageUrl: '',
+  bannerImageFit: '',
   titleAltText: '',
   bannerAltText: '',
   footerInfoAltText: '',
@@ -190,9 +192,12 @@ const handleDataFetch = async (
         ? singleImageTransformer(content[dataKeyTitle])
         : singleImageTransformer(content['image-title']);
     const banner =
-      singleImageTransformer(content[dataKeyBanner]).imageUrl !== ''
-        ? singleImageTransformer(content[dataKeyBanner])
-        : singleImageTransformer(content['image-banner']);
+      customImageTransformer(content[dataKeyBanner]).imageUrl !== ''
+        ? customImageTransformer(content[dataKeyBanner])
+        : customImageTransformer(content['image-banner']);
+    const bannerImageFit = content[dataKeyBanner]?.config
+      ? JSON.parse(content[dataKeyBanner]?.config)?.image_fit
+      : '';
     const footerInformationImage =
       singleImageTransformer(content[dataKeyFooter]).imageUrl !== ''
         ? singleImageTransformer(content[dataKeyFooter])
@@ -213,6 +218,7 @@ const handleDataFetch = async (
     setData({
       titleImageUrl: title.imageUrl,
       bannerImageUrl: banner.imageUrl,
+      bannerImageFit,
       titleAltText: title.altText,
       bannerAltText: banner.altText,
       footerInfoAltText: footerInformationImage.altText,
@@ -277,6 +283,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={data.titleImageUrl}
         bottomImage={data.bannerImageUrl}
+        bottomImageFit={data.bannerImageFit}
       />
       <InformasiKlaimComponent
         onTabChange={handleTabChange}
@@ -318,12 +325,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
               className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg text-xl font-semibold text-white flex flex-row gap-2 items-center font-opensans leading-[28px]"
             >
               Cerita Lebih Detail di
-              <Icon
-                name="youtubeIcon"
-                color="white"
-                width={32}
-                height={32}
-              />
+              <Icon name="youtubeIcon" color="white" width={32} height={32} />
             </Link>
           </div>
         }
@@ -353,5 +355,5 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
 };
 
 export default dynamic(() => Promise.resolve(InformasiKlaim), {
-  ssr: false,
+  ssr: false
 });

@@ -36,6 +36,7 @@ import {
   contentTransformer,
   contentDetailTransformer,
   contentStringTransformer,
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer
@@ -50,7 +51,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
   });
   const [dataDetail, setDataDetail] = useState<any>();
   const [bannerImg, setBannerImg] = useState<any>();
-
+  const [bannerImgFit, setBannerImgFit] = useState('');
   const [dataForm, setDataForm] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -158,7 +159,12 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
-      setBannerImg(singleImageTransformer(content['produk-image']));
+      setBannerImg(customImageTransformer(content['produk-image']));
+      setBannerImgFit(
+        content['produk-image']?.config
+          ? JSON.parse(content['produk-image']?.config)?.image_fit
+          : ''
+      );
       setDataDetail(detailData);
     }
 
@@ -230,8 +236,9 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
             return dateB - dateA;
           }
         );
-        const otherData = sortedData
-        ?.filter((item: any) => item.id !== parseInt(params.detail));
+        const otherData = sortedData?.filter(
+          (item: any) => item.id !== parseInt(params.detail)
+        );
         setDataRekomendasi(otherData);
         return dataContentValues;
       } catch (error: any) {
@@ -365,6 +372,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           }
         ]}
         bottomImage={bannerImg?.imageUrl}
+        bottomImageFit={bannerImgFit}
         imageUrl={titleImage}
       />
       <Suspense>
@@ -452,7 +460,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
               <input
                 type="checkbox"
                 checked={isChecked}
-                className='mt-1'
+                className="mt-1"
                 onChange={(e) => {
                   setIsChecked(e.target.checked);
                 }}
