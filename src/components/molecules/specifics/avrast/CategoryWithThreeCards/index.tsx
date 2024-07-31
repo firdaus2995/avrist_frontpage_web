@@ -13,6 +13,7 @@ import Icon from '@/components/atoms/Icon';
 interface IOption {
   label: string;
   value: string;
+  selected?: boolean;
   onClick?: () => void;
 }
 interface ICategoryWithThreeCards {
@@ -211,6 +212,7 @@ const CategoryWithThreeCards = ({
                               defaultValue={val.label}
                               key={idx}
                               value={val.value}
+                              selected={val.selected ? val.selected : false}
                             >
                               {val.label}
                             </option>
