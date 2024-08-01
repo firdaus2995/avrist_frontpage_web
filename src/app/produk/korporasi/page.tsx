@@ -209,13 +209,16 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           }
         );
         setDataContent(dataContentValues);
-
+        const endOffset = itemOffset + itemsPerPage;
+        setPaginatedData(dataContentValues.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(dataContentValues.length / itemsPerPage));
         return dataContentValues;
       } catch (error) {
         console.error('Error: ', error);
       }
     };
-
+    setItemOffset(0);
+    setPageCount(0);
     fetchData().then();
     fetchDataContentWithCategory().then();
   }, [searchValue]);

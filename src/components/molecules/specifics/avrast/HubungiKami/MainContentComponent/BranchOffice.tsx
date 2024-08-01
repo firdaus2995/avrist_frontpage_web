@@ -98,7 +98,11 @@ export const BranchOffice = (props: Props) => {
         <div className="flex flex-row gap-[12px] items-center">
           {currentPage > 1 && (
             <div
-              onClick={() => handlePageChange(1)}
+              onClick={() =>
+                handlePageChange(
+                  currentPage > 1 ? currentPage - 1 : currentPage
+                )
+              }
               className="cursor-pointer rotate-180"
             >
               <Icon
@@ -124,7 +128,7 @@ export const BranchOffice = (props: Props) => {
           <span
             className="mt-[3px]"
             role="button"
-            onClick={() => handlePageChange(totalPages)}
+            onClick={() => handlePageChange(currentPage + 1)}
           >
             <Icon name="chevronRight" color="purple_dark" />
           </span>

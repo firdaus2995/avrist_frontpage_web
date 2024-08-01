@@ -508,6 +508,7 @@ const SearchForm = () => {
             containerClassName={`flex flex-row gap-[12px] items-center ${dataContent.length > 0 ? '' : 'hidden'}`}
             activeClassName="text-purple_dark font-bold"
             pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+            forcePage={itemOffset / itemsPerPage}
           />
         </div>
       </div>

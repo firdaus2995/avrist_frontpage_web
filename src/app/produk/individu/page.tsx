@@ -68,7 +68,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
   // PAGINATION LOGIC HOOK
   useEffect(() => {
-    if (!dataContent?.length) return; // check if contentaData already present
+    if (!dataContent?.length) {
+      setPaginatedData([]);
+      setPageCount(0);
+      return;
+    } // check if contentaData already present
 
     const endOffset = itemOffset + itemsPerPage;
     setPaginatedData(dataContent.slice(itemOffset, endOffset));
@@ -202,7 +206,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
             }
           );
           setDataContent(dataContentValues);
-
+          const endOffset = itemOffset + itemsPerPage;
+          setPaginatedData(dataContentValues.slice(itemOffset, endOffset));
+          setPageCount(Math.ceil(dataContentValues.length / itemsPerPage));
           return dataContentValues;
         }
       } catch (error) {
@@ -210,6 +216,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       }
     };
 
+    setItemOffset(0);
+    setPageCount(0);
     fetchData().then();
     fetchDataContentWithCategory().then((dataContentValues) => {
       if (isCategoryChange && dataContentValues) {

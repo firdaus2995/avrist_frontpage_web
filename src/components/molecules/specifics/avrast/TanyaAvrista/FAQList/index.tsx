@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactPaginate from 'react-paginate';
@@ -17,48 +16,36 @@ interface ICardsProps {
   selected: string;
   data: IListFaq[];
   itemsPerPage?: number;
+  pageCount: number;
+  itemOffset: number;
+  handlePageClick: (e: any) => void;
 }
 
-const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
-  // PAGINATION STATE
-  const [paginatedData, setPaginatedData] = useState<any[]>([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-
-  // PAGINATION LOGIC HOOK
-  useEffect(() => {
-    if (!data?.length) {
-      setPaginatedData([]);
-      setPageCount(0);
-      return;
-    }; // check if contentaData already present
-
-    const endOffset = itemOffset + itemsPerPage;
-    setPaginatedData(data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(data.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, data]);
-
-  // PAGINATION LOGIC HANDLER
-  const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * itemsPerPage) % data.length;
-    setItemOffset(newOffset);
-  };
-
+const FAQList = ({
+  selected,
+  data,
+  itemOffset,
+  pageCount,
+  handlePageClick,
+  itemsPerPage = 5
+}: ICardsProps) => {
   return (
     <div className="w-full bg-white flex flex-col gap-[5rem] items-center sm:px-[8.5rem] sm:pt-[5rem] xs:pb-[1.5rem] xs:py-[3rem] xs:px-[2rem]">
       <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-extrabold text-center sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
         {selected}
       </h1>
-      {paginatedData?.length > 0 ? (
+      {data?.length > 0 ? (
         <div className="w-full">
           <div className="w-full flex flex-col gap-[12px]">
-            {paginatedData.map((item, index) => (
+            {data.map((item, index) => (
               <Link
                 href={item.href}
                 key={index}
                 className="w-full border border-gray_light rounded-xl p-[1.5rem] flex flex-row justify-between items-center shadow-[0_13px_20px_0px_purple_dark/[0/03]]"
               >
-                <p className="text-2xl font-semibold leading-[30.17px] font-opensanspro">{item.title}</p>
+                <p className="text-2xl font-semibold leading-[30.17px] font-opensanspro">
+                  {item.title}
+                </p>
                 <Image alt="chevron" src={CHEVRON_RIGHT_PURPLE} />
               </Link>
             ))}
@@ -90,6 +77,7 @@ const FAQList = ({ selected, data, itemsPerPage = 5 }: ICardsProps) => {
               containerClassName="flex flex-row gap-[8px] items-center"
               activeClassName="text-purple_dark font-bold"
               pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+              forcePage={itemOffset / itemsPerPage}
             />
           </div>
         </div>
