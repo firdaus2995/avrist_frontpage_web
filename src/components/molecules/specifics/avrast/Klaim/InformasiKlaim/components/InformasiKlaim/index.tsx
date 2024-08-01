@@ -204,7 +204,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                     />
                   </div>
                   <div className="flex flex-col items-center justify-between grow">
-                    <h5 className="font-karla text-[2rem] font-bold -tracking-[0.03rem] leading-[38.4px] text-gray-900 dark:text-white text-center">
+                    <h5 className="font-karla text-[2rem] font-bold -tracking-[0.03rem] xs:leading-[30px] xm:leading-[38.4px] text-gray-900 dark:text-white text-center">
                       {val.title}
                     </h5>
                     <div className="flex flex-col gap-[24px]">
