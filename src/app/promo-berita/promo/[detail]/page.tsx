@@ -214,15 +214,18 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               !singleImageTransformer(detailItem).imageUrl.includes('no-image')
             ) {
               return (
-                <div className="bg-gray-200" key={detailIndex}>
+                <div
+                  className="w-full flex items-center justify-center"
+                  key={detailIndex}
+                >
                   <Image
                     src={
                       singleImageTransformer(detailItem).imageUrl ?? BlankImage
                     }
                     alt="img"
-                    className="w-full py-6 bg-white"
-                    width={238}
-                    height={172}
+                    className="w-auto h-auto py-6"
+                    width={0}
+                    height={0}
                   />
                 </div>
               );

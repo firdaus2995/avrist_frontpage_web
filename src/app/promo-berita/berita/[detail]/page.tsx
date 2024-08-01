@@ -196,13 +196,13 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             />
           )}
 
-          <div className="bg-gray-200">
+          <div className="w-full flex items-center justify-center">
             {artikelImage.imageUrl.includes('no-image') ||
               (artikelImage.imageUrl === '' && (
                 <Image
                   src={artikelImage?.imageUrl ?? BlankImage}
                   alt="img"
-                  className="w-full max-h-[900px]"
+                  className="w-auto h-auto"
                   width={0}
                   height={0}
                 />

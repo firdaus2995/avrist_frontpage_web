@@ -260,8 +260,6 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     }
   };
 
-  console.log(contentData);
-
   return (
     <div className="flex flex-col">
       <div className="absolute">
