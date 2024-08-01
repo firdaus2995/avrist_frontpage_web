@@ -89,6 +89,7 @@ const TanyaAvrista = () => {
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -149,7 +150,7 @@ const TanyaAvrista = () => {
     );
   };
 
-  const handleGetListFaqFilter = async (slug: string, keyword: string) => {
+  const handleGetListFaqFilter = async (slug: string) => {
     try {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
@@ -188,6 +189,7 @@ const TanyaAvrista = () => {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
         includeAttributes: 'true',
+        searchFilter: keyword,
         tagsFilter: title
       };
       const listFaq: any = await getListFaq(slug, queryParams);
@@ -216,6 +218,8 @@ const TanyaAvrista = () => {
     }
   };
 
+  console.log(listFilteredData);
+
   return (
     <div className="bg-purple_superlight">
       <Hero
@@ -228,6 +232,8 @@ const TanyaAvrista = () => {
           <SearchTerm
             onSearch={handleGetListFaqFilter}
             loading={loadingSearch}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
           />
         }
       />

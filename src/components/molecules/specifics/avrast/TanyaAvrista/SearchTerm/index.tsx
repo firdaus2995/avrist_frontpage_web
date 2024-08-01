@@ -5,13 +5,16 @@ import Image from 'next/image';
 const SearchTerm = ({
   bannerImage = '',
   onSearch,
-  loading
+  loading,
+  onChange,
+  value
 }: {
   bannerImage?: string;
   onSearch: any;
   loading: boolean;
+  value: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  const [keyword, setKeyword] = React.useState('');
   return (
     <div className="z-[1] w-full bg-purple_dark -mt-[3.125rem]">
       <div className="w-full h-[20rem] md:h-[40rem] flex items-center absolute">
@@ -30,13 +33,13 @@ const SearchTerm = ({
               <input
                 className="xs:w-full sm:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
                 placeholder="Ketik kata kunci (misal: promosi berlangsung)"
-                onChange={(e: any) => setKeyword(e.target.value)}
-                value={loading ? 'Loading data...' : keyword}
+                onChange={onChange}
+                value={loading ? 'Loading data...' : value}
                 onKeyDown={(e: any) => {
                   if (e.key === 'Enter' || e.keyCode === 13) {
                     onSearch(
                       'List-Pertanyaan-dan-Jawaban-Tanya-Avrista',
-                      keyword
+                      value
                     );
                   }
                 }}
