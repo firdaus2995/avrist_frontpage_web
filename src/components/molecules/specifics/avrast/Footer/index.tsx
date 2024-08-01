@@ -106,7 +106,7 @@ const Footer = () => {
           {!isHomepage ? (
             <div className="flex flex-col gap-4">
               <Link href="/produk/individu?tab=Asuransi+Jiwa">
-                <p className="font-normal text-white text-xl font-opensanspro leading-[1.5rem]">
+                <p className="font-normal text-white text-xl font-opensanspro leading-[1.5rem]  hover:underline">
                   Produk
                 </p>
               </Link>
