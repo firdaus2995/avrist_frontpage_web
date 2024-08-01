@@ -34,6 +34,7 @@ import { ParamsProps } from '@/utils/globalTypes';
 import { htmlParser } from '@/utils/helpers';
 import {
   contentStringTransformer,
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer
@@ -144,13 +145,16 @@ const Promo: React.FC<ParamsProps> = () => {
           const titleImage = singleImageTransformer(
             content['title-image']
           ).imageUrl;
-          const bannerImage = singleImageTransformer(
+          const bannerImage = customImageTransformer(
             content['banner-image']
           ).imageUrl;
+          const bannerImageFit = content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : '';
           const footerImage = singleImageTransformer(
             content['cta1-image']
           ).imageUrl;
-          setData({ titleImage, bannerImage, footerImage });
+          setData({ titleImage, bannerImage, bannerImageFit, footerImage });
         }
       );
     } catch (error) {
@@ -382,6 +386,7 @@ const Promo: React.FC<ParamsProps> = () => {
         ]}
         imageUrl={data?.titleImage}
         bottomImage={data?.bannerImage ?? BlankImage}
+        bottomImageFit={data?.bannerImageFit}
       />
       <div className="w-full flex flex-col items-center justify-center text-center relative xs-px-[32px] md:px-0">
         <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla" />
@@ -416,7 +421,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   bgColor="purple_superlight"
                   imageClassName="object-fill md:!max-h-[350px] md:!min-h-[350px]"
                   title={
-                    <div className="flex flex-col justify-between text-left h-full">
+                    <div className="flex flex-col justify-between text-left h-full gap-[1.5rem]">
                       <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-3">
                           <p className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]">
@@ -542,19 +547,19 @@ const Promo: React.FC<ParamsProps> = () => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-4xl 2xl:text-[3.5rem]">
-                Subscribe Informasi Terkini!
+              <p className="text-4xl 2xl:text-[3.5rem] mb-[2rem] xs:leading-[43.2px] sm:leading-[67.2px]">
+                Dapatkan Informasi Terbaru
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
                   Avrist Life Insurance
                 </p>
               </div>
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
+              <div className="flex xs:flex-col sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
@@ -567,7 +572,7 @@ const Promo: React.FC<ParamsProps> = () => {
                   </p>
                 )}
                 <Button
-                  title="Subscribe"
+                  title="Subscribe Sekarang!"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeContentButton}
                 />

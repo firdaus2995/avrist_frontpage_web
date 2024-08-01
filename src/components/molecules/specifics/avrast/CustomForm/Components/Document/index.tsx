@@ -53,7 +53,7 @@ const DocumentForm: React.FC<IDocumentForm> = ({
         className="hidden"
       />
       <button
-        className="bg-blue-100 h-full bg-purple_dark px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
+        className="bg-blue-100 h-full bg-purple_dark hover:bg-purple_light px-[1.25rem] py-[0.813rem] text-white rounded-r-[0.875rem]"
         onClick={handleUploadClick}
       >
         Browse

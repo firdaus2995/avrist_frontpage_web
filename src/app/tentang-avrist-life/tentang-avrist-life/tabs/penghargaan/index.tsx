@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ReactPaginate from 'react-paginate';
 import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon from '@/components/atoms/Icon';
 import NotFound from '@/components/atoms/NotFound';
@@ -24,18 +25,26 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
     monthFilter: '',
     searchFilter: ''
   });
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    itemsPerPage: 4
-  });
-  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
-  const endIndex = startIndex + pagination.itemsPerPage;
-  const paginatedData = contentData
-    ? contentData?.slice(startIndex, endIndex)
-    : [];
-  const totalPages = contentData
-    ? Math.ceil(contentData.length / pagination.itemsPerPage)
-    : 0;
+  const itemsPerPage = 4;
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!contentData?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(contentData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(contentData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, contentData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % contentData.length;
+    setItemOffset(newOffset);
+  };
 
   const fetchContent = async () => {
     try {
@@ -74,10 +83,6 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
     } catch (err) {
       console.error(err);
     }
-  };
-
-  const handlePageChange = (page: number) => {
-    setPagination({ ...pagination, currentPage: page });
   };
 
   const yearDropdown = (startYear: number) => {
@@ -186,6 +191,45 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
     );
   }, []);
 
+  const renderPage = () => {
+    return (
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans">
+        <div>
+          <p className="text-[20px]/[28px] font-normal">
+            Menampilkan{' '}
+            <span className="font-bold text-purple_dark">
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : itemOffset + 1}
+              -
+              {Math.min(
+                (itemOffset + 1) * itemsPerPage,
+                contentData ? contentData.length : 0
+              )}
+            </span>{' '}
+            dari{' '}
+            <span className="font-bold">
+              {contentData && contentData.length}
+            </span>{' '}
+            hasil
+          </p>
+        </div>
+        {contentData?.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+            previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+            containerClassName="flex flex-row gap-[12px] items-center"
+            activeClassName="text-purple_dark font-bold"
+            pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          />
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center xs:mt-[3.125rem] sm:mt-[5rem]">
       <CategoryWithThreeCards
@@ -274,47 +318,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                   ))}
               </div>
 
-              <div className="flex flex-col gap-4 sm:flex-row justify-between">
-                <div>
-                  <p className="text-[1.25rem]">
-                    Menampilkan{' '}
-                    <span className="font-bold text-purple_dark">
-                      {contentData ? startIndex + 1 : 0}-
-                      {Math.min(endIndex, contentData ? contentData.length : 0)}
-                    </span>{' '}
-                    dari{' '}
-                    <span className="font-bold">
-                      {contentData ? contentData.length : 0}
-                    </span>{' '}
-                    hasil
-                  </p>
-                </div>
-                <div className="flex flex-row gap-[8px] items-center">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (page) => (
-                      <div
-                        key={page}
-                        role="button"
-                        onClick={() => handlePageChange(page)}
-                        className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                          pagination.currentPage === page
-                            ? 'text-purple_dark font-bold'
-                            : ''
-                        }`}
-                      >
-                        {page}
-                      </div>
-                    )
-                  )}
-                  <span
-                    className="mt-[3px]"
-                    role="button"
-                    onClick={() => handlePageChange(totalPages)}
-                  >
-                    <Icon name="chevronRight" color="purple_dark" />
-                  </span>
-                </div>
-              </div>
+              {renderPage()}
             </>
           ) : (
             <NotFound />

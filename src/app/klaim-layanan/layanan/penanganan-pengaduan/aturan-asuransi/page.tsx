@@ -16,6 +16,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { getPanduanPembayaran } from '@/services/layanan.api';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -32,6 +33,7 @@ const handleGetContent = async (slug: string) => {
 const Page = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
 
   useEffect(() => {
@@ -41,7 +43,12 @@ const Page = () => {
         const { content } = pageTransformer(data);
 
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
       } catch (error) {
         console.error('Error:', error);
@@ -68,10 +75,11 @@ const Page = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage?.imageUrl}
+        bottomImageFit={bannerImageFit}
         customClassName="!-z-[2]"
       />
       <div
-        className={`xs:-mt-[3rem] sm:-mt-[7rem] md:block rounded-t-[60px] bg-white w-full sm:min-h-[100px] xs:min-h-[50px] z-100`}
+        className={`xs:-mt-[3rem] sm:-mt-[6.3rem] md:block rounded-t-[60px] bg-white w-full sm:min-h-[100px] xs:min-h-[50px] z-100`}
       ></div>
       <Content />
       <RoundedFrameBottom />

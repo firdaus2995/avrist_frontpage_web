@@ -29,6 +29,7 @@ import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -102,11 +103,15 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         const pageBase = await handleGetContentPage('produk-korporasi');
         const { content } = pageTransformer(pageBase);
         const titleImage = singleImageTransformer(content['title-image']);
-        const bannerImage = singleImageTransformer(content['banner-image']);
+        const bannerImage = customImageTransformer(content['banner-image']);
+        const bannerImageFit = content['banner-image']?.config
+          ? JSON.parse(content['banner-image']?.config)?.image_fit
+          : '';
         const footerImage = singleImageTransformer(content['cta1-image']);
         setData({
           titleImageUrl: titleImage.imageUrl,
           bannerImageUrl: bannerImage.imageUrl,
+          bannerImageFit,
           titleAltText: titleImage.altText,
           bannerAltText: bannerImage.altText,
           footerInfoAltText: footerImage.altText,
@@ -204,13 +209,16 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           }
         );
         setDataContent(dataContentValues);
-
+        const endOffset = itemOffset + itemsPerPage;
+        setPaginatedData(dataContentValues.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(dataContentValues.length / itemsPerPage));
         return dataContentValues;
       } catch (error) {
         console.error('Error: ', error);
       }
     };
-
+    setItemOffset(0);
+    setPageCount(0);
     fetchData().then();
     fetchDataContentWithCategory().then();
   }, [searchValue]);
@@ -244,6 +252,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
           { title: 'Produk', href: '#' }
         ]}
         bottomImage={data.bannerImageUrl}
+        bottomImageFit={data.bannerImageFit}
         imageUrl={data.titleImageUrl}
       />
       <div className="flex flex-col px-[32px] sm:px-[136px] xs:pt-[50px] sm:pt-[5rem] pb-[28px] xs:gap-[36px] sm:gap-[24px] sm:flex-row">
@@ -259,17 +268,18 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
             <SearchBar
               placeholder="Cari"
               searchButtonTitle="Cari"
-              searchButtonClassname="bg-purple_dark border border-purple_dark text-white font-semibold"
+              searchButtonClassname="bg-purple_dark hover:bg-purple_light border border-purple_dark text-white font-semibold"
               onSearch={handleChangeSearchParams}
               value={searchValue}
             />
             <ButtonSelection buttonHelper={buttonHelper} />
           </div>
 
-          {activeTab === 'Employee Benefit' && (
-            <EmployeeBenefit data={paginatedData} setState={setSearchValue} />
-          )}
-          {dataContent?.length === 0 && (
+          {dataContent?.length > 0 ? (
+            activeTab === 'Employee Benefit' && (
+              <EmployeeBenefit data={paginatedData} setState={setSearchValue} />
+            )
+          ) : (
             <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
               <Image src={Search} alt="search" />
               <div className="flex flex-col gap-4">

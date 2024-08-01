@@ -27,6 +27,7 @@ import { subscribeApi } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   contentDetailTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -37,7 +38,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
   const pathname = usePathname();
   const pathSegments = pathname.split('/');
   const slug = pathSegments[pathSegments.length - 1];
-  const [thumbnail, setThumbnail] = useState<string>('');
+  const [, setThumbnail] = useState<string>('');
   const [contentData, setContentData] = useState<any>();
   const [data, setData] = useState<any>({
     titleImage: '',
@@ -118,15 +119,18 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               !singleImageTransformer(detailItem).imageUrl.includes('no-image')
             ) {
               return (
-                <div className="bg-gray-200" key={detailIndex}>
+                <div
+                  className="w-full flex items-center justify-center"
+                  key={detailIndex}
+                >
                   <Image
                     src={
                       singleImageTransformer(detailItem).imageUrl ?? BlankImage
                     }
                     alt="img"
-                    className="w-full"
-                    width={238}
-                    height={172}
+                    className="w-auto h-auto"
+                    width={0}
+                    height={0}
                   />
                 </div>
               );
@@ -156,9 +160,12 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     });
     const tags = content['tags'].value;
     const externalLink = content['external-link-info'].value;
-    const thumbnail = singleImageTransformer(
+    const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
+    const thumbnailFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
 
     const transformedData = {
       tagline,
@@ -170,7 +177,8 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       tags,
       loopArtikel,
       externalLink,
-      thumbnail
+      thumbnail,
+      thumbnailFit
     };
 
     setContentData(transformedData);
@@ -228,11 +236,13 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
           }
         ]}
         imageUrl={data?.titleImage}
-        bottomImage={thumbnail ?? BlankImage}
+        customClassName="!-z-[2]"
       />
-
+      <div
+        className={`xs:-mt-[3rem] sm:-mt-[6.3rem] md:block rounded-t-[60px] bg-white w-full sm:min-h-[100px] xs:min-h-[50px] z-100`}
+      ></div>
       {contentData && (
-        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:py-[3.125rem] md:px-[8.5rem] md:pt-[5rem] md:pb-[28px]">
+        <CustomContainer className="flex items-center justify-center w-full xs:px-[2rem] xs:pb-[3.125rem] md:px-[8.5rem] md:pb-[28px]">
           <div className="flex flex-col gap-12 font-opensans">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
@@ -307,19 +317,19 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-4xl 2xl:text-[3.5rem]">
-                Subscribe Informasi Terkini!
+              <p className="text-4xl 2xl:text-[3.5rem] mb-[2rem] xs:leading-[43.2px] sm:leading-[67.2px]">
+                Dapatkan Informasi Terbaru
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
                   Avrist Life Insurance
                 </p>
               </div>
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
+              <div className="flex xs:flex-col sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
@@ -332,7 +342,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   </p>
                 )}
                 <Button
-                  title="Subscribe"
+                  title="Subscribe Sekarang!"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeContentButton}
                 />

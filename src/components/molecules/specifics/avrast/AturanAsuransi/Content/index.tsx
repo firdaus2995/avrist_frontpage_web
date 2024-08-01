@@ -80,7 +80,7 @@ const Content = () => {
                 Kami berkomitmen menyelesaikan masalah adil dan konsisten{' '}
               </p>
               <Link href={'/klaim-layanan/layanan/penanganan-pengaduan'}>
-                <Button customButtonClass="bg-purple_dark text-white py-[0.5rem] px-[16px] font-opensans text-[16px] font-semibold leading-[23.68px]">
+                <Button customButtonClass="bg-purple_dark hover:bg-purple_light text-white py-[0.5rem] px-[16px] font-opensans text-[16px] font-semibold leading-[23.68px]">
                   Ajukan Pengaduan
                 </Button>
               </Link>

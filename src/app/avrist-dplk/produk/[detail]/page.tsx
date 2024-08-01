@@ -32,6 +32,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { BASE_URL } from '@/utils/baseUrl';
 import {
   contentTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer,
@@ -62,6 +63,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
   const [dataDetail, setDataDetail] = useState<any>();
   const [dataForm, setDataForm] = useState<any>();
   const [bannerImg, setBannerImg] = useState<any>();
+  const [bannerImgFit, setBannerImgFit] = useState('');
 
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -172,7 +174,12 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
-      setBannerImg(singleImageTransformer(content['produk-image']));
+      setBannerImg(customImageTransformer(content['produk-image']));
+      setBannerImgFit(
+        content['produk-image']?.config
+          ? JSON.parse(content['produk-image']?.config)?.image_fit
+          : ''
+      );
       setDataDetail(detailData);
     }
 
@@ -376,6 +383,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             ]}
             imageUrl={data.titleImage.imageUrl}
             bottomImage={bannerImg.imageUrl}
+            bottomImageFit={bannerImgFit}
           />
           <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem]">
             <AboutHeading
@@ -444,7 +452,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 rightTitleClassname="text-black"
                 customLeftSideClassname="border-b-dplk_yellow"
                 customRightSideClassname="border-b-dplk_yellow"
-                buttonClassname="border-dplk_yellow text-dplk_yellow"
+                buttonClassname="border-dplk_yellow text-dplk_yellow hover:bg-dplk_yellow hover:text-white"
               />
               <InfoError
                 symbol={InfoRedSymbol}
@@ -469,7 +477,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                   <input
                     type="checkbox"
                     checked={isChecked}
-                    className='mt-1'
+                    className="mt-1"
                     onChange={(e) => {
                       setIsChecked(e.target.checked);
                     }}
@@ -498,7 +506,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       type="submit"
                       disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => onSubmitData()}
-                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow hover:bg-dplk_yellow_highlight' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
                     >
                       Beli Sekarang
                     </button>
@@ -531,7 +539,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       cardClassname="bg-white border-b-dplk_yellow"
                       cardTitleClassname="text-dplk_yellow"
                       cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                      cardButtonClassname="bg-dplk_yellow text-white"
+                      cardButtonClassname="bg-dplk_yellow hover:bg-dplk_yellow_highlight text-white"
                     />
                   ))}
             </div>

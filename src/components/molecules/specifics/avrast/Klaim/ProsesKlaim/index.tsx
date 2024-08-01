@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
+import ReactPaginate from 'react-paginate';
 import ButtonMenuVertical from '../../ButtonMenuVertical';
 import HeartIcon from '@/assets/images/avrast/component/panduan-pengajuan/icon-2.svg';
 import CHEVRONRIGHTPURPLE from '@/assets/images/common/chevron-right-purple.svg';
@@ -96,23 +97,69 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     category: categoryList[0],
     searchFilter: ''
   });
-  const [pagination, setPagination] = useState({
-    currentPage: 1,
-    itemsPerPage: 5
-  });
+  // const [pagination, setPagination] = useState({
+  //   currentPage: 1,
+  //   itemsPerPage: 5
+  // });
   const [contentData, setContentData] = useState<any>();
-  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
-  const endIndex = startIndex + pagination.itemsPerPage;
-  const paginatedData = contentData
-    ? contentData.slice(startIndex, endIndex)
-    : [];
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 5;
 
-  const totalPages = contentData
-    ? Math.ceil(contentData.length / pagination.itemsPerPage)
-    : 0;
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!contentData?.length) return; // check if contentaData already present
 
-  const handlePageChange = (page: number) => {
-    setPagination({ ...pagination, currentPage: page });
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(contentData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(contentData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, contentData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % contentData.length;
+    setItemOffset(newOffset);
+  };
+
+  const renderPage = () => {
+    return (
+      <div className="flex flex-col gap-4 md:flex-row items-start justify-between font-opensans">
+        <div>
+          <p className="text-[20px]/[28px] font-normal">
+            Menampilkan{' '}
+            <span className="font-bold text-purple_dark">
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : itemOffset + 1}
+              -
+              {Math.min(
+                (itemOffset + 1) * itemsPerPage,
+                contentData ? contentData.length : 0
+              )}
+            </span>{' '}
+            dari{' '}
+            <span className="font-bold">
+              {contentData && contentData.length}
+            </span>{' '}
+            hasil
+          </p>
+        </div>
+        {contentData?.length > 0 && (
+          <ReactPaginate
+            pageCount={pageCount}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            nextLabel={<Icon name="chevronRight" color="purple_dark" />}
+            previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
+            containerClassName="flex flex-row gap-[12px] items-center"
+            activeClassName="text-purple_dark font-bold"
+            pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          />
+        )}
+      </div>
+    );
   };
 
   const fetchCategory = async () => {
@@ -151,6 +198,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
       fetchData();
     }
   }, [params, categoryList]);
+
+  useEffect(() => {
+    setItemOffset(0);
+  }, [params.category]);
 
   useEffect(() => {
     if (!isSelectedData) {
@@ -321,7 +372,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                       </div>
                       <div className="flex items-center xs:justify-start sm:justify-center">
                         <div
-                          className="py-[0.5rem] px-[1.25rem] flex items-center justify-center w-[96px] rounded-[6px] text-white font-semibold bg-purple_dark cursor-pointer font-opensans leading-[23.68px]"
+                          className="py-[0.5rem] px-[1.25rem] flex items-center justify-center w-[96px] rounded-[6px] text-white font-semibold bg-purple_dark hover:bg-purple_light cursor-pointer font-opensans leading-[23.68px]"
                           onClick={async () =>
                             window.open(
                               singleImageTransformer(val.details[1]).imageUrl,
@@ -435,7 +486,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 />
                 <Button
                   title="Cari"
-                  customButtonClass="bg-purple_dark rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
+                  customButtonClass="bg-purple_dark hover:bg-purple_light rounded-[0.75rem] py-[0.75rem] px-[2.5rem]"
                   customTextClass="text-white text-[1.25rem] font-semibold leading-[28px]"
                   onClick={() => {
                     setParams({ ...params, searchFilter: search });
@@ -501,7 +552,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     </select>
                   </div>
                 ) : (
-                  <ButtonMenuVertical item={btnVerticalDetailData} outerClass='border-1 rounded-xl' />
+                  <ButtonMenuVertical
+                    item={btnVerticalDetailData}
+                    outerClass="border-1 rounded-xl"
+                  />
                 )}
               </div>
               <div className="md:text-[3.5rem] xs:text-[2.25rem] font-bold font-karla leading-[67.2px] -tracking-[2.24px]">
@@ -539,49 +593,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               )}
             </div>
           )}
-          {!isSelectedData && (
-            <div className="flex flex-col gap-4 sm:flex-row justify-between ">
-              <div>
-                <p className="text-xl">
-                  Menampilkan{' '}
-                  <span className="font-bold text-purple_dark">
-                    {contentData?.length === 0 ? 0 : startIndex + 1}-
-                    {Math.min(endIndex, contentData ? contentData.length : 0)}
-                  </span>{' '}
-                  dari{' '}
-                  <span className="font-bold">
-                    {contentData && contentData.length}
-                  </span>{' '}
-                  hasil
-                </p>
-              </div>
-              <div className="flex flex-row gap-[0.75rem] items-center text-xl">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <div
-                      key={page}
-                      role="button"
-                      onClick={() => handlePageChange(page)}
-                      className={`w-6 h-6 flex items-center justify-center cursor-pointer ${
-                        pagination.currentPage === page
-                          ? 'text-purple_dark font-bold'
-                          : ''
-                      }`}
-                    >
-                      {page}
-                    </div>
-                  )
-                )}
-                <span
-                  className="mt-[0.1875rem]"
-                  role="button"
-                  onClick={() => handlePageChange(totalPages)}
-                >
-                  <Icon name="chevronRight" color="purple_dark" />
-                </span>
-              </div>
-            </div>
-          )}
+          {!isSelectedData && renderPage()}
 
           {selectedData && renderStep(selectedDetailCategory)}
         </div>

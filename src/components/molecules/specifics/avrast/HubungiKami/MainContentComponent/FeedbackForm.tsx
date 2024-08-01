@@ -129,7 +129,7 @@ export const FeedbackForm = (props: Props) => {
               className={`${
                 formIsValid
                   ? isChecked
-                    ? 'bg-purple_dark'
+                    ? 'bg-purple_dark hover:bg-purple_light'
                     : 'bg-dark-grey'
                   : 'bg-dark-grey'
               }  text-white px-[2.5rem] py-[0.75rem] w-full md:w-[8.25rem] rounded-lg mt-[0.75rem] md:mt-0 font-semibold text-xl`}

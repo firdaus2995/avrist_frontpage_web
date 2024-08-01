@@ -18,6 +18,7 @@ import { getListFaq, getTanyaAvrista } from '@/services/tanya-avrista.api';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -30,8 +31,16 @@ const breadcrumbsData = [
 const topics = [
   { iconKey: 'topik1-icon', textKey: 'topik1-teks' },
   { iconKey: 'topik2-icon', textKey: 'topik2-teks' },
-  { iconKey: 'topik3-icon', textKey: 'topik3-teks', color: 'bg-green_border' },
-  { iconKey: 'topik4-icon', textKey: 'topik4-teks', color: 'bg-orange_border' },
+  {
+    iconKey: 'topik3-icon',
+    textKey: 'topik3-teks',
+    color: 'border-b-syariah_green'
+  },
+  {
+    iconKey: 'topik4-icon',
+    textKey: 'topik4-teks',
+    color: 'border-b-dplk_yellow'
+  },
   { iconKey: 'topik5-icon', textKey: 'topik5-teks' },
   { iconKey: 'topik6-icon', textKey: 'topik6-teks' },
   { iconKey: 'topik7-icon', textKey: 'topik7-teks' },
@@ -74,11 +83,33 @@ export interface IListFaq {
 const TanyaAvrista = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [cards, setCards] = useState<IListCards[]>([]);
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  // PAGINATION STATE
+  const itemsPerPage = 5;
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!listFilteredData?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(listFilteredData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(listFilteredData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, listFilteredData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % listFilteredData.length;
+    setItemOffset(newOffset);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +121,12 @@ const TanyaAvrista = () => {
         const { content } = pageTransformer(data);
 
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
 
         const listCards = topics.map((topic) => ({
@@ -118,11 +154,15 @@ const TanyaAvrista = () => {
           };
         });
         setListFilteredData(transformedData);
+        const endOffset = itemOffset + itemsPerPage;
+        setPaginatedData(transformedData.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(transformedData.length / itemsPerPage));
       } catch (error) {
         console.error('Error:', error);
       }
     };
-
+    setItemOffset(0);
+    setPageCount(0);
     fetchData();
   }, []);
 
@@ -134,7 +174,7 @@ const TanyaAvrista = () => {
     );
   };
 
-  const handleGetListFaqFilter = async (slug: string, keyword: string) => {
+  const handleGetListFaqFilter = async (slug: string) => {
     try {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
@@ -161,6 +201,8 @@ const TanyaAvrista = () => {
               };
             });
       setListFilteredData(transformedData);
+      setItemOffset(0);
+      setPageCount(0);
       setLoadingSearch(false);
       return tempData;
     } catch (error) {
@@ -173,6 +215,7 @@ const TanyaAvrista = () => {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
         includeAttributes: 'true',
+        searchFilter: keyword,
         tagsFilter: title
       };
       const listFaq: any = await getListFaq(slug, queryParams);
@@ -194,6 +237,8 @@ const TanyaAvrista = () => {
               };
             });
       setListFilteredData(transformedData);
+      setItemOffset(0);
+      setPageCount(0);
       setLoadingSearch(false);
       return tempData;
     } catch (error) {
@@ -208,16 +253,25 @@ const TanyaAvrista = () => {
         breadcrumbsData={breadcrumbsData}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
         customComponent={
           <SearchTerm
             onSearch={handleGetListFaqFilter}
             loading={loadingSearch}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
           />
         }
       />
 
       <TopicsCard cards={cards} onClickCards={handleCardsClick} />
-      <FAQList selected={selectedCards} data={listFilteredData} />
+      <FAQList
+        selected={selectedCards}
+        data={paginatedData}
+        pageCount={pageCount}
+        itemOffset={itemOffset}
+        handlePageClick={handlePageClick}
+      />
       <RoundedFrameBottom />
       <FooterInformation
         title={

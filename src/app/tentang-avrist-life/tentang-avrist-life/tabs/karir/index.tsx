@@ -260,7 +260,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                         >
                           <Button
                             title="Lihat Detail"
-                            customButtonClass="rounded-xl bg-purple_dark w-full mt-2"
+                            customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light w-full mt-2"
                             customTextClass="text-white font-opensans text-xl font-normal"
                           />
                         </Link>

@@ -95,6 +95,22 @@ export const singleImageTransformer = (data: any) => {
   };
 };
 
+export const customImageTransformer = (data: any) => {
+  const isBrowser = typeof window !== 'undefined';
+  const width = isBrowser ? window.innerWidth : 0;
+
+  if (!data || data?.value === '-')
+    return {
+      imageUrl: '',
+      altText: ''
+    };
+  const image = JSON.parse(data.value)[0];
+  return {
+    imageUrl: `${BASE_URL.image}/${image?.imageUrl ?? ''}?width=${width > 0 ? width : null}`,
+    altText: image?.altText ?? ''
+  };
+};
+
 export const contentStringTransformer = (data: any) => {
   if (data?.value === '-') return '';
   return data?.value ?? '';

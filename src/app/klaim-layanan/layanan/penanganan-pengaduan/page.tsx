@@ -15,6 +15,7 @@ import { MainContent } from '@/components/molecules/specifics/avrast/PenangananP
 import { handleGetContentPage } from '@/services/content-page.api';
 import {
   contentStringTransformer,
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -22,6 +23,7 @@ import {
 const HandleComplaint = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [videoData, setVideoData] = useState<IVideoData | undefined>();
   const [formId, setFormId] = useState<any>();
@@ -39,7 +41,12 @@ const HandleComplaint = () => {
           }, {});
 
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
         setVideoData(dataWithVideo);
         setFormId(contentStringTransformer(content['form-pengaduan']));
@@ -64,6 +71,7 @@ const HandleComplaint = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
       />
       <MainContent videoData={videoData} formId={formId} />
       <FooterInformation

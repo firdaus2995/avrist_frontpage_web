@@ -32,7 +32,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     searchFilter: ''
   });
   const [categories, setCategories] = useState<any>([]);
-  const [itemsPerPage] = useState(3);
+  const [itemsPerPage] = useState(5);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -46,7 +46,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     const endOffset = itemOffset + itemsPerPage;
     setPaginatedData(contentData.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(contentData.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, contentData]);
+  }, [itemOffset, itemsPerPage, contentData, params.category]);
 
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
@@ -66,6 +66,10 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   useEffect(() => {
     fetchContent();
   }, [params]);
+
+  useEffect(() => {
+    setItemOffset(0);
+  }, [params.category]);
 
   useEffect(() => {
     categories.length > 0 && setParams({ ...params, category: categories[0] });
@@ -251,11 +255,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           // </CustomContainer>
           <div className="px-[2rem] xs:my-[2.25rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-              {params.category.replace('Perusahaan', '')} Perusahaan
-            </p>
-            <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
-              Temukan {params.category.replace('Perusahaan', '').toLowerCase()}{' '}
-              perusahaan di sini
+              Temukan {params.category.replace('Perusahaan', '')} di Sini
             </p>
           </div>
         ) : null}
@@ -305,7 +305,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
                           <div>
                             <Button
                               title="Unduh"
-                              customButtonClass="rounded-xl bg-purple_dark"
+                              customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light"
                               customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                               onClick={async () =>
                                 window.open(item.file, '_blank')

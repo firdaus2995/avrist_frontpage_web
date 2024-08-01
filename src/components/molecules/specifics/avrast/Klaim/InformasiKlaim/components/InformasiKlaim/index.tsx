@@ -162,7 +162,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                 <Link
                   href={'https://my.avrist.com/welcome'}
                   target="_blank"
-                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                  className="py-[8px] px-[20px] bg-purple_dark hover:bg-purple_light flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
                 >
                   {val.btnText}
                 </Link>
@@ -170,7 +170,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                 <div
                   role="button"
                   onClick={() => handleClickPelayananButton(val.btnText)}
-                  className="py-[8px] px-[20px] bg-purple_dark flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
+                  className="py-[8px] px-[20px] bg-purple_dark hover:bg-purple_light flex items-center justify-center text-white font-semibold rounded-[6px] leading-[23.68px]"
                 >
                   {val.btnText}
                 </div>
@@ -204,7 +204,7 @@ const InfoKlaimTab: React.FC<IInfoKlaimTab> = ({
                     />
                   </div>
                   <div className="flex flex-col items-center justify-between grow">
-                    <h5 className="font-karla text-[2rem] font-bold -tracking-[0.03rem] leading-[38.4px] text-gray-900 dark:text-white text-center">
+                    <h5 className="font-karla text-[2rem] font-bold -tracking-[0.03rem] xs:leading-[30px] xm:leading-[38.4px] text-gray-900 dark:text-white text-center">
                       {val.title}
                     </h5>
                     <div className="flex flex-col gap-[24px]">

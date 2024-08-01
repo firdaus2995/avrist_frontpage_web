@@ -34,20 +34,23 @@ const Pagination: React.FC<IPagination> = ({
           dari <span className="font-bold">{data && data.length}</span> hasil
         </p>
       </div>
-      <ReactPaginate
-        pageCount={pageCount}
-        pageRangeDisplayed={5}
-        onPageChange={onPageChange}
-        nextLabel={
-          <Icon name="chevronRight" color={customColor ?? 'purple_dark'} />
-        }
-        previousLabel={
-          <Icon name="chevronLeft" color={customColor ?? 'purple_dark'} />
-        }
-        containerClassName="flex flex-row gap-[12px] items-center"
-        activeClassName={`${customColor ? textColor : 'text-purple_dark'} font-bold`}
-        pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
-      />
+      {data?.length > 0 && (
+        <ReactPaginate
+          pageCount={pageCount}
+          pageRangeDisplayed={5}
+          onPageChange={onPageChange}
+          nextLabel={
+            <Icon name="chevronRight" color={customColor ?? 'purple_dark'} />
+          }
+          previousLabel={
+            <Icon name="chevronLeft" color={customColor ?? 'purple_dark'} />
+          }
+          containerClassName="flex flex-row gap-[12px] items-center"
+          activeClassName={`${customColor ? textColor : 'text-purple_dark'} font-bold`}
+          pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          forcePage={itemOffset / itemsPerPage}
+        />
+      )}
     </div>
   );
 };

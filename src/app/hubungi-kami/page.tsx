@@ -14,6 +14,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { getHubungiKami } from '@/services/hubungi-kami.api';
 import {
   contentStringTransformer,
+  customImageTransformer,
   heroContentTransformer,
   pageTransformer,
   singleImageTransformer
@@ -31,27 +32,40 @@ const handleGetContent = async (slug: string) => {
 const CallMe = () => {
   const [titleImage, setTitleImage] = useState({ imageUrl: '', altText: '' });
   const [bannerImage, setBannerImage] = useState({ imageUrl: '', altText: '' });
+  const [bannerImageFit, setBannerImageFit] = useState('');
   const [footerImage, setFooterImage] = useState({ imageUrl: '', altText: '' });
   const [formId, setFormId] = useState('');
   const [formSaranId, setFormSaranId] = useState('');
   const [branchData, setBranchData] = useState<any>([]);
 
-  const MainContent = useMemo(() => dynamic(
-    () => import('@/components/molecules/specifics/avrast/HubungiKami').then(mod => mod.MainContent),
-    {
-      loading: () => <p>loading</p>,
-      ssr: false
-    }
-  ), []);
+  const MainContent = useMemo(
+    () =>
+      dynamic(
+        () =>
+          import('@/components/molecules/specifics/avrast/HubungiKami').then(
+            (mod) => mod.MainContent
+          ),
+        {
+          loading: () => <p>loading</p>,
+          ssr: false
+        }
+      ),
+    []
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await handleGetContent('halaman-hubungi-kami');
         const { content } = pageTransformer(data);
-        
+
         setTitleImage(singleImageTransformer(content['title-image']));
-        setBannerImage(singleImageTransformer(content['banner-image']));
+        setBannerImage(customImageTransformer(content['banner-image']));
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
         setFooterImage(singleImageTransformer(content['cta1-image']));
         setFormId(contentStringTransformer(content['form-hubungikami']));
         setFormSaranId(contentStringTransformer(content['form-saran']));
@@ -62,12 +76,16 @@ const CallMe = () => {
             name: contentStringTransformer(item['lokasikantor-nama']),
             address: contentStringTransformer(item['lokasikantor-alamat']),
             phone: contentStringTransformer(item['lokasikantor-telepon']),
-            lat: Number(contentStringTransformer(item['lokasikantor-latitude'])),
-            lng: Number(contentStringTransformer(item['lokasikantor-longitude']))
+            lat: Number(
+              contentStringTransformer(item['lokasikantor-latitude'])
+            ),
+            lng: Number(
+              contentStringTransformer(item['lokasikantor-longitude'])
+            )
           };
         });
 
-        setBranchData(fetchedData)
+        setBranchData(fetchedData);
       } catch (error) {
         console.error('Error:', error);
       }
@@ -88,8 +106,13 @@ const CallMe = () => {
         ]}
         imageUrl={titleImage.imageUrl}
         bottomImage={bannerImage.imageUrl}
+        bottomImageFit={bannerImageFit}
       />
-      <MainContent formId={formId} formSaranId={formSaranId} branchData={branchData} />
+      <MainContent
+        formId={formId}
+        formSaranId={formSaranId}
+        branchData={branchData}
+      />
       <FooterInformation
         title={
           <div
@@ -114,36 +137,36 @@ const CallMe = () => {
         image={footerImage.imageUrl}
       />
       <RoundedFrameTop />
-        <FooterCards
-          bgColor="bg-purple_superlight"
-          cards={[
-            {
-              icon: love,
-              title: 'Asuransi Individu',
-              subtitle: 'Lihat Produk',
-              href: '/produk/individu?tab=Asuransi+Jiwa'
-            },
-            {
-              icon: home,
-              title: 'Asuransi Korporasi',
-              subtitle: 'Lihat Produk',
-              href: '/produk/korporasi'
-            },
-            {
-              icon: homeYellow,
-              title: 'AVRIST DPLK',
-              subtitle: 'Lihat Produk',
-              href: '/avrist-dplk?tab=Produk',
-              textColor: 'text-dplk_yellow'
-            },
-            {
-              icon: hospital,
-              title: 'Rumah Sakit',
-              subtitle: 'Rekanan',
-              href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
-            }
-          ]}
-        />
+      <FooterCards
+        bgColor="bg-purple_superlight"
+        cards={[
+          {
+            icon: love,
+            title: 'Asuransi Individu',
+            subtitle: 'Lihat Produk',
+            href: '/produk/individu?tab=Asuransi+Jiwa'
+          },
+          {
+            icon: home,
+            title: 'Asuransi Korporasi',
+            subtitle: 'Lihat Produk',
+            href: '/produk/korporasi'
+          },
+          {
+            icon: homeYellow,
+            title: 'AVRIST DPLK',
+            subtitle: 'Lihat Produk',
+            href: '/avrist-dplk?tab=Produk',
+            textColor: 'text-dplk_yellow'
+          },
+          {
+            icon: hospital,
+            title: 'Rumah Sakit',
+            subtitle: 'Rekanan',
+            href: '/klaim-layanan/layanan?tab=Rumah+Sakit+Rekanan'
+          }
+        ]}
+      />
     </div>
   );
 };

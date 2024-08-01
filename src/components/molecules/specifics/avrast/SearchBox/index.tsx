@@ -46,7 +46,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
       <Button
         title={buttonText}
         onClick={() => onSearch(keyword)}
-        customButtonClass={`!border-none !bg-purple_dark px-[2.5rem] py-[0.75rem] ${customButton}`}
+        customButtonClass={`!border-none !bg-purple_dark hover:!bg-purple_light px-[2.5rem] py-[0.75rem] ${customButton}`}
         customTextClass="text-white text-[20px] font-semibold leading-7"
       />
     </div>

@@ -33,6 +33,7 @@ import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser, getYouTubeId } from '@/utils/helpers';
 import {
   contentDetailTransformer,
+  customImageTransformer,
   handleTransformedContent,
   pageTransformer,
   singleImageTransformer,
@@ -213,15 +214,18 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               !singleImageTransformer(detailItem).imageUrl.includes('no-image')
             ) {
               return (
-                <div className="bg-gray-200" key={detailIndex}>
+                <div
+                  className="w-full flex items-center justify-center"
+                  key={detailIndex}
+                >
                   <Image
                     src={
                       singleImageTransformer(detailItem).imageUrl ?? BlankImage
                     }
                     alt="img"
-                    className="w-full py-6 bg-white"
-                    width={238}
-                    height={172}
+                    className="w-auto h-auto py-6"
+                    width={0}
+                    height={0}
                   />
                 </div>
               );
@@ -249,9 +253,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       );
     });
     const tags = content['tags'].value.split(',');
-    const thumbnail = singleImageTransformer(
+    const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
     ).imageUrl;
+    const thumbnailFit = content['artikel-thumbnail']?.config
+      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      : '';
 
     const transformedData = {
       tagline,
@@ -261,7 +268,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       tahun,
       loopArtikel,
       tags,
-      thumbnail
+      thumbnail,
+      thumbnailFit
     };
 
     setContentData(transformedData);
@@ -295,7 +303,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
 
         return { judul, waktu, image, id };
       });
-      const otherData = transformedData?.filter((item) => item.id !== parseInt(id)).slice(0,3);
+      const otherData = transformedData
+        ?.filter((item) => item.id !== parseInt(id))
+        .slice(0, 3);
       setOtherContent(otherData);
     } catch (err) {
       console.error(err);
@@ -339,6 +349,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         ]}
         imageUrl={data?.titleImage}
         bottomImage={thumbnail}
+        bottomImageFit={contentData.thumbnailFit}
       />
 
       <div className="flex items-center justify-center w-full">
@@ -441,19 +452,19 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         <FooterInformation
           title={
             <div className="flex flex-col gap-4 px-2">
-              <p className="text-4xl 2xl:text-[3.5rem]">
-                Subscribe Informasi Terkini!
+              <p className="text-4xl 2xl:text-[3.5rem] mb-[2rem] xs:leading-[43.2px] sm:leading-[67.2px]">
+                Dapatkan Informasi Terbaru
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
                   Avrist Life Insurance
                 </p>
               </div>
-              <div className="flex flex-row gap-2 xs:max-md:flex-wrap md:flex-wrap">
+              <div className="flex xs:flex-col sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">
                 <Input
                   type="text"
                   placeholder="Masukkan email Anda"
-                  customInputClass="w-[90%] xs:max-md:w-full md:w-full md:text-xs"
+                  customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
@@ -466,7 +477,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   </p>
                 )}
                 <Button
-                  title="Subscribe"
+                  title="Subscribe Sekarang!"
                   customButtonClass="rounded-xl xs:max-md:w-full md:w-full"
                   onClick={handleSubscribeContentButton}
                 />

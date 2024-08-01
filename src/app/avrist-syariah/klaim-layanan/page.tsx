@@ -17,6 +17,7 @@ import { handleGetContentPage } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
+  customImageTransformer,
   pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
@@ -24,6 +25,7 @@ import {
 const initialData = {
   titleImage: '',
   bannerImage: '',
+  bannerImageFit: '',
   cta1Image: ''
 };
 
@@ -38,13 +40,17 @@ const ProdukSyariah = () => {
           const { content } = pageTransformer(res);
 
           const titleImage = singleImageTransformer(content['title-image']);
-          const bannerImage = singleImageTransformer(content['banner-image']);
+          const bannerImage = customImageTransformer(content['banner-image']);
+          const bannerImageFit = content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : '';
           const cta1Image = singleImageTransformer(content['cta1-image']);
 
           setTransformedData({
             ...transformedData,
             titleImage: titleImage.imageUrl,
             bannerImage: bannerImage.imageUrl,
+            bannerImageFit: bannerImageFit,
             cta1Image: cta1Image.imageUrl
           });
         }
@@ -62,6 +68,7 @@ const ProdukSyariah = () => {
         ]}
         imageUrl={transformedData.titleImage}
         bottomImage={transformedData.bannerImage}
+        bottomImageFit={transformedData.bannerImageFit}
       />
 
       <CustomContainer className="xs:mt-[3.125rem] mt-[5rem]">
