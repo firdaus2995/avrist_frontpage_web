@@ -12,6 +12,7 @@ import ServiceCard from './ServiceCard';
 import { formatTimeDifference } from '@/app/promo-berita/berita/format-time';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
+import NotFound from '@/components/atoms/NotFound';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
 import { handleGetContentCategory } from '@/services/content-page.api';
 import { handleDownload } from '@/utils/helpers';
@@ -107,7 +108,7 @@ const SearchForm = () => {
 
               return { namaFile, file };
             } else if (selectedTab.title === 'Avrist Life Guide') {
-              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const date = format(new Date(createdAt), 'MMMM yyyy');
               const judul = content['judul-artikel'].value;
               const deskripsi = shortDesc;
               const image = singleImageTransformer(
@@ -137,7 +138,7 @@ const SearchForm = () => {
             } else if (selectedTab.title === 'Penghargaan') {
               const judul = content['judul-artikel'].value;
               const nama = content['nama-penghargaan'].value;
-              const waktu = format(new Date(createdAt), 'dd MMMM yyyy');
+              const waktu = format(new Date(createdAt), 'MMMM yyyy');
               const deskripsi =
                 content['artikel-looping'].contentData[0].details[0].value;
 
@@ -145,7 +146,7 @@ const SearchForm = () => {
             } else if (selectedTab.title === 'Berita & Kegiatan') {
               const label = '';
               const title = contentStringTransformer(content['judul-artikel']);
-              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const date = format(new Date(createdAt), 'MMMM yyyy');
               const description =
                 content['artikel-looping'].contentData[0].details[0].value;
 
@@ -158,7 +159,7 @@ const SearchForm = () => {
               };
             } else {
               const label = contentStringTransformer(content['jenis-produk']);
-              const date = format(new Date(createdAt), 'dd MMMM yyyy');
+              const date = format(new Date(createdAt), 'MMMM yyyy');
               const title = contentStringTransformer(content['nama-produk']);
               const description = contentStringTransformer(
                 content['deskripsi-lengkap-produk']
@@ -309,116 +310,144 @@ const SearchForm = () => {
         </div>
         {selectedTab.title === 'Avristory' ? (
           <div className="grid lg:grid-cols-1 gap-[12px] w-full">
-            {paginatedData?.map((item: any, index: number) => (
-              <div
-                key={index}
-                className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
-              >
-                <div className="flex flex-row gap-2 items-center">
-                  <p className="font-bold text-xl sm:text-2xl break-words">
-                    {item.namaFile}
-                  </p>
-                  <MediumTag title="PDF" />
+            {dataContent.length > 0 ? (
+              paginatedData?.map((item: any, index: number) => (
+                <div
+                  key={index}
+                  className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
+                >
+                  <div className="flex flex-row gap-2 items-center">
+                    <p className="font-bold text-xl sm:text-2xl break-words">
+                      {item.namaFile}
+                    </p>
+                    <MediumTag title="PDF" />
+                  </div>
+                  <Button
+                    title="Unduh"
+                    customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                    customTextClass="text-white text-[16px]"
+                    onClick={async () => await handleDownload(item.file)}
+                  />
                 </div>
-                <Button
-                  title="Unduh"
-                  customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
-                  customTextClass="text-white text-[16px]"
-                  onClick={async () => await handleDownload(item.file)}
-                />
-              </div>
-            ))}
+              ))
+            ) : (
+              <NotFound
+                title="Jawaban Tidak Ditemukan"
+                subtitle="Coba sesuaikan pencarian Anda untuk menemukan apa yang anda cari."
+              />
+            )}
           </div>
         ) : selectedTab.title === 'Avrist Life Guide' ? (
           <div className="grid grid-cols-1 gap-[12px]">
-            {paginatedData?.map((item: any, index: number) => (
-              <Link
-                key={index}
-                href={{
-                  pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                  query: { id: item.id }
-                }}
-              >
-                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
-                  <p className="text-sm leading-[19.6px]">{item.date}</p>
-                  <p
-                    className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
-                    dangerouslySetInnerHTML={{
-                      __html: item.judul
-                    }}
-                  />
-                  <div
-                    className="text-body-text-1 line-clamp-2"
-                    dangerouslySetInnerHTML={{
-                      __html: item.deskripsi
-                    }}
-                  />
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : selectedTab.title === 'Penghargaan' ? (
-          <div className="grid grid-cols-1 gap-[24px]">
-            {paginatedData?.map((item: any, index: number) => (
-              <Link
-                key={index}
-                href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
-              >
-                <div
+            {dataContent.length > 0 ? (
+              paginatedData?.map((item: any, index: number) => (
+                <Link
                   key={index}
-                  className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                  href={{
+                    pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                    query: { id: item.id }
+                  }}
                 >
-                  <div className="flex flex-col gap-3 px-6 py-9 h-full">
-                    <p className="text-sm leading-[19.6px]">{item.waktu}</p>
+                  <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
+                    <p className="text-sm leading-[19.6px]">{item.date}</p>
                     <p
                       className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
                       dangerouslySetInnerHTML={{
                         __html: item.judul
                       }}
                     />
-                    <p className="text-[20px]">{item.nama}</p>
-                    <p
+                    <div
+                      className="text-body-text-1 line-clamp-2"
                       dangerouslySetInnerHTML={{
                         __html: item.deskripsi
                       }}
-                      className="line-clamp-3"
                     />
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))
+            ) : (
+              <NotFound
+                title="Jawaban Tidak Ditemukan"
+                subtitle="Coba sesuaikan pencarian Anda untuk menemukan apa yang anda cari."
+              />
+            )}
+          </div>
+        ) : selectedTab.title === 'Penghargaan' ? (
+          <div className="grid grid-cols-1 gap-[24px]">
+            {dataContent.length > 0 ? (
+              paginatedData?.map((item: any, index: number) => (
+                <Link
+                  key={index}
+                  href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
+                >
+                  <div
+                    key={index}
+                    className="flex flex-col gap-[18px] border border-gray_light rounded-xl text-left md:h-full"
+                  >
+                    <div className="flex flex-col gap-3 px-6 py-9 h-full">
+                      <p className="text-sm leading-[19.6px]">{item.waktu}</p>
+                      <p
+                        className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
+                        dangerouslySetInnerHTML={{
+                          __html: item.judul
+                        }}
+                      />
+                      <p className="text-[20px]">{item.nama}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: item.deskripsi
+                        }}
+                        className="line-clamp-3"
+                      />
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <NotFound
+                title="Jawaban Tidak Ditemukan"
+                subtitle="Coba sesuaikan pencarian Anda untuk menemukan apa yang anda cari."
+              />
+            )}
           </div>
         ) : selectedTab.title === 'Berita & Kegiatan' ? (
           <div className="grid grid-cols-1 gap-[12px]">
-            {paginatedData?.map((item: any, index: number) => (
-              <Link
-                key={index}
-                href={{
-                  pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
-                  query: { id: item.id }
-                }}
-              >
-                <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
-                  <p className="text-sm leading-[19.6px]">{item.date}</p>
-                  <p
-                    className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
-                    dangerouslySetInnerHTML={{
-                      __html: item.title
-                    }}
-                  />
-                  <div
-                    className="text-body-text-1 line-clamp-2"
-                    dangerouslySetInnerHTML={{
-                      __html: item.description
-                    }}
-                  />
-                </div>
-              </Link>
-            ))}
+            {dataContent.length > 0 ? (
+              paginatedData?.map((item: any, index: number) => (
+                <Link
+                  key={index}
+                  href={{
+                    pathname: `/promo-berita/berita/berita-dan-kegiatan/`,
+                    query: { id: item.id }
+                  }}
+                >
+                  <div className="mx-3 rounded-xl border-2 border-gray_light px-[1.5rem] py-[2.25rem] flex flex-col gap-[12px]">
+                    <p className="text-sm leading-[19.6px]">{item.date}</p>
+                    <p
+                      className="text-[24px] font-bold font-opensanspro xs:line-clamp-3 sm:line-clamp-none"
+                      dangerouslySetInnerHTML={{
+                        __html: item.title
+                      }}
+                    />
+                    <div
+                      className="text-body-text-1 line-clamp-2"
+                      dangerouslySetInnerHTML={{
+                        __html: item.description
+                      }}
+                    />
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <NotFound
+                title="Jawaban Tidak Ditemukan"
+                subtitle="Coba sesuaikan pencarian Anda untuk menemukan apa yang anda cari."
+              />
+            )}
           </div>
         ) : (
           <div className="flex flex-col gap-[0.75rem]">
-            {dataContent &&
+            {dataContent.length > 0 ? (
               paginatedData.map(
                 (
                   item: {
@@ -444,7 +473,13 @@ const SearchForm = () => {
                     />
                   </Link>
                 )
-              )}
+              )
+            ) : (
+              <NotFound
+                title="Jawaban Tidak Ditemukan"
+                subtitle="Coba sesuaikan pencarian Anda untuk menemukan apa yang anda cari."
+              />
+            )}
           </div>
         )}
 
@@ -470,7 +505,7 @@ const SearchForm = () => {
             onPageChange={handlePageChange}
             nextLabel={<Icon name="chevronRight" color="purple_dark" />}
             previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-            containerClassName="flex flex-row gap-[12px] items-center"
+            containerClassName={`flex flex-row gap-[12px] items-center ${dataContent.length > 0 ? '' : 'hidden'}`}
             activeClassName="text-purple_dark font-bold"
             pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
           />

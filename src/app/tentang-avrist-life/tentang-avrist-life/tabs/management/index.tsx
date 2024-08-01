@@ -277,7 +277,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
               </p>
               <Button
                 title="Lihat Di Sini"
-                customButtonClass="bg-purple_dark rounded-lg"
+                customButtonClass="bg-purple_dark hover:bg-purple_light rounded-lg"
                 customTextClass="text-white font-bold"
                 onClick={() => {
                   data ? window.open(data, '_blank') : null;

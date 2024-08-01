@@ -30,7 +30,7 @@ const Pencarian = () => {
       try {
         const data = await handleGetContentPage('pencarian');
         const { content } = pageTransformer(data);
-        
+
         setTitleImage(singleImageTransformer(content['title-image']));
         setFooterImage(singleImageTransformer(content['cta1-image']));
       } catch (error) {
@@ -45,7 +45,7 @@ const Pencarian = () => {
     <Suspense>
       <div className="flex flex-col bg-white">
         <Hero
-          title='Pencarian'
+          title="Pencarian"
           breadcrumbsData={breadcrumbsData}
           imageUrl={titleImage.imageUrl}
         />
@@ -68,7 +68,7 @@ const Pencarian = () => {
           image={footerImage.imageUrl}
           href="produk/individu"
         />
-        <RoundedFrameTop bgColor='bg-white sm:bg-purple_superlight' />
+        <RoundedFrameTop bgColor="bg-white sm:bg-purple_superlight" />
         <FooterCards
           bgColor="bg-white sm:bg-purple_superlight"
           cards={[

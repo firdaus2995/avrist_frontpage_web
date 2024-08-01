@@ -173,7 +173,7 @@ export const EmailSubscribeModal = (props: Props) => {
                                 value={email}
                                 className="flex-1 rounded-md p-[0.75rem] border border-purple_verylight text-white bg-purple_verylight/20"
                               />
-                              <button className="bg-white rounded-md px-[1.25rem] py-[10px] font-opensans font-semibold text-[1rem] text-purple_dark leading-[23.68px]">
+                              <button className="bg-white hover:bg-purple_dark rounded-md px-[1.25rem] py-[10px] font-opensans font-semibold text-[1rem] text-purple_dark hover:text-white leading-[23.68px]">
                                 Subscribe Sekarang
                               </button>
                             </form>

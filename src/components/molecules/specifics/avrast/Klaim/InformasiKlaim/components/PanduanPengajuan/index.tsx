@@ -91,7 +91,7 @@ const PanduanPengajuanTab = () => {
               ) : (
                 <div
                   role="button"
-                  className="py-[0.5rem] px-[1.25rem] bg-purple_dark flex items-center leading-[23.68px] justify-center text-white font-semibold rounded-[6px] text-[1rem] text-center ml-0 whitespace-nowrap"
+                  className="py-[0.5rem] px-[1.25rem] bg-purple_dark hover:bg-purple_light flex items-center leading-[23.68px] justify-center text-white font-semibold rounded-[6px] text-[1rem] text-center ml-0 whitespace-nowrap"
                   onClick={val.onClick}
                 >
                   {val.btnText}
@@ -116,8 +116,12 @@ const PanduanPengajuanTab = () => {
                 <div className="flex w-1/3 items-center justify-start">
                   <Image src={val.icon} alt={val.title} className="w-[100px]" />
                 </div>
-                <div className={`flex w-full flex-col ${idx === 0 ? 'justify-start items-start' : 'justify-center items-center'}`}>
-                  <h5 className={`my-[24px] ${idx === 0 ? 'text-[3rem] font-extrabold font-karla leading-[52.8px] -tracking-[0.03px] text-left' : 'text-center font-opensanspro text-[1.25rem] font-bold tracking-tight'} text-gray-900 dark:text-white`}>
+                <div
+                  className={`flex w-full flex-col ${idx === 0 ? 'justify-start items-start' : 'justify-center items-center'}`}
+                >
+                  <h5
+                    className={`my-[24px] ${idx === 0 ? 'text-[3rem] font-extrabold font-karla leading-[52.8px] -tracking-[0.03px] text-left' : 'text-center font-opensanspro text-[1.25rem] font-bold tracking-tight'} text-gray-900 dark:text-white`}
+                  >
                     {val.title}
                   </h5>
                   {idx === 0 ? (

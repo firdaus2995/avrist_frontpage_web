@@ -197,7 +197,7 @@ const ProdukSyariah = () => {
               <SearchBar
                 placeholder="Cari Produk"
                 searchButtonTitle="Cari"
-                searchButtonClassname="bg-syariah_green_informing text-white"
+                searchButtonClassname="bg-syariah_green_informing hover:bg-syariah_green_highlight text-white"
                 onSearch={handleChangeSearchParams}
               />
             </div>

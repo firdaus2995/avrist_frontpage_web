@@ -160,7 +160,7 @@ const DetailKarir = () => {
 
           <div className="w-full flex xs:justify-center md:justify-start">
             <Button
-              customButtonClass="rounded-xl bg-purple_dark !px-[40px] !py-[12px]"
+              customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light !px-[40px] !py-[12px]"
               customTextClass="text-white font-opensans text-xl font-semibold my-2 mx-[2.5rem] leading-[28px]"
               title="Yuk, isi form berikut!"
               onClick={() => {
@@ -179,7 +179,7 @@ const DetailKarir = () => {
               }
             >
               <Button
-                customButtonClass="rounded-xl bg-purple_dark"
+                customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light"
                 customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
                 title="List Lowongan"
               />

@@ -141,7 +141,7 @@ export const KarirModal = (props: Props) => {
                         type="submit"
                         disabled={!formIsValid}
                         onClick={() => onSubmitData()}
-                        className={`${formIsValid ? 'bg-purple_dark' : 'bg-dark-grey'} text-white py-[1.125rem] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
+                        className={`${formIsValid ? 'bg-purple_dark hover:bg-purple_light' : 'bg-dark-grey'} text-white py-[1.125rem] w-full md:w-[132px] rounded-lg mt-[12px] md:mt-0`}
                       >
                         Kirim
                       </button>

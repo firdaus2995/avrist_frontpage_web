@@ -438,7 +438,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 rightTitleClassname="text-black"
                 customLeftSideClassname="border-b-syariah_green"
                 customRightSideClassname="border-b-syariah_green"
-                buttonClassname="border-syariah_green text-syariah_green"
+                buttonClassname="border-syariah_green text-syariah_green hover:bg-syariah_green hover:text-white"
               />
             </div>
             <InfoError
@@ -494,7 +494,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                       type="submit"
                       disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => handleSubmit()}
-                      className={`${formIsValid && isChecked ? 'bg-syariah_green' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem] font-opensans font-semibold`}
+                      className={`${formIsValid && isChecked ? 'bg-syariah_green hover:bg-syariah_green_highlight' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[1.125rem] px-[2.5rem] font-opensans font-semibold`}
                     >
                       Beli Sekarang
                     </button>
@@ -528,7 +528,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                       cardClassname="bg-white border-b-syariah_green"
                       cardTitleClassname="text-syariah_green"
                       cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"
-                      cardButtonClassname="bg-syariah_green_informing text-white"
+                      cardButtonClassname="bg-syariah_green_informing hover:bg-syariah_green_highlight text-white"
                     />
                   ))}
             </div>

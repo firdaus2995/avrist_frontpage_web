@@ -1187,7 +1187,7 @@ const Berita: React.FC<ParamsProps> = () => {
                                 </div>
                                 <Button
                                   title="Unduh"
-                                  customButtonClass="font-opensans rounded-xl bg-purple_dark xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                                  customButtonClass="font-opensans rounded-xl bg-purple_dark hover:bg-purple_light xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
                                   customTextClass="text-white text-[16px]"
                                   onClick={() =>
                                     window.open(item.file, '_blank')
@@ -1304,7 +1304,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       )}
                       <Button
                         title="Subscribe"
-                        customButtonClass="bg-purple_dark rounded-xl"
+                        customButtonClass="bg-purple_dark hover:bg-purple_light rounded-xl"
                         customTextClass="text-white font-semibold text-base"
                         onClick={handleSubscribeButton}
                       />

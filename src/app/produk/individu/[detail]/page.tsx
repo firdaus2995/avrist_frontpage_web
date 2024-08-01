@@ -432,6 +432,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                     urlDownload: dataDetail?.fileBrosur.imageUrl
                   }
                 ]}
+                buttonClassname="border-purple_dark text-purple_dark hover:bg-purple_dark hover:text-white"
               />
               <InfoError
                 symbol={InfoRedSymbol}
@@ -489,7 +490,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                   type="submit"
                   disabled={formIsValid ? (isChecked ? false : true) : true}
                   onClick={() => onSubmitData()}
-                  className={`${formIsValid && isChecked ? 'bg-purple_dark' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[0.75rem] px-[2.5rem] font-opensans font-semibold`}
+                  className={`${formIsValid && isChecked ? 'bg-purple_dark hover:bg-purple_light' : 'bg-dark-grey'} text-white rounded-lg mt-[12px] md:mt-0 text-xl py-[0.75rem] px-[2.5rem] font-opensans font-semibold`}
                 >
                   Beli Sekarang
                 </button>

@@ -85,7 +85,7 @@ const KlaimDanLayanan = () => {
           }
         ]}
         cardClassname="border-b-dplk_yellow"
-        cardButtonClassname="bg-dplk_yellow border-dplk_yellow"
+        cardButtonClassname="bg-dplk_yellow hover:bg-dplk_yellow_highlight border-dplk_yellow"
         cardButtonTextClassname="text-white"
       />
     </div>

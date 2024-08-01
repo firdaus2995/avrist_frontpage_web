@@ -18,6 +18,8 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
+const urlPattern = /^(?:(?:(?:https?|ftp):)?\/\/)/;
+
 const handleGetContent = async (slug: string) => {
   try {
     const data = await getHomeData(slug);
@@ -186,12 +188,19 @@ const BannerAvrast = (props: BannerAvrastPopUp) => {
                           href={contentStringTransformer(
                             data['hero-linkbutton']
                           )}
+                          target={
+                            urlPattern.test(
+                              contentStringTransformer(data['hero-linkbutton'])
+                            )
+                              ? '_blank'
+                              : '_self'
+                          }
                         >
                           <Button
                             title={contentStringTransformer(
                               data['hero-lblbutton']
                             )}
-                            customButtonClass={`bg-purple_dark hover:bg-purple_dark text-white border-none text-[1.25rem] xs:py-[12px] xs:px-[40px]`}
+                            customButtonClass={`bg-purple_dark hover:bg-purple_light text-white border-none text-[1.25rem] xs:py-[12px] xs:px-[40px]`}
                           />
                         </Link>
                       </div>

@@ -452,7 +452,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 rightTitleClassname="text-black"
                 customLeftSideClassname="border-b-dplk_yellow"
                 customRightSideClassname="border-b-dplk_yellow"
-                buttonClassname="border-dplk_yellow text-dplk_yellow"
+                buttonClassname="border-dplk_yellow text-dplk_yellow hover:bg-dplk_yellow hover:text-white"
               />
               <InfoError
                 symbol={InfoRedSymbol}
@@ -506,7 +506,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       type="submit"
                       disabled={formIsValid ? (isChecked ? false : true) : true}
                       onClick={() => onSubmitData()}
-                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
+                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow hover:bg-dplk_yellow_highlight' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
                     >
                       Beli Sekarang
                     </button>
@@ -539,7 +539,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                       cardClassname="bg-white border-b-dplk_yellow"
                       cardTitleClassname="text-dplk_yellow"
                       cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"
-                      cardButtonClassname="bg-dplk_yellow text-white"
+                      cardButtonClassname="bg-dplk_yellow hover:bg-dplk_yellow_highlight text-white"
                     />
                   ))}
             </div>

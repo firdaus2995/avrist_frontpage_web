@@ -49,7 +49,7 @@ export default function NotFound() {
           </div>
           <Link
             href="/"
-            className="bg-purple_dark text-white font-opensans font-semibold text-xl rounded-lg py-[12px] px-[40px]"
+            className="bg-purple_dark hover:bg-purple_light text-white font-opensans font-semibold text-xl rounded-lg py-[12px] px-[40px]"
           >
             Kembali Ke Beranda
           </Link>
