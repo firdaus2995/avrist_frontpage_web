@@ -1657,7 +1657,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className="font-bold">
                       {attribute.name}{' '}
                       <span
-                        className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                        className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
                       >
                         *
                       </span>
@@ -1802,7 +1802,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className={`font-bold`}>
                       {attribute.name}{' '}
                       <span
-                        className={`text-reddist ${!isRequired(attribute.name) ? 'hidden' : ''}`}
+                        className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
                       >
                         *
                       </span>

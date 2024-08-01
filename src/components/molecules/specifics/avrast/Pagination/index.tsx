@@ -48,6 +48,7 @@ const Pagination: React.FC<IPagination> = ({
           containerClassName="flex flex-row gap-[12px] items-center"
           activeClassName={`${customColor ? textColor : 'text-purple_dark'} font-bold`}
           pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+          forcePage={itemOffset / itemsPerPage}
         />
       )}
     </div>

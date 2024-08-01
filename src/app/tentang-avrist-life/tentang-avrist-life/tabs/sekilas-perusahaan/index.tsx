@@ -230,17 +230,35 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
         <TitleContainer className="text-purple_dark xs:text-center sm:text-left leading-[2.25rem] xs:py-[2.25rem] xs:pb-0 sm:py-[5rem] sm:text-5xl xs:text-3xl font-extrabold">
           Mengapa Avrist Life Insurance?
         </TitleContainer>
-        <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
-          {purposeData.map((val, idx) => (
-            <PurposeCard
-              key={idx}
-              title={val.title}
-              desc={val.desc}
-              link={val.link}
-              icon={val.icon}
-            />
-          ))}
+        <div className="xs:hidden sm:block">
+          <div className="grid grid-cols-3 gap-5">
+            {purposeData.map((val, idx) => (
+              <PurposeCard
+                key={idx}
+                title={val.title}
+                desc={val.desc}
+                link={val.link}
+                icon={val.icon}
+              />
+            ))}
+          </div>
         </div>
+
+        <div className="w-full h-full sm:hidden">
+          <div className="w-full overflow-x-auto overflow-y-hidden flex flex-row gap-5">
+            {purposeData.map((val, idx) => (
+              <PurposeCard
+                key={idx}
+                title={val.title}
+                desc={val.desc}
+                link={val.link}
+                icon={val.icon}
+                customClassName="flex-none !w-[85%] !h-[300px]"
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="flex w-full flex-col p-5 gap-4 bg-white border rounded-xl mt-10 mb-2">
           <p className="xs:text-[1.5rem] md:text-[2.25rem] font-bold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
             PT Avrist Assurance berizin dan diawasi oleh Otoritas Jasa Keuangan

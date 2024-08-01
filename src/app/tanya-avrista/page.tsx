@@ -89,6 +89,27 @@ const TanyaAvrista = () => {
   const [listFilteredData, setListFilteredData] = useState<IListFaq[]>([]);
   const [selectedCards, setSelectedCards] = useState('');
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [keyword, setKeyword] = useState('');
+  // PAGINATION STATE
+  const itemsPerPage = 5;
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!listFilteredData?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(listFilteredData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(listFilteredData.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, listFilteredData]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % listFilteredData.length;
+    setItemOffset(newOffset);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,11 +154,15 @@ const TanyaAvrista = () => {
           };
         });
         setListFilteredData(transformedData);
+        const endOffset = itemOffset + itemsPerPage;
+        setPaginatedData(transformedData.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(transformedData.length / itemsPerPage));
       } catch (error) {
         console.error('Error:', error);
       }
     };
-
+    setItemOffset(0);
+    setPageCount(0);
     fetchData();
   }, []);
 
@@ -149,7 +174,7 @@ const TanyaAvrista = () => {
     );
   };
 
-  const handleGetListFaqFilter = async (slug: string, keyword: string) => {
+  const handleGetListFaqFilter = async (slug: string) => {
     try {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
@@ -176,6 +201,8 @@ const TanyaAvrista = () => {
               };
             });
       setListFilteredData(transformedData);
+      setItemOffset(0);
+      setPageCount(0);
       setLoadingSearch(false);
       return tempData;
     } catch (error) {
@@ -188,6 +215,7 @@ const TanyaAvrista = () => {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
         includeAttributes: 'true',
+        searchFilter: keyword,
         tagsFilter: title
       };
       const listFaq: any = await getListFaq(slug, queryParams);
@@ -209,6 +237,8 @@ const TanyaAvrista = () => {
               };
             });
       setListFilteredData(transformedData);
+      setItemOffset(0);
+      setPageCount(0);
       setLoadingSearch(false);
       return tempData;
     } catch (error) {
@@ -228,12 +258,20 @@ const TanyaAvrista = () => {
           <SearchTerm
             onSearch={handleGetListFaqFilter}
             loading={loadingSearch}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
           />
         }
       />
 
       <TopicsCard cards={cards} onClickCards={handleCardsClick} />
-      <FAQList selected={selectedCards} data={listFilteredData} />
+      <FAQList
+        selected={selectedCards}
+        data={paginatedData}
+        pageCount={pageCount}
+        itemOffset={itemOffset}
+        handlePageClick={handlePageClick}
+      />
       <RoundedFrameBottom />
       <FooterInformation
         title={
