@@ -94,7 +94,7 @@ const Pencarian = () => {
               title: 'Prosedur Pengaduan',
               subtitle: 'Lihat Prosedur',
               icon: DOCUMENT_SEARCH,
-              href: '/klaim-layanan/layanan/penanganan-pengaduan'
+              href: 'klaim-layanan/layanan/penanganan-pengaduan'
             }
           ]}
         />
