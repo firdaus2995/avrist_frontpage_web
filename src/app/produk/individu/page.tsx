@@ -133,6 +133,25 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const response = await fetch(
+          'https://api-front-sit.avristcms.barito.tech/api/page/produk-individu-hlm',
+          { method: 'GET' }
+        );
+        const data = await response.json();
+
+        console.log('data untuk testing nih: ');
+        console.log(data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const response = await fetch(`/api/produk/individu`);
         const data = await response.json();
 
