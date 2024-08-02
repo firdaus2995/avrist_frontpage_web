@@ -133,6 +133,10 @@ const Promo: React.FC<ParamsProps> = () => {
   }, [searchParams]);
 
   useEffect(() => {
+    setPagination({ ...pagination, currentPage: 1 });
+  }, [params]);
+
+  useEffect(() => {
     fetchPage();
     fetchContent();
   }, [params]);

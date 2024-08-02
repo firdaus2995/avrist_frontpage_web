@@ -115,6 +115,8 @@ const DPLKProductList = () => {
 
   const handleChangeSearchParams = (value: string) => {
     setSearch(value);
+    setPageCount(0);
+    setItemOffset(0);
   };
 
   return (
