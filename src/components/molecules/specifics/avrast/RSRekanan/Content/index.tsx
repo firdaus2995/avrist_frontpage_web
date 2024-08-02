@@ -53,6 +53,7 @@ const Content = () => {
         }
       }
       const queryParams = {
+        distance_radius_in_km: 30,
         page: currentPage,
         name_contain: searchParam,
         third_party_administration_name_contain: thirdParty
@@ -66,11 +67,12 @@ const Content = () => {
             }
           : queryParams
       );
-      if (data.responseMessage !== 'SUCCESS') {
+      if (data.status !== 'OK') {
         setLoading(false);
         return [];
       }
-      const { content } = data;
+      const content = data?.data?.partnerHospitalList;
+
       if (content.length > 0) {
         const fetchedData = content.map((item: ProviderContent) => {
           const phoneSplit = item.phone.split('-');
@@ -89,7 +91,7 @@ const Content = () => {
         setData((prevData) => {
           const existingIds = new Set(prevData.map((item) => item.id));
           const newData = fetchedData.filter(
-            (item) => !existingIds.has(item.id)
+            (item: any) => !existingIds.has(item.id)
           );
           return [...prevData, ...newData];
         });
