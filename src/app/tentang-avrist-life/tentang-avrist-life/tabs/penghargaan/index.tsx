@@ -40,6 +40,11 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
     setPageCount(Math.ceil(contentData.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, contentData]);
 
+  useEffect(() => {
+    setPageCount(0);
+    setItemOffset(0);
+  }, [params]);
+
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
@@ -224,6 +229,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
             containerClassName="flex flex-row gap-[12px] items-center"
             activeClassName="text-purple_dark font-bold"
             pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+            forcePage={itemOffset / itemsPerPage}
           />
         )}
       </div>
