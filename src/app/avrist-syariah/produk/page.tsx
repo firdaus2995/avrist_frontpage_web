@@ -141,6 +141,8 @@ const ProdukSyariah = () => {
 
   const handleChangeSearchParams = (value: string) => {
     setSearchValue(value);
+    setPageCount(0);
+    setItemOffset(0);
   };
 
   return (
