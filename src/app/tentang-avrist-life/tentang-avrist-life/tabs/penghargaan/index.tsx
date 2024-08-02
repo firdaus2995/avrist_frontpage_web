@@ -305,7 +305,11 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                             className="xs:text-sm sm:text-base line-clamp-3 h-full 2xl:py-2"
                           /> */}
                           <p className="xs:text-sm sm:text-[1rem] line-clamp-3 h-full 2xl:py-2 leading-[22.4px] min-h-[64px]">
-                            {htmlParser(item.deskripsi[0].value)}
+                            {item.deskripsi[0].value !== '<p>-</p>' &&
+                              item.deskripsi[0].value !== '["-"]' &&
+                              item.deskripsi[0].value !== '-' &&
+                              !item.deskripsi[0].value.includes('>-<') &&
+                              htmlParser(item.deskripsi[0].value)}
                           </p>
                           <div className="flex flex-row items-end gap-1 text-left h-full">
                             <p className="text-purple_dark font-bold xs:text-sm sm:text-base cursor-pointer text-left">

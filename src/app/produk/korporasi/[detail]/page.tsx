@@ -53,7 +53,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   const [bannerImg, setBannerImg] = useState<any>();
   const [bannerImgFit, setBannerImgFit] = useState('');
   const [dataForm, setDataForm] = useState<any>();
-  const [formId, setFormId] = useState<any>();
+  const [, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
   const [attachment, setAttachment] = useState(false);
@@ -77,7 +77,6 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setFormId(content['form-produk'].value);
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -157,7 +156,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
         categoryTitle: jsonData?.data?.categories
           ?.map((item: any) => item.categoryName)
           .join(', '),
-        formId: jsonData.data?.formId || formProduk || '6979'
+        formId: formProduk
       };
 
       setBannerImg(customImageTransformer(content['produk-image']));
@@ -276,9 +275,12 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
     if (dataDetail?.formId) {
       const fetchDataForm = async () => {
         try {
-          const contentResponse = await fetch(`/api/form?id=${formId}`);
+          const contentResponse = await fetch(
+            `/api/form?id=${dataDetail.formId}`
+          );
           const dataFormJson = await contentResponse.json();
           setDataForm(dataFormJson.data.attributeList);
+          setFormId(dataFormJson.data.id);
           setFormPic(dataFormJson.data.pic);
           setEmailSubject(dataFormJson.data.emailSubject);
           setEmailBody(dataFormJson.data.emailBody);
@@ -335,7 +337,7 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
     });
 
     const queryParams = {
-      id: formId,
+      id: dataDetail?.formId,
       pic: formPic,
       placeholderValue: updatedData,
       attachment: attachment.toString(),
