@@ -335,39 +335,44 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           </div>
           {RenderArtikelLooping()}
 
-          <div className={`flex flex-row gap-4 'mt-0'}`}>
-            <div className="flex flex-row gap-4">
-              <p className="text-sm font-medium lg:min-w-[180px]">
-                Berita ini juga dimuat di media berikut:
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {contentData?.externalLink?.map((el: any, index: number) => {
-                  if (
-                    el.details[0]?.value === '-' ||
-                    el.details[1]?.value === '-'
-                  )
-                    return null;
-                  return (
-                    <Link
-                      key={index}
-                      href={el.details[1]?.value}
-                      target="_blank"
-                      className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
-                    >
-                      {el.details[0]?.value}
-                      {el.details[0]?.value !== '-' && (
-                        <Icon
-                          name="externalLink"
-                          color="purple_dark"
-                          width={10}
-                        />
-                      )}
-                    </Link>
-                  );
-                })}
+          {contentData?.externalLink?.filter(
+            (el: any) =>
+              el.details[0]?.value !== '-' || el.details[1]?.value !== '-'
+          ).length > 0 ? (
+            <div className={`flex flex-row gap-4 'mt-0'}`}>
+              <div className="flex flex-row gap-4">
+                <p className="text-sm font-medium lg:min-w-[180px]">
+                  Berita ini juga dimuat di media berikut:
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {contentData?.externalLink?.map((el: any, index: number) => {
+                    if (
+                      el.details[0]?.value === '-' ||
+                      el.details[1]?.value === '-'
+                    )
+                      return null;
+                    return (
+                      <Link
+                        key={index}
+                        href={el.details[1]?.value}
+                        target="_blank"
+                        className="flex flex-row gap-2 items-center text-sm font-medium text-purple_dark"
+                      >
+                        {el.details[0]?.value}
+                        {el.details[0]?.value !== '-' && (
+                          <Icon
+                            name="externalLink"
+                            color="purple_dark"
+                            width={10}
+                          />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
+          ) : null}
 
           {/* <div className="flex flex-col gap-5 p-5 border border-b-8 border-b-purple_dark rounded-xl">
             <p className="font-bold text-2xl">
