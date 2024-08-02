@@ -73,10 +73,10 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         const response = await fetch('/api/produk-detail');
         const data = await response.json();
         setData(data);
-
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
+        setFormId(content['form-produk'].value);
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -275,12 +275,9 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
     if (dataDetail?.formId) {
       const fetchDataForm = async () => {
         try {
-          const contentResponse = await fetch(
-            `/api/form?id=${dataDetail.formId}`
-          );
+          const contentResponse = await fetch(`/api/form?id=${formId}`);
           const dataFormJson = await contentResponse.json();
           setDataForm(dataFormJson.data.attributeList);
-          setFormId(dataFormJson.data.id);
           setFormPic(dataFormJson.data.pic);
           setEmailSubject(dataFormJson.data.emailSubject);
           setEmailBody(dataFormJson.data.emailBody);
