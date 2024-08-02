@@ -86,7 +86,9 @@ const DPLKProductList = () => {
         const uniqueChannels = new Set(
           channelValues?.filter((channel: string) => channel !== '')
         );
-        setChannels(Array.from(uniqueChannels));
+        if (channels.length === 0) {
+          setChannels(Array.from(uniqueChannels));
+        }
       }
     });
   }, [selectedChannels, search]);
