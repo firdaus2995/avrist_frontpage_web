@@ -98,7 +98,7 @@ const DPLKProductList = () => {
     if (!dataContent?.length) return; // check if contentaData already present
 
     const endOffset = itemOffset + itemsPerPage;
-    setPaginatedData(dataContent.slice(itemOffset, endOffset));
+    setPaginatedData(dataContent.slice(itemOffset, endOffset)); 
     setPageCount(Math.ceil(dataContent.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, dataContent]);
 
