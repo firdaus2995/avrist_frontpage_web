@@ -11,7 +11,7 @@ type Environment =
   | '';
 
 export interface QueryParams {
-  [key: string]: string;
+  [key: string]: any;
 }
 
 interface FetchOptions extends RequestInit {
