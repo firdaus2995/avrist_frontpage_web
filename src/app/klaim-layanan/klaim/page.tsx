@@ -322,10 +322,12 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
               href="https://www.youtube.com/@avristian"
               target="blank"
               role="button"
-              className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg text-xl font-semibold text-white flex flex-row gap-2 items-center font-opensans leading-[28px]"
+              className="py-[0.75rem] px-[2.5rem] inline-flex bg-purple_dark rounded-lg text-xl font-semibold text-white flex flex-row gap-2 items-center font-opensans leading-[28px]"
             >
-              Cerita Lebih Detail di
-              <Icon name="youtubeIcon" color="white" width={32} height={32} />
+              Cerita Lebih Detail di{' '}
+              <span className="inline">
+                <Icon name="youtubeIcon" color="white" width={32} height={32} />
+              </span>
             </Link>
           </div>
         }

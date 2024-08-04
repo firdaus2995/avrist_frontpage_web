@@ -344,7 +344,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 <p className="text-sm font-medium lg:min-w-[180px]">
                   Berita ini juga dimuat di media berikut:
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 pb-5">
                   {contentData?.externalLink?.map((el: any, index: number) => {
                     if (
                       el.details[0]?.value === '-' ||

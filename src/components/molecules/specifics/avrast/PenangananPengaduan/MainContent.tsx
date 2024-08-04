@@ -281,7 +281,7 @@ export const MainContent = ({
         <div className="bg-purple_superlight sm:px-[8.5rem] xs:px-[1.5rem] xs:pb-[28px]">
           <div className="bg-white mt-[5rem] border rounded-xl border-gray_light overflow-hidden border-b-8 border-b-purple_dark">
             <div className="p-[2.25rem]">
-              <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[3.2rem] leading-[67.2px] sm:-tracking-[2.24px] xs:-tracking-[1.44px]">
+              <p className="font-karla font-bold sm:text-[3.5rem] xs:text-[2.25rem] leading-[43.2px] lg:leading-[67.2px] sm:-tracking-[2.24px] xs:-tracking-[1.44px] mb-[12px]">
                 Form Pengaduan
               </p>
               {dataForm && (

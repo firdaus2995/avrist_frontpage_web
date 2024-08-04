@@ -51,7 +51,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
       {cards.map((item, index) => (
         <div
           key={index}
-          className={`${cardClassname} flex flex-col justify-between w-full min-h-[270px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white px-[1.5rem]`}
+          className={`${cardClassname} flex flex-col justify-between w-full min-h-[400px] h-full border-1 rounded-[12px] border-b-[8px] rounded-b-[12px] bg-white px-[1.5rem]`}
         >
           <div className="flex flex-col justify-center mt-[1.5rem] text-center items-center mb-4 gap-4">
             <Image

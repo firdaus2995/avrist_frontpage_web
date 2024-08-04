@@ -393,12 +393,14 @@ const SearchForm = () => {
                         }}
                       />
                       <p className="text-[20px]">{item.nama}</p>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: item.deskripsi
-                        }}
-                        className="line-clamp-3"
-                      />
+                      {!item.deskripsi.includes('-</p>') && (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: item.deskripsi
+                          }}
+                          className="line-clamp-3"
+                        />
+                      )}
                     </div>
                   </div>
                 </Link>
