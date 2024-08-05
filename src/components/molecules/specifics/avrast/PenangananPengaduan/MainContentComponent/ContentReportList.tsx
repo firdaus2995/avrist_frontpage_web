@@ -1,7 +1,7 @@
 export const ContentReportList = () => {
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center text-center xs:pb-[44px] sm:pb-0">
+      <div className="flex flex-col justify-center items-center text-center xs:pb-[44px] sm:pb-0 gap-[12px]">
         <span className="text-purple_dark font-karla text-center font-extrabold sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">
           Laporan Publikasi Penanganan Pengaduan
         </span>

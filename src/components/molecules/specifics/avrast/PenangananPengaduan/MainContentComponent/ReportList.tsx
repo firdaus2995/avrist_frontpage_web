@@ -105,7 +105,7 @@ export const ReportList = ({
                   <ButtonMenuVertical item={btnVerticalData} />
                 )}
               </div>
-              <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark xs:w-[7.5rem]">
+              <div className="text-purple_dark border-1 px-[12px] py-[8px] rounded-md border-purple_dark xs:w-[8.5rem] flex items-center justify-center">
                 <select value={selectedYear} onChange={handleYearChange}>
                   <option value="" selected>
                     Pilih Tahun

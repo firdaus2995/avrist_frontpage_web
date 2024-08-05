@@ -103,15 +103,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               detailItem.value !== '-' &&
               !detailItem.value.includes('>-<');
             if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
-              return (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: detailItem.value
-                  }}
-                  key={detailIndex}
-                  className="font-opensans text-xl"
-                />
-              );
+              return renderedDescription(detailItem.value);
             }
             if (
               fieldType === 'IMAGE' &&
@@ -216,6 +208,43 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     fetchData();
     fetchDetailData();
   }, []);
+
+  const renderedDescription = (description: string) => {
+    const isOrdered = description.includes('<ol>');
+    const isUnordered = description.includes('<ul>');
+
+    if (isOrdered) {
+      return (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: description.replace(
+              /<ol>/g,
+              `<ol class="list-decimal pl-6 font-opensans text-xl">`
+            )
+          }}
+        />
+      );
+    }
+    if (isUnordered) {
+      return (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: description.replace(
+              /<ul>/g,
+              `<ul class="list-disc pl-6 font-opensans text-xl">`
+            )
+          }}
+        />
+      );
+    }
+
+    return (
+      <p
+        className="font-opensans text-xl"
+        dangerouslySetInnerHTML={{ __html: description }}
+      ></p>
+    );
+  };
 
   return (
     <>
