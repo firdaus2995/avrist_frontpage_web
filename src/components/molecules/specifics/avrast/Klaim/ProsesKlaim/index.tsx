@@ -108,6 +108,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 5;
 
+  useEffect(() => {
+    setPageCount(0);
+    setItemOffset(0);
+  }, [params]);
+
   // PAGINATION LOGIC HOOK
   useEffect(() => {
     if (!contentData?.length) return; // check if contentaData already present
@@ -157,6 +162,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
             containerClassName="flex flex-row gap-[12px] items-center"
             activeClassName="text-purple_dark font-bold"
             pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
+            forcePage={itemOffset / itemsPerPage}
           />
         )}
       </div>
@@ -199,10 +205,6 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
       fetchData();
     }
   }, [params, categoryList]);
-
-  useEffect(() => {
-    setItemOffset(0);
-  }, [params.category]);
 
   useEffect(() => {
     if (!isSelectedData) {

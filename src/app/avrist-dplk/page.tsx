@@ -24,12 +24,12 @@ import {
   contentStringTransformer
 } from '@/utils/responseTransformer';
 
+const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false });
+
 const AvristSyariah = async () => {
   const pageBase = await handleGetContentPage(
     BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
   );
-
-  const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false });
 
   const { content } = pageTransformer(pageBase);
   const titleImage = singleImageTransformer(content['title-image']);
