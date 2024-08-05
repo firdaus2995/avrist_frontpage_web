@@ -397,6 +397,17 @@ const CustomForm: React.FC<CustomFormProps> = ({
         return true;
       });
 
+      console.log(
+        formData,
+        isNotEmpty,
+        isEmailValid,
+        isMultipleChoiceValid,
+        isDateValid,
+        isRangeDateValid,
+        isCurrencyValid,
+        isPhoneNumberValid
+      );
+
       resultData(
         formData,
         isNotEmpty &&
@@ -523,9 +534,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
     const leftSide = attributeList.slice(0, midIndex);
     const rightSide = attributeList.slice(midIndex);
 
-    console.log(leftSide);
-    console.log(rightSide);
-
     return (
       <div
         className={`${customFormClassname} flex flex-col self-stretch bg-white ${type === 'Karir' ? '' : 'gap-[20px] border border-gray_light '} border-b-8 rounded-[12px]`}
@@ -550,8 +558,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
-                      <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
+                      <p className="font-bold">
+                        {attribute.name}{' '}
+                        <span
+                          className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
+                        >
+                          *
+                        </span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
                         <div className="flex flex-row gap-9">
@@ -898,8 +911,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
-                      <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
+                      <p className="font-bold">
+                        {attribute.name}{' '}
+                        <span
+                          className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
+                        >
+                          *
+                        </span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
                         <div className="flex flex-row gap-9">
