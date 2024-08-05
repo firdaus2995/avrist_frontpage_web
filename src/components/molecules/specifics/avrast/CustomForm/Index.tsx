@@ -516,10 +516,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
     const attributeList = dataForm.filter(
       (data) => !data.config.includes('"hidden": "true"')
     );
-    const midIndex = Math.ceil(attributeList.length / 2);
+    const formType = type ?? '';
+    const midIndex =
+      Math.ceil(attributeList.length / 2) + formType === 'Hubungi Kami' ? 2 : 0;
 
     const leftSide = attributeList.slice(0, midIndex);
     const rightSide = attributeList.slice(midIndex);
+
+    console.log(leftSide);
+    console.log(rightSide);
 
     return (
       <div
@@ -860,11 +865,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           value={attribute.value ?? ''}
                           onChange={(e) => {
                             const regex = /[^a-zA-Z ]/g;
-                            if (
-                              attribute.name === 'Nama' ||
-                              attribute.name === 'Domisili' ||
-                              attribute.name === 'Kota'
-                            ) {
+                            if (isText(attribute.name)) {
                               if (!e.target.value.match(regex)) {
                                 attribute.value = e.target.value;
                               }
