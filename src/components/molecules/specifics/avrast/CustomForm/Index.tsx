@@ -527,9 +527,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
     const attributeList = dataForm.filter(
       (data) => !data.config.includes('"hidden": "true"')
     );
-    const formType = type ?? '';
-    const midIndex =
-      Math.ceil(attributeList.length / 2) + formType === 'Hubungi Kami' ? 2 : 0;
+    const formType = type === 'Hubungi Kami' ? 2 : 0;
+    const midIndex = Math.ceil(attributeList.length / 2) + formType;
 
     const leftSide = attributeList.slice(0, midIndex);
     const rightSide = attributeList.slice(midIndex);
