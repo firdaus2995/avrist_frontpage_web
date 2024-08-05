@@ -87,9 +87,18 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         setData(data);
 
         const { content } = pageTransformer(data);
-        const titleImage = singleImageTransformer(content['title-image']);
-        const footerImage = singleImageTransformer(content['cta1-image']);
-        setFormId(content['form-produk'].value);
+
+        const titleImage = content['title-image']
+          ? singleImageTransformer(content['title-image'])
+          : { imageUrl: '' };
+        const footerImage = content['cta1-image']
+          ? singleImageTransformer(content['cta1-image'])
+          : { imageUrl: '' };
+
+        if (content['form-produk']) {
+          setFormId(content['form-produk'].value);
+        }
+
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -150,7 +159,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
       const detailData = {
         namaProduk,
-        tags: tags.split(','),
+        tags: tags ? tags.split(',') : [],
         deskripsiSingkatProduk,
         taglineProduk,
         deskripsiLengkapProduk,
@@ -169,9 +178,10 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         kategoriProdukIcon,
         fileRiplay,
         fileBrosur,
-        categoryTitle: jsonData.data.categories
-          .map((item: any) => item.categoryName)
-          .join(', '),
+        categoryTitle:
+          jsonData.data.categories
+            ?.map((item: any) => item.categoryName)
+            .join(', ') || '',
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
@@ -188,14 +198,15 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       try {
         const contentResponse = await fetch(`/api/produk-dplk/content`);
         const data = await contentResponse.json();
-        const newDataContent = data.data.contentDataList.map((item: any) => {
-          return {
-            ...handleTransformedContent(item.contentData, item.title),
-            categoryName: item.categoryName,
-            createdAt: item.createdAt,
-            id: item.id
-          };
-        });
+        const newDataContent =
+          data.data?.contentDataList?.map((item: any) => {
+            return {
+              ...handleTransformedContent(item.contentData, item.title),
+              categoryName: item.categoryName,
+              createdAt: item.createdAt,
+              id: item.id
+            };
+          }) || [];
         const dataContentValues = newDataContent.map(
           ({
             content,

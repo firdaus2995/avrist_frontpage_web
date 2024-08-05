@@ -179,6 +179,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
+    const namaProduk = content['nama-produk'].value;
+    const namaPromo = content['nama-promo'].value;
+
     const tagline = content['tags'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
@@ -215,18 +218,21 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             ) {
               return (
                 <div
-                  className="w-full flex items-center justify-center"
+                  className="w-full h-full flex justify-center"
                   key={detailIndex}
                 >
-                  <Image
-                    src={
-                      singleImageTransformer(detailItem).imageUrl ?? BlankImage
-                    }
-                    alt="img"
-                    className="w-auto h-auto py-6"
-                    width={0}
-                    height={0}
-                  />
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                    <Image
+                      src={
+                        singleImageTransformer(detailItem).imageUrl ??
+                        BlankImage
+                      }
+                      alt="img"
+                      className="w-auto h-auto py-6"
+                      width={0}
+                      height={0}
+                    />
+                  </div>
                 </div>
               );
             }
@@ -261,6 +267,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       : '';
 
     const transformedData = {
+      namaPromo,
+      namaProduk,
       tagline,
       judul,
       penulis,
@@ -419,7 +427,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         </div>
       </div>
 
-      <InterestSection formId={formId} popUpImage={popUpImage} />
+      <InterestSection
+        formId={formId}
+        popUpImage={popUpImage}
+        productName={contentData?.namaProduk ?? '-'}
+        promoName={contentData?.namaPromo ?? '-'}
+      />
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">

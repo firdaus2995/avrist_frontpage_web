@@ -112,18 +112,21 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             ) {
               return (
                 <div
-                  className="w-full flex items-center justify-center"
+                  className="w-full h-full flex justify-center"
                   key={detailIndex}
                 >
-                  <Image
-                    src={
-                      singleImageTransformer(detailItem).imageUrl ?? BlankImage
-                    }
-                    alt="img"
-                    className="w-auto h-auto"
-                    width={0}
-                    height={0}
-                  />
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                    <Image
+                      src={
+                        singleImageTransformer(detailItem).imageUrl ??
+                        BlankImage
+                      }
+                      alt="img"
+                      className="w-auto h-auto"
+                      width={0}
+                      height={0}
+                    />
+                  </div>
                 </div>
               );
             }

@@ -197,16 +197,20 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           )}
 
           <div className="w-full flex items-center justify-center">
-            {artikelImage.imageUrl.includes('no-image') ||
-              (artikelImage.imageUrl === '' && (
-                <Image
-                  src={artikelImage?.imageUrl ?? BlankImage}
-                  alt="img"
-                  className="w-auto h-auto"
-                  width={0}
-                  height={0}
-                />
-              ))}
+            {!artikelImage.imageUrl.includes('no-image') &&
+              artikelImage.imageUrl !== '' && (
+                <div className="w-full h-full flex justify-center">
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                    <Image
+                      src={artikelImage?.imageUrl ?? BlankImage}
+                      alt="img"
+                      className="w-auto h-auto"
+                      width={0}
+                      height={0}
+                    />
+                  </div>
+                </div>
+              )}
           </div>
 
           {paragrafDua !== '-' && (

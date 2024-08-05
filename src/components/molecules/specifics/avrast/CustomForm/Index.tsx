@@ -516,7 +516,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
     const attributeList = dataForm.filter(
       (data) => !data.config.includes('"hidden": "true"')
     );
-    const midIndex = Math.ceil(attributeList.length / 2);
+    const formType = type === 'Hubungi Kami' ? 2 : 0;
+    const midIndex = Math.ceil(attributeList.length / 2) + formType;
 
     const leftSide = attributeList.slice(0, midIndex);
     const rightSide = attributeList.slice(midIndex);
@@ -545,8 +546,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
-                      <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
+                      <p className="font-bold">
+                        {attribute.name}{' '}
+                        <span
+                          className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
+                        >
+                          *
+                        </span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
                         <div className="flex flex-row gap-9">
@@ -860,11 +866,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           value={attribute.value ?? ''}
                           onChange={(e) => {
                             const regex = /[^a-zA-Z ]/g;
-                            if (
-                              attribute.name === 'Nama' ||
-                              attribute.name === 'Domisili' ||
-                              attribute.name === 'Kota'
-                            ) {
+                            if (isText(attribute.name)) {
                               if (!e.target.value.match(regex)) {
                                 attribute.value = e.target.value;
                               }
@@ -897,8 +899,13 @@ const CustomForm: React.FC<CustomFormProps> = ({
                     <p className="leading-[23.68px]">{attribute.name}</p>
                   ) : (
                     <div>
-                      <p className="font-bold mb-2 leading-[21.79px]">
-                        {attribute.name} <span className="text-reddist">*</span>
+                      <p className="font-bold">
+                        {attribute.name}{' '}
+                        <span
+                          className={`text-reddist ${!isRequired(attribute.componentId) ? 'hidden' : ''}`}
+                        >
+                          *
+                        </span>
                       </p>
                       {attribute.fieldType === 'RADIO_BUTTON' ? (
                         <div className="flex flex-row gap-9">
