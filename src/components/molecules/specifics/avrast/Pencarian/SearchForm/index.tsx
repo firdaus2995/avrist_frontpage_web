@@ -393,12 +393,14 @@ const SearchForm = () => {
                         }}
                       />
                       <p className="text-[20px]">{item.nama}</p>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: item.deskripsi
-                        }}
-                        className="line-clamp-3"
-                      />
+                      {!item.deskripsi.includes('-</p>') && (
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: item.deskripsi
+                          }}
+                          className="line-clamp-3"
+                        />
+                      )}
                     </div>
                   </div>
                 </Link>
@@ -489,10 +491,11 @@ const SearchForm = () => {
               Menampilkan{' '}
               <span className="font-bold text-purple_dark">
                 {dataContent?.length === 0 ? 0 : itemOffset + 1}-
-                {Math.min(
-                  (itemOffset + 1) * itemsPerPage,
-                  dataContent ? dataContent.length : 0
-                )}
+                {dataContent?.length === 0
+                  ? 0
+                  : itemOffset + 1 + itemsPerPage > dataContent?.length
+                    ? dataContent?.length
+                    : itemOffset + itemsPerPage}
               </span>{' '}
               dari <span className="font-bold">{dataContent?.length}</span>{' '}
               hasil

@@ -29,7 +29,7 @@ const Hero: React.FC<IHero> = ({
 }) => {
   const bannerRef: any = useRef<HTMLDivElement>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
-  const tabletSize = 1024;
+  // const tabletSize = 1024;
 
   useEffect(() => {
     const updateSize = () => {
@@ -51,23 +51,26 @@ const Hero: React.FC<IHero> = ({
   }, [bannerRef.current]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (bannerRef.current) {
-        setImageSize({
-          width: bannerRef.current.offsetWidth,
-          height: bannerRef.current.offsetHeight
-        });
-      }
-    }, 100);
+    if (imageSize.width === 0 || imageSize.height === 0) {
+      const timer = setTimeout(() => {
+        if (bannerRef.current) {
+          setImageSize({
+            width: bannerRef.current.offsetWidth,
+            height: bannerRef.current.offsetHeight
+          });
+        }
+      }, 100);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  console.log(imageSize);
+      return () => clearTimeout(timer);
+    }
+  }, [imageSize]);
 
   return (
     <div
       className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[16.25rem] sm:h-[38.5rem]' : 'xs:h-[9.375rem] md:h-[18.75rem]'} ${customClassName}`}
+      style={{
+        marginBottom: imageSize.height < 160 ? -(imageSize.height * 0.6) : 0
+      }}
     >
       <div className="w-full flex items-center">
         <div
@@ -104,16 +107,10 @@ const Hero: React.FC<IHero> = ({
         height={0}
       />
       {bottomImage && (
-        <div
-          className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute"
-          style={{
-            width: '100%',
-            height: imageSize.width < tabletSize ? '100%' : '50vh'
-          }}
-        >
+        <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
             ref={bannerRef}
-            className={`rounded-t-3xl md:rounded-t-[3.75rem] w-full xs:h-auto sm:w-full ${bottomImageFit === 'proportional_full' ? 'object-fill' : 'object-cover'}`}
+            className={`rounded-t-3xl md:rounded-t-[3.75rem] w-full xs:h-auto sm:h-full md:h-[50vh] ${bottomImageFit === 'proportional_full' ? 'object-fill' : 'object-cover'}`}
             alt="gambar-produk-individu"
             width={0}
             height={0}

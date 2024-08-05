@@ -90,7 +90,11 @@ export const BranchOffice = (props: Props) => {
             Menampilkan{' '}
             <span className="font-bold text-purple_dark">
               {data?.length === 0 ? 0 : startIndex + 1}-
-              {Math.min(endIndex, data ? data.length : 0)}
+              {data?.length === 0
+                ? 0
+                : startIndex + 1 + itemsPerPage > data?.length
+                  ? data?.length
+                  : startIndex + itemsPerPage}
             </span>{' '}
             dari <span className="font-bold">{data?.length}</span> hasil
           </p>

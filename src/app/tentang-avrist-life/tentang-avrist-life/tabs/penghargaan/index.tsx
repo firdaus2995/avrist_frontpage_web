@@ -71,20 +71,37 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
 
         const judul = content['judul-artikel'].value;
         const nama = content['nama-penghargaan'].value;
+        const tanggal = content['tanggal'].value;
+        const bulan = content['bulan'].value;
+        const tahun = content['tahun'].value;
+        const fullDate = `${tahun}-${bulan}-${tanggal}`;
         const waktu = `${
-          monthDropdown().find((item) => item.value === content['bulan'].value)
-            ?.label
-        } ${content['tahun'].value}`;
+          monthDropdown().find((item) => item.value === bulan)?.label
+        } ${tahun}`;
         const deskripsi = content['artikel-looping'].contentData[0].details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;
         const id = item.id;
 
-        return { judul, nama, waktu, deskripsi, image, id };
+        return { judul, nama, fullDate, waktu, deskripsi, image, id };
       });
 
-      setContentData(transformedData);
+      const sortedData = transformedData.sort((a: any, b: any) => {
+        const dateA = new Date(a.fullDate).getTime();
+        const dateB = new Date(b.fullDate).getTime();
+
+        if (isNaN(dateA)) {
+          return 1;
+        }
+        if (isNaN(dateB)) {
+          return -1;
+        }
+
+        return dateB - dateA;
+      });
+
+      setContentData(sortedData);
     } catch (err) {
       console.error(err);
     }
@@ -207,10 +224,11 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                 ? 0
                 : itemOffset + 1}
               -
-              {Math.min(
-                (itemOffset + 1) * itemsPerPage,
-                contentData ? contentData.length : 0
-              )}
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : itemOffset + 1 + itemsPerPage > contentData?.length
+                  ? contentData.length
+                  : itemOffset + itemsPerPage}
             </span>{' '}
             dari{' '}
             <span className="font-bold">

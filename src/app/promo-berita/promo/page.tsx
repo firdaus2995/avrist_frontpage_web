@@ -349,7 +349,13 @@ const Promo: React.FC<ParamsProps> = () => {
               {paginatedData?.length === 0 || paginatedData === undefined
                 ? 0
                 : startIndex + 1}
-              -{Math.min(endIndex, paginatedData ? paginatedData.length : 0)}
+              -
+              {paginatedData?.length === 0 || paginatedData === undefined
+                ? 0
+                : startIndex + 1 + pagination.itemsPerPage >
+                    paginatedData?.length
+                  ? paginatedData?.length
+                  : startIndex + pagination.itemsPerPage}
             </span>{' '}
             dari{' '}
             <span className="font-bold">

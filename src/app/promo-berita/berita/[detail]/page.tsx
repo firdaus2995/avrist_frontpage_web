@@ -197,16 +197,20 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           )}
 
           <div className="w-full flex items-center justify-center">
-            {artikelImage.imageUrl.includes('no-image') ||
-              (artikelImage.imageUrl === '' && (
-                <Image
-                  src={artikelImage?.imageUrl ?? BlankImage}
-                  alt="img"
-                  className="w-auto h-auto"
-                  width={0}
-                  height={0}
-                />
-              ))}
+            {!artikelImage.imageUrl.includes('no-image') &&
+              artikelImage.imageUrl !== '' && (
+                <div className="w-full h-full flex justify-center">
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                    <Image
+                      src={artikelImage?.imageUrl ?? BlankImage}
+                      alt="img"
+                      className="w-auto h-auto"
+                      width={0}
+                      height={0}
+                    />
+                  </div>
+                </div>
+              )}
           </div>
 
           {paragrafDua !== '-' && (
@@ -344,7 +348,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                 <p className="text-sm font-medium lg:min-w-[180px]">
                   Berita ini juga dimuat di media berikut:
                 </p>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 pb-5">
                   {contentData?.externalLink?.map((el: any, index: number) => {
                     if (
                       el.details[0]?.value === '-' ||
