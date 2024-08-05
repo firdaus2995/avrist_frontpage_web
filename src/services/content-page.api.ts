@@ -11,7 +11,9 @@ export const getContentPage = async (slug: string) => {
   return await httpService<PageResponse>('page', slug, {
     method: 'GET',
     next: {
-      revalidate: 60
+      revalidate: process.env.NEXT_PUBLIC_REVALIDA_CACHE
+        ? parseInt(process.env.NEXT_PUBLIC_REVALIDA_CACHE)
+        : 60
     }
   });
 };
