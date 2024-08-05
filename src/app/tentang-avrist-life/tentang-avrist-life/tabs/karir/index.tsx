@@ -277,10 +277,12 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                           ? 0
                           : startIndex + 1}
                         -
-                        {Math.min(
-                          endIndex,
-                          contentData ? contentData.length : 0
-                        )}
+                        {contentData?.length === 0 || contentData === undefined
+                          ? 0
+                          : startIndex + 1 + pagination.itemsPerPage >
+                              contentData?.length
+                            ? contentData?.length
+                            : startIndex + pagination.itemsPerPage}
                       </span>{' '}
                       dari{' '}
                       <span className="font-bold">

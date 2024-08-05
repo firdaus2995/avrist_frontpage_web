@@ -268,6 +268,7 @@ const TanyaAvrista = () => {
       <FAQList
         selected={selectedCards}
         data={paginatedData}
+        totalData={listFilteredData.length}
         pageCount={pageCount}
         itemOffset={itemOffset}
         handlePageClick={handlePageClick}

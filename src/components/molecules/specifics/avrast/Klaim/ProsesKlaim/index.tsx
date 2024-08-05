@@ -134,10 +134,11 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                 ? 0
                 : itemOffset + 1}
               -
-              {Math.min(
-                (itemOffset + 1) * itemsPerPage,
-                contentData ? contentData.length : 0
-              )}
+              {contentData?.length === 0 || contentData === undefined
+                ? 0
+                : itemOffset + 1 + itemsPerPage > contentData?.length
+                  ? contentData?.length
+                  : itemOffset + itemsPerPage}
             </span>{' '}
             dari{' '}
             <span className="font-bold">

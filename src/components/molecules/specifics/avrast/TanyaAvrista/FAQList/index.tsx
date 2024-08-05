@@ -15,6 +15,7 @@ export interface IListFaq {
 interface ICardsProps {
   selected: string;
   data: IListFaq[];
+  totalData?: number;
   itemsPerPage?: number;
   pageCount: number;
   itemOffset: number;
@@ -24,6 +25,7 @@ interface ICardsProps {
 const FAQList = ({
   selected,
   data,
+  totalData,
   itemOffset,
   pageCount,
   handlePageClick,
@@ -59,12 +61,14 @@ const FAQList = ({
                     ? 0
                     : itemOffset + 1}
                   -
-                  {Math.min(
-                    (itemOffset + 1) * itemsPerPage,
-                    data ? data.length : 0
-                  )}
+                  {data?.length === 0 || data === undefined
+                    ? 0
+                    : totalData && itemOffset + 1 + itemsPerPage > totalData
+                      ? totalData
+                      : itemOffset + itemsPerPage}
                 </span>{' '}
-                dari <span className="font-bold">{data && data.length}</span>{' '}
+                dari{' '}
+                <span className="font-bold">{totalData ? totalData : 0}</span>{' '}
                 hasil
               </p>
             </div>

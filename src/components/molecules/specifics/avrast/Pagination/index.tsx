@@ -29,7 +29,11 @@ const Pagination: React.FC<IPagination> = ({
             className={`font-bold ${customColor ? textColor : 'text-purple_dark'}`}
           >
             {data?.length === 0 || data === undefined ? 0 : itemOffset + 1}-
-            {Math.min((itemOffset + 1) * itemsPerPage, data ? data.length : 0)}
+            {data?.length === 0 || data === undefined
+              ? 0
+              : itemOffset + 1 + itemsPerPage > data?.length
+                ? data?.length
+                : itemOffset + itemsPerPage}
           </span>{' '}
           dari <span className="font-bold">{data && data.length}</span> hasil
         </p>

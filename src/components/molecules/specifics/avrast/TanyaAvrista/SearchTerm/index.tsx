@@ -20,7 +20,7 @@ const SearchTerm = ({
       <div className="w-full h-[20rem] md:h-[40rem] flex items-center absolute">
         <div className="w-full h-full grid sm:grid-cols-2 xs:grid-cols-1">
           <span />
-          <div className="flex flex-col xs:justify-center sm:gap-1 xs:gap-[36px] xs:px-[36px] sm:px-0 sm:pb-0 xs:pb-[4rem]">
+          <div className="flex flex-col xs:justify-center sm:gap-1 xs:gap-[36px] xs:px-[36px] sm:px-0 sm:pb-0 xs:pb-[4rem] xs:-mt-[22.75rem] sm:-mt-[8rem]">
             <div>
               <p className="font-karla text-xl lg:text-5xl font-extrabold text-white text-shadow-h1 sm:leading-[57.6px] tracking-[0.03em]">
                 Halo, apa kabar?
@@ -29,7 +29,7 @@ const SearchTerm = ({
                 Bagaimana Avrista bisa membantumu?
               </p>
             </div>
-            <div className="w-full sm:mt-2 mt-6">
+            <div className="w-full sm:mt-2 -mt-6">
               <input
                 className="xs:w-full sm:w-[72%] grow !bg-gray_bglightgray !border-none px-[16px] py-[12px] text-[16px] leading-[1.4rem]"
                 placeholder="Ketik kata kunci (misal: promosi berlangsung)"
