@@ -397,17 +397,6 @@ const CustomForm: React.FC<CustomFormProps> = ({
         return true;
       });
 
-      console.log(
-        formData,
-        isNotEmpty,
-        isEmailValid,
-        isMultipleChoiceValid,
-        isDateValid,
-        isRangeDateValid,
-        isCurrencyValid,
-        isPhoneNumberValid
-      );
-
       resultData(
         formData,
         isNotEmpty &&
