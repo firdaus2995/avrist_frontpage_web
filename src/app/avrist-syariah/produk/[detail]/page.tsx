@@ -183,14 +183,15 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           `/api/produk-syariah/content?productFilter=individu`
         );
         const data = await contentResponse.json();
-        const newDataContent = data.data.contentDataList.map((item: any) => {
-          return {
-            ...handleTransformedContent(item.contentData, item.title),
-            categoryName: item.categoryName,
-            createdAt: item.createdAt,
-            id: item.id
-          };
-        });
+        const newDataContent =
+          data.data?.contentDataList?.map((item: any) => {
+            return {
+              ...handleTransformedContent(item.contentData, item.title),
+              categoryName: item.categoryName,
+              createdAt: item.createdAt,
+              id: item.id
+            };
+          }) || [];
         const dataContentValues = newDataContent.map(
           ({
             content,

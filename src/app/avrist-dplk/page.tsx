@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+'use client';
+import { Suspense, useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
@@ -16,9 +17,9 @@ import {
   handleGetContent,
   handleGetContentPage
 } from '@/services/content-page.api';
+import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
-  customImageTransformer,
   pageTransformer,
   singleImageTransformer,
   contentStringTransformer
@@ -26,14 +27,16 @@ import {
 
 const DPLKContent = dynamic(() => import('./DPLKContent'), { ssr: false });
 
-const AvristSyariah = async () => {
-  const pageBase = await handleGetContentPage(
-    BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
-  );
-
-  const { content } = pageTransformer(pageBase);
+const AvristSyariah = () => {
+  // const pageBase = await handleGetContentPage(
+  //   BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK
+  // );
+  const [data, setData] = useState<PageResponse>();
+  const [pengawas, setPengawas] = useState<any>();
+  const [pengurus, setPengurus] = useState<any>();
+  const { content } = pageTransformer(data);
   const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = customImageTransformer(content['banner-image']);
+  const bannerImage = singleImageTransformer(content['banner-image']);
   const bannerImageFit = content['banner-image']?.config
     ? JSON.parse(content['banner-image']?.config)?.image_fit
     : '';
@@ -48,21 +51,35 @@ const AvristSyariah = async () => {
   );
   const cta1Image = singleImageTransformer(content['cta1-image']);
 
-  const pageContent = await handleGetContent(
-    BASE_SLUG.AVRIST_DPLK.CONTENT.AVRIST_DPLK,
-    {
-      includeAttributes: 'true'
-    }
-  );
+  useEffect(() => {
+    handleGetContentPage(BASE_SLUG.AVRIST_DPLK.PAGE.AVRIST_DPLK).then((res) =>
+      setData(res)
+    );
 
-  const pengawas = pageContent.data.contentDataList.filter((i) =>
-    JSON.stringify(i.categories)?.toLocaleLowerCase().includes('pengawas')
-  );
-  const pengurus = pageContent.data.contentDataList
-    .filter((i) =>
-      JSON.stringify(i.categories)?.toLocaleLowerCase().includes('pengurus')
-    )
-    .sort((a, b) => a.id - b.id);
+    setTimeout(() => {
+      const element = document.getElementById('DewanPengawasDplk');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    }, 100);
+  }, []);
+
+  useEffect(() => {
+    handleGetContent(BASE_SLUG.AVRIST_DPLK.CONTENT.AVRIST_DPLK, {
+      includeAttributes: 'true'
+    }).then((res) => {
+      const filterPengawas = res.data.contentDataList.filter((i) =>
+        i.categories[0].categoryName?.toLocaleLowerCase().includes('pengawas')
+      );
+      const filterPengurus = res.data.contentDataList
+        .filter((i) =>
+          i.categories[0].categoryName?.toLocaleLowerCase().includes('pengurus')
+        )
+        .sort((a, b) => a.id - b.id);
+      setPengawas(filterPengawas);
+      setPengurus(filterPengurus);
+    });
+  }, []);
 
   return (
     <Suspense fallback={null}>
@@ -70,8 +87,8 @@ const AvristSyariah = async () => {
         dewanpengawasdplkJudul={dewanpengawasdplkJudul}
         dewanpengawasdplkSubjudul={dewanpengawasdplkSubjudul}
         dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
-        pengawas={pengawas}
-        pengurus={pengurus}
+        pengawas={pengawas ?? []}
+        pengurus={pengurus ?? []}
         bottomImage={bannerImage.imageUrl}
         bannerImageUrl={titleImage.imageUrl}
         bannerImageFit={bannerImageFit}
