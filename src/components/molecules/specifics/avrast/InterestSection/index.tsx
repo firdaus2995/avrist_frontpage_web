@@ -9,10 +9,12 @@ import { handleSendEmail } from '@/services/form.api';
 type Props = {
   formId?: string;
   popUpImage?: string;
+  productName?: string;
+  promoName?: string;
 };
 
 const InterestSection = (props: Props) => {
-  const { formId: id, popUpImage } = props;
+  const { formId: id, popUpImage, productName, promoName } = props;
   const [dataForm, setDataForm] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -70,10 +72,18 @@ const InterestSection = (props: Props) => {
   };
 
   const onSubmitData = async () => {
+    const filteredFormValue = formValue.filter(
+      (item) => item.name !== 'nama-produk' && item.name !== 'nama-promo'
+    );
+    const newFormValue = [
+      ...filteredFormValue,
+      { name: 'nama-produk', value: productName },
+      { name: 'nama-promo', value: promoName }
+    ];
     const queryParams = {
       id: formId,
       pic: formPic,
-      placeholderValue: formValue,
+      placeholderValue: newFormValue,
       attachment: attachment.toString(),
       attachmentPath,
       emailSubject,

@@ -179,6 +179,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
+    const namaProduk = content['nama-produk'].value;
+    const namaPromo = content['nama-promo'].value;
+
     const tagline = content['tags'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
@@ -264,6 +267,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       : '';
 
     const transformedData = {
+      namaPromo,
+      namaProduk,
       tagline,
       judul,
       penulis,
@@ -422,7 +427,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         </div>
       </div>
 
-      <InterestSection formId={formId} popUpImage={popUpImage} />
+      <InterestSection
+        formId={formId}
+        popUpImage={popUpImage}
+        productName={contentData?.namaProduk ?? '-'}
+        promoName={contentData?.namaPromo ?? '-'}
+      />
 
       <div className="flex flex-col">
         <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
