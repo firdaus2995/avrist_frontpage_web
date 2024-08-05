@@ -21,6 +21,9 @@ interface FetchOptions extends RequestInit {
     Authorization?: string;
     'Content-Type': string;
   };
+  next?: {
+    revalidate?: number;
+  };
 }
 
 export async function httpService<T>(
@@ -32,7 +35,12 @@ export async function httpService<T>(
   const urlWithParams = buildURL(baseUrl + '/' + endpoint, options.queryParams);
 
   try {
-    const response = await fetch(urlWithParams, options);
+    const response = await fetch(urlWithParams, {
+      ...options,
+      next: {
+        revalidate: options.next?.revalidate ?? 60
+      }
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
