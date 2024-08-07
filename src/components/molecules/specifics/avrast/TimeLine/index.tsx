@@ -53,7 +53,7 @@ const Timeline = ({ data }: IFooterInformation) => {
   return (
     <ol className="items-center flex flex-col">
       <TitleContainer className="my-[5rem]">
-        <p className="sm:text-5xl xs:text-3xl font-extrabold text-purple_dark">
+        <p className="sm:text-5xl xs:text-3xl font-extrabold text-purple_dark flex justify-center">
           Sejarah Perusahaan
         </p>
         <p className="md:text-lg xs:text-2xl text-center lg:mt-2 font-light -tracking-[1.08px]">
