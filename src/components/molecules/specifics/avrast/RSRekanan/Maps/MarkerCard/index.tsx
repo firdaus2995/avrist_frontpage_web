@@ -25,9 +25,12 @@ const MarkerCard: React.FC<IMarkerCard> = ({
   tooltip,
   onHover
 }) => {
+  const tooltipTargetId = 'Tooltip-' + index;
+
   const toggle = () => {
     onHover();
   };
+
   return (
     <div className="rounded-xl border border-gray_light p-6">
       <div className="gap-4 flex flex-col overflow-auto sm:min-h-[20rem] xs:h-auto  sm:w-[100%]">
@@ -37,7 +40,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
             <div
               role="button"
               onClick={() => onClickMarker(lat, lng)}
-              id={'Tooltip-' + index}
+              id={tooltipTargetId}
             >
               <Icon
                 name="navigation"
@@ -55,27 +58,30 @@ const MarkerCard: React.FC<IMarkerCard> = ({
         <span className="flex flex-row gap-2">
           <Icon name="phone" width={24} height={24} color="purple_verylight" />
           <p className="text-sm sm:text-[16px] sm:w-[85%] w-[100%] truncate">
-            {phone}
+            {phone.replaceAll('undefined', '')}
           </p>
         </span>
       </div>
       <div className="mt-1">
-        <Tooltip
-          placement="top"
-          isOpen={tooltip}
-          target={'Tooltip-' + index}
-          toggle={toggle}
-          autohide={true}
-          className="relative"
-        >
-          <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute -left-4 sm:min-w-[200px]">
-            <div className="p-2">
-              <p className="mb-1.5">{name}</p>
-              <p className="mb-1.5">{address}</p>
-              <p>{phone}</p>
-            </div>
-          </div>
-        </Tooltip>
+        {typeof document !== 'undefined' &&
+          document.getElementById(tooltipTargetId) && (
+            <Tooltip
+              placement="top"
+              isOpen={tooltip}
+              target={'Tooltip-' + index}
+              toggle={toggle}
+              autohide={true}
+              className="relative"
+            >
+              <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute -left-4 sm:min-w-[200px]">
+                <div className="p-2">
+                  <p className="mb-1.5">{name}</p>
+                  <p className="mb-1.5">{address}</p>
+                  <p>{phone}</p>
+                </div>
+              </div>
+            </Tooltip>
+          )}
       </div>
     </div>
   );
