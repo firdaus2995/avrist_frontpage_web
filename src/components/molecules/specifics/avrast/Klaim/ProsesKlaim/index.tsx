@@ -113,6 +113,10 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
     setItemOffset(0);
   }, [params]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // PAGINATION LOGIC HOOK
   useEffect(() => {
     if (!contentData?.length) return; // check if contentaData already present
@@ -126,6 +130,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
     setItemOffset(newOffset);
+    window.scrollTo(0, 1400);
   };
 
   const renderPage = () => {
