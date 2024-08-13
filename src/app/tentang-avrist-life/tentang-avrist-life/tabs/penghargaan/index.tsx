@@ -108,9 +108,12 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
         const bulan = content['bulan'].value;
         const tahun = content['tahun'].value;
         const fullDate = `${tahun}-${bulan}-${tanggal}`;
-        const waktu = `${
-          monthDropdown().find((item) => item.value === bulan)?.label
-        } ${tahun}`;
+        const waktu =
+          bulan !== '-' && tahun !== '-'
+            ? `${
+                monthDropdown().find((item) => item.value === bulan)?.label
+              } ${tahun}`
+            : '';
         const deskripsi = content['artikel-looping'].contentData[0].details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']

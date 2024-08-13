@@ -23,7 +23,6 @@ import {
   handleGetContentCategory
 } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
-import { PageInfo } from '@/types/provider.type';
 import { BASE_URL } from '@/utils/baseUrl';
 // import { handleDownload } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
@@ -39,21 +38,14 @@ export const MainContent = ({
   videoData: IVideoData | undefined;
   formId: any;
 }) => {
-  const initialPageInfo: PageInfo = {
-    pageSize: 5,
-    totalPage: 0,
-    pagePos: 1,
-    totalData: 0
-  };
   const [dataMainContent, setDataMainContent] = useState<{
     [key: string]: any;
-  }>();
+  }>([]);
   const router = useRouter();
   const [selectedYear, setSelectedYear] = useState('');
   const [categories, setCategories] = useState<string[]>();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchKeywords, setSearchKeywords] = useState('');
-  const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
   const tahunSet = new Set();
 
   //form state
@@ -74,7 +66,39 @@ export const MainContent = ({
   const [attachmentFile, setAttachmentFile] = useState('');
   const [attachmentFileSize, setAttachmentFileSize] = useState(0);
 
-  console.log(categories, selectedCategory);
+  const itemsPerPage = 5;
+  // PAGINATION STATE
+  const [paginatedData, setPaginatedData] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  // PAGINATION LOGIC HOOK
+  useEffect(() => {
+    if (!dataMainContent[selectedCategory]?.length) return; // check if contentaData already present
+
+    const endOffset = itemOffset + itemsPerPage;
+    setPaginatedData(
+      dataMainContent[selectedCategory].slice(itemOffset, endOffset)
+    );
+    setPageCount(
+      Math.ceil(dataMainContent[selectedCategory].length / itemsPerPage)
+    );
+  }, [itemOffset, itemsPerPage, dataMainContent]);
+
+  // PAGINATION LOGIC HANDLER
+  const handlePageClick = (event: any) => {
+    const newOffset =
+      (event.selected * itemsPerPage) %
+      dataMainContent[selectedCategory]?.length;
+    setItemOffset(newOffset);
+    window.scroll(0, 680);
+  };
+
+  const handleChangeSearchParams = (value: string) => {
+    setSearchKeywords(value);
+    setPageCount(0);
+    setItemOffset(0);
+  };
 
   useEffect(() => {
     const params = {
@@ -100,7 +124,12 @@ export const MainContent = ({
     };
     fetchContentData(params).then((data) => {
       if (selectedCategory) {
-        setDataMainContent(data);
+        if (JSON.stringify(data) === '{}') {
+          setDataMainContent([]);
+          setPaginatedData([]);
+        } else {
+          setDataMainContent(data);
+        }
         if (categories && categories.length !== 0) {
           setSelectedCategory(selectedCategory);
         }
@@ -266,15 +295,17 @@ export const MainContent = ({
           {dataMainContent && categories && (
             <ReportList
               categories={categories}
-              reportData={dataMainContent}
+              reportData={paginatedData}
               tahunList={tahunList as string[]}
               selectedCategory={selectedCategory}
               onSelectedCategory={handleSelectedCategory}
               selectedYear={selectedYear}
               onSelectedYear={(value: string) => setSelectedYear(value)}
-              onChangeSearch={(value: string) => setSearchKeywords(value)}
-              pageInfo={pageInfo}
-              setPageInfo={setPageInfo}
+              onChangeSearch={handleChangeSearchParams}
+              pageClick={handlePageClick}
+              pageCount={pageCount}
+              itemOffset={itemOffset}
+              itemsPerPage={itemsPerPage}
             />
           )}
         </div>

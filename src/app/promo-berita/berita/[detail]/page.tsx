@@ -297,7 +297,11 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-row justify-between items-center font-opensans">
               <div className="flex flex-col gap-4">
                 <p className="font-opensans text-[16px]/[22.4px]">
-                  {`${contentData?.tanggal === '-' ? '' : contentData?.tanggal} ${contentData.monthInText === undefined ? '' : contentData.monthInText} ${contentData.tahun === '-' ? '' : contentData.tahun}`}{' '}
+                  {contentData?.tanggal !== '-' &&
+                  contentData?.bulan !== '-' &&
+                  contentData?.tahun !== '-'
+                    ? `${contentData?.tanggal} ${contentData.monthInText} ${contentData.tahun}`
+                    : ''}{' '}
                   {contentData?.penulis === '-'
                     ? ''
                     : `| ${contentData.penulis}`}

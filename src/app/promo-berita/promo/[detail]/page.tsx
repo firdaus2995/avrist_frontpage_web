@@ -374,10 +374,13 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-4">
                 <p className="font-opensans text-[16px]/[22.4px]">
-                  {`${contentData.bulan === undefined ? '' : contentData.bulan} ${contentData.tahun === '-' ? '' : contentData.tahun}`}{' '}
-                  {contentData?.penulis === '-'
-                    ? ''
-                    : `| ${contentData.penulis}`}
+                  {contentData.bulan &&
+                  contentData.tahun &&
+                  contentData.bulan !== '-' &&
+                  contentData.tahun !== '-'
+                    ? `${contentData.bulan} ${contentData.tahun} | `
+                    : ''}{' '}
+                  {contentData?.penulis === '-' ? '' : `${contentData.penulis}`}
                 </p>
 
                 {Array.isArray(contentData?.tags) && (
