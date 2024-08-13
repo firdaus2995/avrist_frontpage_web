@@ -1,8 +1,7 @@
 'use client';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import Search from '@/assets/images/common/search.svg';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
 import ProdukPolis from '@/assets/images/produk-polis.svg';
@@ -34,9 +33,6 @@ import {
 } from '@/utils/responseTransformer';
 
 const ProdukSyariah = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [data, setData] = useState<PageResponse>();
   const [dataContent, setDataContent] = useState<IDataContent[]>([]);
   const [channels, setChannels] = useState<any>([]);
@@ -145,33 +141,9 @@ const ProdukSyariah = () => {
 
   const handleChangeSearchParams = (value: string) => {
     setSearchValue(value);
-    const page = searchParams.get('page');
     setPageCount(0);
-    if (!page) {
-      setItemOffset(0);
-    } else {
-      setItemOffset(
-        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
-      );
-    }
+    setItemOffset(0);
   };
-
-  useEffect(() => {
-    const page =
-      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
-  }, [itemOffset]);
-
-  const createQueryStringPage = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   return (
     <div>
