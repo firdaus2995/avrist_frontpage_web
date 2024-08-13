@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import Search from '@/assets/images/common/search.svg';
 import CardProduct from '@/components/molecules/specifics/avrast/Cards/ProductCard';
@@ -18,7 +18,9 @@ import {
 
 const DPLKProductList = () => {
   const [search, setSearch] = useState('');
+  const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [channels, setChannels] = useState<any>([]);
   const [selectedChannels, setSelectedChannels] = useState<any>([]);
   const [dataContent, setDataContent] = useState<IDataContent[]>();
@@ -98,7 +100,7 @@ const DPLKProductList = () => {
     if (!dataContent?.length) return; // check if contentaData already present
 
     const endOffset = itemOffset + itemsPerPage;
-    setPaginatedData(dataContent.slice(itemOffset, endOffset)); 
+    setPaginatedData(dataContent.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(dataContent.length / itemsPerPage));
   }, [itemOffset, itemsPerPage, dataContent]);
 
@@ -117,9 +119,33 @@ const DPLKProductList = () => {
 
   const handleChangeSearchParams = (value: string) => {
     setSearch(value);
+    const page = searchParams.get('page');
     setPageCount(0);
-    setItemOffset(0);
+    if (!page) {
+      setItemOffset(0);
+    } else {
+      setItemOffset(
+        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
+      );
+    }
   };
+
+  useEffect(() => {
+    const page =
+      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
+  }, [itemOffset]);
+
+  const createQueryStringPage = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   return (
     <div className="flex flex-col xs:gap-[3.125rem] md:gap-[4rem] mt-[2.25rem] sm:mt-[5rem] xs:px-[2rem] md:px-[8.5rem] mb-2">

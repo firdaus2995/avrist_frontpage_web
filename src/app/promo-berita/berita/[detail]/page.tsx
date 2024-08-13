@@ -94,6 +94,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     const tagline = content['topik-artikel'].value;
     const judul = content['judul-artikel'].value;
     const penulis = content['penulis-artikel'].value;
+    const tanggal = content['tanggal'].value;
     const bulan = content['bulan'].value;
     const tahun = content['tahun'].value;
     const artikel = content['artikel-looping'].contentData[0].details;
@@ -120,6 +121,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       tagline,
       judul,
       penulis,
+      tanggal,
       bulan,
       tahun,
       paragrafSatu,
@@ -281,7 +283,9 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                     dangerouslySetInnerHTML={{ __html: contentData?.tagline }}
                   />
                 ) : (
-                  <span className="text-[24px]">{contentData?.tagline}</span>
+                  <span className="text-[24px]">
+                    {contentData?.tagline !== '-' ? contentData?.tagline : ''}
+                  </span>
                 )}
               </span>
               <p
@@ -293,7 +297,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-row justify-between items-center font-opensans">
               <div className="flex flex-col gap-4">
                 <p className="font-opensans text-[16px]/[22.4px]">
-                  {`${contentData.monthInText} ${contentData.tahun}`}{' '}
+                  {`${contentData?.tanggal === '-' ? '' : contentData?.tanggal} ${contentData.monthInText === undefined ? '' : contentData.monthInText} ${contentData.tahun === '-' ? '' : contentData.tahun}`}{' '}
                   {contentData?.penulis === '-'
                     ? ''
                     : `| ${contentData.penulis}`}

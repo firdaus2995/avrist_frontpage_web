@@ -148,14 +148,32 @@ const Berita: React.FC<ParamsProps> = () => {
   }, [itemOffset, itemsPerPage, contentData]);
 
   useEffect(() => {
+    const page = searchParams.get('page');
     setPageCount(0);
-    setItemOffset(0);
-  }, [params]);
+    if (!page) {
+      setItemOffset(0);
+    } else {
+      setItemOffset(parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * 6);
+    }
+  }, [
+    params.category,
+    params.searchFilter,
+    params.monthFilter,
+    params.searchFilter
+  ]);
+
+  useEffect(() => {
+    const page = itemOffset === 0 ? '1' : (itemOffset / 6 + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
+  }, [itemOffset]);
 
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
     setItemOffset(newOffset);
+
     if (params.category === 'Avrist Life Guide') {
       window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
     }
@@ -235,6 +253,14 @@ const Berita: React.FC<ParamsProps> = () => {
   useEffect(() => {
     setSearch('');
     setParams({ ...params, searchFilter: '' });
+    if (
+      params.searchFilter === '' &&
+      params.monthFilter === '' &&
+      params.yearFilter === '' &&
+      contentData.length < 1
+    ) {
+      setSliderData([]);
+    }
   }, [params.category]);
 
   useEffect(() => {
@@ -357,13 +383,17 @@ const Berita: React.FC<ParamsProps> = () => {
         );
 
         const judul = content['judul-artikel'].value;
-        const waktu = `${
-          monthDropdown().find(
-            (item) =>
-              item.value === content['bulan'].value ||
-              item.label === content['bulan'].value
-          )?.label
-        } ${content['tahun'].value}`;
+        const tanggal = content['tanggal'].value;
+        const bulan = content['bulan'].value;
+        const tahun = content['tahun'].value;
+        const fullDate = `${tahun}-${bulan}-${tanggal}`;
+        const waktu = `${tanggal !== '-' ? tanggal : ''} ${
+          bulan !== '-'
+            ? monthDropdown().find(
+                (item) => item.value === bulan || item.label === bulan
+              )?.label
+            : ''
+        } ${tahun !== '-' ? tahun : ''}`;
         const deskripsi = content['artikel-looping'].contentData[0].details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
@@ -379,6 +409,7 @@ const Berita: React.FC<ParamsProps> = () => {
         return {
           judul,
           waktu,
+          fullDate,
           deskripsi,
           image,
           id,
@@ -391,14 +422,28 @@ const Berita: React.FC<ParamsProps> = () => {
         window.scrollTo({ top: !isMobileWidth ? 700 : 850 });
       }
 
-      if (!transformedData) {
+      const sortedData = transformedData.sort((a: any, b: any) => {
+        const dateA = new Date(a.fullDate).getTime();
+        const dateB = new Date(b.fullDate).getTime();
+
+        if (isNaN(dateA)) {
+          return 1;
+        }
+        if (isNaN(dateB)) {
+          return -1;
+        }
+
+        return dateB - dateA;
+      });
+
+      if (!sortedData) {
         setContentData([]);
       } else {
         if (sliderData?.length > 0) {
-          setContentData(getDifference(transformedData, sliderData));
+          setContentData(getDifference(sortedData, sliderData));
         } else {
-          setSliderData(transformedData.slice(0, 5));
-          setContentData(transformedData.slice(5));
+          setSliderData(sortedData.slice(0, 5));
+          setContentData(sortedData.slice(5));
         }
       }
     } catch (err) {
@@ -437,13 +482,17 @@ const Berita: React.FC<ParamsProps> = () => {
 
             const date = new Date(item.createdAt).getDate();
             const judul = content['judul-artikel'].value;
-            const waktu = `${
-              monthDropdown().find(
-                (item) =>
-                  item.value === content['bulan'].value ||
-                  item.label === content['bulan'].value
-              )?.label
-            } ${content['tahun'].value}`;
+            const tanggal = content['tanggal'].value;
+            const bulan = content['bulan'].value;
+            const tahun = content['tahun'].value;
+            const fullDate = `${tahun}-${bulan}-${tanggal}`;
+            const waktu = `${tanggal !== '-' ? tanggal : ''} ${
+              bulan !== '-'
+                ? monthDropdown().find(
+                    (item) => item.value === bulan || item.label === bulan
+                  )?.label
+                : ''
+            } ${tahun !== '-' ? tahun : ''}`;
             const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
@@ -475,6 +524,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
             return {
               judul,
+              fullDate,
               waktu,
               deskripsi,
               image,
@@ -486,15 +536,26 @@ const Berita: React.FC<ParamsProps> = () => {
             };
           });
         });
-        if (!temp) {
+
+        const sortedData = temp.sort((a: any, b: any) => {
+          const dateA = new Date(a.fullDate).getTime();
+          const dateB = new Date(b.fullDate).getTime();
+
+          if (isNaN(dateA)) {
+            return 1;
+          }
+          if (isNaN(dateB)) {
+            return -1;
+          }
+
+          return dateB - dateA;
+        });
+
+        if (!sortedData) {
           setContentData([]);
         } else {
-          if (sliderData?.length > 0) {
-            setContentData(getDifference(temp, sliderData));
-          } else {
-            setSliderData(temp.slice(0, 4));
-            setContentData(temp.slice(4));
-          }
+          setSliderData(sortedData.slice(0, 4));
+          setContentData(sortedData.slice(4));
         }
       } else {
         const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
@@ -546,12 +607,8 @@ const Berita: React.FC<ParamsProps> = () => {
         if (!transformedData) {
           setContentData([]);
         } else {
-          if (sliderData?.length > 0) {
-            setContentData(getDifference(transformedData, sliderData));
-          } else {
-            setSliderData(transformedData.slice(0, 4));
-            setContentData(transformedData.slice(4));
-          }
+          setSliderData(transformedData.slice(0, 4));
+          setContentData(transformedData.slice(4));
         }
       }
     } catch (err) {
@@ -856,6 +913,15 @@ const Berita: React.FC<ParamsProps> = () => {
     [searchParams]
   );
 
+  const createQueryStringPage = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   const toggleExpandedLink = useCallback(
     (index: number) => {
       const newData = paginatedData.map((el, idx) => {
@@ -941,7 +1007,7 @@ const Berita: React.FC<ParamsProps> = () => {
               key={idx}
               role="button"
               onClick={() => handleTabClick(val)}
-              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark'} font-semibold content-center md:w-auto`}
+              className={`py-2 px-[20px] border border-purple_dark rounded-lg text-center ${tab === val ? 'bg-purple_dark text-white' : 'text-purple_dark hover:bg-purple_dark hover:text-white'} font-semibold content-center md:w-auto`}
             >
               {val}
             </div>
@@ -1149,6 +1215,7 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               onSearch={() => {
                 setParams({ ...params, searchFilter: search });
+                setItemOffset(0);
               }}
               customContent={
                 <>
@@ -1265,7 +1332,9 @@ const Berita: React.FC<ParamsProps> = () => {
                                 });
                               }}
                             >
-                              <p className="font-opensans text-purple_dark font-bold cursor-pointer text-left text-[20px]/[24px]">
+                              <p
+                                className={`font-opensans ${lifeGuideCategory.selectedCategory === item ? 'text-purple_dark' : 'text-purple_mediumlight'} font-bold cursor-pointer text-left text-[20px]/[24px]`}
+                              >
                                 {item}
                               </p>
                               <div className="mt-1">
@@ -1381,7 +1450,7 @@ const Berita: React.FC<ParamsProps> = () => {
                             title={htmlParser(item.judul)}
                             summary={htmlParser(item.deskripsi)}
                             category={item.category}
-                            time={` | ${item?.waktu}`}
+                            time={`${item?.waktu ? ` | ${item?.waktu}` : ''}`}
                             tags={
                               typeof item.tags === 'string'
                                 ? item.tags.split(',')

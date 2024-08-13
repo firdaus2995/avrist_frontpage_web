@@ -402,9 +402,9 @@ const Promo: React.FC<ParamsProps> = () => {
         <div className="xs:-mt-[3.625rem] md:-mt-[6.625rem] absolute z-20 top-2 w-full rounded-t-[60px] bg-white xs:pt-[3.125rem] md:pt-[6.25rem] xs:px-[2rem] md:px-[8.5rem] font-karla" />
         <div className="px-[2rem] md:px-[8.5rem] pb-[5rem]">
           <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-            Avrist Promo Terbaru
+            Promo Terbaru Avrist
           </p>
-          <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
+          {/* <p className="md:text-4xl xs:text-2xl text-gray_black_dark text-center lg:mt-2">
             Ikuti terus kuis menarik di Instagram{' '}
             <Link
               className="font-semibold text-purple_dark"
@@ -414,7 +414,7 @@ const Promo: React.FC<ParamsProps> = () => {
               @avristsolution{' '}
             </Link>
             untuk mendapatkan giveaway gratis dari Avrist Life Insurance
-          </p>
+          </p> */}
         </div>
 
         <div className="w-full pb-[80px] px-[2rem] md:px-[8.5rem]">
