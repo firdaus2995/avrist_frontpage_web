@@ -351,7 +351,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         breadcrumbsData={[
           { title: 'Beranda', href: '/' },
           {
-            title: 'Avrist Promo Terbaru',
+            title: 'Promo Terbaru Avrist',
             href: '/promo-berita/promo?tab=Promo+Terbaru'
           }
         ]}
@@ -373,11 +373,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             </div>
             <div className="flex flex-row justify-between md:items-center gap-1">
               <div className="flex flex-col gap-4">
-                <p className="font-opensans text-[16px]/[22.4px] text-gray_body">
-                  {`${contentData.bulan} ${contentData.tahun}`}
-                  {contentData.penulis !== '-'
-                    ? ` | ${contentData.penulis}`
-                    : ''}
+                <p className="font-opensans text-[16px]/[22.4px]">
+                  {`${contentData.bulan === undefined ? '' : contentData.bulan} ${contentData.tahun === '-' ? '' : contentData.tahun}`}{' '}
+                  {contentData?.penulis === '-'
+                    ? ''
+                    : `| ${contentData.penulis}`}
                 </p>
 
                 {Array.isArray(contentData?.tags) && (

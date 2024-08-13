@@ -37,7 +37,7 @@ const PersonCard: React.FC<PersonCardProps> = ({
           key={index}
           role="button"
           onClick={() => item.onClick && item.onClick(item)}
-          className="sm:w-[23.25rem] xs:w-[8.438rem] xs:h-[11.688rem] sm:h-auto border-1 rounded-[12px] shadow-md"
+          className={`sm:w-[23.25rem] xs:w-[8.438rem] xs:h-[11.688rem] sm:h-auto border-1 rounded-[12px] shadow-md ${item.onClick ? 'cursor-pointer' : 'cursor-default'}`}
         >
           <Image
             alt="blank-image"

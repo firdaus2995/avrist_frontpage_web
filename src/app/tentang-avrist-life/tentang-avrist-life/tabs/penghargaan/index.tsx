@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
 import { ISetData } from '@/app/tentang-avrist-life/tentang-avrist-life/page';
 import Icon from '@/components/atoms/Icon';
@@ -17,6 +18,9 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 const Penghargaan: React.FC<ISetData> = ({ setData }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const [contentData, setContentData] = useState<any>([]);
   const [search, setSearch] = useState('');
   const [params, setParams] = useState({
@@ -41,9 +45,38 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   }, [itemOffset, itemsPerPage, contentData]);
 
   useEffect(() => {
+    const page = searchParams.get('page');
     setPageCount(0);
-    setItemOffset(0);
-  }, [params]);
+    if (!page) {
+      setItemOffset(0);
+    } else {
+      setItemOffset(
+        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
+      );
+    }
+  }, [
+    params.category,
+    params.searchFilter,
+    params.monthFilter,
+    params.searchFilter
+  ]);
+
+  useEffect(() => {
+    const page =
+      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
+  }, [itemOffset]);
+
+  const createQueryStringPage = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
@@ -281,6 +314,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
         }}
         onSearch={() => {
           setParams({ ...params, searchFilter: search });
+          setItemOffset(0);
         }}
         customContent={
           paginatedData.length > 0 ? (

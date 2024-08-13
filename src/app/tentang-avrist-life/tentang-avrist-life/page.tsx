@@ -136,7 +136,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                 onClick={() => {
                   handleTabClick(val.name);
                 }}
-                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${tab === val.name || (tab.includes('Manajemen') && val.name.includes('Manajemen')) ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${tab === val.name || (tab.includes('Manajemen') && val.name.includes('Manajemen')) ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white hover:text-white hover:bg-purple_dark'}`}
               >
                 {val.name}
               </div>
@@ -328,5 +328,5 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
 };
 
 export default dynamic(() => Promise.resolve(TentangAvristLife), {
-  ssr: false,
+  ssr: false
 });

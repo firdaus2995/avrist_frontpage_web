@@ -216,8 +216,15 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       }
     };
 
-    setItemOffset(0);
+    const page = searchParams.get('page');
     setPageCount(0);
+    if (!page) {
+      setItemOffset(0);
+    } else {
+      setItemOffset(
+        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
+      );
+    }
     fetchData().then();
     fetchDataContentWithCategory().then((dataContentValues) => {
       if (isCategoryChange && dataContentValues) {
@@ -232,6 +239,23 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       }
     });
   }, [searchParams, selectedChannels, searchValue]);
+
+  useEffect(() => {
+    const page =
+      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
+  }, [itemOffset]);
+
+  const createQueryStringPage = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
 
   const handleSelectedChannels = (value: any) => {
     if (selectedChannels === value) {

@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, Key } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { month } from '../../[detail]/month';
 import { formatTimeDifference } from '../../format-time';
 import ContentPopover from './content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
@@ -89,6 +90,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         const tagline = content['tags'].value;
         const judul = content['judul-artikel'].value;
         const penulis = content['penulis-artikel'].value;
+        const tanggal = content['tanggal'].value;
         const bulan = content['bulan'].value;
         const tahun = content['tahun'].value;
         const thumbnail = singleImageTransformer(
@@ -109,6 +111,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
           tagline,
           judul,
           penulis,
+          tanggal,
           bulan,
           tahun,
           thumbnail,
@@ -341,12 +344,10 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                 </div>
                 <div className="flex flex-row justify-between items-center gap-4">
                   <div className="flex flex-col gap-4">
-                    {isContentNotEmpty(contentData?.differenceTime ?? '-') && (
-                      <p className="font-opensans text-base">
-                        {`${contentData?.differenceTime} yang lalu`} |{' '}
-                        {contentData.penulis ?? ''}
-                      </p>
-                    )}
+                    <p className="font-opensans text-base">
+                      {`${contentData?.tanggal === '-' ? '' : contentData?.tanggal} ${contentData?.bulan !== '-' ? month.find((item) => item.value === contentData.bulan)?.label : ''} ${contentData?.tahun !== '-' ? contentData?.tahun : ''}`}
+                      {contentData.penulis ? ` | ${contentData.penulis}` : ''}
+                    </p>
                     <div className="flex flex-row gap-2 flex-wrap">
                       {!!contentData?.tags &&
                         contentData.tags?.map((tag: string, idx: Key) => (
