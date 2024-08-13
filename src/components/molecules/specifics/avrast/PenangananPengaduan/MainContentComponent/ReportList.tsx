@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ButtonMenuVertical from '../../ButtonMenuVertical';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
-import { Paginate } from './Paginate';
 import NotFound from '@/components/atoms/NotFound';
+import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import { PageInfo } from '@/types/provider.type';
 import {
   contentStringTransformer,
@@ -18,8 +18,12 @@ interface Props {
   onSelectedCategory: (value: string) => void;
   onSelectedYear: (value: string) => void;
   onChangeSearch: (value: string) => void;
-  pageInfo: PageInfo;
-  setPageInfo: (pageNumber: any) => void;
+  pageInfo?: PageInfo;
+  setPageInfo?: (pageNumber: any) => void;
+  pageClick?: (event: any) => void;
+  pageCount: number;
+  itemOffset: number;
+  itemsPerPage: number;
 }
 
 export const ReportList = ({
@@ -31,17 +35,19 @@ export const ReportList = ({
   selectedYear,
   onSelectedYear,
   onChangeSearch,
-  pageInfo,
-  setPageInfo
+  pageClick,
+  pageCount,
+  itemOffset,
+  itemsPerPage
 }: Props) => {
   const [categoriesInitial] = useState<string[]>(categories);
   const [keyword, setKeyword] = useState('');
 
-  const newPageInfo = {
-    ...pageInfo,
-    pageSize: reportData[selectedCategory]?.length,
-    totalData: reportData[selectedCategory]?.length
-  };
+  // const newPageInfo = {
+  //   ...pageInfo,
+  //   pageSize: reportData[selectedCategory]?.length,
+  //   totalData: reportData[selectedCategory]?.length
+  // };
 
   const handleClickDownload = async (fileUrl: string) => {
     window.open(fileUrl, '_blank');
@@ -56,12 +62,12 @@ export const ReportList = ({
     setKeyword(event.target.value);
   };
 
-  const handleChangePage = (pageNumber: number) => {
-    setPageInfo((prevPageInfo: any) => ({
-      ...prevPageInfo,
-      pagePos: pageNumber
-    }));
-  };
+  // const handleChangePage = (pageNumber: number) => {
+  //   setPageInfo && setPageInfo((prevPageInfo: any) => ({
+  //     ...prevPageInfo,
+  //     pagePos: pageNumber
+  //   }));
+  // };
 
   const btnVerticalData = categoriesInitial?.map((item) => {
     return {
@@ -141,35 +147,41 @@ export const ReportList = ({
             </div>
             {/* list */}
             <div>
-              {!reportData[selectedCategory] ? (
+              {!reportData || reportData.length < 1 ? (
                 <NotFound />
               ) : (
-                reportData[selectedCategory]?.map(
-                  (item: any, itemIndex: number) => (
-                    <CardMenuDownload
-                      key={itemIndex}
-                      desc={contentStringTransformer(
-                        item.content['panduanpenanganan-namafile']
-                      )}
-                      href={
-                        singleImageTransformer(
-                          item.content['panduanpenanganan-filelaporanpublikasi']
-                        ).imageUrl
-                      }
-                      onDownload={handleClickDownload}
-                    />
-                  )
-                )
+                reportData?.map((item: any, itemIndex: number) => (
+                  <CardMenuDownload
+                    key={itemIndex}
+                    desc={contentStringTransformer(
+                      item.content['panduanpenanganan-namafile']
+                    )}
+                    href={
+                      singleImageTransformer(
+                        item.content['panduanpenanganan-filelaporanpublikasi']
+                      ).imageUrl
+                    }
+                    onDownload={handleClickDownload}
+                  />
+                ))
               )}
             </div>
             {/* paginate */}
-            {pageInfo && (
+            {/* {pageInfo && (
               <Paginate
                 className="mt-[24px]"
                 dataPage={newPageInfo}
                 onChangePage={handleChangePage}
               />
-            )}
+            )} */}
+            <Pagination
+              data={reportData}
+              itemOffset={itemOffset}
+              itemsPerPage={itemsPerPage}
+              pageCount={pageCount}
+              onPageChange={(e: any) => (pageClick ? pageClick(e) : null)}
+              customColor="purple_dark"
+            />
           </div>
         </div>
       </div>
