@@ -217,8 +217,15 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         console.error('Error: ', error);
       }
     };
-    setItemOffset(0);
+    const page = searchParams.get('page');
     setPageCount(0);
+    if (!page) {
+      setItemOffset(0);
+    } else {
+      setItemOffset(
+        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
+      );
+    }
     fetchData().then();
     fetchDataContentWithCategory().then();
   }, [searchValue]);

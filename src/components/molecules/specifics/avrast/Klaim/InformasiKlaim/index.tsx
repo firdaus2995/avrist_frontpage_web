@@ -71,7 +71,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
                 href="https://my.avrist.com/welcome"
                 target="_blank"
                 role="button"
-                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white hover:text-white hover:bg-purple_dark'}`}
               >
                 {val}
               </a>
@@ -83,7 +83,7 @@ const InformasiKlaimComponent: React.FC<InformasiKlaimComponentProps> = ({
                   handleTabClick(val);
                   onChangeBannerImg(idx);
                 }}
-                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+                className={`grow flex py-2 px-[20px] items-center leading-[23.68px] leading-[23.68px] justify-center rounded-[6px] border border-purple_dark text-[1rem] font-semibold ${selected === val ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white hover:text-white hover:bg-purple_dark'}`}
               >
                 {val}
               </div>

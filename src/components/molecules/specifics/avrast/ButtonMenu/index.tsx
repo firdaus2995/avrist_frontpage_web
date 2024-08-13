@@ -44,7 +44,7 @@ const ButtonMenu: React.FC<IButtonMenu> = ({ buttonList, path }) => {
               }}
               scroll={false}
               key={i}
-              className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${params === i ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white'}`}
+              className={`grow flex p-2 items-center justify-center rounded-lg border border-purple_dark text-[1rem] font-semibold ${params === i ? 'text-white bg-purple_dark' : 'text-purple_dark bg-white hover:text-white hover:bg-purple_dark'}`}
             >
               {i}
             </Link>
