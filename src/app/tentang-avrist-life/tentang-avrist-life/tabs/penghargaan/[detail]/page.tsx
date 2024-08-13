@@ -293,7 +293,12 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col gap-2 font-opensans leading-[22.4px]">
                   <p>
-                    {`${contentData.bulan} ${contentData.tahun}`}
+                    {contentData.bulan &&
+                    contentData.tahun &&
+                    contentData.bulan !== '-' &&
+                    contentData.tahun !== '-'
+                      ? `${contentData.bulan} ${contentData.tahun}`
+                      : ''}
                     {contentData.penulis !== '-'
                       ? ` | ${contentData.penulis}`
                       : ''}

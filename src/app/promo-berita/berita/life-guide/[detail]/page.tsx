@@ -345,8 +345,14 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                 <div className="flex flex-row justify-between items-center gap-4">
                   <div className="flex flex-col gap-4">
                     <p className="font-opensans text-base">
-                      {`${contentData?.tanggal === '-' ? '' : contentData?.tanggal} ${contentData?.bulan !== '-' ? month.find((item) => item.value === contentData.bulan)?.label : ''} ${contentData?.tahun !== '-' ? contentData?.tahun : ''}`}
-                      {contentData.penulis ? ` | ${contentData.penulis}` : ''}
+                      {contentData?.bulan !== '-' && contentData?.tahun !== '-'
+                        ? `${
+                            contentData?.tanggal && contentData?.tanggal !== '-'
+                              ? contentData?.tanggal
+                              : ''
+                          } ${month.find((item) => item.value === contentData.bulan)?.label} ${contentData?.tahun}  | `
+                        : ''}
+                      {contentData.penulis ? `${contentData.penulis}` : ''}
                     </p>
                     <div className="flex flex-row gap-2 flex-wrap">
                       {!!contentData?.tags &&
