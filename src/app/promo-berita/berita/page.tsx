@@ -387,13 +387,14 @@ const Berita: React.FC<ParamsProps> = () => {
         const bulan = content['bulan'].value;
         const tahun = content['tahun'].value;
         const fullDate = `${tahun}-${bulan}-${tanggal}`;
-        const waktu = `${tanggal !== '-' ? tanggal : ''} ${
-          bulan !== '-'
-            ? monthDropdown().find(
-                (item) => item.value === bulan || item.label === bulan
-              )?.label
-            : ''
-        } ${tahun !== '-' ? tahun : ''}`;
+        const waktu =
+          tanggal !== '-' && bulan !== '-' && tahun !== '-'
+            ? `${tanggal} ${
+                monthDropdown().find(
+                  (item) => item.value === bulan || item.label === bulan
+                )?.label
+              } ${tahun}`
+            : '';
         const deskripsi = content['artikel-looping'].contentData[0].details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
@@ -486,13 +487,15 @@ const Berita: React.FC<ParamsProps> = () => {
             const bulan = content['bulan'].value;
             const tahun = content['tahun'].value;
             const fullDate = `${tahun}-${bulan}-${tanggal}`;
-            const waktu = `${tanggal !== '-' ? tanggal : ''} ${
-              bulan !== '-'
-                ? monthDropdown().find(
-                    (item) => item.value === bulan || item.label === bulan
-                  )?.label
-                : ''
-            } ${tahun !== '-' ? tahun : ''}`;
+            const waktu =
+              tanggal !== '-' &&
+              bulan !== '-' &&
+              tahun !== '-' &&
+              `${tanggal} ${
+                monthDropdown().find(
+                  (item) => item.value === bulan || item.label === bulan
+                )?.label
+              } ${tahun}`;
             const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
@@ -567,13 +570,16 @@ const Berita: React.FC<ParamsProps> = () => {
 
             const date = new Date(item.createdAt).getDate();
             const judul = content['judul-artikel'].value;
-            const waktu = `${
-              monthDropdown().find(
-                (item) =>
-                  item.value === content['bulan'].value ||
-                  item.label === content['bulan'].value
-              )?.label
-            } ${content['tahun'].value}`;
+            const waktu =
+              content['bulan'].value !== '-' && content['tahun'].value !== '-'
+                ? `${
+                    monthDropdown().find(
+                      (item) =>
+                        item.value === content['bulan'].value ||
+                        item.label === content['bulan'].value
+                    )?.label
+                  } ${content['tahun'].value}`
+                : '';
             const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
               content['artikel-thumbnail']
