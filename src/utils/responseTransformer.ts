@@ -106,7 +106,7 @@ export const customImageTransformer = (data: any) => {
     };
   const image = JSON.parse(data.value)[0];
   return {
-    imageUrl: `${BASE_URL.image}/${image?.imageUrl ?? ''}?width=${width > 0 ? width : null}`,
+    imageUrl: `${BASE_URL.image}/${image?.imageUrl ?? ''}${width ? `?width=${width}` : ''}`,
     altText: image?.altText ?? ''
   };
 };

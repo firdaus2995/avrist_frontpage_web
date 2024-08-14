@@ -110,7 +110,7 @@ const Hero: React.FC<IHero> = ({
         <div className="-z-[1] w-full top-[6.25rem] sm:top-[12.5rem] absolute">
           <Image
             ref={bannerRef}
-            className={`rounded-t-3xl md:rounded-t-[3.75rem] w-full xs:h-auto sm:h-full md:h-[50vh] ${bottomImageFit === 'proportional_full' ? 'object-fill' : 'object-cover'}`}
+            className={`rounded-t-3xl md:rounded-t-[3.75rem] w-full xs:h-auto sm:h-full md:h-full 2xl:h-[50vh] ${bottomImageFit === 'proportional_full' ? 'object-fill' : 'object-cover'}`}
             alt="gambar-produk-individu"
             width={0}
             height={0}
