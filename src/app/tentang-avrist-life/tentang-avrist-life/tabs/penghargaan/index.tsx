@@ -61,14 +61,6 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
     params.searchFilter
   ]);
 
-  useEffect(() => {
-    const page =
-      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
-  }, [itemOffset]);
-
   const createQueryStringPage = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -81,6 +73,11 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
+    const page =
+      newOffset === 0 ? '1' : (newOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
     setItemOffset(newOffset);
   };
 
@@ -238,6 +235,10 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   };
 
   useEffect(() => {
+    if (params.searchFilter || params.monthFilter || params.yearFilter) {
+      setItemOffset(0);
+      setPageCount(0);
+    }
     fetchContent();
   }, [params]);
 
