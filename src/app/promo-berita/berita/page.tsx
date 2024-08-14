@@ -153,7 +153,9 @@ const Berita: React.FC<ParamsProps> = () => {
     if (!page) {
       setItemOffset(0);
     } else {
-      setItemOffset(parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * 6);
+      setItemOffset(
+        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
+      );
     }
   }, [
     params.category,
@@ -162,18 +164,15 @@ const Berita: React.FC<ParamsProps> = () => {
     params.searchFilter
   ]);
 
-  useEffect(() => {
-    const page = itemOffset === 0 ? '1' : (itemOffset / 6 + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
-  }, [itemOffset]);
-
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % contentData.length;
     setItemOffset(newOffset);
-
+    const page =
+      newOffset === 0 ? '1' : (newOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
     if (params.category === 'Avrist Life Guide') {
       window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
     }
@@ -216,13 +215,25 @@ const Berita: React.FC<ParamsProps> = () => {
     if (tab === 'Avrist Terkini') {
       switch (params.category) {
         case 'Avrist Life Guide':
+          if (params.searchFilter || params.monthFilter || params.yearFilter) {
+            setPageCount(0);
+            setItemOffset(0);
+          }
           fetchLifeGuide();
           break;
         case 'AvriStory':
+          if (params.searchFilter || params.monthFilter || params.yearFilter) {
+            setPageCount(0);
+            setItemOffset(0);
+          }
           fetchAvriStory();
           setItemsPerPage(5);
           break;
         default:
+          if (params.searchFilter || params.monthFilter || params.yearFilter) {
+            setPageCount(0);
+            setItemOffset(0);
+          }
           fetchContent();
           setItemsPerPage(6);
       }
@@ -1221,7 +1232,6 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               onSearch={() => {
                 setParams({ ...params, searchFilter: search });
-                setItemOffset(0);
               }}
               customContent={
                 <>

@@ -219,7 +219,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     };
     const page = searchParams.get('page');
     setPageCount(0);
-    if (!page) {
+    if (!page || searchValue) {
       setItemOffset(0);
     } else {
       setItemOffset(

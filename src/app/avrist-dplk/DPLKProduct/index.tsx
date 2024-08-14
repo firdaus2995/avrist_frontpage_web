@@ -108,6 +108,11 @@ const DPLKProductList = () => {
   const handlePageClick = (event: any) => {
     if (dataContent) {
       const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+      const page =
+        newOffset === 0 ? '1' : (newOffset / itemsPerPage + 1).toString();
+      router.push(pathname + '?' + createQueryStringPage('page', page), {
+        scroll: false
+      });
       setItemOffset(newOffset);
       window.scroll(0, 680);
     }
@@ -121,7 +126,7 @@ const DPLKProductList = () => {
     setSearch(value);
     const page = searchParams.get('page');
     setPageCount(0);
-    if (!page) {
+    if (!page || search) {
       setItemOffset(0);
     } else {
       setItemOffset(
@@ -129,14 +134,6 @@ const DPLKProductList = () => {
       );
     }
   };
-
-  useEffect(() => {
-    const page =
-      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
-  }, [itemOffset]);
 
   const createQueryStringPage = useCallback(
     (name: string, value: string) => {
