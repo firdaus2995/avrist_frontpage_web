@@ -82,6 +82,11 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
     const newOffset = (event.selected * itemsPerPage) % dataContent.length;
+    const page =
+      newOffset === 0 ? '1' : (newOffset / itemsPerPage + 1).toString();
+    router.push(pathname + '?' + createQueryStringPage('page', page), {
+      scroll: false
+    });
     setItemOffset(newOffset);
     window.scroll(0, 680);
   };
@@ -218,7 +223,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
     const page = searchParams.get('page');
     setPageCount(0);
-    if (!page) {
+    if (!page || searchValue) {
       setItemOffset(0);
     } else {
       setItemOffset(
@@ -239,14 +244,6 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       }
     });
   }, [searchParams, selectedChannels, searchValue]);
-
-  useEffect(() => {
-    const page =
-      itemOffset === 0 ? '1' : (itemOffset / itemsPerPage + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
-  }, [itemOffset]);
 
   const createQueryStringPage = useCallback(
     (name: string, value: string) => {
