@@ -92,7 +92,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
                 ) : (
                   <Link
                     href={item.href ?? '#'}
-                    target="_blank"
+                    target="_self"
                     rel="noopener noreferrer"
                   >
                     <button

@@ -149,20 +149,23 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     const page = searchParams.get('page');
-    setPageCount(0);
     if (!page) {
+      setPageCount(0);
       setItemOffset(0);
     } else {
       setItemOffset(
         parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
       );
     }
-  }, [
-    params.category,
-    params.searchFilter,
-    params.monthFilter,
-    params.searchFilter
-  ]);
+  }, [params]);
+
+  useEffect(() => {
+    if (window.location.pathname.includes('page')) {
+      window.scrollTo(0, 200);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.pathname]);
 
   // PAGINATION LOGIC HANDLER
   const handlePageClick = (event: any) => {
