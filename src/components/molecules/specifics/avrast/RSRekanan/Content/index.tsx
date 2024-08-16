@@ -41,67 +41,67 @@ const Content = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    const fetchProviderData = async () => {
-      setData([]);
-      setLoading(true);
-      let locatinUser: any = null;
-      if (typeof window !== 'undefined') {
-        const location: any = localStorage.getItem('location');
-        if (location) {
-          locatinUser = JSON.parse(location);
-        }
+  const fetchProviderData = async () => {
+    setData([]);
+    setLoading(true);
+    let locatinUser: any = null;
+    if (typeof window !== 'undefined') {
+      const location: any = localStorage.getItem('location');
+      if (location) {
+        locatinUser = JSON.parse(location);
       }
-      const queryParams = {
-        distance_radius_in_km: 30,
-        page: currentPage,
-        name_contain: searchParam,
-        third_party_administration_name_contain: thirdParty
-      };
-      const data = await handleGetProvider(
-        locatinUser
-          ? {
-              ...queryParams,
-              latitude: locatinUser?.latitude,
-              longitude: locatinUser?.longitude
-            }
-          : queryParams
-      );
-      if (data.status !== 'OK') {
-        setLoading(false);
-        return [];
-      }
-      const content = data?.data?.partnerHospitalList;
-
-      if (content.length > 0) {
-        const fetchedData = content.map((item: ProviderContent) => {
-          const phoneSplit = item.phone.split('-');
-          const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;
-          return {
-            id: item.id,
-            name: item.name,
-            address: item.address,
-            phone: formattedPhoneNumber,
-            lat: item.latitude,
-            lng: item.longitude,
-            tooltip: false
-          };
-        });
-
-        setData((prevData) => {
-          const existingIds = new Set(prevData.map((item) => item.id));
-          const newData = fetchedData.filter(
-            (item: any) => !existingIds.has(item.id)
-          );
-          return [...prevData, ...newData];
-        });
-        setLoading(false);
-      } else {
-        setData([]);
-        setLoading(false);
-      }
+    }
+    const queryParams = {
+      distance_radius_in_km: 30,
+      page: currentPage,
+      name_contain: searchParam,
+      third_party_administration_name_contain: thirdParty
     };
+    const data = await handleGetProvider(
+      locatinUser
+        ? {
+            ...queryParams,
+            latitude: locatinUser?.latitude,
+            longitude: locatinUser?.longitude
+          }
+        : queryParams
+    );
+    if (data.status !== 'OK') {
+      setLoading(false);
+      return [];
+    }
+    const content = data?.data?.partnerHospitalList;
 
+    if (content.length > 0) {
+      const fetchedData = content.map((item: ProviderContent) => {
+        const phoneSplit = item.phone.split('-');
+        const formattedPhoneNumber = `(${phoneSplit[0]}) ${phoneSplit[1]}`;
+        return {
+          id: item.id,
+          name: item.name,
+          address: item.address,
+          phone: formattedPhoneNumber,
+          lat: item.latitude,
+          lng: item.longitude,
+          tooltip: false
+        };
+      });
+
+      setData((prevData) => {
+        const existingIds = new Set(prevData.map((item) => item.id));
+        const newData = fetchedData.filter(
+          (item: any) => !existingIds.has(item.id)
+        );
+        return [...prevData, ...newData];
+      });
+      setLoading(false);
+    } else {
+      setData([]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchProviderData()
       .then()
       .catch(() => []);
@@ -142,6 +142,7 @@ const Content = () => {
 
           <Maps
             hospitalData={data}
+            fetchMapData={fetchProviderData}
             onClickSearch={handleChangeSearchParams}
             onSetPage={(data) => setCurrentPage(data)}
             currentPage={currentPage}

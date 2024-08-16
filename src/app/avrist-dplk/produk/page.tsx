@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+'use client';
+import { useState, useEffect, Suspense } from 'react';
 
 import DPLKProductList from '../DPLKProduct';
 import ProdukClaim from '@/assets/images/produk-claim.svg';
@@ -19,15 +20,35 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const ProdukDplk = async () => {
-  const pageBase = await handleGetContentPage('halaman-produk-dplk');
-  const { content } = pageTransformer(pageBase);
-  const bannerImageFit = content['banner-image']?.config
-    ? JSON.parse(content['banner-image']?.config)?.image_fit
-    : '';
-  const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = customImageTransformer(content['banner-image']);
-  const cta1Image = singleImageTransformer(content['cta1-image']);
+const ProdukDplk = () => {
+  const [bannerImage, setBannerImage] = useState('');
+  const [bannerImageFit, setBannerImageFit] = useState('');
+  const [titleImage, setTitleImage] = useState('');
+  const [cta1Image, setCta1Image] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const pageBase = await handleGetContentPage('halaman-produk-dplk');
+        const { content } = pageTransformer(pageBase);
+
+        setBannerImage(
+          customImageTransformer(content['banner-image']).imageUrl
+        );
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
+        setTitleImage(singleImageTransformer(content['title-image']).imageUrl);
+        setCta1Image(singleImageTransformer(content['cta1-image']).imageUrl);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Suspense fallback={null}>
@@ -37,9 +58,9 @@ const ProdukDplk = async () => {
           { title: 'Beranda', href: '/' },
           { title: 'Program DPLK', href: '#' }
         ]}
-        bottomImage={bannerImage.imageUrl}
+        bottomImage={bannerImage}
         bottomImageFit={bannerImageFit}
-        imageUrl={titleImage.imageUrl}
+        imageUrl={titleImage}
       />
       <DPLKProductList />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
@@ -54,7 +75,7 @@ const ProdukDplk = async () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={cta1Image.imageUrl}
+        image={cta1Image}
         href={'/tanya-avrista'}
       />
       <RoundedFrameTop
