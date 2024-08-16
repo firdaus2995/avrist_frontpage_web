@@ -3,6 +3,7 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
 import Slider, { LazyLoadTypes } from 'react-slick';
 import { IDAta } from '../Content';
+import MapMarkerImagePurple from '@/assets/images/avrast/hubungi-kami/Map-Pin-Purple.svg';
 import MapMarkerImage from '@/assets/images/avrast/hubungi-kami/Map-Pin.svg';
 import Icon from '@/components/atoms/Icon';
 import NotFound from '@/components/atoms/NotFound';
@@ -12,6 +13,7 @@ import 'leaflet/dist/leaflet.css';
 
 const Maps = ({
   hospitalData,
+  fetchMapData,
   onClickSearch,
   onSetPage,
   currentPage,
@@ -51,6 +53,13 @@ const Maps = ({
 
   const markerIcon = new L.Icon({
     iconUrl: MapMarkerImage.src,
+    iconSize: [40, 40], // adjust size as needed
+    iconAnchor: [20, 40], // adjust anchor as needed
+    popupAnchor: [0, -40] // adjust popup anchor as needed
+  });
+
+  const markerIconPurple = new L.Icon({
+    iconUrl: MapMarkerImagePurple.src,
     iconSize: [40, 40], // adjust size as needed
     iconAnchor: [20, 40], // adjust anchor as needed
     popupAnchor: [0, -40] // adjust popup anchor as needed
@@ -151,6 +160,58 @@ const Maps = ({
     }
   };
 
+  // for detecting location permission in browser
+  useEffect(() => {
+    const requestLocation = () => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const location = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            };
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('location', JSON.stringify(location));
+              setMapCenter([location.latitude, location.longitude]);
+              setMapZoom(17);
+              setLocationFlag(true);
+              fetchMapData ? fetchMapData() : null;
+            }
+          },
+          () => {
+            if (typeof window !== 'undefined') {
+              localStorage.removeItem('location');
+              setMapCenter([-0.601784, 115.394436]);
+              setMapZoom(5);
+              setLocationFlag(false);
+              fetchMapData ? fetchMapData() : null;
+            }
+          }
+        );
+      }
+    };
+
+    requestLocation();
+
+    if (navigator.permissions) {
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        result.onchange = () => {
+          if (result.state === 'granted' || result.state === 'prompt') {
+            requestLocation();
+          } else {
+            if (typeof window !== 'undefined') {
+              localStorage.removeItem('location');
+              setMapCenter([-0.601784, 115.394436]);
+              setMapZoom(5);
+              setLocationFlag(false);
+              fetchMapData ? fetchMapData() : null;
+            }
+          }
+        };
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const location: any = localStorage.getItem('location');
@@ -180,7 +241,7 @@ const Maps = ({
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {locationFlag && (
-            <Marker position={mapCenter} icon={markerIcon}>
+            <Marker position={mapCenter} icon={markerIconPurple}>
               <Popup>
                 <div className="flex flex-col gap-2">
                   <div>{'Lokasi Anda'}</div>
@@ -307,6 +368,7 @@ export default Maps;
 
 export interface IProviderProps {
   hospitalData: IDAta[] | [];
+  fetchMapData?: () => void;
   onClickSearch: (value: string) => void;
   onSetPage: (value: number) => void;
   currentPage: number;

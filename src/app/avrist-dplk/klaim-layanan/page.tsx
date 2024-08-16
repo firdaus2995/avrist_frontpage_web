@@ -1,4 +1,5 @@
-import { Suspense } from 'react';
+'use client';
+import { useState, useEffect, Suspense } from 'react';
 
 import KlaimDanLayanan from '../tabs/KlaimDanLayanan';
 import CUSTOMER_SERVICE from '@/assets/images/common/customer-service.svg';
@@ -11,7 +12,6 @@ import RoundedFrameTop from '@/components/atoms/RoundedFrameTop';
 import FooterCards from '@/components/molecules/specifics/avrast/FooterCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import Hero from '@/components/molecules/specifics/avrast/Hero';
-
 import {
   handleGetContentPage
   // handleGetContent
@@ -22,20 +22,37 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const KlaimLayanan = async () => {
-  const pageBase = await handleGetContentPage('halaman-klaim-dan-layanan-dplk');
-  const { content } = pageTransformer(pageBase);
-  const titleImage = singleImageTransformer(content['title-image']);
-  const bannerImage = customImageTransformer(content['banner-image']);
-  const bannerImageFit = content['banner-image']?.config
-    ? JSON.parse(content['banner-image']?.config)?.image_fit
-    : '';
-  const cta1Image = singleImageTransformer(content['cta1-image']);
+const KlaimLayanan = () => {
+  const [bannerImage, setBannerImage] = useState('');
+  const [bannerImageFit, setBannerImageFit] = useState('');
+  const [titleImage, setTitleImage] = useState('');
+  const [cta1Image, setCta1Image] = useState('');
 
-  // const contentBase = await handleGetContent('Halaman-Klaim-dan-Layanan-DPLK', {
-  //   includeAttributes: 'true'
-  // });
-  // const products = contentBase.data.contentDataList;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const pageBase = await handleGetContentPage(
+          'halaman-klaim-dan-layanan-dplk'
+        );
+        const { content } = pageTransformer(pageBase);
+
+        setBannerImage(
+          customImageTransformer(content['banner-image']).imageUrl
+        );
+        setBannerImageFit(
+          content['banner-image']?.config
+            ? JSON.parse(content['banner-image']?.config)?.image_fit
+            : ''
+        );
+        setTitleImage(singleImageTransformer(content['title-image']).imageUrl);
+        setCta1Image(singleImageTransformer(content['cta1-image']).imageUrl);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Suspense fallback={null}>
@@ -45,9 +62,9 @@ const KlaimLayanan = async () => {
           { title: 'Beranda', href: '/' },
           { title: 'Klaim dan Layanan', href: '#' }
         ]}
-        bottomImage={bannerImage.imageUrl}
+        bottomImage={bannerImage}
         bottomImageFit={bannerImageFit}
-        imageUrl={titleImage.imageUrl}
+        imageUrl={titleImage}
       />
       <KlaimDanLayanan />
       <RoundedFrameBottom bgColor="bg-white" frameColor="bg-white" />
@@ -62,7 +79,7 @@ const KlaimLayanan = async () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={cta1Image.imageUrl}
+        image={cta1Image}
         href={'/tanya-avrista'}
       />
       <RoundedFrameTop
