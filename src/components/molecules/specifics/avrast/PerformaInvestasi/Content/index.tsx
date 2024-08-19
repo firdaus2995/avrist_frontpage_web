@@ -59,6 +59,8 @@ const Content = () => {
       };
       const listData = removeDuplicates(categoryValues);
 
+      console.log(listData);
+
       setDataContent(listData);
     } catch (err) {
       console.error(err);
@@ -77,6 +79,7 @@ const Content = () => {
     const uniqueYears = new Set(
       tahunValues?.filter((tahun: string) => tahun !== '')
     );
+
     return Array.from(uniqueYears)?.map((item) => {
       return {
         tahun: item,
@@ -95,12 +98,28 @@ const Content = () => {
             const path = singleImageTransformer(
               content['performainvestasi-file']
             );
+            const waktu = `${
+              contentStringTransformer(content['bulan']).length > 1
+                ? contentStringTransformer(content['bulan'])
+                : '01'
+            } ${contentStringTransformer(content['tahun-periode-laporan'])}`;
 
             return {
               title,
               path,
-              id
+              id,
+              waktu
             };
+          })
+          .sort((a, b) => {
+            const [monthA, yearA] = a.waktu.split(' ').map(Number);
+            const [monthB, yearB] = b.waktu.split(' ').map(Number);
+
+            if (yearA !== yearB) {
+              return yearA - yearB;
+            }
+
+            return monthB - monthA;
           })
       };
     });
