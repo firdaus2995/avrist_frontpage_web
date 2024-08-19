@@ -14,57 +14,6 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const month = [
-  {
-    label: 'Januari',
-    value: '01'
-  },
-  {
-    label: 'Februari',
-    value: '02'
-  },
-  {
-    label: 'Maret',
-    value: '03'
-  },
-  {
-    label: 'April',
-    value: '04'
-  },
-  {
-    label: 'Mei',
-    value: '05'
-  },
-  {
-    label: 'Juni',
-    value: '06'
-  },
-  {
-    label: 'Juli',
-    value: '07'
-  },
-  {
-    label: 'Agustus',
-    value: '08'
-  },
-  {
-    label: 'September',
-    value: '09'
-  },
-  {
-    label: 'Oktober',
-    value: '10'
-  },
-  {
-    label: 'November',
-    value: '11'
-  },
-  {
-    label: 'Desember',
-    value: '12'
-  }
-];
-
 const Content = () => {
   const [dataContent, setDataContent] = useState<any>();
 
@@ -166,12 +115,10 @@ const Content = () => {
             const [monthA, yearA] = a.waktu.split(' ').map(Number);
             const [monthB, yearB] = b.waktu.split(' ').map(Number);
 
-            // Compare years first
             if (yearA !== yearB) {
               return yearA - yearB;
             }
 
-            // If years are the same, compare months
             return monthB - monthA;
           })
       };
