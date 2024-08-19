@@ -14,6 +14,57 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
+const month = [
+  {
+    label: 'Januari',
+    value: '01'
+  },
+  {
+    label: 'Februari',
+    value: '02'
+  },
+  {
+    label: 'Maret',
+    value: '03'
+  },
+  {
+    label: 'April',
+    value: '04'
+  },
+  {
+    label: 'Mei',
+    value: '05'
+  },
+  {
+    label: 'Juni',
+    value: '06'
+  },
+  {
+    label: 'Juli',
+    value: '07'
+  },
+  {
+    label: 'Agustus',
+    value: '08'
+  },
+  {
+    label: 'September',
+    value: '09'
+  },
+  {
+    label: 'Oktober',
+    value: '10'
+  },
+  {
+    label: 'November',
+    value: '11'
+  },
+  {
+    label: 'Desember',
+    value: '12'
+  }
+];
+
 const Content = () => {
   const [dataContent, setDataContent] = useState<any>();
 
@@ -59,6 +110,8 @@ const Content = () => {
       };
       const listData = removeDuplicates(categoryValues);
 
+      console.log(listData);
+
       setDataContent(listData);
     } catch (err) {
       console.error(err);
@@ -77,6 +130,7 @@ const Content = () => {
     const uniqueYears = new Set(
       tahunValues?.filter((tahun: string) => tahun !== '')
     );
+
     return Array.from(uniqueYears)?.map((item) => {
       return {
         tahun: item,
@@ -95,12 +149,30 @@ const Content = () => {
             const path = singleImageTransformer(
               content['performainvestasi-file']
             );
+            const waktu = `${
+              contentStringTransformer(content['bulan']).length > 1
+                ? contentStringTransformer(content['bulan'])
+                : '01'
+            } ${contentStringTransformer(content['tahun-periode-laporan'])}`;
 
             return {
               title,
               path,
-              id
+              id,
+              waktu
             };
+          })
+          .sort((a, b) => {
+            const [monthA, yearA] = a.waktu.split(' ').map(Number);
+            const [monthB, yearB] = b.waktu.split(' ').map(Number);
+
+            // Compare years first
+            if (yearA !== yearB) {
+              return yearA - yearB;
+            }
+
+            // If years are the same, compare months
+            return monthB - monthA;
           })
       };
     });

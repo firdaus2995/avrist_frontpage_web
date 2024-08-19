@@ -157,7 +157,7 @@ const ProdukSyariah = () => {
         bottomImage={banner.imageUrl}
         bottomImageFit={bannerImageFit}
       />
-      <CustomContainer className="mt-[2.25rem] sm:mt-[5rem] flex flex-col gap-[3.125rem] sm:gap-[4rem]">
+      <CustomContainer className="mt-[5rem] flex flex-col gap-[3.125rem] sm:gap-[4rem]">
         <CategoryPills
           buttonTitle={[
             'Tentang Avrist Syariah',
