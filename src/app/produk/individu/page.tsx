@@ -93,6 +93,9 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
 
   const handleTabClick = (tabs: string) => {
     setActiveTab(tabs);
+    setPageCount(0);
+    setItemOffset(0);
+    setDataContent(null);
     setSearchValue('');
     setSelectedChannels([]);
     setIsCategoryChange(true);
@@ -223,15 +226,8 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
       }
     };
 
-    const page = searchParams.get('page');
     setPageCount(0);
-    if (!page || searchValue) {
-      setItemOffset(0);
-    } else {
-      setItemOffset(
-        parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
-      );
-    }
+    setItemOffset(0);
     fetchData().then();
     fetchDataContentWithCategory().then((dataContentValues) => {
       if (isCategoryChange && dataContentValues) {

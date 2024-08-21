@@ -325,6 +325,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         }
         buttonTitle="Tanya Avrista"
         image={data.footerInfoImageUrl}
+        href={'/tanya-avrista'}
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards
