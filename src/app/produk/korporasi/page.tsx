@@ -80,6 +80,8 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     const value = searchParams.get('tab');
     if (value !== null) {
       setActiveTab(value);
+    } else {
+      setActiveTab('Asuransi Jiwa');
     }
   }, [searchParams]);
 
