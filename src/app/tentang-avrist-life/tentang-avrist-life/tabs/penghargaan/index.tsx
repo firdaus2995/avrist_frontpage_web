@@ -349,9 +349,11 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                               __html: item.judul
                             }}
                           />
-                          <p className="xs:text-lg sm:text-[1.5rem]">
-                            {item.nama}
-                          </p>
+                          {item.nama !== '-' && (
+                            <p className="xs:text-lg sm:text-[1.5rem]">
+                              {item.nama}
+                            </p>
+                          )}
                           {/* <p
                             dangerouslySetInnerHTML={{
                               __html: item.deskripsi[0].value

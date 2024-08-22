@@ -393,7 +393,7 @@ const SearchForm = () => {
                         }}
                       />
                       <p className="text-[20px]">{item.nama}</p>
-                      {!item.deskripsi.includes('-</p>') && (
+                      {!item.deskripsi?.includes('-</p>') && (
                         <p
                           dangerouslySetInnerHTML={{
                             __html: item.deskripsi
