@@ -20,15 +20,19 @@ import {
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import {
   handleGetContent as handleGetMainContent,
-  handleGetContentCategory
+  handleGetContentCategory,
+  handleGetContent
 } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
 import { BASE_URL } from '@/utils/baseUrl';
 // import { handleDownload } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
-  handleTransformedContent
+  contentTransformer,
+  handleTransformedContent,
+  singleImageTransformer
 } from '@/utils/responseTransformer';
 
 export const MainContent = ({
@@ -64,6 +68,7 @@ export const MainContent = ({
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [maxSizeValidation, setMaxSizeValidation] = useState<boolean>(false);
   const [attachmentFile, setAttachmentFile] = useState('');
+  const [popUpImage, setPopUpImage] = useState<string>('');
   const [attachmentFileSize, setAttachmentFileSize] = useState(0);
 
   const itemsPerPage = 5;
@@ -155,7 +160,21 @@ export const MainContent = ({
           throw new Error('Error fetching form data: ', error.message);
         }
       };
-
+      const fetchModalImage = async () => {
+        try {
+          handleGetContent(BASE_SLUG.POP_UP_SUBMIT_FORM, {
+            includeAttributes: 'true'
+          }).then((res: any) => {
+            const { content } = contentTransformer(res);
+            const submitImage = singleImageTransformer(content['pop-up-image']);
+            setPopUpImage(submitImage.imageUrl);
+          });
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+  
+      fetchModalImage().then();
       fetchDataForm().then();
     }
   }, [formId]);
@@ -382,6 +401,7 @@ export const MainContent = ({
       <div className="absolute">
         <SuccessModal
           show={showSuccess}
+          popUpImage={popUpImage}
           onClose={() => {
             setShowSuccess(false);
             window.location.reload();

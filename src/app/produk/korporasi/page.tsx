@@ -80,6 +80,8 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
     const value = searchParams.get('tab');
     if (value !== null) {
       setActiveTab(value);
+    } else {
+      setActiveTab('Asuransi Jiwa');
     }
   }, [searchParams]);
 
@@ -323,6 +325,7 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
         }
         buttonTitle="Tanya Avrista"
         image={data.footerInfoImageUrl}
+        href={'/tanya-avrista'}
       />
       <RoundedFrameTop bgColor="bg-white" />
       <FooterCards

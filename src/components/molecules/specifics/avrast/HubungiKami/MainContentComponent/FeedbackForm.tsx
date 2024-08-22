@@ -5,7 +5,10 @@ import CustomForm from '../../CustomForm/Index';
 import { SuccessModal } from '../../Modal';
 import { DividerRainbow } from './Divider';
 import { RatingEmoji } from './form/Rating';
+import { handleGetContent } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
+import { BASE_SLUG } from '@/utils/baseSlug';
+import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
 
 type Props = {
   Id?: string;
@@ -28,6 +31,7 @@ export const FeedbackForm = (props: Props) => {
   const [, setRating] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [popUpImage, setPopUpImage] = useState<string>('');
 
   useEffect(() => {
     if (Id) {
@@ -47,7 +51,21 @@ export const FeedbackForm = (props: Props) => {
           throw new Error('Error fetching form data: ', error.message);
         }
       };
-
+      const fetchModalImage = async () => {
+        try {
+          handleGetContent(BASE_SLUG.POP_UP_SUBMIT_FORM, {
+            includeAttributes: 'true'
+          }).then((res: any) => {
+            const { content } = contentTransformer(res);
+            const submitImage = singleImageTransformer(content['pop-up-image']);
+            setPopUpImage(submitImage.imageUrl);
+          });
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
+  
+      fetchModalImage().then();
       fetchDataForm().then();
     }
   }, [Id]);
@@ -142,6 +160,7 @@ export const FeedbackForm = (props: Props) => {
       </div>
       <div className="absolute">
         <SuccessModal
+          popUpImage={popUpImage}
           show={showSuccess}
           onClose={() => {
             setShowSuccess(false);
