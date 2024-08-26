@@ -101,6 +101,28 @@ const monthDropdown = () => {
   return month;
 };
 
+const tableReplacement = (item: any) => {
+  const replacements = {
+    '<ol>': "<ol class='list-decimal list-outside font-opensans px-5'>",
+    '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
+    '<table>':
+      "<table class='table-auto border-collapse border-spacing-2 border border-slate-500' >",
+    '<th>': "<th class='border border-slate-500 p-4' >",
+    '<td>': "<td class='border border-slate-500 p-4' >",
+    '<figure class="table">':
+      "<span class='w-full flex items-center justify-center text-center'><figure class='table'>",
+    '</figure>': '</figure></div>'
+  };
+
+  let valueDescription = item;
+
+  for (const [key, value] of Object.entries(replacements)) {
+    valueDescription = valueDescription.replaceAll(key, value);
+  }
+
+  return valueDescription;
+};
+
 const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const id = params.detail;
 
@@ -204,10 +226,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               return (
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: detailItem.value
+                    __html: tableReplacement(detailItem.value)
                   }}
                   key={detailIndex}
-                  className="py-6"
                 />
               );
             }
@@ -218,10 +239,10 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             ) {
               return (
                 <div
-                  className="w-full h-full flex justify-center"
+                  className="w-full h-full flex justify-center items-center"
                   key={detailIndex}
                 >
-                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5 flex justify-center">
                     <Image
                       src={
                         singleImageTransformer(detailItem).imageUrl ??
@@ -378,9 +399,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   contentData.tahun &&
                   contentData.bulan !== '-' &&
                   contentData.tahun !== '-'
-                    ? `${contentData.bulan} ${contentData.tahun} | `
+                    ? `${contentData.bulan} ${contentData.tahun}`
                     : ''}{' '}
-                  {contentData?.penulis === '-' ? '' : `${contentData.penulis}`}
+                  {contentData?.penulis === '-'
+                    ? ''
+                    : ` | ${contentData.penulis}`}
                 </p>
 
                 {Array.isArray(contentData?.tags) && (
