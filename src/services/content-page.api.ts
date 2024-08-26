@@ -11,8 +11,8 @@ export const getContentPage = async (slug: string) => {
   return await httpService<PageResponse>('page', slug, {
     method: 'GET',
     next: {
-      revalidate: process.env.NEXT_PUBLIC_REVALIDA_CACHE
-        ? parseInt(process.env.NEXT_PUBLIC_REVALIDA_CACHE)
+      revalidate: process.env.NEXT_PUBLIC_REVALIDATE_CACHE
+        ? parseInt(process.env.NEXT_PUBLIC_REVALIDATE_CACHE)
         : 60
     }
   });
@@ -21,21 +21,37 @@ export const getContentPage = async (slug: string) => {
 export const getContent = async (slug: string, query: QueryParams) => {
   return await httpService<ContentResponse>('content', slug, {
     method: 'GET',
-    queryParams: query
+    queryParams: query,
+
+    next: {
+      revalidate: process.env.NEXT_PUBLIC_REVALIDATE_CACHE
+        ? parseInt(process.env.NEXT_PUBLIC_REVALIDATE_CACHE)
+        : 60
+    }
   });
 };
 
 export const getContentDetail = async (detailId: string) => {
   return await httpService<ContentDetailResponse>('content-detail', detailId, {
     method: 'GET',
-    cache: 'no-store'
+
+    next: {
+      revalidate: process.env.NEXT_PUBLIC_REVALIDATE_CACHE
+        ? parseInt(process.env.NEXT_PUBLIC_REVALIDATE_CACHE)
+        : 60
+    }
   });
 };
 
 export const getContentCategory = async (slug: string, query: QueryParams) => {
   return await httpService<ContentCategoryResponse>('content/category', slug, {
     method: 'GET',
-    queryParams: query
+    queryParams: query,
+    next: {
+      revalidate: process.env.NEXT_PUBLIC_REVALIDATE_CACHE
+        ? parseInt(process.env.NEXT_PUBLIC_REVALIDATE_CACHE)
+        : 60
+    }
   });
 };
 
