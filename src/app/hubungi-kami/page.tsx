@@ -150,13 +150,13 @@ const CallMe = () => {
             icon: home,
             title: 'Asuransi Korporasi',
             subtitle: 'Lihat Produk',
-            href: '/produk/korporasi'
+            href: '/produk/korporasi?tab=Employee+Benefit'
           },
           {
             icon: homeYellow,
             title: 'AVRIST DPLK',
             subtitle: 'Lihat Produk',
-            href: '/avrist-dplk?tab=Produk',
+            href: '/avrist-dplk/produk',
             textColor: 'text-dplk_yellow'
           },
           {
