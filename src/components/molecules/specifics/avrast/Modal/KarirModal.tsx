@@ -82,7 +82,7 @@ export const KarirModal = (props: Props) => {
       id: formId,
       pic: formPic,
       placeholderValue: formValue,
-      attachment: attachment.toString(),
+      attachment: attachment,
       attachmentPath,
       emailSubject,
       emailBody,

@@ -8,7 +8,10 @@ import { RatingEmoji } from './form/Rating';
 import { handleGetContent } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  contentTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type Props = {
   Id?: string;
@@ -20,8 +23,6 @@ export const FeedbackForm = (props: Props) => {
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
   const [formValue, setFormValue] = useState([{ name: '', value: '' }]);
-  const [attachment, setAttachment] = useState(false);
-  const [attachmentPath, setAttachmentPath] = useState('');
   const [emailSubject, setEmailSubject] = useState('');
   const [emailBody, setEmailBody] = useState('');
   const [emailSubjectSubmitter, setEmailSubjectSubmitter] = useState('');
@@ -64,21 +65,11 @@ export const FeedbackForm = (props: Props) => {
           console.error('Error:', error);
         }
       };
-  
+
       fetchModalImage().then();
       fetchDataForm().then();
     }
   }, [Id]);
-
-  useEffect(() => {
-    setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
-    setAttachmentPath(
-      formValue
-        .filter((item) => item.value.includes('/var/upload/files'))
-        .map((item) => item.value)
-        .join('|')
-    );
-  }, [formValue]);
 
   const receiveData = (
     data: any,
@@ -94,14 +85,11 @@ export const FeedbackForm = (props: Props) => {
       id: formId,
       pic: formPic,
       placeholderValue: dataForm,
-      attachment: attachment.toString(),
-      attachmentPath,
       emailSubject,
       emailBody,
       emailSubjectSubmitter: emailSubjectSubmitter ?? '',
       emailBodySubmitter: emailBodySubmitter ?? ''
     };
-
     const data = await handleSendEmail(queryParams);
     if (data.status === 'OK') {
       setShowSuccess(true);
