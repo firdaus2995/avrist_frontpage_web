@@ -25,6 +25,7 @@ import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Moda
 import { handleGetContentPage } from '@/services/content-page.api';
 import { subscribeApi } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
+import { tableReplacement } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   customImageTransformer,
@@ -244,7 +245,11 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
     return (
       <p
         className="font-opensans text-xl"
-        dangerouslySetInnerHTML={{ __html: description }}
+        dangerouslySetInnerHTML={{
+          __html: description.includes('<table')
+            ? tableReplacement(description)
+            : description
+        }}
       ></p>
     );
   };

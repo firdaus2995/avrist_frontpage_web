@@ -24,7 +24,7 @@ import VideoPlayer from '@/components/molecules/specifics/avrast/Klaim/VideoPlay
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import { subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { getYouTubeId } from '@/utils/helpers';
+import { getYouTubeId, tableReplacement } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   customImageTransformer,
@@ -192,7 +192,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
           {paragrafSatu !== '-' && (
             <p
               dangerouslySetInnerHTML={{
-                __html: paragrafSatu
+                __html: tableReplacement(paragrafSatu)
               }}
               className="font-opensans text-xl"
             />

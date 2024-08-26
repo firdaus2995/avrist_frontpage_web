@@ -30,7 +30,7 @@ import {
   handleGetContent
 } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { htmlParser, getYouTubeId } from '@/utils/helpers';
+import { htmlParser, getYouTubeId, tableReplacement } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   customImageTransformer,
@@ -99,28 +99,6 @@ const monthDropdown = () => {
   ];
 
   return month;
-};
-
-const tableReplacement = (item: any) => {
-  const replacements = {
-    '<ol>': "<ol class='list-decimal list-outside font-opensans px-5'>",
-    '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
-    '<table>':
-      "<table class='table-auto border-collapse border-spacing-2 border border-slate-500' >",
-    '<th>': "<th class='border border-slate-500 p-4' >",
-    '<td>': "<td class='border border-slate-500 p-4' >",
-    '<figure class="table">':
-      "<span class='w-full flex items-center justify-center text-center'><figure class='table'>",
-    '</figure>': '</figure></div>'
-  };
-
-  let valueDescription = item;
-
-  for (const [key, value] of Object.entries(replacements)) {
-    valueDescription = valueDescription.replaceAll(key, value);
-  }
-
-  return valueDescription;
 };
 
 const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
