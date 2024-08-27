@@ -173,7 +173,7 @@ export const MainContent = ({
           console.error('Error:', error);
         }
       };
-  
+
       fetchModalImage().then();
       fetchDataForm().then();
     }
@@ -249,7 +249,7 @@ export const MainContent = ({
         pic: formPic,
         placeholderValue: formValue,
         attachment: true,
-        attachment_path: attachmentFile,
+        attachmentPath: attachmentFile,
         emailSubject,
         emailBody,
         emailSubjectSubmitter,
