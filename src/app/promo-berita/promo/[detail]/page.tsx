@@ -30,7 +30,7 @@ import {
   handleGetContent
 } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { htmlParser, getYouTubeId } from '@/utils/helpers';
+import { htmlParser, getYouTubeId, tableReplacement } from '@/utils/helpers';
 import {
   contentDetailTransformer,
   customImageTransformer,
@@ -204,10 +204,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               return (
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: detailItem.value
+                    __html: tableReplacement(detailItem.value)
                   }}
                   key={detailIndex}
-                  className="py-6"
                 />
               );
             }
@@ -218,10 +217,10 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
             ) {
               return (
                 <div
-                  className="w-full h-full flex justify-center"
+                  className="w-full h-full flex justify-center items-center"
                   key={detailIndex}
                 >
-                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                  <div className="w-auto sm:w-[1120px] h-auto mb-5 flex justify-center">
                     <Image
                       src={
                         singleImageTransformer(detailItem).imageUrl ??
@@ -378,9 +377,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   contentData.tahun &&
                   contentData.bulan !== '-' &&
                   contentData.tahun !== '-'
-                    ? `${contentData.bulan} ${contentData.tahun} | `
+                    ? `${contentData.bulan} ${contentData.tahun}`
                     : ''}{' '}
-                  {contentData?.penulis === '-' ? '' : `${contentData.penulis}`}
+                  {contentData?.penulis === '-'
+                    ? ''
+                    : ` | ${contentData.penulis}`}
                 </p>
 
                 {Array.isArray(contentData?.tags) && (

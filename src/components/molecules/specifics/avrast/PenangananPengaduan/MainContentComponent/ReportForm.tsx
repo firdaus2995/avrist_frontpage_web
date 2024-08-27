@@ -26,6 +26,7 @@ const UploadBox = (props: UploadBoxProps) => {
     setMaxSizeValidation
   } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [invalidFile, setInvalidFile] = useState(false);
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -56,8 +57,13 @@ const UploadBox = (props: UploadBoxProps) => {
         const uploadedFile: any = event.target?.files[0];
 
         onChangeData(response.data, uploadedFile, title);
-      } catch (error) {
+
+        setInvalidFile(false);
+      } catch (error: any) {
         console.error('Error uploading files:', error);
+        if (error.toString().includes('400')) {
+          setInvalidFile(true);
+        }
       }
     }
   };
@@ -66,13 +72,19 @@ const UploadBox = (props: UploadBoxProps) => {
     <div>
       {!value ? (
         <div
-          className="border border-light-grey rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px] cursor-pointer"
+          className={`border ${invalidFile ? 'border-error' : 'border-light-grey'} rounded-[14px] flex flex-col items-center justify-center h-[120px] py-[10px] px-[1rem] gap-[8px] cursor-pointer`}
           onClick={handleUploadClick}
         >
           <Icon name="UploadIcon" height={24} width={24} color="purple_dark" />
           <p className="font-opensans font-normal text-[16px] text-center">
             {title}
           </p>
+          {invalidFile && (
+            <p className="font-opensans font-normal text-[12px] text-center text-error">
+              Hanya menerima file .pdf
+            </p>
+          )}
+
           <input
             type="file"
             ref={fileInputRef}
@@ -87,7 +99,7 @@ const UploadBox = (props: UploadBoxProps) => {
           onClick={() => onDeleteData()}
         >
           <Icon name="close" height={24} width={24} color="purple_dark" />
-          <p className="font-opensans font-normal text-[14px] text-center">
+          <p className="font-opensans font-normal text-[14px] text-center line-clamp-2">
             {value?.name}
           </p>
           <p className="font-opensans font-normal text-[14px] text-center">
