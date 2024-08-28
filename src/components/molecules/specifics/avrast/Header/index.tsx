@@ -87,8 +87,10 @@ const Header = () => {
       const itemWidth = rect.width / 2.5;
 
       let adjustment = 0;
-      if (windowWidth > 1536) {
+      if (windowWidth > 1536 && windowWidth <= 1920) {
         adjustment = (windowWidth - 1536) / 2;
+      } else if (windowWidth > 1920) {
+        adjustment = (windowWidth - 1920) / 2;
       }
 
       leftPosition -= adjustment;
