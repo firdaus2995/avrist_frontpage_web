@@ -116,14 +116,16 @@ const Content = () => {
   return (
     <div className="w-full bg-purple_dark">
       <div className="bg-white flex flex-col sm:pt-[100px] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[28px] sm:gap-[5rem] xs:gap-[5rem]">
-        <ButtonMenu
-          buttonList={[
-            'Informasi Nasabah',
-            'Rumah Sakit Rekanan',
-            'Formulir & Buku Panduan',
-            'Performa Investasi'
-          ]}
-        />
+        <div className="mt-2 sm:mt-0">
+          <ButtonMenu
+            buttonList={[
+              'Informasi Nasabah',
+              'Rumah Sakit Rekanan',
+              'Formulir & Buku Panduan',
+              'Performa Investasi'
+            ]}
+          />
+        </div>
 
         <section className="w-full flex flex-col items-center text-center">
           <h1 className="text-purple_dark font-karla text-center font-extrabold sm:text-[3.5rem] xs:text-[2.25rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px] sm:leading-[67.2px] xs:leading-[43.2px]">

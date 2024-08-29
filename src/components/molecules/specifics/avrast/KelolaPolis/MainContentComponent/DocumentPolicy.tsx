@@ -124,9 +124,9 @@ export const DocumentPolicy = ({
   };
 
   return (
-    <div className="max-w-[78rem] m-auto">
+    <div className="w-full">
       {isShowDetail ? (
-        <div className="flex flex-col gap-[5rem] -mt-[1rem] mb-[3rem]">
+        <div className="flex flex-col xs:gap-[3.125rem] sm:gap-[5rem] -mt-[1rem]">
           <ContentPolicyList
             title={policyData?.title}
             desc={policyData?.desc}

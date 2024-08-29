@@ -19,57 +19,6 @@ import {
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
-const data = [
-  {
-    category: 'Asuransi Individu',
-    data: [
-      'Klaim Manfaat Hidup',
-      'Klaim Kematian',
-      'Klaim Rumah Sakit',
-      'Klaim Cacat Total dan Tetap',
-      'Klaim Kecelakaan',
-      'klaim 2',
-      'klaim 2 lagi'
-    ]
-  },
-  {
-    category: 'Asuransi Jiwa Korporasi',
-    data: [
-      'Klaim Manfaat Hidup 2',
-      'Klaim Kematian 2',
-      'Klaim Rumah Sakit 2',
-      'Klaim Cacat Total dan Tetap 2',
-      'Klaim Kecelakaan 2',
-      'klaim 2',
-      'klaim 2 lagi'
-    ]
-  },
-  {
-    category: 'Avrist Syariah',
-    data: [
-      'Klaim Manfaat Hidup 3',
-      'Klaim Kematian 3',
-      'Klaim Rumah Sakit 3',
-      'Klaim Cacat Total dan Tetap 3',
-      'Klaim Kecelakaan 3',
-      'klaim 2',
-      'klaim 2 lagi'
-    ]
-  },
-  {
-    category: 'DPLK Avrist',
-    data: [
-      'Klaim Manfaat Hidup 3',
-      'Klaim Kematian 3',
-      'Klaim Rumah Sakit 3',
-      'Klaim Cacat Total dan Tetap 3',
-      'Klaim Kecelakaan 3',
-      'klaim 2',
-      'klaim 2 lagi'
-    ]
-  }
-];
-
 const detailData = [
   'Perhatikan Informasi Sebelum Klaim',
   'Lengkapi Dokumen Pendukung',
@@ -92,6 +41,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
   const [isSelectedData, setIsSelectedData] = useState(false);
   const [search, setSearch] = useState('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [initLoading, setInitLoading] = useState(true);
   const [params, setParams] = useState({
     includeAttributes: 'true',
     category: categoryList[0],
@@ -185,6 +135,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           category: Object.keys(res.data.categoryList)[0]
         });
       });
+      setInitLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -198,6 +149,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
         params.category
       );
       setContentData(transformedData);
+      setInitLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -443,15 +395,18 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                     onClick={() => {
                       setParams({
                         ...params,
-                        category: val
+                        category: val,
+                        searchFilter: ''
                       });
+                      setSearch('');
                     }}
-                    className={`min-w-[250px] ${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${idx + 1 === data.length && 'rounded-bl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark pl-6 pr-3 py-3 text-[1.125rem] font-bold text-purple_dark`}
+                    className={`min-w-[250px] ${categoryList.length === 1 && 'rounded-l-[0.75rem]'} ${idx === 0 && 'rounded-tl-[0.75rem]'} ${params.category !== val && 'opacity-50'} border-l-8 border-l-purple_dark pl-6 pr-3 py-3 text-[1.125rem] font-bold text-purple_dark`}
                   >
                     {val}
                   </div>
                 ))
-              : detailData?.map((val, idx) => (
+              : !initLoading &&
+                detailData?.map((val, idx) => (
                   <div
                     key={idx}
                     role="button"
@@ -480,6 +435,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               </div>
               <div className="flex flex-row gap-3">
                 <Input
+                  value={search}
                   type="text"
                   placeholder="Cari jenis klaim"
                   customInputClass="w-full rounded-[0.75rem] px-[1rem] py-[0.75rem] leading-[22.4px]"
@@ -546,18 +502,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
                         });
                       }}
                       className="p-2"
-                    >
-                      {data.map((val, idx) => (
-                        <option
-                          key={idx}
-                          selected={val.category === params.category}
-                          value={val.category}
-                          className="w-[80%]"
-                        >
-                          {val.category}
-                        </option>
-                      ))}
-                    </select>
+                    ></select>
                   </div>
                 ) : (
                   <ButtonMenuVertical
@@ -573,7 +518,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
           )}
           {!isSelectedData && (
             <div className="w-full flex flex-col gap-2">
-              {paginatedData.length <= 0 ? (
+              {contentData?.length <= 0 && !initLoading ? (
                 <NotFound />
               ) : (
                 paginatedData.map((val: any, index: number) => (
@@ -601,7 +546,7 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
               )}
             </div>
           )}
-          {!isSelectedData && renderPage()}
+          {!isSelectedData && !initLoading && renderPage()}
 
           {selectedData && renderStep(selectedDetailCategory)}
         </div>

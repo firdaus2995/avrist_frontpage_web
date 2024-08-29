@@ -64,7 +64,7 @@ const PanduanPengajuanTab = () => {
   };
 
   return (
-    <div className="w-full flex-col self-stretch items-center justify-center mt-[4rem]">
+    <div className="w-full flex-col self-stretch items-center justify-center sm:mt-[4rem]">
       <div className="grid grid-cols-3 gap-[24px] xs:hidden md:grid">
         {data.map((val, idx) => (
           <div

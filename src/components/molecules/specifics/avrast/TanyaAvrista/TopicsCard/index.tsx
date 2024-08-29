@@ -22,7 +22,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
     infinite: false,
     swipeToSlide: false,
     beforeChange: (oldIndex: number, newIndex: number) =>
-      setCurrentSlide(Math.ceil(newIndex)),
+      setCurrentSlide(Math.ceil(newIndex))
   };
 
   const next = () => {
@@ -35,7 +35,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
 
   return (
     <div className="w-full bg-white flex flex-col items-center justify-between bg-purple_superlight sm:px-[5rem] sm:py-[5rem] xs:py-[3.125rem] xs:px-[2rem]">
-      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark text-center mb-[5rem] font-light sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
+      <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark text-center mb-[3.125rem] sm:mb-[5rem] font-light sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
         Apa yang ingin <span className="font-extrabold">Anda </span> ketahui?
       </h1>
       <div className="xs:hidden sm:grid xs:grid-rows-1 xs:grid-cols-2 sm:grid-cols-4 gap-[1.5rem]">
@@ -65,7 +65,7 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
           </div>
         ))}
       </div>
-      <div className='w-full'>
+      <div className="w-full">
         <div className="md:hidden py-[0.375rem] flex flex-col gap-[2.25rem]">
           <Slider {...settings} ref={sliderRef}>
             {cards.map((item, index) => (
@@ -76,9 +76,9 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                 className="flex flex-col items-center justify-center w-full"
               >
                 <div
-                key={index}
-                role="button"
-                onClick={() => onClickCards(item.title)}
+                  key={index}
+                  role="button"
+                  onClick={() => onClickCards(item.title)}
                   className={`w-[95%] bg-white h-[16.25rem] pb-[2.25rem] px-[1.5rem] pt-[1.5rem] flex flex-col items-center justify-center gap-[0.5rem] border border-gray_light rounded-xl border-b-[0.5rem] ${!item.color ? 'border-b-purple_dark' : item.color}`}
                 >
                   <Image

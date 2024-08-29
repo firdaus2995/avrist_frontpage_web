@@ -63,13 +63,17 @@ const Hero: React.FC<IHero> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [imageSize]);
+  }, [imageSize, bannerRef, bottomImage]);
+
+  useEffect(() => {
+    setImageSize({ width: 0, height: 0 });
+  }, [bottomImage]);
 
   return (
     <div
-      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[16.25rem] sm:h-[38.5rem]' : 'xs:h-[9.375rem] md:h-[18.75rem]'} ${customClassName}`}
+      className={`relative w-full md:auto z-0 overflow-hidden ${bottomImage ? 'h-[16.25rem] sm:h-[35rem] 2xl:h-[38.5rem]' : 'xs:h-[9.375rem] md:h-[18.75rem]'} ${customClassName ?? ''}`}
       style={{
-        marginBottom: imageSize.height < 160 ? -(imageSize.height * 0.6) : 0
+        marginBottom: imageSize.height < 160 ? -(imageSize.height * 0.45) : 0
       }}
     >
       <div className="w-full flex items-center">

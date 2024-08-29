@@ -58,6 +58,8 @@ const UploadBox = (props: UploadBoxProps) => {
 
         onChangeData(response.data, uploadedFile, title);
 
+        event.target.value = '';
+
         setInvalidFile(false);
       } catch (error: any) {
         console.error('Error uploading files:', error);
@@ -158,6 +160,19 @@ export const ReportForm = (props: ReportFormProps) => {
     }
   }, [attachmentFile]);
 
+  const handleDelete = (
+    value: string,
+    file: string,
+    setData: React.Dispatch<any>
+  ) => {
+    onChangeData(value, file, 'delete');
+    setData('');
+    const newData = attachmentFile.replace(value, '');
+    newData.slice(-1) === '|'
+      ? setAttachmentFile(newData.slice(0, -1))
+      : setAttachmentFile(newData);
+  };
+
   return (
     <div>
       <form className="mt-[2.25rem]">
@@ -181,8 +196,7 @@ export const ReportForm = (props: ReportFormProps) => {
                 onChangeData={handleChangeData}
                 value={fileKtp?.file}
                 onDeleteData={() => {
-                  onChangeData(fileKtp?.value, fileKtp?.file, 'delete');
-                  setFileKtp('');
+                  handleDelete(fileKtp?.value, fileKtp?.file, setFileKtp);
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
@@ -192,12 +206,11 @@ export const ReportForm = (props: ReportFormProps) => {
                 onChangeData={handleChangeData}
                 value={fileFormulir?.file}
                 onDeleteData={() => {
-                  onChangeData(
+                  handleDelete(
                     fileFormulir?.value,
                     fileFormulir?.file,
-                    'delete'
+                    setFileFormulir
                   );
-                  setFileFormulir('');
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />
@@ -207,12 +220,11 @@ export const ReportForm = (props: ReportFormProps) => {
                 onChangeData={handleChangeData}
                 value={fileDocument?.file}
                 onDeleteData={() => {
-                  onChangeData(
+                  handleDelete(
                     fileDocument?.value,
                     fileDocument?.file,
-                    'delete'
+                    setFileDocument
                   );
-                  setFileDocument('');
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
               />

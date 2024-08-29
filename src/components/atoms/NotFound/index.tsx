@@ -10,7 +10,7 @@ interface INotFound {
 const NotFound: React.FC<INotFound> = ({ title, subtitle }) => {
   return (
     <div className="w-full flex flex-col md:px-52 2xl:px-[345px] mt-8 mb-10 gap-4 items-center justify-center">
-      <Image src={Search} alt="search" />
+      <Image src={Search} alt="search" className="mix-blend-multiply" />
       <div className="flex flex-col gap-4">
         <div className="w-[324px] text-center">
           <p className="font-karla font-bold text-[24px]">

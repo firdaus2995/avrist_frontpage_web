@@ -21,7 +21,10 @@ const config: Config = {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
-      '3xl': '120rem'
+      '3xl': '120rem',
+      smartphone: { max: '430px' },
+      tablet: { max: '1024px' },
+      desktop: { min: '1025px', max: '3840px' }
     },
     extend: {
       borderWidth: {
