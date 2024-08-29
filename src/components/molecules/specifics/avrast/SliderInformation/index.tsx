@@ -53,7 +53,7 @@ const SliderInformation = ({
               height={0}
               width={0}
               alt="sliderInformationImage"
-              className={`w-auto h-auto object-cover ${imageClassName} rounded-r-[${rounded}px]`}
+              className={`${isVideo ? 'w-full' : 'w-auto'} h-auto object-cover ${imageClassName} rounded-r-[${rounded}px]`}
               src={imageUrl}
             />
             {isVideo && (

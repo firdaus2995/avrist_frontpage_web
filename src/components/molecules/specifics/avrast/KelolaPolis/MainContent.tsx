@@ -40,7 +40,7 @@ export const MainContent = ({
   return (
     <div className="w-full flex flex-col">
       <div
-        className={`bg-white w-full flex flex-col ${!isShowDetail ? 'sm:pt-[100px]' : 'sm:pt-[80px]'} sm:pb-[28px] xs:pt-[80px] xs:pb-[28px] sm:px-[136px] sm:gap-[5rem] xs:px-[2rem] xs:gap-[5rem]`}
+        className={`bg-white w-full flex flex-col ${!isShowDetail ? 'sm:pt-[100px]' : 'sm:pt-[80px]'} sm:pb-[28px] xs:pt-[50px] xs:pb-[28px] sm:px-[136px] sm:gap-[5rem] xs:px-[2rem] xs:gap-[5rem]`}
       >
         <ButtonMenu />
         {!isShowDetail && <Content />}

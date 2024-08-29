@@ -189,6 +189,10 @@ export const MainContent = ({
     );
   }, [formValue]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormValue((prevState) => ({

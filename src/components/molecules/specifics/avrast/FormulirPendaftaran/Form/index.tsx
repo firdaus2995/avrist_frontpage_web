@@ -19,25 +19,28 @@ const Form = () => {
   const [searchKeyWords, setSearchKeywords] = useState('');
 
   useEffect(() => {
-    if (!searchKeyWords) {
+    try {
       fetchContentDataWithCategory({}).then((data: any) => {
         setCategories(data.kategoriFormulirList);
         setSelectedCategory(data.kategoriFormulirList[0]);
-        setTransFormedData(data.transformedData);
       });
-    } else {
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory) {
       fetchContentDataWithCategory({ selectedCategory, searchKeyWords }).then(
         (data: any) => {
-          if (selectedCategory) {
-            setTransFormedData(data.transformedData);
-            if (categories && categories.length !== 0) {
-              setSelectedCategory(selectedCategory);
-            }
+          setTransFormedData(data.transformedData);
+          if (categories && categories.length !== 0) {
+            setSelectedCategory(selectedCategory);
           }
         }
       );
     }
-  }, [searchKeyWords]);
+  }, [searchKeyWords, categories]);
 
   const btnVerticalData = categories?.map((item) => {
     return {
@@ -118,7 +121,7 @@ const Form = () => {
                   Object.keys(transformedData).map((category: string) => (
                     <Accordion
                       key={category}
-                      bgColor="bg-purple_light_bg"
+                      bgColor={`bg-purple_light_bg ${transformedData[category]?.Subkategori?.length > 0 ? '' : 'hidden'}`}
                       title={category}
                       description={
                         transformedData[category].categoryDescription

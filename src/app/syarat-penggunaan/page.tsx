@@ -80,7 +80,10 @@ const SyaratPengunaan = () => {
               <span className="font-bold text-purple_dark">efisien</span> dan{' '}
               <span className="font-bold text-purple_dark">solusi</span>
             </p>
-            <Link href="/produk/individu" className="font-semibold">
+            <Link
+              href="/klaim-layanan/klaim?tab=Panduan+%26+Pengajuan"
+              className="font-semibold"
+            >
               <div
                 role="button"
                 className="px-[2.5rem] py-[0.75rem] bg-purple_dark rounded-xl text-[1.25rem] font-semibold text-white flex flex-row gap-2"

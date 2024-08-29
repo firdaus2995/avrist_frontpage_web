@@ -37,7 +37,8 @@ const Content = () => {
             }
 
             temp.push({
-              title: item.title,
+              title: item.categories[0].categoryName,
+              category: item.title,
               onClick: () => setTab(index),
               content: {
                 title: item?.contentData[0]?.value,
@@ -61,7 +62,7 @@ const Content = () => {
           <ButtonMenuVertical item={leftTabData} />
           <div className="flex flex-col gap-[24px]">
             <h1 className="xs:text-[1.5rem] md:text-[2.25rem] font-karla text-purple_dark font-medium md:leading-[43.2px] xs:leading-[28.8px] -tracking-[1.08px]">
-              {leftTabData[tab]?.title}
+              {leftTabData[tab]?.category}
             </h1>
             <p
               className="sm:text-[56px] xs:text-[36px] font-bold font-karla md:leading-[67.2px] xs:leading-[43.2px] md:-tracking-[2.24px] md:-tracking-[2.24px] xs:-tracking-[1.44px]"

@@ -32,7 +32,7 @@ const FAQList = ({
   itemsPerPage = 5
 }: ICardsProps) => {
   return (
-    <div className="w-full bg-white flex flex-col gap-[5rem] items-center sm:px-[8.5rem] sm:pt-[5rem] xs:pb-[1.5rem] xs:py-[3rem] xs:px-[2rem]">
+    <div className="w-full bg-white flex flex-col gap-[3.125rem] sm:gap-[5rem] items-center sm:px-[8.5rem] sm:pt-[5rem] xs:pb-[1.5rem] xs:py-[3rem] xs:px-[2rem]">
       <h1 className="font-karla sm:text-[3.5rem] xs:text-[2.25rem] text-purple_dark font-extrabold text-center sm:leading-[67.2px] -tracking-[0.04em] xs:leading-[43.2px]">
         {selected}
       </h1>

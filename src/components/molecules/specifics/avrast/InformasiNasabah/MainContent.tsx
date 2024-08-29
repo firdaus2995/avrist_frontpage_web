@@ -30,14 +30,17 @@ export const MainContent = () => {
     <div className="w-full flex flex-col">
       <div className="bg-white flex flex-col gap-6">
         <div className="bg-white flex flex-col sm:pt-[100px] xs:pt-[3.125rem] px-[2rem] md:px-[8.5rem] pb-[28px]">
-          <ButtonMenu
-            buttonList={[
-              'Informasi Nasabah',
-              'Rumah Sakit Rekanan',
-              'Formulir & Buku Panduan',
-              'Performa Investasi'
-            ]}
-          />
+          <div className="mt-2 sm:mt-0">
+            <ButtonMenu
+              buttonList={[
+                'Informasi Nasabah',
+                'Rumah Sakit Rekanan',
+                'Formulir & Buku Panduan',
+                'Performa Investasi'
+              ]}
+            />
+          </div>
+
           <Content />
           <ContentCard tenagaPemasaranFile={tenagaPemasaranFile} />
           <BeAgent />

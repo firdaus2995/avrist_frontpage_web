@@ -25,7 +25,7 @@ import {
 
 const breadcrumbsData = [
   { title: 'Beranda', href: '/' },
-  { title: 'Tanya Avrista', href: '/tanya Avrista' }
+  { title: 'Tanya Avrista', href: '#' }
 ];
 
 const topics = [
@@ -267,7 +267,7 @@ const TanyaAvrista = () => {
       <TopicsCard cards={cards} onClickCards={handleCardsClick} />
       <FAQList
         selected={selectedCards}
-        data={paginatedData}
+        data={listFilteredData?.length > 0 ? paginatedData : []}
         totalData={listFilteredData?.length}
         pageCount={pageCount}
         itemOffset={itemOffset}
