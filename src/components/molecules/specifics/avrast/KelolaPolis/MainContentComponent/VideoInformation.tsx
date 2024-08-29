@@ -67,23 +67,18 @@ export const VideoInformation = ({
       const videoData = data[videoId];
       const captionData = data[captionId];
       if (videoData && captionData) {
-        let videoType = '';
         let color = '';
         switch (i) {
           case 1:
-            videoType = 'Asuransi Jiwa Individu';
             color = 'purple_dark';
             break;
           case 2:
-            videoType = 'Avrist Jiwa Korporasi';
             color = 'grey_video_footer';
             break;
           case 3:
-            videoType = 'Avrist Syariah';
             color = 'green_border';
             break;
           case 4:
-            videoType = 'DPLK Avrist';
             color = 'orange_border';
             break;
           default:
@@ -93,7 +88,7 @@ export const VideoInformation = ({
           id: videoId,
           videoUrl: videoData.value,
           videoThumbnail: '',
-          type: videoType,
+          type: captionData.value,
           color: color
         });
       }
@@ -120,7 +115,7 @@ export const VideoInformation = ({
         return copiedState;
       });
       setIsMainVisible(true);
-    }, 150);
+    }, 1);
   };
 
   const renderSub = () => {

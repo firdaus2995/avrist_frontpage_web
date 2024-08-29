@@ -86,7 +86,12 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
                   leaveTo="rotate-270 opacity-0"
                 >
                   <div className="px-2">
-                    <Icon name="chevronRight" color="purple_dark" width={24} height={24} />
+                    <Icon
+                      name="chevronRight"
+                      color="purple_dark"
+                      width={24}
+                      height={24}
+                    />
                   </div>
                 </Transition>
               </Disclosure.Button>
@@ -101,7 +106,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
             >
               <Disclosure.Panel className="p-2 text-[black] items-stretch gap-4 pl-2">
                 {item.content.map((val, idx) => (
-                  <div key={idx} >
+                  <div key={idx}>
                     {val.title ? (
                       <span className="text-[20px] leading-[38.4px] -tracking-[0.96px] cursor-pointer rounded font-bold outline-none px-2 py-[17.5px]">
                         {val.title}
@@ -192,7 +197,9 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           onClick={() => setVisibility(false)}
         >
           <Icon name="helpcircle" color="gray_black" />
-          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Tanya Avrista</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">
+            Tanya Avrista
+          </p>
         </Link>
         <Link
           href={'https://shop.avrist.com/'}
@@ -201,7 +208,9 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           onClick={() => setVisibility(false)}
         >
           <Icon name="shoppingCart" color="gray_black" />
-          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Beli Online</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">
+            Beli Online
+          </p>
         </Link>
         <a
           href={'https://my.avrist.com/welcome'}
@@ -210,7 +219,9 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           onClick={() => setVisibility(false)}
         >
           <Icon name="lightBulb" color="gray_black" />
-          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Avrist Solution</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">
+            Avrist Solution
+          </p>
         </a>
         <div
           className="flex flex-row gap-2 cursor-pointer ml-2"
@@ -220,7 +231,9 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
           }}
         >
           <Icon name="mail" color="gray_black" />
-          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">Subscribe</p>
+          <p className="font-bold text-gray_black text-[16px] leading-[19.6px]">
+            Subscribe
+          </p>
         </div>
       </div>
       <EmailSubscribeModal

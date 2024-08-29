@@ -29,7 +29,6 @@ const Footer = () => {
   const isHomepage = pathname === '/';
   const isDplk = pathname.includes('avrist-dplk');
 
-  if (pathname.includes('/under-construction')) return null;
   return (
     <footer className="bg-gradient-to-b from-purple_soft to-purple_dark text-white relative">
       <div className="px-[2rem] md:px-[8.5rem] py-[4rem]">
@@ -307,7 +306,7 @@ const Footer = () => {
             {additionalInfo.map((item, index) => (
               <React.Fragment key={index}>
                 <Link href={item.href}>
-                  <span className="font-bold text-lg font-opensanspro leading-[25.2px]">
+                  <span className="font-bold text-lg font-opensanspro leading-[25.2px] hover:underline">
                     {item.title}
                   </span>
                 </Link>

@@ -291,7 +291,7 @@ const Maps = ({
           </div>
         </div>
         {hospitalData?.length !== 0 ? (
-          <div className="sm:max-w-[90%] sm:min-w-[90%] xs:max-h-[580px]">
+          <div className="sm:max-w-[90%] sm:min-w-[90%] h-full">
             <Slider
               ref={(slider) => {
                 sliderRef.current = slider;

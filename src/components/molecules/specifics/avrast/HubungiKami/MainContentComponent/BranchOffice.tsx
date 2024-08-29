@@ -130,7 +130,7 @@ export const BranchOffice = (props: Props) => {
             </div>
           ))}
           <span
-            className="mt-[3px]"
+            className={`mt-[3px] ${currentPage === totalPages ? 'hidden' : ''}`}
             role="button"
             onClick={() => handlePageChange(currentPage + 1)}
           >

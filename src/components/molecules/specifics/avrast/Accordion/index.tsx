@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import EXPAND from '@/assets/images/common/+.svg';
@@ -33,6 +33,10 @@ const Accordion: React.FC<IAccordion> & {
   htmlDescription
 }) => {
   const [expand, setExpand] = useState<boolean>(false);
+
+  useEffect(() => {
+    setExpand(false);
+  }, [children]);
   return (
     <div
       className={`rounded-xl border border-gray_light p-[1.5rem] ${bgColor ?? 'bg-white'} flex flex-col gap-[12px] shadow-sm`}

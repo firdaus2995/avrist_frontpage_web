@@ -274,7 +274,7 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div>
       <Hero
         title={tab}
         breadcrumbsData={[
@@ -285,22 +285,25 @@ const InformasiKlaim: React.FC<ParamsProps> = () => {
         bottomImage={data.bannerImageUrl}
         bottomImageFit={data.bannerImageFit}
       />
-      <InformasiKlaimComponent
-        onTabChange={handleTabChange}
-        isSelectedDetail={isSelectedDetail}
-        onChangeBannerImg={handleChangeBannerImg}
-        tab={tab}
-        file={data.file}
-        popUpImage1={data.popUpImage1}
-        popUpImage2={data.popUpImage2}
-      />
-      {tab === 'Informasi Klaim' && <PanduanKlaim />}
-      {tab === 'Panduan & Pengajuan' && (
-        <ProsesKlaim
-          onSelectDetail={handleSelectedDetail}
+      <div className="mt-4 sm:mt-0">
+        {' '}
+        <InformasiKlaimComponent
+          onTabChange={handleTabChange}
+          isSelectedDetail={isSelectedDetail}
           onChangeBannerImg={handleChangeBannerImg}
+          tab={tab}
+          file={data.file}
+          popUpImage1={data.popUpImage1}
+          popUpImage2={data.popUpImage2}
         />
-      )}
+        {tab === 'Informasi Klaim' && <PanduanKlaim />}
+        {tab === 'Panduan & Pengajuan' && (
+          <ProsesKlaim
+            onSelectDetail={handleSelectedDetail}
+            onChangeBannerImg={handleChangeBannerImg}
+          />
+        )}
+      </div>
       <div className="w-full">
         <RoundedFrameBottom
           frameColor={`${isSelectedDetail ? 'bg-white' : 'bg-purple_light_bg'}`}
