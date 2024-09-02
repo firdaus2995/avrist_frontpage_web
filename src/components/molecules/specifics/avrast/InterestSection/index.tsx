@@ -139,7 +139,7 @@ const InterestSection = (props: Props) => {
               setIsChecked(e.target.checked);
             }}
           />
-          <label className="cursor-pointer" htmlFor="setuju">
+          <label>
             Saya setuju memberikan data pribadi Saya kepada Avrist Life
             Insurance dan telah membaca{' '}
             <span

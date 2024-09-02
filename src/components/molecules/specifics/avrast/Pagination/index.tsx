@@ -47,7 +47,9 @@ const Pagination: React.FC<IPagination> = ({
             <Icon name="chevronRight" color={customColor ?? 'purple_dark'} />
           }
           previousLabel={
-            <Icon name="chevronLeft" color={customColor ?? 'purple_dark'} />
+            <span className="rotate-[180deg]">
+              <Icon name="chevronLeft" color={customColor ?? 'purple_dark'} />
+            </span>
           }
           containerClassName="flex flex-row gap-[12px] items-center"
           activeClassName={`${customColor ? textColor : 'text-purple_dark'} font-bold`}

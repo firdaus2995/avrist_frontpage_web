@@ -194,7 +194,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
           memiliki sertifikasi dan lebih dari 300 karyawan yang tersebar di 21
           kantor pemasaran Avrist.
         </p>
-        <div className="flex justify-center w-full md:h-[570px] my-[1.25rem]">
+        <div className="flex justify-center w-full md:h-auto my-[1.25rem]">
           <div className="w-[1120px]">
             <VideoPlayer
               color="purple_dark"
@@ -204,6 +204,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
                 ) ?? ''
               }
               mute={true}
+              type={contentPage?.content['sekilasavrist-captionvideo'].value}
             />
           </div>
         </div>
