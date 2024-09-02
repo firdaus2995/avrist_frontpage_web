@@ -147,7 +147,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         {/* Tab Mobile */}
         <div className="w-[100%] md:hidden mt-[20px]">
           <SliderComponent
-            selected={tab}
+            selected={tab.includes('Manajemen') ? 'Manajemen' : tab}
             slideItems={tabs}
             onClickItem={(val) => handleTabClick(val.name)}
             customLabel="name"
@@ -155,7 +155,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
         </div>
       </CustomContainer>
 
-      <div className="w-full z-10">
+      <div className="w-full">
         {tab === 'Sekilas Perusahaan' && (
           <SekilasPerusahaan setData={setData} />
         )}
@@ -311,9 +311,9 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                           : '/klaim-layanan/layanan/penanganan-pengaduan',
               openInNewTab:
                 tab === 'Sekilas Perusahaan'
-                  ? false
+                  ? true
                   : tab.includes('Manajemen')
-                    ? false
+                    ? true
                     : tab === 'Penghargaan'
                       ? false
                       : tab === 'Laporan Perusahaan'

@@ -38,6 +38,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const [initialRender, setInitialRender] = useState(true);
 
   // PAGINATION LOGIC HOOK
   useEffect(() => {
@@ -100,6 +101,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
   };
 
   const getContentFile = (data: any) => {
@@ -254,7 +256,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           onPageChange={handlePageClick}
           nextLabel={<Icon name="chevronRight" color="purple_dark" />}
           previousLabel={<Icon name="chevronLeft" color="purple_dark" />}
-          containerClassName="flex flex-row gap-[12px] items-center"
+          containerClassName="flex flex-row gap-[12px] items-center flex-wrap"
           activeClassName="text-purple_dark font-bold"
           pageClassName="w-6 h-6 flex items-center justify-center cursor-pointer text-xl"
           forcePage={itemOffset / itemsPerPage}
@@ -282,79 +284,81 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
           </div>
         ) : null}
 
-        <CategoryWithThreeCards
-          defaultSelectedCategory={params.category}
-          onCategoryChange={(tab) =>
-            setParams({
-              ...params,
-              category: tab,
-              yearFilter: '',
-              monthFilter: '',
-              searchFilter: ''
-            })
-          }
-          filterRowLayout={true}
-          categories={categories ?? []}
-          tabs={[
-            {
-              type: 'dropdown',
-              label: 'tahun',
-              options: yearDropdown(new Date().getFullYear() - 10)
-            },
-            {
-              type: 'dropdown',
-              label: 'Bulan',
-              options: monthDropdown()
+        {!initialRender && (
+          <CategoryWithThreeCards
+            defaultSelectedCategory={params.category}
+            onCategoryChange={(tab) =>
+              setParams({
+                ...params,
+                category: tab,
+                yearFilter: '',
+                monthFilter: '',
+                searchFilter: ''
+              })
             }
-          ]}
-          searchPlaceholder="Cari laporan"
-          onSearchChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          onSearch={() => {
-            setParams({ ...params, searchFilter: search });
-          }}
-          hidePagination
-          customContent={
-            <>
-              {paginatedData.length > 0 ? (
-                <div className="w-full flex flex-col gap-6">
-                  {contentData &&
-                    getContentFile(paginatedData)?.map(
-                      (item: any, index: number) => (
-                        <div
-                          key={index}
-                          className="w-full flex xs:flex-col sm:flex-row xs:justify-start sm:justify-between  p-[1.5rem] border rounded-xl gap-2"
-                        >
-                          <div className="flex flex-row gap-2 items-center">
-                            <p className="font-bold text-2xl font-karla">
-                              {item.name}
-                            </p>
-                            <MediumTag title="PDF" />
+            filterRowLayout={true}
+            categories={categories ?? []}
+            tabs={[
+              {
+                type: 'dropdown',
+                label: 'tahun',
+                options: yearDropdown(new Date().getFullYear() - 10)
+              },
+              {
+                type: 'dropdown',
+                label: 'Bulan',
+                options: monthDropdown()
+              }
+            ]}
+            searchPlaceholder="Cari laporan"
+            onSearchChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onSearch={() => {
+              setParams({ ...params, searchFilter: search });
+            }}
+            hidePagination
+            customContent={
+              <>
+                {contentData?.length > 0 ? (
+                  <div className="w-full flex flex-col gap-6">
+                    {contentData &&
+                      getContentFile(paginatedData)?.map(
+                        (item: any, index: number) => (
+                          <div
+                            key={index}
+                            className="w-full flex xs:flex-col sm:flex-row xs:justify-start sm:justify-between  p-[1.5rem] border rounded-xl gap-2"
+                          >
+                            <div className="flex flex-row gap-2 items-center">
+                              <p className="font-bold text-2xl font-karla">
+                                {item.name}
+                              </p>
+                              <MediumTag title="PDF" />
+                            </div>
+                            <div>
+                              <Button
+                                title="Unduh"
+                                customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light"
+                                customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
+                                onClick={async () =>
+                                  window.open(item.file, '_blank')
+                                }
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <Button
-                              title="Unduh"
-                              customButtonClass="rounded-xl bg-purple_dark hover:bg-purple_light"
-                              customTextClass="text-white font-opensans font-semibold leading-[23.68px]"
-                              onClick={async () =>
-                                window.open(item.file, '_blank')
-                              }
-                            />
-                          </div>
-                        </div>
-                      )
-                    )}
-                </div>
-              ) : (
-                <NotFound />
-              )}
+                        )
+                      )}
+                  </div>
+                ) : (
+                  <NotFound />
+                )}
 
-              {renderPage()}
-            </>
-          }
-          outerClass="sm:!py-[0px] px-[2rem] md:px-[8.5rem]"
-        />
+                {contentData?.length > 0 && renderPage()}
+              </>
+            }
+            outerClass="sm:!py-[0px] px-[2rem] md:px-[8.5rem]"
+          />
+        )}
       </div>
       <div className="flex flex-col w-full">
         <RoundedFrameBottom />

@@ -109,10 +109,6 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
   };
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const queryParams: QueryParams = {
@@ -229,9 +225,9 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           tab === 'Tentang Avrist Syariah'
             ? -180
             : tab === 'Dewan Pengawas Syariah'
-              ? 200
+              ? 150
               : tab === 'Manfaat Utama'
-                ? 1600
+                ? 1550
                 : 0
       });
     } else {
@@ -244,8 +240,8 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           tab === 'Tentang Avrist Syariah'
             ? -280
             : tab === 'Manfaat Utama'
-              ? 2200
-              : 400,
+              ? 1850
+              : 350,
         isDynamic: true
       });
     }

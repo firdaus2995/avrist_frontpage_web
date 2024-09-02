@@ -106,9 +106,9 @@ const DPLKContent = (props: Props) => {
           tab === 'Tentang DPLK Avrist'
             ? -280
             : tab === 'Dewan Pengawas DPLK'
-              ? 250
+              ? 200
               : tab === 'Manfaat DPLK'
-                ? 1850
+                ? 1760
                 : 0
       });
     } else {
@@ -121,8 +121,8 @@ const DPLKContent = (props: Props) => {
           tab === 'Tentang DPLK Avrist'
             ? -280
             : tab === 'Manfaat DPLK'
-              ? 1300
-              : 520,
+              ? 1360
+              : 600,
         isDynamic: true
       });
     }

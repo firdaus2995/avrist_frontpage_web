@@ -369,7 +369,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           <Hero
             title={dataDetail?.namaProduk}
             breadcrumbsData={[
-              { title: 'Beranda', href: '/t' },
+              { title: 'Beranda', href: '/' },
               {
                 title: dataDetail?.namaProduk,
                 href: `#`

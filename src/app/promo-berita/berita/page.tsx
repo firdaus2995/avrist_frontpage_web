@@ -120,6 +120,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const [email, setEmail] = useState('');
   const [emailContent, setEmailContent] = useState('');
   const [search, setSearch] = useState('');
+  const [initialRender, setInitialRender] = useState(true);
   const [lifeGuideCategory, setLifeGuideCategory] = useState({
     list: [],
     selectedCategory: ''
@@ -130,6 +131,7 @@ const Berita: React.FC<ParamsProps> = () => {
     monthFilter: '',
     searchFilter: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const isMobileWidth = useMobileDetector();
 
@@ -157,7 +159,7 @@ const Berita: React.FC<ParamsProps> = () => {
         parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
       );
     }
-  }, [params]);
+  }, [params, itemsPerPage]);
 
   useEffect(() => {
     if (window.location.pathname.includes('page')) {
@@ -218,43 +220,27 @@ const Berita: React.FC<ParamsProps> = () => {
     if (tab === 'Avrist Terkini') {
       switch (params.category) {
         case 'Avrist Life Guide':
-          if (params.searchFilter || params.monthFilter || params.yearFilter) {
-            setPageCount(0);
-            setItemOffset(0);
-          }
           fetchLifeGuide();
           break;
         case 'AvriStory':
-          if (params.searchFilter || params.monthFilter || params.yearFilter) {
-            setPageCount(0);
-            setItemOffset(0);
-          }
-          fetchAvriStory();
           setItemsPerPage(5);
+          fetchAvriStory();
+
           break;
         default:
-          if (params.searchFilter || params.monthFilter || params.yearFilter) {
-            setPageCount(0);
-            setItemOffset(0);
-          }
-          fetchContent();
           setItemsPerPage(6);
+          fetchContent();
       }
-      // params.category === 'Avrist Life Guide'
-      //   ? fetchLifeGuide()
-      //   : params.category === 'AvriStory'
-      //     ? fetchAvriStory()
-      //     : fetchContent();
     }
 
     if (tab === 'Kumpulan Berita Pers') {
-      fetchBeritaPers();
       setItemsPerPage(5);
+      fetchBeritaPers();
     }
 
     if (tab === 'Testimonial') {
-      fetchTestimoni();
       setItemsPerPage(3);
+      fetchTestimoni();
     }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
 
@@ -274,17 +260,29 @@ const Berita: React.FC<ParamsProps> = () => {
       contentData.length < 1
     ) {
       setSliderData([]);
+      setPageCount(0);
+      setItemOffset(0);
     }
   }, [params.category]);
 
   useEffect(() => {
-    setParams({
-      category: searchParams.get('category') ?? '',
-      yearFilter: '',
-      monthFilter: '',
-      searchFilter: ''
-    });
-  }, [tab, searchParams]);
+    setPageCount(0);
+    setItemOffset(0);
+  }, [params.yearFilter, params.monthFilter]);
+
+  useEffect(() => {
+    setPageCount(0);
+    setItemOffset(0);
+    if (!searchParams.get('page') || tab !== 'Avrist Terkini') {
+      router.push(pathname + '?' + createQueryStringPage('page', '1'), {
+        scroll: false
+      });
+    }
+  }, [tab]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [initialRender]);
 
   const pageSlug = () => {
     if (tab === 'Avrist Terkini') {
@@ -340,6 +338,7 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const fetchAvriStory = async () => {
+    setIsLoading(true);
     try {
       const fetchData = await getAvriStory({
         includeAttributes: 'true',
@@ -368,12 +367,14 @@ const Berita: React.FC<ParamsProps> = () => {
       );
 
       setContentData(transformedData);
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
   };
 
   const fetchContent = async () => {
+    setIsLoading(true);
     try {
       const fetchContentCategory = await getAvristTerkini({
         includeAttributes: 'true',
@@ -461,12 +462,15 @@ const Berita: React.FC<ParamsProps> = () => {
           setContentData(sortedData.slice(5));
         }
       }
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
   };
 
   const fetchLifeGuide = async () => {
+    setIsLoading(true);
     try {
       const fetchData = await getAvristLifeGuide({
         includeAttributes: 'true',
@@ -631,12 +635,15 @@ const Berita: React.FC<ParamsProps> = () => {
           setContentData(transformedData.slice(4));
         }
       }
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
   };
 
   const fetchBeritaPers = async () => {
+    setIsLoading(true);
     try {
       const fetchData = await getBeritaPers({
         includeAttributes: 'true',
@@ -674,14 +681,15 @@ const Berita: React.FC<ParamsProps> = () => {
       });
 
       setContentData(transformedData);
+      setIsLoading(false);
     } catch (err) {
-      console.log(err);
-
       console.error(err);
     }
+    setInitialRender(false);
   };
 
   const fetchTestimoni = async () => {
+    setIsLoading(true);
     try {
       const fetchData = await getTestimoni({
         includeAttributes: 'true',
@@ -726,9 +734,11 @@ const Berita: React.FC<ParamsProps> = () => {
           setPaginatedData(transformedData.slice(5));
         }
       }
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
   };
 
   const getDifference = (arr1: any, arr2: any) => {
@@ -861,6 +871,7 @@ const Berita: React.FC<ParamsProps> = () => {
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
     });
+    setInitialRender(true);
   };
 
   const handleSubscribeButton = async () => {
@@ -898,14 +909,33 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const onCategoryChange = (value: string) => {
+    setInitialRender(true);
     setPaginatedData([]);
     setContentData([]);
     setSliderData([]);
-    setParams({ ...params, category: value });
-    router.push(pathname + '?' + createQueryStringCategory('category', value), {
+    setParams({
+      ...params,
+      category: value,
+      searchFilter: '',
+      yearFilter: '',
+      monthFilter: ''
+    });
+
+    const updatedParams = {
+      ...params,
+      category: value,
+      searchFilter: '',
+      yearFilter: '',
+      monthFilter: '',
+      page: '1' // Reset page to 1
+    };
+
+    router.push(pathname + '?' + createQueryStringCategory(updatedParams), {
       scroll: false
     });
   };
+
+  console.log(params);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -925,9 +955,15 @@ const Berita: React.FC<ParamsProps> = () => {
   );
 
   const createQueryStringCategory = useCallback(
-    (name: string, value: string) => {
+    (updatedParams: any) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+
+      // Update the params based on the provided updatedParams object
+      Object.keys(updatedParams).forEach((key) => {
+        params.set(key, updatedParams[key]);
+      });
+
+      // Return the full query string
       return params.toString();
     },
     [searchParams]
@@ -1235,6 +1271,14 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               onSearch={() => {
                 setParams({ ...params, searchFilter: search });
+                router.push(
+                  pathname + '?' + createQueryStringPage('page', '1'),
+                  {
+                    scroll: false
+                  }
+                );
+                setPageCount(0);
+                setItemOffset(0);
               }}
               customContent={
                 <>
@@ -1255,74 +1299,71 @@ const Berita: React.FC<ParamsProps> = () => {
                               imageUrl={item.image}
                               imageStyle="min-h-[190px] object-fill"
                               lineClamp={3}
+                              isLoading={isLoading}
                             />
                           </Link>
                         ))}
                       </div>
                     ) : (
-                      <NotFound />
+                      !initialRender && <NotFound />
                     )
                   ) : params.category === 'AvriStory' ? (
                     <div className="grid lg:grid-cols-1 gap-[24px] w-full">
-                      {contentData?.length > 0 ? (
-                        paginatedData?.map((item: any, index: number) => (
-                          <div
-                            key={index}
-                            className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
-                          >
-                            {isContentNotEmpty(item.namaFile) && (
-                              <>
-                                <div className="flex flex-row gap-2 items-center">
-                                  <p className="font-bold text-xl sm:text-2xl break-words">
-                                    {item.namaFile}
-                                  </p>
-                                  <MediumTag title="PDF" />
-                                </div>
-                                <Button
-                                  title="Unduh"
-                                  customButtonClass="font-opensans rounded-xl bg-purple_dark hover:bg-purple_light xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
-                                  customTextClass="text-white text-[16px]"
-                                  onClick={() =>
-                                    window.open(item.file, '_blank')
-                                  }
-                                />
-                              </>
-                            )}
-                          </div>
-                        ))
-                      ) : (
-                        <NotFound />
-                      )}
+                      {contentData?.length > 0
+                        ? paginatedData?.map((item: any, index: number) => (
+                            <div
+                              key={index}
+                              className="w-full flex flex-col gap-6 md:gap-0 md:flex-row flex-wrap justify-between items-start md:items-center p-[24px] border rounded-xl xm:text-left"
+                            >
+                              {isContentNotEmpty(item.namaFile) && (
+                                <>
+                                  <div className="flex flex-row gap-2 items-center">
+                                    <p className="font-bold text-xl sm:text-2xl break-words">
+                                      {item.namaFile}
+                                    </p>
+                                    <MediumTag title="PDF" />
+                                  </div>
+                                  <Button
+                                    title="Unduh"
+                                    customButtonClass="font-opensans rounded-xl bg-purple_dark hover:bg-purple_light xs:max-lg:min-w-full xs:max-lg:mt-3 lg:mt-0"
+                                    customTextClass="text-white text-[16px]"
+                                    onClick={() =>
+                                      window.open(item.file, '_blank')
+                                    }
+                                  />
+                                </>
+                              )}
+                            </div>
+                          ))
+                        : !initialRender && <NotFound />}
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 gap-[24px]">
-                      {contentData?.length > 0 ? (
-                        paginatedData?.map((item: any, index: number) => (
-                          <Link
-                            key={index}
-                            href={{
-                              pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
-                              query: { id: item.id }
-                            }}
-                          >
-                            <CardCategoryD
-                              type="row"
-                              title={htmlParser(item.judul)}
-                              summary={htmlParser(item.deskripsi)}
-                              category={item.category}
-                              time={` | ${item.waktu}`}
-                              tags={
-                                typeof item.tags === 'string'
-                                  ? item.tags.split(',')
-                                  : item.tags
-                              }
-                              image={item.image}
-                            />
-                          </Link>
-                        ))
-                      ) : (
-                        <NotFound />
-                      )}
+                      {contentData?.length > 0
+                        ? paginatedData?.map((item: any, index: number) => (
+                            <Link
+                              key={index}
+                              href={{
+                                pathname: `/promo-berita/berita/life-guide/avrist-life-guide`,
+                                query: { id: item.id }
+                              }}
+                            >
+                              <CardCategoryD
+                                type="row"
+                                title={htmlParser(item.judul)}
+                                summary={htmlParser(item.deskripsi)}
+                                category={item.category}
+                                time={` | ${item.waktu}`}
+                                tags={
+                                  typeof item.tags === 'string'
+                                    ? item.tags.split(',')
+                                    : item.tags
+                                }
+                                image={item.image}
+                              />
+                            </Link>
+                          ))
+                        : !initialRender && <NotFound />}
                     </div>
                   )}
 
@@ -1411,35 +1452,35 @@ const Berita: React.FC<ParamsProps> = () => {
                       <div className="flex flex-row gap-2">
                         <Link
                           href="https://www.youtube.com/@avristian"
-                          target="blank"
+                          target="_blank"
                           className="p-2 rounded-xl bg-purple_dark/[0.06]"
                         >
                           <Icon name="youtubeIcon" color="purple_dark" />
                         </Link>
                         <Link
                           href="https://id.linkedin.com/company/avristassurance"
-                          target="blank"
+                          target="_blank"
                           className="p-2 rounded-xl bg-purple_dark/[0.06]"
                         >
                           <Icon name="linkedInIcon" color="purple_dark" />
                         </Link>
                         <Link
                           href="https://www.instagram.com/avristsolution/"
-                          target="blank"
+                          target="_blank"
                           className="p-2 rounded-xl bg-purple_dark/[0.06]"
                         >
                           <Icon name="instaIcon" color="purple_dark" />
                         </Link>
                         <Link
                           href="https://www.facebook.com/avrist/"
-                          target="blank"
+                          target="_blank"
                           className="p-2 rounded-xl bg-purple_dark/[0.06]"
                         >
                           <Icon name="facebookIcon" color="purple_dark" />
                         </Link>
                         <Link
                           href="https://www.tiktok.com/@avrist.assurance"
-                          target="blank"
+                          target="_blank"
                           className="p-2 rounded-xl bg-purple_dark/[0.06]"
                         >
                           <Icon name="tiktokIcon" color="purple_dark" />
@@ -1520,7 +1561,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <SliderInformation
                         key={index}
                         isVideo
-                        imageClassName="max-h-[360px] object-cover"
+                        imageClassName="h-[360px] object-cover"
                         bgColor="purple_superlight"
                         title={
                           <div className="flex flex-col gap-6 text-left">
@@ -1598,11 +1639,19 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               onSearch={() => {
                 setParams({ ...params, searchFilter: search });
+                router.push(
+                  pathname + '?' + createQueryStringPage('page', '1'),
+                  {
+                    scroll: false
+                  }
+                );
+                setPageCount(0);
+                setItemOffset(0);
               }}
               customContent={
                 <>
                   {paginatedData?.length <= 0 ? (
-                    <NotFound />
+                    !initialRender && <NotFound />
                   ) : (
                     <div className="grid lg:grid-cols-3 gap-[24px] xs:grid-cols-1 md:grid-cols-2">
                       {paginatedData?.map((item: any, index: number) => (
@@ -1654,6 +1703,14 @@ const Berita: React.FC<ParamsProps> = () => {
               }}
               onSearch={() => {
                 setParams({ ...params, searchFilter: search });
+                router.push(
+                  pathname + '?' + createQueryStringPage('page', '1'),
+                  {
+                    scroll: false
+                  }
+                );
+                setPageCount(0);
+                setItemOffset(0);
               }}
               tabs={[
                 {
@@ -1710,7 +1767,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       ))}
                     </div>
                   ) : (
-                    <NotFound />
+                    !initialRender && <NotFound />
                   )}
 
                   {renderPage()}
