@@ -369,6 +369,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       setCurrentSlide(Math.ceil(newIndex)),
     responsive: [
       {
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
