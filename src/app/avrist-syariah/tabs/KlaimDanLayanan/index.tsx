@@ -50,7 +50,8 @@ const KlaimDanLayanan = () => {
             cardTitle: 'Penanganan Pengaduan',
             cardBody: 'Mekanisme Penanganan Pengaduan',
             cardButtonText: 'Selengkapnya',
-            href: 'https://avrist.com/Prosedur%20Singkat%20Pelayanan%20Nasabah%20Avrist%20_updated.pdf'
+            href: 'https://avrist.com/Prosedur%20Singkat%20Pelayanan%20Nasabah%20Avrist%20_updated.pdf',
+            isFile: true
           },
           {
             cardIcon: GreenHelpDesk,

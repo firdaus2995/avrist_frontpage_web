@@ -34,6 +34,8 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const [initialRender, setInitialRender] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // PAGINATION LOGIC HOOK
   useEffect(() => {
@@ -82,6 +84,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   };
 
   const fetchContent = async () => {
+    setIsLoading(true);
     try {
       const apiContent = await getListPenghargaan({
         includeAttributes: 'true',
@@ -137,7 +140,10 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
       setContentData(sortedData);
     } catch (err) {
       console.error(err);
+      setContentData([]);
     }
+    setInitialRender(false);
+    setIsLoading(false);
   };
 
   const yearDropdown = (startYear: number) => {
@@ -321,7 +327,7 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
           setItemOffset(0);
         }}
         customContent={
-          paginatedData.length > 0 ? (
+          contentData.length > 0 ? (
             <>
               <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-4">
                 {contentData &&
@@ -339,17 +345,21 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                           width={0}
                           height={0}
                           src={item.image}
-                          className="w-auto aspect-video rounded-t-[12px] xs:object-fill"
+                          className={`w-auto aspect-video rounded-t-[12px] xs:object-fill ${isLoading && 'opacity-0'}`}
                         />
                         <div className="flex flex-col gap-3 p-5 h-full">
-                          <p className="text-xs sm:text-sm">{item.waktu}</p>
+                          <p className="text-xs sm:text-sm">
+                            {!isLoading && item.waktu}
+                          </p>
                           <p
                             className="xs:text-lg sm:text-[1.5rem] font-bold"
                             dangerouslySetInnerHTML={{
-                              __html: item.judul
+                              __html: !isLoading
+                                ? item.judul
+                                : 'Loading Data...'
                             }}
                           />
-                          {item.nama !== '-' && (
+                          {item.nama !== '-' && !isLoading && (
                             <p className="xs:text-lg sm:text-[1.5rem]">
                               {item.nama}
                             </p>
@@ -367,9 +377,12 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                               item.deskripsi[0].value !== '["-"]' &&
                               item.deskripsi[0].value !== '-' &&
                               !item.deskripsi[0].value.includes('>-<') &&
+                              !isLoading &&
                               htmlParser(item.deskripsi[0].value)}
                           </p>
-                          <div className="flex flex-row items-end gap-1 text-left h-full">
+                          <div
+                            className={`flex flex-row items-end gap-1 text-left h-full ${isLoading && 'opacity-0'}`}
+                          >
                             <p className="text-purple_dark font-bold xs:text-sm sm:text-base cursor-pointer text-left">
                               Baca Lebih Lengkap
                             </p>
@@ -388,8 +401,10 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
 
               {renderPage()}
             </>
-          ) : (
+          ) : !initialRender ? (
             <NotFound />
+          ) : (
+            <></>
           )
         }
       />

@@ -237,7 +237,7 @@ const Header = () => {
                     title={item.title}
                     skipUrl={item.skipUrl}
                     indexData={idx}
-                    xPosition={xPositions[idx]}
+                    xPosition={xPositions[idx] + 190}
                   />
                 </React.Fragment>
               );

@@ -287,7 +287,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
           </div>
         </div>
       )}
-      <div className="-mt-3 sm:mt-0">
+      <div className="mt-0">
         <RoundedFrameBottom />
       </div>
     </div>

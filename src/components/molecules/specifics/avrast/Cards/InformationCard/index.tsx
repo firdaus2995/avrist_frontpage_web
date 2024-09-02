@@ -90,7 +90,7 @@ const InformationCard: React.FC<InformationCardProps> = ({
                     </p>
                   </button>
                 ) : (
-                  <Link href={item.href ?? '#'} target="_self">
+                  <Link href={item.href ?? '#'} target="_blank">
                     <button
                       className={`${cardButtonClassname} rounded-[6px] px-[20px] py-[8px]`}
                     >

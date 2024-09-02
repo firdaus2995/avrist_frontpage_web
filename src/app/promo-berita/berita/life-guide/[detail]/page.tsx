@@ -252,17 +252,21 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   }, [currentCategory]);
 
   const scrollToview = (idx: number) => {
-    const lastIndex = idx === contentData?.daftarIsi.length - 1;
+    const headings = document.getElementsByTagName('h1');
+
     if (selectedIndex !== idx) {
       setSelectedIndex(idx);
-      document
-        .getElementsByTagName('h1')
-        [
-          lastIndex ? idx - 1 : idx
-        ].scrollIntoView({ behavior: 'smooth', block: !lastIndex ? 'nearest' : 'center', inline: 'end' });
+
+      const targetHeading = headings[idx - 1];
+
+      const offsetTop = targetHeading.offsetTop - 150;
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
     }
   };
-
   return (
     <div className="flex flex-col">
       <div className="absolute">

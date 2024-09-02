@@ -78,7 +78,7 @@ const SliderInformation = ({
               height={0}
               width={0}
               alt="sliderInformationImage"
-              className={`min-h-[231px] w-full object-fill rounded-t-3xl`}
+              className={`h-[231px] w-full object-cover rounded-t-3xl`}
               src={imageUrl}
             />
             {isVideo && (

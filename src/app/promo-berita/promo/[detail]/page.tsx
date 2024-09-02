@@ -1,15 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
+import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import Slider from 'react-slick';
 import { month } from '../../berita/[detail]/month';
 import ContentPopover from '../../berita/life-guide/[detail]/content-popover';
 import Icon1 from '@/assets/images/avrast/component/informasi-klaim/bantuan.svg';
 import Icon3 from '@/assets/images/avrast/component/panduan-pengajuan/icon-1.svg';
 import Icon2 from '@/assets/images/avrast/component/proses-klaim/step-4-icon-4.svg';
 import BlankImage from '@/assets/images/blank-image.svg';
+import ArrowCarouselLeft from '@/assets/images/common/arrow-carousel-left.svg';
+import ArrowCarouselRight from '@/assets/images/common/arrow-carousel-right.svg';
 import Icon4 from '@/assets/images/common/heart-check.svg';
 import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
@@ -41,6 +43,9 @@ import {
   contentTransformer
 } from '@/utils/responseTransformer';
 import { validateEmail } from '@/utils/validation';
+import 'moment/locale/id';
+
+moment.locale('id');
 
 const monthDropdown = () => {
   const month = [
@@ -103,6 +108,8 @@ const monthDropdown = () => {
 
 const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const id = params.detail;
+  const sliderRef: any = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const [contentData, setContentData] = useState<any>({
     tagline: '',
@@ -312,7 +319,18 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       });
       const otherData = transformedData
         ?.filter((item) => item.id !== parseInt(id))
+        .sort((a, b) => {
+          const dateA = moment(a.waktu, 'MMMM YYYY');
+          const dateB = moment(b.waktu, 'MMMM YYYY');
+
+          if (dateA.isAfter(dateB)) return -1;
+          if (dateA.isBefore(dateB)) return 1;
+
+          // If dates are equal, sort by id in descending order
+          return b.id - a.id;
+        })
         .slice(0, 3);
+
       setOtherContent(otherData);
     } catch (err) {
       console.error(err);
@@ -341,6 +359,33 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const settings = {
+    slidesToShow: 1,
+    infinite: false,
+    swipeToSlide: false,
+    beforeChange: (oldIndex: number, newIndex: number) =>
+      setCurrentSlide(Math.ceil(newIndex)),
+    responsive: [
+      {
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          vertical: false,
+          swipeToSlide: true,
+          verticalSwiping: true
+        }
+      }
+    ]
+  };
+
+  const next = () => {
+    sliderRef.current.slickNext();
+  };
+
+  const previous = () => {
+    sliderRef.current.slickPrev();
   };
 
   return (
@@ -439,8 +484,8 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       />
 
       <div className="flex flex-col">
-        <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem]">
-          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
+        <div className="flex flex-col items-center justify-center xs:py-[3.125rem] md:py-[5rem] xs:px-[2rem] md:px-[8.5rem] xs:gap-[2.25rem] md:gap-[4rem] xs:hidden sm:block">
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] xs:pb-[3.125rem] sm:pb-[5rem]">
             Promo Lainnya
           </p>
           <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-[24px]">
@@ -460,9 +505,63 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                       ? BlankImage
                       : item.image
                   }
+                  imageStyle="!h-[190px] object-cover"
                 />
               </Link>
             ))}
+          </div>
+        </div>
+        <div className="sm:hidden">
+          <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px] pt-[50px] pb-[36px]">
+            Promo Lainnya
+          </p>
+          <div className="md:hidden pb-[1rem] flex flex-col gap-[2.25rem]">
+            <Slider {...settings} ref={sliderRef}>
+              {otherContent?.map((item: any, index: number) => (
+                <div className="px-[2rem]" key={index}>
+                  <div className="w-full flex justify-center">
+                    <Link
+                      href={{
+                        pathname: `/promo-berita/promo/${item.id}`
+                      }}
+                    >
+                      <CardCategoryB
+                        summary={htmlParser(item.judul)}
+                        description={item.waktu}
+                        imageUrl={
+                          !item.image || item.image?.includes('no-image')
+                            ? BlankImage
+                            : item.image
+                        }
+                        imageStyle="!h-[190px] object-cover"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+            <div className="w-full flex flex-row justify-between px-[2.5rem]">
+              <Image
+                width={36}
+                height={36}
+                alt="next"
+                src={ArrowCarouselLeft}
+                onClick={previous}
+                className={currentSlide === 0 ? 'opacity-50' : 'opacity-100'}
+              />
+              <Image
+                width={36}
+                height={36}
+                alt="next"
+                src={ArrowCarouselRight}
+                onClick={next}
+                className={
+                  currentSlide === otherContent?.length - 1
+                    ? 'opacity-50'
+                    : 'opacity-100'
+                }
+              />
+            </div>
           </div>
         </div>
         <RoundedFrameBottom />
