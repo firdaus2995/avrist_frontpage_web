@@ -7,11 +7,7 @@ export const BeAgent = () => {
       <span className="font-opensans text-purple_dark font-bold text-[1.5rem]">
         Tertarik menjadi tenaga pemasar Avrist Assurance
       </span>
-      <Link
-        href={
-          '/tentang-avrist-life/tentang-avrist-life?tab=Karir+Bersama+Avrist'
-        }
-      >
+      <Link href={'/tentang-avrist-life/tentang-avrist-life/tabs/karir/detail'}>
         <Button
           title="Selengkapnya"
           customButtonClass="bg-purple_dark hover:bg-purple_light mr-[1.5rem]"
