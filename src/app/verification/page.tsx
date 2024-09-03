@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { handleVerifySubscribe } from '@/services/subscribe-service.api';
 
 const message = {
@@ -23,9 +22,15 @@ const message = {
 };
 
 const Verification = () => {
-  const searchParams = useSearchParams();
-  const code = searchParams.get('code');
   const [responseCode, setResponseCode] = useState(0);
+  const [code, setCode] = useState<string | null>(null);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const codeParam = searchParams.get('code');
+    setCode(codeParam);
+  }, []);
+
   const handleVerify = async () => {
     try {
       const response = await handleVerifySubscribe(code ?? '');
