@@ -283,7 +283,9 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
           <div className="flex flex-col gap-12 font-opensans">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <span className="font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px]">
+                <span
+                  className={`font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px] ${!isNotEmpty(contentData.nama) ? 'hidden' : ''}`}
+                >
                   <span
                     dangerouslySetInnerHTML={{ __html: contentData.nama }}
                     className="text-2xl font-bold"
@@ -291,7 +293,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                 </span>
 
                 <p
-                  className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]"
+                  className={`font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px] ${!isNotEmpty(contentData.judul) ? 'hidden' : ''}`}
                   dangerouslySetInnerHTML={{ __html: contentData.judul }}
                 />
               </div>
@@ -310,10 +312,15 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   </p>
                   {isNotEmpty(contentData.tags) && (
                     <div className="flex flex-row gap-2 flex-wrap">
-                      <MediumTag
-                        title={contentData.tags}
-                        customClass="px-2 py-1 whitespace-nowrap"
-                      />
+                      {contentData.tags
+                        .split(', ')
+                        .map((item: any, idx: number) => (
+                          <MediumTag
+                            key={idx}
+                            title={item}
+                            customClass="px-2 py-1 whitespace-nowrap"
+                          />
+                        ))}
                     </div>
                   )}
                 </div>
