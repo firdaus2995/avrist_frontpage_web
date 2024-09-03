@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
+import packageJson from '../../package.json';
 import ClientSideScrollRestorer from '@/ClientSideScrollRestorer';
 import Footer from '@/components/molecules/specifics/avrast/Footer';
 import Header from '@/components/molecules/specifics/avrast/Header';
@@ -24,6 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta content={packageJson.version} name="version" />
+      </head>
       <body
         className={`${openSans.variable} ${karla.variable} w-full max-w-screen-2xl 3xl:max-w-screen-3xl mx-auto`}
       >
