@@ -65,6 +65,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   const [currentCategory, setCurrentCategory] = useState('');
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [email, setEmail] = useState<any>('');
+  const [failedMsg, setFailedMsg] = useState('');
   const [visibleSubscribeModal, setVisibleSubscribeModal] =
     useState<boolean>(false);
 
@@ -232,11 +233,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         entity: 'avrist'
       });
       if (response?.code === 200) {
+        setFailedMsg('');
         setVisibleSubscribeModal(true);
         setEmail('');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setFailedMsg(e?.body.errors.message[0]);
     }
   };
 
@@ -420,14 +422,18 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
                   customInputClass="xs:w-full sm:w-[90%] xs:w-full md:w-full md:text-xs"
                   value={email}
                   onChange={(e) => {
+                    setFailedMsg('');
                     setIsValidEmailContent(false);
                     setEmail(e.target.value);
                   }}
                 />
                 {isValidEmailContent && (
-                  <p className="text-[10px] text-[red]">
+                  <p className="text-[10px] text-[red] -mt-4">
                     Masukkan alamat email yang benar!
                   </p>
+                )}
+                {failedMsg && (
+                  <p className="text-[10px] text-[red] -mt-4">{`Subscribe gagal! Pesan: ${failedMsg}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"

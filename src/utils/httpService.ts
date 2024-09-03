@@ -41,11 +41,17 @@ export async function httpService<T>(
         revalidate: options.next?.revalidate ?? 60
       }
     });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
 
-    return (await response.json()) as T;
+    const responseBody = await response.json();
+
+    if (!response.ok) {
+      throw {
+        status: response.status,
+        statusText: response.statusText,
+        body: responseBody
+      };
+    }
+    return responseBody as T;
   } catch (error) {
     console.error('Error fetching data:', error);
 
