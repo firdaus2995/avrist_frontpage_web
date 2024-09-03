@@ -25,7 +25,7 @@ export const getAvriStory = async (query: QueryParams) => {
   );
 };
 
-export const getAvristLifeGuide = async (query: QueryParams) => {  
+export const getAvristLifeGuide = async (query: QueryParams) => {
   return await httpService<ContentCategoryResponse>(
     'content/category',
     BASE_SLUG.PROMO_BERITA.CONTENT.AVRIST_LIFE_GUIDE,
