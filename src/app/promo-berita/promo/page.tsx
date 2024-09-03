@@ -101,6 +101,7 @@ const Promo: React.FC<ParamsProps> = () => {
   const [isValidEmailContent, setIsValidEmailContent] =
     useState<boolean>(false);
   const [emailContent, setEmailContent] = useState('');
+  const [failedMsg, setFailedMsg] = useState('');
   const [params, setParams] = useState({
     yearFilter: '',
     monthFilter: '',
@@ -329,9 +330,10 @@ const Promo: React.FC<ParamsProps> = () => {
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
         setEmailContent('');
+        setFailedMsg('');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setFailedMsg(e?.body.errors.message[0]);
     }
   };
 
@@ -573,13 +575,17 @@ const Promo: React.FC<ParamsProps> = () => {
                   value={emailContent}
                   onChange={(e) => {
                     setIsValidEmailContent(false);
+                    setFailedMsg('');
                     setEmailContent(e.target.value);
                   }}
                 />
                 {isValidEmailContent && (
-                  <p className="text-[10px] text-[red]">
+                  <p className="text-[10px] text-[red] -mt-4">
                     Masukkan alamat email yang benar!
                   </p>
+                )}
+                {failedMsg && (
+                  <p className="text-[10px] text-[red] -mt-4">{`Subscribe gagal! Pesan: ${failedMsg}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"

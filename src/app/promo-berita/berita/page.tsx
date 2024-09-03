@@ -119,6 +119,8 @@ const Berita: React.FC<ParamsProps> = () => {
     useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [emailContent, setEmailContent] = useState('');
+  const [failedMsg, setFailedMsg] = useState('');
+  const [failedMsgContent, setFailedMsgContent] = useState('');
   const [search, setSearch] = useState('');
   const [initialRender, setInitialRender] = useState(true);
   const [lifeGuideCategory, setLifeGuideCategory] = useState({
@@ -885,9 +887,10 @@ const Berita: React.FC<ParamsProps> = () => {
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
         setEmail('');
+        setFailedMsg('');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setFailedMsg(e?.body.errors.message[0]);
     }
   };
 
@@ -902,9 +905,11 @@ const Berita: React.FC<ParamsProps> = () => {
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
         setEmailContent('');
+        setFailedMsgContent('');
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
+      setFailedMsgContent(e?.body.errors.message[0]);
     }
   };
 
@@ -1424,6 +1429,7 @@ const Berita: React.FC<ParamsProps> = () => {
                         placeholder="Masukkan email Anda"
                         value={email}
                         onChange={(e) => {
+                          setFailedMsg('');
                           setIsValidEmailContent(false);
                           setEmail(e.target.value);
                         }}
@@ -1437,6 +1443,9 @@ const Berita: React.FC<ParamsProps> = () => {
                         <p className="text-[10px] text-[red] -my-2">
                           Masukkan alamat email yang benar!
                         </p>
+                      )}
+                      {failedMsg && (
+                        <p className="text-[10px] text-[red] -my-2">{`Subscribe gagal! Pesan: ${failedMsg}`}</p>
                       )}
                       <Button
                         title="Subscribe"
@@ -1799,6 +1808,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
+                    setFailedMsgContent('');
                     setIsValidEmailContent(false);
                     setEmailContent(e.target.value);
                   }}
@@ -1807,6 +1817,9 @@ const Berita: React.FC<ParamsProps> = () => {
                   <p className="text-[10px] text-[red]">
                     Masukkan alamat email yang benar!
                   </p>
+                )}
+                {failedMsgContent && (
+                  <p className="text-[10px] text-[red] -mt-4">{`Subscribe gagal! Pesan: ${failedMsgContent}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"

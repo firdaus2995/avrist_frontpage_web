@@ -17,6 +17,7 @@ type Props = {
 export const EmailSubscribeModal = (props: Props) => {
   const { onClose, show, data } = props;
   const [isSuccessSubs, setIsSuccessSubs] = useState(false);
+  const [failedMsg, setFailedMsg] = useState('');
   const [selected, setSelected] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -31,6 +32,7 @@ export const EmailSubscribeModal = (props: Props) => {
     setEmail('');
     setSelected('');
     setEmailError('');
+    setFailedMsg('');
   }, [onClose]);
 
   const handleSubmit = async () => {
@@ -53,10 +55,12 @@ export const EmailSubscribeModal = (props: Props) => {
     const data = await handleSubscribe(queryParams);
     if (data.status === 'OK') {
       setIsSuccessSubs(true);
+      setFailedMsg('');
     }
 
     if (data.status !== 'OK') {
       console.error('Error:', data.errors.message);
+      setFailedMsg(data.errors.message);
     }
   };
 
@@ -114,6 +118,27 @@ export const EmailSubscribeModal = (props: Props) => {
                         </p>
                       </div>
                     </div>
+                  ) : failedMsg ? (
+                    <div className="sm:h-[50vh] sm:w-[50vw] xs:w-full xs:h-full transition">
+                      <div className="absolute right-0 p-[1.5rem]">
+                        <button onClick={onClose}>
+                          <Icon
+                            name="close"
+                            width={24}
+                            height={24}
+                            color="white"
+                          />
+                        </button>
+                      </div>
+                      <div className="flex flex-1 flex-col items-center justify-center h-full text-center sm:px-[4.5rem] sm:py-[6.25rem] xs:px-[2rem] xs:py-[3.125rem]">
+                        <p className="font-karla font-extrabold text-[3rem] text-white leading-[57.6px] -tracking-[1.92px] mb-2">
+                          Pendaftaran Gagal
+                        </p>
+                        <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
+                          {`Pesan: ${failedMsg}`}
+                        </p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="sm:h-[40.938rem] sm:w-[48.75rem] xs:w-full xs:h-full transition">
                       <div className="absolute right-0 p-[1.5rem] z-50">
@@ -141,20 +166,20 @@ export const EmailSubscribeModal = (props: Props) => {
                             </p>
                             <div className="w-full grid sm:grid-cols-3 xs:grid-cols-1 gap-[0.75rem] mt-[2.5rem]">
                               <button
-                                onClick={() => setSelected('Avras')}
-                                className={`${selected === 'Avras' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-purple_dark hover:text-white`}
+                                onClick={() => setSelected('avrist')}
+                                className={`${selected === 'avrist' ? 'bg-purple_dark text-white' : 'bg-white text-purple_dark'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-purple_dark hover:text-white`}
                               >
                                 Life Insurance
                               </button>
                               <button
-                                onClick={() => setSelected('AGI')}
-                                className={`${selected === 'AGI' ? 'bg-grey_video_footer text-white' : 'bg-white text-grey_video_footer'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-grey_video_footer hover:text-white`}
+                                onClick={() => setSelected('agi')}
+                                className={`${selected === 'agi' ? 'bg-grey_video_footer text-white' : 'bg-white text-grey_video_footer'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-grey_video_footer hover:text-white`}
                               >
                                 General Insurance
                               </button>
                               <button
-                                onClick={() => setSelected('Avram')}
-                                className={`${selected === 'Avram' ? 'bg-avram_green text-white' : 'bg-white text-avram_green'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-avram_green hover:text-white`}
+                                onClick={() => setSelected('avram')}
+                                className={`${selected === 'avram' ? 'bg-avram_green text-white' : 'bg-white text-avram_green'} rounded-xl py-[0.5rem] font-opensanspro leading-[25.2px] font-bold sm:text-[1.125rem] xs:text-[0.875rem] hover:bg-avram_green hover:text-white`}
                               >
                                 Asset Management
                               </button>

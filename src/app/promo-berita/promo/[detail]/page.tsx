@@ -141,6 +141,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
   const [isValidEmailContent, setIsValidEmailContent] =
     useState<boolean>(false);
   const [emailContent, setEmailContent] = useState('');
+  const [failedMsg, setFailedMsg] = useState('');
 
   const fetchData = () => {
     try {
@@ -354,10 +355,11 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       });
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
+        setFailedMsg('');
         setEmailContent('');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setFailedMsg(e?.body.errors.message[0]);
     }
   };
 
@@ -584,14 +586,18 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
+                    setFailedMsg('');
                     setIsValidEmailContent(false);
                     setEmailContent(e.target.value);
                   }}
                 />
                 {isValidEmailContent && (
-                  <p className="text-[10px] text-[red]">
+                  <p className="text-[10px] text-[red] -mt-4">
                     Masukkan alamat email yang benar!
                   </p>
+                )}
+                {failedMsg && (
+                  <p className="text-[10px] text-[red] -mt-4">{`Subscribe gagal! Pesan: ${failedMsg}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"
