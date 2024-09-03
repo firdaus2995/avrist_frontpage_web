@@ -27,8 +27,8 @@ const Verification = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const codeParam = searchParams.get('code');
-    setCode(codeParam);
+    const codeParam = searchParams.get('code') ?? '';
+    setCode(encodeURIComponent(decodeURIComponent(codeParam)));
   }, []);
 
   const handleVerify = async () => {
@@ -41,6 +41,7 @@ const Verification = () => {
       } else {
         setResponseCode(response?.code);
       }
+      console.log(code);
     } catch (err) {
       console.error(err);
       setResponseCode(400);
@@ -50,8 +51,6 @@ const Verification = () => {
   useEffect(() => {
     if (code) {
       handleVerify();
-    } else {
-      setResponseCode(400);
     }
   }, [code]);
 
@@ -64,7 +63,9 @@ const Verification = () => {
               ? message.success.title
               : responseCode === 500
                 ? message.internalError.title
-                : message.error.title}
+                : responseCode !== 0
+                  ? message.error.title
+                  : ''}
           </p>
           <div className="w-full text-center">
             <p className="font-karla font-bold text-[24px] leading-[28.8px] -tracking-[0.03em]">
@@ -72,7 +73,9 @@ const Verification = () => {
                 ? message.success.subtitle
                 : responseCode === 500
                   ? message.internalError.subtitle
-                  : message.error.subtitle}
+                  : responseCode !== 0
+                    ? message.error.subtitle
+                    : ''}
             </p>
           </div>
           <Link

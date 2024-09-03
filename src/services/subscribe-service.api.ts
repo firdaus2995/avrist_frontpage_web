@@ -14,7 +14,7 @@ export const handleSubscribe = async (query: QueryParams) => {
 export const handleVerifySubscribe = async (query: string) => {
   return await httpService<SubscribeResponse>(
     'default',
-    `subscribe/verifying/${query}`,
+    `subscribe/verifying?code=${query}`,
     {
       method: 'GET'
     }
