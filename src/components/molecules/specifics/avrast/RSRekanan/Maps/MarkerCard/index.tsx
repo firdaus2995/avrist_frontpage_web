@@ -71,7 +71,7 @@ const MarkerCard: React.FC<IMarkerCard> = ({
               target={'Tooltip-' + index}
               toggle={toggle}
               autohide={true}
-              className="relative"
+              className="relative xs:hidden sm:block"
             >
               <div className="bg-white rounded-lg shadow-lg z-20 top-[40px] absolute -left-4 sm:min-w-[200px]">
                 <div className="p-2">
