@@ -87,7 +87,7 @@ const HandleComplaint = () => {
             </p>
             <Link
               href="https://www.youtube.com/@avristian"
-              target="blank"
+              target="_blank"
               role="button"
               className="text-[20px] leading-[28px] py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-xl text-xl font-semibold text-white sm:flex flex-row gap-2 items-center font-opensans"
             >

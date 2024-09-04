@@ -151,7 +151,7 @@ const Header = () => {
                 <Menu.Item>
                   <Link
                     href={EXTERNAL_URL.agiUrl}
-                    target="blank"
+                    target="_blank"
                     className="font-karla hover:text-purple_dark hover:font-medium"
                   >
                     Avrist General Insurance
@@ -160,7 +160,7 @@ const Header = () => {
                 <Menu.Item>
                   <Link
                     href={EXTERNAL_URL.avramUrl}
-                    target="blank"
+                    target="_blank"
                     className="font-karla hover:text-purple_dark hover:font-medium"
                   >
                     Avrist Asset Management
@@ -181,7 +181,7 @@ const Header = () => {
           </Link>
           <Link
             href={'https://shop.avrist.com/'}
-            target="blank"
+            target="_blank"
             className="flex flex-row gap-2 cursor-pointer md:flex xs:hidden pl-3"
           >
             <Icon name="shoppingCart" color="gray_black" />

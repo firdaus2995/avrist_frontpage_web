@@ -256,7 +256,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                         <Link
                           className="w-full"
                           href={item.urlLoker}
-                          target="blank"
+                          target="_blank"
                         >
                           <Button
                             title="Lihat Detail"
