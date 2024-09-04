@@ -411,7 +411,7 @@ const Promo: React.FC<ParamsProps> = () => {
             <Link
               className="font-semibold text-purple_dark"
               href="https://www.instagram.com/avristsolution/"
-              target="blank"
+              target="_blank"
             >
               @avristsolution{' '}
             </Link>

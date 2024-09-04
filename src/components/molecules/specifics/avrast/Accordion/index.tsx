@@ -44,7 +44,7 @@ const Accordion: React.FC<IAccordion> & {
       <div className="flex flex-row justify-between items-center gap-[12px]">
         <h1 className="text-2xl font-bold font-opensanspro">{title}</h1>
         {isUrl ? (
-          <Link href={url ?? ''} target="blank">
+          <Link href={url ?? ''} target="_blank">
             <Image
               alt="toggle"
               src={EXPAND}

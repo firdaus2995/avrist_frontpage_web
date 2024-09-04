@@ -23,7 +23,7 @@ const KlaimVideo = ({ data }: { data?: dataKlaim }) => {
         </p>
         <Link
           href="https://www.youtube.com/@avristian"
-          target="blank"
+          target="_blank"
           role="button"
           className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
         >

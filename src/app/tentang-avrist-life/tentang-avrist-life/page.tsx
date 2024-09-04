@@ -190,7 +190,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   {tab === 'Penghargaan' ? (
                     <Link
                       href={'https://id.linkedin.com/company/avristassurance'}
-                      target="blank"
+                      target="_blank"
                       className="flex flex-row items-center justify-center gap-2 w-full p-4"
                     >
                       <p>Ikuti kami di</p>
@@ -200,7 +200,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   ) : tab.includes('Manajemen-') ? (
                     <Link
                       href={'https://www.facebook.com/avrist/'}
-                      target="blank"
+                      target="_blank"
                       className="flex flex-row items-center justify-center gap-2 w-full p-4"
                     >
                       <p>Ikuti kami di</p>
@@ -210,7 +210,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   ) : tab === 'Manajemen' ? (
                     <Link
                       href="https://www.instagram.com/avristsolution/"
-                      target="blank"
+                      target="_blank"
                       className="flex flex-row items-center justify-center gap-2 w-full p-4"
                     >
                       <p>Ikuti kami di</p>
@@ -220,7 +220,7 @@ const TentangAvristLife: React.FC<ParamsProps> = () => {
                   ) : (
                     <Link
                       href={'https://www.youtube.com/@avristian'}
-                      target="blank"
+                      target="_blank"
                       className="flex flex-row items-center justify-center gap-2 w-full p-4"
                     >
                       <p>Subscribe</p>
