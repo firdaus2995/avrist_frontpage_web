@@ -83,7 +83,7 @@ const TutorialPayment = () => {
             </p>
             <Link
               href="https://www.youtube.com/@avristian"
-              target="blank"
+              target="_blank"
               role="button"
               className="py-[0.75rem] px-[2.5rem] bg-purple_dark rounded-lg md:text-xl font-semibold text-white flex flex-row gap-[0.667rem] items-center font-opensans"
             >

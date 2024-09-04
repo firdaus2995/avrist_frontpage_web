@@ -133,7 +133,7 @@ const Footer = () => {
                       href={
                         'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
                       }
-                      target="blank"
+                      target="_blank"
                     >
                       <Image
                         alt="Google Play"
@@ -147,7 +147,7 @@ const Footer = () => {
                       href={
                         'https://apps.apple.com/id/app/avrist-solution/id6467423188'
                       }
-                      target="blank"
+                      target="_blank"
                     >
                       <Image
                         alt="App Store"
@@ -194,7 +194,7 @@ const Footer = () => {
                       href={
                         'https://play.google.com/store/apps/details?id=com.avrist.clientapps&pli=1'
                       }
-                      target="blank"
+                      target="_blank"
                     >
                       <Image
                         alt="Google Play"
@@ -208,7 +208,7 @@ const Footer = () => {
                       href={
                         'https://apps.apple.com/id/app/avrist-solution/id6467423188'
                       }
-                      target="blank"
+                      target="_blank"
                     >
                       <Image
                         alt="App Store"
@@ -319,14 +319,14 @@ const Footer = () => {
           {/* Social media */}
           <div className="flex items-center gap-4">
             <IconWrapper>
-              <Link href={'https://www.youtube.com/@avristian'} target="blank">
+              <Link href={'https://www.youtube.com/@avristian'} target="_blank">
                 <Icon name="youtubeIcon" color="white" />
               </Link>
             </IconWrapper>
             <IconWrapper>
               <Link
                 href={'https://id.linkedin.com/company/avristassurance'}
-                target="blank"
+                target="_blank"
               >
                 <Icon name="linkedInIcon" color="white" />
               </Link>
@@ -334,13 +334,13 @@ const Footer = () => {
             <IconWrapper>
               <Link
                 href={'https://www.instagram.com/avristsolution/'}
-                target="blank"
+                target="_blank"
               >
                 <Icon name="instaIcon" color="white" />
               </Link>
             </IconWrapper>
             <IconWrapper>
-              <Link href={'https://www.facebook.com/avrist/'} target="blank">
+              <Link href={'https://www.facebook.com/avrist/'} target="_blank">
                 <Icon name="facebookIcon" color="white" />
               </Link>
             </IconWrapper>
@@ -349,7 +349,7 @@ const Footer = () => {
                 href={
                   'https://www.tiktok.com/@avrist.assurance?_t=8kx4PIJJlFS&_r=1'
                 }
-                target="blank"
+                target="_blank"
               >
                 <Icon name="tiktokIcon" color="white" />
               </Link>

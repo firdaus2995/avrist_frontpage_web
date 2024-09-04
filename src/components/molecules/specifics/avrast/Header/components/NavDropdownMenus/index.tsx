@@ -203,7 +203,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
         </Link>
         <Link
           href={'https://shop.avrist.com/'}
-          target="blank"
+          target="_blank"
           className="flex flex-row gap-2 cursor-pointer ml-2"
           onClick={() => setVisibility(false)}
         >
