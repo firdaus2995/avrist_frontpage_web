@@ -86,7 +86,7 @@ const Hero: React.FC<IHero> = ({
             </p>
           </div>
 
-          <span className="flex flex-row gap-2">
+          <span className="flex flex-row gap-2 z-[100]">
             {breadcrumbsData.map((item, index) => (
               <React.Fragment key={index}>
                 <Link

@@ -19,46 +19,52 @@ const MainContentSyaratPenggunaan = () => {
   const kepemilikanRef = useRef(null);
 
   const handleTabClick = (tabs: string, index: number) => {
+    const headings = document.getElementsByTagName('h1');
     setTab(tabs);
     // handleScrollToRef(getRefByTab(tabs));
     setIsOpen(false);
-    document
-      .getElementsByTagName('h1')
-      [
-        index
-      ].scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'end' });
+
+    const targetHeading = headings[index];
+
+    const offsetTop =
+      targetHeading.offsetTop + (window.innerWidth > 1024 ? 200 : 100);
+
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    });
   };
 
-  const getRefByTab = (tab: string) => {
-    switch (tab) {
-      case 'Disclaimer':
-        return disclaimerRef;
-      case 'Syarat Penggunaan':
-        return syaratRef;
-      case 'Konten Situs':
-        return kontenRef;
-      case 'Kepemilikan Informasi':
-        return kepemilikanRef;
-      default:
-        return null;
-    }
-  };
+  // const getRefByTab = (tab: string) => {
+  //   switch (tab) {
+  //     case 'Disclaimer':
+  //       return disclaimerRef;
+  //     case 'Syarat Penggunaan':
+  //       return syaratRef;
+  //     case 'Konten Situs':
+  //       return kontenRef;
+  //     case 'Kepemilikan Informasi':
+  //       return kepemilikanRef;
+  //     default:
+  //       return null;
+  //   }
+  // };
 
-  const handleScrollToRef = (ref: React.MutableRefObject<null> | null) => {
-    if (ref?.current) {
-      (ref.current! as HTMLElement).scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-        inline: 'start'
-      });
-    }
-  };
+  // const handleScrollToRef = (ref: React.MutableRefObject<null> | null) => {
+  //   if (ref?.current) {
+  //     (ref.current! as HTMLElement).scrollIntoView({
+  //       behavior: 'smooth',
+  //       block: 'end',
+  //       inline: 'start'
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
     const value = searchParams.get('tab');
     if (value !== null) {
       setTab(value);
-      handleScrollToRef(getRefByTab(value));
+      // handleScrollToRef(getRefByTab(value));
     }
   }, [searchParams]);
 

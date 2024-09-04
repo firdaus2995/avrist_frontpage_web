@@ -157,7 +157,19 @@ const Maps = ({
     if (lat !== 0 || lng !== 0) {
       setMapCenter([lat, lng]);
       setMapZoom(17);
+      handleScroll();
     }
+  };
+
+  const handleScroll = () => {
+    const heading = document.getElementById('scrollTarget');
+
+    const offsetTop = heading ? heading.offsetTop - 250 : 0;
+
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    });
   };
 
   // for detecting location permission in browser
@@ -229,7 +241,10 @@ const Maps = ({
 
   return (
     <div className="sm:min-w-[80%] xs:w-full h-full rounded rounded-[0.75rem] border border-gray_light flex flex-col gap-[24px] pb-6">
-      <div className="w-full h-[43.75rem] xs:max-h-[339px] sm:max-h-[691px] rounded-t-[0.75rem] z-0">
+      <div
+        className="w-full h-[43.75rem] xs:max-h-[339px] sm:max-h-[691px] rounded-t-[0.75rem] z-0"
+        id="scrollTarget"
+      >
         <MapContainer
           center={defaultProps.center}
           zoom={mapZoom}

@@ -56,7 +56,7 @@ const Verification = () => {
 
   return responseCode !== 0 ? (
     <div>
-      <div className="my-[96px] w-full flex flex-col items-center xs:max-md:pt-[50px] xs:max-md:pb-[100px] px-[371px]">
+      <div className="my-[96px] w-full flex flex-col items-center xs:max-md:pt-[50px] xs:max-md:pb-[100px] xs:px-[2rem] md:px-[371px]">
         <div className="flex flex-col items-center justify-center gap-[36px]">
           <p className="font-karla font-bold md:text-[80px] -tracking-[0.04em] leading-[60px] xs:text-[60px] text-purple_verylight text-center mb-[4px]">
             {responseCode === 200
