@@ -287,15 +287,16 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
         {!initialRender && (
           <CategoryWithThreeCards
             defaultSelectedCategory={params.category}
-            onCategoryChange={(tab) =>
+            onCategoryChange={(tab) => {
               setParams({
                 ...params,
                 category: tab,
                 yearFilter: '',
                 monthFilter: '',
                 searchFilter: ''
-              })
-            }
+              });
+              setSearch('');
+            }}
             filterRowLayout={true}
             categories={categories ?? []}
             tabs={[
@@ -311,6 +312,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
               }
             ]}
             searchPlaceholder="Cari laporan"
+            searchValue={search}
             onSearchChange={(e) => {
               setSearch(e.target.value);
             }}
