@@ -57,6 +57,7 @@ const DPLKContent = (props: Props) => {
   const [tab, setTab] = useState(
     searchParams.get('tab') ?? 'Tentang DPLK Avrist'
   );
+  const [initialRender, setInitialRender] = useState(true);
   const sliderRef = useRef<Slider | null>(null);
 
   const handleTabClick = (tabs: string) => {
@@ -106,9 +107,15 @@ const DPLKContent = (props: Props) => {
           tab === 'Tentang DPLK Avrist'
             ? -280
             : tab === 'Dewan Pengawas DPLK'
-              ? 200
+              ? window.innerWidth >= 1920
+                ? 200
+                : initialRender
+                  ? 550
+                  : 300
               : tab === 'Manfaat DPLK'
-                ? 1760
+                ? initialRender
+                  ? 1760
+                  : 1800
                 : 0
       });
     } else {
@@ -126,7 +133,10 @@ const DPLKContent = (props: Props) => {
         isDynamic: true
       });
     }
+    setInitialRender(false);
   }, [isMobile, tab]);
+
+  console.log(initialRender);
 
   return (
     <Suspense fallback={null}>
