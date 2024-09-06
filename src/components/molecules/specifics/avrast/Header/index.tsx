@@ -95,7 +95,8 @@ const Header = () => {
 
       leftPosition -= adjustment;
 
-      const middlePositions = leftPosition + itemWidth;
+      const middlePositions =
+        leftPosition + itemWidth + (windowWidth >= 1920 ? 190 : 0);
       totalMiddlePositions.push(middlePositions);
     });
 
@@ -237,9 +238,7 @@ const Header = () => {
                     title={item.title}
                     skipUrl={item.skipUrl}
                     indexData={idx}
-                    xPosition={
-                      xPositions[idx] + (window.innerWidth >= 1920 ? 190 : 0)
-                    }
+                    xPosition={xPositions[idx]}
                   />
                 </React.Fragment>
               );
