@@ -183,6 +183,12 @@ const Berita: React.FC<ParamsProps> = () => {
     if (params.category === 'Avrist Life Guide') {
       window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
     }
+    if (params.category === 'AvriStory') {
+      window.scrollTo({ top: !isMobileWidth ? 900 : 880 });
+    }
+    if (params.category === 'Berita dan Kegiatan' && tab === 'Avrist Terkini') {
+      window.scrollTo({ top: !isMobileWidth ? 1200 : 1530 });
+    }
   };
 
   const [data, setData] = useState<any>({
@@ -236,6 +242,7 @@ const Berita: React.FC<ParamsProps> = () => {
     }
 
     if (tab === 'Kumpulan Berita Pers') {
+      console.log('run');
       setItemsPerPage(5);
       fetchBeritaPers();
     }
@@ -245,6 +252,8 @@ const Berita: React.FC<ParamsProps> = () => {
       fetchTestimoni();
     }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
+
+  console.log(tab);
 
   useEffect(() => {
     if (data.slug) {
@@ -931,8 +940,7 @@ const Berita: React.FC<ParamsProps> = () => {
       category: value,
       searchFilter: '',
       yearFilter: '',
-      monthFilter: '',
-      page: '1' // Reset page to 1
+      monthFilter: ''
     };
 
     router.push(pathname + '?' + createQueryStringCategory(updatedParams), {
@@ -940,7 +948,7 @@ const Berita: React.FC<ParamsProps> = () => {
     });
   };
 
-  console.log(params);
+  console.log(tab);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
