@@ -156,7 +156,7 @@ const Berita: React.FC<ParamsProps> = () => {
     if (!page) {
       setPageCount(0);
       setItemOffset(0);
-    } else {
+    } else if (page && tab === 'Avrist Terkini') {
       setItemOffset(
         parseInt(page) === 1 ? 0 : (parseInt(page) - 1) * itemsPerPage
       );
@@ -177,9 +177,11 @@ const Berita: React.FC<ParamsProps> = () => {
     setItemOffset(newOffset);
     const page =
       newOffset === 0 ? '1' : (newOffset / itemsPerPage + 1).toString();
-    router.push(pathname + '?' + createQueryStringPage('page', page), {
-      scroll: false
-    });
+    if (tab === 'Avrist Terkini') {
+      router.push(pathname + '?' + createQueryStringPage('page', page), {
+        scroll: false
+      });
+    }
     if (params.category === 'Avrist Life Guide') {
       window.scrollTo({ top: !isMobileWidth ? 1800 : 4000 });
     }
@@ -188,6 +190,9 @@ const Berita: React.FC<ParamsProps> = () => {
     }
     if (params.category === 'Berita dan Kegiatan' && tab === 'Avrist Terkini') {
       window.scrollTo({ top: !isMobileWidth ? 1200 : 1530 });
+    }
+    if (tab === 'Kumpulan Berita Pers') {
+      window.scrollTo({ top: !isMobileWidth ? 500 : 535 });
     }
   };
 
@@ -242,7 +247,6 @@ const Berita: React.FC<ParamsProps> = () => {
     }
 
     if (tab === 'Kumpulan Berita Pers') {
-      console.log('run');
       setItemsPerPage(5);
       fetchBeritaPers();
     }
@@ -252,8 +256,6 @@ const Berita: React.FC<ParamsProps> = () => {
       fetchTestimoni();
     }
   }, [params, lifeGuideCategory.selectedCategory, tab]);
-
-  console.log(tab);
 
   useEffect(() => {
     if (data.slug) {
@@ -284,10 +286,13 @@ const Berita: React.FC<ParamsProps> = () => {
   useEffect(() => {
     setPageCount(0);
     setItemOffset(0);
-    if (!searchParams.get('page') || tab !== 'Avrist Terkini') {
-      router.push(pathname + '?' + createQueryStringPage('page', '1'), {
-        scroll: false
-      });
+    // if (!searchParams.get('page') || tab !== 'Avrist Terkini') {
+    //   router.push(pathname + '?' + createQueryStringPage('page', '1'), {
+    //     scroll: false
+    //   });
+    // }
+    if (tab === 'Kumpulan Berita Pers') {
+      setParams({ ...params, category: 'Berita Pers' });
     }
   }, [tab]);
 
@@ -940,15 +945,14 @@ const Berita: React.FC<ParamsProps> = () => {
       category: value,
       searchFilter: '',
       yearFilter: '',
-      monthFilter: ''
+      monthFilter: '',
+      page: '1' // Reset page to 1
     };
 
     router.push(pathname + '?' + createQueryStringCategory(updatedParams), {
       scroll: false
     });
   };
-
-  console.log(tab);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
