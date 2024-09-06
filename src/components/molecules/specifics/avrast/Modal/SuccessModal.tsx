@@ -75,7 +75,7 @@ export const SuccessModal = (props: Props) => {
                         {title ?? 'Terima Kasih'}
                       </p>
                       <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
-                        {subtitle ?? 'Form terlah berhasil dikirim.'}
+                        {subtitle ?? 'Form telah berhasil dikirim.'}
                       </p>
                     </div>
                   </div>
