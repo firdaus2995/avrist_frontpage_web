@@ -100,7 +100,10 @@ export const isContentNotEmpty = (str: string) => {
 };
 
 export const tableReplacement = (item: any) => {
-  const isMobile = window.innerWidth < 640;
+  const isBrowser = typeof window !== 'undefined';
+  const width = isBrowser ? window.innerWidth : 0;
+
+  const isMobile = width < 640;
   const replacements = {
     '<ol>': "<ol class='list-decimal list-outside font-opensans px-5'>",
     '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
