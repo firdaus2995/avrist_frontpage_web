@@ -40,6 +40,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
   const [expandedMenu, setExpandedMenu] = useState('');
   const [isShowEmailSubs, setIsShowEmailSubs] = useState(false);
   const [imageModal, setImageModal] = useState({ imageUrl: '', altText: '' });
+  const [openedItems, setOpenedItems] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,6 +58,13 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (!isVisible) {
+      setOpenedItems([]);
+      setExpandedMenu('');
+    }
+  }, [isVisible]);
+
   return (
     <div
       className={`
@@ -72,7 +80,19 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
       {menus.map((item, index) => (
         <Disclosure key={index}>
           <div>
-            <div className="flex w-full">
+            <div
+              className="flex w-full"
+              onClick={() => {
+                if (!openedItems.includes(item.title)) {
+                  setOpenedItems((prevItems) => [...prevItems, item.title]);
+                } else {
+                  const items = openedItems.filter(
+                    (i: string) => i !== item.title
+                  );
+                  setOpenedItems(items);
+                }
+              }}
+            >
               <Disclosure.Button className="top- text-[black] leading-[28px] font-semibold w-full text-[20px] text-start px-2 py-[17.5px] transition-all rounded hover:bg-white/20 outline-none focus:bg-white/20">
                 {item.title}
               </Disclosure.Button>
@@ -97,6 +117,7 @@ const NavDropdownMenus: React.FC<NavDropdownMenusProps> = ({
               </Disclosure.Button>
             </div>
             <Transition
+              show={openedItems?.includes(item.title) ?? false}
               enter="transition-all"
               enterFrom="opacity-0"
               enterTo="opacity-100"
