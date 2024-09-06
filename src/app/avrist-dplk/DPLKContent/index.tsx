@@ -136,8 +136,6 @@ const DPLKContent = (props: Props) => {
     setInitialRender(false);
   }, [isMobile, tab]);
 
-  console.log(initialRender);
-
   return (
     <Suspense fallback={null}>
       <Hero
