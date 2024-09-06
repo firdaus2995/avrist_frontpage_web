@@ -100,16 +100,16 @@ export const isContentNotEmpty = (str: string) => {
 };
 
 export const tableReplacement = (item: any) => {
+  const isMobile = window.innerWidth < 640;
   const replacements = {
     '<ol>': "<ol class='list-decimal list-outside font-opensans px-5'>",
     '<ul>': "<ul class='list-disc list-outside font-opensans px-5' >",
-    '<table>':
-      "<table class='table-auto border-collapse border-spacing-2 border border-slate-500' >",
-    '<th>': "<th class='border border-slate-500 p-4' >",
-    '<td>': "<td class='border border-slate-500 p-4' >",
+    '<table>': `<table class='table-auto border-collapse border-spacing-2 border border-slate-500 ${isMobile ? 'text-[14px]' : ''}' >`,
+    '<th>': `<th class='border border-slate-500 ${isMobile ? 'p-2' : 'p-4'}'>`,
+    '<td>': `<td class='border border-slate-500 ${isMobile ? 'p-2' : 'p-4'}' >`,
     '<figure class="table">':
       "<span class='w-full flex items-center justify-center text-center'><figure class='table'>",
-    '</figure>': '</figure></div>'
+    '</figure>': '</figure></span>'
   };
 
   let valueDescription = item.replace(/\\{3}/g, '');
