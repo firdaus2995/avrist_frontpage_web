@@ -368,19 +368,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     infinite: false,
     swipeToSlide: false,
     beforeChange: (oldIndex: number, newIndex: number) =>
-      setCurrentSlide(Math.ceil(newIndex)),
-    responsive: [
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          vertical: false,
-          swipeToSlide: true,
-          verticalSwiping: true
-        }
-      }
-    ]
+      setCurrentSlide(Math.ceil(newIndex))
   };
 
   const next = () => {
