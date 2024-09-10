@@ -195,12 +195,6 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
     handleGetContentPage('halaman-tentang-avrist-syariah-new').then((res) =>
       setData(res)
     );
-    setTimeout(() => {
-      const element = document.getElementById('DewanPengawasSyariah');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }
-    }, 100);
   }, []);
 
   useEffect(() => {
