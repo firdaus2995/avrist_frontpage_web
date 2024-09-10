@@ -143,7 +143,7 @@ const InterestSection = (props: Props) => {
             Saya setuju memberikan data pribadi Saya kepada Avrist Life
             Insurance dan telah membaca{' '}
             <span
-              className="text-purple_dark font-bold"
+              className="text-purple_dark font-bold cursor-pointer"
               onClick={() => window.open('/keamanan-online', '_blank')}
             >
               Kebijakan Keamanan Online
