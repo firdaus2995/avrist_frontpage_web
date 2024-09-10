@@ -98,26 +98,24 @@ const DPLKContent = (props: Props) => {
 
   useEffect(() => {
     if (!isMobile) {
-      scroller.scrollTo(tab, {
-        duration: 500,
-        delay: 100,
-        smooth: true,
-        spy: true,
-        offset:
-          tab === 'Tentang DPLK Avrist'
-            ? -280
-            : tab === 'Dewan Pengawas DPLK'
-              ? window.innerWidth >= 1920
-                ? 200
-                : initialRender
-                  ? 550
-                  : 300
-              : tab === 'Manfaat DPLK'
-                ? initialRender
-                  ? 1760
-                  : 1800
-                : 0
-      });
+      if (tab === 'Tentang DPLK Avrist') {
+        window.scrollTo({
+          top: window.innerWidth >= 1920 ? 800 : 780,
+          behavior: 'smooth'
+        });
+      }
+      if (tab === 'Dewan Pengawas DPLK') {
+        window.scrollTo({
+          top: window.innerWidth >= 1920 ? 1150 : 1210,
+          behavior: 'smooth'
+        });
+      }
+      if (tab === 'Manfaat DPLK') {
+        window.scrollTo({
+          top: window.innerWidth >= 1920 ? 2700 : 2800,
+          behavior: 'smooth'
+        });
+      }
     } else {
       scroller.scrollTo(tab, {
         duration: 500,
@@ -133,8 +131,9 @@ const DPLKContent = (props: Props) => {
         isDynamic: true
       });
     }
+
     setInitialRender(false);
-  }, [isMobile, tab]);
+  }, [isMobile, tab, initialRender]);
 
   return (
     <Suspense fallback={null}>
