@@ -216,20 +216,24 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
 
   const scrollToElement = () => {
     if (!isMobile) {
-      scroller.scrollTo(tab, {
-        duration: 500,
-        delay: 50,
-        smooth: true,
-        spy: true,
-        offset:
-          tab === 'Tentang Avrist Syariah'
-            ? -180
-            : tab === 'Dewan Pengawas Syariah'
-              ? 150
-              : tab === 'Manfaat Utama'
-                ? 1550
-                : 0
-      });
+      if (tab === 'Tentang Avrist Syariah') {
+        window.scrollTo({
+          top: window.innerWidth >= 1920 ? 800 : 780,
+          behavior: 'smooth'
+        });
+      }
+      if (tab === 'Dewan Pengawas Syariah') {
+        window.scrollTo({
+          top: 1100,
+          behavior: 'smooth'
+        });
+      }
+      if (tab === 'Manfaat Utama') {
+        window.scrollTo({
+          top: 2500,
+          behavior: 'smooth'
+        });
+      }
     } else {
       scroller.scrollTo(tab, {
         duration: 500,
