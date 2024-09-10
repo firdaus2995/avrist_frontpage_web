@@ -1582,7 +1582,7 @@ const Berita: React.FC<ParamsProps> = () => {
                       <SliderInformation
                         key={index}
                         isVideo
-                        imageClassName="h-[360px] object-cover"
+                        imageClassName="sm:!h-[360px] 2xl:!h-[458.44px] object-cover"
                         bgColor="purple_superlight"
                         title={
                           <div className="flex flex-col gap-6 text-left">
