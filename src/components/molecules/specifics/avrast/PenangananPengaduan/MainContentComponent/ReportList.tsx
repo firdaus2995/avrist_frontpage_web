@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ButtonMenuVertical from '../../ButtonMenuVertical';
 import { CardMenuDownload } from '../../KelolaPolis/MainContentComponent/CardMenu';
 import NotFound from '@/components/atoms/NotFound';
+import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import { PageInfo } from '@/types/provider.type';
 import {
   contentStringTransformer,
@@ -33,7 +34,11 @@ export const ReportList = ({
   onSelectedCategory,
   selectedYear,
   onSelectedYear,
-  onChangeSearch
+  onChangeSearch,
+  pageClick,
+  pageCount,
+  itemOffset,
+  itemsPerPage
 }: Props) => {
   const [categoriesInitial] = useState<string[]>(categories);
   const [keyword, setKeyword] = useState('');
@@ -169,14 +174,14 @@ export const ReportList = ({
                 onChangePage={handleChangePage}
               />
             )} */}
-            {/* <Pagination
+            <Pagination
               data={reportData}
               itemOffset={itemOffset}
               itemsPerPage={itemsPerPage}
               pageCount={pageCount}
               onPageChange={(e: any) => (pageClick ? pageClick(e) : null)}
               customColor="purple_dark"
-            /> */}
+            />
           </div>
         </div>
       </div>

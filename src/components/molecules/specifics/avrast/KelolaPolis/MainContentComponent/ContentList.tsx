@@ -148,7 +148,7 @@ export const ContentList = ({
             {/* paginate */}
             {pageInfo && (
               <Paginate
-                className="mt-[24px]"
+                className="mt-[24px] hidden"
                 dataPage={newPageInfo}
                 onChangePage={handleChangePage}
               />
