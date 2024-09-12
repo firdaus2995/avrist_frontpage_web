@@ -60,7 +60,9 @@ export const EmailSubscribeModal = (props: Props) => {
 
     if (data.status !== 'OK') {
       console.error('Error:', data.errors.message);
-      setFailedMsg(data.errors.message);
+      setEmailError(
+        `${data.errors.message.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`
+      );
     }
   };
 
@@ -135,7 +137,7 @@ export const EmailSubscribeModal = (props: Props) => {
                           Pendaftaran Gagal
                         </p>
                         <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
-                          {`Pesan: ${failedMsg}`}
+                          {`${failedMsg.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}
                         </p>
                       </div>
                     </div>
