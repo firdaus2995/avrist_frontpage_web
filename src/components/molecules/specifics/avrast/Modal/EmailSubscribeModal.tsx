@@ -52,16 +52,23 @@ export const EmailSubscribeModal = (props: Props) => {
       email: email,
       entity: selected
     };
-    const data = await handleSubscribe(queryParams);
-    if (data.status === 'OK') {
-      setIsSuccessSubs(true);
-      setFailedMsg('');
-    }
+    try {
+      const data = await handleSubscribe(queryParams);
+      if (data.status === 'OK') {
+        setIsSuccessSubs(true);
+        setFailedMsg('');
+      }
 
-    if (data.status !== 'OK') {
-      console.error('Error:', data.errors.message);
+      if (data.status !== 'OK') {
+        console.error('Error:', data.errors.message[0]);
+        setEmailError(
+          `${data.errors.message[0].toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`
+        );
+      }
+    } catch (err: any) {
+      console.error('Error:', err.body.errors.message[0]);
       setEmailError(
-        `${data.errors.message.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`
+        `${err.body.errors.message[0].toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`
       );
     }
   };
@@ -137,7 +144,7 @@ export const EmailSubscribeModal = (props: Props) => {
                           Pendaftaran Gagal
                         </p>
                         <p className="font-opensans font-normal text-[1.125rem] text-white leading-[25.2px]">
-                          {`${failedMsg.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}
+                          {`${failedMsg.toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}
                         </p>
                       </div>
                     </div>
