@@ -29,7 +29,7 @@ export const FeedbackForm = (props: Props) => {
   const [emailBodySubmitter, setEmailBodySubmitter] = useState('');
   const [formIsValid, setFormIsValid] = useState(false);
   //temporary disabled rating
-  const [, setRating] = useState('');
+  const [rating, setRating] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [popUpImage, setPopUpImage] = useState<string>('');
@@ -86,7 +86,7 @@ export const FeedbackForm = (props: Props) => {
       pic: formPic,
       placeholderValue: dataForm,
       emailSubject,
-      emailBody,
+      emailBody: `${emailBody}<p>Tingkat Kepuasan: ${rating}</p>`,
       emailSubjectSubmitter: emailSubjectSubmitter ?? '',
       emailBodySubmitter: emailBodySubmitter ?? ''
     };
@@ -130,7 +130,9 @@ export const FeedbackForm = (props: Props) => {
           </div>
           <div className="mt-[2.25rem]">
             <button
-              disabled={formIsValid ? (isChecked ? false : true) : true}
+              disabled={
+                !rating || formIsValid ? (isChecked ? false : true) : true
+              }
               onClick={() => onSubmitData()}
               className={`${
                 formIsValid
