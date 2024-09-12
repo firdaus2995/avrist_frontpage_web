@@ -585,7 +585,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                   </p>
                 )}
                 {failedMsg && (
-                  <p className="text-[10px] text-[red] -mt-4">{`${failedMsg.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
+                  <p className="text-[10px] text-[red] -mt-4">{`${failedMsg.toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"

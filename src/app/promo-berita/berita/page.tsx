@@ -1457,7 +1457,7 @@ const Berita: React.FC<ParamsProps> = () => {
                         </p>
                       )}
                       {failedMsg && (
-                        <p className="text-[10px] text-[red] -my-2">{`${failedMsg.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
+                        <p className="text-[10px] text-[red] -my-2">{`${failedMsg.toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
                       )}
                       <Button
                         title="Subscribe"
@@ -1831,7 +1831,7 @@ const Berita: React.FC<ParamsProps> = () => {
                   </p>
                 )}
                 {failedMsgContent && (
-                  <p className="text-[10px] text-[red] -mt-4">{`${failedMsgContent.includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
+                  <p className="text-[10px] text-[red] -mt-4">{`${failedMsgContent.toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"
