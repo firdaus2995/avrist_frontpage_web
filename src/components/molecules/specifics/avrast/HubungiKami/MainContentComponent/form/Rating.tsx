@@ -17,11 +17,11 @@ type RatingEmojiProps = {
 };
 
 const listEmoji = [
-  { id: 'VERY_HAPPY', active: VERY_HAPPY_ACTIVE, inactive: VERY_HAPPY },
-  { id: 'HAPPY', active: HAPPY_ACTIVE, inactive: HAPPY },
-  { id: 'NEUTRAL', active: NEUTRAL_ACTIVE, inactive: NEUTRAL },
-  { id: 'BAD', active: BAD_ACTIVE, inactive: BAD },
-  { id: 'VERY_BAD', active: VERY_BAD_ACTIVE, inactive: VERY_BAD }
+  { id: '5', active: VERY_HAPPY_ACTIVE, inactive: VERY_HAPPY },
+  { id: '4', active: HAPPY_ACTIVE, inactive: HAPPY },
+  { id: '3', active: NEUTRAL_ACTIVE, inactive: NEUTRAL },
+  { id: '2', active: BAD_ACTIVE, inactive: BAD },
+  { id: '1', active: VERY_BAD_ACTIVE, inactive: VERY_BAD }
 ];
 export const RatingEmoji = (props: RatingEmojiProps) => {
   const { title, onChange } = props;
@@ -38,8 +38,8 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
             height={85}
             className="mr-[4rem] cursor-pointer"
             onClick={() => {
-              setActive(i.id)
-              onChange(i.id)
+              setActive(i.id);
+              onChange(i.id);
             }}
           />
         ))}
@@ -54,8 +54,8 @@ export const RatingEmoji = (props: RatingEmojiProps) => {
             height={48}
             className="cursor-pointer"
             onClick={() => {
-              setActive(i.id)
-              onChange(i.id)
+              setActive(i.id);
+              onChange(i.id);
             }}
           />
         ))}
