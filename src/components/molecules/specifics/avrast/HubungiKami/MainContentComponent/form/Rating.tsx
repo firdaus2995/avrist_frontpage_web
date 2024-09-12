@@ -17,11 +17,11 @@ type RatingEmojiProps = {
 };
 
 const listEmoji = [
-  { id: '5', active: VERY_HAPPY_ACTIVE, inactive: VERY_HAPPY },
-  { id: '4', active: HAPPY_ACTIVE, inactive: HAPPY },
-  { id: '3', active: NEUTRAL_ACTIVE, inactive: NEUTRAL },
-  { id: '2', active: BAD_ACTIVE, inactive: BAD },
-  { id: '1', active: VERY_BAD_ACTIVE, inactive: VERY_BAD }
+  { id: 'Sangat Puas', active: VERY_HAPPY_ACTIVE, inactive: VERY_HAPPY },
+  { id: 'Puas', active: HAPPY_ACTIVE, inactive: HAPPY },
+  { id: 'Sesuai Ekspektasi', active: NEUTRAL_ACTIVE, inactive: NEUTRAL },
+  { id: 'Rendah', active: BAD_ACTIVE, inactive: BAD },
+  { id: 'Sangat Rendah', active: VERY_BAD_ACTIVE, inactive: VERY_BAD }
 ];
 export const RatingEmoji = (props: RatingEmojiProps) => {
   const { title, onChange } = props;

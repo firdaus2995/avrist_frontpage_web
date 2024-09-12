@@ -51,6 +51,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
   const [isValidEmailContent, setIsValidEmailContent] =
     useState<boolean>(false);
   const [emailContent, setEmailContent] = useState('');
+  const [failedMsg, setFailedMsg] = useState('');
 
   const [isOpenPopover, setIsOpenPopover] = useState<boolean>(false);
   const fetchData = () => {
@@ -202,9 +203,10 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       if (response?.code === 200) {
         setVisibleSubscribeModal(true);
         setEmailContent('');
+        setFailedMsg('');
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      setFailedMsg(e?.body.errors.message[0]);
     }
   };
 
@@ -381,6 +383,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   customInputClass="xs:w-full sm:w-[90%] xs:max-md:w-full md:w-full md:text-xs"
                   value={emailContent}
                   onChange={(e) => {
+                    setFailedMsg('');
                     setIsValidEmailContent(false);
                     setEmailContent(e.target.value);
                   }}
@@ -389,6 +392,9 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
                   <p className="text-[10px] text-[red]">
                     Masukkan alamat email yang benar!
                   </p>
+                )}
+                {failedMsg && (
+                  <p className="text-[10px] text-[red] -my-2">{`${failedMsg.toLowerCase().includes('exist') ? 'Email sudah terdaftar' : 'Subscribe gagal'}`}</p>
                 )}
                 <Button
                   title="Subscribe Sekarang!"
