@@ -14,7 +14,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import FAQList from '@/components/molecules/specifics/avrast/TanyaAvrista/FAQList';
 import SearchTerm from '@/components/molecules/specifics/avrast/TanyaAvrista/SearchTerm';
 import TopicsCard from '@/components/molecules/specifics/avrast/TanyaAvrista/TopicsCard';
-import { getListFaq, getTanyaAvrista } from '@/services/tanya-avrista.api';
+import { getListFaqNew, getTanyaAvrista } from '@/services/tanya-avrista.api';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentStringTransformer,
@@ -59,9 +59,15 @@ const handleGetContent = async (slug: string) => {
 const handleGetListFaq = async (slug: string) => {
   try {
     const queryParams: QueryParams = {
-      includeAttributes: 'true'
+      includeAttributes: true,
+      searchRequest: {
+        keyword: '',
+        fieldIds: ['pertanyaan-tanya-avrista', 'tags'],
+        postData: true
+      },
+      category: ''
     };
-    const data = await getListFaq(slug, queryParams);
+    const data = await getListFaqNew(slug, queryParams);
     return data;
   } catch (error) {
     return notFound();
@@ -178,11 +184,21 @@ const TanyaAvrista = () => {
     try {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
-        includeAttributes: 'true',
-        searchFilter: keyword,
-        tagsFilter: selectedCards
+        includeAttributes: true,
+        searchRequest: {
+          keyword: keyword ?? '',
+          fieldIds: ['pertanyaan-tanya-avrista', 'tags'],
+          postData: true
+        },
+        filters: [
+          {
+            fieldId: 'tags',
+            keyword: selectedCards
+          }
+        ],
+        category: ''
       };
-      const listFaq: any = await getListFaq(slug, queryParams);
+      const listFaq: any = await getListFaqNew(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
       const transformedData =
         tempData === 'undefined'
@@ -214,11 +230,21 @@ const TanyaAvrista = () => {
     try {
       setLoadingSearch(true);
       const queryParams: QueryParams = {
-        includeAttributes: 'true',
-        searchFilter: keyword,
-        tagsFilter: title
+        includeAttributes: true,
+        searchRequest: {
+          keyword: keyword ?? '',
+          fieldIds: ['pertanyaan-tanya-avrista', 'tags'],
+          postData: true
+        },
+        filters: [
+          {
+            fieldId: 'tags',
+            keyword: title
+          }
+        ],
+        category: ''
       };
-      const listFaq: any = await getListFaq(slug, queryParams);
+      const listFaq: any = await getListFaqNew(slug, queryParams);
       const tempData = listFaq?.data?.categoryList[''];
       const transformedData =
         tempData === 'undefined'

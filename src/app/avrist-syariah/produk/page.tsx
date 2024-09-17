@@ -20,7 +20,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 import {
-  handleGetContentCategory,
+  handleGetContentFilter,
   handleGetContentPage
 } from '@/services/content-page.api';
 import { PageResponse } from '@/types/page.type';
@@ -58,11 +58,29 @@ const ProdukSyariah = () => {
 
     const fetchDataContentWithCategory = async () => {
       try {
-        const data = await handleGetContentCategory('Produk-Avrast-Syariah', {
-          searchFilter: searchValue,
-          channelFilter: selectedChannels,
-          includeAttributes: 'true'
-        });
+        const queryParams = {
+          includeAttributes: true,
+          searchRequest: {
+            keyword: searchValue ?? '',
+            fieldIds: ['nama-produk', 'tags'],
+            postData: true
+          },
+          filters: [
+            ...(selectedChannels && selectedChannels !== ''
+              ? [
+                  {
+                    fieldId: 'channel',
+                    keyword: selectedChannels
+                  }
+                ]
+              : [])
+          ],
+          category: ''
+        };
+        const data = await handleGetContentFilter(
+          'Produk-Avrast-Syariah',
+          queryParams
+        );
         // const data = await contentCategoryResponse.json();
         const transformedDataContent = contentCategoryTransformer(data, '-');
 

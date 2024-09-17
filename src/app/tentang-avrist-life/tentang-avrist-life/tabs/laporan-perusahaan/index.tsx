@@ -14,7 +14,7 @@ import MediumTag from '@/components/atoms/Tag/MediumTag';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import FooterInformation from '@/components/molecules/specifics/avrast/FooterInformation';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { getListLaporanPerusahaan } from '@/services/laporan-perusahaan';
+import { getListLaporanPerusahaanNew } from '@/services/laporan-perusahaan';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import {
   pageTransformer,
@@ -83,13 +83,34 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
 
   const fetchContent = async () => {
     try {
-      const apiContent = await getListLaporanPerusahaan({
-        includeAttributes: 'true',
-        category: params.category,
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
-      });
+      const queryParams = {
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['nama-file-laporan'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: params.category
+      };
+      const apiContent = await getListLaporanPerusahaanNew(queryParams);
       const categoryList = Object.keys(apiContent.data.categoryList);
 
       categories.length < 1 && setCategories(categoryList);

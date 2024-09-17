@@ -25,7 +25,7 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import LeftTabs from '@/components/molecules/specifics/avrast/LeftTabs';
 import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
-
+import { BASE_URL } from '@/utils/baseUrl';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
@@ -99,6 +99,7 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     setSearchValue('');
     setSelectedChannels([]);
     setIsCategoryChange(true);
+    setSelectedChannels('');
     router.push(pathname + '?' + createQueryString('tab', tabs), {
       scroll: false
     });
@@ -170,8 +171,38 @@ const IndividuProduk: React.FC<ParamsProps> = () => {
     const fetchDataContentWithCategory = async () => {
       try {
         if (activeTab) {
+          const queryParams = {
+            includeAttributes: true,
+            searchRequest: {
+              keyword: searchValue ?? '',
+              fieldIds: ['nama-produk', 'tags'],
+              postData: true
+            },
+            filters: [
+              {
+                fieldId: 'jenis-produk',
+                keyword: 'Individu'
+              },
+              ...(selectedChannels && selectedChannels !== ''
+                ? [
+                    {
+                      fieldId: 'channel',
+                      keyword: selectedChannels
+                    }
+                  ]
+                : [])
+            ],
+            category: activeTab
+          };
           const contentCategoryResponse = await fetch(
-            `/api/produk/content-category?productFilter=individu&category=${activeTab}&channelFilter=${selectedChannels}&searchFilter=${searchValue}`
+            `${BASE_URL.contentFilter}/Produk-Avras`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(queryParams)
+            }
           );
           const data = await contentCategoryResponse.json();
           const transformedDataContent = contentCategoryTransformer(
