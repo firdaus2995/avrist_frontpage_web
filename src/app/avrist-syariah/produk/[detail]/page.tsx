@@ -478,7 +478,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             )}
             <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-syariah_green border-b-8 -mt-12 border-x border-x-gray_light">
               <div className="accent-syariah_green flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
-                <div className="flex flex-row gap-[12px] font-opensans items-start">
+                <div className="flex flex-row gap-[12px] font-opensans items-start sm:ml-4 sm:-mt-12">
                   <input
                     type="checkbox"
                     checked={isChecked}

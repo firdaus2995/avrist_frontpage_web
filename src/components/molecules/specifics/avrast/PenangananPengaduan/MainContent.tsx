@@ -236,9 +236,9 @@ export const MainContent = ({
   };
 
   const onSubmitData = async () => {
-    const emailSubmitterComponent = dataForm.find(
+    const emailSubmitterComponent = dataForm?.find(
       (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
-    ).componentId;
+    )?.componentId;
 
     let queryParams = {};
     if (attachmentFile === '') {
@@ -262,6 +262,10 @@ export const MainContent = ({
         placeholderValue: formValue,
         attachment: true,
         attachmentPath: attachmentFile,
+        emailSubmitter: emailSubmitterComponent
+          ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+              ?.value
+          : '',
         emailSubject,
         emailBody,
         emailSubjectSubmitter,
