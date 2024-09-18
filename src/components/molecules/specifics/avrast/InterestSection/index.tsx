@@ -128,7 +128,7 @@ const InterestSection = (props: Props) => {
         </p>
         {dataForm && (
           <CustomForm
-            customFormClassname="xs:!p-[1.5rem] sm:!p-[2.25rem]"
+            customFormClassname="!rounded-sm !border-transparent !mx-[-1rem]"
             onChange={handleChange}
             dataForm={dataForm}
             resultData={receiveData}
@@ -137,7 +137,7 @@ const InterestSection = (props: Props) => {
           />
         )}
 
-        <div className="accent-purple_dark flex flex-row items-start gap-[12px]">
+        <div className="accent-purple_dark flex flex-row items-start gap-[12px] -mt-14 bg-white xs:pt-8 sm:pt-0">
           <input
             id="setuju"
             type="checkbox"

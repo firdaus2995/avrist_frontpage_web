@@ -314,7 +314,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
       fetchDataForm().then();
     }
-  }, [dataDetail]);
+  }, [dataDetail, formId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -490,7 +490,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
             )}
             <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-28 border-x border-x-gray_light">
               <div className="accent-dplk_yellow flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
-                <div className="flex flex-row gap-[12px] font-opensans items-start">
+                <div className="flex flex-row gap-[12px] font-opensans items-start sm:ml-4 sm:-mt-14 border-x-gray_light">
                   <input
                     type="checkbox"
                     checked={isChecked}
