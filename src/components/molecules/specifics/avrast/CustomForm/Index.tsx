@@ -659,7 +659,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               </p>
                             ))}
                         </div>
-                      ) : attribute.name.includes('Email') ? (
+                      ) : attribute.name.toLowerCase().includes('Email') ? (
                         <div className="flex flex-col justify-between">
                           <input
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -1056,7 +1056,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               </p>
                             ))}
                         </div>
-                      ) : attribute.name.includes('Email') ? (
+                      ) : attribute.name.toLowerCase().includes('Email') ? (
                         <div className="flex flex-col justify-between">
                           <input
                             className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -1436,7 +1436,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
                           pattern="[0-9]*"
                         />
                       </div>
-                    ) : attribute.name.includes('Email') ? (
+                    ) : attribute.name.toLowerCase().includes('Email') ? (
                       <div className="flex flex-col justify-between">
                         <input
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light rounded-[0.875rem] text-[0.875rem]"
@@ -1650,7 +1650,7 @@ const CustomForm: React.FC<CustomFormProps> = ({
           </div>
         ) : (
           <div
-            className={`grid xs:grid-cols-1 ${type === 'Karir' ? 'gap-[0.25rem] sm:gap-[1rem]' : 'sm:grid-cols-2 sm:gap-[2rem]'} p-4`}
+            className={`grid xs:grid-cols-1 xs:gap-[1.5rem] ${type === 'Karir' ? 'gap-[0.25rem] sm:gap-[1rem]' : 'sm:grid-cols-2 sm:gap-[2rem]'} p-4`}
           >
             <div
               className={`flex flex-col xs:gap-[1.5rem] sm:gap-[2.25rem] font-opensans ${type === 'Karir' && 'sm:gap-[1rem]'}`}
