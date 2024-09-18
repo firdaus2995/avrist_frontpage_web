@@ -316,6 +316,8 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setContentData([]);
+    setSliderData([]);
     setParams({
       ...params,
       category: searchParams.get('category') ?? '',
@@ -323,7 +325,7 @@ const Berita: React.FC<ParamsProps> = () => {
       yearFilter: '',
       monthFilter: ''
     });
-  }, [searchParams.get('tab')]);
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -383,13 +385,6 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const fetchAvriStory = async () => {
-    if (!isAvriStory) {
-      setParams({
-        ...params,
-        yearFilter: '',
-        monthFilter: ''
-      });
-    }
     setIsLoading(true);
     try {
       const fetchData = await getAvriStoryNew({
@@ -399,49 +394,40 @@ const Berita: React.FC<ParamsProps> = () => {
           fieldIds: ['nama-file-bulletin'],
           postData: true
         },
-        ...(!isAvriStory
-          ? {}
-          : {
-              filters: [
-                ...(params.yearFilter && params.yearFilter !== ''
-                  ? [
-                      {
-                        fieldId: 'tahun',
-                        keyword: params.yearFilter
-                      }
-                    ]
-                  : []),
-                ...(params.monthFilter && params.monthFilter !== ''
-                  ? [
-                      {
-                        fieldId: 'bulan',
-                        keyword: params.monthFilter
-                      }
-                    ]
-                  : [])
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== '' && isAvriStory
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
               ]
-            }),
-
+            : []),
+          ...(params.monthFilter && params.monthFilter !== '' && isAvriStory
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
         category: params.category
       });
 
       const categoryList = fetchData.data.categoryList;
 
-      const transformedData = categoryList[params.category]?.map(
-        (item: any) => {
-          const { content } = handleTransformedContent(
-            item.contentData,
-            item.title
-          );
+      const transformedData = categoryList['AvriStory']?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
 
-          const namaFile = content['nama-file-bulletin'].value;
-          const file = singleImageTransformer(
-            content['file-bulletin']
-          ).imageUrl;
+        const namaFile = content['nama-file-bulletin'].value;
+        const file = singleImageTransformer(content['file-bulletin']).imageUrl;
 
-          return { namaFile, file };
-        }
-      );
+        return { namaFile, file };
+      });
 
       if (!transformedData) {
         setContentData([]);
@@ -701,7 +687,9 @@ const Berita: React.FC<ParamsProps> = () => {
           setContentData([]);
         } else {
           setSliderData(sortedData.slice(0, 4));
-          setContentData(sortedData.slice(4));
+          setContentData(
+            sortedData.getDifference(sortedData, sliderData).slice(4)
+          );
         }
       } else {
         const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
