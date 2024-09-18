@@ -231,7 +231,6 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     pageSlug();
-    setContentData([]);
     if (searchParams.get('category')) {
       if (tab === 'Avrist Terkini') {
         if (params.category === 'Avrist Life Guide') {
@@ -241,7 +240,10 @@ const Berita: React.FC<ParamsProps> = () => {
           setItemsPerPage(5);
           fetchAvriStory();
         }
-        if (params.category === 'Berita dan Kegiatan') {
+        if (
+          params.category === 'Berita dan Kegiatan' &&
+          searchParams.get('category')?.includes('Berita')
+        ) {
           setItemsPerPage(6);
           fetchContent();
         }
@@ -751,9 +753,10 @@ const Berita: React.FC<ParamsProps> = () => {
         } else {
           if (sliderData?.length > 0 && !isChangeCategory) {
             setContentData(getDifference(sortedData, sliderData));
+          } else {
+            setSliderData(sortedData.slice(0, 4));
+            setContentData(sortedData.slice(4));
           }
-          setSliderData(sortedData.slice(0, 4));
-          setContentData(sortedData.slice(4));
         }
       }
       setIsChangeCategory(false);
