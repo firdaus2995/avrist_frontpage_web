@@ -298,6 +298,17 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setParams({
+      ...params,
+      category: searchParams.get('category') ?? '',
+      searchFilter: '',
+      yearFilter: '',
+      monthFilter: ''
+    });
+  }, [searchParams.get('tab')]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, [initialRender]);
 
   const pageSlug = () => {
@@ -581,7 +592,7 @@ const Berita: React.FC<ParamsProps> = () => {
             const tanggal = content['tanggal'].value;
             const bulan = content['bulan'].value;
             const tahun = content['tahun'].value;
-            const fullDate = `${tahun}-${bulan}-${tanggal}`;
+            const fullDate = `${tahun}-${bulan}-00`;
             const waktu =
               tanggal !== '-' &&
               bulan !== '-' &&
@@ -665,6 +676,9 @@ const Berita: React.FC<ParamsProps> = () => {
 
             const date = new Date(item.createdAt).getDate();
             const judul = content['judul-artikel'].value;
+            const bulan = content['bulan'].value;
+            const tahun = content['tahun'].value;
+            const fullDate = `${tahun}-${bulan}-00`;
             const waktu =
               content['bulan'].value !== '-' && content['tahun'].value !== '-'
                 ? `${
@@ -693,6 +707,7 @@ const Berita: React.FC<ParamsProps> = () => {
 
             return {
               judul,
+              fullDate,
               waktu,
               deskripsi,
               image,
@@ -705,11 +720,31 @@ const Berita: React.FC<ParamsProps> = () => {
             };
           }
         );
-        if (!transformedData) {
+        const sortedData = transformedData.sort((a: any, b: any) => {
+          const cleanedDateA = a.fullDate.replace(/-00$/, '-01');
+          const cleanedDateB = b.fullDate.replace(/-00$/, '-01');
+
+          const dateA = new Date(cleanedDateA).getTime();
+          const dateB = new Date(cleanedDateB).getTime();
+
+          if (isNaN(dateA)) {
+            return 1;
+          }
+          if (isNaN(dateB)) {
+            return -1;
+          }
+
+          return dateB - dateA;
+        });
+        if (!sortedData) {
           setContentData([]);
         } else {
-          setSliderData(transformedData.slice(0, 4));
-          setContentData(transformedData.slice(4));
+          if (sliderData?.length > 0) {
+            setContentData(getDifference(sortedData, sliderData));
+          } else {
+            setSliderData(sortedData.slice(0, 4));
+            setContentData(sortedData.slice(4));
+          }
         }
       }
       setIsLoading(false);
