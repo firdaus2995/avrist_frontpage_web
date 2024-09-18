@@ -136,6 +136,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const isMobileWidth = useMobileDetector();
+  const [isChangeCategory, setIsChangeCategory] = useState(false);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -736,17 +737,18 @@ const Berita: React.FC<ParamsProps> = () => {
 
           return dateB - dateA;
         });
-        if (!sortedData) {
+        if (!transformedData) {
           setContentData([]);
         } else {
-          if (sliderData?.length > 0) {
+          if (sliderData?.length > 0 && !isChangeCategory) {
             setContentData(getDifference(sortedData, sliderData));
           } else {
-            setSliderData(sortedData.slice(0, 4));
-            setContentData(sortedData.slice(4));
+            setSliderData(getDifference(sortedData, sliderData).slice(0, 4));
+            setContentData(getDifference(sortedData, sliderData).slice(4));
           }
         }
       }
+      setIsChangeCategory(false);
       setIsLoading(false);
     } catch (err) {
       console.error(err);
@@ -1543,6 +1545,13 @@ const Berita: React.FC<ParamsProps> = () => {
                                 setLifeGuideCategory({
                                   ...lifeGuideCategory,
                                   selectedCategory: item
+                                });
+                                setIsChangeCategory(true);
+                                setParams({
+                                  ...params,
+                                  searchFilter: '',
+                                  yearFilter: '',
+                                  monthFilter: ''
                                 });
                               }}
                             >
