@@ -137,6 +137,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const isMobileWidth = useMobileDetector();
   const [isChangeCategory, setIsChangeCategory] = useState(false);
+  const [isAvriStory, setIsAvriStory] = useState(false);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -233,10 +234,16 @@ const Berita: React.FC<ParamsProps> = () => {
     pageSlug();
     if (searchParams.get('category')) {
       if (tab === 'Avrist Terkini') {
-        if (params.category === 'Avrist Life Guide') {
+        if (
+          params.category === 'Avrist Life Guide' &&
+          searchParams.get('category')?.includes('Guide')
+        ) {
           fetchLifeGuide();
         }
-        if (params.category === 'AvriStory') {
+        if (
+          params.category === 'AvriStory' &&
+          searchParams.get('category')?.includes('AvriStory')
+        ) {
           setItemsPerPage(5);
           fetchAvriStory();
         }
@@ -287,7 +294,7 @@ const Berita: React.FC<ParamsProps> = () => {
       setPageCount(0);
       setItemOffset(0);
     }
-  }, [params.category]);
+  }, [params.category, window.location.pathname]);
 
   useEffect(() => {
     setPageCount(0);
@@ -376,6 +383,13 @@ const Berita: React.FC<ParamsProps> = () => {
   };
 
   const fetchAvriStory = async () => {
+    if (!isAvriStory) {
+      setParams({
+        ...params,
+        yearFilter: '',
+        monthFilter: ''
+      });
+    }
     setIsLoading(true);
     try {
       const fetchData = await getAvriStoryNew({
@@ -385,24 +399,29 @@ const Berita: React.FC<ParamsProps> = () => {
           fieldIds: ['nama-file-bulletin'],
           postData: true
         },
-        filters: [
-          ...(params.yearFilter && params.yearFilter !== ''
-            ? [
-                {
-                  fieldId: 'tahun',
-                  keyword: params.yearFilter
-                }
+        ...(!isAvriStory
+          ? {}
+          : {
+              filters: [
+                ...(params.yearFilter && params.yearFilter !== ''
+                  ? [
+                      {
+                        fieldId: 'tahun',
+                        keyword: params.yearFilter
+                      }
+                    ]
+                  : []),
+                ...(params.monthFilter && params.monthFilter !== ''
+                  ? [
+                      {
+                        fieldId: 'bulan',
+                        keyword: params.monthFilter
+                      }
+                    ]
+                  : [])
               ]
-            : []),
-          ...(params.monthFilter && params.monthFilter !== ''
-            ? [
-                {
-                  fieldId: 'bulan',
-                  keyword: params.monthFilter
-                }
-              ]
-            : [])
-        ],
+            }),
+
         category: params.category
       });
 
@@ -424,11 +443,18 @@ const Berita: React.FC<ParamsProps> = () => {
         }
       );
 
-      setContentData(transformedData);
+      if (!transformedData) {
+        setContentData([]);
+      } else {
+        setContentData(transformedData);
+      }
+
       setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
+    setIsAvriStory(true);
   };
 
   const fetchContent = async () => {
@@ -755,7 +781,7 @@ const Berita: React.FC<ParamsProps> = () => {
             setContentData(getDifference(sortedData, sliderData));
           } else {
             setSliderData(sortedData.slice(0, 4));
-            setContentData(sortedData.slice(4));
+            setContentData(getDifference(sortedData, sliderData).slice(4));
           }
         }
       }
@@ -766,6 +792,17 @@ const Berita: React.FC<ParamsProps> = () => {
     }
     setInitialRender(false);
   };
+
+  useEffect(() => {
+    if (initialRender) {
+      setParams({
+        ...params,
+        searchFilter: '',
+        yearFilter: '',
+        monthFilter: ''
+      });
+    }
+  }, [initialRender]);
 
   const fetchBeritaPers = async () => {
     setIsLoading(true);
@@ -1083,7 +1120,6 @@ const Berita: React.FC<ParamsProps> = () => {
     setContentData([]);
     setSliderData([]);
     setParams({
-      ...params,
       category: value,
       searchFilter: '',
       yearFilter: '',
