@@ -332,6 +332,10 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const handleSubmit = async () => {
+    const emailSubmitterComponent = dataForm.find(
+      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+    ).componentId;
+
     const updatedData = formValue.map((item) => {
       if (item.name.includes('produk')) {
         return { ...item, value: dataDetail?.namaProduk };
@@ -342,6 +346,10 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
     const queryParams = {
       id: formId,
       pic: formPic,
+      emailSubmitter: emailSubmitterComponent
+        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+            ?.value
+        : '',
       placeholderValue: updatedData,
       attachment: attachment.toString(),
       attachmentPath,

@@ -7,7 +7,10 @@ import { SuccessModal } from '../../Modal';
 import { handleGetContent } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
-import { contentTransformer, singleImageTransformer } from '@/utils/responseTransformer';
+import {
+  contentTransformer,
+  singleImageTransformer
+} from '@/utils/responseTransformer';
 
 type Props = {
   Id?: string;
@@ -62,7 +65,7 @@ export const RequirementForm = (props: Props) => {
           console.error('Error:', error);
         }
       };
-  
+
       fetchModalImage().then();
       fetchDataForm().then();
     }
@@ -87,9 +90,17 @@ export const RequirementForm = (props: Props) => {
   };
 
   const onSubmitData = async () => {
+    const emailSubmitterComponent = dataForm.find(
+      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+    ).componentId;
+
     const queryParams = {
       id: formId,
       pic: formPic,
+      emailSubmitter: emailSubmitterComponent
+        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+            ?.value
+        : '',
       placeholderValue: formValue,
       attachment: attachment.toString(),
       attachmentPath,
