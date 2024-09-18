@@ -347,6 +347,10 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const onSubmitData = async () => {
+    const emailSubmitterComponent = dataForm.find(
+      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+    ).componentId;
+
     const updatedData = formValue.map((item) => {
       if (item.name.includes('produk')) {
         return { ...item, value: dataDetail?.namaProduk };
@@ -362,6 +366,10 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       attachmentPath,
       emailSubject,
       emailBody,
+      emailSubmitter: emailSubmitterComponent
+        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+            ?.value
+        : '',
       emailSubjectSubmitter: emailSubjectSubmitter ?? '',
       emailBodySubmitter: emailBodySubmitter ?? ''
     };

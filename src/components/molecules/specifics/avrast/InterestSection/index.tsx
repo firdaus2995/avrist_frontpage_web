@@ -72,6 +72,10 @@ const InterestSection = (props: Props) => {
   };
 
   const onSubmitData = async () => {
+    const emailSubmitterComponent = dataForm.find(
+      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+    ).componentId;
+
     const filteredFormValue = formValue.filter(
       (item) => item.name !== 'nama-produk' && item.name !== 'nama-promo'
     );
@@ -83,6 +87,10 @@ const InterestSection = (props: Props) => {
     const queryParams = {
       id: formId,
       pic: formPic,
+      emailSubmitter: emailSubmitterComponent
+        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+            ?.value
+        : '',
       placeholderValue: newFormValue,
       attachment: attachment.toString(),
       attachmentPath,
