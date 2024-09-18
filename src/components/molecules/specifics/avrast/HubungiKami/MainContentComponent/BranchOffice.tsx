@@ -26,8 +26,10 @@ export const BranchOffice = (props: Props) => {
     if (searchParam === '') {
       setData(branchData);
     } else {
-      const temp = branchData?.filter((value: any) =>
-        value.name?.toLowerCase().includes(searchParam.toLowerCase())
+      const temp = branchData?.filter(
+        (value: any) =>
+          value.name?.toLowerCase().includes(searchParam.toLowerCase()) ||
+          value.address?.toLowerCase().includes(searchParam.toLowerCase())
       );
       setData(temp);
     }
