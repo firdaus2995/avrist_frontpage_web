@@ -231,19 +231,20 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     pageSlug();
-    if (tab === 'Avrist Terkini') {
-      switch (params.category) {
-        case 'Avrist Life Guide':
+    setContentData([]);
+    if (searchParams.get('category')) {
+      if (tab === 'Avrist Terkini') {
+        if (params.category === 'Avrist Life Guide') {
           fetchLifeGuide();
-          break;
-        case 'AvriStory':
+        }
+        if (params.category === 'AvriStory') {
           setItemsPerPage(5);
           fetchAvriStory();
-
-          break;
-        default:
+        }
+        if (params.category === 'Berita dan Kegiatan') {
           setItemsPerPage(6);
           fetchContent();
+        }
       }
     }
 
@@ -256,7 +257,13 @@ const Berita: React.FC<ParamsProps> = () => {
       setItemsPerPage(3);
       fetchTestimoni();
     }
-  }, [params, lifeGuideCategory.selectedCategory, tab]);
+  }, [
+    params,
+    lifeGuideCategory.selectedCategory,
+    tab,
+    searchParams,
+    lifeGuideCategory
+  ]);
 
   useEffect(() => {
     if (data.slug) {
@@ -265,8 +272,9 @@ const Berita: React.FC<ParamsProps> = () => {
   }, [data]);
 
   useEffect(() => {
+    setSliderData([]);
     setSearch('');
-    setParams({ ...params, searchFilter: '' });
+    setParams({ ...params, searchFilter: '', yearFilter: '', monthFilter: '' });
     if (
       params.searchFilter === '' &&
       params.monthFilter === '' &&
@@ -721,7 +729,7 @@ const Berita: React.FC<ParamsProps> = () => {
             };
           }
         );
-        const sortedData = transformedData.sort((a: any, b: any) => {
+        const sortedData = transformedData?.sort((a: any, b: any) => {
           const cleanedDateA = a.fullDate.replace(/-00$/, '-01');
           const cleanedDateB = b.fullDate.replace(/-00$/, '-01');
 
@@ -737,15 +745,15 @@ const Berita: React.FC<ParamsProps> = () => {
 
           return dateB - dateA;
         });
+
         if (!transformedData) {
           setContentData([]);
         } else {
           if (sliderData?.length > 0 && !isChangeCategory) {
             setContentData(getDifference(sortedData, sliderData));
-          } else {
-            setSliderData(getDifference(sortedData, sliderData).slice(0, 4));
-            setContentData(getDifference(sortedData, sliderData).slice(4));
           }
+          setSliderData(sortedData.slice(0, 4));
+          setContentData(sortedData.slice(4));
         }
       }
       setIsChangeCategory(false);
@@ -1547,6 +1555,7 @@ const Berita: React.FC<ParamsProps> = () => {
                                   selectedCategory: item
                                 });
                                 setIsChangeCategory(true);
+                                setSearch('');
                                 setParams({
                                   ...params,
                                   searchFilter: '',
