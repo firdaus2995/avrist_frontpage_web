@@ -31,11 +31,11 @@ import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
 import {
-  getAvristLifeGuide,
-  getAvriStory,
-  getAvristTerkini,
-  getBeritaPers,
-  getTestimoni,
+  getAvristLifeGuideNew,
+  getAvriStoryNew,
+  getAvristTerkiniNew,
+  getBeritaPersNew,
+  getTestimoniNew,
   subscribeApi
 } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
@@ -356,12 +356,32 @@ const Berita: React.FC<ParamsProps> = () => {
   const fetchAvriStory = async () => {
     setIsLoading(true);
     try {
-      const fetchData = await getAvriStory({
-        includeAttributes: 'true',
-        category: params.category,
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+      const fetchData = await getAvriStoryNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['nama-file-bulletin'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: params.category
       });
 
       const categoryList = fetchData.data.categoryList;
@@ -392,11 +412,32 @@ const Berita: React.FC<ParamsProps> = () => {
   const fetchContent = async () => {
     setIsLoading(true);
     try {
-      const fetchContentCategory = await getAvristTerkini({
-        includeAttributes: 'true',
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+      const fetchContentCategory = await getAvristTerkiniNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-artikel', 'tags'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: ''
       });
 
       const categoryList = fetchContentCategory.data.categoryList;
@@ -488,12 +529,32 @@ const Berita: React.FC<ParamsProps> = () => {
   const fetchLifeGuide = async () => {
     setIsLoading(true);
     try {
-      const fetchData = await getAvristLifeGuide({
-        includeAttributes: 'true',
-        category: lifeGuideCategory.selectedCategory,
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+      const fetchData = await getAvristLifeGuideNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-artikel', 'tags'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: lifeGuideCategory.selectedCategory
       });
 
       const data = fetchData.data.categoryList;
@@ -661,12 +722,32 @@ const Berita: React.FC<ParamsProps> = () => {
   const fetchBeritaPers = async () => {
     setIsLoading(true);
     try {
-      const fetchData = await getBeritaPers({
-        includeAttributes: 'true',
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter,
-        category: params?.category
+      const fetchData = await getBeritaPersNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-artikel'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: params.category
       });
 
       const data = fetchData.data.categoryList;
@@ -707,11 +788,32 @@ const Berita: React.FC<ParamsProps> = () => {
   const fetchTestimoni = async () => {
     setIsLoading(true);
     try {
-      const fetchData = await getTestimoni({
-        includeAttributes: 'true',
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+      const fetchData = await getTestimoniNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-testimoni'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: ''
       });
 
       const data = fetchData.data.categoryList;

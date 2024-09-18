@@ -14,8 +14,8 @@ import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import NotFound from '@/components/atoms/NotFound';
 import MediumTag from '@/components/atoms/Tag/MediumTag';
-import { handleGetContentCategory } from '@/services/content-page.api';
-import { handleDownload } from '@/utils/helpers';
+import { handleGetContentFilter } from '@/services/content-page.api';
+import { handleDownload, isContentNotEmpty } from '@/utils/helpers';
 import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
@@ -25,9 +25,10 @@ import {
 
 const SearchForm = () => {
   const searchParams = useSearchParams();
-  const [selectedTab, setSelectedTab] = useState({
+  const [selectedTab, setSelectedTab] = useState<any>({
     title: 'Asuransi Individu',
-    slug: 'Produk-Avras'
+    slug: 'Produk-Avras',
+    fieldIds: ['nama-produk', 'tags']
   });
   const [searchKeyWords, setSearchKeywords] = useState(
     searchParams.get('searchValue') ?? ''
@@ -44,10 +45,15 @@ const SearchForm = () => {
       try {
         let listData = [];
         const queryParams: QueryParams = {
-          includeAttributes: 'true',
-          searchFilter: searchKeyWords ?? ''
+          includeAttributes: true,
+          searchRequest: {
+            keyword: searchKeyWords ?? '',
+            fieldIds: selectedTab.fieldIds,
+            postData: true
+          },
+          category: ''
         };
-        const data = await handleGetContentCategory(
+        const data = await handleGetContentFilter(
           selectedTab.slug,
           queryParams
         );
@@ -147,8 +153,11 @@ const SearchForm = () => {
               const label = '';
               const title = contentStringTransformer(content['judul-artikel']);
               const date = format(new Date(createdAt), 'MMMM yyyy');
-              const description =
-                content['artikel-looping'].contentData[0].details[0].value;
+              const description = isContentNotEmpty(
+                content['artikel-looping'].contentData[0].details[0].value
+              )
+                ? content['artikel-looping'].contentData[0].details[0].value
+                : '';
 
               return {
                 label,
@@ -213,49 +222,58 @@ const SearchForm = () => {
         title: 'Asuransi Individu',
         slug: 'Produk-Avras',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['nama-produk', 'tags']
       },
       {
         title: 'Asuransi Korporasi',
         slug: 'Produk-Avras',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['nama-produk', 'tags']
       },
       {
         title: 'Berita & Kegiatan',
         slug: 'Berita-dan-Kegiatan-Detail',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['judul-artikel', 'tags']
       },
       {
         title: 'Avristory',
         slug: 'Bulletin-AvriStory',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['nama-file-bulletin']
       },
       {
         title: 'Avrist Life Guide',
         slug: 'List-Avrist-Life-Guide',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['judul-artikel', 'tags']
       },
       {
         title: 'Avrist Syariah',
         slug: 'Produk-Avrast-Syariah',
         color: 'bg-olive_green',
-        borderColor: 'border-olive_green'
+        borderColor: 'border-olive_green',
+
+        fieldIds: ['nama-produk', 'tags']
       },
       {
         title: 'DPLK Avrist',
         slug: 'Produk-Avrast-DPLK',
         color: 'bg-yellow_alternate',
-        borderColor: 'border-yellow_alternate'
+        borderColor: 'border-yellow_alternate',
+        fieldIds: ['nama-produk', 'tags']
       },
       {
         title: 'Penghargaan',
         slug: 'Artikel-Penghargaan',
         color: 'bg-purple_dark',
-        borderColor: 'border-purple_dark'
+        borderColor: 'border-purple_dark',
+        fieldIds: ['judul-artikel', 'tags']
       }
     ],
     []
@@ -278,10 +296,11 @@ const SearchForm = () => {
               key={tab.title}
               title={tab.title}
               onClick={() => {
-                const { title, slug } = tab;
+                const { title, slug, fieldIds } = tab;
                 setSelectedTab({
                   title,
-                  slug
+                  slug,
+                  fieldIds
                 });
               }}
               customButtonClass={`${selectedTab.title === tab.title && `${tab.color} text-white px-[1.25rem] py-[0.5rem]`} !${tab.borderColor} hover:${tab.color} px-[1.25rem] py-[0.5rem]`}
@@ -295,10 +314,11 @@ const SearchForm = () => {
             selected={selectedTab.title}
             slideItems={tabs}
             onClickItem={(item) => {
-              const { title, slug } = item;
+              const { title, slug, fieldIds } = item;
               setSelectedTab({
                 title,
-                slug
+                slug,
+                fieldIds
               });
             }}
             customLabel="title"

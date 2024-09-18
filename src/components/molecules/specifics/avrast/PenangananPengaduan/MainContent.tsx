@@ -20,8 +20,8 @@ import {
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import {
   handleGetContent as handleGetMainContent,
-  handleGetContentCategory,
-  handleGetContent
+  handleGetContent,
+  handleGetContentFilter
 } from '@/services/content-page.api';
 import { handleSendEmail } from '@/services/form.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
@@ -422,11 +422,30 @@ const fetchContentData = async (params: {
   searchKeywords: string;
 }) => {
   try {
+    // const queryParams: QueryParams = {
+    //   includeAttributes: 'true',
+    //   category: params.selectedCategory || '',
+    //   ...(params.selectedYear && { yearFilter: params.selectedYear }),
+    //   searchFilter: params.searchKeywords
+    // };
     const queryParams: QueryParams = {
-      includeAttributes: 'true',
-      category: params.selectedCategory || '',
-      ...(params.selectedYear && { yearFilter: params.selectedYear }),
-      searchFilter: params.searchKeywords
+      includeAttributes: true,
+      filters: [
+        ...(params.selectedYear && params.selectedYear !== ''
+          ? [
+              {
+                fieldId: 'tahun',
+                keyword: params.selectedYear
+              }
+            ]
+          : [])
+      ],
+      searchRequest: {
+        keyword: params.searchKeywords,
+        fieldIds: ['panduanpenanganan-namafile'],
+        postData: true
+      },
+      category: ''
     };
 
     if (!params.selectedCategory || params.selectedCategory === 'undefined') {
@@ -454,7 +473,7 @@ const fetchContentData = async (params: {
       );
     }
 
-    const apiContentCategoryData = await handleGetContentCategory(
+    const apiContentCategoryData = await handleGetContentFilter(
       'Laporan-Publikasi',
       queryParams
     );

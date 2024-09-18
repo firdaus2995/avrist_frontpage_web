@@ -27,7 +27,7 @@ import FooterInformation from '@/components/molecules/specifics/avrast/FooterInf
 import Hero from '@/components/molecules/specifics/avrast/Hero';
 import { SubmittedFormModal } from '@/components/molecules/specifics/avrast/Modal';
 import SliderInformation from '@/components/molecules/specifics/avrast/SliderInformation';
-import { getPenawaran, subscribeApi } from '@/services/berita';
+import { getPenawaranNew, subscribeApi } from '@/services/berita';
 import { handleGetContentPage } from '@/services/content-page.api';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { ParamsProps } from '@/utils/globalTypes';
@@ -169,11 +169,32 @@ const Promo: React.FC<ParamsProps> = () => {
 
   const fetchContent = async () => {
     try {
-      const fetchContentCategory = await getPenawaran({
-        includeAttributes: 'true',
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
+      const fetchContentCategory = await getPenawaranNew({
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-artikel', 'tags'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: ''
       });
 
       const data = fetchContentCategory.data.categoryList;
