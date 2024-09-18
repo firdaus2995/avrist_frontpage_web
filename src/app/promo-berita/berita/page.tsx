@@ -137,6 +137,7 @@ const Berita: React.FC<ParamsProps> = () => {
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const isMobileWidth = useMobileDetector();
   const [isChangeCategory, setIsChangeCategory] = useState(false);
+  const [isAvriStory, setIsAvriStory] = useState(false);
 
   // PAGINATION STATE
   const [paginatedData, setPaginatedData] = useState<any[]>([]);
@@ -233,10 +234,16 @@ const Berita: React.FC<ParamsProps> = () => {
     pageSlug();
     if (searchParams.get('category')) {
       if (tab === 'Avrist Terkini') {
-        if (params.category === 'Avrist Life Guide') {
+        if (
+          params.category === 'Avrist Life Guide' &&
+          searchParams.get('category')?.includes('Guide')
+        ) {
           fetchLifeGuide();
         }
-        if (params.category === 'AvriStory') {
+        if (
+          params.category === 'AvriStory' &&
+          searchParams.get('category')?.includes('AvriStory')
+        ) {
           setItemsPerPage(5);
           fetchAvriStory();
         }
@@ -287,7 +294,7 @@ const Berita: React.FC<ParamsProps> = () => {
       setPageCount(0);
       setItemOffset(0);
     }
-  }, [params.category]);
+  }, [params.category, window.location.pathname]);
 
   useEffect(() => {
     setPageCount(0);
@@ -309,6 +316,8 @@ const Berita: React.FC<ParamsProps> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setContentData([]);
+    setSliderData([]);
     setParams({
       ...params,
       category: searchParams.get('category') ?? '',
@@ -316,7 +325,7 @@ const Berita: React.FC<ParamsProps> = () => {
       yearFilter: '',
       monthFilter: ''
     });
-  }, [searchParams.get('tab')]);
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -386,7 +395,7 @@ const Berita: React.FC<ParamsProps> = () => {
           postData: true
         },
         filters: [
-          ...(params.yearFilter && params.yearFilter !== ''
+          ...(params.yearFilter && params.yearFilter !== '' && isAvriStory
             ? [
                 {
                   fieldId: 'tahun',
@@ -394,7 +403,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 }
               ]
             : []),
-          ...(params.monthFilter && params.monthFilter !== ''
+          ...(params.monthFilter && params.monthFilter !== '' && isAvriStory
             ? [
                 {
                   fieldId: 'bulan',
@@ -408,27 +417,30 @@ const Berita: React.FC<ParamsProps> = () => {
 
       const categoryList = fetchData.data.categoryList;
 
-      const transformedData = categoryList[params.category]?.map(
-        (item: any) => {
-          const { content } = handleTransformedContent(
-            item.contentData,
-            item.title
-          );
+      const transformedData = categoryList['AvriStory']?.map((item: any) => {
+        const { content } = handleTransformedContent(
+          item.contentData,
+          item.title
+        );
 
-          const namaFile = content['nama-file-bulletin'].value;
-          const file = singleImageTransformer(
-            content['file-bulletin']
-          ).imageUrl;
+        const namaFile = content['nama-file-bulletin'].value;
+        const file = singleImageTransformer(content['file-bulletin']).imageUrl;
 
-          return { namaFile, file };
-        }
-      );
+        return { namaFile, file };
+      });
 
-      setContentData(transformedData);
+      if (!transformedData) {
+        setContentData([]);
+      } else {
+        setContentData(transformedData);
+      }
+
       setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
+    setInitialRender(false);
+    setIsAvriStory(true);
   };
 
   const fetchContent = async () => {
@@ -675,7 +687,9 @@ const Berita: React.FC<ParamsProps> = () => {
           setContentData([]);
         } else {
           setSliderData(sortedData.slice(0, 4));
-          setContentData(sortedData.slice(4));
+          setContentData(
+            sortedData.getDifference(sortedData, sliderData).slice(4)
+          );
         }
       } else {
         const transformedData = data[lifeGuideCategory.selectedCategory]?.map(
@@ -755,7 +769,7 @@ const Berita: React.FC<ParamsProps> = () => {
             setContentData(getDifference(sortedData, sliderData));
           } else {
             setSliderData(sortedData.slice(0, 4));
-            setContentData(sortedData.slice(4));
+            setContentData(getDifference(sortedData, sliderData).slice(4));
           }
         }
       }
@@ -766,6 +780,17 @@ const Berita: React.FC<ParamsProps> = () => {
     }
     setInitialRender(false);
   };
+
+  useEffect(() => {
+    if (initialRender) {
+      setParams({
+        ...params,
+        searchFilter: '',
+        yearFilter: '',
+        monthFilter: ''
+      });
+    }
+  }, [initialRender]);
 
   const fetchBeritaPers = async () => {
     setIsLoading(true);
@@ -1083,7 +1108,6 @@ const Berita: React.FC<ParamsProps> = () => {
     setContentData([]);
     setSliderData([]);
     setParams({
-      ...params,
       category: value,
       searchFilter: '',
       yearFilter: '',
