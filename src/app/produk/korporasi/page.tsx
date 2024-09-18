@@ -25,6 +25,7 @@ import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
 
 import { handleGetContentPage } from '@/services/content-page.api';
+import { BASE_URL } from '@/utils/baseUrl';
 import { ParamsProps } from '@/utils/globalTypes';
 import {
   contentCategoryTransformer,
@@ -126,8 +127,30 @@ const ProdukKorporasi: React.FC<ParamsProps> = () => {
 
     const fetchDataContentWithCategory = async () => {
       try {
+        const queryParams = {
+          includeAttributes: true,
+          searchRequest: {
+            keyword: searchValue ?? '',
+            fieldIds: ['nama-produk', 'tags'],
+            postData: true
+          },
+          filters: [
+            {
+              fieldId: 'jenis-produk',
+              keyword: 'Korporasi'
+            }
+          ],
+          category: activeTab
+        };
         const contentCategoryResponse = await fetch(
-          `/api/produk/content-category?productFilter=korporasi&category=${activeTab}&searchFilter=${searchValue}`
+          `${BASE_URL.contentFilter}/Produk-Avras`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(queryParams)
+          }
         );
         const data = await contentCategoryResponse.json();
         const transformedDataContent = contentCategoryTransformer(

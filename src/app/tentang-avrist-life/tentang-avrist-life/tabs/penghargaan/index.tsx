@@ -9,7 +9,7 @@ import NotFound from '@/components/atoms/NotFound';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
 import CategoryWithThreeCards from '@/components/molecules/specifics/avrast/CategoryWithThreeCards';
 import { handleGetContentPage } from '@/services/content-page.api';
-import { getListPenghargaan } from '@/services/penghargaan';
+import { getListPenghargaanNew } from '@/services/penghargaan';
 import { PageResponse } from '@/types/page.type';
 import { BASE_SLUG } from '@/utils/baseSlug';
 import { htmlParser } from '@/utils/helpers';
@@ -86,13 +86,34 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
   const fetchContent = async () => {
     setIsLoading(true);
     try {
-      const apiContent = await getListPenghargaan({
-        includeAttributes: 'true',
-        category: params.category,
-        searchFilter: params.searchFilter,
-        yearFilter: params.yearFilter,
-        monthFilter: params.monthFilter
-      });
+      const queryParams = {
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter ?? '',
+          fieldIds: ['judul-artikel', 'tags'],
+          postData: true
+        },
+        filters: [
+          ...(params.yearFilter && params.yearFilter !== ''
+            ? [
+                {
+                  fieldId: 'tahun',
+                  keyword: params.yearFilter
+                }
+              ]
+            : []),
+          ...(params.monthFilter && params.monthFilter !== ''
+            ? [
+                {
+                  fieldId: 'bulan',
+                  keyword: params.monthFilter
+                }
+              ]
+            : [])
+        ],
+        category: params.category
+      };
+      const apiContent = await getListPenghargaanNew(queryParams);
 
       const transformedContent = apiContent.data.categoryList[''];
 

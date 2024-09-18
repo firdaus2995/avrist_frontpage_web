@@ -22,6 +22,7 @@ export const BranchOffice = (props: Props) => {
   const endIndex = startIndex + itemsPerPage;
 
   useEffect(() => {
+    setCurrentPage(1);
     if (searchParam === '') {
       setData(branchData);
     } else {

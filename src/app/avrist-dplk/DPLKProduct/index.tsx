@@ -9,7 +9,7 @@ import CategoryPills from '@/components/molecules/specifics/avrast/CategoryPills
 import CategoryPillsBox from '@/components/molecules/specifics/avrast/CategoryPillsBox';
 import Pagination from '@/components/molecules/specifics/avrast/Pagination';
 import SearchBar from '@/components/molecules/specifics/avrast/SearchBar';
-import { handleGetContentCategory } from '@/services/content-page.api';
+import { handleGetContentFilter } from '@/services/content-page.api';
 import {
   contentCategoryTransformer,
   contentStringTransformer,
@@ -33,11 +33,31 @@ const DPLKProductList = () => {
   useEffect(() => {
     const fetchDataContentWithCategory = async () => {
       try {
-        const data = await handleGetContentCategory('Produk-Avrast-DPLK', {
-          searchFilter: search,
-          channelFilter: selectedChannels ?? '',
-          includeAttributes: 'true'
-        });
+        const queryParams = {
+          includeAttributes: true,
+          searchRequest: {
+            keyword: search ?? '',
+            fieldIds: ['nama-produk', 'tags'],
+            postData: true
+          },
+          filters: [
+            ...(selectedChannels &&
+            selectedChannels !== '' &&
+            selectedChannels.length > 0
+              ? [
+                  {
+                    fieldId: 'channel',
+                    keyword: selectedChannels
+                  }
+                ]
+              : [])
+          ],
+          category: ''
+        };
+        const data = await handleGetContentFilter(
+          'Produk-Avrast-DPLK',
+          queryParams
+        );
         const transformedDataContent = contentCategoryTransformer(data, '-');
 
         const dataContentValues = transformedDataContent?.map(

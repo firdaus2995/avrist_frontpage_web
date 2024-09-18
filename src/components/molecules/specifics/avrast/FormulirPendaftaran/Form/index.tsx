@@ -8,7 +8,7 @@ import ButtonMenu from '@/components/molecules/specifics/avrast/ButtonMenu';
 import ButtonMenuVertical from '@/components/molecules/specifics/avrast/ButtonMenuVertical';
 import DownloadFileButton from '@/components/molecules/specifics/avrast/DownloadFileButton';
 import SearchBox from '@/components/molecules/specifics/avrast/SearchBox';
-import { handleGetContentCategory } from '@/services/content-page.api';
+import { handleGetContentFilter } from '@/services/content-page.api';
 import { BASE_URL } from '@/utils/baseUrl';
 import { QueryParams } from '@/utils/httpService';
 
@@ -161,12 +161,27 @@ export default Form;
 
 const fetchContentDataWithCategory = async (params: any) => {
   const queryParams: QueryParams = {
-    includeAttributes: 'true',
-    searchFilter: params?.searchKeyWords || ''
+    includeAttributes: true,
+    filters: [
+      ...(params.selectedCategory && params.selectedCategory !== ''
+        ? [
+            {
+              fieldId: 'kategori-formulir',
+              keyword: params.selectedCategory
+            }
+          ]
+        : [])
+    ],
+    searchRequest: {
+      keyword: params?.searchKeyWords || '',
+      fieldIds: ['formulirdanbukupanduan-namafile'],
+      postData: true
+    },
+    category: ''
   };
 
   try {
-    const apiContent = await handleGetContentCategory(
+    const apiContent = await handleGetContentFilter(
       'Formulir-dan-Buku-Panduan',
       queryParams
     );

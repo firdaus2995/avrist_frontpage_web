@@ -13,7 +13,8 @@ import Button from '@/components/atoms/Button/Button';
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
 import NotFound from '@/components/atoms/NotFound';
-import { handleGetContentCategory } from '@/services/content-page.api';
+import { handleGetContentFilter } from '@/services/content-page.api';
+import { QueryParams } from '@/utils/httpService';
 import {
   contentCategoryTransformer,
   singleImageTransformer
@@ -126,9 +127,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   const fetchCategory = async () => {
     try {
-      await handleGetContentCategory('klaim-data', {
-        includeAttributes: 'true'
-      }).then((res) => {
+      const queryParams: QueryParams = {
+        includeAttributes: true,
+        searchRequest: {
+          keyword: '',
+          fieldIds: ['nama-klaim'],
+          postData: true
+        },
+        category: ''
+      };
+      await handleGetContentFilter('klaim-data', queryParams).then((res) => {
         setCategoryList(Object.keys(res.data.categoryList));
         setParams({
           ...params,
@@ -143,7 +151,16 @@ const ProsesKlaim: React.FC<ProsesKlaimComponentProps> = ({
 
   const fetchData = async () => {
     try {
-      const fetchApi = await handleGetContentCategory('klaim-data', params);
+      const queryParams: QueryParams = {
+        includeAttributes: true,
+        searchRequest: {
+          keyword: params.searchFilter,
+          fieldIds: ['nama-klaim'],
+          postData: true
+        },
+        category: ''
+      };
+      const fetchApi = await handleGetContentFilter('klaim-data', queryParams);
       const transformedData = contentCategoryTransformer(
         fetchApi,
         params.category
