@@ -90,9 +90,13 @@ export const RequirementForm = (props: Props) => {
   };
 
   const onSubmitData = async () => {
-    const emailSubmitterComponent = dataForm.find(
+    const emailSubmitterItem = dataForm.find(
       (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
-    ).componentId;
+    );
+
+    const emailSubmitterComponent = emailSubmitterItem
+      ? emailSubmitterItem.componentId
+      : '';
 
     const queryParams = {
       id: formId,

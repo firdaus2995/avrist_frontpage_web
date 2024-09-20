@@ -333,9 +333,13 @@ const ProdukKorporasiDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const onSubmitData = async () => {
-    const emailSubmitterComponent = dataForm.find(
+    const emailSubmitterItem = dataForm.find(
       (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
-    ).componentId;
+    );
+
+    const emailSubmitterComponent = emailSubmitterItem
+      ? emailSubmitterItem.componentId
+      : '';
 
     const updatedData = formValue.map((item) => {
       if (item.name.includes('produk')) {

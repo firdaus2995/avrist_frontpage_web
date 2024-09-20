@@ -332,9 +332,13 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
   };
 
   const handleSubmit = async () => {
-    const emailSubmitterComponent = dataForm.find(
+    const emailSubmitterItem = dataForm.find(
       (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
-    ).componentId;
+    );
+
+    const emailSubmitterComponent = emailSubmitterItem
+      ? emailSubmitterItem.componentId
+      : '';
 
     const updatedData = formValue.map((item) => {
       if (item.name.includes('produk')) {
