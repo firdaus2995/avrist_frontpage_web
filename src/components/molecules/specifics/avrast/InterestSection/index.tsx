@@ -11,10 +11,11 @@ type Props = {
   popUpImage?: string;
   productName?: string;
   promoName?: string;
+  title?: string;
 };
 
 const InterestSection = (props: Props) => {
-  const { formId: id, popUpImage, productName, promoName } = props;
+  const { formId: id, popUpImage, productName, promoName, title } = props;
   const [dataForm, setDataForm] = useState<any>();
   const [formId, setFormId] = useState<any>();
   const [formPic, setFormPic] = useState<any>();
@@ -128,7 +129,7 @@ const InterestSection = (props: Props) => {
     <div className="w-full flex xs:px-[2rem] md:px-[8.5rem] xs:py-[3.125rem] md:py-[5.125rem] bg-purple_superlight justify-center">
       <div className="flex flex-col self-stretch bg-white p-[36px] gap-[36px] border border-gray_light border-b-8 border-b-purple_dark rounded-[12px]">
         <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem]">
-          Saya tertarik dengan produk Avrist Life!
+          {title ?? 'Saya tertarik dengan produk Avrist Life!'}
         </p>
         {dataForm && (
           <CustomForm

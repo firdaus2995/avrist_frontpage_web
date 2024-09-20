@@ -472,6 +472,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         popUpImage={popUpImage}
         productName={contentData?.namaProduk ?? '-'}
         promoName={contentData?.namaPromo ?? '-'}
+        title="Saya tertarik dengan promo Avrist Life!"
       />
 
       <div className="flex flex-col">
