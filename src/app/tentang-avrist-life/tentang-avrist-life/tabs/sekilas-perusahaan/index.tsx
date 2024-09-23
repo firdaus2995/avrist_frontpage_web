@@ -229,7 +229,7 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
 
       <CustomContainer className="flex flex-col items-center justify-center bg-purple_superlight">
         <TitleContainer className="text-purple_dark xs:text-center sm:text-left leading-[2.25rem] xs:py-[2.25rem] xs:pb-0 sm:py-[5rem] sm:text-5xl xs:text-3xl font-extrabold">
-          Mengapa Avrist Life Insurance?
+          Mengapa Avrist Assurance?
         </TitleContainer>
         <div className="xs:hidden sm:block">
           <div className="grid grid-cols-3 gap-5">

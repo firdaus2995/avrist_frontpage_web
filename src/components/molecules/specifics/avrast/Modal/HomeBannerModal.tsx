@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { CardRainbow } from '../HubungiKami/MainContentComponent/Card';
 import Icon from '@/components/atoms/Icon';
 import {
-  contentTransformer,
+  pageTransformer,
   singleImageTransformer
 } from '@/utils/responseTransformer';
 
@@ -49,12 +49,9 @@ const getDataPopUp = async () => {
   try {
     const responseFetch = await fetch(`/api/home-banner`);
     const response = await responseFetch.json();
-    if (!response || response.code !== 200) {
-      throw new Error('Network response was not ok');
-    }
 
-    const { content } = contentTransformer(response);
-    return singleImageTransformer(content['gambar-promo']);
+    const { content } = pageTransformer(response);
+    return singleImageTransformer(content['popup-image']);
   } catch (error) {
     console.error('Error fetching data:', error);
     return null;
@@ -118,12 +115,7 @@ export const HomeBannerModal = (props: Props) => {
               <Dialog.Panel className="h-[100%] lg:w-[60%] xs:w-[100%] transform overflow-hidden transition-all cursor-pointer">
                 <div className="absolute right-0 p-[24px]">
                   <button onClick={closeModal}>
-                    <Icon
-                      name="close"
-                      width={24}
-                      height={24}
-                      color="white"
-                    />
+                    <Icon name="close" width={24} height={24} color="white" />
                   </button>
                 </div>
                 <Link href={popupUrl ?? '#'}>

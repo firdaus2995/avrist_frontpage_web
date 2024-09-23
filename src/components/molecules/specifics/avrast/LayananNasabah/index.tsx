@@ -22,7 +22,7 @@ const data = [
     title: 'FAQs',
     linkIcon: CHEVRONRIGHTPURPLE,
     items: [
-      { label: 'Avrist Life Insurance', url: '/tanya-avrista' },
+      { label: 'Avrist Assurance', url: '/tanya-avrista' },
       {
         label: 'Avrist Asset Management',
         url: `${EXTERNAL_URL.avramUrl}/contact-us`
@@ -38,7 +38,7 @@ const data = [
     title: 'Hubungi Kami',
     linkIcon: CHEVRONRIGHTPURPLE,
     items: [
-      { label: 'Avrist Life Insurance', url: '/hubungi-kami' },
+      { label: 'Avrist Assurance', url: '/hubungi-kami' },
       {
         label: 'Avrist Asset Management',
         url: `${EXTERNAL_URL.avramUrl}/contact-us`

@@ -14,8 +14,8 @@ const openSans = Source_Sans_3({
 const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
 
 export const metadata: Metadata = {
-  title: 'Avrist Life Insurance',
-  description: 'Avrist Life Insurance'
+  title: 'Avrist Assurance',
+  description: 'Avrist Assurance'
 };
 
 export default function RootLayout({

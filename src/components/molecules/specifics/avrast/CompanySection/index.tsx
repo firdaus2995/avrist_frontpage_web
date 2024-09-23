@@ -61,7 +61,7 @@ const CompanySection = () => {
   const data = useMemo(
     () => [
       {
-        category: 'Avrist Life Insurance',
+        category: 'Avrist Assurance',
         icon1: ICON1PRODUCT1,
         icon2: ICON2PRODUCT1,
         title1: 'Perlindungan Komprehensif.',
@@ -131,7 +131,7 @@ const CompanySection = () => {
     let color: string;
     let textColor: string;
 
-    if (val.category === 'Avrist Life Insurance') {
+    if (val.category === 'Avrist Assurance') {
       color = 'bg-avrast_product_bg';
       textColor = 'text-avrast_product_text';
     } else if (val.category === 'Avrist Asset Management') {

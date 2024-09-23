@@ -188,7 +188,7 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
 
         <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
           <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-            Lihat Lowongan di Avrist Life Insurance
+            Lihat Lowongan di Avrist Assurance
           </p>
         </div>
         <div className="w-full flex flex-col items-center justify-center pb-2 text-center mt-34">
