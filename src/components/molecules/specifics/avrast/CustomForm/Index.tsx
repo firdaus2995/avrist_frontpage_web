@@ -2245,8 +2245,8 @@ const CustomForm: React.FC<CustomFormProps> = ({
             className="mt-[0.375rem] text-purple_dark border-gray_verylight rounded focus:purple_dark focus:ring-2 cursor-pointer"
           />
           <label className="cursor-pointer" htmlFor="setuju">
-            Saya setuju memberikan data pribadi Saya kepada Avrist Life
-            Insurance dan telah membaca{' '}
+            Saya setuju memberikan data pribadi Saya kepada Avrist Assurance dan
+            telah membaca{' '}
             <span className="text-purple_dark font-bold">Keamanan Online</span>{' '}
             Avrist Assurance. Selanjutnya, Saya bersedia untuk dihubungi oleh
             Avrist Assurance melalui media komunikasi pribadi Saya sesuai hari
