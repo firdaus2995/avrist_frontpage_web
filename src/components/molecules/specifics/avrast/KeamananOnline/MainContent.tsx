@@ -20,7 +20,7 @@ export const MainContent = () => {
           />
           <div className="ml-[48px]">
             <p className="font-karla font-bold text-[56px]">
-              Kebijakan Keamanan Online Avrist Life Insurance
+              Kebijakan Keamanan Online Avrist Assurance
             </p>
             <p className="font-karla font-bold text-[36px] text-purple_dark mt-[24px]">
               Enkripsi Data

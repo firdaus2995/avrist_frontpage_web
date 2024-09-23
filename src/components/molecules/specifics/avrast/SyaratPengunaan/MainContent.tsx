@@ -20,7 +20,7 @@ export const MainContent = () => {
           />
           <div className="ml-[48px]">
             <p className="font-karla font-bold text-[56px]">
-              Syarat Penggunaan Avrist Life Insurance
+              Syarat Penggunaan Avrist Assurance
             </p>
             <p className="font-karla font-bold text-[36px] text-purple_dark mt-[24px]">
               Ketentuan Umum

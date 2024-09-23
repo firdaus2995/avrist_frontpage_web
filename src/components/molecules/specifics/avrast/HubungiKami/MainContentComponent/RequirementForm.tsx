@@ -156,8 +156,8 @@ export const RequirementForm = (props: Props) => {
             </div>
             <span className="ml-[0.75rem] leading-[23.68px]">
               Saya /kami telah membaca, memahami dan memberikan persetujuan
-              saya/kami kepada Avrist Life Insurance untuk mengumpulkan,
-              menggunakan dan mengungkapkan data pribadi saya/kami sesuai dengan{' '}
+              saya/kami kepada Avrist Assurance untuk mengumpulkan, menggunakan
+              dan mengungkapkan data pribadi saya/kami sesuai dengan{' '}
               <Link
                 href={'/keamanan-online'}
                 className="font-bold text-purple_dark"

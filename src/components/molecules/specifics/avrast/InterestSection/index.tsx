@@ -161,10 +161,9 @@ const InterestSection = (props: Props) => {
             >
               Kebijakan Keamanan Online
             </span>{' '}
-            Avrist Life Insurance. Selanjutnya, Saya bersedia untuk dihubungi
-            oleh Avrist Life Insurance melalui media komunikasi pribadi Saya
-            sesuai hari dan jam operasional yang berlaku di Avrist Life
-            Insurance.
+            Avrist Assurance. Selanjutnya, Saya bersedia untuk dihubungi oleh
+            Avrist Assurance melalui media komunikasi pribadi Saya sesuai hari
+            dan jam operasional yang berlaku di Avrist Life Insurance.
           </label>
         </div>
         <div className="flex xs:flex-col md:flex-row justify-end items-center xs:gap-[2rem] md:gap-0">

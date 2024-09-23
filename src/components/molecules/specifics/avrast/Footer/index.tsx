@@ -51,7 +51,7 @@ const Footer = () => {
             <p className="text-sm font-opensans leading-[19.6px]">
               Hak Cipta © 2023.
               <br />
-              PT Avrist Life Insurance.
+              PT Avrist Assurance.
             </p>
             <Image
               width={320}
@@ -270,7 +270,7 @@ const Footer = () => {
                   href="/produk/individu"
                   className="text-lg font-normal font-opensanspro leading-[25.2px] hover:underline"
                 >
-                  Avrist Life Insurance
+                  Avrist Assurance
                 </Link>
                 <CustomLink
                   href={EXTERNAL_URL.avramUrl}

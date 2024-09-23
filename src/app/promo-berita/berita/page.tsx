@@ -1302,7 +1302,7 @@ const Berita: React.FC<ParamsProps> = () => {
           <div className="px-[2rem] md:px-[8.5rem] py-[5rem]">
             <p className="md:text-5xl xs:text-3xl text-center font-extrabold text-purple_dark font-karla xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
               {params.category === 'Berita dan Kegiatan' &&
-                'Berita dan Kegiatan Avrist Life Insurance'}
+                'Berita dan Kegiatan Avrist Assurance'}
               {params.category === 'AvriStory' && (
                 <>
                   <span className="font-black">AvriStory:</span> E-Bulletin
@@ -1317,7 +1317,7 @@ const Berita: React.FC<ParamsProps> = () => {
               {params.category === 'AvriStory' && (
                 <>
                   Informasi terbaru mengenai{' '}
-                  <span className="font-black">Avrist Life Insurance</span>
+                  <span className="font-black">Avrist Assurance</span>
                 </>
               )}
               {params.category === 'Avrist Life Guide' && (
@@ -1615,7 +1615,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           Subscribe!
                         </p>
                         <p className="text-[24px]/[24px] font-light -tracking-[0.72px]">
-                          Informasi terkini mengenai Avrist Life Insurance
+                          Informasi terkini mengenai Avrist Assurance
                         </p>
                       </div>
                       <Input
@@ -1992,7 +1992,7 @@ const Berita: React.FC<ParamsProps> = () => {
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
-                  Avrist Life Insurance
+                  Avrist Assurance
                 </p>
               </div>
               <div className="flex xs:flex-col sm:flex-row sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">

@@ -490,10 +490,10 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
                 >
                   Kebijakan Keamanan Online
                 </span>{' '}
-                Avrist Life Insurance. Selanjutnya, Saya bersedia untuk
-                dihubungi oleh Avrist Life Insurance melalui media komunikasi
-                pribadi Saya sesuai hari dan jam operasional yang berlaku di
-                Avrist Life Insurance.
+                Avrist Assurance. Selanjutnya, Saya bersedia untuk dihubungi
+                oleh Avrist Assurance melalui media komunikasi pribadi Saya
+                sesuai hari dan jam operasional yang berlaku di Avrist
+                Assurance.
               </label>
             </div>
 
