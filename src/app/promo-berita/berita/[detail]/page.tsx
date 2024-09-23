@@ -408,7 +408,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               <div className="flex flex-row gap-2 items-center">
                 <Image alt={'office'} className="w-6" src={Office} />
                 <p className="font-bold text-sm">
-                  Sekilas Avrist Life Insurance
+                  Sekilas Avrist Assurance
                 </p>
               </div>
             </div>
@@ -426,7 +426,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </p>
               <div className="bg-purple_dark rounded-xl px-[1.25rem] py-[0.5rem] text-purple_dark border-purple_dark hover:bg-purple_dark hover:text-white">
                 <p className="text-white text-center font-bold md:w-full cursor-default">
-                  Avrist Life Insurance
+                  Avrist Assurance
                 </p>
               </div>
               <div className="flex xs:flex-col sm:flex-row gap-4 xs:max-md:flex-wrap md:flex-wrap">

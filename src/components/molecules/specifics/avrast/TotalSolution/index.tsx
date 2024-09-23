@@ -22,7 +22,7 @@ import { EXTERNAL_URL } from '@/utils/baseUrl';
 
 const data = [
   {
-    category: 'Avrist Life Insurance',
+    category: 'Avrist Assurance',
     icon: AVRAST1,
     title: 'Asuransi Jiwa Individu',
     content:
@@ -63,7 +63,7 @@ const data = [
     openInNewTab: true
   },
   {
-    category: 'Avrist Life Insurance',
+    category: 'Avrist Assurance',
     icon: AVRAST2,
     title: 'Asuransi Jiwa Korporasi',
     content:
@@ -104,7 +104,7 @@ const data = [
 
 const dataMobile = [
   {
-    category: 'Avrist Life Insurance',
+    category: 'Avrist Assurance',
     bgColor: 'foamy_milk',
     color: 'purple_dark',
     items: [
@@ -245,7 +245,7 @@ const TotalSolution = () => {
         >
           <Button
             title={val.btnText}
-            customButtonClass={`${val.category === 'Avrist Life Insurance' ? 'bg-purple_dark hover:bg-purple_light' : val.category === 'Avrist Asset Management' ? 'bg-avram_green hover:!bg-avram_green_highlight' : 'bg-agi_grey hover:!bg-gray_highlight'} border-none`}
+            customButtonClass={`${val.category === 'Avrist Assurance' ? 'bg-purple_dark hover:bg-purple_light' : val.category === 'Avrist Asset Management' ? 'bg-avram_green hover:!bg-avram_green_highlight' : 'bg-agi_grey hover:!bg-gray_highlight'} border-none`}
             customTextClass="text-white font-opensans font-semibold"
           />
         </CustomLink>

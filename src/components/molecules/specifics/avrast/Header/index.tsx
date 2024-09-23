@@ -146,7 +146,7 @@ const Header = () => {
                     href="/"
                     className="font-karla hover:text-purple_dark hover:font-medium"
                   >
-                    Avrist Life Insurance
+                    Avrist Assurance
                   </Link>
                 </Menu.Item>
                 <Menu.Item>
