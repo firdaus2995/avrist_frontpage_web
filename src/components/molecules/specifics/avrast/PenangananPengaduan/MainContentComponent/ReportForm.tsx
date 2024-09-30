@@ -192,7 +192,7 @@ export const ReportForm = (props: ReportFormProps) => {
             <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[0.5rem]">
               <UploadBox
                 title="Upload KTP"
-                fileType="IMAGE"
+                fileType="DOCUMENT"
                 onChangeData={handleChangeData}
                 value={fileKtp?.file}
                 onDeleteData={() => {
