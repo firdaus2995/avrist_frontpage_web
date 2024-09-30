@@ -9,21 +9,25 @@ import { handleUploadDocument } from '@/services/upload-document-service.api';
 
 type UploadBoxProps = {
   title: string;
+  desc: string;
   fileType: string;
   onChangeData: (value: string, uploadedFile: any, title: string) => void;
   value?: any;
   onDeleteData: () => void;
   setMaxSizeValidation: (value: boolean) => void;
+  setFormatFileValidation: (value: string) => void;
 };
 
 const UploadBox = (props: UploadBoxProps) => {
   const {
     title,
+    desc,
     fileType,
     onChangeData,
     value,
     onDeleteData,
-    setMaxSizeValidation
+    setMaxSizeValidation,
+    setFormatFileValidation
   } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [invalidFile, setInvalidFile] = useState(false);
@@ -59,11 +63,22 @@ const UploadBox = (props: UploadBoxProps) => {
         onChangeData(response.data, uploadedFile, title);
 
         event.target.value = '';
-
+        setFormatFileValidation('');
         setInvalidFile(false);
-      } catch (error: any) {
-        console.error('Error uploading files:', error);
-        if (error.toString().includes('400')) {
+      } catch (errors: any) {
+        console.error('Error uploading files:', errors);
+        if (errors?.body?.status === 'UNSUPPORTED_MEDIA_TYPE') {
+          if (fileType === 'DOCUMENT') {
+            setFormatFileValidation(
+              'File yang dapat diupload adalah yang memiliki format PDF'
+            );
+          } else {
+            setFormatFileValidation(
+              'File yang dapat diupload adalah yang memiliki format JPG atau PNG'
+            );
+          }
+        }
+        if (errors.toString().includes('400')) {
           setInvalidFile(true);
         }
       }
@@ -81,11 +96,9 @@ const UploadBox = (props: UploadBoxProps) => {
           <p className="font-opensans font-normal text-[16px] text-center">
             {title}
           </p>
-          {invalidFile && (
-            <p className="font-opensans font-normal text-[12px] text-center text-error">
-              Hanya menerima file .pdf
-            </p>
-          )}
+          <p className="font-opensans font-normal text-[12px] text-center">
+            {desc}
+          </p>
 
           <input
             type="file"
@@ -133,6 +146,7 @@ export const ReportForm = (props: ReportFormProps) => {
   const [fileKtp, setFileKtp] = useState<any>('');
   const [fileFormulir, setFileFormulir] = useState<any>('');
   const [fileDocument, setFileDocument] = useState<any>('');
+  const [formatFileValidation, setFormatFileValidation] = useState<any>('');
 
   const handleChangeData = (
     value: string,
@@ -188,10 +202,14 @@ export const ReportForm = (props: ReportFormProps) => {
                   Maksimal total ukuran file yang dapat diunggah adalah 10MB
                 </p>
               )}
+              {formatFileValidation !== '' && (
+                <p className="text-xs text-error">{formatFileValidation}</p>
+              )}
             </div>
             <div className="grid sm:grid-cols-3 xs:grid-cols-1 gap-2 mt-[0.5rem]">
               <UploadBox
                 title="Upload KTP"
+                desc="(JPG atau PNG maks 10MB)"
                 fileType="IMAGE"
                 onChangeData={handleChangeData}
                 value={fileKtp?.file}
@@ -199,9 +217,13 @@ export const ReportForm = (props: ReportFormProps) => {
                   handleDelete(fileKtp?.value, fileKtp?.file, setFileKtp);
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
+                setFormatFileValidation={(value) =>
+                  setFormatFileValidation(value)
+                }
               />
               <UploadBox
                 title="Upload Formulir"
+                desc="(PDF maks 10MB)"
                 fileType="DOCUMENT"
                 onChangeData={handleChangeData}
                 value={fileFormulir?.file}
@@ -213,9 +235,13 @@ export const ReportForm = (props: ReportFormProps) => {
                   );
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
+                setFormatFileValidation={(value) =>
+                  setFormatFileValidation(value)
+                }
               />
               <UploadBox
                 title="Dokumen Pendukung"
+                desc="(PDF maks 10MB)"
                 fileType="DOCUMENT"
                 onChangeData={handleChangeData}
                 value={fileDocument?.file}
@@ -227,6 +253,9 @@ export const ReportForm = (props: ReportFormProps) => {
                   );
                 }}
                 setMaxSizeValidation={(bool) => setMaxSizeValidation(bool)}
+                setFormatFileValidation={(value) =>
+                  setFormatFileValidation(value)
+                }
               />
             </div>
           </div>
