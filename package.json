@@ -22,6 +22,8 @@
     "next-scroll-restorer": "^0.9.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "next-logger": "^4.0.0",
+    "pino": "^9.1.0",
     "react-google-charts": "^4.0.1",
     "react-leaflet": "^4.2.1",
     "react-paginate": "8.1.3",
