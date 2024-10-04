@@ -5,19 +5,10 @@ import {
   VideoInformation,
   DocumentPolicy
 } from './MainContentComponent';
-import {
-  Item,
-  IVideoData
-} from '@/app/klaim-layanan/layanan/kelola-polis/page';
+import { IVideoData } from '@/app/klaim-layanan/layanan/kelola-polis/page';
 import RoundedFrameBottom from '@/components/atoms/RoundedFrameBottom';
-import {
-  handleGetContentCategory,
-  handleGetContent as handleGetMainContent
-} from '@/services/content-page.api';
-import {
-  contentCategoryTransformer,
-  handleTransformedContent
-} from '@/utils/responseTransformer';
+import { handleGetContentCategory } from '@/services/content-page.api';
+import { contentCategoryTransformer } from '@/utils/responseTransformer';
 
 export const MainContent = ({
   videoData,
@@ -26,14 +17,10 @@ export const MainContent = ({
   videoData: IVideoData[] | undefined;
   mute?: boolean;
 }) => {
-  const [dataMainContent, setDataMainContent] = useState<{
-    [key: string]: any;
-  }>();
   const [policyGuideData, setPolicyGuideData] = useState<any>();
   const [isShowDetail, setIsShowDetail] = useState(false);
 
   useEffect(() => {
-    fetchContentData().then((data) => setDataMainContent(data));
     fetchContentCategoryData().then((data) => setPolicyGuideData(data));
   }, []);
 
@@ -47,9 +34,8 @@ export const MainContent = ({
         {!isShowDetail && videoData && (
           <VideoInformation pageVideoData={videoData} mute={mute} />
         )}
-        {dataMainContent && policyGuideData && (
+        {policyGuideData && (
           <DocumentPolicy
-            policyContentData={dataMainContent}
             policyGuideData={policyGuideData}
             setIsShowDetail={(bool: boolean) => setIsShowDetail(bool)}
             isShowDetail={isShowDetail}
@@ -59,33 +45,6 @@ export const MainContent = ({
       <RoundedFrameBottom />
     </div>
   );
-};
-
-const fetchContentData = async () => {
-  try {
-    const apiContent = await handleGetMainContent(
-      'Panduan-Polis-dan-Formulir-Nasabah',
-      { includeAttributes: 'true' }
-    );
-    const newDataContent = apiContent.data.contentDataList.map((item: any) => {
-      return {
-        ...handleTransformedContent(item.contentData, item.title),
-        categoryName: item.categoryName,
-        id: item.id
-      };
-    });
-
-    return newDataContent.reduce(
-      (acc: { [key: string]: Item[] }, item: Item) => {
-        const category = item.categoryName;
-        acc[category] = [...(acc[category] || []), item];
-        return acc;
-      },
-      {}
-    );
-  } catch (errors: any) {
-    throw new Error(errors.message);
-  }
 };
 
 const fetchContentCategoryData = async () => {
