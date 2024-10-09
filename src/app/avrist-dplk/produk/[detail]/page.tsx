@@ -482,8 +482,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
               />
             </div>
           </CustomContainer>
-          <SimpleContainer bgColor="yellow_light !py-[5rem]">
-            {dataForm && (
+          {dataForm && (
+            <SimpleContainer bgColor="yellow_light !py-[5rem]">
               <CustomForm
                 title="Saya tertarik program DPLK"
                 customFormClassname="border p-[2.25rem] rounded-[12px]"
@@ -491,51 +491,56 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 dataForm={dataForm}
                 resultData={receiveData}
               />
-            )}
-            <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-28 border-x border-x-gray_light">
-              <div className="accent-dplk_yellow flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
-                <div className="flex flex-row gap-[12px] font-opensans items-start sm:ml-4 sm:-mt-14 border-x-gray_light">
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    className="mt-1"
-                    onChange={(e) => {
-                      setIsChecked(e.target.checked);
-                    }}
-                  />
-                  <label className="cursor-pointer" htmlFor="setuju">
-                    Saya setuju memberikan data pribadi Saya kepada Avrist
-                    Assurance dan telah membaca{' '}
-                    <span
-                      className="text-dplk_yellow font-bold"
-                      onClick={() => window.open('/keamanan-online', '_blank')}
-                    >
-                      Kebijakan Keamanan Online
-                    </span>{' '}
-                    Avrist Assurance. Selanjutnya, Saya bersedia untuk dihubungi
-                    oleh Avrist Assurance melalui media komunikasi pribadi Saya
-                    sesuai hari dan jam operasional yang berlaku di Avrist
-                    Assurance.
-                  </label>
-                </div>
 
-                <div className="w-full flex flex-col md:flex-row justify-between items-center">
-                  {/* <Image alt="captcha" src={CaptchaPicture} /> */}
-                  <div />
-                  <div>
-                    <button
-                      type="submit"
-                      disabled={formIsValid ? (isChecked ? false : true) : true}
-                      onClick={() => onSubmitData()}
-                      className={`${formIsValid && isChecked ? 'bg-dplk_yellow hover:bg-dplk_yellow_highlight' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
-                    >
-                      Beli Sekarang
-                    </button>
+              <div className="flex flex-row bg-white px-[36px] pb-[36px] rounded-b-[8px] border-b-dplk_yellow border-b-8 -mt-28 border-x border-x-gray_light">
+                <div className="accent-dplk_yellow flex flex-col items-center gap-[36px] h-full mt-[36px] border-x-gray_light">
+                  <div className="flex flex-row gap-[12px] font-opensans items-start sm:ml-4 sm:-mt-14 border-x-gray_light">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      className="mt-1"
+                      onChange={(e) => {
+                        setIsChecked(e.target.checked);
+                      }}
+                    />
+                    <label className="cursor-pointer" htmlFor="setuju">
+                      Saya setuju memberikan data pribadi Saya kepada Avrist
+                      Assurance dan telah membaca{' '}
+                      <span
+                        className="text-dplk_yellow font-bold"
+                        onClick={() =>
+                          window.open('/keamanan-online', '_blank')
+                        }
+                      >
+                        Kebijakan Keamanan Online
+                      </span>{' '}
+                      Avrist Assurance. Selanjutnya, Saya bersedia untuk
+                      dihubungi oleh Avrist Assurance melalui media komunikasi
+                      pribadi Saya sesuai hari dan jam operasional yang berlaku
+                      di Avrist Assurance.
+                    </label>
+                  </div>
+
+                  <div className="w-full flex flex-col md:flex-row justify-between items-center">
+                    {/* <Image alt="captcha" src={CaptchaPicture} /> */}
+                    <div />
+                    <div>
+                      <button
+                        type="submit"
+                        disabled={
+                          formIsValid ? (isChecked ? false : true) : true
+                        }
+                        onClick={() => onSubmitData()}
+                        className={`${formIsValid && isChecked ? 'bg-dplk_yellow hover:bg-dplk_yellow_highlight' : 'bg-dark-grey'} text-white rounded-[8px] mt-[12px] md:mt-0 text-xl font-semibold font-opensans py-[1.125rem] px-[2.5rem]`}
+                      >
+                        Beli Sekarang
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </SimpleContainer>
+            </SimpleContainer>
+          )}
           <SimpleContainer>
             <div className="mx-32px text-center">
               <p className="font-karla font-bold xs:text-[2.25rem] md:text-[3.5rem] xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
