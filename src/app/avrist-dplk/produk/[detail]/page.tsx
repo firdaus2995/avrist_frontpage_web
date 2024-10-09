@@ -95,10 +95,6 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
           ? singleImageTransformer(content['cta1-image'])
           : { imageUrl: '' };
 
-        if (content['form-produk']) {
-          setFormId(content['form-produk'].value);
-        }
-
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -156,7 +152,6 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       const fileRiplay = singleImageTransformer(content['file-riplay']);
       const fileBrosur = singleImageTransformer(content['file-brosur']);
       const formProduk = contentStringTransformer(content['form-produk']);
-
       const detailData = {
         namaProduk,
         tags: tags ? tags.split(',') : [],
@@ -185,6 +180,9 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         formId: jsonData.data?.formId || formProduk || '6979'
       };
 
+      if (formProduk) {
+        setFormId(content['form-produk'].value);
+      }
       setBannerImg(customImageTransformer(content['produk-image']));
       setBannerImgFit(
         content['produk-image']?.config
