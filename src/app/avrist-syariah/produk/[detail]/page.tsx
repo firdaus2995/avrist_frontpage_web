@@ -79,10 +79,6 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
           ? singleImageTransformer(content['cta1-image'])
           : { imageUrl: '' };
 
-        if (content['form-produk']) {
-          setFormId(content['form-produk'].value);
-        }
-
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -167,6 +163,9 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
             .join(', ') || '',
         formId: jsonData.data?.formId || formProduk || '6979'
       };
+      if (formProduk) {
+        setFormId(content['form-produk'].value);
+      }
 
       setBannerImg(customImageTransformer(content['produk-image']));
       setBannerImgFit(
