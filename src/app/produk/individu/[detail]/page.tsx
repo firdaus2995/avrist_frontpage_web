@@ -76,7 +76,6 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
         const { content } = pageTransformer(data);
         const titleImage = singleImageTransformer(content['title-image']);
         const footerImage = singleImageTransformer(content['cta1-image']);
-        setFormId(content['form-produk'].value);
         setData({ titleImage, footerImage });
       } catch (error) {
         console.error('Error:', error);
@@ -158,7 +157,7 @@ const ProdukIndividuDetail = ({ params }: { params: { detail: string } }) => {
           .join(', '),
         formId: formProduk
       };
-
+      setFormId(formProduk);
       setBannerImg(customImageTransformer(content['produk-image']));
       setBannerImgFit(
         content['produk-image']?.config
