@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
@@ -13,11 +13,11 @@ const openSans = Source_Sans_3({
   variable: '--font-source-sans'
 });
 const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
-const GTM_ID: string = process.env.NEXT_PUBLIC_GTM ?? "";
+const GTM_ID: string = process.env.NEXT_PUBLIC_GTM ?? '';
 
 const data = {
   image:
-    'https://upload.wikimedia.org/wikipedia/commons/4/4d/Avrist-asset-management.png',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Avrist-logo.png/230px-Avrist-logo.png',
   title: 'Avrist Assurance',
   description: 'Avrist Assurance'
 };
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: data.title,
     description: data.description,
-    images: data.image,
+    images: data.image
   }
 };
 
