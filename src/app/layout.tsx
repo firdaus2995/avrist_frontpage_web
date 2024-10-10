@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
@@ -12,10 +13,23 @@ const openSans = Source_Sans_3({
   variable: '--font-source-sans'
 });
 const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
+const GTM_ID: string = process.env.NEXT_PUBLIC_GTM ?? "";
 
-export const metadata: Metadata = {
+const data = {
+  image:
+    'https://upload.wikimedia.org/wikipedia/commons/4/4d/Avrist-asset-management.png',
   title: 'Avrist Assurance',
   description: 'Avrist Assurance'
+};
+
+export const metadata: Metadata = {
+  title: data.title,
+  description: data.description,
+  openGraph: {
+    title: data.title,
+    description: data.description,
+    images: data.image,
+  }
 };
 
 export default function RootLayout({
@@ -28,6 +42,7 @@ export default function RootLayout({
       <head>
         <meta content={packageJson.version} name="version" />
       </head>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body
         className={`${openSans.variable} ${karla.variable} w-full max-w-screen-2xl 3xl:max-w-screen-3xl mx-auto`}
       >
