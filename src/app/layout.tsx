@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
@@ -56,6 +56,7 @@ export default function RootLayout({
         <meta key="og-image" property="og:image" content={data.image} />
       </head>
       <GoogleTagManager gtmId={GTM_ID} />
+      <GoogleAnalytics gaId={GTM_ID} />
       <body
         className={`${openSans.variable} ${karla.variable} w-full max-w-screen-2xl 3xl:max-w-screen-3xl mx-auto`}
       >
