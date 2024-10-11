@@ -41,6 +41,19 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta content={packageJson.version} name="version" />
+        <meta
+          key="keywords"
+          name="keywords"
+          content="AVRIST, avrist, avrist.com, avras, avrist assurance"
+        />
+        <meta key="description" name="description" content={data.description} />
+        <meta key="og-title" property="og:title" content={data.title} />
+        <meta
+          key="og-description"
+          property="og:description"
+          content={data.description}
+        />
+        <meta key="og-image" property="og:image" content={data.image} />
       </head>
       <GoogleTagManager gtmId={GTM_ID} />
       <body
