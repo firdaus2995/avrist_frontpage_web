@@ -38,7 +38,7 @@ const data = [
     btnText: 'Lihat Di Sini'
   },
   {
-    title: 'Panduan Pengajuan Klaim',
+    title: 'Mekanisme Layanan Pengaduan Nasabah',
     desc: 'Klaim mudah dan cepat merupakan komitmen kami',
     icon: PengajuanKlaimIcon,
     btnText: 'Lebih Lengkap'

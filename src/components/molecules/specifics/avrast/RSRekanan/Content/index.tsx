@@ -108,9 +108,11 @@ const Content = () => {
   }, [searchParam, currentPage, thirdParty]);
 
   const handleChangeSearchParams = (value: string) => {
-    setSearchParam(value);
-    setCurrentPage(1); // Reset page to 1 when search parameter changes
-    setData([]); // Clear previous data to avoid duplications
+    if (searchParam !== value) {
+      setSearchParam(value);
+      setCurrentPage(1); // Reset page to 1 when search parameter changes
+      setData([]); // Clear previous data to avoid duplications
+    }
   };
 
   return (
