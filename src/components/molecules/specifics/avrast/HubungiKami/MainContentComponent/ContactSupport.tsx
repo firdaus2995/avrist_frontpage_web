@@ -69,8 +69,8 @@ export const ContactSupport = () => {
 
             <div className="flex flex-col">
               <p className="">Email</p>
-              <p className="text-purple_dark text-[22px] font-opensanspro">
-                customer@avrist.com
+              <p className="text-purple_dark text-[22px] font-opensanspro break-all">
+                contactus@avrist.com
               </p>
             </div>
           </Link>
@@ -129,7 +129,7 @@ export const ContactSupport = () => {
                 <div className="flex flex-col">
                   <p className="">Email</p>
                   <p className="text-purple_dark text-[22px] font-opensanspro">
-                    customer@avrist.com
+                    contactus@avrist.com
                   </p>
                 </div>
               </Link>

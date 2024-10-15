@@ -286,7 +286,7 @@ export const ReportForm = (props: ReportFormProps) => {
                 </span>
               </div>
               <span className="w-1/2 text-purple_dark font-normal text-[1rem] xs:ml-[48px] sm:ml-0">
-                customer@avrist.com
+                contactus@avrist.com
               </span>
             </div>
             {/*  */}
