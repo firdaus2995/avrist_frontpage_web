@@ -62,7 +62,7 @@ export const ContactSupport = () => {
         </div>
         <div className="min-h-[340px] w-basis-60 border border-b-8 border-b-purple_dark bg-white rounded-2xl border-gray_light overflow-hidden flex flex-col justify-between">
           <Link
-            href="mailto:customer-service@avrist.com"
+            href="mailto:contactus@avrist.com"
             className="h-full font-opensans font-bold md:text-[1.5rem] flex flex-col items-center text-center px-[1.5rem] py-[2.25rem] gap-[1.5rem]"
           >
             <Image src={EMAIL} alt="email" width={100} height={100} />
@@ -121,7 +121,7 @@ export const ContactSupport = () => {
           <div className="w-full grid grid-cols-1 mx-2">
             <div className="min-h-[320px] w-[95%] border border-b-8 border-b-purple_dark bg-white rounded-2xl border-gray_light overflow-hidden flex flex-col justify-between">
               <Link
-                href="mailto:customer-service@avrist.com"
+                href="mailto:contactus@avrist.com"
                 className="h-full font-opensans font-bold md:text-[1.5rem] flex flex-col items-center text-center px-[1.5rem] py-[2.25rem] gap-[1.5rem]"
               >
                 <Image src={EMAIL} alt="email" width={100} height={100} />
