@@ -159,11 +159,11 @@ const Content = () => {
             href="https://polis.avrist.com/pages/DailyUnitPrice/pgeUnitPrice.aspx"
             openNewTab
           />
-          <CardMenuLink
+          {/* <CardMenuLink
             desc="Tabel Suku Bunga"
             href="https://polis.avrist.com/pages/DailyUnitPrice/latest/pgeLatest.aspx"
             openNewTab
-          />
+          /> */}
           <Accordion
             bgColor="bg-purple_light_bg"
             title="Kinerja Investasi"
