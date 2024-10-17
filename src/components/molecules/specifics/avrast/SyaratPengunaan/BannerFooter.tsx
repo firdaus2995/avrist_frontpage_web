@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface BannerFooterProps {
   imageUrlSrc?: string;
@@ -26,7 +26,7 @@ export const BannerFooter: React.FC<BannerFooterProps> = (props) => {
             <Link href="/produk/individu" className="font-semibold">
               <div
                 role="button"
-                className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"            
+                className="p-4 bg-purple_dark rounded-xl text-sm font-semibold text-white flex flex-row gap-2"
               >
                 Panduan Klaim
               </div>
