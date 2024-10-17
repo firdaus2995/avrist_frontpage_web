@@ -17,7 +17,7 @@ const KlaimHeader: React.FC<IKlaimHeader> = ({ title, data }) => {
       <div className="w-full md:h-[300px] xs:h-[200px] bg-purple_dark flex md:items-center xs:items-start justify-center relative">
         <Image
           className="bg-purple_dark w-full absolute top-0 object-top"
-          src={data?.titleImageUrl || '' }                
+          src={data?.titleImageUrl || ''}
           alt={data?.titleAltText || 'banner-img'}
           layout="fill"
           width={0}
@@ -32,7 +32,7 @@ const KlaimHeader: React.FC<IKlaimHeader> = ({ title, data }) => {
           </h2>
           <div className="flex flex-row divide-x gap-2 text-center h-5 text-white text-base flex-wrap md:mt-0 xs:mt-10">
             <Link href={'/'} className={'font-opensans text-white'}>
-                Beranda
+              Beranda
             </Link>
             <p className="px-2 font-semibold">{title}</p>
           </div>

@@ -4,10 +4,10 @@ services:
     container_name: avrist-frontpage-web-app
     image: avrist-frontpage-web
     build:
-      context: .                          
-      dockerfile: Dockerfile  
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3031:80"
+      - '3031:80'
     volumes:
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro

@@ -16,7 +16,7 @@ const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
 const GTM_ID: string = process.env.NEXT_PUBLIC_GTM ?? '';
 
 const data = {
-  image: new URL("./og-avrast.png", import.meta.url),
+  image: new URL('./og-avrast.png', import.meta.url),
   title: 'Avrist Assurance',
   description: 'Avrist Assurance'
 };
@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     default: data.title
   },
   description: data.description,
-  type: 'website',
   openGraph: {
     title: {
       template: `%s | ${data.title}`,
@@ -36,10 +35,10 @@ export const metadata: Metadata = {
     description: data.description,
     images: {
       url: data.image,
-      type: "image/png",
-      alt: "og-avrast",
+      type: 'image/png',
+      alt: 'og-avrast',
       width: 392,
-      height: 200,
+      height: 200
     }
   }
 };

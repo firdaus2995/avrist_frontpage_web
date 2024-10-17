@@ -121,9 +121,7 @@ const PanduanKlaim = () => {
             <div
               className={`font-karla p-[0.75rem] w-[95%] bg-${item.color} rounded-b-xl text-white font-bold text-2xl leading-[28.8px] -tracking-[0.03px] font-karla flex flex-row justify-between`}
             >
-              <p className='line-clamp-1'>
-              {item.type}
-              </p>
+              <p className="line-clamp-1">{item.type}</p>
             </div>
           </div>
         )}
