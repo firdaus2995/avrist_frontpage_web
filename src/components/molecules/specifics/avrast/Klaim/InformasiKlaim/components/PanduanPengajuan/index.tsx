@@ -24,7 +24,7 @@ const data = [
     btnText: 'Baca Panduan',
     onClick: () => {
       window.open(
-        'https://avrist.com/PDF/Prosedur Singkat Klaim Individu -update-.pdf',
+        '/pdf/17102024/Buku Panduan - Prosedur Singkat Klaim Individu.pdf',
         '_blank'
       );
     }
@@ -35,7 +35,7 @@ const data = [
     btnText: 'Baca Panduan',
     onClick: () => {
       window.open(
-        '/pdf/Prosedur-Singkat-Pelayanan-Nasabah-Group_updated.pdf',
+        '/pdf/17102024/Buku Panduan - Asuransi Kumpulan.pdf',
         '_blank'
       );
     }
