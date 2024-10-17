@@ -16,17 +16,22 @@ const karla = Karla({ subsets: ['latin'], variable: '--font-karla' });
 const GTM_ID: string = process.env.NEXT_PUBLIC_GTM ?? '';
 
 const data = {
-  image:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Avrist-logo.png/230px-Avrist-logo.png',
+  image: 'https://i.ibb.co/7rr2TXV/og-avrast.png',
   title: 'Avrist Assurance',
   description: 'Avrist Assurance'
 };
 
 export const metadata: Metadata = {
-  title: data.title,
+  title: {
+    template: `%s | ${data.title}`,
+    default: data.title
+  },
   description: data.description,
   openGraph: {
-    title: data.title,
+    title: {
+      template: `%s | ${data.title}`,
+      default: data.title
+    },
     description: data.description,
     images: data.image
   }
@@ -46,14 +51,6 @@ export default function RootLayout({
           name="keywords"
           content="AVRIST, avrist, avrist.com, avras, avrist assurance"
         />
-        <meta key="description" name="description" content={data.description} />
-        <meta key="og-title" property="og:title" content={data.title} />
-        <meta
-          key="og-description"
-          property="og:description"
-          content={data.description}
-        />
-        <meta key="og-image" property="og:image" content={data.image} />
       </head>
       <GoogleTagManager gtmId={GTM_ID} />
       <GoogleAnalytics gaId={GTM_ID} />
