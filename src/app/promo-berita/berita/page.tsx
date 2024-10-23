@@ -1350,10 +1350,17 @@ const Berita: React.FC<ParamsProps> = () => {
                       title={
                         <div className="flex flex-col gap-6 text-left w-full">
                           <p className="text-[14px]/[19.6px]">
-                            <span className="font-bold text-purple_dark text-sm">
-                              {htmlParser(item.artikelTopic)}
-                            </span>{' '}
-                            | {`${item.waktu}`}
+                            <span
+                              className={`font-bold text-purple_dark text-sm`}
+                            >
+                              {htmlParser(item.artikelTopic) &&
+                                htmlParser(item.artikelTopic) !== '-' &&
+                                `${htmlParser(item.artikelTopic)}`}
+                            </span>
+                            {htmlParser(item.artikelTopic) &&
+                              htmlParser(item.artikelTopic) !== '-' &&
+                              ' | '}
+                            {`${item.waktu}`}
                           </p>
                           <div className="flex flex-col gap-3">
                             {isContentNotEmpty(item.judul) && (
