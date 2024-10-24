@@ -16,13 +16,29 @@ interface ContentPopoverProps {
   isOpenPopover: boolean;
   message: any;
   setIsOPenPopover?: any;
+  id?: any;
 }
 
 const ContentPopover: React.FC<ContentPopoverProps> = ({
   isOpenPopover,
   setIsOPenPopover,
-  message
+  message,
+  id
 }) => {
+  let url = '';
+  if (typeof window !== 'undefined') {
+    const currentUrl = new URL(window.location.href);
+    const params = new URLSearchParams(currentUrl.search);
+
+    // Replace or add 'id' param
+    if (id) {
+      params.set('id', id);
+    }
+
+    currentUrl.search = params.toString();
+    url = currentUrl.toString();
+  }
+
   const shareWa = () => {
     console.log(message); // Do not delete this console
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(window?.location.href)}`;
@@ -56,7 +72,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
           </div>
           <EmailShareButton
             className="flex flex-col gap-1 items-center xs:max-md:m-auto"
-            url={encodeURIComponent(window?.location.href)}
+            url={url}
           >
             <Image
               role="button"
@@ -69,7 +85,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
           </EmailShareButton>
           <LinkedinShareButton
             className="flex flex-col gap-1 items-center xs:max-md:m-auto"
-            url={encodeURIComponent(window?.location.href)}
+            url={url}
           >
             <Image
               role="button"
@@ -82,7 +98,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
           </LinkedinShareButton>
           <FacebookShareButton
             className="flex flex-col gap-1 items-center xs:max-md:m-auto"
-            url={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window?.location.href)}`}
+            url={url}
           >
             <Image
               role="button"
@@ -98,7 +114,7 @@ const ContentPopover: React.FC<ContentPopoverProps> = ({
               role="button"
               className="items-center"
               onClick={() => {
-                navigator.clipboard.writeText(window?.location.href);
+                navigator.clipboard.writeText(url);
               }}
             >
               <Icon
