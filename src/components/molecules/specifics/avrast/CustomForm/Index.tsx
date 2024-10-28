@@ -582,20 +582,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               e.target.value
                             )
                           }
+                          value={
+                            formData?.find(
+                              (item) => item.name === attribute.name
+                            )?.value || ''
+                          }
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                         >
                           <option value={''}>Pilih</option>
                           {attribute.value?.split(';').map((option, idx) => (
-                            <option
-                              key={idx}
-                              value={option}
-                              selected={
-                                option ===
-                                formData?.find(
-                                  (item) => item.name === attribute.name
-                                )?.value
-                              }
-                            >
+                            <option key={idx} value={option}>
                               {option}
                             </option>
                           ))}
@@ -935,20 +931,16 @@ const CustomForm: React.FC<CustomFormProps> = ({
                               e.target.value
                             )
                           }
+                          value={
+                            formData?.find(
+                              (item) => item.name === attribute.componentId
+                            )?.value || ''
+                          }
                           className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                         >
                           <option value={''}>Pilih</option>
                           {attribute.value?.split(';').map((option, idx) => (
-                            <option
-                              key={idx}
-                              value={option}
-                              selected={
-                                option ===
-                                formData?.find(
-                                  (item) => item.name === attribute.componentId
-                                )?.value
-                              }
-                            >
+                            <option key={idx} value={option}>
                               {option}
                             </option>
                           ))}
@@ -1330,20 +1322,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             e.target.value
                           )
                         }
-                        className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                        value={
+                          formData?.find((item) => item.name === attribute.name)
+                            ?.value || ''
+                        }
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                       >
                         <option value={''}>Pilih</option>
-                        {attribute.value?.split(/[,;]/).map((option, idx) => (
-                          <option
-                            key={idx}
-                            value={option}
-                            selected={
-                              option ===
-                              formData?.find(
-                                (item) => item.name === attribute.name
-                              )?.value
-                            }
-                          >
+                        {attribute.value?.split(';').map((option, idx) => (
+                          <option key={idx} value={option}>
                             {option}
                           </option>
                         ))}
@@ -1697,20 +1684,15 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             e.target.value
                           )
                         }
-                        className="w-full px-4 py-2 border border-purple_dark text-purple_dark rounded-md focus:outline-none focus:border-blue-500"
+                        value={
+                          formData?.find((item) => item.name === attribute.name)
+                            ?.value || ''
+                        }
+                        className="w-full px-[1rem] py-[0.625rem] border border-gray_light text-other-grey rounded-[14px] focus:outline-none focus:border-blue-500"
                       >
                         <option value={''}>Pilih</option>
-                        {attribute.value?.split(/[,;]/).map((option, idx) => (
-                          <option
-                            key={idx}
-                            value={option}
-                            selected={
-                              option ===
-                              formData?.find(
-                                (item) => item.name === attribute.name
-                              )?.value
-                            }
-                          >
+                        {attribute.value?.split(';').map((option, idx) => (
+                          <option key={idx} value={option}>
                             {option}
                           </option>
                         ))}
@@ -1839,35 +1821,22 @@ const CustomForm: React.FC<CustomFormProps> = ({
                             e.target.value
                           )
                         }
+                        value={
+                          formData?.find((item) => item.name === attribute.name)
+                            ?.value ||
+                          selectedProduct ||
+                          ''
+                        }
                         className={`w-full px-[1rem] py-[0.625rem] border ${customFormClassname ?? 'border-purple_dark text-purple_dark'} rounded-xl focus:outline-none focus:border-blue-500`}
                       >
                         <option value={''}>Pilih</option>
                         {attribute.value?.split(';').map((option, idx) => (
-                          <option
-                            key={idx}
-                            value={option}
-                            selected={
-                              option ===
-                                formData?.find(
-                                  (item) => item.name === attribute.name
-                                )?.value || option === selectedProduct
-                            }
-                          >
+                          <option key={idx} value={option}>
                             {option}
                           </option>
                         ))}
                         {dataRekomendasi?.map((product: any, index: any) => (
-                          <option
-                            selected={
-                              product.namaProduk ===
-                                dataRekomendasi?.find(
-                                  (item: any) => item.name === attribute.name
-                                )?.value ||
-                              product.namaProduk === selectedProduct
-                            }
-                            key={index}
-                            value={product.namaProduk}
-                          >
+                          <option key={index} value={product.namaProduk}>
                             {product.namaProduk}
                           </option>
                         ))}
