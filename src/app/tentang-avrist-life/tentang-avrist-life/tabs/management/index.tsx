@@ -64,13 +64,13 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     }).then((res) => {
       const newDataContent = res.data.contentDataList.map((item: any) => {
         return {
-          ...handleTransformedContent(item.contentData, item.title),
-          categoryName: item.categoryName,
-          id: item.id
+          ...handleTransformedContent(item?.contentData, item?.title),
+          categoryName: item?.categoryName,
+          id: item?.id
         };
       });
 
-      const keyValuePairs = Object.entries(newDataContent[0].content);
+      const keyValuePairs = Object.entries(newDataContent[0]?.content);
 
       const arrayOfObjects: any = keyValuePairs.map(([key, value]) => {
         if (typeof value === 'object' && value !== null) {
@@ -103,29 +103,29 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     const value = searchParams.get('tab')?.split('-').pop();
     console.log('Value:', value);
 
-    if (value !== 'Manajemen' && contentData && contentData.length > 0) {
-      const data = contentData.map((item: any) => {
-        return item.contentData.filter(
-          (subItem: any) => subItem.details[1].value === value
+    if (value !== 'Manajemen' && contentData && contentData?.length > 0) {
+      const data = contentData?.map((item: any) => {
+        return item?.contentData?.filter(
+          (subItem: any) => subItem?.details[1]?.value === value
         );
       });
 
       console.log('Data after mapping and filtering:', data);
 
-      const filteredData = data.filter((item: any) => item.length > 0);
+      const filteredData = data.filter((item: any) => item?.length > 0);
       console.log('Filtered Data:', filteredData);
 
       if (filteredData.length > 0) {
-        const details = filteredData[0][0].details;
+        const details = filteredData[0][0]?.details;
         console.log('Details:', details);
 
         setDetailData({
           image: singleImageTransformer(details[0]).imageUrl,
-          name: details[1].value,
-          role: details[2].value,
+          name: details && details.length > 0 ? details[1]?.value : "",
+          role: details && details.length > 1 ? details[2]?.value : "",
           desc: (
             <div className="flex flex-col gap-7">
-              <div dangerouslySetInnerHTML={{ __html: details[3].value }} />
+              <div dangerouslySetInnerHTML={{ __html: details && details.length > 2 ? details[3]?.value : "" }} />
             </div>
           )
         });
@@ -156,7 +156,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
     desc: string;
   }) => {
     const data = {
-      name: cardData.name
+      name: cardData?.name
     };
     window.scrollTo({ top: 200, behavior: 'smooth' });
     router.push(
@@ -187,7 +187,7 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
               <div className="xs:w-full xs:h-full sm:w-[213px] sm:h-[213px] rounded-xl">
                 <Image
                   alt="blank-image"
-                  src={detailData.image}
+                  src={detailData?.image}
                   width={213}
                   height={213}
                   className="xs:rounded-t-xl md:rounded-xl xs:w-full xs:h-full sm:w-[213px] sm:h-[213px]"
@@ -195,15 +195,15 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
               </div>
               <div className="flex flex-col gap-2 xs:text-center md:text-start xs:mb-7 sm:mb-0">
                 <p className="text-[36px] font-bold -tracking-[1.08px] font-karla">
-                  {detailData.name}
+                  {detailData?.name}
                 </p>
                 <p className="text-[24px] font-semibold text-purple_dark">
-                  {detailData.role}
+                  {detailData?.role}
                 </p>
               </div>
             </div>
             <p className="font-opensans text-xl text-justify">
-              {detailData.desc}
+              {detailData?.desc}
             </p>
           </div>
         </div>
@@ -213,26 +213,26 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
             {contentData &&
               contentData?.map((item: any, index: number) => {
                 const transformData = (data: any) => {
-                  return data.map((i: any) => {
+                  return data?.map((i: any) => {
                     // Extract details
                     const details = i.details;
 
                     // Find relevant data
                     const nameDetail = details.find(
                       (d: any) =>
-                        d.fieldId === item.contentData[0].details[1].fieldId
+                        d.fieldId === item?.contentData[0]?.details[1]?.fieldId
                     );
                     const roleDetail = details.find(
                       (d: any) =>
-                        d.fieldId === item.contentData[0].details[2].fieldId
+                        d.fieldId === item?.contentData[0]?.details[2]?.fieldId
                     );
                     const imageDetail = details.find(
                       (d: any) =>
-                        d.fieldId === item.contentData[0].details[0].fieldId
+                        d.fieldId === item?.contentData[0]?.details[0]?.fieldId
                     );
                     const bioDetail = details.find(
                       (d: any) =>
-                        d.fieldId === item.contentData[0].details[3].fieldId
+                        d.fieldId === item?.contentData[0]?.details[3]?.fieldId
                     );
 
                     return {
@@ -251,8 +251,8 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
                   <>
                     <PersonCard
                       key={index}
-                      heading={item.contentData[0].details[2].value}
-                      cards={transformData(item.contentData)}
+                      heading={item?.contentData[0]?.details[2]?.value}
+                      cards={transformData(item?.contentData)}
                       roleClassname="text-purple_dark"
                     />
                   </>

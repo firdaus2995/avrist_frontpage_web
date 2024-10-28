@@ -129,14 +129,14 @@ const SekilasPerusahaan: React.FC<ISetData> = ({ setData }) => {
       const transformData = (data: any) => {
         const transformed = data.map((entry: any) => {
           // Extract relevant information from the details
-          const tag = entry.details.find(
-            (detail: any) => detail.name === 'Tags'
+          const tag = entry?.details?.find(
+            (detail: any) => detail?.name === 'Tags'
           );
-          const title = entry.details.find(
-            (detail: any) => detail.name === 'Judul Timestamp'
+          const title = entry?.details?.find(
+            (detail: any) => detail?.name === 'Judul Timestamp'
           );
-          const desc = entry.details.find(
-            (detail: any) => detail.name === 'Deskripsi Timestamp'
+          const desc = entry?.details?.find(
+            (detail: any) => detail?.name === 'Deskripsi Timestamp'
           );
 
           return {

@@ -175,7 +175,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         fileBrosur,
         categoryTitle:
           jsonData.data.categories
-            ?.map((item: any) => item.categoryName)
+            ?.map((item: any) => item?.categoryName)
             .join(', ') || '',
         formId: jsonData.data?.formId || formProduk || '6979'
       };
@@ -199,10 +199,10 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         const newDataContent =
           data.data?.contentDataList?.map((item: any) => {
             return {
-              ...handleTransformedContent(item.contentData, item.title),
-              categoryName: item.categoryName,
-              createdAt: item.createdAt,
-              id: item.id
+              ...handleTransformedContent(item?.contentData, item?.title),
+              categoryName: item?.categoryName,
+              createdAt: item?.createdAt,
+              id: item?.id
             };
           }) || [];
         const dataContentValues = newDataContent.map(
@@ -259,7 +259,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
         );
 
         const otherData = sortedData?.filter(
-          (item: any) => item.id !== parseInt(params.detail)
+          (item: any) => item?.id !== parseInt(params.detail)
         );
         setDataRekomendasi(otherData);
         return dataContentValues;
@@ -322,8 +322,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
     setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
     setAttachmentPath(
       formValue
-        .filter((item) => item.value.includes('/var/upload/files'))
-        .map((item) => item.value)
+        .filter((item) => item?.value.includes('/var/upload/files'))
+        .map((item) => item?.value)
         .join('|')
     );
   }, [formValue]);
@@ -346,15 +346,15 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
   const onSubmitData = async () => {
     const emailSubmitterItem = dataForm.find(
-      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+      (item: any) => item?.fieldId === 'EMAIL_SUBMITTER'
     );
 
     const emailSubmitterComponent = emailSubmitterItem
-      ? emailSubmitterItem.componentId
+      ? emailSubmitterItem?.componentId
       : '';
 
     const updatedData = formValue.map((item) => {
-      if (item.name.includes('produk')) {
+      if (item?.name.includes('produk')) {
         return { ...item, value: dataDetail?.namaProduk };
       }
       return item;
@@ -369,7 +369,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
       emailSubject,
       emailBody,
       emailSubmitter: emailSubmitterComponent
-        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+        ? formValue.find((item: any) => item?.name === emailSubmitterComponent)
             ?.value
         : '',
       emailSubjectSubmitter: emailSubjectSubmitter ?? '',
@@ -400,8 +400,8 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                 href: `/avrist-dplk/produk/${params.detail}`
               }
             ]}
-            imageUrl={data.titleImage.imageUrl}
-            bottomImage={bannerImg.imageUrl}
+            imageUrl={data?.titleImage?.imageUrl}
+            bottomImage={bannerImg?.imageUrl}
             bottomImageFit={bannerImgFit}
           />
           <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem]">
@@ -553,13 +553,13 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
                   .map((item, index) => (
                     <CardProduct
                       key={index}
-                      imageProduk={item.produkImage.imageUrl}
-                      symbol={item.kategoriProdukIcon.imageUrl}
-                      title={item.jenisProduk}
-                      summary={item.namaProduk}
-                      description={item.deskripsiSingkatProduk}
-                      tags={item.tags.split(',')}
-                      href={`/avrist-dplk/produk/${item.id}`}
+                      imageProduk={item?.produkImage.imageUrl}
+                      symbol={item?.kategoriProdukIcon.imageUrl}
+                      title={item?.jenisProduk}
+                      summary={item?.namaProduk}
+                      description={item?.deskripsiSingkatProduk}
+                      tags={item?.tags.split(',')}
+                      href={`/avrist-dplk/produk/${item?.id}`}
                       cardClassname="bg-white border-b-dplk_yellow"
                       cardTitleClassname="text-dplk_yellow"
                       cardTagsClassname="bg-dplk_yellow/[.2] text-dplk_yellow"

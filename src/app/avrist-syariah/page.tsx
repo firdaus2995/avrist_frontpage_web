@@ -131,17 +131,17 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
 
         const transformedData = dataContentValues[0].data.map(
           (item: { details: any[] }) => {
-            const details = item.details.reduce(
+            const details = item?.details?.reduce(
               (
                 acc: { image: string; name: any; role: any },
                 detail: { fieldId: string; value: any }
               ) => {
-                if (detail.fieldId === 'foto') {
+                if (detail?.fieldId === 'foto') {
                   acc.image = singleImageTransformer(detail).imageUrl;
-                } else if (detail.fieldId === 'nama') {
-                  acc.name = detail.value;
-                } else if (detail.fieldId === 'jabatan') {
-                  acc.role = detail.value;
+                } else if (detail?.fieldId === 'nama') {
+                  acc.name = detail?.value;
+                } else if (detail?.fieldId === 'jabatan') {
+                  acc.role = detail?.value;
                 }
                 return acc;
               },
@@ -253,8 +253,8 @@ const AvristSyariah: React.FC<ParamsProps> = () => {
           { title: 'Beranda', href: '/' },
           { title: tab, href: '#' }
         ]}
-        imageUrl={titleImage.imageUrl}
-        bottomImage={bannerImage.imageUrl}
+        imageUrl={titleImage?.imageUrl}
+        bottomImage={bannerImage?.imageUrl}
         bottomImageFit={bannerImageFit}
       />
       <div className="flex flex-col justify-center mx-[2rem] my-[3.125rem] sm:mx-[8.5rem] sm:my-[5rem] xs:gap-[3.125rem] sm:gap-[5rem]">

@@ -159,7 +159,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         fileBrosur,
         categoryTitle:
           jsonData.data.categories
-            ?.map((item: any) => item.categoryName)
+            ?.map((item: any) => item?.categoryName)
             .join(', ') || '',
         formId: jsonData.data?.formId || formProduk || '6979'
       };
@@ -185,10 +185,10 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         const newDataContent =
           data.data?.contentDataList?.map((item: any) => {
             return {
-              ...handleTransformedContent(item.contentData, item.title),
-              categoryName: item.categoryName,
-              createdAt: item.createdAt,
-              id: item.id
+              ...handleTransformedContent(item?.contentData, item?.title),
+              categoryName: item?.categoryName,
+              createdAt: item?.createdAt,
+              id: item?.id
             };
           }) || [];
         const dataContentValues = newDataContent.map(
@@ -245,7 +245,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
         );
 
         const otherData = sortedData?.filter(
-          (item: any) => item.id !== parseInt(params.detail)
+          (item: any) => item?.id !== parseInt(params.detail)
         );
         setDataRekomendasi(otherData);
         return dataContentValues;
@@ -308,8 +308,8 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
     setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));
     setAttachmentPath(
       formValue
-        .filter((item) => item.value.includes('/var/upload/files'))
-        .map((item) => item.value)
+        .filter((item) => item?.value.includes('/var/upload/files'))
+        .map((item) => item?.value)
         .join('|')
     );
   }, [formValue]);
@@ -332,15 +332,15 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
   const handleSubmit = async () => {
     const emailSubmitterItem = dataForm.find(
-      (item: any) => item.fieldId === 'EMAIL_SUBMITTER'
+      (item: any) => item?.fieldId === 'EMAIL_SUBMITTER'
     );
 
     const emailSubmitterComponent = emailSubmitterItem
-      ? emailSubmitterItem.componentId
+      ? emailSubmitterItem?.componentId
       : '';
 
     const updatedData = formValue.map((item) => {
-      if (item.name.includes('produk')) {
+      if (item?.name.includes('produk')) {
         return { ...item, value: dataDetail?.namaProduk };
       }
       return item;
@@ -350,7 +350,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
       id: formId,
       pic: formPic,
       emailSubmitter: emailSubmitterComponent
-        ? formValue.find((item: any) => item.name === emailSubmitterComponent)
+        ? formValue.find((item: any) => item?.name === emailSubmitterComponent)
             ?.value
         : '',
       placeholderValue: updatedData,
@@ -386,8 +386,8 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
                 href: `#`
               }
             ]}
-            imageUrl={data.titleImage.imageUrl}
-            bottomImage={bannerImg.imageUrl}
+            imageUrl={data?.titleImage?.imageUrl}
+            bottomImage={bannerImg?.imageUrl}
             bottomImageFit={bannerImgFit}
           />
           <div className="flex flex-col xs:py-[3.125rem] xs:px-[2rem] xs:gap-[1.5rem] md:py-[5rem] md:px-[8.5rem] md:gap-[4rem]">
@@ -537,18 +537,18 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
               {dataRekomendasi &&
                 dataRekomendasi.length !== 0 &&
                 dataRekomendasi
-                  .filter((item) => item.namaProduk !== dataDetail?.namaProduk)
+                  .filter((item) => item?.namaProduk !== dataDetail?.namaProduk)
                   .slice(0, 3)
                   .map((item, index) => (
                     <CardProduct
                       key={index}
-                      imageProduk={item.produkImage.imageUrl}
-                      symbol={item.kategoriProdukIcon.imageUrl}
-                      title={item.jenisProduk}
-                      summary={item.namaProduk}
-                      description={item.deskripsiSingkatProduk}
-                      tags={item.tags.split(',')}
-                      href={`/avrist-syariah/produk/${item.id}`}
+                      imageProduk={item?.produkImage.imageUrl}
+                      symbol={item?.kategoriProdukIcon.imageUrl}
+                      title={item?.jenisProduk}
+                      summary={item?.namaProduk}
+                      description={item?.deskripsiSingkatProduk}
+                      tags={item?.tags.split(',')}
+                      href={`/avrist-syariah/produk/${item?.id}`}
                       cardClassname="bg-white border-b-syariah_green"
                       cardTitleClassname="text-syariah_green"
                       cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"

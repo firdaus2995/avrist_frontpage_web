@@ -171,8 +171,8 @@ const ProdukSyariah = () => {
           { title: 'Beranda', href: '/' },
           { title: 'Produk Syariah', href: '/avrist-syariah/produk' }
         ]}
-        imageUrl={titleImage.imageUrl}
-        bottomImage={banner.imageUrl}
+        imageUrl={titleImage?.imageUrl}
+        bottomImage={banner?.imageUrl}
         bottomImageFit={bannerImageFit}
       />
       <CustomContainer className="xs:mt-[3.125rem] sm:mt-[5rem] flex flex-col gap-[3.125rem] sm:gap-[4rem]">
@@ -228,13 +228,13 @@ const ProdukSyariah = () => {
               paginatedData.map((item: any, index: number) => (
                 <CardProduct
                   key={index}
-                  imageProduk={item.produkImage.imageUrl}
-                  symbol={item.kategoriProdukIcon.imageUrl}
-                  title={item.jenisProduk}
-                  summary={item.namaProduk}
-                  description={item.deskripsiSingkatProduk}
-                  tags={item.tags === '' ? '' : item.tags.split(',')}
-                  href={`/avrist-syariah/produk/${item.id}`}
+                  imageProduk={item?.produkImage.imageUrl}
+                  symbol={item?.kategoriProdukIcon.imageUrl}
+                  title={item?.jenisProduk}
+                  summary={item?.namaProduk}
+                  description={item?.deskripsiSingkatProduk}
+                  tags={item?.tags === '' ? '' : item?.tags.split(',')}
+                  href={`/avrist-syariah/produk/${item?.id}`}
                   cardClassname="bg-white border-b-syariah_green"
                   cardTitleClassname="text-syariah_green"
                   cardTagsClassname="bg-syariah_green/[.2] text-syariah_green_informing"

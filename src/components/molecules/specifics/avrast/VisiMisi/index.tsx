@@ -18,7 +18,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
 
   return (
     <div className="flex flex-col gap-[1.5rem] font-karla">
-      {data.map((val, idx) => (
+      {data && data.map((val, idx) => (
         <div
           key={idx}
           className="p-10 flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"
@@ -26,15 +26,15 @@ const VisiMisi = ({ data }: IVisiMisi) => {
           <div className="flex flex-row justify-between gap-4 items-center">
             <div className="flex flex-row gap-4 items-center">
               <Image
-                src={val.icon}
+                src={val?.icon}
                 className="xs:w-[2.25rem] md:w-[5rem]"
                 alt="logo"
               />
               <p className="sm:text-5xl xs:text-3xl font-bold xs:-tracking-[1.44px] sm:-tracking-[2.56px]">
-                {val.title}
+                {val?.title}
               </p>
             </div>
-            {Array.isArray(val.desc) && isExpanded ? (
+            {Array.isArray(val?.desc) && isExpanded ? (
               <Image
                 role="button"
                 onClick={() => setIsExpanded(false)}
@@ -44,9 +44,9 @@ const VisiMisi = ({ data }: IVisiMisi) => {
               />
             ) : null}
           </div>
-          {!Array.isArray(val.desc) ? (
+          {!Array.isArray(val?.desc) ? (
             <p className="xs:text-xl md:text-[1.5rem] font-light -tracking-[1.08px]">
-              {val.desc}
+              {val?.desc}
             </p>
           ) : !isExpanded ? (
             <div className="flex flex-col gap-4">
@@ -55,7 +55,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
                   1
                 </p>
                 <p className="xs:text-xl md:text-[1.5rem] font-light -tracking-[1.08px]">
-                  {val.desc[0]}
+                  {val?.desc[0]}
                 </p>
               </div>
               <div
@@ -74,7 +74,7 @@ const VisiMisi = ({ data }: IVisiMisi) => {
               </div>
             </div>
           ) : (
-            val.desc.map((value, index) => (
+            val?.desc?.map((value, index) => (
               <div
                 key={index}
                 className="px-[1.5rem] pb-[2.25rem] pt-[1rem] flex flex-col gap-4 border border-b-8 border-b-purple_dark rounded-xl"

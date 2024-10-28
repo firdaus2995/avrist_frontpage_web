@@ -69,11 +69,11 @@ const AvristSyariah = () => {
       includeAttributes: 'true'
     }).then((res) => {
       const filterPengawas = res.data.contentDataList.filter((i) =>
-        i.categories[0].categoryName?.toLocaleLowerCase().includes('pengawas')
+        i?.categories[0]?.categoryName?.toLocaleLowerCase().includes('pengawas')
       );
       const filterPengurus = res.data.contentDataList
         .filter((i) =>
-          i.categories[0].categoryName?.toLocaleLowerCase().includes('pengurus')
+          i?.categories[0]?.categoryName?.toLocaleLowerCase().includes('pengurus')
         )
         .sort((a, b) => a.id - b.id);
       setPengawas(filterPengawas);
@@ -89,8 +89,8 @@ const AvristSyariah = () => {
         dewanpengawasdplkDeskripsi={dewanpengawasdplkDeskripsi}
         pengawas={pengawas ?? []}
         pengurus={pengurus ?? []}
-        bottomImage={bannerImage.imageUrl}
-        bannerImageUrl={titleImage.imageUrl}
+        bottomImage={bannerImage?.imageUrl}
+        bannerImageUrl={titleImage?.imageUrl}
         bannerImageFit={bannerImageFit}
       />
 
@@ -106,7 +106,7 @@ const AvristSyariah = () => {
           </p>
         }
         buttonTitle="Tanya Avrista"
-        image={cta1Image.imageUrl}
+        image={cta1Image?.imageUrl}
         href={'/tanya-avrista'}
       />
       <div>
