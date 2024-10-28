@@ -81,8 +81,8 @@ const CompanySection = () => {
         title2: 'Perlindungan asset yang lengkap.',
         link1: 'Selengkapnya',
         link2: 'Selengkapnya',
-        href1: `${EXTERNAL_URL.agiUrl}/about/tentang-avrist`,
-        href2: `${EXTERNAL_URL.agiUrl}/about/tentang-avrist`,
+        href1: `${EXTERNAL_URL.agiUrl}/tentang-kami/avrist-general-insurance?tab=Sekilas+Perusahaan `,
+        href2: `${EXTERNAL_URL.agiUrl}/tentang-kami/avrist-general-insurance?tab=Sekilas+Perusahaan `,
         linkIcon: CHEVRONRIGHTGRAY,
         img: img3.imageUrl
       },

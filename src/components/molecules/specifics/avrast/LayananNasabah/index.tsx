@@ -29,7 +29,7 @@ const data = [
       },
       {
         label: 'Avrist General Insurance',
-        url: `${EXTERNAL_URL.agiUrl}/contact-us`
+        url: `${EXTERNAL_URL.agiUrl}/tanya-avgen`
       }
     ]
   },
@@ -45,7 +45,7 @@ const data = [
       },
       {
         label: 'Avrist General Insurance',
-        url: `${EXTERNAL_URL.agiUrl}/contact-us`
+        url: `${EXTERNAL_URL.agiUrl}/hubungi-kami?tab=Pengaduan+Nasabah`
       }
     ]
   }
