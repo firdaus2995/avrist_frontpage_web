@@ -88,16 +88,16 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         const category = item.categories
           .map((item: any) => item.categoryName)
           .join(', ');
-        const tagline = content['tags'].value;
-        const judul = content['judul-artikel'].value;
-        const penulis = content['penulis-artikel'].value;
-        const tanggal = content['tanggal'].value;
-        const bulan = content['bulan'].value;
-        const tahun = content['tahun'].value;
+        const tagline = content['tags']?.value;
+        const judul = content['judul-artikel']?.value;
+        const penulis = content['penulis-artikel']?.value;
+        const tanggal = content['tanggal']?.value;
+        const bulan = content['bulan']?.value;
+        const tahun = content['tahun']?.value;
         const thumbnail = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;
-        const artikel = content['artikel-looping'].contentData;
+        const artikel = content['artikel-looping']?.contentData;
         const tags =
           !!content['tags']?.value || content['tags']?.value !== '-'
             ? content['tags']?.value.split(',')
@@ -154,74 +154,78 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
   };
 
   const fetchDetailData = async () => {
-    const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
-    const jsonData = await response.json();
-
-    const { content } = contentDetailTransformer(jsonData);
-
-    setCurrentCategory(
-      jsonData.data.categories.map((item: any) => item.categoryName).join(', ')
-    );
-
-    const tagline = content['tags'].value;
-    const category = jsonData.data.categories
-      .map((item: any) => item.categoryName)
-      .join(', ');
-    const judul = content['judul-artikel'].value;
-    const penulis = content['penulis-artikel'].value;
-    const bulan = content['bulan'].value;
-    const tahun = content['tahun'].value;
-    const thumbnail = customImageTransformer(
-      content['artikel-thumbnail']
-    ).imageUrl;
-    const thumbnailFit = content['artikel-thumbnail']?.config
-      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
-      : '';
-    const artikel = content['artikel-looping'].contentData;
-    // const paragrafSatu = artikel[0]?.value;
-    // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
-    // const paragrafDua = artikel[2]?.value;
-    // const artikelVideo = artikel[3]?.value;
-    // const paragrafTiga = artikel[4]?.value;
-    const tags =
-      !!content['tags']?.value || content['tags']?.value !== '-'
-        ? content['tags']?.value.split(',')
-        : content['tags']?.value;
-    const artikelPIC = content['artikel-pic']?.value;
-    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
-    const waktuBaca = content['waktu-baca-artikel']?.value;
-    const daftarIsi = generateDaftarIsi(artikel, 'subjudul');
-    const differenceTime = formatTimeDifference(
-      new Date(jsonData?.data?.createdAt),
-      new Date()
-    );
-
-    const transformedData = {
-      tagline,
-      judul,
-      penulis,
-      bulan,
-      tahun,
-      thumbnail,
-      thumbnailFit,
-      // paragrafSatu,
-      // artikelImage,
-      // paragrafDua,
-      // artikelVideo,
-      // paragrafTiga,
-      tags,
-      artikelPIC,
-      artikelPICJabatan,
-      waktuBaca,
-      daftarIsi,
-      differenceTime,
-      artikel,
-      category
-    };
-
-    setContentData(transformedData);
-
-    return transformedData;
+    try {
+      const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
+      const jsonData = await response.json();
+  
+      const { content } = contentDetailTransformer(jsonData);
+  
+      setCurrentCategory(
+        jsonData.data.categories.map((item: any) => item.categoryName).join(', ')
+      );
+  
+      const tagline = content['tags']?.value;
+      const category = jsonData.data.categories
+        .map((item: any) => item.categoryName)
+        .join(', ');
+      const judul = content['judul-artikel']?.value;
+      const penulis = content['penulis-artikel']?.value;
+      const bulan = content['bulan']?.value;
+      const tahun = content['tahun']?.value;
+      const thumbnail = customImageTransformer(
+        content['artikel-thumbnail']
+      ).imageUrl;
+      const thumbnailFit = content['artikel-thumbnail']?.config
+        ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+        : '';
+      const artikel = content['artikel-looping']?.contentData;
+      // const paragrafSatu = artikel[0]?.value;
+      // const artikelImage = (artikel[2])?.imageUrl ? singleImageTransformer(artikel[2])?.imageUrl : null;
+      // const paragrafDua = artikel[2]?.value;
+      // const artikelVideo = artikel[3]?.value;
+      // const paragrafTiga = artikel[4]?.value;
+      const tags =
+        !!content['tags']?.value || content['tags']?.value !== '-'
+          ? content['tags']?.value.split(',')
+          : content['tags']?.value;
+      const artikelPIC = content['artikel-pic']?.value;
+      const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+      const waktuBaca = content['waktu-baca-artikel']?.value;
+      const daftarIsi = generateDaftarIsi(artikel, 'subjudul');
+      const differenceTime = formatTimeDifference(
+        new Date(jsonData?.data?.createdAt),
+        new Date()
+      );
+  
+      const transformedData = {
+        tagline,
+        judul,
+        penulis,
+        bulan,
+        tahun,
+        thumbnail,
+        thumbnailFit,
+        // paragrafSatu,
+        // artikelImage,
+        // paragrafDua,
+        // artikelVideo,
+        // paragrafTiga,
+        tags,
+        artikelPIC,
+        artikelPICJabatan,
+        waktuBaca,
+        daftarIsi,
+        differenceTime,
+        artikel,
+        category
+      };
+  
+      setContentData(transformedData);
+  
+      return transformedData;
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const handleSubscribeButton = async () => {

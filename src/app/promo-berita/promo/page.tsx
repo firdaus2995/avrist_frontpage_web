@@ -212,7 +212,7 @@ const Promo: React.FC<ParamsProps> = () => {
           )?.label
         } ${contentStringTransformer(content['tahun'])}`;
         const deskripsi =
-          content['artikel-looping'].contentData[0].details[0].value;
+          content['artikel-looping']?.contentData[0]?.details[0]?.value;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;

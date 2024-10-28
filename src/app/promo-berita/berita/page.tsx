@@ -423,7 +423,7 @@ const Berita: React.FC<ParamsProps> = () => {
           item.title
         );
 
-        const namaFile = content['nama-file-bulletin'].value;
+        const namaFile = content['nama-file-bulletin']?.value;
         const file = singleImageTransformer(content['file-bulletin']).imageUrl;
 
         return { namaFile, file };
@@ -488,10 +488,10 @@ const Berita: React.FC<ParamsProps> = () => {
           item.title
         );
 
-        const judul = content['judul-artikel'].value;
-        const tanggal = content['tanggal'].value;
-        const bulan = content['bulan'].value;
-        const tahun = content['tahun'].value;
+        const judul = content['judul-artikel']?.value;
+        const tanggal = content['tanggal']?.value;
+        const bulan = content['bulan']?.value;
+        const tahun = content['tahun']?.value;
         const fullDate = `${tahun}-${bulan}-${tanggal}`;
         const waktu =
           tanggal !== '-' && bulan !== '-' && tahun !== '-'
@@ -501,7 +501,7 @@ const Berita: React.FC<ParamsProps> = () => {
                 )?.label
               } ${tahun}`
             : '';
-        const deskripsi = content['artikel-looping'].contentData[0].details;
+        const deskripsi = content['artikel-looping']?.contentData[0]?.details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
         ).imageUrl;
@@ -511,7 +511,7 @@ const Berita: React.FC<ParamsProps> = () => {
             ? content['tags']?.value.split(',')
             : content['tags']?.value;
         const date = new Date(item.createdAt).getDate();
-        const artikelTopic = content['topik-artikel'].value;
+        const artikelTopic = content['topik-artikel']?.value;
 
         return {
           judul,
@@ -611,10 +611,10 @@ const Berita: React.FC<ParamsProps> = () => {
             );
 
             const date = new Date(item.createdAt).getDate();
-            const judul = content['judul-artikel'].value;
-            const tanggal = content['tanggal'].value;
-            const bulan = content['bulan'].value;
-            const tahun = content['tahun'].value;
+            const judul = content['judul-artikel']?.value;
+            const tanggal = content['tanggal']?.value;
+            const bulan = content['bulan']?.value;
+            const tahun = content['tahun']?.value;
             const fullDate = `${tahun}-${bulan}-00`;
             const waktu =
               tanggal !== '-' &&
@@ -634,7 +634,7 @@ const Berita: React.FC<ParamsProps> = () => {
               !!content['tags']?.value || content['tags']?.value !== '-'
                 ? content['tags']?.value.split(',')
                 : content['tags']?.value;
-            const waktuBaca = content['waktu-baca-artikel'].value;
+            const waktuBaca = content['waktu-baca-artikel']?.value;
 
             const differenceTime = formatTimeDifference(
               new Date(item.createdAt),
@@ -700,19 +700,19 @@ const Berita: React.FC<ParamsProps> = () => {
             );
 
             const date = new Date(item.createdAt).getDate();
-            const judul = content['judul-artikel'].value;
-            const bulan = content['bulan'].value;
-            const tahun = content['tahun'].value;
+            const judul = content['judul-artikel']?.value;
+            const bulan = content['bulan']?.value;
+            const tahun = content['tahun']?.value;
             const fullDate = `${tahun}-${bulan}-00`;
             const waktu =
-              content['bulan'].value !== '-' && content['tahun'].value !== '-'
+              content['bulan']?.value !== '-' && content['tahun']?.value !== '-'
                 ? `${
                     monthDropdown().find(
                       (item) =>
-                        item.value === content['bulan'].value ||
-                        item.label === content['bulan'].value
+                        item.value === content['bulan']?.value ||
+                        item.label === content['bulan']?.value
                     )?.label
-                  } ${content['tahun'].value}`
+                  } ${content['tahun']?.value}`
                 : '';
             const deskripsi = item?.shortDesc;
             const image = singleImageTransformer(
@@ -723,7 +723,7 @@ const Berita: React.FC<ParamsProps> = () => {
               !!content['tags']?.value || content['tags']?.value !== '-'
                 ? content['tags']?.value.split(',')
                 : content['tags']?.value;
-            const waktuBaca = content['waktu-baca-artikel'].value;
+            const waktuBaca = content['waktu-baca-artikel']?.value;
 
             const differenceTime = formatTimeDifference(
               new Date(item.createdAt),
@@ -832,7 +832,7 @@ const Berita: React.FC<ParamsProps> = () => {
         );
 
         const judul = content['judul-artikel']?.value;
-        // const deskripsi = content['external-link-berita-pers'].value;
+        // const deskripsi = content['external-link-berita-pers']?.value;
         let newLink;
         const externalLink = content['list-external-link']?.contentData;
         const arr: any = [];
@@ -896,11 +896,11 @@ const Berita: React.FC<ParamsProps> = () => {
           item.contentData,
           item.title
         );
-        const judul = content['judul-testimoni'].value;
-        let deskripsi = content['deskripsi-singkat-testimoni'].value;
-        const penulis = content['penulis-testimoni'].value;
-        const titlePenulis = content['title-penulis-testimoni'].value;
-        const videoUrl = content['video-testimoni'].value;
+        const judul = content['judul-testimoni']?.value;
+        let deskripsi = content['deskripsi-singkat-testimoni']?.value;
+        const penulis = content['penulis-testimoni']?.value;
+        const titlePenulis = content['title-penulis-testimoni']?.value;
+        const videoUrl = content['video-testimoni']?.value;
         const id = item.id;
 
         const checkNull = />-</;

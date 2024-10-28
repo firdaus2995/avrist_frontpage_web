@@ -88,62 +88,66 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   };
 
   const fetchDetailData = async () => {
-    const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
-    const jsonData = await response.json();
-
-    const { content } = contentDetailTransformer(jsonData);
-    const tagline = content['topik-artikel'].value;
-    const judul = content['judul-artikel'].value;
-    const penulis = content['penulis-artikel'].value;
-    const tanggal = content['tanggal'].value;
-    const bulan = content['bulan'].value;
-    const tahun = content['tahun'].value;
-    const artikel = content['artikel-looping'].contentData[0].details;
-    const dataArtikel = content['artikel-looping'].contentData;
-    const paragrafSatu = artikel[0].value;
-    const artikelImage = singleImageTransformer(artikel[1])?.imageUrl;
-    const paragrafDua = artikel[2]?.value;
-    const artikelVideo = artikel[3]?.value;
-    const paragrafTiga = artikel[4]?.value;
-    const tags = content['tags']?.value?.split(',');
-    const artikelPIC = content['artikel-pic']?.value;
-    const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
-    const date = new Date(jsonData?.data?.createdAt).getDate();
-    const monthInText = month.find((item) => item.value === bulan)?.label;
-    const externalLink = content['list-external-link'].contentData;
-    const bottomImage = customImageTransformer(
-      content['artikel-thumbnail']
-    )?.imageUrl;
-    const bottomImageFit = content['artikel-thumbnail']?.config
-      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
-      : '';
-
-    const transformedData = {
-      tagline,
-      judul,
-      penulis,
-      tanggal,
-      bulan,
-      tahun,
-      paragrafSatu,
-      artikelImage,
-      paragrafDua,
-      artikelVideo,
-      paragrafTiga,
-      tags,
-      artikelPIC,
-      artikelPICJabatan,
-      date,
-      monthInText,
-      externalLink,
-      dataArtikel,
-      bottomImage,
-      bottomImageFit
-    };
-
-    setContentData(transformedData);
-
-    return transformedData;
+    try {
+      const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
+      const jsonData = await response.json();
+  
+      const { content } = contentDetailTransformer(jsonData);
+      const tagline = content['topik-artikel']?.value;
+      const judul = content['judul-artikel']?.value;
+      const penulis = content['penulis-artikel']?.value;
+      const tanggal = content['tanggal']?.value;
+      const bulan = content['bulan']?.value;
+      const tahun = content['tahun']?.value;
+      const artikel = content['artikel-looping']?.contentData[0]?.details;
+      const dataArtikel = content['artikel-looping']?.contentData;
+      const paragrafSatu = artikel[0]?.value;
+      const artikelImage = singleImageTransformer(artikel[1])?.imageUrl;
+      const paragrafDua = artikel[2]?.value;
+      const artikelVideo = artikel[3]?.value;
+      const paragrafTiga = artikel[4]?.value;
+      const tags = content['tags']?.value?.split(',');
+      const artikelPIC = content['artikel-pic']?.value;
+      const artikelPICJabatan = content['artikel-pic-jabatan']?.value;
+      const date = new Date(jsonData?.data?.createdAt).getDate();
+      const monthInText = month.find((item) => item.value === bulan)?.label;
+      const externalLink = content['list-external-link']?.contentData;
+      const bottomImage = customImageTransformer(
+        content['artikel-thumbnail']
+      )?.imageUrl;
+      const bottomImageFit = content['artikel-thumbnail']?.config
+        ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+        : '';
+  
+      const transformedData = {
+        tagline,
+        judul,
+        penulis,
+        tanggal,
+        bulan,
+        tahun,
+        paragrafSatu,
+        artikelImage,
+        paragrafDua,
+        artikelVideo,
+        paragrafTiga,
+        tags,
+        artikelPIC,
+        artikelPICJabatan,
+        date,
+        monthInText,
+        externalLink,
+        dataArtikel,
+        bottomImage,
+        bottomImageFit
+      };
+  
+      setContentData(transformedData);
+  
+      return transformedData;
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const handleSubscribeButton = async () => {
@@ -170,7 +174,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   const RenderArtikelLooping = () => {
-    return contentData?.dataArtikel?.map((item: any, index: number) => {
+    return contentData&&contentData?.dataArtikel?.map((item: any, index: number) => {
       let paragrafSatu = item['details'][0]?.value ?? '-';
       const artikelImage = singleImageTransformer(item['details'][1]);
       let paragrafDua = item['details'][2]?.value ?? '-';
@@ -292,7 +296,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
               </span>
               <p
                 className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]"
-                dangerouslySetInnerHTML={{ __html: contentData.judul }}
+                dangerouslySetInnerHTML={{ __html: contentData?.judul }}
               />
             </div>
 
@@ -302,16 +306,16 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   {contentData?.tanggal !== '-' &&
                   contentData?.bulan !== '-' &&
                   contentData?.tahun !== '-'
-                    ? `${contentData?.tanggal} ${contentData.monthInText} ${contentData.tahun}`
+                    ? `${contentData?.tanggal} ${contentData?.monthInText} ${contentData?.tahun}`
                     : ''}{' '}
                   {contentData?.penulis === '-'
                     ? ''
-                    : `| ${contentData.penulis}`}
+                    : `| ${contentData?.penulis}`}
                 </p>
 
                 <div className="font-opensans text-sm font-semibold flex flex-row gap-2 flex-wrap">
                   {contentData?.tags.length > 0 &&
-                    contentData.tags.map((tag: any, idx: number) => {
+                    contentData?.tags.map((tag: any, idx: number) => {
                       if (tag === '-') return null;
                       return (
                         <MediumTag
