@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ReactPaginate from 'react-paginate';
@@ -1364,7 +1364,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           </p>
                           <div className="flex flex-col gap-3">
                             {isContentNotEmpty(item.judul) && (
-                              <p
+                              <div
                                 className="font-karla text-[28px] md:text-[36px]/[43.2px] xs:max-sm:text-[24px] font-bold line-clamp-3 break-word -tracking-[1.08px]"
                                 dangerouslySetInnerHTML={{
                                   __html: item.judul
@@ -1376,7 +1376,7 @@ const Berita: React.FC<ParamsProps> = () => {
                               isContentNotEmpty(
                                 item.deskripsi[0]?.value ?? '-'
                               ) && (
-                                <p
+                                <div
                                   className="text-[16px] line-clamp-2"
                                   dangerouslySetInnerHTML={{
                                     __html: item.deskripsi
@@ -1944,7 +1944,7 @@ const Berita: React.FC<ParamsProps> = () => {
                           className="w-full p-6 border rounded-xl flex flex-col gap-3"
                         >
                           {isContentNotEmpty(item.judul) && (
-                            <p
+                            <div
                               className="text-2xl font-bold font-['Source Sans Pro'] text-left mb-1"
                               dangerouslySetInnerHTML={{
                                 __html: item.judul
@@ -2068,6 +2068,7 @@ const Berita: React.FC<ParamsProps> = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(Berita), {
-  ssr: false
-});
+export default Berita;
+// export default dynamic(() => Promise.resolve(Berita), {
+//   ssr: false
+// });

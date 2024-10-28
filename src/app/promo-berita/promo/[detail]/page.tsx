@@ -185,12 +185,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
     try {
       const response = await fetch(`/api/promo/${id}`);
       const jsonData = await response.json();
-  
+
       const { content } = contentDetailTransformer(jsonData);
-  
+
       const namaProduk = content['nama-produk']?.value;
       const namaPromo = content['nama-promo']?.value;
-  
+
       const tagline = content['tags']?.value;
       const judul = content['judul-artikel']?.value;
       const penulis = content['penulis-artikel']?.value;
@@ -211,7 +211,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
                 !detailItem.value.includes('>-<');
               if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
                 return (
-                  <span
+                  <div
                     dangerouslySetInnerHTML={{
                       __html: tableReplacement(detailItem.value)
                     }}
@@ -222,7 +222,9 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
               if (
                 fieldType === 'IMAGE' &&
                 isNotEmpty &&
-                !singleImageTransformer(detailItem).imageUrl.includes('no-image')
+                !singleImageTransformer(detailItem).imageUrl.includes(
+                  'no-image'
+                )
               ) {
                 return (
                   <div
@@ -273,7 +275,7 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
       const thumbnailFit = content['artikel-thumbnail']?.config
         ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
         : '';
-  
+
       const transformedData = {
         namaPromo,
         namaProduk,
@@ -287,12 +289,12 @@ const DetailPromoTerbaru = ({ params }: { params: { detail: string } }) => {
         thumbnail,
         thumbnailFit
       };
-  
+
       setContentData(transformedData);
       setThumbnail(transformedData.thumbnail);
       return transformedData;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 

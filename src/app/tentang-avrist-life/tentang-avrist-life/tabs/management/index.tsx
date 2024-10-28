@@ -121,11 +121,15 @@ const Manajemen: React.FC<ManagementComponentProps> = ({
 
         setDetailData({
           image: singleImageTransformer(details[0]).imageUrl,
-          name: details && details.length > 0 ? details[1]?.value : "",
-          role: details && details.length > 1 ? details[2]?.value : "",
+          name: details && details.length > 0 ? details[1]?.value : '',
+          role: details && details.length > 1 ? details[2]?.value : '',
           desc: (
             <div className="flex flex-col gap-7">
-              <div dangerouslySetInnerHTML={{ __html: details && details.length > 2 ? details[3]?.value : "" }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: details && details.length > 2 ? details[3]?.value : ''
+                }}
+              />
             </div>
           )
         });

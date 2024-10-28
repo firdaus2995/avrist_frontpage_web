@@ -73,7 +73,9 @@ const AvristSyariah = () => {
       );
       const filterPengurus = res.data.contentDataList
         .filter((i) =>
-          i?.categories[0]?.categoryName?.toLocaleLowerCase().includes('pengurus')
+          i?.categories[0]?.categoryName
+            ?.toLocaleLowerCase()
+            .includes('pengurus')
         )
         .sort((a, b) => a.id - b.id);
       setPengawas(filterPengawas);

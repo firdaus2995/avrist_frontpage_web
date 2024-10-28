@@ -14,9 +14,9 @@ const ChevronLeft: React.FC<IIcon> = (props) => {
       <path
         d="M15 6L9 12L15 18"
         stroke={props.color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

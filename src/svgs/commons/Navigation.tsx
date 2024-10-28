@@ -14,9 +14,9 @@ const Navigation: React.FC<IIcon> = (props) => {
       <path
         d="M1.66675 10L20.6667 1L11.6667 20L9.66675 12L1.66675 10Z"
         stroke={props.color ?? '#C4B7D3'}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

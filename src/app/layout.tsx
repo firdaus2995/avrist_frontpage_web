@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Source_Sans_3, Karla } from 'next/font/google';
 import './globals.css';
 import packageJson from '../../package.json';
-import ClientSideScrollRestorer from '@/ClientSideScrollRestorer';
+// import ClientSideScrollRestorer from '@/ClientSideScrollRestorer';
 import Footer from '@/components/molecules/specifics/avrast/Footer';
 import Header from '@/components/molecules/specifics/avrast/Header';
 
@@ -69,9 +69,10 @@ export default function RootLayout({
           <Footer />
         </Suspense>
       </body>
-      <Suspense>
+      {/* This code make error 'Hydration failed because the initial UI does not match what was rendered on the server.' */}
+      {/* <Suspense>
         <ClientSideScrollRestorer />
-      </Suspense>
+      </Suspense> */}
     </html>
   );
 }

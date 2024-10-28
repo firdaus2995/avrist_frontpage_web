@@ -91,7 +91,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
     try {
       const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
       const jsonData = await response.json();
-  
+
       const { content } = contentDetailTransformer(jsonData);
       const tagline = content['topik-artikel']?.value;
       const judul = content['judul-artikel']?.value;
@@ -118,7 +118,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
       const bottomImageFit = content['artikel-thumbnail']?.config
         ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
         : '';
-  
+
       const transformedData = {
         tagline,
         judul,
@@ -141,12 +141,12 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
         bottomImage,
         bottomImageFit
       };
-  
+
       setContentData(transformedData);
-  
+
       return transformedData;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -174,86 +174,89 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   const RenderArtikelLooping = () => {
-    return contentData&&contentData?.dataArtikel?.map((item: any, index: number) => {
-      let paragrafSatu = item['details'][0]?.value ?? '-';
-      const artikelImage = singleImageTransformer(item['details'][1]);
-      let paragrafDua = item['details'][2]?.value ?? '-';
-      const artikelVideo = item['details'][3]?.value ?? '-';
+    return (
+      contentData &&
+      contentData?.dataArtikel?.map((item: any, index: number) => {
+        let paragrafSatu = item['details'][0]?.value ?? '-';
+        const artikelImage = singleImageTransformer(item['details'][1]);
+        let paragrafDua = item['details'][2]?.value ?? '-';
+        const artikelVideo = item['details'][3]?.value ?? '-';
 
-      let paragrafTiga = item['details'][4]?.value ?? '-';
-      if (paragrafSatu === '<p>-</p>') {
-        paragrafSatu = '-';
-      }
-      if (paragrafDua === '<p>-</p>') {
-        paragrafDua = '-';
-      }
-      if (
-        paragrafTiga === '<p>-</p>' ||
-        paragrafTiga === '<p>-<br>&nbsp;</p>'
-      ) {
-        paragrafTiga = '-';
-      }
-      return (
-        <div key={index} className="gap-[48px]">
-          {paragrafSatu !== '-' && (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: tableReplacement(paragrafSatu)
-              }}
-              className="font-opensans text-xl"
-            />
-          )}
+        let paragrafTiga = item['details'][4]?.value ?? '-';
+        if (paragrafSatu === '<p>-</p>') {
+          paragrafSatu = '-';
+        }
+        if (paragrafDua === '<p>-</p>') {
+          paragrafDua = '-';
+        }
+        if (
+          paragrafTiga === '<p>-</p>' ||
+          paragrafTiga === '<p>-<br>&nbsp;</p>'
+        ) {
+          paragrafTiga = '-';
+        }
+        return (
+          <div key={index} className="gap-[48px]">
+            {paragrafSatu !== '-' && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: tableReplacement(paragrafSatu)
+                }}
+                className="font-opensans text-xl"
+              />
+            )}
 
-          <div className="w-full flex items-center justify-center">
-            {!artikelImage.imageUrl.includes('no-image') &&
-              artikelImage.imageUrl !== '' && (
-                <div className="w-full h-full flex justify-center">
-                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
-                    <Image
-                      src={artikelImage?.imageUrl ?? BlankImage}
-                      alt="img"
-                      className="w-auto h-auto"
-                      width={0}
-                      height={0}
-                    />
+            <div className="w-full flex items-center justify-center">
+              {!artikelImage.imageUrl.includes('no-image') &&
+                artikelImage.imageUrl !== '' && (
+                  <div className="w-full h-full flex justify-center">
+                    <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                      <Image
+                        src={artikelImage?.imageUrl ?? BlankImage}
+                        alt="img"
+                        className="w-auto h-auto"
+                        width={0}
+                        height={0}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
-          </div>
-
-          {paragrafDua !== '-' && (
-            <span
-              dangerouslySetInnerHTML={{
-                __html: paragrafDua
-              }}
-              className="font-opensans text-xl"
-            />
-          )}
-          {artikelVideo !== '-' && (
-            <div className="w-full xs:h-[200px] md:h-[570px] mt-[28px] flex justify-center">
-              <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
-                <VideoPlayer
-                  thumbnail=""
-                  url={getYouTubeId(artikelVideo) ?? ''}
-                  color="purple_dark"
-                  // type="Artikel Video"
-                  mute
-                />
-              </div>
+                )}
             </div>
-          )}
 
-          {paragrafTiga !== '-' && (
-            <span
-              className="text-xl"
-              dangerouslySetInnerHTML={{
-                __html: paragrafTiga
-              }}
-            />
-          )}
-        </div>
-      );
-    });
+            {paragrafDua !== '-' && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: paragrafDua
+                }}
+                className="font-opensans text-xl"
+              />
+            )}
+            {artikelVideo !== '-' && (
+              <div className="w-full xs:h-[200px] md:h-[570px] mt-[28px] flex justify-center">
+                <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
+                  <VideoPlayer
+                    thumbnail=""
+                    url={getYouTubeId(artikelVideo) ?? ''}
+                    color="purple_dark"
+                    // type="Artikel Video"
+                    mute
+                  />
+                </div>
+              </div>
+            )}
+
+            {paragrafTiga !== '-' && (
+              <div
+                className="text-xl"
+                dangerouslySetInnerHTML={{
+                  __html: paragrafTiga
+                }}
+              />
+            )}
+          </div>
+        );
+      })
+    );
   };
 
   return (
@@ -285,7 +288,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-col gap-2">
               <span className="font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px]">
                 {contentData[0] === '<' ? (
-                  <span
+                  <div
                     dangerouslySetInnerHTML={{ __html: contentData?.tagline }}
                   />
                 ) : (
@@ -294,7 +297,7 @@ const DetailTanyaAvrista = ({ params }: { params: { detail: string } }) => {
                   </span>
                 )}
               </span>
-              <p
+              <div
                 className="font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px]"
                 dangerouslySetInnerHTML={{ __html: contentData?.judul }}
               />

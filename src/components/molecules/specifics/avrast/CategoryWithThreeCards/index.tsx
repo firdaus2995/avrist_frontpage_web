@@ -193,9 +193,14 @@ const CategoryWithThreeCards = ({
                         title={item.label}
                       />
                     ) : item.type === 'dropdown' ? (
-                      <div className="py-[8px] px-[12px] border rounded-md border-purple_dark text-purple_dark font-opensans font-semibold leading-[23.68px]">
+                      <div
+                        key={index}
+                        className="py-[8px] px-[12px] border rounded-md border-purple_dark text-purple_dark font-opensans font-semibold leading-[23.68px]"
+                      >
                         <select
-                          key={index}
+                          defaultValue={
+                            item?.options?.find((obj) => obj.selected)?.value
+                          }
                           onChange={(e) => {
                             const selectedValue = e.target.value;
                             const selectedData = item?.options?.find(
@@ -212,7 +217,7 @@ const CategoryWithThreeCards = ({
                               defaultValue={val.label}
                               key={idx}
                               value={val.value}
-                              selected={val.selected ? val.selected : false}
+                              // selected={val.selected ? val.selected : false}
                             >
                               {val.label}
                             </option>

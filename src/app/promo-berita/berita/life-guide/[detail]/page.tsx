@@ -157,13 +157,15 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
     try {
       const response = await fetch(`/api/berita-dan-kegiatan/${id}`);
       const jsonData = await response.json();
-  
+
       const { content } = contentDetailTransformer(jsonData);
-  
+
       setCurrentCategory(
-        jsonData.data.categories.map((item: any) => item.categoryName).join(', ')
+        jsonData.data.categories
+          .map((item: any) => item.categoryName)
+          .join(', ')
       );
-  
+
       const tagline = content['tags']?.value;
       const category = jsonData.data.categories
         .map((item: any) => item.categoryName)
@@ -196,7 +198,7 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         new Date(jsonData?.data?.createdAt),
         new Date()
       );
-  
+
       const transformedData = {
         tagline,
         judul,
@@ -219,12 +221,12 @@ const DetailAvristLifeGuide = ({ params }: { params: { detail: string } }) => {
         artikel,
         category
       };
-  
+
       setContentData(transformedData);
-  
+
       return transformedData;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
