@@ -45,7 +45,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-property`,
+    link: `${EXTERNAL_URL.agiUrl}/produk?tab=Asuransi+Harta+Benda`,
     openInNewTab: true
   },
 
@@ -84,7 +84,7 @@ const data = [
     bgColor: 'soft_grey',
     color: 'agi_grey',
     inlineStyling: '#F6F6F6',
-    link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-oto`,
+    link: `${EXTERNAL_URL.agiUrl}/produk?tab=Asuransi+Kendaraan`,
     openInNewTab: true
   },
   {
@@ -141,7 +141,7 @@ const dataMobile = [
         content:
           'Perlindungan terbaik dari Avrist dengan flexibilitas dan tingkat premi yang kompetitif',
         btnText: 'Selengkapnya',
-        link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-property`,
+        link: `${EXTERNAL_URL.agiUrl}/produk?tab=Asuransi+Harta+Benda`,
         openInNewTab: true
       },
       {
@@ -149,7 +149,7 @@ const dataMobile = [
         title: 'Asuransi Kendaraan',
         content: 'Perlindungan menyeluruh bagi kendaraan kesayangan Anda',
         btnText: 'Selengkapnya',
-        link: `${EXTERNAL_URL.agiUrl}/solusi/avrist-oto`,
+        link: `${EXTERNAL_URL.agiUrl}/produk?tab=Asuransi+Kendaraan`,
         openInNewTab: true
       }
     ]

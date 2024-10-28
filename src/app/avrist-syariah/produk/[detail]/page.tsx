@@ -284,7 +284,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
   useEffect(() => {
     setFormValue([{ name: '', value: '' }]);
-    if (dataDetail?.formId) {
+    if (dataDetail?.formId && formId) {
       const fetchDataForm = async () => {
         try {
           const contentResponse = await fetch(`/api/form?id=${formId}`);
@@ -302,7 +302,7 @@ const ProdukSyariahDetail = ({ params }: { params: { detail: string } }) => {
 
       fetchDataForm().then();
     }
-  }, [dataDetail]);
+  }, [dataDetail, formId]);
 
   useEffect(() => {
     setAttachment(JSON.stringify(formValue).includes('/var/upload/files'));

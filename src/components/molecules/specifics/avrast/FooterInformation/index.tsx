@@ -81,13 +81,15 @@ const FooterInformation = ({
           )}
         </div>
         <div className="flex rounded-r-[24px]">
-          <Image
-            height={0}
-            width={0}
-            alt="footerInformationImage"
-            className="min-h-[200px] md:min-h-[392px] w-full object-contain sm:object-cover"
-            src={image}
-          />
+          {image && (
+            <Image
+              height={0}
+              width={0}
+              alt="footerInformationImage"
+              className="min-h-[200px] md:min-h-[392px] w-full object-contain sm:object-cover"
+              src={image}
+            />
+          )}
         </div>
       </div>
     </div>
