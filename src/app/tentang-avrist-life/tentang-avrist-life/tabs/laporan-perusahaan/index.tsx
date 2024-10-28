@@ -78,7 +78,9 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   }, [params.category]);
 
   useEffect(() => {
-    categories.length > 0 && setParams({ ...params, category: categories[0] });
+    categories &&
+      categories.length > 0 &&
+      setParams({ ...params, category: categories[0] });
   }, [categories]);
 
   const fetchContent = async () => {
@@ -111,11 +113,15 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
         category: params.category
       };
       const apiContent = await getListLaporanPerusahaanNew(queryParams);
-      const categoryList = Object.keys(apiContent.data.categoryList);
+      const categoryList =
+        apiContent &&
+        apiContent.data &&
+        apiContent.data.categoryList &&
+        Object.keys(apiContent.data.categoryList);
 
-      categories.length < 1 && setCategories(categoryList);
+      categories && categories.length < 1 && setCategories(categoryList ?? []);
 
-      if (Object.keys(apiContent.data.categoryList).length <= 0) {
+      if (categoryList && categoryList.length <= 0) {
         setPaginatedData([]);
       }
       setContentData(apiContent.data.categoryList[params.category]);
@@ -289,7 +295,7 @@ const LaporanPerusahaan: React.FC<ISetData> = ({ setData }) => {
   return (
     <div className="w-full flex flex-col gap-4 bg-white justify-center">
       <div className="flex flex-col gap-4">
-        {params.category ? (
+        {params?.category ? (
           // <CustomContainer className="w-full flex flex-col items-center justify-center text-center font-karla xs:mt-[2.25rem] sm:mt-[5rem]">
           //   <TitleContainer className="text-purple_dark !mb-[2.25rem] sm:leading-normal !-tracking-[2.24px] font-extrabold">
           //     {params.category} Perusahaan

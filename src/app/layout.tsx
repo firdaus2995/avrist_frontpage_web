@@ -64,9 +64,9 @@ export default function RootLayout({
         className={`${openSans.variable} ${karla.variable} w-full max-w-screen-2xl 3xl:max-w-screen-3xl mx-auto`}
       >
         <Suspense>
-        <Header />
-        {children}
-        <Footer />
+          <Header />
+          {children}
+          <Footer />
         </Suspense>
       </body>
       <Suspense>

@@ -154,10 +154,12 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
           <div className="xs:h-[200px] md:h-[651px] xs:mb-[8rem] sm:mb-[5rem] w-[1120px]">
             <VideoPlayer
               color="purple_dark"
-              type={contentPage?.content['mengapabergabung-captionvideo'].value}
+              type={
+                contentPage?.content['mengapabergabung-captionvideo']?.value
+              }
               url={
                 getYouTubeId(
-                  contentPage?.content['mengapabergabung-video'].value
+                  contentPage?.content['mengapabergabung-video']?.value
                 ) ?? ''
               }
               thumbnail={''}
@@ -174,15 +176,16 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
             </TitleContainer>
           </div>
           <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-5">
-            {purposeData.map((val, idx) => (
-              <PurposeCard
-                key={idx}
-                title={val.title}
-                desc={val.desc}
-                link={val.link}
-                icon={val.icon}
-              />
-            ))}
+            {purposeData &&
+              purposeData.map((val, idx) => (
+                <PurposeCard
+                  key={idx}
+                  title={val?.title}
+                  desc={val?.desc}
+                  link={val?.link}
+                  icon={val?.icon}
+                />
+              ))}
           </div>
         </CustomContainer>
 
@@ -215,47 +218,47 @@ const Karir: React.FC<ISetData> = ({ setData }) => {
                         className="w-full flex flex-col gap-2 items-start p-4 border rounded-xl"
                       >
                         <p className="font-bold text-[1.5rem] font-karla">
-                          {item.namaLoker}
+                          {item?.namaLoker}
                         </p>
                         <div className="flex flex-col gap-[12px]">
                           <div className="flex w-full flex-row items-center gap-2">
                             <Image
-                              src={item.iconLokasiLoker}
+                              src={item?.iconLokasiLoker}
                               alt="lokasi"
                               width={18}
                               height={18}
                             />
                             <p className="font-opensans font-lg leading-[25.2px]">
-                              {item.lokasiLoker}
+                              {item?.lokasiLoker}
                             </p>
                           </div>
                           <div className="flex w-full flex-row items-center gap-2">
                             <Image
-                              src={item.iconStatusLoker}
+                              src={item?.iconStatusLoker}
                               alt="status"
                               width={18}
                               height={18}
                             />
                             <p className="font-opensans font-lg leading-[25.2px]">
-                              {item.statusLoker}
+                              {item?.statusLoker}
                             </p>
                           </div>
                         </div>
 
                         <div className="flex w-full flex-row items-center gap-2 hidden">
                           <Image
-                            src={item.iconWaktuLoker}
+                            src={item?.iconWaktuLoker}
                             alt="waktu"
                             width={18}
                             height={18}
                           />
                           <p className="font-opensans font-lg">
-                            {item.waktuLoker}
+                            {item?.waktuLoker}
                           </p>
                         </div>
                         <Link
                           className="w-full"
-                          href={item.urlLoker}
+                          href={item?.urlLoker}
                           target="_blank"
                         >
                           <Button

@@ -13,6 +13,11 @@ const nextConfig = {
       }
     ]
   },
+  compiler: {
+    removeConsole: {
+      exclude: ['error']
+    }
+  },
   output: 'standalone'
 };
 

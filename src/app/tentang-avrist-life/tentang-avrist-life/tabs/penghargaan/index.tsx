@@ -115,19 +115,19 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
       };
       const apiContent = await getListPenghargaanNew(queryParams);
 
-      const transformedContent = apiContent.data.categoryList[''];
+      const transformedContent = apiContent?.data?.categoryList[''];
 
       const transformedData = transformedContent?.map((item: any) => {
         const { content } = handleTransformedContent(
-          item.contentData,
-          item.title
+          item?.contentData,
+          item?.title
         );
 
-        const judul = content['judul-artikel'].value;
-        const nama = content['nama-penghargaan'].value;
-        const tanggal = content['tanggal'].value;
-        const bulan = content['bulan'].value;
-        const tahun = content['tahun'].value;
+        const judul = content['judul-artikel']?.value;
+        const nama = content['nama-penghargaan']?.value;
+        const tanggal = content['tanggal']?.value;
+        const bulan = content['bulan']?.value;
+        const tahun = content['tahun']?.value;
         const fullDate = `${tahun}-${bulan}-${tanggal}`;
         const waktu =
           bulan !== '-' && tahun !== '-'
@@ -135,18 +135,18 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                 monthDropdown().find((item) => item.value === bulan)?.label
               } ${tahun}`
             : '';
-        const deskripsi = content['artikel-looping'].contentData[0].details;
+        const deskripsi = content['artikel-looping']?.contentData[0]?.details;
         const image = singleImageTransformer(
           content['artikel-thumbnail']
-        ).imageUrl;
-        const id = item.id;
+        )?.imageUrl;
+        const id = item?.id;
 
         return { judul, nama, fullDate, waktu, deskripsi, image, id };
       });
 
       const sortedData = transformedData.sort((a: any, b: any) => {
-        const dateA = new Date(a.fullDate).getTime();
-        const dateB = new Date(b.fullDate).getTime();
+        const dateA = new Date(a?.fullDate).getTime();
+        const dateB = new Date(b?.fullDate).getTime();
 
         if (isNaN(dateA)) {
           return 1;
@@ -180,9 +180,9 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
 
     for (let year = currentYear; year >= startYear; year--) {
       years.push({
-        label: year.toString(),
-        value: year.toString(),
-        onClick: () => setParams({ ...params, yearFilter: year.toString() })
+        label: year?.toString(),
+        value: year?.toString(),
+        onClick: () => setParams({ ...params, yearFilter: year?.toString() })
       });
     }
 
@@ -348,14 +348,14 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
           setItemOffset(0);
         }}
         customContent={
-          contentData.length > 0 ? (
+          contentData && contentData.length > 0 ? (
             <>
               <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-4">
                 {contentData &&
                   paginatedData?.map((item: any, index: number) => (
                     <Link
                       key={index}
-                      href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item.id}`}
+                      href={`/tentang-avrist-life/tentang-avrist-life/tabs/penghargaan/${item?.id}`}
                     >
                       <div
                         key={index}
@@ -365,24 +365,24 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                           alt="blank-image"
                           width={0}
                           height={0}
-                          src={item.image}
+                          src={item?.image}
                           className={`w-auto aspect-video rounded-t-[12px] xs:object-fill ${isLoading && 'opacity-0'}`}
                         />
                         <div className="flex flex-col gap-3 p-5 h-full">
                           <p className="text-xs sm:text-sm">
-                            {!isLoading && item.waktu}
+                            {!isLoading && item?.waktu}
                           </p>
                           <p
                             className="xs:text-lg sm:text-[1.5rem] font-bold"
                             dangerouslySetInnerHTML={{
                               __html: !isLoading
-                                ? item.judul
+                                ? item?.judul
                                 : 'Loading Data...'
                             }}
                           />
                           {item.nama !== '-' && !isLoading && (
                             <p className="xs:text-lg sm:text-[1.5rem]">
-                              {item.nama}
+                              {item?.nama}
                             </p>
                           )}
                           {/* <p
@@ -394,12 +394,12 @@ const Penghargaan: React.FC<ISetData> = ({ setData }) => {
                             className="xs:text-sm sm:text-base line-clamp-3 h-full 2xl:py-2"
                           /> */}
                           <p className="xs:text-sm sm:text-[1rem] line-clamp-3 h-full 2xl:py-2 leading-[22.4px] min-h-[64px]">
-                            {item.deskripsi[0].value !== '<p>-</p>' &&
-                              item.deskripsi[0].value !== '["-"]' &&
-                              item.deskripsi[0].value !== '-' &&
-                              !item.deskripsi[0].value.includes('>-<') &&
+                            {item?.deskripsi[0]?.value !== '<p>-</p>' &&
+                              item?.deskripsi[0]?.value !== '["-"]' &&
+                              item?.deskripsi[0]?.value !== '-' &&
+                              !item?.deskripsi[0]?.value.includes('>-<') &&
                               !isLoading &&
-                              htmlParser(item.deskripsi[0].value)}
+                              htmlParser(item?.deskripsi[0].value)}
                           </p>
                           <div
                             className={`flex flex-row items-end gap-1 text-left h-full ${isLoading && 'opacity-0'}`}

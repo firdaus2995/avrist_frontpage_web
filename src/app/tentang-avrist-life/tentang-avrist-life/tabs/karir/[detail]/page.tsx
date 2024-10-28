@@ -133,24 +133,24 @@ const DetailKarir = () => {
       <CustomContainer className="pb-2 w-full justify-between gap-2 items-stretch rounded-t-[60px] bg-white xs:-mt-[3.4rem] md:-mt-[6.3rem] z-[10]">
         <div className="flex flex-col gap-[3rem]">
           <p className="!mb-0 mt-[5rem] text-[3.5rem] font-karla font-bold leading-[67.2px] -tracking-[2.24px]">
-            {data.judul ?? ''}
+            {data?.judul ?? ''}
           </p>
 
           <p
             className="text-xl font-opensans flex flex-col leading-[28px]"
             dangerouslySetInnerHTML={{
-              __html: data.deskripsiJudul
+              __html: data?.deskripsiJudul
             }}
           />
 
           <div className="flex flex-col gap-[1rem]">
             <h2 className="text-[2.25rem] font-karla font-bold text-purple_dark -tracking-[2.56px] leading-[42.3px]">
-              {data.subjudul}
+              {data?.subjudul}
             </h2>
             <p
               className="text-xl font-opensans flex flex-col leading-[28px] text-wrap xs:pl-[1rem] sm:pl-[1.5rem]"
               dangerouslySetInnerHTML={{
-                __html: data.deskripsiSubjudul.replace(
+                __html: data?.deskripsiSubjudul.replace(
                   '<ul>',
                   "<ul class='list-disc list-outside font-opensans'>"
                 )
@@ -252,7 +252,7 @@ const DetailKarir = () => {
       </div>
       <div className="absolute">
         <KarirModal
-          id={data.formId}
+          id={data?.formId}
           show={show}
           onClose={() => {
             setShow(false);

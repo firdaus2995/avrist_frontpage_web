@@ -82,86 +82,92 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
 
     const { content } = contentDetailTransformer(jsonData);
 
-    const tagline = content['tags'].value;
-    const judul = content['judul-artikel'].value;
-    const nama = content['nama-penghargaan'].value;
-    const penulis = content['penulis-artikel'].value;
+    const tagline = content['tags']?.value;
+    const judul = content['judul-artikel']?.value;
+    const nama = content['nama-penghargaan']?.value;
+    const penulis = content['penulis-artikel']?.value;
     const bulan = month.find(
-      (item) => item.value === content['bulan'].value
+      (item) => item.value === content['bulan']?.value
     )?.label;
-    const tahun = content['tahun'].value;
-    const artikel = content['artikel-looping'].contentData;
-    const loopArtikel = artikel.map((item: any, itemIndex: number) => {
-      return (
-        <div
-          className="flex flex-col gap-10 font-opensans text-xl pb-[14px]"
-          key={itemIndex}
-        >
-          {item.details.map((detailItem: any, detailIndex: number) => {
-            const fieldType = detailItem.fieldType;
-            const isNotEmpty =
-              detailItem.value !== '<p>-</p>' &&
-              detailItem.value !== '["-"]' &&
-              detailItem.value !== '-' &&
-              !detailItem.value.includes('>-<');
-            if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
-              return renderedDescription(detailItem.value);
-            }
-            if (
-              fieldType === 'IMAGE' &&
-              isNotEmpty &&
-              !singleImageTransformer(detailItem).imageUrl.includes('no-image')
-            ) {
-              return (
-                <div
-                  className="w-full h-full flex justify-center"
-                  key={detailIndex}
-                >
-                  <div className="w-auto sm:w-[1120px] h-auto mb-5">
-                    <Image
-                      src={
-                        singleImageTransformer(detailItem).imageUrl ??
-                        BlankImage
-                      }
-                      alt="img"
-                      className="w-auto h-auto"
-                      width={0}
-                      height={0}
-                    />
-                  </div>
-                </div>
-              );
-            }
-            if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
-              return (
-                <div
-                  className="w-full h-full flex justify-center"
-                  key={detailIndex}
-                >
-                  <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
-                    <VideoPlayer
-                      thumbnail=""
-                      url={detailItem.value ?? ''}
-                      color="purple_dark"
-                      type=""
-                      mute={true}
-                    />
-                  </div>
-                </div>
-              );
-            }
-            return null;
-          })}
-        </div>
-      );
-    });
-    const tags = content['tags'].value;
-    const externalLink = content['external-link-info'].value;
+    const tahun = content['tahun']?.value;
+    const artikel = content['artikel-looping']?.contentData;
+    const loopArtikel =
+      artikel &&
+      artikel.map((item: any, itemIndex: number) => {
+        return (
+          <div
+            className="flex flex-col gap-10 font-opensans text-xl pb-[14px]"
+            key={itemIndex}
+          >
+            {item &&
+              item.details &&
+              item.details.map((detailItem: any, detailIndex: number) => {
+                const fieldType = detailItem?.fieldType;
+                const isNotEmpty =
+                  detailItem?.value !== '<p>-</p>' &&
+                  detailItem?.value !== '["-"]' &&
+                  detailItem?.value !== '-' &&
+                  !detailItem?.value.includes('>-<');
+                if (fieldType === 'TEXT_EDITOR' && isNotEmpty) {
+                  return renderedDescription(detailItem?.value);
+                }
+                if (
+                  fieldType === 'IMAGE' &&
+                  isNotEmpty &&
+                  !singleImageTransformer(
+                    detailItem && detailItem
+                  )?.imageUrl.includes('no-image')
+                ) {
+                  return (
+                    <div
+                      className="w-full h-full flex justify-center"
+                      key={detailIndex}
+                    >
+                      <div className="w-auto sm:w-[1120px] h-auto mb-5">
+                        <Image
+                          src={
+                            singleImageTransformer(detailItem && detailItem)
+                              ?.imageUrl ?? BlankImage
+                          }
+                          alt="img"
+                          className="w-auto h-auto"
+                          width={0}
+                          height={0}
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+                if (fieldType === 'YOUTUBE_URL' && isNotEmpty) {
+                  return (
+                    <div
+                      className="w-full h-full flex justify-center"
+                      key={detailIndex}
+                    >
+                      <div className="w-auto sm:w-[1120px] xs:h-full md:h-[650px] xs:mb-10 md:mb-0">
+                        <VideoPlayer
+                          thumbnail=""
+                          url={detailItem?.value ?? ''}
+                          color="purple_dark"
+                          type=""
+                          mute={true}
+                        />
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+          </div>
+        );
+      });
+    const tags = content['tags']?.value;
+    const externalLink = content['external-link-info']?.value;
     const thumbnail = customImageTransformer(
       content['artikel-thumbnail']
-    ).imageUrl;
+    )?.imageUrl;
     const thumbnailFit = content['artikel-thumbnail']?.config
-      ? JSON.parse(content['artikel-thumbnail']?.config)?.image_fit
+      ? JSON?.parse(content['artikel-thumbnail']?.config)?.image_fit
       : '';
 
     const transformedData = {
@@ -206,7 +212,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
         setFailedMsg('');
       }
     } catch (e: any) {
-      setFailedMsg(e?.body.errors.message[0]);
+      setFailedMsg(e?.body?.errors?.message[0] ?? '');
     }
   };
 
@@ -216,14 +222,14 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
   }, []);
 
   const renderedDescription = (description: string) => {
-    const isOrdered = description.includes('<ol>');
-    const isUnordered = description.includes('<ul>');
+    const isOrdered = description?.includes('<ol>');
+    const isUnordered = description?.includes('<ul>');
 
     if (isOrdered) {
       return (
         <div
           dangerouslySetInnerHTML={{
-            __html: description.replace(
+            __html: description?.replace(
               /<ol>/g,
               `<ol class="list-decimal pl-6 font-opensans text-xl">`
             )
@@ -235,7 +241,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       return (
         <div
           dangerouslySetInnerHTML={{
-            __html: description.replace(
+            __html: description?.replace(
               /<ul>/g,
               `<ul class="list-disc pl-6 font-opensans text-xl">`
             )
@@ -248,7 +254,7 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
       <p
         className="font-opensans text-xl"
         dangerouslySetInnerHTML={{
-          __html: description.includes('<table')
+          __html: description?.includes('<table')
             ? tableReplacement(description)
             : description
         }}
@@ -286,35 +292,35 @@ const DetailPenghargaan = ({ params }: { params: { detail: string } }) => {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <span
-                  className={`font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px] ${!isNotEmpty(contentData.nama) ? 'hidden' : ''}`}
+                  className={`font-karla text-2xl text-purple_dark font-bold -tracking-[0.72px] ${!isNotEmpty(contentData?.nama) ? 'hidden' : ''}`}
                 >
                   <span
-                    dangerouslySetInnerHTML={{ __html: contentData.nama }}
+                    dangerouslySetInnerHTML={{ __html: contentData?.nama }}
                     className="text-2xl font-bold"
                   />
                 </span>
 
                 <p
-                  className={`font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px] ${!isNotEmpty(contentData.judul) ? 'hidden' : ''}`}
-                  dangerouslySetInnerHTML={{ __html: contentData.judul }}
+                  className={`font-bold font-karla xs:text-[2.25rem] md:text-[3.5rem]/[67.2px] -tracking-[2.24px] ${!isNotEmpty(contentData?.judul) ? 'hidden' : ''}`}
+                  dangerouslySetInnerHTML={{ __html: contentData?.judul }}
                 />
               </div>
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-col gap-2 font-opensans leading-[22.4px]">
                   <p>
-                    {contentData.bulan &&
-                    contentData.tahun &&
-                    contentData.bulan !== '-' &&
-                    contentData.tahun !== '-'
-                      ? `${contentData.bulan} ${contentData.tahun}`
+                    {contentData?.bulan &&
+                    contentData?.tahun &&
+                    contentData?.bulan !== '-' &&
+                    contentData?.tahun !== '-'
+                      ? `${contentData?.bulan} ${contentData?.tahun}`
                       : ''}
-                    {contentData.penulis !== '-'
-                      ? ` | ${contentData.penulis}`
+                    {contentData?.penulis !== '-'
+                      ? ` | ${contentData?.penulis}`
                       : ''}
                   </p>
-                  {isNotEmpty(contentData.tags) && (
+                  {isNotEmpty(contentData?.tags) && (
                     <div className="flex flex-row gap-2 flex-wrap">
-                      {contentData.tags
+                      {contentData?.tags
                         .split(', ')
                         .map((item: any, idx: number) => (
                           <MediumTag
