@@ -294,7 +294,7 @@ const ProdukDplkDetail = ({ params }: { params: { detail: string } }) => {
 
   useEffect(() => {
     setFormValue([{ name: '', value: '' }]);
-    if (dataDetail?.formId) {
+    if (dataDetail?.formId && formId) {
       const fetchDataForm = async () => {
         try {
           const contentResponse = await fetch(`/api/form?id=${formId}`);
