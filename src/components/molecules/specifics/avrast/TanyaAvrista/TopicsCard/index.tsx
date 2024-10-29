@@ -56,11 +56,11 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                 width={60}
                 height={60}
               />
-              <p className="text-center font-bold xs:text-[2rem] sm:text-[2rem] leading-[2.4rem] leading-[38.4px] -tracking-[0.03em]">
+              <div className="text-center font-bold xs:text-[2rem] sm:text-[2rem] leading-[2.4rem] leading-[38.4px] -tracking-[0.03em]">
                 {item.title.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
+                  <div key={index}>{line}</div>
                 ))}
-              </p>
+              </div>
             </div>
           </div>
         ))}
@@ -88,11 +88,11 @@ const TopicsCard = ({ cards, onClickCards }: ITopicsCard) => {
                     width={60}
                     height={60}
                   />
-                  <p className="text-center font-bold xs:text-[2rem] sm:text-[1.5rem] leading-[2.4rem]">
+                  <div className="text-center font-bold xs:text-[2rem] sm:text-[1.5rem] leading-[2.4rem]">
                     {item.title.split('\n').map((line, index) => (
-                      <p key={index}>{line}</p>
+                      <div key={index}>{line}</div>
                     ))}
-                  </p>
+                  </div>
                 </div>
               </div>
             ))}

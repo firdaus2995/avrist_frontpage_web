@@ -52,7 +52,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
           {buttonTitle.map((item, index) => {
             const link = links?.[item] || '';
             return link.startsWith('/') ? (
-              <div className="w-full min-h-full items-stretch">
+              <div key={index} className="w-full min-h-full items-stretch">
                 <Link href={link}>
                   <button
                     key={index}
@@ -105,7 +105,7 @@ const CategoryPills: React.FC<CategoryPillsProps> = ({
           {buttonTitle.map((item, index) => {
             const link = links?.[item] || '';
             return link.startsWith('/') ? (
-              <div className="px-1">
+              <div key={index} className="px-1">
                 <Link href={link}>
                   <button
                     key={index}
